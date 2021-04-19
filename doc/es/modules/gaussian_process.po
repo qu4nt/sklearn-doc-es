@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-19 13:14\n"
+"PO-Revision-Date: 2021-04-19 14:14\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -165,83 +165,83 @@ msgstr "Clasificación de Procesos Gaussianos (GPC)"
 
 #: ../modules/gaussian_process.rst:234
 msgid "The :class:`GaussianProcessClassifier` implements Gaussian processes (GP) for classification purposes, more specifically for probabilistic classification, where test predictions take the form of class probabilities. GaussianProcessClassifier places a GP prior on a latent function :math:`f`, which is then squashed through a link function to obtain the probabilistic classification. The latent function :math:`f` is a so-called nuisance function, whose values are not observed and are not relevant by themselves. Its purpose is to allow a convenient formulation of the model, and :math:`f` is removed (integrated out) during prediction. GaussianProcessClassifier implements the logistic link function, for which the integral cannot be computed analytically but is easily approximated in the binary case."
-msgstr ""
+msgstr "El :class:`GaussianProcessClassifier` implementa procesos Gaussianos (GP en inglés) con fines de clasificación, más específicamente para la clasificación probabilística, donde las predicciones de prueba toman la forma de probabilidades de clase. GaussianProcessClassifier coloca un GP previo en una función latente :math:`f`, que luego se comprime a través de una función de enlace para obtener la clasificación probabilística. La función latente :math:`f` es una función denominada incómoda (nuisance function), cuyos valores no se observan y no son relevantes por sí mismos. Su propósito es permitir una formulación conveniente del modelo, y :math:`f` se elimina (se integra) durante la predicción. GaussianProcessClassifier implementa la función de enlace logístico, para la cual la integral no puede ser calculada analíticamente pero es fácilmente aproximada en el caso binario."
 
 #: ../modules/gaussian_process.rst:246
 msgid "In contrast to the regression setting, the posterior of the latent function :math:`f` is not Gaussian even for a GP prior since a Gaussian likelihood is inappropriate for discrete class labels. Rather, a non-Gaussian likelihood corresponding to the logistic link function (logit) is used. GaussianProcessClassifier approximates the non-Gaussian posterior with a Gaussian based on the Laplace approximation. More details can be found in Chapter 3 of [RW2006]_."
-msgstr ""
+msgstr "En contraste con la situación de la regresión, la posterior de la función latente :math:`f` no es gaussiana incluso para un GP previo, ya que una verosimilitud gaussiana es inapropiada para las etiquetas de clase discretas. En su lugar, se utiliza una probabilidad no gaussiana correspondiente a la función de enlace logístico (logit). GaussianProcessClassifier aproxima la posterior no gaussiana con una gaussiana basada en la aproximación de Laplace. Se pueden encontrar más detalles en el capítulo 3 de [RW2006]_."
 
 #: ../modules/gaussian_process.rst:254
 msgid "The GP prior mean is assumed to be zero. The prior's covariance is specified by passing a :ref:`kernel <gp_kernels>` object. The hyperparameters of the kernel are optimized during fitting of GaussianProcessRegressor by maximizing the log-marginal-likelihood (LML) based on the passed ``optimizer``. As the LML may have multiple local optima, the optimizer can be started repeatedly by specifying ``n_restarts_optimizer``. The first run is always conducted starting from the initial hyperparameter values of the kernel; subsequent runs are conducted from hyperparameter values that have been chosen randomly from the range of allowed values. If the initial hyperparameters should be kept fixed, `None` can be passed as optimizer."
-msgstr ""
+msgstr "Se asume que la media de la prioridad GP es cero. La covarianza de la prioridad se especifica pasando un objeto :ref:`kernel <gp_kernels>`. Los hiperparámetros del kernel se optimizan durante el ajuste de GaussianProcessRegressor maximizando el log-marginal-likelihood (LML) basado en el ``optimizer`` que se le pasa. Como el LML puede tener múltiples óptimos locales, el optimizador puede iniciarse repetidamente especificando ``n_restarts_optimizer``. La primera ejecución se realiza siempre a partir de los valores iniciales de los hiperparámetros del núcleo; las ejecuciones posteriores se realizan a partir de los valores de los hiperparámetros que se han elegido aleatoriamente del rango de valores permitidos. Si los hiperparámetros iniciales deben mantenerse fijos, se puede pasar `None` como optimizador."
 
 #: ../modules/gaussian_process.rst:266
 msgid ":class:`GaussianProcessClassifier` supports multi-class classification by performing either one-versus-rest or one-versus-one based training and prediction.  In one-versus-rest, one binary Gaussian process classifier is fitted for each class, which is trained to separate this class from the rest. In \"one_vs_one\", one binary Gaussian process classifier is fitted for each pair of classes, which is trained to separate these two classes. The predictions of these binary predictors are combined into multi-class predictions. See the section on :ref:`multi-class classification <multiclass>` for more details."
-msgstr ""
+msgstr ":class:`GaussianProcessClassifier` admite la clasificación multiclase mediante el entrenamiento y la predicción basados en uno-contra-el-resto o uno-contra-uno.  En uno-contra-resto, se ajusta un clasificador de proceso gaussiano binario para cada clase, que se entrena para separar esta clase del resto. En \"one_vs_one\", se ajusta un clasificador de proceso gaussiano binario para cada par de clases, que se entrena para separar estas dos clases. Las predicciones de estos predictores binarios se combinan en predicciones multiclase. Consulte la sección de :ref:`clasificación multiclase <multiclass>` para obtener más detalles."
 
 #: ../modules/gaussian_process.rst:275
 msgid "In the case of Gaussian process classification, \"one_vs_one\" might be computationally  cheaper since it has to solve many problems involving only a subset of the whole training set rather than fewer problems on the whole dataset. Since Gaussian process classification scales cubically with the size of the dataset, this might be considerably faster. However, note that \"one_vs_one\" does not support predicting probability estimates but only plain predictions. Moreover, note that :class:`GaussianProcessClassifier` does not (yet) implement a true multi-class Laplace approximation internally, but as discussed above is based on solving several binary classification tasks internally, which are combined using one-versus-rest or one-versus-one."
-msgstr ""
+msgstr "En el caso de la clasificación del proceso gaussiano, \"one_vs_one\" podría ser computacionalmente más económico, ya que tiene que resolver muchos problemas que implican sólo un subconjunto del conjunto de entrenamiento, en lugar de menos problemas en todo el conjunto de datos. Dado que la clasificación del proceso gaussiano se escala cúbicamente con el tamaño del conjunto de datos, esto podría ser considerablemente más rápido. Sin embargo, ten en cuenta que \"one_vs_one\" no admite la predicción de estimaciones de probabilidad, sino sólo predicciones directas. Además, ten en cuenta que :class:`GaussianProcessClassifier` no implementa (todavía) una verdadera aproximación de Laplace multiclase internamente, sino que, como se ha comentado anteriormente, se basa en la resolución de varias tareas de clasificación binaria internamente, que se combinan utilizando uno-versus-el-resto o uno-versus-uno."
 
 #: ../modules/gaussian_process.rst:287
 msgid "GPC examples"
-msgstr ""
+msgstr "Ejemplos de GPC"
 
 #: ../modules/gaussian_process.rst:290
 msgid "Probabilistic predictions with GPC"
-msgstr ""
+msgstr "Predicciones probabilísticas con GPC"
 
 #: ../modules/gaussian_process.rst:292
 msgid "This example illustrates the predicted probability of GPC for an RBF kernel with different choices of the hyperparameters. The first figure shows the predicted probability of GPC with arbitrarily chosen hyperparameters and with the hyperparameters corresponding to the maximum log-marginal-likelihood (LML)."
-msgstr ""
+msgstr "Este ejemplo ilustra la probabilidad pronosticada de GPC para un núcleo RBF con diferentes elecciones de los hiperparámetros. La primera figura muestra la probabilidad predicha de GPC con hiperparámetros elegidos arbitrariamente y con los hiperparámetros correspondientes a la máxima log-marginal-likelihood (LML)."
 
 #: ../modules/gaussian_process.rst:297
 msgid "While the hyperparameters chosen by optimizing LML have a considerably larger LML, they perform slightly worse according to the log-loss on test data. The figure shows that this is because they exhibit a steep change of the class probabilities at the class boundaries (which is good) but have predicted probabilities close to 0.5 far away from the class boundaries (which is bad) This undesirable effect is caused by the Laplace approximation used internally by GPC."
-msgstr ""
+msgstr "Aunque los hiperparámetros elegidos mediante la optimización de LML tienen un LML considerablemente mayor, su rendimiento es ligeramente inferior de acuerdo con la pérdida logarítmica en los datos de prueba. La figura muestra que esto se debe a que exhiben un cambio pronunciado de las probabilidades de clase en los límites de la clase (lo cual es bueno) pero tienen probabilidades predichas cercanas a 0,5 lejos de los límites de la clase (lo cual es malo) Este efecto indeseable es causado por la aproximación de Laplace utilizada internamente por GPC."
 
 #: ../modules/gaussian_process.rst:305
 msgid "The second figure shows the log-marginal-likelihood for different choices of the kernel's hyperparameters, highlighting the two choices of the hyperparameters used in the first figure by black dots."
-msgstr ""
+msgstr "La segunda figura muestra la log-marginal-likelihood para diferentes opciones de los hiperparámetros del kernel, destacando las dos opciones de los hiperparámetros utilizados en la primera figura mediante puntos negros."
 
 #: ../modules/gaussian_process.rst:319
 msgid "Illustration of GPC on the XOR dataset"
-msgstr ""
+msgstr "Ejemplo de GPC en el conjunto de datos XOR"
 
 #: ../modules/gaussian_process.rst:323
 msgid "This example illustrates GPC on XOR data. Compared are a stationary, isotropic kernel (:class:`RBF`) and a non-stationary kernel (:class:`DotProduct`). On this particular dataset, the :class:`DotProduct` kernel obtains considerably better results because the class-boundaries are linear and coincide with the coordinate axes. In practice, however, stationary kernels such as :class:`RBF` often obtain better results."
-msgstr ""
+msgstr "Este ejemplo ilustra la GPC en datos XOR. Se comparan un núcleo estacionario e isotrópico (:class:`RBF`) y un núcleo no estacionario (:class:`DotProduct`). En este conjunto de datos concreto, el núcleo :class:`DotProduct` obtiene resultados considerablemente mejores porque los límites de la clase son lineales y coinciden con los ejes de coordenadas. En la práctica, sin embargo, los núcleos estacionarios como :class:`RBF` suelen obtener mejores resultados."
 
 #: ../modules/gaussian_process.rst:338
 msgid "Gaussian process classification (GPC) on iris dataset"
-msgstr ""
+msgstr "Clasificación de procesos gaussianos (GPC) en el conjunto de datos iris"
 
 #: ../modules/gaussian_process.rst:340
 msgid "This example illustrates the predicted probability of GPC for an isotropic and anisotropic RBF kernel on a two-dimensional version for the iris-dataset. This illustrates the applicability of GPC to non-binary classification. The anisotropic RBF kernel obtains slightly higher log-marginal-likelihood by assigning different length-scales to the two feature dimensions."
-msgstr ""
+msgstr "Este ejemplo muestra la probabilidad predicha de GPC para un núcleo RBF isotrópico y anisotrópico en una versión bidimensional para el conjunto de datos del iris. Esto muestra la aplicabilidad de la GPC a la clasificación no binaria. El núcleo RBF anisotrópico obtiene una verosimilitud marginal logarítmica (log-marginal-likelihood) ligeramente superior al asignar diferentes escalas de longitud a las dos dimensiones de características."
 
 #: ../modules/gaussian_process.rst:354
 msgid "Kernels for Gaussian Processes"
-msgstr ""
+msgstr "Núcleos para procesos gaussianos"
 
 #: ../modules/gaussian_process.rst:357
 msgid "Kernels (also called \"covariance functions\" in the context of GPs) are a crucial ingredient of GPs which determine the shape of prior and posterior of the GP. They encode the assumptions on the function being learned by defining the \"similarity\" of two datapoints combined with the assumption that similar datapoints should have similar target values. Two categories of kernels can be distinguished: stationary kernels depend only on the distance of two datapoints and not on their absolute values :math:`k(x_i, x_j)= k(d(x_i, x_j))` and are thus invariant to translations in the input space, while non-stationary kernels depend also on the specific values of the datapoints. Stationary kernels can further be subdivided into isotropic and anisotropic kernels, where isotropic kernels are also invariant to rotations in the input space. For more details, we refer to Chapter 4 of [RW2006]_. For guidance on how to best combine different kernels, we refer to [Duv2014]_."
-msgstr ""
+msgstr "Los núcleos (también llamados \"funciones de covarianza\" en el contexto de las GP) son un ingrediente crucial de las GP que determinan la forma de la probabilidad a priori (prior) y a posteriori (posterior) de la GP. Codifican las suposiciones sobre la función que se aprende definiendo la \"similitud\" de dos puntos de datos combinada con la suposición de que los puntos de datos similares deberían tener valores objetivo similares. Se pueden distinguir dos categorías de núcleos: los núcleos estacionarios dependen sólo de la distancia de dos puntos de datos y no de sus valores absolutos :math:`k(x_i, x_j)= k(d(x_i, x_j))` y, por tanto, son invariables a las traslaciones en el espacio de entrada, mientras que los núcleos no estacionarios dependen también de los valores específicos de los puntos de datos. Los núcleos estacionarios pueden subdividirse en núcleos isotrópicos y anisotrópicos, donde los núcleos isotrópicos también son invariantes a las rotaciones en el espacio de entrada. Para más detalles, nos remitimos al capítulo 4 de [RW2006]_. Para obtener orientación sobre la mejor manera de combinar diferentes núcleos, nos remitimos a [Duv2014]_."
 
 #: ../modules/gaussian_process.rst:372
 msgid "Gaussian Process Kernel API"
-msgstr ""
+msgstr "API del núcleo de proceso gaussiano"
 
 #: ../modules/gaussian_process.rst:373
 msgid "The main usage of a :class:`Kernel` is to compute the GP's covariance between datapoints. For this, the method ``__call__`` of the kernel can be called. This method can either be used to compute the \"auto-covariance\" of all pairs of datapoints in a 2d array X, or the \"cross-covariance\" of all combinations of datapoints of a 2d array X with datapoints in a 2d array Y. The following identity holds true for all kernels k (except for the :class:`WhiteKernel`): ``k(X) == K(X, Y=X)``"
-msgstr ""
+msgstr "El uso principal de un :class:`Kernel` es calcular la covarianza de la GP entre puntos de datos. Para ello, se puede llamar al método ``__call__`` del núcleo. Este método puede utilizarse para calcular la \"autocovarianza\" de todos los pares de puntos de datos de una matriz 2D X, o la \"covarianza cruzada\" de todas las combinaciones de puntos de datos de una matriz 2D X con puntos de datos de una matriz 2D Y. La siguiente identidad es válida para todos los núcleos k (excepto para el :class:`WhiteKernel`): ``k(X) == K(X, Y=X)``"
 
 #: ../modules/gaussian_process.rst:381
 msgid "If only the diagonal of the auto-covariance is being used, the method ``diag()`` of a kernel can be called, which is more computationally efficient than the equivalent call to ``__call__``: ``np.diag(k(X, X)) == k.diag(X)``"
-msgstr ""
+msgstr "Si sólo se utiliza la diagonal de la autocovarianza, se puede llamar al método ``diag()`` de un núcleo, que es más eficiente computacionalmente que la llamada equivalente a ``__call__``: ``np.diag(k(X, X)) == k.diag(X)``"
 
 #: ../modules/gaussian_process.rst:385
 msgid "Kernels are parameterized by a vector :math:`\\theta` of hyperparameters. These hyperparameters can for instance control length-scales or periodicity of a kernel (see below). All kernels support computing analytic gradients of the kernel's auto-covariance with respect to :math:`log(\\theta)` via setting ``eval_gradient=True`` in the ``__call__`` method. That is, a ``(len(X), len(X), len(theta))`` array is returned where the entry ``[i, j, l]`` contains :math:`\\frac{\\partial k_\\theta(x_i, x_j)}{\\partial log(\\theta_l)}`. This gradient is used by the Gaussian process (both regressor and classifier) in computing the gradient of the log-marginal-likelihood, which in turn is used to determine the value of :math:`\\theta`, which maximizes the log-marginal-likelihood, via gradient ascent. For each hyperparameter, the initial value and the bounds need to be specified when creating an instance of the kernel. The current value of :math:`\\theta` can be get and set via the property ``theta`` of the kernel object. Moreover, the bounds of the hyperparameters can be accessed by the property ``bounds`` of the kernel. Note that both properties (theta and bounds) return log-transformed values of the internally used values since those are typically more amenable to gradient-based optimization. The specification of each hyperparameter is stored in the form of an instance of :class:`Hyperparameter` in the respective kernel. Note that a kernel using a hyperparameter with name \"x\" must have the attributes self.x and self.x_bounds."
-msgstr ""
+msgstr "Los núcleos están parametrizados por un vector :math:`\\theta` de hiperparámetros. Estos hiperparámetros pueden, por ejemplo, controlar las escalas de longitud o la periodicidad de un núcleo (véase más adelante). Todos los núcleos soportan el cálculo de gradientes analíticos de la autocovarianza del núcleo con respecto a :math:`log(\\theta)` mediante la configuración de ``eval_gradient=True`` en el método ``__call__``. Es decir, se devuelve una matriz ``(len(X), len(X), len(theta))`` donde la entrada ``[i, j, l]`` contiene :math:`\\frac{parcial k_\\theta(x_i, x_j)}{\\parcial log(\\theta_l)}`. Este gradiente es utilizado por el proceso gaussiano (tanto el regresor como el clasificador) en el cálculo del gradiente del logaritmo de probabilidad marginal (log-marginal-likelihood), que a su vez se utiliza para determinar el valor de :math:`\\theta`, que maximiza el logaritmo de probabilidad marginal, a través del ascenso del gradiente. Para cada hiperparámetro, es necesario especificar el valor inicial y los límites al crear una instancia del núcleo. El valor actual de :math:`\\theta` puede obtenerse y establecerse mediante la propiedad ``theta`` del objeto kernel. Además, se puede acceder a los límites de los hiperparámetros mediante la propiedad ``bounds`` del núcleo. Observa que ambas propiedades (theta y bounds) devuelven valores transformados logarítmicamente de los valores utilizados internamente, ya que suelen ser más susceptibles de una optimización basada en el gradiente. La especificación de cada hiperparámetro se almacena en forma de una instancia de :class:`Hyperparameter` en el núcleo respectivo. Ten en cuenta que un núcleo que utiliza un hiperparámetro con nombre \"x\" debe tener los atributos self.x y self.x_bounds.verosimilitud marginal logarítmicaverosimilitud marginal logarítmica."
 
 #: ../modules/gaussian_process.rst:406
 msgid "The abstract base class for all kernels is :class:`Kernel`. Kernel implements a similar interface as :class:`Estimator`, providing the methods ``get_params()``, ``set_params()``, and ``clone()``. This allows setting kernel values also via meta-estimators such as :class:`Pipeline` or :class:`GridSearch`. Note that due to the nested structure of kernels (by applying kernel operators, see below), the names of kernel parameters might become relatively complicated. In general, for a binary kernel operator, parameters of the left operand are prefixed with ``k1__`` and parameters of the right operand with ``k2__``. An additional convenience method is ``clone_with_theta(theta)``, which returns a cloned version of the kernel but with the hyperparameters set to ``theta``. An illustrative example:"
@@ -253,7 +253,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:455
 msgid "Basic kernels"
-msgstr ""
+msgstr "Núcleos (kernels) básicos"
 
 #: ../modules/gaussian_process.rst:456
 msgid "The :class:`ConstantKernel` kernel can be used as part of a :class:`Product` kernel where it scales the magnitude of the other factor (kernel) or as part of a :class:`Sum` kernel, where it modifies the mean of the Gaussian process. It depends on a parameter :math:`constant\\_value`. It is defined as:"
@@ -261,7 +261,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:461
 msgid "k(x_i, x_j) = constant\\_value \\;\\forall\\; x_1, x_2\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = constant\\_value \\;\\forall\\; x_1, x_2\n\n"
 
 #: ../modules/gaussian_process.rst:464
 msgid "The main use-case of the :class:`WhiteKernel` kernel is as part of a sum-kernel where it explains the noise-component of the signal. Tuning its parameter :math:`noise\\_level` corresponds to estimating the noise-level. It is defined as:"
@@ -269,7 +269,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:469
 msgid "k(x_i, x_j) = noise\\_level \\text{ if } x_i == x_j \\text{ else } 0\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = noise\\_level \\text{ if } x_i == x_j \\text{ else } 0\n\n"
 
 #: ../modules/gaussian_process.rst:474
 msgid "Kernel operators"
@@ -289,7 +289,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:495
 msgid "k(x_i, x_j) = \\text{exp}\\left(- \\frac{d(x_i, x_j)^2}{2l^2} \\right)\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = \\text{exp}\\left(- \\frac{d(x_i, x_j)^2}{2l^2} \\right)\n\n"
 
 #: ../modules/gaussian_process.rst:498
 msgid "where :math:`d(\\cdot, \\cdot)` is the Euclidean distance. This kernel is infinitely differentiable, which implies that GPs with this kernel as covariance function have mean square derivatives of all orders, and are thus very smooth. The prior and posterior of a GP resulting from an RBF kernel are shown in the following figure:"
@@ -305,7 +305,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:515
 msgid "k(x_i, x_j) = \\frac{1}{\\Gamma(\\nu)2^{\\nu-1}}\\Bigg(\\frac{\\sqrt{2\\nu}}{l} d(x_i , x_j )\\Bigg)^\\nu K_\\nu\\Bigg(\\frac{\\sqrt{2\\nu}}{l} d(x_i , x_j )\\Bigg),"
-msgstr ""
+msgstr "k(x_i, x_j) = \\frac{1}{\\Gamma(\\nu)2^{\\nu-1}}\\Bigg(\\frac{\\sqrt{2\\nu}}{l} d(x_i , x_j )\\Bigg)^\\nu K_\\nu\\Bigg(\\frac{\\sqrt{2\\nu}}{l} d(x_i , x_j )\\Bigg),"
 
 #: ../modules/gaussian_process.rst:519
 msgid "where :math:`d(\\cdot,\\cdot)` is the Euclidean distance, :math:`K_\\nu(\\cdot)` is a modified Bessel function and :math:`\\Gamma(\\cdot)` is the gamma function. As :math:`\\nu\\rightarrow\\infty`, the Matérn kernel converges to the RBF kernel. When :math:`\\nu = 1/2`, the Matérn kernel becomes identical to the absolute exponential kernel, i.e.,"
@@ -313,7 +313,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:524
 msgid "k(x_i, x_j) = \\exp \\Bigg(- \\frac{1}{l} d(x_i , x_j ) \\Bigg) \\quad \\quad \\nu= \\tfrac{1}{2}\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = \\exp \\Bigg(- \\frac{1}{l} d(x_i , x_j ) \\Bigg) \\quad \\quad \\nu= \\tfrac{1}{2}\n\n"
 
 #: ../modules/gaussian_process.rst:527
 msgid "In particular, :math:`\\nu = 3/2`:"
@@ -321,7 +321,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:529
 msgid "k(x_i, x_j) =  \\Bigg(1 + \\frac{\\sqrt{3}}{l} d(x_i , x_j )\\Bigg) \\exp \\Bigg(-\\frac{\\sqrt{3}}{l} d(x_i , x_j ) \\Bigg) \\quad \\quad \\nu= \\tfrac{3}{2}\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) =  \\Bigg(1 + \\frac{\\sqrt{3}}{l} d(x_i , x_j )\\Bigg) \\exp \\Bigg(-\\frac{\\sqrt{3}}{l} d(x_i , x_j ) \\Bigg) \\quad \\quad \\nu= \\tfrac{3}{2}\n\n"
 
 #: ../modules/gaussian_process.rst:532
 msgid "and :math:`\\nu = 5/2`:"
@@ -329,7 +329,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:534
 msgid "k(x_i, x_j) = \\Bigg(1 + \\frac{\\sqrt{5}}{l} d(x_i , x_j ) +\\frac{5}{3l} d(x_i , x_j )^2 \\Bigg) \\exp \\Bigg(-\\frac{\\sqrt{5}}{l} d(x_i , x_j ) \\Bigg) \\quad \\quad \\nu= \\tfrac{5}{2}\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = \\Bigg(1 + \\frac{\\sqrt{5}}{l} d(x_i , x_j ) +\\frac{5}{3l} d(x_i , x_j )^2 \\Bigg) \\exp \\Bigg(-\\frac{\\sqrt{5}}{l} d(x_i , x_j ) \\Bigg) \\quad \\quad \\nu= \\tfrac{5}{2}\n\n"
 
 #: ../modules/gaussian_process.rst:537
 msgid "are popular choices for learning functions that are not infinitely differentiable (as assumed by the RBF kernel) but at least once (:math:`\\nu = 3/2`) or twice differentiable (:math:`\\nu = 5/2`)."
@@ -353,7 +353,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:562
 msgid "k(x_i, x_j) = \\left(1 + \\frac{d(x_i, x_j)^2}{2\\alpha l^2}\\right)^{-\\alpha}\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = \\left(1 + \\frac{d(x_i, x_j)^2}{2\\alpha l^2}\\right)^{-\\alpha}\n\n"
 
 #: ../modules/gaussian_process.rst:565
 msgid "The prior and posterior of a GP resulting from a :class:`RationalQuadratic` kernel are shown in the following figure:"
@@ -369,7 +369,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:580
 msgid "k(x_i, x_j) = \\text{exp}\\left(- \\frac{ 2\\sin^2(\\pi d(x_i, x_j) / p) }{ l^ 2} \\right)\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = \\text{exp}\\left(- \\frac{ 2\\sin^2(\\pi d(x_i, x_j) / p) }{ l^ 2} \\right)\n\n"
 
 #: ../modules/gaussian_process.rst:583
 msgid "The prior and posterior of a GP resulting from an ExpSineSquared kernel are shown in the following figure:"
@@ -385,7 +385,7 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:600
 msgid "k(x_i, x_j) = \\sigma_0 ^ 2 + x_i \\cdot x_j\n\n"
-msgstr ""
+msgstr "k(x_i, x_j) = \\sigma_0 ^ 2 + x_i \\cdot x_j\n\n"
 
 #: ../modules/gaussian_process.rst:603
 msgid "The :class:`DotProduct` kernel is commonly combined with exponentiation. An example with exponent 2 is shown in the following figure:"
@@ -393,13 +393,13 @@ msgstr ""
 
 #: ../modules/gaussian_process.rst:611
 msgid "References"
-msgstr ""
+msgstr "Referencias"
 
 #: ../modules/gaussian_process.rst:613
 msgid "Carl Eduard Rasmussen and Christopher K.I. Williams, \"Gaussian Processes for Machine Learning\", MIT Press 2006, Link to an official complete PDF version of the book `here <http://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_ ."
-msgstr ""
+msgstr "Carl Eduard Rasmussen y Christopher K.I. Williams, \"Gaussian Processes for Machine Learning\", MIT Press 2006, Vínculo al PDF completo y versión oficial del libro `aquí <http://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_ ."
 
 #: ../modules/gaussian_process.rst:615
 msgid "David Duvenaud, \"The Kernel Cookbook: Advice on Covariance functions\", 2014, `Link <https://www.cs.toronto.edu/~duvenaud/cookbook/>`_ ."
-msgstr ""
+msgstr "David Duvenaud, \"The Kernel Cookbook: Advice on Covariance functions\", 2014, `Link <https://www.cs.toronto.edu/~duvenaud/cookbook/>`_ ."
 
