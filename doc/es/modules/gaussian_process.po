@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-19 14:14\n"
+"PO-Revision-Date: 2021-04-20 12:47\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -245,11 +245,11 @@ msgstr "Los núcleos están parametrizados por un vector :math:`\\theta` de hipe
 
 #: ../modules/gaussian_process.rst:406
 msgid "The abstract base class for all kernels is :class:`Kernel`. Kernel implements a similar interface as :class:`Estimator`, providing the methods ``get_params()``, ``set_params()``, and ``clone()``. This allows setting kernel values also via meta-estimators such as :class:`Pipeline` or :class:`GridSearch`. Note that due to the nested structure of kernels (by applying kernel operators, see below), the names of kernel parameters might become relatively complicated. In general, for a binary kernel operator, parameters of the left operand are prefixed with ``k1__`` and parameters of the right operand with ``k2__``. An additional convenience method is ``clone_with_theta(theta)``, which returns a cloned version of the kernel but with the hyperparameters set to ``theta``. An illustrative example:"
-msgstr ""
+msgstr "La clase base abstracta para todos los núcleos es :class:`Kernel`. El núcleo implementa una interfaz similar a la de :class:`Estimator`, proporcionando los métodos ``get_params()``, ``set_params()``, y ``clone()``. Esto permite establecer los valores del núcleo también a través de metaestimadores como :class:`Pipeline` o :class:`GridSearch`. Tenga en cuenta que, debido a la estructura anidada de los núcleos (al aplicar operadores del núcleo, como podrás ver más adelante), los nombres de los parámetros del núcleo pueden resultar relativamente complicados. En general, para un operador de núcleo binario, los parámetros del operando izquierdo llevan el prefijo ``k1__`` y los parámetros del operando derecho el prefijo ``k2__``. Un método adicional de utilidad es ``clone_with_theta(theta)``, que devuelve una versión clonada del núcleo pero con los hiperparámetros ajustados a ``theta``. Un ejemplo de ello:"
 
 #: ../modules/gaussian_process.rst:443
 msgid "All Gaussian process kernels are interoperable with :mod:`sklearn.metrics.pairwise` and vice versa: instances of subclasses of :class:`Kernel` can be passed as ``metric`` to ``pairwise_kernels`` from :mod:`sklearn.metrics.pairwise`. Moreover, kernel functions from pairwise can be used as GP kernels by using the wrapper class :class:`PairwiseKernel`. The only caveat is that the gradient of the hyperparameters is not analytic but numeric and all those kernels support only isotropic distances. The parameter ``gamma`` is considered to be a hyperparameter and may be optimized. The other kernel parameters are set directly at initialization and are kept fixed."
-msgstr ""
+msgstr "Todos los núcleos de procesos gaussianos son interoperables con :mod:`sklearn.metrics.pairwise` y viceversa: las instancias de las subclases de :class:`Kernel` pueden pasarse como ``metric`` a ``pairwise_kernels`` de :mod:`sklearn.metrics.pairwise`. Además, las funciones del núcleo de pares (pairwise) pueden utilizarse como núcleos de GP utilizando la clase envolvente :class:`PairwiseKernel`. La única advertencia es que el gradiente de los hiperparámetros no es analítico, sino numérico, y todos esos núcleos sólo admiten distancias isotrópicas. El parámetro ``gamma`` se considera un hiperparámetro y puede ser optimizado. Los demás parámetros del núcleo se establecen directamente en la inicialización y se mantienen fijos."
 
 #: ../modules/gaussian_process.rst:455
 msgid "Basic kernels"
@@ -257,7 +257,7 @@ msgstr "Núcleos (kernels) básicos"
 
 #: ../modules/gaussian_process.rst:456
 msgid "The :class:`ConstantKernel` kernel can be used as part of a :class:`Product` kernel where it scales the magnitude of the other factor (kernel) or as part of a :class:`Sum` kernel, where it modifies the mean of the Gaussian process. It depends on a parameter :math:`constant\\_value`. It is defined as:"
-msgstr ""
+msgstr "El núcleo :class:`ConstantKernel` puede utilizarse como parte de un núcleo :class:`Product` en el que se escala la magnitud del otro factor (núcleo) o como parte de un núcleo :class:`Sum`, en el que se modifica la media del proceso gaussiano. Depende de un parámetro :math:`constant\\_value`. Se define como:"
 
 #: ../modules/gaussian_process.rst:461
 msgid "k(x_i, x_j) = constant\\_value \\;\\forall\\; x_1, x_2\n\n"
@@ -265,7 +265,7 @@ msgstr "k(x_i, x_j) = constant\\_value \\;\\forall\\; x_1, x_2\n\n"
 
 #: ../modules/gaussian_process.rst:464
 msgid "The main use-case of the :class:`WhiteKernel` kernel is as part of a sum-kernel where it explains the noise-component of the signal. Tuning its parameter :math:`noise\\_level` corresponds to estimating the noise-level. It is defined as:"
-msgstr ""
+msgstr "El principal caso de uso del núcleo :class:`WhiteKernel` es como parte de un núcleo de suma en el que explica el componente de ruido de la señal. El ajuste de su parámetro :math:`noise\\_level` corresponde a la estimación del nivel de ruido. Se define como:"
 
 #: ../modules/gaussian_process.rst:469
 msgid "k(x_i, x_j) = noise\\_level \\text{ if } x_i == x_j \\text{ else } 0\n\n"
@@ -273,19 +273,19 @@ msgstr "k(x_i, x_j) = noise\\_level \\text{ if } x_i == x_j \\text{ else } 0\n\n
 
 #: ../modules/gaussian_process.rst:474
 msgid "Kernel operators"
-msgstr ""
+msgstr "Operadores de núcleo"
 
 #: ../modules/gaussian_process.rst:475
 msgid "Kernel operators take one or two base kernels and combine them into a new kernel. The :class:`Sum` kernel takes two kernels :math:`k_1` and :math:`k_2` and combines them via :math:`k_{sum}(X, Y) = k_1(X, Y) + k_2(X, Y)`. The  :class:`Product` kernel takes two kernels :math:`k_1` and :math:`k_2` and combines them via :math:`k_{product}(X, Y) = k_1(X, Y) * k_2(X, Y)`. The :class:`Exponentiation` kernel takes one base kernel and a scalar parameter :math:`p` and combines them via :math:`k_{exp}(X, Y) = k(X, Y)^p`. Note that magic methods ``__add__``, ``__mul___`` and ``__pow__`` are overridden on the Kernel objects, so one can use e.g. ``RBF() + RBF()`` as a shortcut for ``Sum(RBF(), RBF())``."
-msgstr ""
+msgstr "Los operadores de núcleo toman uno o dos núcleos base y los combinan en un nuevo núcleo. El núcleo :class:`Suma` toma dos núcleos :math:`k_1` y :math:`k_2` y los combina mediante :math:`k_{sum}(X, Y) = k_1(X, Y) + k_2(X, Y)`. El núcleo :class:`Product` toma dos núcleos :math:`k_1` y :math:`k_2` y los combina mediante :math:`k_{product}(X, Y) = k_1(X, Y) * k_2(X, Y)`. El núcleo :class:`Exponentiation` toma un núcleo base y un parámetro escalar :math:`p` y los combina mediante :math:`k_{exp}(X, Y) = k(X, Y)^p`. Tenga en cuenta que los métodos mágicos ``__add__``, ``__mul___`` y ``__pow__`` se anulan en los objetos Kernel, por lo que se puede utilizar, por ejemplo, ``RBF() + RBF()`` como un atajo para ``Sum(RBF(), RBF())``."
 
 #: ../modules/gaussian_process.rst:488
 msgid "Radial-basis function (RBF) kernel"
-msgstr ""
+msgstr "Núcleo de la Función de Base Radial (RBF)"
 
 #: ../modules/gaussian_process.rst:489
 msgid "The :class:`RBF` kernel is a stationary kernel. It is also known as the \"squared exponential\" kernel. It is parameterized by a length-scale parameter :math:`l>0`, which can either be a scalar (isotropic variant of the kernel) or a vector with the same number of dimensions as the inputs :math:`x` (anisotropic variant of the kernel). The kernel is given by:"
-msgstr ""
+msgstr "El núcleo :class:`RBF` es un núcleo estacionario. También se conoce como núcleo \"exponencial cuadrado\". Está parametrizado por un parámetro de escala de longitud :math:`l>0`, que puede ser un escalar (variante isotrópica del núcleo) o un vector con el mismo número de dimensiones que las entradas :math:`x` (variante anisotrópica del núcleo). El núcleo viene dado por:"
 
 #: ../modules/gaussian_process.rst:495
 msgid "k(x_i, x_j) = \\text{exp}\\left(- \\frac{d(x_i, x_j)^2}{2l^2} \\right)\n\n"
@@ -293,15 +293,15 @@ msgstr "k(x_i, x_j) = \\text{exp}\\left(- \\frac{d(x_i, x_j)^2}{2l^2} \\right)\n
 
 #: ../modules/gaussian_process.rst:498
 msgid "where :math:`d(\\cdot, \\cdot)` is the Euclidean distance. This kernel is infinitely differentiable, which implies that GPs with this kernel as covariance function have mean square derivatives of all orders, and are thus very smooth. The prior and posterior of a GP resulting from an RBF kernel are shown in the following figure:"
-msgstr ""
+msgstr "donde :math:`d(\\cdot, \\cdot)` es la distancia euclidiana. Este núcleo es infinitamente diferenciable, lo que implica que las GP con este núcleo como función de covarianza tienen derivadas cuadráticas medias de todos los órdenes, y por tanto resultan muy suavizadas (smooth). En la siguiente figura se muestran los valores a priori y a posteriori de una GP resultante de un núcleo RBF:"
 
 #: ../modules/gaussian_process.rst:510
 msgid "Matérn kernel"
-msgstr ""
+msgstr "Núcleo Matérn"
 
 #: ../modules/gaussian_process.rst:511
 msgid "The :class:`Matern` kernel is a stationary kernel and a generalization of the :class:`RBF` kernel. It has an additional parameter :math:`\\nu` which controls the smoothness of the resulting function. It is parameterized by a length-scale parameter :math:`l>0`, which can either be a scalar (isotropic variant of the kernel) or a vector with the same number of dimensions as the inputs :math:`x` (anisotropic variant of the kernel). The kernel is given by:"
-msgstr ""
+msgstr "El núcleo :class:`Matern` es un núcleo estacionario y una generalización del núcleo :class:`RBF`. Tiene un parámetro adicional :math:`\\nu` que controla la suavidad de la función resultante. Está parametrizado por un parámetro de escala de longitud :math:`l>0`, que puede ser un escalar (variante isotrópica del núcleo) o un vector con el mismo número de dimensiones que las entradas :math:`x` (variante anisotrópica del núcleo). El núcleo viene dado por:"
 
 #: ../modules/gaussian_process.rst:515
 msgid "k(x_i, x_j) = \\frac{1}{\\Gamma(\\nu)2^{\\nu-1}}\\Bigg(\\frac{\\sqrt{2\\nu}}{l} d(x_i , x_j )\\Bigg)^\\nu K_\\nu\\Bigg(\\frac{\\sqrt{2\\nu}}{l} d(x_i , x_j )\\Bigg),"
@@ -325,7 +325,7 @@ msgstr "k(x_i, x_j) =  \\Bigg(1 + \\frac{\\sqrt{3}}{l} d(x_i , x_j )\\Bigg) \\ex
 
 #: ../modules/gaussian_process.rst:532
 msgid "and :math:`\\nu = 5/2`:"
-msgstr ""
+msgstr "and :math:`\\nu = 5/2`:"
 
 #: ../modules/gaussian_process.rst:534
 msgid "k(x_i, x_j) = \\Bigg(1 + \\frac{\\sqrt{5}}{l} d(x_i , x_j ) +\\frac{5}{3l} d(x_i , x_j )^2 \\Bigg) \\exp \\Bigg(-\\frac{\\sqrt{5}}{l} d(x_i , x_j ) \\Bigg) \\quad \\quad \\nu= \\tfrac{5}{2}\n\n"
