@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-22 18:33\n"
+"PO-Revision-Date: 2021-04-22 19:38\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -727,35 +727,35 @@ msgstr "El algoritmo DBSCAN es determinístico, siempre genera los mismos conglo
 
 #: ../modules/clustering.rst:817
 msgid "The current implementation uses ball trees and kd-trees to determine the neighborhood of points, which avoids calculating the full distance matrix (as was done in scikit-learn versions before 0.14). The possibility to use custom metrics is retained; for details, see :class:`NearestNeighbors`."
-msgstr ""
+msgstr "La implementación actual utiliza árboles de bolas y árbol kd para determinar el vecindario de los puntos, que evita calcular la matriz a distancia completa (como se hacía en las versiones de scikit-learn anteriores a la 0.14). Se mantiene la posibilidad de utilizar métricas personalizadas; para más detalles, véase :class:`NearestNeighbors`."
 
 #: ../modules/clustering.rst:826
 msgid "This implementation is by default not memory efficient because it constructs a full pairwise similarity matrix in the case where kd-trees or ball-trees cannot be used (e.g., with sparse matrices). This matrix will consume :math:`n^2` floats. A couple of mechanisms for getting around this are:"
-msgstr ""
+msgstr "Esta implementación no es eficiente en cuanto a memoria porque construye una matriz de similitudes por pares completa en el caso de que no se puedan utilizar los árboles kd o los árboles de bolas (por ejemplo, con matrices dispersas). Esta matriz consumirá :math:`n^2` flotantes (números de punto flotante). Un par de mecanismos para evitar esto son:"
 
 #: ../modules/clustering.rst:831
 msgid "Use :ref:`OPTICS <optics>` clustering in conjunction with the `extract_dbscan` method. OPTICS clustering also calculates the full pairwise matrix, but only keeps one row in memory at a time (memory complexity n)."
-msgstr ""
+msgstr "Utilice el análisis de conglomerados :ref:`OPTICS <optics>` junto con el método `extract_dbscan`. El análisis de conglomerados OPTICS también calcula la matriz completa por pares, pero sólo mantiene una fila en memoria a la vez (complejidad de memoria n)."
 
 #: ../modules/clustering.rst:836
 msgid "A sparse radius neighborhood graph (where missing entries are presumed to be out of eps) can be precomputed in a memory-efficient way and dbscan can be run over this with ``metric='precomputed'``.  See :meth:`sklearn.neighbors.NearestNeighbors.radius_neighbors_graph`."
-msgstr ""
+msgstr "Un grafo de vecindad de radio disperso (donde se presumen entradas faltantes para estar fuera de eps) puede precalcularse de una manera eficiente en cuanto a memoria y dbscan puede funcionar sobre esto con ``metric='precomputed'``. Vea :meth:`sklearn.neighbors.NearestNeighbors.radius_neighbors_graph`."
 
 #: ../modules/clustering.rst:841
 msgid "The dataset can be compressed, either by removing exact duplicates if these occur in your data, or by using BIRCH. Then you only have a relatively small number of representatives for a large number of points. You can then provide a ``sample_weight`` when fitting DBSCAN."
-msgstr ""
+msgstr "El conjunto de datos se puede comprimir, ya sea eliminando los duplicados exactos si aparecen en los datos, o utilizando BIRCH. De este modo, sólo tendrá un número relativamente pequeño de representantes para un gran número de puntos. A continuación, puede proporcionar un ``sample_weight`` al ajustar DBSCAN."
 
 #: ../modules/clustering.rst:848
 msgid "\"A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise\" Ester, M., H. P. Kriegel, J. Sander, and X. Xu, In Proceedings of the 2nd International Conference on Knowledge Discovery and Data Mining, Portland, OR, AAAI Press, pp. 226–231. 1996"
-msgstr ""
+msgstr "\"A Density-Based Algorithm for Discovering Clglomerados in Large Spatial Databases with Noise\" Ester, M., H. P. Kriegel, J. Sander, and X. Xu, In Proceedings of the 2nd International Conference on Knowledge Discovery and Data Mining, Portland, OR, AAAI Press, páginas 226-231. 1996"
 
 #: ../modules/clustering.rst:854
 msgid "\"DBSCAN revisited, revisited: why and how you should (still) use DBSCAN. Schubert, E., Sander, J., Ester, M., Kriegel, H. P., & Xu, X. (2017). In ACM Transactions on Database Systems (TODS), 42(3), 19."
-msgstr ""
+msgstr "\"DBSCAN revisited, revisited: why and how you should (still) use DBSCAN. Schubert, E., Sander, J., Ester, M., Kriegel, H. P., & Xu, X. (2017). In ACM Transactions on Database Systems (TODS), 42(3), 19."
 
 #: ../modules/clustering.rst:861
 msgid "OPTICS"
-msgstr ""
+msgstr "OPTICS"
 
 #: ../modules/clustering.rst:863
 msgid "The :class:`OPTICS` algorithm shares many similarities with the :class:`DBSCAN` algorithm, and can be considered a generalization of DBSCAN that relaxes the ``eps`` requirement from a single value to a value range. The key difference between DBSCAN and OPTICS is that the OPTICS algorithm builds a *reachability* graph, which assigns each sample both a ``reachability_`` distance, and a spot within the cluster ``ordering_`` attribute; these two attributes are assigned when the model is fitted, and are used to determine cluster membership. If OPTICS is run with the default value of *inf* set for ``max_eps``, then DBSCAN style cluster extraction can be performed repeatedly in linear time for any given ``eps`` value using the ``cluster_optics_dbscan`` method. Setting ``max_eps`` to a lower value will result in shorter run times, and can be thought of as the maximum neighborhood radius from each point to find other potential reachable points."
