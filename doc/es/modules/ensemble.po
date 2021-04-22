@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-21 23:57\n"
+"PO-Revision-Date: 2021-04-22 23:50\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,15 +20,15 @@ msgstr ""
 
 #: ../modules/ensemble.rst:5
 msgid "Ensemble methods"
-msgstr "Métodos de conjunto"
+msgstr "Métodos combinados"
 
 #: ../modules/ensemble.rst:9
 msgid "The goal of **ensemble methods** is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability / robustness over a single estimator."
-msgstr "Los **métodos de conjuntos** se utilizan para combinar las predicciones de varios estimadores base construidos desde un algoritmo de aprendizaje dado con el propósito de tener una generalización / robustez mayor que la de un solo estimador."
+msgstr "Los **métodos combinados** se utilizan para unir las predicciones de varios estimadores base construidos desde un algoritmo de aprendizaje dado con el propósito de tener una generalización / robustez mayor que la de un solo estimador."
 
 #: ../modules/ensemble.rst:13
 msgid "Two families of ensemble methods are usually distinguished:"
-msgstr "Se suelen distinguir dos familias de métodos de conjunto:"
+msgstr "Se suelen distinguir dos familias de métodos combinados:"
 
 #: ../modules/ensemble.rst:15
 msgid "In **averaging methods**, the driving principle is to build several estimators independently and then to average their predictions. On average, the combined estimator is usually better than any of the single base estimator because its variance is reduced."
@@ -36,7 +36,7 @@ msgstr "En los **métodos de promedio**, el principio guía es la creación de v
 
 #: ../modules/ensemble.rst:20
 msgid "**Examples:** :ref:`Bagging methods <bagging>`, :ref:`Forests of randomized trees <forest>`, ..."
-msgstr ""
+msgstr "**Ejemplos:** :ref:`Métodos de bagging <bagging>`, :ref:`Bosques de árboles aleatorios <forest>`, ..."
 
 #: ../modules/ensemble.rst:22
 msgid "By contrast, in **boosting methods**, base estimators are built sequentially and one tries to reduce the bias of the combined estimator. The motivation is to combine several weak models to produce a powerful ensemble."
@@ -44,19 +44,19 @@ msgstr "En cambio, en los **métodos de optimización**, los estimadores base se
 
 #: ../modules/ensemble.rst:26
 msgid "**Examples:** :ref:`AdaBoost <adaboost>`, :ref:`Gradient Tree Boosting <gradient_boosting>`, ..."
-msgstr ""
+msgstr "**Ejemplos:** :ref:`AdaBoost <adaboost>`, :ref:`Potenciación de gradiente <gradient_boosting>`, ..."
 
 #: ../modules/ensemble.rst:32
 msgid "Bagging meta-estimator"
-msgstr "Meta estimador de empaquetado"
+msgstr "Meta estimador de bagging"
 
 #: ../modules/ensemble.rst:34
 msgid "In ensemble algorithms, bagging methods form a class of algorithms which build several instances of a black-box estimator on random subsets of the original training set and then aggregate their individual predictions to form a final prediction. These methods are used as a way to reduce the variance of a base estimator (e.g., a decision tree), by introducing randomization into its construction procedure and then making an ensemble out of it. In many cases, bagging methods constitute a very simple way to improve with respect to a single model, without making it necessary to adapt the underlying base algorithm. As they provide a way to reduce overfitting, bagging methods work best with strong and complex models (e.g., fully developed decision trees), in contrast with boosting methods which usually work best with weak models (e.g., shallow decision trees)."
-msgstr "En los algoritmos de conjunto, los métodos de empaquetado forman una clase de algoritmos que construyen varias instancias de un estimador de caja negra en subconjuntos aleatorios del conjunto de entrenamiento original y luego agregan sus predicciones individuales para realizar una predicción final. Estos métodos introducen la aleatorización en la construcción de un estimador base (p. ej. un árbol de decisión) y crean un conjunto después para así reducir su varianza. En muchos casos, los métodos de empaquetados son una manera muy sencilla de mejorar con respecto a un único modelo, sin hacer necesario el adaptar el algoritmo base subyacente. Como proporcionan una forma de reducir el sobreajuste, los métodos de empaquetado funcionan mejor con modelos fuertes y complejos (p. ej. árboles de decisión completamente desarrollados), al contrario que los métodos de optimización, los cuales suelen funcionar mejor con modelos débiles (p. ej. árboles de decisión con poca profundidad)."
+msgstr "En los algoritmos de conjunto, los métodos de bagging forman una clase de algoritmos que construyen varias instancias de un estimador de caja negra en subconjuntos aleatorios del conjunto de entrenamiento original y luego agregan sus predicciones individuales para realizar una predicción final. Estos métodos introducen la aleatorización en la construcción de un estimador base (p. ej. un árbol de decisión) y crean un conjunto después para así reducir su varianza. En muchos casos, los métodos de bagging son una manera muy sencilla de mejorar con respecto a un único modelo, sin hacer necesario el adaptar el algoritmo base subyacente. Como proporcionan una forma de reducir el sobreajuste, los métodos de bagging funcionan mejor con modelos fuertes y complejos (p. ej. árboles de decisión completamente desarrollados), al contrario que los métodos de optimización, los cuales suelen funcionar mejor con modelos débiles (p. ej. árboles de decisión con poca profundidad)."
 
 #: ../modules/ensemble.rst:47
 msgid "Bagging methods come in many flavours but mostly differ from each other by the way they draw random subsets of the training set:"
-msgstr "Los métodos de empaquetado vienen en muchos sabores, pero por lo general difieren uno del otro por la forma en la cual agarran subconjuntos aleatorios del conjunto de entrenamiento:"
+msgstr "Los métodos de bagging vienen en muchos sabores, pero por lo general difieren uno del otro por la forma en la cual agarran subconjuntos aleatorios del conjunto de entrenamiento:"
 
 #: ../modules/ensemble.rst:50
 msgid "When random subsets of the dataset are drawn as random subsets of the samples, then this algorithm is known as Pasting [B1999]_."
@@ -77,11 +77,11 @@ msgstr "Finalmente, cuando los estimadores base son construidos en subconjuntos 
 #: ../modules/ensemble.rst:62
 #, python-format
 msgid "In scikit-learn, bagging methods are offered as a unified :class:`BaggingClassifier` meta-estimator  (resp. :class:`BaggingRegressor`), taking as input a user-specified base estimator along with parameters specifying the strategy to draw random subsets. In particular, ``max_samples`` and ``max_features`` control the size of the subsets (in terms of samples and features), while ``bootstrap`` and ``bootstrap_features`` control whether samples and features are drawn with or without replacement. When using a subset of the available samples the generalization accuracy can be estimated with the out-of-bag samples by setting ``oob_score=True``. As an example, the snippet below illustrates how to instantiate a bagging ensemble of :class:`KNeighborsClassifier` base estimators, each built on random subsets of 50% of the samples and 50% of the features."
-msgstr ""
+msgstr "En scikit-learn, los métodos de bagging son ofrecidos como un meta estimador unificado :class:`BaggingClassifier` (resp. :class:`BaggingRegressor`) tomando como entrada un estimador base especificado por el usuario y parámetros especificando la estrategia a utilizar para escoger subconjuntos aleatorios. En particular. ``max_samples`` y ``max_features`` controlan el tamaño de los subconjuntos (en terminos de muestras y características), mientras que ``bootstrap`` and ``bootstrap_features`` controlan si las muestras y características son escogidas con o sin reemplazo. Cuando es utilizado un subconjunto de las muestras disponibles, la exactitud de la generalización puede ser estimada con las muestras fuera-de-bagging estableciendo que ``oob_score=True``. Como un ejemplo, el fragmento de código abajo ilustra como instanciar un conjunto de bagging de :class:`KNeighborsClassifier` estimadores base, cada uno construido con subconjuntos aleatorios de 50% de las muestras y 50% de las características."
 
 #: ../modules/ensemble.rst:82
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_bias_variance.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_bias_variance.py`"
 
 #: ../modules/ensemble.rst:86
 msgid "L. Breiman, \"Pasting small votes for classification in large databases and on-line\", Machine Learning, 36(1), 85-103, 1999."
@@ -101,31 +101,31 @@ msgstr ""
 
 #: ../modules/ensemble.rst:102
 msgid "Forests of randomized trees"
-msgstr ""
+msgstr "Bosques de árboles aleatorios"
 
 #: ../modules/ensemble.rst:104
 msgid "The :mod:`sklearn.ensemble` module includes two averaging algorithms based on randomized :ref:`decision trees <tree>`: the RandomForest algorithm and the Extra-Trees method. Both algorithms are perturb-and-combine techniques [B1998]_ specifically designed for trees. This means a diverse set of classifiers is created by introducing randomness in the classifier construction.  The prediction of the ensemble is given as the averaged prediction of the individual classifiers."
-msgstr ""
+msgstr "El módulo :mod:`sklearn.ensemble` incluye dos algoritmos de promedio basados en :ref:`arboles de decisión <tree>`: el algoritmo RandomForest y el método Extra-Trees. Ambos algoritmos son técnicas de perturbar-y-combinar [B1998]_ específicamente diseñadas para árboles. Esto significa que un diverso conjunto de clasificadores es creado introduciendo aleatoriedad en la construcción de los clasificadores. La predicción del conjunto es dada como la predicción promediada de los clasificadores individuales."
 
 #: ../modules/ensemble.rst:112
 msgid "As other classifiers, forest classifiers have to be fitted with two arrays: a sparse or dense array X of shape ``(n_samples, n_features)`` holding the training samples, and an array Y of shape ``(n_samples,)`` holding the target values (class labels) for the training samples::"
-msgstr ""
+msgstr "Como otros clasificadores, los clasificadores de arboles tienen que estar provistos con dos arrays: un array X denso o disperso de forma ``(n_samples, n_features)``, sosteniendo las muestras de entrenamiento, y un array Y de forma ``(n_samples,)``, sosteniendo los valores objetivo (etiquetas de clase) para las muestras de entrenamiento::"
 
 #: ../modules/ensemble.rst:123
 msgid "Like :ref:`decision trees <tree>`, forests of trees also extend to :ref:`multi-output problems <tree_multioutput>`  (if Y is an array of shape ``(n_samples, n_outputs)``)."
-msgstr ""
+msgstr "Como los :ref:`arboles de decisión <tree>`, los bosques de arboles también se extienden a :ref:`problemas de salida múltiple <tree_multioutput>` (si Y es un array de forma ``(n_samples, n_outputs)``)."
 
 #: ../modules/ensemble.rst:128
 msgid "Random Forests"
-msgstr ""
+msgstr "Bosques Aleatorios"
 
 #: ../modules/ensemble.rst:130
 msgid "In random forests (see :class:`RandomForestClassifier` and :class:`RandomForestRegressor` classes), each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set."
-msgstr ""
+msgstr "En los bosques aleatorios (ver las clases :class:`RandomForestClassifier` y :class:`RandomForestRegressor`), cada árbol en el conjunto es construido desde una muestra escogida con reemplazo (es decir, una muestra de bootstrap) desde el conjunto de entrenamiento."
 
 #: ../modules/ensemble.rst:135
 msgid "Furthermore, when splitting each node during the construction of a tree, the best split is found either from all input features or a random subset of size ``max_features``. (See the :ref:`parameter tuning guidelines <random_forest_parameters>` for more details)."
-msgstr ""
+msgstr "Además, cuando se divide cada nodo durante la construcción de un árbol, se encuentra la mejor división desde todas las características de entrada o bien desde un subconjunto aleatorio de tamaño ``max_features``. (Ver el :ref:`lineamientos para el ajustamiento de parámetros <random_forest_parameters>` para mas detalles)."
 
 #: ../modules/ensemble.rst:140
 msgid "The purpose of these two sources of randomness is to decrease the variance of the forest estimator. Indeed, individual decision trees typically exhibit high variance and tend to overfit. The injected randomness in forests yield decision trees with somewhat decoupled prediction errors. By taking an average of those predictions, some errors can cancel out. Random forests achieve a reduced variance by combining diverse trees, sometimes at the cost of a slight increase in bias. In practice the variance reduction is often significant hence yielding an overall better model."
