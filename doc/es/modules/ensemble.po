@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-22 23:50\n"
+"PO-Revision-Date: 2021-04-23 01:00\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -129,23 +129,23 @@ msgstr "Además, cuando se divide cada nodo durante la construcción de un árbo
 
 #: ../modules/ensemble.rst:140
 msgid "The purpose of these two sources of randomness is to decrease the variance of the forest estimator. Indeed, individual decision trees typically exhibit high variance and tend to overfit. The injected randomness in forests yield decision trees with somewhat decoupled prediction errors. By taking an average of those predictions, some errors can cancel out. Random forests achieve a reduced variance by combining diverse trees, sometimes at the cost of a slight increase in bias. In practice the variance reduction is often significant hence yielding an overall better model."
-msgstr ""
+msgstr "Estas dos fuentes de aleatoriedad son utilizadas para disminuir la varianza del estimador de árbol. En efecto, los árboles de decisión únicos suelen exhibir varianza alta y tienden a sobreajustarse. Al inyectar aleatoriedad en los bosques, se obtienen árboles con errores de predicción algo desacoplados. Algunos de estos errores se pueden cancelar tomando un promedio de estas predicciones. Los bosques aleatorios consiguen una varianza reducida mediante la combinación de árboles diversos, a veces al costo de un ligero aumento en el sesgo. En la practica, la reducción de varianza suele ser significativa, por lo que se obtiene un mejor modelo en general."
 
 #: ../modules/ensemble.rst:149
 msgid "In contrast to the original publication [B2001]_, the scikit-learn implementation combines classifiers by averaging their probabilistic prediction, instead of letting each classifier vote for a single class."
-msgstr ""
+msgstr "A diferencia de la publicación original [B2001]_, la implementación de scikit-learn combina clasificadores al promediar su predicción probabilística, en lugar de dejar que cada clasificador vote por una única clase."
 
 #: ../modules/ensemble.rst:154
 msgid "Extremely Randomized Trees"
-msgstr ""
+msgstr "Árboles extremadamente aleatorizados"
 
 #: ../modules/ensemble.rst:156
 msgid "In extremely randomized trees (see :class:`ExtraTreesClassifier` and :class:`ExtraTreesRegressor` classes), randomness goes one step further in the way splits are computed. As in random forests, a random subset of candidate features is used, but instead of looking for the most discriminative thresholds, thresholds are drawn at random for each candidate feature and the best of these randomly-generated thresholds is picked as the splitting rule. This usually allows to reduce the variance of the model a bit more, at the expense of a slightly greater increase in bias::"
-msgstr ""
+msgstr "En árboles extremadamente aleatorizados (ver las clases :class:`ExtraTreesClassifier` y :class:`ExtraTreesRegressor`), la aleatoriedad va un paso más allá en la forma en la que se calculan las divisiones. Como en los bosques aleatorios, un subconjunto aleatorio de características candidato son utilizadas, pero en lugar de buscar por los umbrales mas discriminatorios, los umbrales son escogidos de forma aleatoria por cada característica candidato, y se escoge el mejor de estos umbrales generados al azar como la regla según la cual se realizaran las divisiones. Esto usualmente permite reducir la varianza del modelo un poco más, al costo de un ligeramente mayor aumento en el sesgo::"
 
 #: ../modules/ensemble.rst:201
 msgid "Parameters"
-msgstr ""
+msgstr "Parámetros"
 
 #: ../modules/ensemble.rst:203
 msgid "The main parameters to adjust when using these methods is ``n_estimators`` and ``max_features``. The former is the number of trees in the forest. The larger the better, but also the longer it will take to compute. In addition, note that results will stop getting significantly better beyond a critical number of trees. The latter is the size of the random subsets of features to consider when splitting a node. The lower the greater the reduction of variance, but also the greater the increase in bias. Empirical good default values are ``max_features=None`` (always considering all features instead of a random subset) for regression problems, and ``max_features=\"sqrt\"`` (using a random subset of size ``sqrt(n_features)``) for classification tasks (where ``n_features`` is the number of features in the data). Good results are often achieved when setting ``max_depth=None`` in combination with ``min_samples_split=2`` (i.e., when fully developing the trees). Bear in mind though that these values are usually not optimal, and might result in models that consume a lot of RAM. The best parameter values should always be cross-validated. In addition, note that in random forests, bootstrap samples are used by default (``bootstrap=True``) while the default strategy for extra-trees is to use the whole dataset (``bootstrap=False``). When using bootstrap sampling the generalization accuracy can be estimated on the left out or out-of-bag samples. This can be enabled by setting ``oob_score=True``."
