@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-26 18:59\n"
+"PO-Revision-Date: 2021-04-26 19:56\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -96,97 +96,97 @@ msgstr ":func:`sklearn.metrics.brier_score_loss` puede utilizarse para evaluar l
 
 #: ../modules/calibration.rst:161
 msgid ":class:`CalibratedClassifierCV` supports the use of two 'calibration' regressors: 'sigmoid' and 'isotonic'."
-msgstr ""
+msgstr ":class:`CalibratedClassifierCV` admite el uso de dos regresores de 'calibración': 'sigmoide' e 'isotónico'."
 
 #: ../modules/calibration.rst:165
 msgid "Sigmoid"
-msgstr ""
+msgstr "Sigmoide"
 
 #: ../modules/calibration.rst:167
 msgid "The sigmoid regressor is based on Platt's logistic model [3]_:"
-msgstr ""
+msgstr "El regresor sigmoide se basa en el modelo logístico de Platt [3]_:"
 
 #: ../modules/calibration.rst:169
 msgid "p(y_i = 1 | f_i) = \\frac{1}{1 + \\exp(A f_i + B)}\n\n"
-msgstr ""
+msgstr "p(y_i = 1 | f_i) = \\frac{1}{1 + \\exp(A f_i + B)}\n\n"
 
 #: ../modules/calibration.rst:172
 msgid "where :math:`y_i` is the true label of sample :math:`i` and :math:`f_i` is the output of the un-calibrated classifier for sample :math:`i`. :math:`A` and :math:`B` are real numbers to be determined when fitting the regressor via maximum likelihood."
-msgstr ""
+msgstr "donde :math:`y_i` es la etiqueta verdadera de la muestra :math:`i` y :math:`f_i` es la salida del clasificador no calibrado para la muestra :math:`i`. :math:`A` y :math:`B` son números reales que se determinan al ajustar el regresor por máxima verosimilitud."
 
 #: ../modules/calibration.rst:177
 msgid "The sigmoid method assumes the :ref:`calibration curve <calibration_curve>` can be corrected by applying a sigmoid function to the raw predictions. This assumption has been empirically justified in the case of :ref:`svm` with common kernel functions on various benchmark datasets in section 2.1 of Platt 1999 [3]_ but does not necessarily hold in general. Additionally, the logistic model works best if the calibration error is symmetrical, meaning the classifier output for each binary class is normally distributed with the same variance [6]_. This is can be a problem for highly imbalanced classification problems, where outputs do not have equal variance."
-msgstr ""
+msgstr "El método sigmoide asume que la :ref:`curva de calibración <calibration_curve>` puede corregirse aplicando una función sigmoide a las predicciones brutas. Esta suposición se ha justificado empíricamente en el caso de :ref:`svm` con funciones de núcleo (kernel) comunes en varios conjuntos de datos de referencia en la sección 2.1 de Platt 1999 [3]_ pero no se cumple necesariamente en general. Además, el modelo logístico funciona mejor si el error de calibración es simétrico, lo que significa que la salida del clasificador para cada clase binaria se distribuye normalmente con la misma varianza [6]_. Esto puede ser un problema para problemas de clasificación muy desequilibrados, en los que los resultados no tienen la misma varianza."
 
 #: ../modules/calibration.rst:187
 msgid "In general this method is most effective when the un-calibrated model is under-confident and has similar calibration errors for both high and low outputs."
-msgstr ""
+msgstr "En general, este método es más eficaz cuando el modelo no calibrado está infravalorado (under-confident) y tiene errores de calibración similares tanto para las salidas altas como para las bajas."
 
 #: ../modules/calibration.rst:192
 msgid "Isotonic"
-msgstr ""
+msgstr "Isotónico"
 
 #: ../modules/calibration.rst:194
 msgid "The 'isotonic' method fits a non-parametric isotonic regressor, which outputs a step-wise non-decreasing function (see :mod:`sklearn.isotonic`). It minimizes:"
-msgstr ""
+msgstr "El método 'isotónico' ajusta un regresor isotónico no paramétrico, que produce una función escalonada no decreciente (véase :mod:`sklearn.isotonic`). Este método minimiza:"
 
 #: ../modules/calibration.rst:198
 msgid "\\sum_{i=1}^{n} (y_i - \\hat{f}_i)^2\n\n"
-msgstr ""
+msgstr "\\sum_{i=1}^{n} (y_i - \\hat{f}_i)^2\n\n"
 
 #: ../modules/calibration.rst:201
 msgid "subject to :math:`\\hat{f}_i >= \\hat{f}_j` whenever :math:`f_i >= f_j`. :math:`y_i` is the true label of sample :math:`i` and :math:`\\hat{f}_i` is the output of the calibrated classifier for sample :math:`i` (i.e., the calibrated probability). This method is more general when compared to 'sigmoid' as the only restriction is that the mapping function is monotonically increasing. It is thus more powerful as it can correct any monotonic distortion of the un-calibrated model. However, it is more prone to overfitting, especially on small datasets [5]_."
-msgstr ""
+msgstr "conforme a :math:`\\hat{f}_i >= \\hat{f}_j` siempre que :math:`f_i >= f_j`. :math:`y_i` sea la etiqueta verdadera de la muestra :math:`i` y :math:`\\hat{f}_i` sea la salida del clasificador calibrado para la muestra :math:`i` (es decir, la probabilidad calibrada). Este método es más general en comparación con el 'sigmoide', ya que la única restricción es que la función de mapeo sea monotónicamente creciente. Por tanto, es más potente, ya que puede corregir cualquier distorsión monótona del modelo no calibrado. Sin embargo, es más propenso al sobreajuste, especialmente en conjuntos de datos pequeños [5]_."
 
 #: ../modules/calibration.rst:210
 msgid "Overall, 'isotonic' will perform as well as or better than 'sigmoid' when there is enough data (greater than ~ 1000 samples) to avoid overfitting [1]_."
-msgstr ""
+msgstr "En general, 'isotónico' funcionará tan bien o mejor que 'sigmoide' cuando haya suficientes datos (más de ~ 1000 muestras) para evitar el sobreajuste [1]_."
 
 #: ../modules/calibration.rst:214
 msgid "Multiclass support"
-msgstr ""
+msgstr "Soporte multiclase"
 
 #: ../modules/calibration.rst:216
 msgid "Both isotonic and sigmoid regressors only support 1-dimensional data (e.g., binary classification output) but are extended for multiclass classification if the `base_estimator` supports multiclass predictions. For multiclass predictions, :class:`CalibratedClassifierCV` calibrates for each class separately in a :ref:`ovr_classification` fashion [4]_. When predicting probabilities, the calibrated probabilities for each class are predicted separately. As those probabilities do not necessarily sum to one, a postprocessing is performed to normalize them."
-msgstr ""
+msgstr "Tanto los regresores isotónicos como los sigmoides sólo admiten datos unidimensionales (por ejemplo, la salida de una clasificación binaria), pero se amplían para la clasificación multiclase si el `estimador base` admite predicciones multiclase. Para las predicciones multiclase, :class:`CalibratedClassifierCV` calibra para cada clase por separado de forma :ref:`ovr_classification` [4]_. Al predecir las probabilidades, las probabilidades calibradas para cada clase se predicen por separado. Como esas probabilidades no suman necesariamente uno, se realiza un postprocesamiento para normalizarlas."
 
 #: ../modules/calibration.rst:229
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_curve.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_curve.py`"
 
 #: ../modules/calibration.rst:230
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_multiclass.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_multiclass.py`"
 
 #: ../modules/calibration.rst:231
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_calibration.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_calibration.py`"
 
 #: ../modules/calibration.rst:232
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`"
 
 #: ../modules/calibration.rst:236
 msgid "`Predicting Good Probabilities with Supervised Learning <https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf>`_, A. Niculescu-Mizil & R. Caruana, ICML 2005"
-msgstr ""
+msgstr "`Predicting Good Probabilities with Supervised Learning <https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf>`_, A. Niculescu-Mizil & R. Caruana, ICML 2005"
 
 #: ../modules/calibration.rst:240
 msgid "`On the combination of forecast probabilities for consecutive precipitation periods. <https://journals.ametsoc.org/waf/article/5/4/640/40179>`_ Wea. Forecasting, 5, 640–650., Wilks, D. S., 1990a"
-msgstr ""
+msgstr "`On the combination of forecast probabilities for consecutive precipitation periods. <https://journals.ametsoc.org/waf/article/5/4/640/40179>`_ Wea. Forecasting, 5, 640–650., Wilks, D. S., 1990a"
 
 #: ../modules/calibration.rst:245
 msgid "`Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods. <https://www.cs.colorado.edu/~mozer/Teaching/syllabi/6622/papers/Platt1999.pdf>`_ J. Platt, (1999)"
-msgstr ""
+msgstr "`Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods. <https://www.cs.colorado.edu/~mozer/Teaching/syllabi/6622/papers/Platt1999.pdf>`_ J. Platt, (1999)"
 
 #: ../modules/calibration.rst:250
 msgid "`Transforming Classifier Scores into Accurate Multiclass Probability Estimates. <https://dl.acm.org/doi/pdf/10.1145/775047.775151>`_ B. Zadrozny & C. Elkan, (KDD 2002)"
-msgstr ""
+msgstr "`Transforming Classifier Scores into Accurate Multiclass Probability Estimates. <https://dl.acm.org/doi/pdf/10.1145/775047.775151>`_ B. Zadrozny & C. Elkan, (KDD 2002)"
 
 #: ../modules/calibration.rst:255
 msgid "`Predicting accurate probabilities with a ranking loss. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4180410/>`_ Menon AK, Jiang XJ, Vembu S, Elkan C, Ohno-Machado L. Proc Int Conf Mach Learn. 2012;2012:703-710"
-msgstr ""
+msgstr "`Predicting accurate probabilities with a ranking loss. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4180410/>`_ Menon AK, Jiang XJ, Vembu S, Elkan C, Ohno-Machado L. Proc Int Conf Mach Learn. 2012;2012:703-710"
 
 #: ../modules/calibration.rst:260
 msgid "`Beyond sigmoids: How to obtain well-calibrated probabilities from binary classifiers with beta calibration <https://projecteuclid.org/euclid.ejs/1513306867>`_ Kull, M., Silva Filho, T. M., & Flach, P. (2017)."
-msgstr ""
+msgstr "`Beyond sigmoids: How to obtain well-calibrated probabilities from binary classifiers with beta calibration <https://projecteuclid.org/euclid.ejs/1513306867>`_ Kull, M., Silva Filho, T. M., & Flach, P. (2017)."
 
