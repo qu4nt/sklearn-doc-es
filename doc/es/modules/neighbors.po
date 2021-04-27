@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-27 18:16\n"
+"PO-Revision-Date: 2021-04-27 19:12\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -132,91 +132,91 @@ msgstr "scikit-learn implementa dos regresores de vecinos diferentes: :class:`KN
 
 #: ../modules/neighbors.rst:216
 msgid "The basic nearest neighbors regression uses uniform weights: that is, each point in the local neighborhood contributes uniformly to the classification of a query point.  Under some circumstances, it can be advantageous to weight points such that nearby points contribute more to the regression than faraway points.  This can be accomplished through the ``weights`` keyword.  The default value, ``weights = 'uniform'``, assigns equal weights to all points.  ``weights = 'distance'`` assigns weights proportional to the inverse of the distance from the query point. Alternatively, a user-defined function of the distance can be supplied, which will be used to compute the weights."
-msgstr ""
+msgstr "La regresión básica de vecinos más cercanos utiliza pesos uniformes: es decir, cada punto de la vecindad local contribuye uniformemente a la clasificación de un punto de consulta.  En algunas circunstancias, puede ser ventajoso ponderar los puntos de manera que los puntos cercanos contribuyan más a la regresión que los puntos lejanos.  Esto puede lograrse mediante la palabra clave \"pesos\".  El valor por defecto, ``pesos = 'uniforme'``, asigna pesos iguales a todos los puntos.  El valor ``pesos = `distancia`` asigna pesos proporcionales a la inversa de la distancia al punto de consulta. Alternativamente, se puede proporcionar una función definida por el usuario de la distancia, que se utilizará para calcular los pesos."
 
 #: ../modules/neighbors.rst:232
 msgid "The use of multi-output nearest neighbors for regression is demonstrated in :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`. In this example, the inputs X are the pixels of the upper half of faces and the outputs Y are the pixels of the lower half of those faces."
-msgstr ""
+msgstr "El uso de vecinos más cercanos de salida múltiple para la regresión se demuestra en :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`. En este ejemplo, las entradas X son los píxeles de la mitad superior de las caras y las salidas Y son los píxeles de la mitad inferior de esas caras."
 
 #: ../modules/neighbors.rst:245
 msgid ":ref:`sphx_glr_auto_examples_neighbors_plot_regression.py`: an example of regression using nearest neighbors."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`: un ejemplo de clasificación usando vecinos más cercanos."
 
 #: ../modules/neighbors.rst:248
 msgid ":ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`: an example of multi-output regression using nearest neighbors."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`: un ejemplo de regresión de multi-salida usando vecinos más cercanos."
 
 #: ../modules/neighbors.rst:253
 msgid "Nearest Neighbor Algorithms"
-msgstr ""
+msgstr "Algoritmos del vecino más cercano"
 
 #: ../modules/neighbors.rst:258
 msgid "Brute Force"
-msgstr ""
+msgstr "Fuerza bruta"
 
 #: ../modules/neighbors.rst:260
 msgid "Fast computation of nearest neighbors is an active area of research in machine learning. The most naive neighbor search implementation involves the brute-force computation of distances between all pairs of points in the dataset: for :math:`N` samples in :math:`D` dimensions, this approach scales as :math:`O[D N^2]`.  Efficient brute-force neighbors searches can be very competitive for small data samples. However, as the number of samples :math:`N` grows, the brute-force approach quickly becomes infeasible.  In the classes within :mod:`sklearn.neighbors`, brute-force neighbors searches are specified using the keyword ``algorithm = 'brute'``, and are computed using the routines available in :mod:`sklearn.metrics.pairwise`."
-msgstr ""
+msgstr "El cálculo rápido de los vecinos más cercanos es un área activa de investigación en el aprendizaje automático. La implementación más simple de la búsqueda de vecinos implica el cálculo por fuerza bruta de las distancias entre todos los pares de puntos del conjunto de datos: para muestras :math:`N` en dimensiones :math:`D`, este enfoque se escala como :math:`O[D N^2]`.  La búsqueda eficiente de vecinos por fuerza bruta puede ser muy competitiva para muestras de datos pequeñas. Sin embargo, a medida que el número de muestras :math:`N` crece, el enfoque de fuerza bruta se vuelve rápidamente inviable.  En las clases dentro de :mod:`sklearn.neighbors`, las búsquedas de vecinos por fuerza bruta se especifican utilizando la palabra clave ``algoritmo = 'brute'``, y se calculan utilizando las rutinas disponibles en :mod:`sklearn.metrics.pairwise`."
 
 #: ../modules/neighbors.rst:275
 msgid "K-D Tree"
-msgstr ""
+msgstr "Árbol K-D"
 
 #: ../modules/neighbors.rst:277
 msgid "To address the computational inefficiencies of the brute-force approach, a variety of tree-based data structures have been invented.  In general, these structures attempt to reduce the required number of distance calculations by efficiently encoding aggregate distance information for the sample. The basic idea is that if point :math:`A` is very distant from point :math:`B`, and point :math:`B` is very close to point :math:`C`, then we know that points :math:`A` and :math:`C` are very distant, *without having to explicitly calculate their distance*. In this way, the computational cost of a nearest neighbors search can be reduced to :math:`O[D N \\log(N)]` or better. This is a significant improvement over brute-force for large :math:`N`."
-msgstr ""
+msgstr "Para hacer frente a las ineficiencias computacionales del enfoque de fuerza bruta, se han inventado diversas estructuras de datos basadas en árboles.  En general, estas estructuras intentan reducir el número de cálculos de distancia necesarios codificando de forma eficiente la información de distancia agregada para la muestra. La idea básica es que si el punto :math:`A` está muy distante del punto :math:`B`, y el punto :math:`B` está muy cerca del punto :math:`C`, entonces sabemos que los puntos :math:`A` y :math:`C` están muy distantes, *sin tener que calcular explícitamente su distancia*. De este modo, el coste computacional de una búsqueda de vecinos más cercanos puede reducirse a :math:`O[D N \\log(N)]` o mejor. Esto supone una mejora significativa respecto a la fuerza bruta para grandes :math:`N`."
 
 #: ../modules/neighbors.rst:289
 msgid "An early approach to taking advantage of this aggregate information was the *KD tree* data structure (short for *K-dimensional tree*), which generalizes two-dimensional *Quad-trees* and 3-dimensional *Oct-trees* to an arbitrary number of dimensions.  The KD tree is a binary tree structure which recursively partitions the parameter space along the data axes, dividing it into nested orthotropic regions into which data points are filed.  The construction of a KD tree is very fast: because partitioning is performed only along the data axes, no :math:`D`-dimensional distances need to be computed. Once constructed, the nearest neighbor of a query point can be determined with only :math:`O[\\log(N)]` distance computations. Though the KD tree approach is very fast for low-dimensional (:math:`D < 20`) neighbors searches, it becomes inefficient as :math:`D` grows very large: this is one manifestation of the so-called \"curse of dimensionality\". In scikit-learn, KD tree neighbors searches are specified using the keyword ``algorithm = 'kd_tree'``, and are computed using the class :class:`KDTree`."
-msgstr ""
+msgstr "Uno de los primeros enfoques para aprovechar esta información agregada fue la estructura de datos de *KD tree* o *árbol KD* (abreviatura de *árbol K-dimensional*), que generaliza los *árboles Quad* (*Quad-trees*) bidimensionales y los *árboles Oct*  (*Oct-trees*) tridimensionales a un número arbitrario de dimensiones.  El árbol KD es una estructura de árbol binario que particiona recursivamente el espacio de los parámetros a lo largo de los ejes de los datos, dividiéndolo en regiones ortotrópicas anidadas en las que se archivan los puntos de datos.  La construcción de un árbol KD es muy rápida: como la partición se realiza sólo a lo largo de los ejes de datos, no es necesario calcular distancias :math:`D`-dimensionales. Una vez construido, el vecino más cercano de un punto de consulta puede determinarse con sólo cálculos de distancia :math:`O[\\log(N)]`. Aunque el enfoque del árbol KD es muy rápido para búsquedas de vecinos de baja dimensión (:math:`D < 20`), se vuelve ineficiente a medida que :math:`D` aumenta: esta es una manifestación de la llamada \"maldición de la dimensionalidad\". En scikit-learn, las búsquedas de vecinos en el árbol KD se especifican utilizando la palabra clave ``algoritmo = 'kd_tree'``, y se calculan utilizando la clase :class:`KDTree`."
 
 #: ../modules/neighbors.rst:309
 msgid "`\"Multidimensional binary search trees used for associative searching\" <https://dl.acm.org/citation.cfm?doid=361002.361007>`_, Bentley, J.L., Communications of the ACM (1975)"
-msgstr ""
+msgstr "`\"Multidimensional binary search trees used for associative searching\" <https://dl.acm.org/citation.cfm?doid=361002.361007>`_, Bentley, J.L., Communications of the ACM (1975)"
 
 #: ../modules/neighbors.rst:317
 msgid "Ball Tree"
-msgstr ""
+msgstr "Árbol de bolas"
 
 #: ../modules/neighbors.rst:319
 msgid "To address the inefficiencies of KD Trees in higher dimensions, the *ball tree* data structure was developed.  Where KD trees partition data along Cartesian axes, ball trees partition data in a series of nesting hyper-spheres.  This makes tree construction more costly than that of the KD tree, but results in a data structure which can be very efficient on highly structured data, even in very high dimensions."
-msgstr ""
+msgstr "Para hacer frente a las ineficiencias de los árboles KD en dimensiones superiores, se desarrolló la estructura de datos *árbol de bolas*.  Mientras que los árboles KD dividen los datos a lo largo de ejes cartesianos, los árboles de bolas dividen los datos en una serie de hiperesferas anidadas.  Esto hace que la construcción del árbol sea más costosa que la del árbol KD, pero da como resultado una estructura de datos que puede ser muy eficiente en datos altamente estructurados, incluso en dimensiones muy altas."
 
 #: ../modules/neighbors.rst:326
 msgid "A ball tree recursively divides the data into nodes defined by a centroid :math:`C` and radius :math:`r`, such that each point in the node lies within the hyper-sphere defined by :math:`r` and :math:`C`. The number of candidate points for a neighbor search is reduced through use of the *triangle inequality*:"
-msgstr ""
+msgstr "Un árbol de bolas divide recursivamente los datos en nodos definidos por un centroide :math:`C` y un radio :math:`r`, de forma que cada punto del nodo se encuentra dentro de la hiperesfera definida por :math:`r` y :math:`C`. El número de puntos candidatos para la búsqueda de vecinos se reduce mediante el uso de la *desigualdad triangular*:"
 
 #: ../modules/neighbors.rst:332
 msgid "|x+y| \\leq |x| + |y|\n\n"
-msgstr ""
+msgstr "|x+y| \\leq |x| + |y|\n\n"
 
 #: ../modules/neighbors.rst:334
 msgid "With this setup, a single distance calculation between a test point and the centroid is sufficient to determine a lower and upper bound on the distance to all points within the node. Because of the spherical geometry of the ball tree nodes, it can out-perform a *KD-tree* in high dimensions, though the actual performance is highly dependent on the structure of the training data. In scikit-learn, ball-tree-based neighbors searches are specified using the keyword ``algorithm = 'ball_tree'``, and are computed using the class :class:`BallTree`. Alternatively, the user can work with the :class:`BallTree` class directly."
-msgstr ""
+msgstr "Con esta configuración, un único cálculo de la distancia entre un punto de prueba y el centroide es suficiente para determinar un límite inferior y superior de la distancia a todos los puntos dentro del nodo. Debido a la geometría esférica de los nodos del árbol de bolas, puede superar a un *árbol KD* en dimensiones altas, aunque el rendimiento real depende en gran medida de la estructura de los datos de entrenamiento. En scikit-learn, las búsquedas de vecinos basadas en el árbol de bolas se especifican utilizando la palabra clave ``algoritmo = 'ball_tree'``, y se calculan utilizando la clase :class:`BallTree`. Alternativamente, el usuario puede trabajar con la clase :class:`BallTree` directamente."
 
 #: ../modules/neighbors.rst:347
 msgid "`\"Five balltree construction algorithms\" <http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.91.8209>`_, Omohundro, S.M., International Computer Science Institute Technical Report (1989)"
-msgstr ""
+msgstr "`\"Five balltree construction algorithms\" <http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.91.8209>`_, Omohundro, S.M., International Computer Science Institute Technical Report (1989)"
 
 #: ../modules/neighbors.rst:353
 msgid "Choice of Nearest Neighbors Algorithm"
-msgstr ""
+msgstr "Selección del algoritmo de los vecinos más cercanos"
 
 #: ../modules/neighbors.rst:354
 msgid "The optimal algorithm for a given dataset is a complicated choice, and depends on a number of factors:"
-msgstr ""
+msgstr "El algoritmo óptimo para un conjunto de datos determinado es una elección complicada y depende de varios factores:"
 
 #: ../modules/neighbors.rst:357
 msgid "number of samples :math:`N` (i.e. ``n_samples``) and dimensionality :math:`D` (i.e. ``n_features``)."
-msgstr ""
+msgstr "número de muestras :math:`N` (es decir, ``n_muestras``) y dimensionalidad :math:`D` (es decir, ``n_características``)."
 
 #: ../modules/neighbors.rst:360
 msgid "*Brute force* query time grows as :math:`O[D N]`"
-msgstr ""
+msgstr "El tiempo de consulta de *fuerza bruta* crece como :math:`O[D N]`"
 
 #: ../modules/neighbors.rst:361
 msgid "*Ball tree* query time grows as approximately :math:`O[D \\log(N)]`"
-msgstr ""
+msgstr "*El tiempo de consulta del árbol de bolas crece aproximadamente como :math:`O[D \\log(N)]`"
 
 #: ../modules/neighbors.rst:362
 msgid "*KD tree* query time changes with :math:`D` in a way that is difficult to precisely characterise.  For small :math:`D` (less than 20 or so) the cost is approximately :math:`O[D\\log(N)]`, and the KD tree query can be very efficient. For larger :math:`D`, the cost increases to nearly :math:`O[DN]`, and the overhead due to the tree structure can lead to queries which are slower than brute force."
