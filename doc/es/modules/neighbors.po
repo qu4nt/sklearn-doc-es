@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-28 13:43\n"
+"PO-Revision-Date: 2021-04-28 14:48\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -488,93 +488,94 @@ msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`"
 
 #: ../modules/neighbors.rst:737
 msgid ":ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py`"
 
 #: ../modules/neighbors.rst:742
 msgid "Mathematical formulation"
-msgstr ""
+msgstr "Formulación matemática"
 
 #: ../modules/neighbors.rst:744
 msgid "The goal of NCA is to learn an optimal linear transformation matrix of size ``(n_components, n_features)``, which maximises the sum over all samples :math:`i` of the probability :math:`p_i` that :math:`i` is correctly classified, i.e.:"
-msgstr ""
+msgstr "El objetivo del NCA es aprender una matriz de transformación lineal óptima de tamaño ``(n_components, n_features)``, que maximice la suma sobre todas las muestras :math:`i` de la probabilidad :math:`p_i` de que :math:`i` se clasifique correctamente, es decir:"
 
 #: ../modules/neighbors.rst:749
 msgid "\\underset{L}{\\arg\\max} \\sum\\limits_{i=0}^{N - 1} p_{i}"
-msgstr ""
+msgstr "\\underset{L}{\\arg\\max} \\sum\\limits_{i=0}^{N - 1} p_{i}"
 
 #: ../modules/neighbors.rst:753
 msgid "with :math:`N` = ``n_samples`` and :math:`p_i` the probability of sample :math:`i` being correctly classified according to a stochastic nearest neighbors rule in the learned embedded space:"
-msgstr ""
+msgstr "con :math:`N` = ``n_samples`` y :math:`p_i` la probabilidad de que la muestra :math:`i` se clasifique correctamente según una regla estocástica de vecinos más cercanos en el espacio incrustado aprendido:"
 
 #: ../modules/neighbors.rst:757
 msgid "p_{i}=\\sum\\limits_{j \\in C_i}{p_{i j}}"
-msgstr ""
+msgstr "p_{i}=\\sum\\limits_{j \\in C_i}{p_{i j}}"
 
 #: ../modules/neighbors.rst:761
 msgid "where :math:`C_i` is the set of points in the same class as sample :math:`i`, and :math:`p_{i j}` is the softmax over Euclidean distances in the embedded space:"
-msgstr ""
+msgstr "donde :math:`C_i` es el conjunto de puntos en la misma clase que la muestra :math:`i`, y :math:`p_{i j}` es el máximo softmax sobre distancias euclidianas en el espacio incrustado:"
 
 #: ../modules/neighbors.rst:765
 msgid "p_{i j} = \\frac{\\exp(-||L x_i - L x_j||^2)}{\\sum\\limits_{k \\ne\n"
 "          i} {\\exp{-(||L x_i - L x_k||^2)}}} , \\quad p_{i i} = 0"
-msgstr ""
+msgstr "p_{i j} = \\\\frac{\\exp(-||L x_i - L x_j||^2)}{\\suma\\limits_{k \\ne\n"
+"          i} {\\exp{-(|||L x_i - L x_k||^2)}}} , \\\\quad p_{i i} = 0"
 
 #: ../modules/neighbors.rst:772
 msgid "Mahalanobis distance"
-msgstr ""
+msgstr "Distancia de Mahalanobis"
 
 #: ../modules/neighbors.rst:774
 msgid "NCA can be seen as learning a (squared) Mahalanobis distance metric:"
-msgstr ""
+msgstr "El NCA puede verse como el aprendizaje de una métrica de distancia de Mahalanobis (al cuadrado):"
 
 #: ../modules/neighbors.rst:776
 msgid "|| L(x_i - x_j)||^2 = (x_i - x_j)^TM(x_i - x_j),"
-msgstr ""
+msgstr "|| L(x_i - x_j)||^2 = (x_i - x_j)^TM(x_i - x_j),"
 
 #: ../modules/neighbors.rst:780
 msgid "where :math:`M = L^T L` is a symmetric positive semi-definite matrix of size ``(n_features, n_features)``."
-msgstr ""
+msgstr "donde :math:`M = L^T L` es una matriz semidefinida positiva simétrica de tamaño ``(n_features, n_features)``."
 
 #: ../modules/neighbors.rst:785
 msgid "Implementation"
-msgstr ""
+msgstr "Implementación"
 
 #: ../modules/neighbors.rst:787
 msgid "This implementation follows what is explained in the original paper [1]_. For the optimisation method, it currently uses scipy's L-BFGS-B with a full gradient computation at each iteration, to avoid to tune the learning rate and provide stable learning."
-msgstr ""
+msgstr "Esta implementación sigue lo explicado en el artículo original [1]_. Para el método de optimización, actualmente utiliza el L-BFGS-B de scipy con un cálculo de gradiente completo en cada iteración, para evitar afinar la tasa de aprendizaje y proporcionar un aprendizaje estable."
 
 #: ../modules/neighbors.rst:792
 msgid "See the examples below and the docstring of :meth:`NeighborhoodComponentsAnalysis.fit` for further information."
-msgstr ""
+msgstr "Puedes ver los ejemplos a continuación y la cadena de caracteres de :meth:`NeighborhoodComponentsAnalysis.fit` para más información."
 
 #: ../modules/neighbors.rst:796
 msgid "Complexity"
-msgstr ""
+msgstr "Complejidad"
 
 #: ../modules/neighbors.rst:799
 msgid "Training"
-msgstr ""
+msgstr "Formación"
 
 #: ../modules/neighbors.rst:800
 msgid "NCA stores a matrix of pairwise distances, taking ``n_samples ** 2`` memory. Time complexity depends on the number of iterations done by the optimisation algorithm. However, one can set the maximum number of iterations with the argument ``max_iter``. For each iteration, time complexity is ``O(n_components x n_samples x min(n_samples, n_features))``."
-msgstr ""
+msgstr "El NCA almacena una matriz de distancias entre pares, ocupando ``n_samples ** 2`` de memoria. La complejidad del tiempo depende del número de iteraciones realizadas por el algoritmo de optimización. Sin embargo, se puede establecer el número máximo de iteraciones con el argumento ``max_iter``. Para cada iteración, la complejidad temporal es ``O(n_components x n_samples x min(n_samples, n_features))``."
 
 #: ../modules/neighbors.rst:808
 msgid "Transform"
-msgstr ""
+msgstr "Transformación"
 
 #: ../modules/neighbors.rst:809
 msgid "Here the ``transform`` operation returns :math:`LX^T`, therefore its time complexity equals ``n_components * n_features * n_samples_test``. There is no added space complexity in the operation."
-msgstr ""
+msgstr "Aquí la operación ``transform`` devuelve :math:`LX^T`, por lo tanto su complejidad de tiempo es igual a ``n_components * n_features * n_samples_test``. No hay complejidad de espacio añadida en la operación."
 
 msgid "References:"
-msgstr ""
+msgstr "Referencias:"
 
 #: ../modules/neighbors.rst:816
 msgid "`\"Neighbourhood Components Analysis\" <http://www.cs.nyu.edu/~roweis/papers/ncanips.pdf>`_, J. Goldberger, S. Roweis, G. Hinton, R. Salakhutdinov, Advances in Neural Information Processing Systems, Vol. 17, May 2005, pp. 513-520."
-msgstr ""
+msgstr "`\"Neighbourhood Components Analysis\" <http://www.cs.nyu.edu/~roweis/papers/ncanips.pdf>`_, J. Goldberger, S. Roweis, G. Hinton, R. Salakhutdinov, Advances in Neural Information Processing Systems, Vol. 17, mayo 2005, pp. 513-520."
 
 #: ../modules/neighbors.rst:821
 msgid "`Wikipedia entry on Neighborhood Components Analysis <https://en.wikipedia.org/wiki/Neighbourhood_components_analysis>`_"
-msgstr ""
+msgstr "`Entrada de Wikipedia en Neighborhood Components Analysis <https://en.wikipedia.org/wiki/Neighbourhood_components_analysis>`_"
 
