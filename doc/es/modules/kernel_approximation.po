@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-29 00:36\n"
+"PO-Revision-Date: 2021-04-29 01:35\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Núcleo de la función de base radial"
 
 #: ../modules/kernel_approximation.rst:51
 msgid "The :class:`RBFSampler` constructs an approximate mapping for the radial basis function kernel, also known as *Random Kitchen Sinks* [RR2007]_. This transformation can be used to explicitly model a kernel map, prior to applying a linear algorithm, for example a linear SVM::"
-msgstr "La :class:`RBFSampler` construye un mapeo aproximado para el núcleo de la función de base radial (radial basis function kernel), también conocido como *Random Kitchen Sinks* [RR2007]_. Esta transformación puede utilizarse para modelar explícitamente un mapa de núcleo, antes de aplicar un algoritmo lineal, por ejemplo una SVM lineal::"
+msgstr "La :class:`RBFSampler` construye un mapeo aproximado para el núcleo de la función de base radial (radial basis function kernel, RBF), también conocido como *Random Kitchen Sinks* [RR2007]_. Esta transformación puede utilizarse para modelar explícitamente un mapa de núcleo, antes de aplicar un algoritmo lineal, por ejemplo una SVM lineal::"
 
 #: ../modules/kernel_approximation.rst:68
 msgid "The mapping relies on a Monte Carlo approximation to the kernel values. The ``fit`` function performs the Monte Carlo sampling, whereas the ``transform`` method performs the mapping of the data.  Because of the inherent randomness of the process, results may vary between different calls to the ``fit`` function."
@@ -60,39 +60,39 @@ msgstr "El mapeo se basa en una aproximación de Monte Carlo a los valores del n
 
 #: ../modules/kernel_approximation.rst:74
 msgid "The ``fit`` function takes two arguments: ``n_components``, which is the target dimensionality of the feature transform, and ``gamma``, the parameter of the RBF-kernel.  A higher ``n_components`` will result in a better approximation of the kernel and will yield results more similar to those produced by a kernel SVM. Note that \"fitting\" the feature function does not actually depend on the data given to the ``fit`` function. Only the dimensionality of the data is used. Details on the method can be found in [RR2007]_."
-msgstr ""
+msgstr "La función ``fit`` toma dos argumentos: ``n_components``, que es la dimensionalidad objetivo de la transformación de características, y ``gamma``, el parámetro del núcleo RBF.  Un ``n_components`` más alto dará lugar a una mejor aproximación del núcleo y producirá resultados más similares a los producidos por un núcleo SVM. Ten en cuenta que el \"ajuste\" de la función característica no depende realmente de los datos dados a la función ``fit``. Sólo se utiliza la dimensionalidad de los datos. Los detalles del método se pueden encontrar en [RR2007]_."
 
 #: ../modules/kernel_approximation.rst:83
 msgid "For a given value of ``n_components`` :class:`RBFSampler` is often less accurate as :class:`Nystroem`. :class:`RBFSampler` is cheaper to compute, though, making use of larger feature spaces more efficient."
-msgstr ""
+msgstr "Para un valor determinado de ``n_components`` :class:`RBFSampler` suele ser menos preciso que :class:`Nystroem`. Sin embargo, :class:`RBFSampler` es menos costoso de calcular, lo que hace más eficiente el uso de espacios de características más grandes."
 
 #: ../modules/kernel_approximation.rst:92
 msgid "Comparing an exact RBF kernel (left) with the approximation (right)"
-msgstr ""
+msgstr "Comparación de un núcleo RBF exacto (izquierda) con la aproximación (derecha)"
 
 #: ../modules/kernel_approximation.rst:96
 msgid ":ref:`sphx_glr_auto_examples_miscellaneous_plot_kernel_approximation.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_miscellaneous_plot_kernel_approximation.py`"
 
 #: ../modules/kernel_approximation.rst:101
 msgid "Additive Chi Squared Kernel"
-msgstr ""
+msgstr "Núcleo aditivo de chi cuadrado"
 
 #: ../modules/kernel_approximation.rst:103
 msgid "The additive chi squared kernel is a kernel on histograms, often used in computer vision."
-msgstr ""
+msgstr "El núcleo chi cuadrado aditivo es un núcleo basado en histogramas que se utiliza a menudo en la visión por computadora."
 
 #: ../modules/kernel_approximation.rst:105
 msgid "The additive chi squared kernel as used here is given by"
-msgstr ""
+msgstr "El núcleo aditivo de chi-cuadrado utilizado aquí viene dado por"
 
 #: ../modules/kernel_approximation.rst:107
 msgid "k(x, y) = \\sum_i \\frac{2x_iy_i}{x_i+y_i}"
-msgstr ""
+msgstr "k(x, y) = \\sum_i \\frac{2x_iy_i}{x_i+y_i}"
 
 #: ../modules/kernel_approximation.rst:111
 msgid "This is not exactly the same as :func:`sklearn.metrics.additive_chi2_kernel`. The authors of [VZ2010]_ prefer the version above as it is always positive definite. Since the kernel is additive, it is possible to treat all components :math:`x_i` separately for embedding. This makes it possible to sample the Fourier transform in regular intervals, instead of approximating using Monte Carlo sampling."
-msgstr ""
+msgstr "Esto no es exactamente lo mismo que :func:`sklearn.metrics.additive_chi2_kernel`. Los autores de [VZ2010]_ prefieren la versión anterior ya que siempre es definida positiva. Como el núcleo es aditivo, es posible tratar todos los componentes :math:`x_i` por separado para la incrustación (embedding). Esto hace posible muestrear la transformada de Fourier en intervalos regulares, en lugar de aproximar utilizando el muestreo de Monte Carlo."
 
 #: ../modules/kernel_approximation.rst:119
 msgid "The class :class:`AdditiveChi2Sampler` implements this component wise deterministic sampling. Each component is sampled :math:`n` times, yielding :math:`2n+1` dimensions per input dimension (the multiple of two stems from the real and complex part of the Fourier transform). In the literature, :math:`n` is usually chosen to be 1 or 2, transforming the dataset to size ``n_samples * 5 * n_features`` (in the case of :math:`n=2`)."
@@ -112,7 +112,7 @@ msgstr ""
 
 #: ../modules/kernel_approximation.rst:138
 msgid "k(x,y) = \\prod_i \\frac{2\\sqrt{x_i+c}\\sqrt{y_i+c}}{x_i + y_i + 2c}"
-msgstr ""
+msgstr "k(x,y) = \\prod_i \\frac{2\\sqrt{x_i+c}\\sqrt{y_i+c}}{x_i + y_i + 2c}"
 
 #: ../modules/kernel_approximation.rst:143
 msgid "It has properties that are similar to the exponentiated chi squared kernel often used in computer vision, but allows for a simple Monte Carlo approximation of the feature map."
@@ -132,7 +132,7 @@ msgstr ""
 
 #: ../modules/kernel_approximation.rst:160
 msgid "k(x, y) = (\\gamma x^\\top y +c_0)^d"
-msgstr ""
+msgstr "k(x, y) = (\\gamma x^\\top y +c_0)^d"
 
 #: ../modules/kernel_approximation.rst:164
 msgid "where:"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: ../modules/kernel_approximation.rst:194
 msgid ":ref:`sphx_glr_auto_examples_kernel_approximation_plot_scalable_poly_kernels.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_kernel_approximation_plot_scalable_poly_kernels.py`"
 
 #: ../modules/kernel_approximation.rst:199
 msgid "Mathematical Details"
@@ -172,7 +172,7 @@ msgstr ""
 
 #: ../modules/kernel_approximation.rst:207
 msgid "k(x,y) = \\langle \\phi(x), \\phi(y) \\rangle"
-msgstr ""
+msgstr "k(x,y) = \\langle \\phi(x), \\phi(y) \\rangle"
 
 #: ../modules/kernel_approximation.rst:211
 msgid "Where :math:`\\langle \\cdot, \\cdot \\rangle` denotes the inner product in the Hilbert space."
