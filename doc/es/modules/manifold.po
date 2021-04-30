@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-30 14:55\n"
+"PO-Revision-Date: 2021-04-30 15:57\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -162,7 +162,7 @@ msgstr "Embedding localmente lineal"
 
 #: ../modules/manifold.rst:157
 msgid "Locally linear embedding (LLE) seeks a lower-dimensional projection of the data which preserves distances within local neighborhoods.  It can be thought of as a series of local Principal Component Analyses which are globally compared to find the best non-linear embedding."
-msgstr "El embedding localmente lineal (ELL, o LLE en inglés) busca una proyección de menor dimensionalidad de los datos que preserva distancias dentro de los vecinos locales. Puede ser pensado como una serie de Análisis Principales de Componentes, los cuales son comparados globalmente para encontrar la mejor incrustación no lineal."
+msgstr "El embedding localmente lineal (ELL, o LLE en inglés) busca una proyección de menor dimensionalidad de los datos que preserva distancias dentro de los vecindarios locales. Puede ser pensado como una serie de Análisis Principales de Componentes, los cuales son comparados globalmente para encontrar la mejor incrustación no lineal."
 
 #: ../modules/manifold.rst:162
 msgid "Locally linear embedding can be performed with function :func:`locally_linear_embedding` or its object-oriented counterpart :class:`LocallyLinearEmbedding`."
@@ -178,7 +178,7 @@ msgstr "**Búsqueda de vecinos más cercanos**. Ver la discusión bajo Isomap m�
 
 #: ../modules/manifold.rst:178
 msgid "**Weight Matrix Construction**. :math:`O[D N k^3]`. The construction of the LLE weight matrix involves the solution of a :math:`k \\times k` linear equation for each of the :math:`N` local neighborhoods"
-msgstr "**Construcción de la matriz de ponderados**. :math:`O[D N k^3]`. La construcción de la matriz de ponderados ELL involucra la solución de una ecuación lineal :math:`k \\times k` para cada uno de los :math:`N` vecinos locales"
+msgstr "**Construcción de la matriz de ponderados**. :math:`O[D N k^3]`. La construcción de la matriz de ponderados ELL involucra la solución de una ecuación lineal :math:`k \\times k` para cada uno de los :math:`N` vecindarios locales"
 
 #: ../modules/manifold.rst:183
 msgid "**Partial Eigenvalue Decomposition**. See discussion under Isomap above."
@@ -194,69 +194,69 @@ msgstr "`\"Nonlinear dimensionality reduction by locally linear embedding\" <htt
 
 #: ../modules/manifold.rst:201
 msgid "Modified Locally Linear Embedding"
-msgstr "Embedding localmente lineal modificado"
+msgstr "Embedding modificado localmente lineal"
 
 #: ../modules/manifold.rst:203
 msgid "One well-known issue with LLE is the regularization problem.  When the number of neighbors is greater than the number of input dimensions, the matrix defining each local neighborhood is rank-deficient.  To address this, standard LLE applies an arbitrary regularization parameter :math:`r`, which is chosen relative to the trace of the local weight matrix.  Though it can be shown formally that as :math:`r \\to 0`, the solution converges to the desired embedding, there is no guarantee that the optimal solution will be found for :math:`r > 0`.  This problem manifests itself in embeddings which distort the underlying geometry of the manifold."
-msgstr ""
+msgstr "Un problema bastante bien conocida con ELL es el problema de regularización. Cuando el número de vecinos es mayor que el número de dimensiones de entrada, la matriz definiendo cada vecindario local es deficiente de rango. Para abordar esto, el ELL estándar aplica un parámetro de regularización arbitraria :math:`r`, que se escoge en función del trazo de la matriz de ponderados local. Aunque puede comprobarse formalmente que cuando :math:`r \\to 0`, la solución converge al embedding buscado, no hay garantía de que la solución óptima se encontrara para  :math:`r > 0`. Este problema se manifiesta en embeddings que distorsionan la geometría subyacente del colector."
 
 #: ../modules/manifold.rst:213
 msgid "One method to address the regularization problem is to use multiple weight vectors in each neighborhood.  This is the essence of *modified locally linear embedding* (MLLE).  MLLE can be  performed with function :func:`locally_linear_embedding` or its object-oriented counterpart :class:`LocallyLinearEmbedding`, with the keyword ``method = 'modified'``. It requires ``n_neighbors > n_components``."
-msgstr ""
+msgstr "Un método para abordar el problema de regularización es usar multiples ponderados de vectores en cada vecindario. Esta es la esencia del *embedding modíficado localmente lineal* (EMLL). El EMLL puede ser utilizado con la función :func:`locally_linear_embedding`, y también su contraparte orientada a objetos :class:`LocallyLinearEmbedding`, con la palabra clave ``method = 'modified'``. Requiere que ``n_neighbors > n_components``."
 
 #: ../modules/manifold.rst:228
 msgid "The MLLE algorithm comprises three stages:"
-msgstr ""
+msgstr "El algoritmo EMLL comprende tres etapas:"
 
 #: ../modules/manifold.rst:230 ../modules/manifold.rst:280
 #: ../modules/manifold.rst:372
 msgid "**Nearest Neighbors Search**.  Same as standard LLE"
-msgstr ""
+msgstr "**Búsqueda de vecinos más cercanos**. Igual que el ELL estándar"
 
 #: ../modules/manifold.rst:232
 msgid "**Weight Matrix Construction**. Approximately :math:`O[D N k^3] + O[N (k-D) k^2]`.  The first term is exactly equivalent to that of standard LLE.  The second term has to do with constructing the weight matrix from multiple weights.  In practice, the added cost of constructing the MLLE weight matrix is relatively small compared to the cost of stages 1 and 3."
-msgstr ""
+msgstr "**Construcción de matríz de ponderados**. Aproximadamente :math:`O[D N k^3] + O[N (k-D) k^2]`. El primer termino es exactamente equivalente a aquél del ELL estándar. El segundo termino tiene que ver con la construcción de la matriz de ponderados desde multiples ponderados. En la practica, el costo añadido de construir la matriz de ponderados EMLL es relativamente pequeña comparada al costo de las etapas 1 y 3."
 
 #: ../modules/manifold.rst:239 ../modules/manifold.rst:287
 #: ../modules/manifold.rst:378
 msgid "**Partial Eigenvalue Decomposition**. Same as standard LLE"
-msgstr ""
+msgstr "**Decomposición de Autovalores Parcial**. Igual que el ELL estándar"
 
 #: ../modules/manifold.rst:241
 msgid "The overall complexity of MLLE is :math:`O[D \\log(k) N \\log(N)] + O[D N k^3] + O[N (k-D) k^2] + O[d N^2]`."
-msgstr ""
+msgstr "La complejidad general del EMLL es :math:`O[D \\log(k) N \\log(N)] + O[D N k^3] + O[N (k-D) k^2] + O[d N^2]`."
 
 #: ../modules/manifold.rst:251
 msgid "`\"MLLE: Modified Locally Linear Embedding Using Multiple Weights\" <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.70.382>`_ Zhang, Z. & Wang, J."
-msgstr ""
+msgstr "`\"MLLE: Modified Locally Linear Embedding Using Multiple Weights\" <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.70.382>`_ Zhang, Z. & Wang, J."
 
 #: ../modules/manifold.rst:257
 msgid "Hessian Eigenmapping"
-msgstr ""
+msgstr "Eigenmapeo Hessiano"
 
 #: ../modules/manifold.rst:259
 msgid "Hessian Eigenmapping (also known as Hessian-based LLE: HLLE) is another method of solving the regularization problem of LLE.  It revolves around a hessian-based quadratic form at each neighborhood which is used to recover the locally linear structure.  Though other implementations note its poor scaling with data size, ``sklearn`` implements some algorithmic improvements which make its cost comparable to that of other LLE variants for small output dimension.  HLLE can be  performed with function :func:`locally_linear_embedding` or its object-oriented counterpart :class:`LocallyLinearEmbedding`, with the keyword ``method = 'hessian'``. It requires ``n_neighbors > n_components * (n_components + 3) / 2``."
-msgstr ""
+msgstr "El Eigenmapeo Hessiano (también conocido como ELL basado en Hessians: ELLH) es otro método para resolver el problema de regularización del ELL. Revuelve alrededor de una forma cuadrática basada en hessianos en cada vecindad que es usada para recuperar la estructura localmente lineal. Aunque otras implementaciones señalan su mal escalamiento con el tamaño de los datos, ``sklearn`` implementa algunas mejoras algorítmicas que hacen que su costo sea comparable a aquel de otras variantes ELL para dimensiones de salida pequeñas. Se puede realizar el ELLH con la función :func:`locally_linear_embedding` o su contraparte orientada a objetos :class:`LocallyLinearEmbedding`, con la palabra clave ``method = 'hessian'``. Requiere que ``n_neighbors > n_components * (n_components + 3) / 2``."
 
 #: ../modules/manifold.rst:278
 msgid "The HLLE algorithm comprises three stages:"
-msgstr ""
+msgstr "El algoritmo ELLH comprende tres etapas:"
 
 #: ../modules/manifold.rst:282
 msgid "**Weight Matrix Construction**. Approximately :math:`O[D N k^3] + O[N d^6]`.  The first term reflects a similar cost to that of standard LLE.  The second term comes from a QR decomposition of the local hessian estimator."
-msgstr ""
+msgstr "**Construcción de la Matriz de Ponderado**.  Aproximadamente :math:`O[D N k^3] + O[N d^6]`. El primer término refleja un costo similar a aquel del ELL estándar. El segundo término viene de una descomposición QR del estimador local de hessianos."
 
 #: ../modules/manifold.rst:289
 msgid "The overall complexity of standard HLLE is :math:`O[D \\log(k) N \\log(N)] + O[D N k^3] + O[N d^6] + O[d N^2]`."
-msgstr ""
+msgstr "La complejidad general del ELLH estándar es :math:`O[D \\log(k) N \\log(N)] + O[D N k^3] + O[N d^6] + O[d N^2]`."
 
 #: ../modules/manifold.rst:299
 msgid "`\"Hessian Eigenmaps: Locally linear embedding techniques for high-dimensional data\" <http://www.pnas.org/content/100/10/5591>`_ Donoho, D. & Grimes, C. Proc Natl Acad Sci USA. 100:5591 (2003)"
-msgstr ""
+msgstr "`\"Hessian Eigenmaps: Locally linear embedding techniques for high-dimensional data\" <http://www.pnas.org/content/100/10/5591>`_ Donoho, D. & Grimes, C. Proc Natl Acad Sci USA. 100:5591 (2003)"
 
 #: ../modules/manifold.rst:306
 msgid "Spectral Embedding"
-msgstr ""
+msgstr "Embedding Espectral"
 
 #: ../modules/manifold.rst:308
 msgid "Spectral Embedding is an approach to calculating a non-linear embedding. Scikit-learn implements Laplacian Eigenmaps, which finds a low dimensional representation of the data using a spectral decomposition of the graph Laplacian. The graph generated can be considered as a discrete approximation of the low dimensional manifold in the high dimensional space. Minimization of a cost function based on the graph ensures that points close to each other on the manifold are mapped close to each other in the low dimensional space, preserving local distances. Spectral embedding can be  performed with the function :func:`spectral_embedding` or its object-oriented counterpart :class:`SpectralEmbedding`."
