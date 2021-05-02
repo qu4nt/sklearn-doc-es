@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-05-02 05:16\n"
+"PO-Revision-Date: 2021-05-02 21:53\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -24,79 +24,79 @@ msgstr "Fallas comunes y prácticas recomendadas"
 
 #: ../common_pitfalls.rst:13
 msgid "The purpose of this chapter is to illustrate some common pitfalls and anti-patterns that occur when using scikit-learn. It provides examples of what **not** to do, along with a corresponding correct example."
-msgstr ""
+msgstr "El propósito de este capítulo es ilustrar algunas fallas comunes y antipatrones que ocurren cuando se utiliza scikit-learn. Proporciona ejemplos de lo que **no** hacer, junto con un ejemplo correcto correspondiente."
 
 #: ../common_pitfalls.rst:19
 msgid "Inconsistent preprocessing"
-msgstr ""
+msgstr "Preprocesamiento inconsistente"
 
 #: ../common_pitfalls.rst:21
 msgid "scikit-learn provides a library of :ref:`data-transforms`, which may clean (see :ref:`preprocessing`), reduce (see :ref:`data_reduction`), expand (see :ref:`kernel_approximation`) or generate (see :ref:`feature_extraction`) feature representations. If these data transforms are used when training a model, they also must be used on subsequent datasets, whether it's test data or data in a production system. Otherwise, the feature space will change, and the model will not be able to perform effectively."
-msgstr ""
+msgstr "scikit-learn proporciona una biblioteca de :ref:`data-transforms`, que puede limpiar (ver :ref:`preprocessing`), reducir (ver :ref:`data_reduction`), expandir (ver :ref:`kernel_aproximation`) o generar (ver las representaciones de características de :ref:`feature_extraction`). Si estas transformaciones de datos se utilizan cuando se capacita un modelo, también deben ser utilizadas en conjuntos de datos subsiguientes, si se trata de datos de prueba o datos en un sistema en producción. De lo contrario, el espacio de características cambiará, y el modelo no podrá funcionar eficazmente."
 
 #: ../common_pitfalls.rst:30
 msgid "For the following example, let's create a synthetic dataset with a single feature::"
-msgstr ""
+msgstr "Para el siguiente ejemplo, vamos a crear un conjunto de datos sintéticos con una única característica::"
 
 #: ../common_pitfalls.rst:41 ../common_pitfalls.rst:136
 msgid "**Wrong**"
-msgstr ""
+msgstr "**Incorrecto**"
 
 #: ../common_pitfalls.rst:43
 msgid "The train dataset is scaled, but not the test dataset, so model performance on the test dataset is worse than expected::"
-msgstr ""
+msgstr "El conjunto de datos de entrenamiento es escalado, pero no el conjunto de datos de prueba, por lo que el rendimiento del modelo en el conjunto de datos de prueba es peor de lo esperado::"
 
 #: ../common_pitfalls.rst:56 ../common_pitfalls.rst:165
 msgid "**Right**"
-msgstr ""
+msgstr "**Correcto**"
 
 #: ../common_pitfalls.rst:58
 msgid "Instead of passing the non-transformed `X_test` to `predict`, we should transform the test data, the same way we transformed the training data::"
-msgstr ""
+msgstr "En lugar de pasar el `X_test` no transformado a `predic`, debemos transformar los datos de prueba, de la misma manera que transformamos los datos de entrenamiento::"
 
 #: ../common_pitfalls.rst:65
 msgid "Alternatively, we recommend using a :class:`Pipeline <sklearn.pipeline.Pipeline>`, which makes it easier to chain transformations with estimators, and reduces the possibility of forgetting a transformation::"
-msgstr ""
+msgstr "Alternativamente, recomendamos usar un :class:`Pipeline <sklearn.pipeline.Pipeline>`, lo que hace más fácil encadenar las transformaciones con estimadores y reduce la posibilidad de olvidar una transformación::"
 
 #: ../common_pitfalls.rst:78
 msgid "Pipelines also help avoiding another common pitfall: leaking the test data into the training data."
-msgstr ""
+msgstr "Los pipelines también ayudan a evitar otra falla común: filtrar los datos de prueba en los datos de entrenamiento."
 
 #: ../common_pitfalls.rst:84
 msgid "Data leakage"
-msgstr ""
+msgstr "Fuga de datos"
 
 #: ../common_pitfalls.rst:86
 msgid "Data leakage occurs when information that would not be available at prediction time is used when building the model. This results in overly optimistic performance estimates, for example from :ref:`cross-validation <cross_validation>`, and thus poorer performance when the model is used on actually novel data, for example during production."
-msgstr ""
+msgstr "La fuga de datos ocurre cuando la información que no este disponible a tiempo de predicción se utiliza al construir el modelo. Esto resulta en estimaciones de rendimiento demasiado optimistas, por ejemplo de :ref:`validación cruzada <cross_validation>`, y por lo tanto rendimiento empobrecido cuando el modelo se utiliza en datos realmente nuevos, por ejemplo durante producción."
 
 #: ../common_pitfalls.rst:92
 msgid "A common cause is not keeping the test and train data subsets separate. Test data should never be used to make choices about the model. **The general rule is to never call** `fit` **on the test data**. While this may sound obvious, this is easy to miss in some cases, for example when applying certain pre-processing steps."
-msgstr ""
+msgstr "Una causa común es no mantener separados los subconjuntos de datos de prueba y entrenamiento. Los datos de prueba nunca deben utilizarse para tomar decisiones acerca del modelo. **La regla general es nunca llamar** `fit` **en los datos de prueba**. Aunque esto puede parecer obvio, esto es fácil de perder en algunos casos, por ejemplo cuando se aplican ciertos pasos de preprocesamiento."
 
 #: ../common_pitfalls.rst:98
 msgid "Although both train and test data subsets should receive the same preprocessing transformation (as described in the previous section), it is important that these transformations are only learnt from the training data. For example, if you have a normalization step where you divide by the average value, the average should be the average of the train subset, **not** the average of all the data. If the test subset is included in the average calculation, information from the test subset is influencing the model."
-msgstr ""
+msgstr "Aunque tanto los subconjuntos de datos de entrenamiento como de prueba deben recibir la misma transformación de preprocesamiento (como se describe en la sección anterior), es importante que estas transformaciones sólo se aprendan de los datos de entrenamiento. Por ejemplo, si se tiene un paso de normalización donde se divide entre el valor promedio, el promedio debe ser el promedio del subconjunto de entrenamiento, **no** el promedio de todos los datos. Si el subconjunto de pruebas está incluido en el cálculo promedio, la información del subconjunto de pruebas está influyendo en el modelo."
 
 #: ../common_pitfalls.rst:107
 msgid "An example of data leakage during preprocessing is detailed below."
-msgstr ""
+msgstr "A continuación se detalla un ejemplo de fuga de datos durante el preprocesamiento."
 
 #: ../common_pitfalls.rst:110
 msgid "Data leakage during pre-processing"
-msgstr ""
+msgstr "Fuga de datos durante el preprocesamiento"
 
 #: ../common_pitfalls.rst:113
 msgid "We here choose to illustrate data leakage with a feature selection step. This risk of leakage is however relevant with almost all transformations in scikit-learn, including (but not limited to) :class:`~sklearn.preprocessing.StandardScaler`, :class:`~sklearn.impute.SimpleImputer`, and :class:`~sklearn.decomposition.PCA`."
-msgstr ""
+msgstr "Aquí elegimos ilustrar la fuga de datos con un paso de selección de características. Este riesgo de fuga es sin embargo relevante con casi todas las transformaciones en scikit-learn, incluyendo (pero no limitado a) :class:`~sklearn. reprocessing.StandardScaler`, :class:`~sklearn.impute.SimpleImputer y :class:`~sklearn.decomposition.PCA`."
 
 #: ../common_pitfalls.rst:120
 msgid "A number of :ref:`feature_selection` functions are available in scikit-learn. They can help remove irrelevant, redundant and noisy features as well as improve your model build time and performance. As with any other type of preprocessing, feature selection should **only** use the training data. Including the test data in feature selection will optimistically bias your model."
-msgstr ""
+msgstr "Un número de funciones :ref:`feature_selection` están disponibles en scikit-learn. Pueden ayudar a eliminar características irrelevantes, redundantes y ruidosas, así como a mejorar el tiempo y el rendimiento de su modelo. Como en cualquier otro tipo de preprocesamiento, la selección de características debe **sólo** usar los datos de entrenamiento. Incluir los datos de prueba en la selección de características optimizará el sesgo de su modelo."
 
 #: ../common_pitfalls.rst:127
 msgid "To demonstrate we will create this binary classification problem with 10,000 randomly generated features::"
-msgstr ""
+msgstr "Para demostrar crearemos este problema de clasificación binaria con 10.000 características generadas aleatoriamente::"
 
 #: ../common_pitfalls.rst:138
 msgid "Using all the data to perform feature selection results in an accuracy score much higher than chance, even though our targets are completely random. This randomness means that our `X` and `y` are independent and we thus expect the accuracy to be around 0.5. However, since the feature selection step 'sees' the test data, the model has an unfair advantage. In the incorrect example below we first use all the data for feature selection and then split the data into training and test subsets for model fitting. The result is a much higher than expected accuracy score::"
