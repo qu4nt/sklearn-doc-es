@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:39\n"
+"PO-Revision-Date: 2021-05-02 05:16\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../common_pitfalls.rst:11
 msgid "Common pitfalls and recommended practices"
-msgstr ""
+msgstr "Fallas comunes y prácticas recomendadas"
 
 #: ../common_pitfalls.rst:13
 msgid "The purpose of this chapter is to illustrate some common pitfalls and anti-patterns that occur when using scikit-learn. It provides examples of what **not** to do, along with a corresponding correct example."
@@ -296,7 +296,7 @@ msgstr ""
 
 #: ../common_pitfalls.rst:516
 msgid "In order to obtain reproducible (i.e. constant) results across multiple *program executions*, we need to remove all uses of `random_state=None`, which is the default. The recommended way is to declare a `rng` variable at the top of the program, and pass it down to any object that accepts a `random_state` parameter::"
-msgstr ""
+msgstr "Para obtener resultados reproducibles (es decir, constantes) a través de múltiples *ejecuciones del programa*, necesitamos eliminar todos los usos de `random_state=None`, que es el valor por defecto. La forma recomendada es declarar una variable `rng` en la parte superior del programa, y pasarla a cualquier objeto que acepte un parámetro `random_state`::"
 
 #: ../common_pitfalls.rst:535
 msgid "We are now guaranteed that the result of this script will always be 0.84, no matter how many times we run it. Changing the global `rng` variable to a different value should affect the results, as expected."
@@ -316,15 +316,15 @@ msgstr ""
 
 #: ../common_pitfalls.rst:552
 msgid "When we evaluate a randomized estimator performance by cross-validation, we want to make sure that the estimator can yield accurate predictions for new data, but we also want to make sure that the estimator is robust w.r.t. its random initialization. For example, we would like the random weights initialization of a :class:`~sklearn.linear_model.SGDCLassifier` to be consistently good across all folds: otherwise, when we train that estimator on new data, we might get unlucky and the random initialization may lead to bad performance. Similarly, we want a random forest to be robust w.r.t the set of randomly selected features that each tree will be using."
-msgstr ""
+msgstr "Cuando evaluamos el rendimiento de un estimador aleatorio mediante validación cruzada, queremos asegurarnos de que el estimador puede producir predicciones precisas para los nuevos datos, pero también queremos asegurarnos de que el estimador es robusto con respecto a su inicialización aleatoria. Por ejemplo, nos gustaría que la inicialización de las ponderaciones aleatorias de un :class:`~sklearn.linear_model.SGDCLassifier` fuera consistentemente buena en todos los pliegues: de lo contrario, cuando entrenemos ese estimador con nuevos datos, podríamos tener mala suerte y la inicialización aleatoria podría conducir a un mal rendimiento. Del mismo modo, queremos que un bosque aleatorio sea robusto con respecto al conjunto de características seleccionadas aleatoriamente que utilizará cada árbol."
 
 #: ../common_pitfalls.rst:562
 msgid "For these reasons, it is preferable to evaluate the cross-validation preformance by letting the estimator use a different RNG on each fold. This is done by passing a `RandomState` instance (or `None`) to the estimator initialization."
-msgstr ""
+msgstr "Por estas razones, es preferible evaluar el rendimiento de la validación cruzada dejando que el estimador utilice un RNG diferente en cada pliegue. Esto se hace pasando una instancia de `RandomState` (o `None`) a la inicialización del estimador."
 
 #: ../common_pitfalls.rst:567
 msgid "When we pass an integer, the estimator will use the same RNG on each fold: if if the estimator performs well (or bad), as evaluated by CV, it might just be because we got lucky (or unlucky) with that specific seed. Passing instances leads to more robust CV results, and makes the comparison between various algorithms fairer. It also helps limiting the temptation to treat the estimator's RNG as a hyper-parameter that can be tuned."
-msgstr ""
+msgstr "Cuando pasamos un número entero, el estimador utilizará el mismo RNG en cada pliegue: si el estimador funciona bien (o mal), según la evaluación de CV, puede ser sólo porque tuvimos suerte (o mala suerte) con esa semilla específica. Pasar instancias conduce a resultados de CV más robustos, y hace que la comparación entre varios algoritmos sea más justa. También ayuda a limitar la tentación de tratar el RNG del estimador como un hiperparámetro que se puede ajustar."
 
 #: ../common_pitfalls.rst:574
 msgid "Whether we pass `RandomState` instances or integers to CV splitters has no impact on robustness, as long as `split` is only called once. When `split` is called multiple times, fold-to-fold comparison isn't possible anymore. As a result, passing integer to CV splitters is usually safer and covers most use-cases."
