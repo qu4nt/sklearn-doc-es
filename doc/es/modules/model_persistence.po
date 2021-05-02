@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:38\n"
+"PO-Revision-Date: 2021-05-02 23:02\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,93 +20,93 @@ msgstr ""
 
 #: ../modules/model_persistence.rst:5
 msgid "Model persistence"
-msgstr ""
+msgstr "Persistencia del modelo"
 
 #: ../modules/model_persistence.rst:7
 msgid "After training a scikit-learn model, it is desirable to have a way to persist the model for future use without having to retrain. The following sections give you some hints on how to persist a scikit-learn model."
-msgstr ""
+msgstr "Después de entrenar un modelo de scikit-learn, es deseable tener una manera de persistir el modelo para su uso futuro sin tener que volver a entrenar. Las siguientes secciones te dan algunas pistas sobre cómo persistir un modelo de scikit-learn."
 
 #: ../modules/model_persistence.rst:12
 msgid "Python specific serialization"
-msgstr ""
+msgstr "Serialización específica de Python"
 
 #: ../modules/model_persistence.rst:14
 msgid "It is possible to save a model in scikit-learn by using Python's built-in persistence model, namely `pickle <https://docs.python.org/3/library/pickle.html>`_::"
-msgstr ""
+msgstr "Es posible guardar un modelo en scikit-learn utilizando el modelo de persistencia incorporado en Python, concretamente `pickle <https://docs.python.org/3/library/pickle.html>`::"
 
 #: ../modules/model_persistence.rst:33
 msgid "In the specific case of scikit-learn, it may be better to use joblib's replacement of pickle (``dump`` & ``load``), which is more efficient on objects that carry large numpy arrays internally as is often the case for fitted scikit-learn estimators, but can only pickle to the disk and not to a string::"
-msgstr ""
+msgstr "En el caso específico de scikit-learn, puede ser mejor utilizar el reemplazo de joblib de pickle (``dump`` & ``load``), que es más eficiente en los objetos que llevan grandes arreglos numpy internamente como es a menudo el caso de los estimadores ajustados de scikit-learn, pero sólo puede hacer pickle al disco y no a una cadena::"
 
 #: ../modules/model_persistence.rst:42
 msgid "Later you can load back the pickled model (possibly in another Python process) with::"
-msgstr ""
+msgstr "Más tarde puedes volver a cargar el modelo trabajado con pickle (posiblemente en otro proceso de Python) con::"
 
 #: ../modules/model_persistence.rst:49
 msgid "``dump`` and ``load`` functions also accept file-like object instead of filenames. More information on data persistence with Joblib is available `here <https://joblib.readthedocs.io/en/latest/persistence.html>`_."
-msgstr ""
+msgstr "Las funciones ``dump`` y ``load`` también aceptan objetos tipo archivo en lugar de nombres de archivo. Más información sobre la persistencia de datos con Joblib está disponible `aquí <https://joblib.readthedocs.io/en/latest/persistence.html>`_."
 
 #: ../modules/model_persistence.rst:57
 msgid "Security & maintainability limitations"
-msgstr ""
+msgstr "Limitaciones de seguridad y mantenimiento"
 
 #: ../modules/model_persistence.rst:59
 msgid "pickle (and joblib by extension), has some issues regarding maintainability and security. Because of this,"
-msgstr ""
+msgstr "pickle (y joblib por extensión), tiene algunos inconvenientes de mantenimiento y seguridad. Por esto,"
 
 #: ../modules/model_persistence.rst:62
 msgid "Never unpickle untrusted data as it could lead to malicious code being executed upon loading."
-msgstr ""
+msgstr "Nunca uses unpickle en datos no confiables ya que podrían conducir a que se ejecute código malicioso al cargar."
 
 #: ../modules/model_persistence.rst:64
 msgid "While models saved using one version of scikit-learn might load in other versions, this is entirely unsupported and inadvisable. It should also be kept in mind that operations performed on such data could give different and unexpected results."
-msgstr ""
+msgstr "Aunque los modelos guardados usando una versión de scikit-learn pueden cargarse en otras versiones, esto no es compatible y no es aconsejable. También hay que tener en cuenta que las operaciones realizadas sobre tales datos podrían dar resultados diferentes e inesperados."
 
 #: ../modules/model_persistence.rst:69
 msgid "In order to rebuild a similar model with future versions of scikit-learn, additional metadata should be saved along the pickled model:"
-msgstr ""
+msgstr "Para reconstruir un modelo similar con futuras versiones de scikit-learn, los metadatos adicionales deben guardarse a lo largo del modelo trabajado con pickle:"
 
 #: ../modules/model_persistence.rst:72
 msgid "The training data, e.g. a reference to an immutable snapshot"
-msgstr ""
+msgstr "Los datos de formación, por ejemplo, una referencia a una instantánea inmutable"
 
 #: ../modules/model_persistence.rst:73
 msgid "The python source code used to generate the model"
-msgstr ""
+msgstr "El código fuente de python utilizado para generar el modelo"
 
 #: ../modules/model_persistence.rst:74
 msgid "The versions of scikit-learn and its dependencies"
-msgstr ""
+msgstr "Las versiones de scikit-learn y sus dependencias"
 
 #: ../modules/model_persistence.rst:75
 msgid "The cross validation score obtained on the training data"
-msgstr ""
+msgstr "La puntuación de validación cruzada obtenida en los datos de entrenamiento"
 
 #: ../modules/model_persistence.rst:77
 msgid "This should make it possible to check that the cross-validation score is in the same range as before."
-msgstr ""
+msgstr "Esto debería permitir comprobar que la puntuación de validación cruzada está en el mismo rango que antes."
 
 #: ../modules/model_persistence.rst:80
 msgid "Since a model internal representation may be different on two different architectures, dumping a model on one architecture and loading it on another architecture is not a supported behaviour, even if it might work on some cases. To overcome the issue of portability, pickle models are often deployed in production using containers, like docker."
-msgstr ""
+msgstr "Dado que la representación interna de un modelo puede ser diferente en dos arquitecturas distintas, volcar un modelo en una arquitectura y cargarlo en otra no es un comportamiento admitido, aunque pueda funcionar en algunos casos. Para superar el problema de la portabilidad, los modelos pickle se suelen desplegar en producción utilizando contenedores, como docker."
 
 #: ../modules/model_persistence.rst:87
 msgid "If you want to know more about these issues and explore other possible serialization methods, please refer to this `talk by Alex Gaynor <https://pyvideo.org/video/2566/pickles-are-for-delis-not-software>`_."
-msgstr ""
+msgstr "Si quieres saber más sobre estos temas y explorar otros posibles métodos de serialización, consulta esta `charla de Alex Gaynor <https://pyvideo.org/video/2566/pickles-are-for-delis-not-software>`_."
 
 #: ../modules/model_persistence.rst:93
 msgid "Interoperable formats"
-msgstr ""
+msgstr "Formatos interoperables"
 
 #: ../modules/model_persistence.rst:95
 msgid "For reproducibility and quality control needs, when different architectures and environments should be taken into account, exporting the model in `Open Neural Network Exchange <https://onnx.ai/>`_ format or `Predictive Model Markup Language (PMML) <http://dmg.org/pmml/v4-4-1/GeneralStructure.html>`_ format might be a better approach than using `pickle` alone. These are helpful where you may want to use your model for prediction in a different environment from where the model was trained."
-msgstr ""
+msgstr "Para las necesidades de reproducibilidad y control de calidad, cuando se deben tener en cuenta diferentes arquitecturas y entornos, exportar el modelo en formato `Open Neural Network Exchange <https://onnx.ai/>`_ o en formato `Predictive Model Markup Language (PMML) <http://dmg.org/pmml/v4-4-1/GeneralStructure.html>`_ puede ser un mejor enfoque que utilizar sólo `pickle`. Estos son útiles cuando se quiere utilizar el modelo para la predicción en un entorno diferente al que se entrenó el modelo."
 
 #: ../modules/model_persistence.rst:104
 msgid "ONNX is a binary serialization of the model. It has been developed to improve the usability of the interoperable representation of data models. It aims to facilitate the conversion of the data models between different machine learning frameworks, and to improve their portability on different computing architectures. More details are available from the `ONNX tutorial <https://onnx.ai/get-started.html>`_. To convert scikit-learn model to ONNX a specific tool `sklearn-onnx <http://onnx.ai/sklearn-onnx/>`_ has been developed."
-msgstr ""
+msgstr "ONNX es una serialización binaria del modelo. Se ha desarrollado para mejorar la usabilidad de la representación interoperable de los modelos de datos. Su objetivo es facilitar la conversión de los modelos de datos entre diferentes marcos de aprendizaje automático, y mejorar su portabilidad en diferentes arquitecturas computacionales. Más detalles están disponibles en el tutorial `ONNX <https://onnx.ai/get-started.html>`_. Para convertir el modelo de scikit-learn a ONNX se ha desarrollado una herramienta específica `sklearn-onnx <http://onnx.ai/sklearn-onnx/>`_."
 
 #: ../modules/model_persistence.rst:113
 msgid "PMML is an implementation of the `XML <https://en.wikipedia.org/wiki/XML>`_ document standard defined to represent data models together with the data used to generate them. Being human and machine readable, PMML is a good option for model validation on different platforms and long term archiving. On the other hand, as XML in general, its verbosity does not help in production when performance is critical. To convert scikit-learn model to PMML you can use for example `sklearn2pmml <https://github.com/jpmml/sklearn2pmml>`_ distributed under the Affero GPLv3 license."
-msgstr ""
+msgstr "PMML es una implementación del estándar de documentos `XML <https://en.wikipedia.org/wiki/XML>`_ definido para representar modelos de datos junto con los datos utilizados para generarlos. Al ser legible por humanos y máquinas, el PMML es una buena opción para la validación de modelos en diferentes plataformas y para su archivo a largo plazo. Por otro lado, como XML en general, su verbosidad no ayuda en producción cuando el rendimiento es crítico. Para convertir el modelo scikit-learn a PMML se puede utilizar por ejemplo `sklearn2pmml <https://github.com/jpmml/sklearn2pmml>`_ distribuido bajo la licencia Affero GPLv3."
 
