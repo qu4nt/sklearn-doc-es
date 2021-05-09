@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-05-09 01:00\n"
+"PO-Revision-Date: 2021-05-09 01:59\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -138,31 +138,31 @@ msgstr "Hay dos métodos principales para aproximar la integral anterior, a sabe
 
 #: ../modules/partial_dependence.rst:194
 msgid "The 'brute' method is a generic method that works with any estimator. Note that computing ICE plots is only supported with the 'brute' method. It approximates the above integral by computing an average over the data `X`:"
-msgstr ""
+msgstr "El método 'brute' es un método genérico que funciona con cualquier estimador. Ten en cuenta que el cálculo de los gráficos ICE sólo es posible con el método 'brute'. Aproxima la integral anterior calculando un promedio sobre los datos `X`:"
 
 #: ../modules/partial_dependence.rst:198
 msgid "pd_{X_S}(x_S) \\approx \\frac{1}{n_\\text{samples}} \\sum_{i=1}^n f(x_S, x_C^{(i)}),"
-msgstr ""
+msgstr "pd_{X_S}(x_S) \\approx \\frac{1}{n_\\text{samples}} \\sum_{i=1}^n f(x_S, x_C^{(i)}),"
 
 #: ../modules/partial_dependence.rst:202
 msgid "where :math:`x_C^{(i)}` is the value of the i-th sample for the features in :math:`X_C`. For each value of :math:`x_S`, this method requires a full pass over the dataset `X` which is computationally intensive."
-msgstr ""
+msgstr "donde :math:`x_C^{(i)}` es valor de la i-ésima muestra para las características en :math:`X_C`. Para cada valor de :math:`x_S`, este método requiere una pasada completa por el conjunto de datos `X` lo cual es intensivo computacionalmente."
 
 #: ../modules/partial_dependence.rst:206
 msgid "Each of the :math:`f(x_{S}, x_{C}^{(i)})` corresponds to one ICE line evaluated at :math:`x_{S}`. Computing this for multiple values of :math:`x_{S}`, one obtains a full ICE line. As one can see, the average of the ICE lines correspond to the partial dependence line."
-msgstr ""
+msgstr "Cada uno de las :math:`f(x_{S}, x_{C}^{(i)})` corresponde a una línea ICE evaluada en :math:`x_{S}`. Calculando esto para múltiples valores de :math:`x_{S}`, se obtiene una línea ICE completa. Como se puede ver, el promedio de las líneas ICE corresponde a la línea de dependencia parcial."
 
 #: ../modules/partial_dependence.rst:211
 msgid "The 'recursion' method is faster than the 'brute' method, but it is only supported for PDP plots by some tree-based estimators. It is computed as follows. For a given point :math:`x_S`, a weighted tree traversal is performed: if a split node involves an input feature of interest, the corresponding left or right branch is followed; otherwise both branches are followed, each branch being weighted by the fraction of training samples that entered that branch. Finally, the partial dependence is given by a weighted average of all the visited leaves values."
-msgstr ""
+msgstr "El método 'recursion' es más rápido que el método 'brute', pero sólo admite para los gráficos PDP mediante algunos estimadores basados en árboles. Se calcula como sigue. Para un punto dado :math:`x_S`, se realiza un recorrido a un árbol ponderado: si un nodo dividido involucra una característica de entrada de interés, se sigue la rama izquierda o derecha correspondiente; de lo contrario, se siguen ambas ramas, cada rama siendo ponderada por la fracción de muestras de entrenamiento que entraron en esa rama. Por último, la dependencia parcial viene dada por un promedio ponderado de todos los valores de las hojas visitadas."
 
 #: ../modules/partial_dependence.rst:220
 msgid "With the 'brute' method, the parameter `X` is used both for generating the grid of values :math:`x_S` and the complement feature values :math:`x_C`. However with the 'recursion' method, `X` is only used for the grid values: implicitly, the :math:`x_C` values are those of the training data."
-msgstr ""
+msgstr "Con el método 'brute', el parámetro `X` se utiliza tanto para generar la cuadrícula de valores :math:`x_S` como los valores de características del complemento :math:`x_C`. Sin embargo, con el método 'recursion', `X` sólo se utiliza para los valores de la cuadrícula: implícitamente, los valores :math:`x_C` son los de los datos de entrenamiento."
 
 #: ../modules/partial_dependence.rst:225
 msgid "By default, the 'recursion' method is used for plotting PDPs on tree-based estimators that support it, and 'brute' is used for the rest."
-msgstr ""
+msgstr "Por defecto, el método 'recursion' es utilizado para graficar los PDP en los estimadores basados en un árbol que lo admiten, y 'brute' se utiliza para el resto."
 
 #: ../modules/partial_dependence.rst:232
 msgid "While both methods should be close in general, they might differ in some specific settings. The 'brute' method assumes the existence of the data points :math:`(x_S, x_C^{(i)})`. When the features are correlated, such artificial samples may have a very low probability mass. The 'brute' and 'recursion' methods will likely disagree regarding the value of the partial dependence, because they will treat these unlikely samples differently. Remember, however, that the primary assumption for interpreting PDPs is that the features should be independent."
