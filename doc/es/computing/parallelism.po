@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-06-09 12:23\n"
+"PO-Revision-Date: 2021-06-09 13:21\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -132,101 +132,101 @@ msgstr "La sobresuscripción puede surgir exactamente de la misma manera con las
 
 #: ../computing/parallelism.rst:129
 msgid "Starting from ``joblib >= 0.14``, when the ``loky`` backend is used (which is the default), joblib will tell its child **processes** to limit the number of threads they can use, so as to avoid oversubscription. In practice the heuristic that joblib uses is to tell the processes to use ``max_threads = n_cpus // n_jobs``, via their corresponding environment variable. Back to our example from above, since the joblib backend of :class:`~sklearn.model_selection.GridSearchCV` is ``loky``, each process will only be able to use 1 thread instead of 8, thus mitigating the oversubscription issue."
-msgstr ""
+msgstr "A partir de ``joblib >= 0.14``, cuando se utiliza el backend ``loky`` (que es el predeterminado), joblib indicará a sus **procesos hijos** que limiten el número de hilos que pueden utilizar, para evitar la sobresuscripción. En la práctica, la heurística que utiliza joblib es decirle a los procesos que utilicen ``max_threads = n_cpus // n_jobs``, a través de su correspondiente variable de entorno. Volviendo a nuestro ejemplo anterior, como el backend de joblib de :class:`~sklearn.model_selection.GridSearchCV` es ``loky``, cada proceso sólo podrá utilizar 1 hilo en lugar de 8, mitigando así el problema de la sobresuscripción."
 
 #: ../computing/parallelism.rst:139
 msgid "Note that:"
-msgstr ""
+msgstr "Ten en cuenta que:"
 
 #: ../computing/parallelism.rst:141
 msgid "Manually setting one of the environment variables (``OMP_NUM_THREADS``, ``MKL_NUM_THREADS``, ``OPENBLAS_NUM_THREADS``, or ``BLIS_NUM_THREADS``) will take precedence over what joblib tries to do. The total number of threads will be ``n_jobs * <LIB>_NUM_THREADS``. Note that setting this limit will also impact your computations in the main process, which will only use ``<LIB>_NUM_THREADS``. Joblib exposes a context manager for finer control over the number of threads in its workers (see joblib docs linked below)."
-msgstr ""
+msgstr "La configuración manual de una de las variables de entorno (``OMP_NUM_THREADS``, ``MKL_NUM_THREADS``, ``OPENBLAS_NUM_THREADS``, o ``BLIS_NUM_THREADS``) tendrá prioridad sobre lo que intente hacer joblib. El número total de hilos será ``n_jobs * <LIB>_NUM_THREADS``. Tenga en cuenta que establecer este límite también afectará a sus cálculos en el proceso principal, que sólo utilizará ``<LIB>_NUM_THREADS``. Joblib expone un gestor de contexto para un control más fino sobre el número de hilos en sus trabajadores (ver la documentación de joblib enlazada más abajo)."
 
 #: ../computing/parallelism.rst:149
 msgid "Joblib is currently unable to avoid oversubscription in a multi-threading context. It can only do so with the ``loky`` backend (which spawns processes)."
-msgstr ""
+msgstr "Joblib es actualmente incapaz de evitar la sobresuscripción en un contexto de multihilo. Sólo puede hacerlo con el backend ``loky`` (que genera procesos)."
 
 #: ../computing/parallelism.rst:153
 msgid "You will find additional details about joblib mitigation of oversubscription in `joblib documentation <https://joblib.readthedocs.io/en/latest/parallel.html#avoiding-over-subscription-of-cpu-ressources>`_."
-msgstr ""
+msgstr "Encontrarás detalles adicionales sobre la mitigación de la sobresuscripción de joblib en la documentación de `joblib <https://joblib.readthedocs.io/en/latest/parallel.html#avoiding-over-subscription-of-cpu-ressources>`_."
 
 #: ../computing/parallelism.rst:159
 msgid "Configuration switches"
-msgstr ""
+msgstr "Interruptores de configuración"
 
 #: ../computing/parallelism.rst:162
 msgid "Python runtime"
-msgstr ""
+msgstr "Tiempo de ejecución de Python"
 
 #: ../computing/parallelism.rst:164
 msgid ":func:`sklearn.set_config` controls the following behaviors:"
-msgstr ""
+msgstr ":func:`sklearn.set_config` controla los siguientes comportamientos:"
 
 #: ../computing/parallelism.rst
 msgid "assume_finite"
-msgstr ""
+msgstr "assume_finite"
 
 #: ../computing/parallelism.rst:168
 msgid "used to skip validation, which enables faster computations but may lead to segmentation faults if the data contains NaNs."
-msgstr ""
+msgstr "se utiliza para omitir la validación, lo que permite realizar cálculos más rápidos pero puede dar lugar a fallos de segmentación si los datos contienen NaNs."
 
 #: ../computing/parallelism.rst
 msgid "working_memory"
-msgstr ""
+msgstr "working_memory"
 
 #: ../computing/parallelism.rst:173
 msgid "the optimal size of temporary arrays used by some algorithms."
-msgstr ""
+msgstr "el tamaño óptimo de los arreglos temporales utilizados por algunos algoritmos."
 
 #: ../computing/parallelism.rst:178
 msgid "Environment variables"
-msgstr ""
+msgstr "Variables de entorno"
 
 #: ../computing/parallelism.rst:180
 msgid "These environment variables should be set before importing scikit-learn."
-msgstr ""
+msgstr "Estas variables de entorno deben establecerse antes de importar scikit-learn."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_SITE_JOBLIB"
-msgstr ""
+msgstr "SKLEARN_SITE_JOBLIB"
 
 #: ../computing/parallelism.rst:184
 msgid "When this environment variable is set to a non zero value, scikit-learn uses the site joblib rather than its vendored version. Consequently, joblib must be installed for scikit-learn to run. Note that using the site joblib is at your own risks: the versions of scikit-learn and joblib need to be compatible. Currently, joblib 0.11+ is supported. In addition, dumps from joblib.Memory might be incompatible, and you might loose some caches and have to redownload some datasets."
-msgstr ""
+msgstr "Cuando esta variable de entorno se establece en un valor distinto de cero, scikit-learn utiliza el joblib del sitio en lugar de su versión vendida. En consecuencia, joblib debe ser instalado para que scikit-learn se ejecute. Tenga en cuenta que el uso de la joblib del sitio es bajo su propio riesgo: las versiones de scikit-learn y joblib deben ser compatibles. Actualmente, joblib 0.11+ es compatible. Además, los volcados de joblib.Memory podrían ser incompatibles, y podrías perder algunas cachés y tener que volver a descargar algunos conjuntos de datos."
 
 #: ../computing/parallelism.rst:194
 msgid "As of version 0.21 this parameter has no effect, vendored joblib was removed and site joblib is always used."
-msgstr ""
+msgstr "A partir de la versión 0.21 este parámetro no tiene efecto, se ha eliminado el joblib vendido y se utiliza siempre el joblib de sitio."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_ASSUME_FINITE"
-msgstr ""
+msgstr "SKLEARN_ASSUME_FINITE"
 
 #: ../computing/parallelism.rst:199
 msgid "Sets the default value for the `assume_finite` argument of :func:`sklearn.set_config`."
-msgstr ""
+msgstr "Establece el valor por defecto del argumento `assume_finite` de :func:`sklearn.set_config`."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_WORKING_MEMORY"
-msgstr ""
+msgstr "SKLEARN_WORKING_MEMORY"
 
 #: ../computing/parallelism.rst:204
 msgid "Sets the default value for the `working_memory` argument of :func:`sklearn.set_config`."
-msgstr ""
+msgstr "Establece el valor por defecto del argumento `working_memory` de :func:`sklearn.set_config`."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_SEED"
-msgstr ""
+msgstr "SKLEARN_SEED"
 
 #: ../computing/parallelism.rst:209
 msgid "Sets the seed of the global random generator when running the tests, for reproducibility."
-msgstr ""
+msgstr "Establece la semilla del generador aleatorio global cuando se ejecutan las pruebas, para la reproducibilidad."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_SKIP_NETWORK_TESTS"
-msgstr ""
+msgstr "SKLEARN_SKIP_NETWORK_TESTS"
 
 #: ../computing/parallelism.rst:214
 msgid "When this environment variable is set to a non zero value, the tests that need network access are skipped. When this environment variable is not set then network tests are skipped."
-msgstr ""
+msgstr "Cuando esta variable de entorno tiene un valor distinto de cero, se omiten las pruebas que necesitan acceso a la red. Cuando esta variable de entorno no se establece, se omiten las pruebas de red."
 
