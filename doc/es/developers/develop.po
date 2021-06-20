@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-06-20 19:43\n"
+"PO-Revision-Date: 2021-06-20 20:50\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -248,42 +248,42 @@ msgstr "Si quieres implementar un nuevo estimador que sea compatible con scikit-
 
 #: ../developers/develop.rst:263
 msgid "The main motivation to make a class compatible to the scikit-learn estimator interface might be that you want to use it together with model evaluation and selection tools such as :class:`model_selection.GridSearchCV` and :class:`pipeline.Pipeline`."
-msgstr ""
+msgstr "La motivación principal para hacer que una clase sea compatible con la interfaz de estimadores de scikit-learn puede ser que quieras usarla junto con la evaluación del modelo y herramientas de selección como :class:`model_selection. ridSearchCV` y :class:`pipeline.Pipeline`."
 
 #: ../developers/develop.rst:268
 msgid "Before detailing the required interface below, we describe two ways to achieve the correct interface more easily."
-msgstr ""
+msgstr "Antes de detallar la interfaz requerida a continuación, describimos dos maneras de lograr la interfaz correcta más fácilmente."
 
 #: ../developers/develop.rst:273
 msgid "We provide a `project template <https://github.com/scikit-learn-contrib/project-template/>`_ which helps in the creation of Python packages containing scikit-learn compatible estimators. It provides:"
-msgstr ""
+msgstr "Proveemos una `plantilla de proyecto <https://github.com/scikit-learn-contrib/project-template/>`_ que ayuda en la creación de paquetes Python que contengan estimadores compatibles con scikit-learn. Provee:"
 
 #: ../developers/develop.rst:277
 msgid "an initial git repository with Python package directory structure"
-msgstr ""
+msgstr "un repositorio git inicial con estructura de directorio de paquetes Python"
 
 #: ../developers/develop.rst:278
 msgid "a template of a scikit-learn estimator"
-msgstr ""
+msgstr "una plantilla de un estimador de scikit-learn"
 
 #: ../developers/develop.rst:279
 msgid "an initial test suite including use of ``check_estimator``"
-msgstr ""
+msgstr "una suite de pruebas inicial incluyendo el uso de ``check_estimator``"
 
 #: ../developers/develop.rst:280
 msgid "directory structures and scripts to compile documentation and example galleries"
-msgstr ""
+msgstr "estructuras de directorios y scripts para compilar documentación y galerías de ejemplo"
 
 #: ../developers/develop.rst:282
 msgid "scripts to manage continuous integration (testing on Linux and Windows)"
-msgstr ""
+msgstr "scripts para gestionar la integración continua (pruebas en Linux y Windows)"
 
 #: ../developers/develop.rst:283
 msgid "instructions from getting started to publishing on `PyPi <https://pypi.org/>`_"
-msgstr ""
+msgstr "instrucciones para empezar a publicar en `PyPi <https://pypi.org/>`_"
 
 msgid "``BaseEstimator`` and mixins:"
-msgstr ""
+msgstr "``BaseEstimator`` y mezclas:"
 
 #: ../developers/develop.rst:287
 msgid "We tend to use \"duck typing\", so building an estimator which follows the API suffices for compatibility, without needing to inherit from or even import any scikit-learn classes."
@@ -291,79 +291,79 @@ msgstr "Tendemos a utilizar la \"duck typing\", por lo que la compilación de un
 
 #: ../developers/develop.rst:291
 msgid "However, if a dependency on scikit-learn is acceptable in your code, you can prevent a lot of boilerplate code by deriving a class from ``BaseEstimator`` and optionally the mixin classes in ``sklearn.base``. For example, below is a custom classifier, with more examples included in the scikit-learn-contrib `project template <https://github.com/scikit-learn-contrib/project-template/blob/master/skltemplate/_template.py>`__."
-msgstr ""
+msgstr "Sin embargo, si una dependencia de scikit-learn es aceptable en su código, puedes evitar un montón de código boilerplate derivando una clase de ``BaseEstimator`` y opcionalmente las clases mixin en ``sklearn.base``. Por ejemplo, a continuación se muestra un clasificador personalizado, con más ejemplos incluidos en scikit-learn-contrib en su `plantilla del proyecto <https://github.com/scikit-learn-contrib/project-template/blob/master/skltemplate/_template.py>`__."
 
 #: ../developers/develop.rst:334
 msgid "get_params and set_params"
-msgstr ""
+msgstr "get_params y set_params"
 
 #: ../developers/develop.rst:335
 msgid "All scikit-learn estimators have ``get_params`` and ``set_params`` functions. The ``get_params`` function takes no arguments and returns a dict of the ``__init__`` parameters of the estimator, together with their values."
-msgstr ""
+msgstr "Todas las estimaciones de plantilla del tienen funciones ``get_params`` y ``set_params``. La función ``get_params`` no toma argumentos y devuelve un dictado de los parámetros ``__init__`` del estimador, junto con sus valores."
 
 #: ../developers/develop.rst:339
 msgid "It must take one keyword argument, ``deep``, which receives a boolean value that determines whether the method should return the parameters of sub-estimators (for most estimators, this can be ignored). The default value for ``deep`` should be `True`. For instance considering the following estimator::"
-msgstr ""
+msgstr "Debe tomar un argumento de palabra clave, ``deep``, que recibe un valor booleano que determina si el método debe devolver los parámetros de subestimadores (para la mayoría de los estimadores, esto puede ser ignorado). El valor por defecto para ``deep`` debe ser `True`. Por ejemplo considerando el siguiente estimador::"
 
 #: ../developers/develop.rst:352
 msgid "The parameter `deep` will control whether or not the parameters of the `subsestimator` should be reported. Thus when `deep=True`, the output will be::"
-msgstr ""
+msgstr "El parámetro `deep` controlará si los parámetros del `subsestimator` deben ser reportados. Así que cuando `deep=True`, la salida será::"
 
 #: ../developers/develop.rst:376
 msgid "Often, the `subestimator` has a name (as e.g. named steps in a :class:`~sklearn.pipeline.Pipeline` object), in which case the key should become `<name>__C`, `<name>__class_weight`, etc."
-msgstr ""
+msgstr "A menudo, el `subestimador` tiene un nombre (como, por ejemplo, los pasos nombrados en un objeto :class:`~sklearn.pipeline.Pipeline`), en cuyo caso la clave debería convertirse en `<nombre>__C`, `<nombre>__class_weight`, etc."
 
 #: ../developers/develop.rst:380
 msgid "While when `deep=False`, the output will be::"
-msgstr ""
+msgstr "Mientras que cuando `deep=False`, la salida será::"
 
 #: ../developers/develop.rst:387
 msgid "The ``set_params`` on the other hand takes as input a dict of the form ``'parameter': value`` and sets the parameter of the estimator using this dict. Return value must be estimator itself."
-msgstr ""
+msgstr "El ``set_params`` por otro lado toma como entrada un dictado de la forma ``'parameter': value`` y establece el parámetro del estimador usando este diccionario. El valor de retorno debe ser el propio estimador."
 
 #: ../developers/develop.rst:391
 msgid "While the ``get_params`` mechanism is not essential (see :ref:`cloning` below), the ``set_params`` function is necessary as it is used to set parameters during grid searches."
-msgstr ""
+msgstr "Mientras que el mecanismo ``get_params`` no es esencial (ver :ref:`cloning` a continuación), la función ``set_params`` es necesaria ya que se usa para establecer parámetros durante las búsquedas en cuadrícula."
 
 #: ../developers/develop.rst:395
 msgid "The easiest way to implement these functions, and to get a sensible ``__repr__`` method, is to inherit from ``sklearn.base.BaseEstimator``. If you do not want to make your code dependent on scikit-learn, the easiest way to implement the interface is::"
-msgstr ""
+msgstr "La forma más fácil de implementar estas funciones, y de obtener un método ``__repr__`` sensato, es heredar de ``sklearn.base.BaseEstimator``. Si no quieres hacer que tu código dependa de scikit-learn, la forma más fácil de implementar la interfaz es::"
 
 #: ../developers/develop.rst:411
 msgid "Parameters and init"
-msgstr ""
+msgstr "Parámetros e init"
 
 #: ../developers/develop.rst:412
 msgid "As :class:`model_selection.GridSearchCV` uses ``set_params`` to apply parameter setting to estimators, it is essential that calling ``set_params`` has the same effect as setting parameters using the ``__init__`` method. The easiest and recommended way to accomplish this is to **not do any parameter validation in** ``__init__``. All logic behind estimator parameters, like translating string arguments into functions, should be done in ``fit``."
-msgstr ""
+msgstr "Como :class:`model_selection.GridSearchCV` utiliza ``set_params`` para aplicar la configuración de parámetros a los estimadores, es esencial que llamar a ``set_params`` tenga el mismo efecto que la configuración de parámetros utilizando el método ``__init__``. La forma más fácil y recomendada para lograr esto es **no hacer ninguna validación de parámetros en** ``__init__``. Toda la lógica detrás de los parámetros del estimador, como la traducción de argumentos de cadena en funciones, debe hacerse en ``fit``."
 
 #: ../developers/develop.rst:421
 msgid "Also it is expected that parameters with trailing ``_`` are **not to be set inside the** ``__init__`` **method**. All and only the public attributes set by fit have a trailing ``_``. As a result the existence of parameters with trailing ``_`` is used to check if the estimator has been fitted."
-msgstr ""
+msgstr "También se espera que los parámetros con la terminación ``_`` **no se establezcan dentro del método** ``init__``. Todos y sólo los atributos públicos espablecidos por ajuste fit tienen una terminación ``_``. Como resultado, la existencia de los parámetros con el final ``_`` se utiliza para comprobar si el estimador ha sido ajustado."
 
 #: ../developers/develop.rst:429
 msgid "Cloning"
-msgstr ""
+msgstr "Clonado"
 
 #: ../developers/develop.rst:430
 msgid "For use with the :mod:`model_selection` module, an estimator must support the ``base.clone`` function to replicate an estimator. This can be done by providing a ``get_params`` method. If ``get_params`` is present, then ``clone(estimator)`` will be an instance of ``type(estimator)`` on which ``set_params`` has been called with clones of the result of ``estimator.get_params()``."
-msgstr ""
+msgstr "Para su uso con el módulo :mod:`model_selection`, un estimador debe soportar la ``base.clone`` para replicar un estimador. Esto puede hacerse proporcionando un método ``get_params``. Si ``get_params`` está presente, entonces ``clone(estimator)`` será una instancia de ``type(estimator)`` en la que ``set_params`` ha sido llamado con clones del resultado de ``estimator.get_params()``."
 
 #: ../developers/develop.rst:437
 msgid "Objects that do not provide this method will be deep-copied (using the Python standard function ``copy.deepcopy``) if ``safe=False`` is passed to ``clone``."
-msgstr ""
+msgstr "Los objetos que no proporcionan este método serán copiados profundamente (usando la función estándar de Python ``copy.deepcopy``) si ``safe=False`` es pasado a ``clone``."
 
 #: ../developers/develop.rst:442
 msgid "Pipeline compatibility"
-msgstr ""
+msgstr "Compatibilidad con pipeline"
 
 #: ../developers/develop.rst:443
 msgid "For an estimator to be usable together with ``pipeline.Pipeline`` in any but the last step, it needs to provide a ``fit`` or ``fit_transform`` function. To be able to evaluate the pipeline on any data but the training set, it also needs to provide a ``transform`` function. There are no special requirements for the last step in a pipeline, except that it has a ``fit`` function. All ``fit`` and ``fit_transform`` functions must take arguments ``X, y``, even if y is not used. Similarly, for ``score`` to be usable, the last step of the pipeline needs to have a ``score`` function that accepts an optional ``y``."
-msgstr ""
+msgstr "Para que un estimador pueda utilizarse junto con ``pipeline.Pipeline`` en cualquier paso, excepto en el último, debe proporcionar una función ``fit`` o ``fit_transform``. Para poder evaluar el pipeline en cualquier dato que no sea el conjunto de entrenamiento, también necesita proporcionar una función ``transform``. No hay requisitos especiales para el último paso de un pipeline, excepto que tiene una función ``fit``. Todas las funciones ``fit`` y ``fit_transform`` deben tomar argumentos ``X, y``, incluso si no se utiliza y. Del mismo modo, para que ``score`` sea utilizable, el último paso del pipeline debe tener una función ``score`` que acepte un ``y`` opcional."
 
 #: ../developers/develop.rst:454
 msgid "Estimator types"
-msgstr ""
+msgstr "Tipos de estimador"
 
 #: ../developers/develop.rst:455
 msgid "Some common functionality depends on the kind of estimator passed. For example, cross-validation in :class:`model_selection.GridSearchCV` and :func:`model_selection.cross_val_score` defaults to being stratified when used on a classifier, but not otherwise. Similarly, scorers for average precision that take a continuous prediction need to call ``decision_function`` for classifiers, but ``predict`` for regressors. This distinction between classifiers and regressors is implemented using the ``_estimator_type`` attribute, which takes a string value. It should be ``\"classifier\"`` for classifiers and ``\"regressor\"`` for regressors and ``\"clusterer\"`` for clustering methods, to work as expected. Inheriting from ``ClassifierMixin``, ``RegressorMixin`` or ``ClusterMixin`` will set the attribute automatically.  When a meta-estimator needs to distinguish among estimator types, instead of checking ``_estimator_type`` directly, helpers like :func:`base.is_classifier` should be used."
@@ -395,7 +395,7 @@ msgstr ""
 
 #: ../developers/develop.rst:505
 msgid "Estimator Tags"
-msgstr ""
+msgstr "Etiquetas de Estimador"
 
 #: ../developers/develop.rst:508
 msgid "The estimator tags are experimental and the API is subject to change."
@@ -411,7 +411,7 @@ msgstr ""
 
 #: ../developers/develop.rst:524
 msgid "allow_nan (default=False)"
-msgstr ""
+msgstr "allow_nan (default=False)"
 
 #: ../developers/develop.rst:524
 msgid "whether the estimator supports data with missing values encoded as np.NaN"
@@ -427,7 +427,7 @@ msgstr ""
 
 #: ../developers/develop.rst:531
 msgid "multilabel (default=False)"
-msgstr ""
+msgstr "multilabel (default=False)"
 
 #: ../developers/develop.rst:531
 msgid "whether the estimator supports multilabel output"
@@ -435,7 +435,7 @@ msgstr ""
 
 #: ../developers/develop.rst:535
 msgid "multioutput (default=False)"
-msgstr ""
+msgstr "multioutput (default=False)"
 
 #: ../developers/develop.rst:534
 msgid "whether a regressor supports multi-target outputs or a classifier supports multi-class multi-output."
@@ -443,7 +443,7 @@ msgstr ""
 
 #: ../developers/develop.rst:538
 msgid "multioutput_only (default=False)"
-msgstr ""
+msgstr "multioutput_only (default=False)"
 
 #: ../developers/develop.rst:538
 msgid "whether estimator supports only multi-output classification or regression."
@@ -451,7 +451,7 @@ msgstr ""
 
 #: ../developers/develop.rst:542
 msgid "no_validation (default=False)"
-msgstr ""
+msgstr "no_validation (default=False)"
 
 #: ../developers/develop.rst:541
 msgid "whether the estimator skips input-validation. This is only meant for stateless and dummy transformers!"
@@ -467,7 +467,7 @@ msgstr ""
 
 #: ../developers/develop.rst:555
 msgid "pairwise (default=False)"
-msgstr ""
+msgstr "por pares (default=False)"
 
 #: ../developers/develop.rst:548
 msgid "This boolean attribute indicates whether the data (`X`) :term:`fit` and similar methods consists of pairwise measures over samples rather than a feature representation for each sample.  It is usually `True` where an estimator has a `metric` or `affinity` or `kernel` parameter with value 'precomputed'. Its primary purpose is that when a :term:`meta-estimator` extracts a sub-sample of data intended for a pairwise estimator, the data needs to be indexed on both axes, while other data is indexed only on the first axis."
