@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-06-20 17:21\n"
+"PO-Revision-Date: 2021-06-20 18:26\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,23 +20,23 @@ msgstr ""
 
 #: ../developers/develop.rst:5
 msgid "Developing scikit-learn estimators"
-msgstr ""
+msgstr "Desarrollando estimadores de scikit-learn"
 
 #: ../developers/develop.rst:7
 msgid "Whether you are proposing an estimator for inclusion in scikit-learn, developing a separate package compatible with scikit-learn, or implementing custom components for your own projects, this chapter details how to develop objects that safely interact with scikit-learn Pipelines and model selection tools."
-msgstr ""
+msgstr "Ya sea que estes proponiendo un estimador para su inclusión en scikit-learn, desarrollando un paquete separado compatible con scikit-learn, o implementando componentes personalizados para tus propios proyectos, este capítulo detalla cómo desarrollar objetos que interactúan de forma segura con los Pipelines de scikit-learn y las herramientas de selección de modelos."
 
 #: ../developers/develop.rst:18
 msgid "APIs of scikit-learn objects"
-msgstr ""
+msgstr "APIs de objetos de scikit-learn"
 
 #: ../developers/develop.rst:20
 msgid "To have a uniform API, we try to have a common basic API for all the objects. In addition, to avoid the proliferation of framework code, we try to adopt simple conventions and limit to a minimum the number of methods an object must implement."
-msgstr ""
+msgstr "Para tener una API uniforme, intentamos tener una API básica común para todos los objetos. Además, para evitar la proliferación de código del framework, intentamos adoptar convenciones sencillas y limitar al mínimo el número de métodos que debe implementar un objeto."
 
 #: ../developers/develop.rst:25
 msgid "Elements of the scikit-learn API are described more definitively in the :ref:`glossary`."
-msgstr ""
+msgstr "Los elementos de la API de scikit-learn se describen de forma más definitiva en el :ref:`glosary`."
 
 #: ../developers/develop.rst:29
 msgid "Different objects"
@@ -64,11 +64,11 @@ msgstr "Predictor"
 
 #: ../developers/develop.rst:46
 msgid "For supervised learning, or some unsupervised problems, implements::"
-msgstr ""
+msgstr "Para el aprendizaje supervisado, o algunos problemas no supervisados, implementa::"
 
 #: ../developers/develop.rst:50
 msgid "Classification algorithms usually also offer a way to quantify certainty of a prediction, either using ``decision_function`` or ``predict_proba``::"
-msgstr ""
+msgstr "Los algoritmos de clasificación generalmente también ofrecen una manera de cuantificar la certidumbre de una predicción, ya sea usando ``decision_function`` o ``predict_proba``::"
 
 #: ../developers/develop.rst
 msgid "Transformer"
@@ -76,115 +76,115 @@ msgstr "Transformador"
 
 #: ../developers/develop.rst:57
 msgid "For filtering or modifying the data, in a supervised or unsupervised way, implements::"
-msgstr ""
+msgstr "Para filtrar o modificar los datos, de forma supervisada o no supervisada, implementa::"
 
 #: ../developers/develop.rst:62
 msgid "When fitting and transforming can be performed much more efficiently together than separately, implements::"
-msgstr ""
+msgstr "Cuando se ajusta y transforma se puede realizar de forma mucho más eficiente juntos que por separado, implementa::"
 
 #: ../developers/develop.rst
 msgid "Model"
-msgstr ""
+msgstr "Modelo"
 
 #: ../developers/develop.rst:69
 msgid "A model that can give a `goodness of fit <https://en.wikipedia.org/wiki/Goodness_of_fit>`_ measure or a likelihood of unseen data, implements (higher is better)::"
-msgstr ""
+msgstr "Un modelo que puede dar una medida de `bondad de ajuste <https://es.wikipedia.org/wiki/Bondad_de_ajuste>`_ o una probabilidad de los datos no vistos, implementa (mayor es mejor)::"
 
 #: ../developers/develop.rst:75
 msgid "Estimators"
-msgstr ""
+msgstr "Estimadores"
 
 #: ../developers/develop.rst:77
 msgid "The API has one predominant object: the estimator. An estimator is an object that fits a model based on some training data and is capable of inferring some properties on new data. It can be, for instance, a classifier or a regressor. All estimators implement the fit method::"
-msgstr ""
+msgstr "La API tiene un objeto predominante: el estimador. Un estimador es un objeto que se ajusta a un modelo basado en algunos datos de capacitación y es capaz de inferir algunas propiedades sobre nuevos datos. Puede ser, por ejemplo, un clasificador o un regresor. Todos los estimadores implementan el método de ajuste::"
 
 #: ../developers/develop.rst:84
 msgid "All built-in estimators also have a ``set_params`` method, which sets data-independent parameters (overriding previous parameter values passed to ``__init__``)."
-msgstr ""
+msgstr "Todos los estimadores incorporados también tienen un método ``set_params``, que establece parámetros independientes de los datos (anulando los valores de los parámetros anteriores pasados a ``__init__``)."
 
 #: ../developers/develop.rst:88
 msgid "All estimators in the main scikit-learn codebase should inherit from ``sklearn.base.BaseEstimator``."
-msgstr ""
+msgstr "Todos los estimadores en el código base principal de scikit-learn deben heredar de ``sklearn.base.BaseEstimator``."
 
 #: ../developers/develop.rst:92
 msgid "Instantiation"
-msgstr ""
+msgstr "Instanciación"
 
 #: ../developers/develop.rst:94
 msgid "This concerns the creation of an object. The object's ``__init__`` method might accept constants as arguments that determine the estimator's behavior (like the C constant in SVMs). It should not, however, take the actual training data as an argument, as this is left to the ``fit()`` method::"
-msgstr ""
+msgstr "Se trata de la creación de un objeto. El método ``__init__`` del objeto puede aceptar constantes como argumentos que determinen el comportamiento del estimador (como la constante C en los SVM). Sin embargo, no debería tomar los datos de entrenamiento como argumento, ya que esto se deja al método ``fit()``::"
 
 #: ../developers/develop.rst:103
 msgid "The arguments accepted by ``__init__`` should all be keyword arguments with a default value. In other words, a user should be able to instantiate an estimator without passing any arguments to it. The arguments should all correspond to hyperparameters describing the model or the optimisation problem the estimator tries to solve. These initial arguments (or parameters) are always remembered by the estimator. Also note that they should not be documented under the \"Attributes\" section, but rather under the \"Parameters\" section for that estimator."
-msgstr ""
+msgstr "Los argumentos aceptados por ``__init__`` deberían ser todos argumentos de palabra clave con un valor por defecto. En otras palabras, un usuario debe ser capaz de instanciar un estimador sin pasarle ningún argumento. Todos los argumentos deberían corresponder a hiperparámetros que describan el modelo o el problema de optimización que el estimador intenta resolver. Estos argumentos (o parámetros) iniciales son siempre recordados por el estimador. También hay que tener en cuenta que no deben documentarse en la sección \"Atributos\", sino en la sección \"Parámetros\" de ese estimador."
 
 #: ../developers/develop.rst:112
 msgid "In addition, **every keyword argument accepted by** ``__init__`` **should correspond to an attribute on the instance**. Scikit-learn relies on this to find the relevant attributes to set on an estimator when doing model selection."
-msgstr ""
+msgstr "Además, **cada argumento de palabra clave aceptado por** ``__init__`` debe corresponder a un atributo en la instancia**. Scikit-learn se basa en esto para encontrar los atributos relevantes para establecer en un estimador al hacer la selección del modelo."
 
 #: ../developers/develop.rst:116
 msgid "To summarize, an ``__init__`` should look like::"
-msgstr ""
+msgstr "Para resumir, un ``__init__`` debería parecer así::"
 
 #: ../developers/develop.rst:122
 msgid "There should be no logic, not even input validation, and the parameters should not be changed. The corresponding logic should be put where the parameters are used, typically in ``fit``. The following is wrong::"
-msgstr ""
+msgstr "No debería haber lógica, ni siquiera validación de entrada, y los parámetros no deberían cambiarse. La lógica correspondiente debería ponerse donde se utilizan los parámetros, normalmente en ``fit``. Lo siguiente es incorrecto::"
 
 #: ../developers/develop.rst:137
 msgid "The reason for postponing the validation is that the same validation would have to be performed in ``set_params``, which is used in algorithms like ``GridSearchCV``."
-msgstr ""
+msgstr "La razón para posponer la validación es que la misma validación tendría que realizarse en ``set_params``, que se utiliza en algoritmos como ``GridSearchCV``."
 
 #: ../developers/develop.rst:142
 msgid "Fitting"
-msgstr ""
+msgstr "Ajuste"
 
 #: ../developers/develop.rst:144
 msgid "The next thing you will probably want to do is to estimate some parameters in the model. This is implemented in the ``fit()`` method."
-msgstr ""
+msgstr "Lo siguiente que probablemente querras hacer es estimar algunos parámetros en el modelo. Esto está implementado en el método ``fit()``."
 
 #: ../developers/develop.rst:147
 msgid "The ``fit()`` method takes the training data as arguments, which can be one array in the case of unsupervised learning, or two arrays in the case of supervised learning."
-msgstr ""
+msgstr "El método ``fit()`` toma los datos de entrenamiento como argumentos, que puede ser una matriz en el caso de aprendizaje no supervisado, o dos matrices en el caso de aprendizaje supervisado."
 
 #: ../developers/develop.rst:151
 msgid "Note that the model is fitted using ``X`` and ``y``, but the object holds no reference to ``X`` and ``y``. There are, however, some exceptions to this, as in the case of precomputed kernels where this data must be stored for use by the predict method."
-msgstr ""
+msgstr "Ten en cuenta que el modelo se ajusta usando ``X`` y ``y``, pero el objeto no contiene ninguna referencia a ``X`` y ``y``. Sin embargo, hay algunas excepciones a esto. como en el caso de los núcleos precomputados donde estos datos deben ser almacenados para su uso por el método predeterminado."
 
 #: ../developers/develop.rst:157
 msgid "Parameters"
-msgstr ""
+msgstr "Parámetros"
 
 #: ../developers/develop.rst:159
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: ../developers/develop.rst:159
 msgid "array-like of shape (n_samples, n_features)"
-msgstr ""
+msgstr "array-like de forma (n_samples, n_features)"
 
 #: ../developers/develop.rst:161
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: ../developers/develop.rst:161
 msgid "array-like of shape (n_samples,)"
-msgstr ""
+msgstr "array-like de forma (n_samples,)"
 
 #: ../developers/develop.rst:163
 msgid "kwargs"
-msgstr ""
+msgstr "kwargs"
 
 #: ../developers/develop.rst:163
 msgid "optional data-dependent parameters"
-msgstr ""
+msgstr "parámetros opcionales dependientes de datos"
 
 #: ../developers/develop.rst:166
 msgid "``X.shape[0]`` should be the same as ``y.shape[0]``. If this requisite is not met, an exception of type ``ValueError`` should be raised."
-msgstr ""
+msgstr "``X.shape[0]`` debe ser el mismo que ``y.shape[0]``. Si no se cumple este requisito, se lanzará una excepción de tipo ``ValueError``."
 
 #: ../developers/develop.rst:169
 msgid "``y`` might be ignored in the case of unsupervised learning. However, to make it possible to use the estimator as part of a pipeline that can mix both supervised and unsupervised transformers, even unsupervised estimators need to accept a ``y=None`` keyword argument in the second position that is just ignored by the estimator. For the same reason, ``fit_predict``, ``fit_transform``, ``score`` and ``partial_fit`` methods need to accept a ``y`` argument in the second place if they are implemented."
-msgstr ""
+msgstr "``y`` podría ignorarse en el caso del aprendizaje no supervisado. Sin embargo, para hacer posible el uso del estimador como parte de una cadena que puede mezclar transformadores supervisados y no supervisados, incluso los estimadores no supervisados necesitan aceptar un argumento de palabra clave ``y=None`` en la segunda posición que es simplemente ignorado por el estimador. Por la misma razón, los métodos ``fit_predict``, ``fit_transform``, ``score`` y ``partial_fit`` necesitan aceptar un argumento ``y`` en la segunda posición si se implementan."
 
 #: ../developers/develop.rst:178
 msgid "The method should return the object (``self``). This pattern is useful to be able to implement quick one liners in an IPython session such as::"
@@ -232,15 +232,15 @@ msgstr ""
 
 #: ../developers/develop.rst:235
 msgid "Universal attributes"
-msgstr ""
+msgstr "Atributos universales"
 
 #: ../developers/develop.rst:237
 msgid "Estimators that expect tabular input should set a `n_features_in_` attribute at `fit` time to indicate the number of features that the estimator expects for subsequent calls to `predict` or `transform`. See `SLEP010 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep010/proposal.html>`_ for details."
-msgstr ""
+msgstr "Los estimadores que esperan una entrada tabular deben establecer un atributo `n_features_in_` en el momento de `fit` para indicar el número de características que el estimador espera para las siguientes llamadas a `predict` o `transform`. Ver `SLEP010 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep010/proposal.html>`_ para más detalles."
 
 #: ../developers/develop.rst:248
 msgid "Rolling your own estimator"
-msgstr ""
+msgstr "Rodando tu propio estimador"
 
 #: ../developers/develop.rst:249
 msgid "If you want to implement a new estimator that is scikit-learn-compatible, whether it is just for you or for contributing it to scikit-learn, there are several internals of scikit-learn that you should be aware of in addition to the scikit-learn API outlined above. You can check whether your estimator adheres to the scikit-learn interface and standards by running :func:`~sklearn.utils.estimator_checks.check_estimator` on an instance. The :func:`~sklearn.utils.estimator_checks.parametrize_with_checks` pytest decorator can also be used (see its docstring for details and possible interactions with `pytest`)::"
