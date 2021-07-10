@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 12:56-0400\n"
-"PO-Revision-Date: 2021-07-10 17:31\n"
+"PO-Revision-Date: 2021-07-10 18:29\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -53,39 +53,39 @@ msgstr "Ahora podemos inspeccionar los resultados de nuestra búsqueda, ordenado
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:223
 msgid "We can see that the estimator using the `'rbf'` kernel performed best, closely followed by `'linear'`. Both estimators with a `'poly'` kernel performed worse, with the one using a two-degree polynomial achieving a much lower perfomance than all other models."
-msgstr ""
+msgstr "Podemos ver que el estimador que utiliza el kernel \"rbf\" es el que mejor funciona, seguido de cerca por el `'linear'`. Ambos estimadores con un kernel `'poly'` se comportaron peor, con el que utiliza un polinomio de segundo grado logrando un rendimiento mucho menor que todos los demás modelos."
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:228
 msgid "Usually, the analysis just ends here, but half the story is missing. The output of :class:`~sklearn.model_selection.GridSearchCV` does not provide information on the certainty of the differences between the models. We don't know if these are **statistically** significant. To evaluate this, we need to conduct a statistical test. Specifically, to contrast the performance of two models we should statistically compare their AUC scores. There are 100 samples (AUC scores) for each model as we repreated 10 times a 10-fold cross-validation."
-msgstr ""
+msgstr "Normalmente, el análisis termina aquí, pero falta la mitad de la historia. La salida de :class:`~sklearn.model_selection.GridSearchCV` no proporciona información sobre la certeza de las diferencias entre los modelos. No sabemos si son **estadísticamente** significativas. Para evaluar esto, necesitamos realizar una prueba estadística. En concreto, para contrastar el rendimiento de dos modelos debemos comparar estadísticamente sus puntuaciones AUC. Hay 100 muestras (puntuaciones AUC) para cada modelo, ya que repetimos 10 veces una validación cruzada de 10-pliegues(fold)."
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:237
 msgid "However, the scores of the models are not independent: all models are evaluated on the **same** 100 partitions, increasing the correlation between the performance of the models. Since some partitions of the data can make the distinction of the classes particularly easy or hard to find for all models, the models scores will co-vary."
-msgstr ""
+msgstr "Sin embargo, las puntuaciones de los modelos no son independientes: todos los modelos se evalúan en las **mismas** 100 particiones, lo que aumenta la correlación entre el rendimiento de los modelos. Dado que algunas particiones de los datos pueden hacer que la distinción de las clases sea particularmente fácil o difícil de encontrar para todos los modelos, las puntuaciones de los modelos covarían."
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:244
 msgid "Let's inspect this partition effect by plotting the performance of all models in each fold, and calculating the correlation between models across folds:"
-msgstr ""
+msgstr "Inspeccionemos este efecto de partición graficando el rendimiento de todos los modelos en cada pliegue y calculando la correlación entre los modelos en todos los pliegues:"
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:296
 msgid "We can observe that the performance of the models highly depends on the fold."
-msgstr ""
+msgstr "Podemos observar que el rendimiento de los modelos depende en gran medida del pliegue."
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:298
 msgid "As a consequence, if we assume independence between samples we will be underestimating the variance computed in our statistical tests, increasing the number of false positive errors (i.e. detecting a significant difference between models when such does not exist) [1]_."
-msgstr ""
+msgstr "Como consecuencia, si asumimos independencia entre las muestras estaremos subestimando la varianza calculada en nuestras pruebas estadísticas, aumentando el número de errores falsos positivos (es decir, detectar una diferencia significativa entre los modelos cuando esta no existe) [1]_."
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:303
 msgid "Several variance-corrected statistical tests have been developed for these cases. In this example we will show how to implement one of them (the so called Nadeau and Bengio's corrected t-test) under two different statistical frameworks: frequentist and Bayesian."
-msgstr ""
+msgstr "Se han desarrollado varias pruebas estadísticas con corrección de la varianza para estos casos. En este ejemplo mostraremos cómo implementar una de ellas (la llamada prueba t corregida de Nadeau y Bengio) bajo dos enfoques estadísticos diferentes: frecuentista y bayesiano."
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:311
 msgid "Comparing two models: frequentist approach"
-msgstr ""
+msgstr "Comparando dos modelos: enfoque frecuentista"
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:313
 msgid "We can start by asking: \"Is the first model significantly better than the second model (when ranked by `mean_test_score`)?\""
-msgstr ""
+msgstr "Podemos empezar preguntando: \"¿Es el primer modelo significativamente mejor que el segundo (cuando se clasifica por `mean_test_score`)?\""
 
 #: ../auto_examples/model_selection/plot_grid_search_stats.rst:316
 msgid "To answer this question using a frequentist approach we could run a paired t-test and compute the p-value. This is also known as Diebold-Mariano test in the forecast literature [5]_. Many variants of such a t-test have been developed to account for the 'non-independence of samples problem' described in the previous section. We will use the one proven to obtain the highest replicability scores (which rate how similar the performance of a model is when evaluating it on different random partitions of the same dataset) while mantaining a low rate of false postitives and false negatives: the Nadeau and Bengio's corrected t-test [2]_ that uses a 10 times repeated 10-fold cross validation [3]_."
