@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-07-12 13:20\n"
+"PO-Revision-Date: 2021-07-12 14:28\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -112,151 +112,151 @@ msgstr "El conjunto de datos 20 Newsgroups es una colección de aproximadamente 
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:89
 msgid "In the following we will use the built-in dataset loader for 20 newsgroups from scikit-learn. Alternatively, it is possible to download the dataset manually from the website and use the :func:`sklearn.datasets.load_files` function by pointing it to the ``20news-bydate-train`` sub-folder of the uncompressed archive folder."
-msgstr ""
+msgstr "A continuación utilizaremos el cargador de conjuntos de datos incorporado para 20 grupos de noticias de scikit-learn. Alternativamente, es posible descargar el conjunto de datos manualmente desde el sitio web y utilizar la función :func:`sklearn.datasets.load_files` apuntando a la subcarpeta ``20news-bydate-train`` de la carpeta de archivos sin comprimir."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:95
 msgid "In order to get faster execution times for this first example we will work on a partial dataset with only 4 categories out of the 20 available in the dataset::"
-msgstr ""
+msgstr "Para conseguir tiempos de ejecución más rápidos para este primer ejemplo trabajaremos sobre un conjunto de datos parcial con sólo 4 categorías de las 20 disponibles en el conjunto de datos::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:102
 msgid "We can now load the list of files matching those categories as follows::"
-msgstr ""
+msgstr "Ahora podemos cargar la lista de archivos de correspondencia con esas categorías de la siguiente manera::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:108
 msgid "The returned dataset is a ``scikit-learn`` \"bunch\": a simple holder object with fields that can be both accessed as python ``dict`` keys or ``object`` attributes for convenience, for instance the ``target_names`` holds the list of the requested category names::"
-msgstr ""
+msgstr "El conjunto de datos devuelto es un \"bunch\" de ``scikit-learn``: un simple objeto titular con campos a los que se puede acceder como claves ``dict`` de python o como atributos ``object`` para mayor comodidad, por ejemplo el ``target_names`` contiene la lista de los nombres de las categorías solicitadas::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:116
 msgid "The files themselves are loaded in memory in the ``data`` attribute. For reference the filenames are also available::"
-msgstr ""
+msgstr "Los propios archivos se cargan en la memoria en el atributo ``data``. Como referencia, los nombres de los archivos también están disponibles::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:124
 msgid "Let's print the first lines of the first loaded file::"
-msgstr ""
+msgstr "Imprimamos las primeras líneas del primer archivo cargado::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:134
 msgid "Supervised learning algorithms will require a category label for each document in the training set. In this case the category is the name of the newsgroup which also happens to be the name of the folder holding the individual documents."
-msgstr ""
+msgstr "Los algoritmos de aprendizaje supervisado requieren una etiqueta de categoría para cada documento del conjunto de entrenamiento. En este caso, la categoría es el nombre del grupo de noticias, que también es el nombre de la carpeta que contiene los documentos individuales."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:139
 msgid "For speed and space efficiency reasons ``scikit-learn`` loads the target attribute as an array of integers that corresponds to the index of the category name in the ``target_names`` list. The category integer id of each sample is stored in the ``target`` attribute::"
-msgstr ""
+msgstr "Por razones de velocidad y eficiencia de espacio ``scikit-learn`` carga el atributo target como un arreglo de enteros que corresponde al índice del nombre de la categoría en la lista ``target_names``. El identificador de categoría de cada muestra se almacena en el atributo ``target``::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:147
 msgid "It is possible to get back the category names as follows::"
-msgstr ""
+msgstr "Es posible recuperar los nombres de las categorías de la siguiente manera::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:163
 msgid "You might have noticed that the samples were shuffled randomly when we called ``fetch_20newsgroups(..., shuffle=True, random_state=42)``: this is useful if you wish to select only a subset of samples to quickly train a model and get a first idea of the results before re-training on the complete dataset later."
-msgstr ""
+msgstr "Habrás notado que las muestras se barajan aleatoriamente cuando llamamos a ``fetch_20newsgroups(..., shuffle=True, random_state=42)``: esto es útil si quieres seleccionar sólo un subconjunto de muestras para entrenar rápidamente un modelo y tener una primera idea de los resultados antes de volver a entrenar en el conjunto de datos completo más tarde."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:170
 msgid "Extracting features from text files"
-msgstr ""
+msgstr "Extracción de características de archivos de texto"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:172
 msgid "In order to perform machine learning on text documents, we first need to turn the text content into numerical feature vectors."
-msgstr ""
+msgstr "Para llevar a cabo el aprendizaje automático de documentos de texto, primero tenemos que convertir el contenido del texto en vectores de características numéricas."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:179
 msgid "Bags of words"
-msgstr ""
+msgstr "Empaquetado de palabras"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:181
 msgid "The most intuitive way to do so is to use a bags of words representation:"
-msgstr ""
+msgstr "La forma más intuitiva de hacerlo es utilizar una representación de empaquetado de palabras:"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:183
 msgid "Assign a fixed integer id to each word occurring in any document of the training set (for instance by building a dictionary from words to integer indices)."
-msgstr ""
+msgstr "Asigne un identificador entero fijo a cada palabra que aparezca en cualquier documento del conjunto de entrenamiento (por ejemplo, construyendo un diccionario de palabras con índices enteros)."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:187
 msgid "For each document ``#i``, count the number of occurrences of each word ``w`` and store it in ``X[i, j]`` as the value of feature ``#j`` where ``j`` is the index of word ``w`` in the dictionary."
-msgstr ""
+msgstr "Para cada documento ``#i``, se cuenta el número de apariciones de cada palabra ``w`` y se almacena en ``X[i, j]`` como valor de la característica ``#j`` donde ``j`` es el índice de la palabra ``w`` en el diccionario."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:191
 msgid "The bags of words representation implies that ``n_features`` is the number of distinct words in the corpus: this number is typically larger than 100,000."
-msgstr ""
+msgstr "La representación de empaquetado de palabras implica que ``n_features`` es el número de palabras distintas en el corpus: este número suele ser superior a 100.000."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:195
 msgid "If ``n_samples == 10000``, storing ``X`` as a NumPy array of type float32 would require 10000 x 100000 x 4 bytes = **4GB in RAM** which is barely manageable on today's computers."
-msgstr ""
+msgstr "Si ``n_samples == 10000``, almacenar ``X`` como un arreglo de NumPy de tipo float32 requeriría 10000 x 100000 x 4 bytes = **4GB en RAM** que es apenas manejable en las computadoras actuales."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:199
 msgid "Fortunately, **most values in X will be zeros** since for a given document less than a few thousand distinct words will be used. For this reason we say that bags of words are typically **high-dimensional sparse datasets**. We can save a lot of memory by only storing the non-zero parts of the feature vectors in memory."
-msgstr ""
+msgstr "Afortunadamente, **la mayoría de los valores de X serán ceros**, ya que para un documento determinado se utilizarán menos de unos pocos miles de palabras distintas. Por eso decimos que los empaquetado de palabras son típicamente **conjuntos de datos dispersos de alta dimensión**. Podemos ahorrar mucha memoria almacenando sólo las partes distintas de cero de los vectores de características en la memoria."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:205
 msgid "``scipy.sparse`` matrices are data structures that do exactly this, and ``scikit-learn`` has built-in support for these structures."
-msgstr ""
+msgstr "Las matrices ``scipy.sparse`` son estructuras de datos que hacen exactamente esto, y ``scikit-learn`` tiene soporte incorporado para estas estructuras."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:210
 msgid "Tokenizing text with ``scikit-learn``"
-msgstr ""
+msgstr "Tokenización de texto con ``scikit-learn``"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:212
 msgid "Text preprocessing, tokenizing and filtering of stopwords are all included in :class:`CountVectorizer`, which builds a dictionary of features and transforms documents to feature vectors::"
-msgstr ""
+msgstr "El preprocesamiento de texto, la tokenización y el filtrado de palabras de parada están incluidos en :class:`CountVectorizer`, que construye un diccionario de características y transforma los documentos en vectores de características::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:222
 msgid ":class:`CountVectorizer` supports counts of N-grams of words or consecutive characters. Once fitted, the vectorizer has built a dictionary of feature indices::"
-msgstr ""
+msgstr ":class:`CountVectorizer` soporta recuentos de N-gramas de palabras o caracteres consecutivos. Una vez ajustado, el vectorizador ha construido un diccionario de índices de características::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:229
 msgid "The index value of a word in the vocabulary is linked to its frequency in the whole training corpus."
-msgstr ""
+msgstr "El valor del índice de una palabra en el vocabulario está vinculado a su frecuencia en todo el corpus de entrenamiento."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:243
 msgid "From occurrences to frequencies"
-msgstr ""
+msgstr "De ocurrencias a frecuencias"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:245
 msgid "Occurrence count is a good start but there is an issue: longer documents will have higher average count values than shorter documents, even though they might talk about the same topics."
-msgstr ""
+msgstr "El recuento de ocurrencias es un buen comienzo, pero hay un problema: los documentos más largos tendrán valores de recuento medio más altos que los documentos más cortos, aunque hablen de los mismos temas."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:249
 msgid "To avoid these potential discrepancies it suffices to divide the number of occurrences of each word in a document by the total number of words in the document: these new features are called ``tf`` for Term Frequencies."
-msgstr ""
+msgstr "Para evitar estas posibles discrepancias, basta con dividir el número de apariciones de cada palabra en un documento entre el número total de palabras del mismo: estas nuevas características se denominan ``tf`` para las frecuencias de términos."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:254
 msgid "Another refinement on top of tf is to downscale weights for words that occur in many documents in the corpus and are therefore less informative than those that occur only in a smaller portion of the corpus."
-msgstr ""
+msgstr "Otro refinamiento sobre tf consiste en reducir las ponderaciones de las palabras que aparecen en muchos documentos del corpus y que, por tanto, son menos informativas que las que sólo aparecen en una parte más pequeña del corpus."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:259
 msgid "This downscaling is called `tf–idf`_ for \"Term Frequency times Inverse Document Frequency\"."
-msgstr ""
+msgstr "Esta reducción de escala se denomina `tf-idf`_ por \"Term Frequency times Inverse Document Frequency\"."
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:265
 msgid "Both **tf** and **tf–idf** can be computed as follows using :class:`TfidfTransformer`::"
-msgstr ""
+msgstr "Tanto **tf** como **tf-idf** pueden calcularse de la siguiente manera utilizando :class:`TfidfTransformer`::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:274
 msgid "In the above example-code, we firstly use the ``fit(..)`` method to fit our estimator to the data and secondly the ``transform(..)`` method to transform our count-matrix to a tf-idf representation. These two steps can be combined to achieve the same end result faster by skipping redundant processing. This is done through using the ``fit_transform(..)`` method as shown below, and as mentioned in the note in the previous section::"
-msgstr ""
+msgstr "En el código de ejemplo anterior, primero utilizamos el método ``fit(..)`` para ajustar nuestro estimador a los datos y, en segundo lugar, el método ``transform(..)`` para transformar nuestra matriz de recuento a una representación tf-idf. Estos dos pasos pueden combinarse para lograr el mismo resultado final más rápidamente, omitiendo el procesamiento redundante. Esto se hace utilizando el método ``fit_transform(..)`` como se muestra a continuación, y como se menciona en la nota de la sección anterior::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:289
 msgid "Training a classifier"
-msgstr ""
+msgstr "Entrenar un clasificador"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:291
 msgid "Now that we have our features, we can train a classifier to try to predict the category of a post. Let's start with a :ref:`naïve Bayes <naive_bayes>` classifier, which provides a nice baseline for this task. ``scikit-learn`` includes several variants of this classifier; the one most suitable for word counts is the multinomial variant::"
-msgstr ""
+msgstr "Ahora que tenemos nuestras características, podemos entrenar un clasificador para intentar predecir la categoría de un post. Empecemos con un clasificador :ref:`naive Bayes <naive_bayes>`, que proporciona una buena línea de base para esta tarea. ``scikit-learn`` incluye varias variantes de este clasificador; la más adecuada para el recuento de palabras es la variante multinomial::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:301
 msgid "To try to predict the outcome on a new document we need to extract the features using almost the same feature extracting chain as before. The difference is that we call ``transform`` instead of ``fit_transform`` on the transformers, since they have already been fit to the training set::"
-msgstr ""
+msgstr "Para intentar predecir el resultado en un nuevo documento necesitamos extraer las características utilizando casi la misma cadena de extracción de características que antes. La diferencia es que llamamos a ``transform`` en lugar de ``fit_transform`` a los transformadores, ya que estos ya han sido ajustados al conjunto de entrenamiento::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:320
 msgid "Building a pipeline"
-msgstr ""
+msgstr "Construir un pipeline"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:322
 msgid "In order to make the vectorizer => transformer => classifier easier to work with, ``scikit-learn`` provides a :class:`~sklearn.pipeline.Pipeline` class that behaves like a compound classifier::"
-msgstr ""
+msgstr "Para facilitar el trabajo del vectorizador => transformador => clasificador, ``scikit-learn`` proporciona una clase :class:`~sklearn.pipeline.Pipeline` que se comporta como un clasificador compuesto::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:334
 msgid "The names ``vect``, ``tfidf`` and ``clf`` (classifier) are arbitrary. We will use them to perform grid search for suitable hyperparameters below. We can now train the model with a single command::"
-msgstr ""
+msgstr "Los nombres ``vect``, ``tfidf`` y ``clf`` (clasificador) son arbitrarios. Los utilizaremos para realizar la búsqueda exhaustiva de hiperparámetros adecuados más adelante. Ahora podemos entrenar el modelo con un solo comando::"
 
 #: ../tutorial/text_analytics/working_with_text_data.rst:343
 msgid "Evaluation of the performance on the test set"
