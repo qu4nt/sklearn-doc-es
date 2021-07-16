@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-07-16 01:58\n"
+"PO-Revision-Date: 2021-07-16 03:18\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../developers/performance.rst:5
 msgid "How to optimize for speed"
-msgstr ""
+msgstr "Cómo optimizar para velocidad"
 
 #: ../developers/performance.rst:7
 msgid "The following gives some practical guidelines to help you write efficient code for the scikit-learn project."
@@ -56,43 +56,43 @@ msgstr "Sin embargo, a veces un algoritmo no puede ser expresado eficientemente 
 
 #: ../developers/performance.rst:49
 msgid "**Profile** the Python implementation to find the main bottleneck and isolate it in a **dedicated module level function**. This function will be reimplemented as a compiled extension module."
-msgstr ""
+msgstr "**Perfila** la implementación en Python para encontrar el principal cuello de botella y aislarlo en una **función dedicada a nivel de módulo**. Esta función se reimplementará como un módulo de extensión compilado."
 
 #: ../developers/performance.rst:53
 msgid "If there exists a well maintained BSD or MIT **C/C++** implementation of the same algorithm that is not too big, you can write a **Cython wrapper** for it and include a copy of the source code of the library in the scikit-learn source tree: this strategy is used for the classes :class:`svm.LinearSVC`, :class:`svm.SVC` and :class:`linear_model.LogisticRegression` (wrappers for liblinear and libsvm)."
-msgstr ""
+msgstr "Si existe una implementación BSD o MIT **C/C++** bien mantenida del mismo algoritmo que no sea demasiado grande, puedes escribir un **envoltorio (wrapper) de Cython** para él e incluir una copia del código fuente de la biblioteca en el árbol fuente de scikit-learn: esta estrategia se utiliza para las clases :class:`svm.LinearSVC`, :class:`svm.SVC` y :class:`linear_model.LogisticRegression` (envoltorios para liblinear y libsvm)."
 
 #: ../developers/performance.rst:61
 msgid "Otherwise, write an optimized version of your Python function using **Cython** directly. This strategy is used for the :class:`linear_model.ElasticNet` and :class:`linear_model.SGDClassifier` classes for instance."
-msgstr ""
+msgstr "De lo contrario, escribe una versión optimizada de tu función de Python usando **Cython** directamente. Esta estrategia se utiliza para las clases :class:`linear_model.ElasticNet` y :class:`linear_model.SGDClassifier` por ejemplo."
 
 #: ../developers/performance.rst:66
 msgid "**Move the Python version of the function in the tests** and use it to check that the results of the compiled extension are consistent with the gold standard, easy to debug Python version."
-msgstr ""
+msgstr "**Cambia la versión de Python de la función en las pruebas** y úsala para comprobar que los resultados de la extensión compilada sean consistentes con la versión de Python gold standard y fácil de depurar."
 
 #: ../developers/performance.rst:70
 msgid "Once the code is optimized (not simple bottleneck spottable by profiling), check whether it is possible to have **coarse grained parallelism** that is amenable to **multi-processing** by using the ``joblib.Parallel`` class."
-msgstr ""
+msgstr "Una vez que el código está optimizado (no es un simple cuello de botella detectable mediante el perfilado), comprueba si es posible tener un **paralelismo de grano grueso** que sea susceptible de **multiprocesamiento** utilizando la clase ``joblib.Parallel``."
 
 #: ../developers/performance.rst:75
 msgid "When using Cython, use either"
-msgstr ""
+msgstr "Al utilizar Cython, usar cualquiera"
 
 #: ../developers/performance.rst:82
 msgid "to generate C files. You are responsible for adding .c/.cpp extensions along with build parameters in each submodule ``setup.py``."
-msgstr ""
+msgstr "para generar archivos C. Eres responsable de añadir las extensiones .c/.cpp junto con los parámetros de compilación en cada submódulo ``setup.py``."
 
 #: ../developers/performance.rst:85
 msgid "C/C++ generated files are embedded in distributed stable packages. The goal is to make it possible to install scikit-learn stable version on any machine with Python, Numpy, Scipy and C/C++ compiler."
-msgstr ""
+msgstr "Los archivos generados en C/C++ están embebidos en los paquetes estables distribuidos. El objetivo es hacer posible la instalación de la versión estable de scikit-learn en cualquier máquina con Python, Numpy, Scipy y compilador C/C++."
 
 #: ../developers/performance.rst:92
 msgid "Profiling Python code"
-msgstr ""
+msgstr "Perfilar el código Python"
 
 #: ../developers/performance.rst:94
 msgid "In order to profile Python code we recommend to write a script that loads and prepare you data and then use the IPython integrated profiler for interactively exploring the relevant part for the code."
-msgstr ""
+msgstr "Para perfilar el código Python recomendamos escribir un script que cargue y prepare tus datos y luego utilizar el perfilador integrado de IPython para explorar interactivamente la parte relevante para el código."
 
 #: ../developers/performance.rst:98
 msgid "Suppose we want to profile the Non Negative Matrix Factorization module of scikit-learn. Let us setup a new IPython session and load the digits dataset and as in the :ref:`sphx_glr_auto_examples_classification_plot_digits_classification.py` example::"
