@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.linear_model.MultiTaskElasticNet &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.MultiTaskElasticNet.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.linear_model.BayesianRidge.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.BayesianRidge">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.linear_model.MultiTaskElasticNetCV.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.MultiTaskElasticNetCV">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>.MultiTaskElasticNet</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-linear-model-multitaskelasticnet">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.linear_model" title="sklearn.linear_model"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code></a>.MultiTaskElasticNet<a class="headerlink" href="#sklearn-linear-model-multitaskelasticnet" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.linear_model.</span></span><span class="sig-name descname"><span class="pre">MultiTaskElasticNet</span></span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Modelo ElasticNet multitarea entrenado con la norma mixta L1/L2 como regularizador.</p>
+<p>El objetivo de optimización para MultiTaskElasticNet es:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">))</span> <span class="o">*</span> <span class="o">||</span><span class="n">Y</span> <span class="o">-</span> <span class="n">XW</span><span class="o">||</span><span class="n">_Fro</span><span class="o">^</span><span class="mi">2</span>
+<span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">l1_ratio</span> <span class="o">*</span> <span class="o">||</span><span class="n">W</span><span class="o">||</span><span class="n">_21</span>
+<span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">l1_ratio</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">W</span><span class="o">||</span><span class="n">_Fro</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">||</span><span class="n">W</span><span class="o">||</span><span class="n">_21</span> <span class="o">=</span> <span class="n">sum_i</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">sum_j</span> <span class="n">W_ij</span> <span class="o">^</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>es decir, la suma de las normas de cada fila.</p>
+<p>Leer más en el <a class="reference internal" href="../linear_model.html#multi-task-elastic-net"><span class="std std-ref">Manual de Usuario</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>alpha</strong><span class="classifier">float, default=1.0</span></dt><dd><p>Constante que multiplica el término L1/L2. Por defecto es 1.0.</p>
+</dd>
+<dt><strong>l1_ratio</strong><span class="classifier">float, default=0.5</span></dt><dd><p>El parámetro de mezcla de ElasticNet, con 0 &lt; l1_ratio &lt;= 1. Para l1_ratio = 1 la penalización es una penalización L1/L2. Para l1_ratio = 0 es una penalización L2. Para <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">l1_ratio</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, la penalización es una combinación de L1/L2 y L2.</p>
+</dd>
+<dt><strong>fit_intercept</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si se calcula el intercepto para este modelo. Si se establece en falso, no se utilizará ningún intercepto en los cálculos (es decir, se espera que los datos estén centrados).</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">bool, default=False</span></dt><dd><p>Este parámetro se ignora cuando <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code> se establece en False. Si es True, los regresores X serán normalizados antes de la regresión restando la media y dividiendo entre la norma l2. Si deseas normalizar, por favor utiliza <a class="reference internal" href="sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> antes de llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> en un estimador con <code class="docutils literal notranslate"><span class="pre">normalize=False</span></code>.</p>
+</dd>
+<dt><strong>copy_X</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es <code class="docutils literal notranslate"><span class="pre">True</span></code>, X se copiará; si no, puede ser sobrescrita.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=1000</span></dt><dd><p>El número máximo de iteraciones.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>La tolerancia para la optimización: si las actualizaciones son menores que <code class="docutils literal notranslate"><span class="pre">tol</span></code>, el código de optimización comprueba la optimización de la brecha dual y continúa hasta que sea menor que <code class="docutils literal notranslate"><span class="pre">tol</span></code>.</p>
+</dd>
+<dt><strong>warm_start</strong><span class="classifier">bool, default=False</span></dt><dd><p>Cuando se establece en <code class="docutils literal notranslate"><span class="pre">True</span></code>, reutiliza la solución de la llamada previa a fit como inicialización, de lo contrario, sólo borra la solución previa. Ver <a class="reference internal" href="../../glossary.html#term-warm_start"><span class="xref std std-term">el Glosario</span></a>.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, instancia RandomState, default=None</span></dt><dd><p>La semilla del generador de números pseudoaleatorios que selecciona una característica aleatoria para actualizar. Se utiliza cuando <code class="docutils literal notranslate"><span class="pre">selection</span></code> == “random”. Pasa un int para una salida reproducible a través de múltiples llamadas a la función. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
+</dd>
+<dt><strong>selection</strong><span class="classifier">{“cyclic”, “random”}, default=”cyclic”</span></dt><dd><p>Si se establece en “random”, se actualiza un coeficiente aleatorio en cada iteración en lugar de hacer un bucle sobre las características de forma secuencial por defecto. Esto (establecerlo en “random”) a menudo conduce a una convergencia significativamente más rápida, especialmente cuando tol es mayor que 1e-4.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>intercept_</strong><span class="classifier">ndarray de forma (n_tasks,)</span></dt><dd><p>Término independiente en la función de decisión.</p>
+</dd>
+<dt><strong>coef_</strong><span class="classifier">ndarray de forma (n_tasks, n_features)</span></dt><dd><p>Vector de parámetros (W en la fórmula de la función de costo). Si una y 1D se pasa en el ajuste (uso no multitarea), <code class="docutils literal notranslate"><span class="pre">coef_</span></code> es entonces un arreglo 1D. Ten en cuenta que <code class="docutils literal notranslate"><span class="pre">coef_</span></code> almacena la transposición de <code class="docutils literal notranslate"><span class="pre">W</span></code>, <code class="docutils literal notranslate"><span class="pre">W.T</span></code>.</p>
+</dd>
+<dt><strong>n_iter_</strong><span class="classifier">int</span></dt><dd><p>Número de iteraciones ejecutadas por el solucionador de descenso de coordenadas para alcanzar la tolerancia especificada.</p>
+</dd>
+<dt><strong>dual_gap_</strong><span class="classifier">float</span></dt><dd><p>Las brechas duales al final de la optimización.</p>
+</dd>
+<dt><strong>eps_</strong><span class="classifier">float</span></dt><dd><p>La tolerancia escalada por la varianza del objetivo <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+<dt><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet.sparse_coef_" title="sklearn.linear_model.MultiTaskElasticNet.sparse_coef_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparse_coef_</span></code></a><span class="classifier">matriz dispersa de forma (n_features,) o             (n_tasks, n_features)</span></dt><dd><p>Representación dispersa del <code class="docutils literal notranslate"><span class="pre">coef_</span></code> ajustado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.linear_model.MultiTaskElasticNetCV.html#sklearn.linear_model.MultiTaskElasticNetCV" title="sklearn.linear_model.MultiTaskElasticNetCV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiTaskElasticNetCV</span></code></a></dt><dd><p>ElasticNet multitarea L1/L2 con validación cruzada incorporada.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElasticNet</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.linear_model.MultiTaskLasso.html#sklearn.linear_model.MultiTaskLasso" title="sklearn.linear_model.MultiTaskLasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiTaskLasso</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>El algoritmo utilizado para ajustar el modelo es el descenso de coordenadas.</p>
+<p>Para evitar la duplicación innecesaria de memoria, los argumentos X y y del método fit deben pasarse directamente como arreglos numpy Fortran-contiguos.</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">MultiTaskElasticNet</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="go">MultiTaskElasticNet(alpha=0.1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="go">[[0.45663524 0.45612256]</span>
+<span class="go"> [0.45663524 0.45612256]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+<span class="go">[0.0872422 0.0872422]</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet.fit" title="sklearn.linear_model.MultiTaskElasticNet.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo MultiTaskElasticNet con descenso de coordenadas</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet.get_params" title="sklearn.linear_model.MultiTaskElasticNet.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet.path" title="sklearn.linear_model.MultiTaskElasticNet.path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code></a></p></td>
+<td><p>Calcula la ruta de la red elástica con el descenso de coordenadas.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet.predict" title="sklearn.linear_model.MultiTaskElasticNet.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice utilizando el modelo lineal.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet.score" title="sklearn.linear_model.MultiTaskElasticNet.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet.set_params" title="sklearn.linear_model.MultiTaskElasticNet.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo MultiTaskElasticNet con descenso de coordenadas</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray de forma (n_samples, n_features)</span></dt><dd><p>Datos.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray de forma (n_samples, n_tasks)</span></dt><dd><p>Objetivo. Se convertirá al dtype de X si es necesario.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>El descenso de coordenadas es un algoritmo que considera cada columna de datos a la vez, por lo que convertirá automáticamente la entrada X a un arreglo numpy Fortran-contiguo si es necesario.</p>
+<p>Para evitar la reasignación de memoria se aconseja asignar los datos iniciales en memoria directamente utilizando ese formato.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet.path">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet.path" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la ruta de la red elástica con el descenso de coordenadas.</p>
+<p>La función de optimización de la red elástica varía para las monosalidas y multisalidas.</p>
+<p>Para las tareas de salida única es:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">y</span> <span class="o">-</span> <span class="n">Xw</span><span class="o">||^</span><span class="mi">2_2</span>
+<span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">l1_ratio</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_1</span>
+<span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">l1_ratio</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||^</span><span class="mi">2_2</span>
+</pre></div>
+</div>
+<p>Para las tareas de salida múltiple es:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">))</span> <span class="o">*</span> <span class="o">||</span><span class="n">Y</span> <span class="o">-</span> <span class="n">XW</span><span class="o">||</span><span class="n">_Fro</span><span class="o">^</span><span class="mi">2</span>
+<span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">l1_ratio</span> <span class="o">*</span> <span class="o">||</span><span class="n">W</span><span class="o">||</span><span class="n">_21</span>
+<span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">l1_ratio</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">W</span><span class="o">||</span><span class="n">_Fro</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">||</span><span class="n">W</span><span class="o">||</span><span class="n">_21</span> <span class="o">=</span> \<span class="n">sum_i</span> \<span class="n">sqrt</span><span class="p">{</span>\<span class="n">sum_j</span> <span class="n">w_</span><span class="p">{</span><span class="n">ij</span><span class="p">}</span><span class="o">^</span><span class="mi">2</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>es decir, la suma de la norma de cada fila.</p>
+<p>Leer más en el <a class="reference internal" href="../linear_model.html#elastic-net"><span class="std std-ref">Manual de Usuario</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Datos de entrenamiento. Pasa directamente como datos Fortran-contiguos para evitar la duplicación innecesaria de memoria. Si <code class="docutils literal notranslate"><span class="pre">y</span></code> es monosalida entonces <code class="docutils literal notranslate"><span class="pre">X</span></code> puede ser dispersa.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples,) o         (n_samples, n_outputs)</span></dt><dd><p>Valores objetivo.</p>
+</dd>
+<dt><strong>l1_ratio</strong><span class="classifier">float, default=0.5</span></dt><dd><p>Número entre 0 y 1 pasado a la red elástica (escala entre las penalizaciones l1 y l2). <code class="docutils literal notranslate"><span class="pre">l1_ratio=1</span></code> corresponde al Lasso.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>Longitud de la ruta. <code class="docutils literal notranslate"><span class="pre">eps=1e-3</span></code> significa que <code class="docutils literal notranslate"><span class="pre">alpha_min</span> <span class="pre">/</span> <span class="pre">alpha_max</span> <span class="pre">=</span> <span class="pre">1e-3</span></code>.</p>
+</dd>
+<dt><strong>n_alphas</strong><span class="classifier">int, default=100</span></dt><dd><p>Número de alfas a lo largo de la ruta de regularización.</p>
+</dd>
+<dt><strong>alphas</strong><span class="classifier">ndarray, default=None</span></dt><dd><p>Lista de alfas donde calcular los modelos. Si es None los alfas se establecen automáticamente.</p>
+</dd>
+<dt><strong>precompute</strong><span class="classifier">“auto”, bool o array-like de forma (n_features, n_features),                 default=”auto”</span></dt><dd><p>Si se utiliza una matriz de Gram precalculada para acelerar los cálculos. Si se establece en <code class="docutils literal notranslate"><span class="pre">'auto'</span></code> podemos decidir. La matriz de Gram también se puede pasar como argumento.</p>
+</dd>
+<dt><strong>Xy</strong><span class="classifier">array-like de forma (n_features,) o (n_features, n_outputs),         default=None</span></dt><dd><p>Xy = np.dot(X.T, y) que puede precalcularse. Sólo es útil cuando la matriz de Gram está precalculada.</p>
+</dd>
+<dt><strong>copy_X</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es <code class="docutils literal notranslate"><span class="pre">True</span></code>, X se copiará; si no, puede ser sobrescrita.</p>
+</dd>
+<dt><strong>coef_init</strong><span class="classifier">ndarray de forma (n_features, ), default=None</span></dt><dd><p>Los valores iniciales de los coeficientes.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool o int, default=False</span></dt><dd><p>Cantidad de verbosidad.</p>
+</dd>
+<dt><strong>return_n_iter</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si se devuelve o no el número de iteraciones.</p>
+</dd>
+<dt><strong>positive</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si se establece en True, obliga a que los coeficientes sean positivos. (Sólo se permite cuando <code class="docutils literal notranslate"><span class="pre">y.ndim</span> <span class="pre">==</span> <span class="pre">1</span></code>).</p>
+</dd>
+<dt><strong>check_input</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si se establece en False, se omiten las comprobaciones de validación de la entrada (incluyendo la matriz de Gram cuando se proporciona). Se asume que son manejadas por el invocador.</p>
+</dd>
+<dt><strong>**params</strong><span class="classifier">kwargs</span></dt><dd><p>Argumentos de palabras clave que se pasan al solucionador de descenso de coordenadas.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>alphas</strong><span class="classifier">ndarray de forma (n_alphas,)</span></dt><dd><p>Los alfas a lo largo de la ruta donde se calculan los modelos.</p>
+</dd>
+<dt><strong>coefs</strong><span class="classifier">ndarray de forma (n_features, n_alphas) o             (n_outputs, n_features, n_alphas)</span></dt><dd><p>Coeficientes a lo largo de la ruta.</p>
+</dd>
+<dt><strong>dual_gaps</strong><span class="classifier">ndarray de forma (n_alphas,)</span></dt><dd><p>Las brechas duales al final de la optimización para cada alfa.</p>
+</dd>
+<dt><strong>n_iters</strong><span class="classifier">lista de int</span></dt><dd><p>El número de iteraciones tomadas por el optimizador de descenso de coordenadas para alcanzar la tolerancia especificada para cada alfa. (Se devuelve cuando <code class="docutils literal notranslate"><span class="pre">return_n_iter</span></code> se establece en True).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#sklearn.linear_model.MultiTaskElasticNet" title="sklearn.linear_model.MultiTaskElasticNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiTaskElasticNet</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.linear_model.MultiTaskElasticNetCV.html#sklearn.linear_model.MultiTaskElasticNetCV" title="sklearn.linear_model.MultiTaskElasticNetCV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiTaskElasticNetCV</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElasticNet</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.linear_model.ElasticNetCV.html#sklearn.linear_model.ElasticNetCV" title="sklearn.linear_model.ElasticNetCV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElasticNetCV</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Para un ejemplo, ver <a class="reference internal" href="../../auto_examples/linear_model/plot_lasso_coordinate_descent_path.html#sphx-glr-auto-examples-linear-model-plot-lasso-coordinate-descent-path-py"><span class="std std-ref">examples/linear_model/plot_lasso_coordinate_descent_path.py</span></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice utilizando el modelo lineal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like o matriz dispersa, forma (n_samples, n_features)</span></dt><dd><p>Muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Devuelve los valores predichos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p>
+<p>El coeficiente <span class="math notranslate nohighlight">\(R^2\)</span> se define como <span class="math notranslate nohighlight">\((1 - \frac{u}{v})\)</span>, donde <span class="math notranslate nohighlight">\(u\)</span> es la suma de cuadrados residual <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_pred)</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code> y <span class="math notranslate nohighlight">\(v\)</span> es la suma total de cuadrados <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_true.mean())</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code>. La mejor puntuación posible es 1.0 y puede ser negativa (porque el modelo puede ser arbitrariamente peor). Un modelo constante que siempre predice el valor esperado de <code class="docutils literal notranslate"><span class="pre">y</span></code>, sin tener en cuenta las características de entrada, obtendría una puntuación <span class="math notranslate nohighlight">\(R^2\)</span> de 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba. Para algunos estimadores puede ser una matriz de núcleo precalculada o una lista de objetos genéricos con forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_samples_fitted)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">n_samples_fitted</span></code> es el número de muestras utilizadas en el ajuste para el estimador.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Valores verdaderos para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p><span class="math notranslate nohighlight">\(R^2\)</span> de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>La puntuación <span class="math notranslate nohighlight">\(R^2\)</span> utilizada al llamar a <code class="docutils literal notranslate"><span class="pre">score</span></code> en un regresor utiliza <code class="docutils literal notranslate"><span class="pre">multioutput='uniform_average'</span></code> desde la versión 0.23 para mantener la consistencia con el valor predeterminado de <a class="reference internal" href="sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="sklearn.metrics.r2_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">r2_score</span></code></a>. Esto influye en el método <code class="docutils literal notranslate"><span class="pre">score</span></code> de todos los regresores de salida múltiple (excepto para <a class="reference internal" href="sklearn.multioutput.MultiOutputRegressor.html#sklearn.multioutput.MultiOutputRegressor" title="sklearn.multioutput.MultiOutputRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputRegressor</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.linear_model.MultiTaskElasticNet.sparse_coef_">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sparse_coef_</span></span><a class="headerlink" href="#sklearn.linear_model.MultiTaskElasticNet.sparse_coef_" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Representación dispersa del <code class="docutils literal notranslate"><span class="pre">coef_</span></code> ajustado.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.linear_model.MultiTaskElasticNet.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.inspection.plot_partial_dependence &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.inspection.plot_partial_dependence.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.inspection.PartialDependenceDisplay.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.inspection.PartialDependenceDisplay">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.isotonic.IsotonicRegression.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.isotonic.IsotonicRegression">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.inspection</span></code>.plot_partial_dependence</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-inspection-plot-partial-dependence">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.inspection.plot_partial_dependence</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-inspection-plot-partial-dependence">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.inspection" title="sklearn.inspection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.inspection</span></code></a>.plot_partial_dependence<a class="headerlink" href="#sklearn-inspection-plot-partial-dependence" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sklearn.inspection.plot_partial_dependence">
+<span class="sig-prename descclassname"><span class="pre">sklearn.inspection.</span></span><span class="sig-name descname"><span class="pre">plot_partial_dependence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.inspection.plot_partial_dependence" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Gráficos de dependencia parcial (DP) y de expectativa condicional individual (ICE).</p>
+<p>Se pueden trazar gráficos de dependencia parcial, gráficos de expectativas condicionales individuales o una superposición de ambos, estableciendo el parámetro <code class="docutils literal notranslate"><span class="pre">kind</span></code>. Los gráficos de <code class="docutils literal notranslate"><span class="pre">len(features)</span></code> se organizan en una cuadrícula con columnas <code class="docutils literal notranslate"><span class="pre">n_cols</span></code>. Los gráficos de dependencia parcial de dos vías se trazan como gráficos de contorno. Los deciles de los valores de las características se mostrarán con marcas en los ejes x para los gráficos de una dirección, y en ambos ejes para los gráficos de dos direcciones.</p>
+<p>Más información en el <a class="reference internal" href="../partial_dependence.html#partial-dependence"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><a class="reference internal" href="#sklearn.inspection.plot_partial_dependence" title="sklearn.inspection.plot_partial_dependence"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_partial_dependence</span></code></a> no admite el uso de los mismos ejes con múltiples llamadas. Para trazar la dependencia parcial de múltiples estimadores, pasa los ejes creados por la segunda llamada:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">plot_partial_dependence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_friedman1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_friedman1</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">est1</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">est2</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disp1</span> <span class="o">=</span> <span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">est1</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disp2</span> <span class="o">=</span> <span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">est2</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>                                <span class="n">ax</span><span class="o">=</span><span class="n">disp1</span><span class="o">.</span><span class="n">axes_</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Para <a class="reference internal" href="sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier" title="sklearn.ensemble.GradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingClassifier</span></code></a> y <a class="reference internal" href="sklearn.ensemble.GradientBoostingRegressor.html#sklearn.ensemble.GradientBoostingRegressor" title="sklearn.ensemble.GradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingRegressor</span></code></a>, el método <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code> (utilizado por defecto) no tendrá en cuenta el predictor <code class="docutils literal notranslate"><span class="pre">init'</span> <span class="pre">del</span> <span class="pre">proceso</span> <span class="pre">de</span> <span class="pre">boosting.</span> <span class="pre">En</span> <span class="pre">la</span> <span class="pre">práctica,</span> <span class="pre">esto</span> <span class="pre">producirá</span> <span class="pre">los</span> <span class="pre">mismos</span> <span class="pre">valores</span> <span class="pre">que</span> <span class="pre">`'brute'</span></code> hasta un desplazamiento constante en la respuesta objetivo, siempre que <code class="docutils literal notranslate"><span class="pre">init</span></code> sea un estimador constante (que es el predeterminado). Sin embargo, si <code class="docutils literal notranslate"><span class="pre">init</span></code> no es un estimador constante, los valores de dependencia parcial son incorrectos para <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code> porque el desplazamiento dependerá de la muestra. Es preferible utilizar el método <code class="docutils literal notranslate"><span class="pre">'brute'</span></code>. Ten en cuenta que esto sólo se aplica a <a class="reference internal" href="sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier" title="sklearn.ensemble.GradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingClassifier</span></code></a> y <a class="reference internal" href="sklearn.ensemble.GradientBoostingRegressor.html#sklearn.ensemble.GradientBoostingRegressor" title="sklearn.ensemble.GradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingRegressor</span></code></a>, no a <a class="reference internal" href="sklearn.ensemble.HistGradientBoostingClassifier.html#sklearn.ensemble.HistGradientBoostingClassifier" title="sklearn.ensemble.HistGradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code></a> y <a class="reference internal" href="sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code></a>.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>estimator</strong><span class="classifier">BaseEstimator</span></dt><dd><p>Un objeto estimador ajustado que implementa <a class="reference internal" href="../../glossary.html#term-predict"><span class="xref std std-term">predict</span></a>, <a class="reference internal" href="../../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a>, o <a class="reference internal" href="../../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a>. No se admiten los clasificadores multisalida-multiclase.</p>
+</dd>
+<dt><strong>X</strong><span class="classifier">{array-like or dataframe} de forma (n_samples, n_features)</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">X</span></code> se utiliza para generar una cuadrícula de valores para las <code class="docutils literal notranslate"><span class="pre">features</span></code> de destino (donde se evaluará la dependencia parcial), y también para generar valores para las características del complemento cuando el <code class="docutils literal notranslate"><span class="pre">method</span></code> es <code class="docutils literal notranslate"><span class="pre">'brute'</span></code>.</p>
+</dd>
+<dt><strong>features</strong><span class="classifier">lista de {int, str, par de int, par de str}</span></dt><dd><p>Las características de destino para las que se van a crear las PDP. Si <code class="docutils literal notranslate"><span class="pre">features[i]</span></code> es un entero o una cadena, se crea una PDP de un solo sentido; si <code class="docutils literal notranslate"><span class="pre">features[i]</span></code> es una tupla, se crea una PDP de dos sentidos (sólo se admite con <code class="docutils literal notranslate"><span class="pre">kind='average'</span></code>). Cada tupla debe ser de tamaño 2. Si alguna entrada es una cadena, debe estar en <code class="docutils literal notranslate"><span class="pre">feature_names</span></code>.</p>
+</dd>
+<dt><strong>feature_names</strong><span class="classifier">array-like de forma (n_features,), dtype=str, default=None</span></dt><dd><p>Nombre de cada característica; <code class="docutils literal notranslate"><span class="pre">feature_names[i]</span></code> contiene el nombre de la característica con índice <code class="docutils literal notranslate"><span class="pre">i</span></code>. Por defecto, el nombre de la característica corresponde a su índice numérico para el arreglo de NumPy y su nombre de columna para el dataframe de pandas.</p>
+</dd>
+<dt><strong>target</strong><span class="classifier">int, default=None</span></dt><dd><ul class="simple">
+<li><p>En un entorno multiclase, especifica la clase para la que deben calcularse las PDP. Tenga en cuenta que para la clasificación binaria, siempre se utiliza la clase positiva (índice 1).</p></li>
+<li><p>En una configuración de salida múltiple, especifica la tarea para la que se deben calcular las PDP.</p></li>
+</ul>
+<p>Ignorado en la clasificación binaria o en la configuración de regresión clásica.</p>
+</dd>
+<dt><strong>response_method</strong><span class="classifier">{“auto”, “predict_proba”, “decision_function”},             default=”auto”</span></dt><dd><p>Especifica si se utiliza <a class="reference internal" href="../../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> o <a class="reference internal" href="../../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a> como respuesta objetivo. Para los regresores, este parámetro se ignora y la respuesta es siempre la salida de <a class="reference internal" href="../../glossary.html#term-predict"><span class="xref std std-term">predict</span></a>. Por defecto, se intenta primero con <a class="reference internal" href="../../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> y se vuelve a <a class="reference internal" href="../../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a> si no existe. Si <code class="docutils literal notranslate"><span class="pre">method</span></code> es <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code>, la respuesta es siempre la salida de <a class="reference internal" href="../../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a>.</p>
+</dd>
+<dt><strong>n_cols</strong><span class="classifier">int, default=3</span></dt><dd><p>El número máximo de columnas en el gráfico de rejilla. Sólo se activa cuando <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un solo eje o <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><strong>grid_resolution</strong><span class="classifier">entero, default=100</span></dt><dd><p>El número de puntos igualmente espaciados en los ejes de los gráficos, para cada característica objetivo.</p>
+</dd>
+<dt><strong>percentiles</strong><span class="classifier">tupla de flotante, default=(0.05, 0.95)</span></dt><dd><p>El percentil inferior y superior utilizado para crear los valores extremos de los ejes PDP. Debe estar en [0, 1].</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str, default=”auto”</span></dt><dd><p>El método utilizado para calcular las predicciones promediadas:</p>
+<ul class="simple">
+<li><p>La <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code> sólo se admite para algunos estimadores basados en el árbol (a saber <a class="reference internal" href="sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier" title="sklearn.ensemble.GradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingClassifier</span></code></a>, <a class="reference internal" href="sklearn.ensemble.GradientBoostingRegressor.html#sklearn.ensemble.GradientBoostingRegressor" title="sklearn.ensemble.GradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingRegressor</span></code></a>, <a class="reference internal" href="sklearn.ensemble.HistGradientBoostingClassifier.html#sklearn.ensemble.HistGradientBoostingClassifier" title="sklearn.ensemble.HistGradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code></a>, <a class="reference internal" href="sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code></a>, <a class="reference internal" href="sklearn.tree.DecisionTreeRegressor.html#sklearn.tree.DecisionTreeRegressor" title="sklearn.tree.DecisionTreeRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeRegressor</span></code></a>, <a class="reference internal" href="sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor" title="sklearn.ensemble.RandomForestRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestRegressor</span></code></a> pero es más eficiente en términos de velocidad. Con este método, la respuesta objetivo de un clasificador es siempre la función de decisión, no las probabilidades predichas. Dado que el método de <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code> calcula implícitamente la media de los CIE por diseño, no es compatible con los CIE y, por tanto, <code class="docutils literal notranslate"><span class="pre">kind</span></code> debe ser <code class="docutils literal notranslate"><span class="pre">'average'</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'brute'</span></code> es compatible con cualquier estimador, pero es más intensivo computacionalmente.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'auto'</span></code>: la <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code> se utiliza para los estimadores que la soportan, y <code class="docutils literal notranslate"><span class="pre">'brute'</span></code> se utiliza en caso contrario.</p></li>
+</ul>
+<p>Por favor consulta <a class="reference internal" href="../partial_dependence.html#pdp-method-differences"><span class="std std-ref">this note</span></a> para ver diferencias entre el método <code class="docutils literal notranslate"><span class="pre">'brute'</span></code> y <code class="docutils literal notranslate"><span class="pre">'recursion'</span></code>.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>The number of CPUs to use to compute the partial dependences.
+Computation is parallelized over features specified by the <code class="docutils literal notranslate"><span class="pre">features</span></code>
+parameter.</p>
+<p><code class="docutils literal notranslate"><span class="pre">None</span></code> means 1 unless in a <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a> context.
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors. See <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glossary</span></a>
+for more details.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int, default=0</span></dt><dd><p>Salida verbosa durante los cálculos de DP.</p>
+</dd>
+<dt><strong>line_kw</strong><span class="classifier">dict, default=None</span></dt><dd><p>Dict con palabras clave pasadas a la llamada <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.plot</span></code>. Para gráficos de dependencia parcial unidireccional.</p>
+</dd>
+<dt><strong>contour_kw</strong><span class="classifier">dict, default=None</span></dt><dd><p>Dict con palabras clave pasadas a la llamada <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.contourf</span></code>. Para gráficos de dependencia parcial de dos vías.</p>
+</dd>
+<dt><strong>ax</strong><span class="classifier">Ejes Matplotlib o array-like de ejes Matplotlib, default=None</span></dt><dd><ul class="simple">
+<li><p>Si se pasa un solo eje, se trata como un eje delimitador y se dibujará una cuadrícula de gráficos de dependencia parcial dentro de estos límites. El parámetro <code class="docutils literal notranslate"><span class="pre">n_cols</span></code> controla el número de columnas de la cuadrícula.</p></li>
+<li><p>Si se pasa un array-like de ejes, los gráficos de dependencia parcial se dibujarán directamente en estos ejes.</p></li>
+<li><p>Si es <code class="docutils literal notranslate"><span class="pre">None</span></code>, se crea una figura y un eje delimitador y se trata como el caso de un solo eje.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</dd>
+<dt><strong>kind</strong><span class="classifier">{“average”, “individual”, “both”}, default=”average”</span></dt><dd><blockquote>
+<div><p>Si se grafica la dependencia parcial promediada en todas las muestras del conjunto de datos o una línea por muestra o ambas.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kind='average'</span></code> da como resultado en el gráfico tradicional de DP;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kind='individual'</span></code> da como resultado el gráfico ICE.</p></li>
+</ul>
+</div></blockquote>
+<p>Nota que la opción rápida <code class="docutils literal notranslate"><span class="pre">method='recursion'</span></code> sólo está disponible para <code class="docutils literal notranslate"><span class="pre">kind='average'</span></code>. El gráfico de dependencias individuales requiere el uso de la opción más lenta <code class="docutils literal notranslate"><span class="pre">method='brute'</span></code>.</p>
+<blockquote>
+<div><div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</div></blockquote>
+</dd>
+<dt><strong>subsample</strong><span class="classifier">float, int or None, default=1000</span></dt><dd><p>Muestreo para las curvas ICE cuando <code class="docutils literal notranslate"><span class="pre">kind</span></code> es “individual” o “both”. Si es <code class="docutils literal notranslate"><span class="pre">float</span></code>, debe estar entre 0.0 y 1.0 y representar la proporción del conjunto de datos que se utilizará para trazar las curvas ICE. Si es <code class="docutils literal notranslate"><span class="pre">int</span></code>, representa el número absoluto de muestras a utilizar.</p>
+<p>Nota que el conjunto de datos completo se sigue utilizando para calcular la dependencia parcial promediada cuando <code class="docutils literal notranslate"><span class="pre">kind='both'</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, default=None</span></dt><dd><p>Controla la aleatoriedad de las muestras seleccionadas cuando submuestras no es <code class="docutils literal notranslate"><span class="pre">None</span></code> y <code class="docutils literal notranslate"><span class="pre">kind</span></code> es <code class="docutils literal notranslate"><span class="pre">'both'</span></code> o <code class="docutils literal notranslate"><span class="pre">'individual'</span></code>. Consulta <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl>
+<dt><strong>display</strong><span class="classifier"><a class="reference internal" href="sklearn.inspection.PartialDependenceDisplay.html#sklearn.inspection.PartialDependenceDisplay" title="sklearn.inspection.PartialDependenceDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PartialDependenceDisplay</span></code></a></span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.inspection.partial_dependence.html#sklearn.inspection.partial_dependence" title="sklearn.inspection.partial_dependence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partial_dependence</span></code></a></dt><dd><p>Calcula los valores de la Dependencia Parcial.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.inspection.PartialDependenceDisplay.html#sklearn.inspection.PartialDependenceDisplay" title="sklearn.inspection.PartialDependenceDisplay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PartialDependenceDisplay</span></code></a></dt><dd><p>Visualización parcial de la dependencia.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_friedman1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_friedman1</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<section id="examples-using-sklearn-inspection-plot-partial-dependence">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.inspection.plot_partial_dependence</span></code><a class="headerlink" href="#examples-using-sklearn-inspection-plot-partial-dependence" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 0.24! Many bug fixes and improvements we..."><figure class="align-default" id="id1">
+<img alt="Release Highlights for scikit-learn 0.24" src="../../_images/sphx_glr_plot_release_highlights_0_24_0_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/release_highlights/plot_release_highlights_0_24_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-0-24-0-py"><span class="std std-ref">Aspectos Destacados de scikit-learn 0.24</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Partial dependence plots show the dependence between the target function [2]_ and a set of feat..."><figure class="align-default" id="id2">
+<img alt="Partial Dependence and Individual Conditional Expectation Plots" src="../../_images/sphx_glr_plot_partial_dependence_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/inspection/plot_partial_dependence.html#sphx-glr-auto-examples-inspection-plot-partial-dependence-py"><span class="std std-ref">Gráficos de Dependencia Parcial y de Expectativa Condicional Individual</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    See also sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py"><figure class="align-default" id="id3">
+<img alt="Advanced Plotting With Partial Dependence" src="../../_images/sphx_glr_plot_partial_dependence_visualization_api_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/miscellaneous/plot_partial_dependence_visualization_api.html#sphx-glr-auto-examples-miscellaneous-plot-partial-dependence-visualization-api-py"><span class="std std-ref">Graficación Avanzada Con Dependencia Parcial</span></a></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.inspection.plot_partial_dependence.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

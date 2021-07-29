@@ -1,0 +1,567 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.linear_model.RidgeCV &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeCV.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.linear_model.Ridge.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.Ridge">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.linear_model.SGDRegressor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.SGDRegressor">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>.RidgeCV</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-linear-model-ridgecv">Ejemplos con <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.RidgeCV</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-linear-model-ridgecv">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.linear_model" title="sklearn.linear_model"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code></a>.RidgeCV<a class="headerlink" href="#sklearn-linear-model-ridgecv" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.linear_model.RidgeCV">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.linear_model.</span></span><span class="sig-name descname"><span class="pre">RidgeCV</span></span><a class="headerlink" href="#sklearn.linear_model.RidgeCV" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Regresión de Ridge con validación cruzada incorporada.</p>
+<p>Ver entrada de glosario para <a class="reference internal" href="../../glossary.html#term-cross-validation-estimator"><span class="xref std std-term">cross-validation estimator</span></a>.</p>
+<p>Por defecto, realiza una validación cruzada de dejar uno (Leave-One-Out Cross-Validation) eficiente.</p>
+<p>Más información en el <a class="reference internal" href="../linear_model.html#ridge-regression"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>alphas</strong><span class="classifier">ndarray de forma (n_alphas,), default=(0.1, 1.0, 10.0)</span></dt><dd><p>Arreglo de valores alpha para probar. Fuerza de la regularización; debe ser un flotante (float) positivo. La regularización mejora el condicionamiento del problema y reduce la varianza de las estimaciones. Los valores más grandes especifican una regularización más fuerte. Alpha corresponde a <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(2C)</span></code> en otros modelos lineales como <a class="reference internal" href="sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> o <a class="reference internal" href="sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code></a>. Si se utiliza la validación cruzada Leave-One-Out, las alphas deben ser positivas.</p>
+</dd>
+<dt><strong>fit_intercept</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si se calcula el intercepto para este modelo. Si se establece en false, no se utilizará ningún intercepto en los cálculos (es decir, se espera que los datos estén centrados).</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Este parámetro es ignorado cuando <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code> se establece como False. Si True, los regresores X serán normalizados antes de la regresión restando la media y dividiendo por la norma l2. Si tu deseas estandarizar, por favor utiliza <a class="reference internal" href="sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> antes de llamar <code class="docutils literal notranslate"><span class="pre">fit</span></code> en un estimador con <code class="docutils literal notranslate"><span class="pre">normalize=False</span></code>.</p>
+</dd>
+<dt><strong>scoring</strong><span class="classifier">cadena de caracteres, invocable, default=None</span></dt><dd><p>Una cadena (string) -ver la documentación sobre la evaluación del modelo- o un objeto / función invocable scorer con la firma <code class="docutils literal notranslate"><span class="pre">scorer(estimador,</span> <span class="pre">X,</span> <span class="pre">y)</span></code>. Si es None, el error cuadrático medio negativo si cv es “auto” o None (es decir, cuando se utiliza la validación cruzada de dejar uno -leave-one-out cross-validation-), y la puntuación r2 en caso contrario.</p>
+</dd>
+<dt><strong>cv</strong><span class="classifier">entero, generador de validación cruzada o un iterable, default=None</span></dt><dd><p>Determina la estrategia de división de la validación cruzada. Las posibles entradas para cv son:</p>
+<ul class="simple">
+<li><p>None, para utilizar la validación cruzada Leave-One-Out eficiente</p></li>
+<li><p>entero, para especificar el número de pliegues.</p></li>
+<li><p><a class="reference internal" href="../../glossary.html#term-CV-splitter"><span class="xref std std-term">separador de CV</span></a>,</p></li>
+<li><p>Un iterable que produce divisiones (train, test) como arreglos de índices.</p></li>
+</ul>
+<p>Para entradas (inputs) integer/None, si <code class="docutils literal notranslate"><span class="pre">y</span></code> es binario o multiclase, se utiliza <a class="reference internal" href="sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a>, si no, se utiliza <a class="reference internal" href="sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>.</p>
+<p>Consulta <a class="reference internal" href="../cross_validation.html#cross-validation"><span class="std std-ref">Manual de usuario</span></a> para las diversas estrategias de validación cruzada que pueden ser utilizadas aquí.</p>
+</dd>
+<dt><strong>gcv_mode</strong><span class="classifier">{“auto”, “svd”, eigen”}, default=”auto”</span></dt><dd><p>Indicador de la estrategia que se utilizará cuando se realice la validación cruzada con exclusión (Leave-One-Out Cross-Validation). Las opciones son:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;auto&#39;</span> <span class="p">:</span> <span class="n">use</span> <span class="s1">&#39;svd&#39;</span> <span class="k">if</span> <span class="n">n_samples</span> <span class="o">&gt;</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">otherwise</span> <span class="n">use</span> <span class="s1">&#39;eigen&#39;</span>
+<span class="s1">&#39;svd&#39;</span> <span class="p">:</span> <span class="n">force</span> <span class="n">use</span> <span class="n">of</span> <span class="n">singular</span> <span class="n">value</span> <span class="n">decomposition</span> <span class="n">of</span> <span class="n">X</span> <span class="n">when</span> <span class="n">X</span> <span class="ow">is</span>
+    <span class="n">dense</span><span class="p">,</span> <span class="n">eigenvalue</span> <span class="n">decomposition</span> <span class="n">of</span> <span class="n">X</span><span class="o">^</span><span class="n">T</span><span class="o">.</span><span class="n">X</span> <span class="n">when</span> <span class="n">X</span> <span class="ow">is</span> <span class="n">sparse</span><span class="o">.</span>
+<span class="s1">&#39;eigen&#39;</span> <span class="p">:</span> <span class="n">force</span> <span class="n">computation</span> <span class="n">via</span> <span class="n">eigendecomposition</span> <span class="n">of</span> <span class="n">X</span><span class="o">.</span><span class="n">X</span><span class="o">^</span><span class="n">T</span>
+</pre></div>
+</div>
+<p>El modo “auto” es el predeterminado y pretende elegir la opción más adecuada (cheaper) de las dos en función de la forma de los datos de entrenamiento.</p>
+</dd>
+<dt><strong>store_cv_values</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Indicador de si los valores de validación cruzada correspondientes a cada alpha deben almacenarse en el atributo <code class="docutils literal notranslate"><span class="pre">cv_values_</span></code> (ver más abajo). Este indicador sólo es compatible con <code class="docutils literal notranslate"><span class="pre">cv=None</span></code> (es decir, utilizando la validación cruzada Leave-One-Out).</p>
+</dd>
+<dt><strong>alpha_per_target</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Indicador de si se optimiza el valor alpha (elegido de la lista de parámetros <code class="docutils literal notranslate"><span class="pre">alphas</span></code>) para cada objetivo por separado (para configuraciones de salida múltiple: múltiples objetivos de predicción). Cuando se establece como <code class="docutils literal notranslate"><span class="pre">True</span></code>, después del ajuste, el atributo <code class="docutils literal notranslate"><span class="pre">alpha_</span></code> contendrá un valor para cada objetivo. Si se establece en <code class="docutils literal notranslate"><span class="pre">False</span></code>, se utilizará un único alpha para todos los objetivos.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>cv_values_</strong><span class="classifier">ndarray de forma (n_samples, n_alphas) o         forma (n_samples, n_targets, n_alphas), opcional</span></dt><dd><p>Valores de validación cruzada para cada alpha (sólo disponible si <code class="docutils literal notranslate"><span class="pre">store_cv_values=True</span></code> y <code class="docutils literal notranslate"><span class="pre">cv=None</span></code>). Después de llamar a <code class="docutils literal notranslate"><span class="pre">fit()</span></code>, este atributo contendrá los errores medios cuadráticos (por defecto) o los valores de la función <code class="docutils literal notranslate"><span class="pre">{loss,score}_func</span></code> (si se proporciona en el constructor).</p>
+</dd>
+<dt><strong>coef_</strong><span class="classifier">ndarray de forma (n_features) o (n_targets, n_features)</span></dt><dd><p>Vector(es) de ponderación.</p>
+</dd>
+<dt><strong>intercept_</strong><span class="classifier">float o ndarray de forma (n_targets,)</span></dt><dd><p>Término independiente en la función de decisión. Establecido como 0.0 si <code class="docutils literal notranslate"><span class="pre">fit_intercept</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
+</dd>
+<dt><strong>alpha_</strong><span class="classifier">float o ndarray de forma (n_targets,)</span></dt><dd><p>Parámetro de regularización estimado o, si <code class="docutils literal notranslate"><span class="pre">alpha_per_target=True</span></code>, el parámetro de regularización estimado para cada objetivo.</p>
+</dd>
+<dt><strong>best_score_</strong><span class="classifier">float o ndarray de forma (n_targets,)</span></dt><dd><p>Puntuación del estimador base con el mejor alpha, o, si <code class="docutils literal notranslate"><span class="pre">alpha_per_target=True</span></code>, una puntuación para cada objetivo.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.23.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ridge</span></code></a></dt><dd><p>Regresión Ridge.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.linear_model.RidgeClassifier.html#sklearn.linear_model.RidgeClassifier" title="sklearn.linear_model.RidgeClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RidgeClassifier</span></code></a></dt><dd><p>Clasificador Ridge.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.linear_model.RidgeClassifierCV.html#sklearn.linear_model.RidgeClassifierCV" title="sklearn.linear_model.RidgeClassifierCV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RidgeClassifierCV</span></code></a></dt><dd><p>Regresión de Ridge con validación cruzada incorporada.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_diabetes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeCV</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">RidgeCV</span><span class="p">(</span><span class="n">alphas</span><span class="o">=</span><span class="p">[</span><span class="mf">1e-3</span><span class="p">,</span> <span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">0.5166...</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.RidgeCV.fit" title="sklearn.linear_model.RidgeCV.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo de regresión de Ridge con cv.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.RidgeCV.get_params" title="sklearn.linear_model.RidgeCV.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.RidgeCV.predict" title="sklearn.linear_model.RidgeCV.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice utilizando el modelo lineal.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.RidgeCV.score" title="sklearn.linear_model.RidgeCV.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.RidgeCV.set_params" title="sklearn.linear_model.RidgeCV.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.RidgeCV.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.RidgeCV.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo de regresión de Ridge con cv.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray de forma (n_samples, n_features)</span></dt><dd><p>Datos de entrenamiento. Si se utiliza GCV, se convertirá en float64 si es necesario.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Valores objetivo. Se convertirá al dtype de X si es necesario.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">flotante o ndarray de forma (n_samples,), default=None</span></dt><dd><p>Ponderación individual para cada muestra. Si se le da un flotante (float), cada muestra tendrá el mismo peso.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>Cuando se proporciona sample_weight, el hiperparámetro seleccionado puede depender de si utilizamos la validación cruzada con exclusión (cv=None o cv=”auto”) u otra forma de validación cruzada, porque sólo la validación cruzada con exclusión (también llamada leave-one-out cross validation) tiene en cuenta los pesos de la muestra al calcular la puntuación de validación.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.RidgeCV.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.RidgeCV.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.RidgeCV.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.RidgeCV.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice utilizando el modelo lineal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like o matriz dispersa, de forma (n_samples, n_features)</span></dt><dd><p>Muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Devuelve los valores predichos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.RidgeCV.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.RidgeCV.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p>
+<p>El coeficiente <span class="math notranslate nohighlight">\(R^2\)</span> se define como <span class="math notranslate nohighlight">\((1 - \frac{u}{v})\)</span>, donde <span class="math notranslate nohighlight">\(u\)</span> es la suma de cuadrados de los residuos <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_pred)</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code> y <span class="math notranslate nohighlight">\(v\)</span> es la suma total de cuadrados <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_true.mean())</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code>. La mejor puntuación posible es 1.0 y puede ser negativa (porque el modelo puede ser arbitrariamente peor). Un modelo constante que siempre predice el valor esperado de <code class="docutils literal notranslate"><span class="pre">y</span></code>, sin tener en cuenta las características de entrada, obtendría una puntuación <span class="math notranslate nohighlight">\(R^2\)</span> de 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples_X, n_features)</span></dt><dd><p>Muestras de prueba. Para algunos estimadores puede ser una matriz núcleo precalculada o una lista de objetos genéricos en su lugar con forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_samples_fitted)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">n_samples_fitted</span></code> es el número de muestras utilizadas en el ajuste para el estimador.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Valores True para X`.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de la muestra.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p><span class="math notranslate nohighlight">\(R^2\)</span> de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>La puntuación <span class="math notranslate nohighlight">\(R^2\)</span> utilizada al invocar a <code class="docutils literal notranslate"><span class="pre">score</span></code> en un regresor utiliza <code class="docutils literal notranslate"><span class="pre">multioutput='uniform_average'</span></code> desde la versión 0.23 para mantener la consistencia con el valor por defecto de <a class="reference internal" href="sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="sklearn.metrics.r2_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">r2_score</span></code></a>. Esto influye en el método <code class="docutils literal notranslate"><span class="pre">score</span></code> de todos los regresores de salida múltiple (excepto para <a class="reference internal" href="sklearn.multioutput.MultiOutputRegressor.html#sklearn.multioutput.MultiOutputRegressor" title="sklearn.multioutput.MultiOutputRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputRegressor</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.RidgeCV.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.RidgeCV.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto con estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia de estimador</span></dt><dd><p>Instancia de estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-linear-model-ridgecv">
+<h2>Ejemplos con <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.RidgeCV</span></code><a class="headerlink" href="#examples-using-sklearn-linear-model-ridgecv" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="In linear models, the target value is modeled as a linear combination of the features (see the ..."><figure class="align-default" id="id1">
+<img alt="Common pitfalls in interpretation of coefficients of linear models" src="../../_images/sphx_glr_plot_linear_model_coefficient_interpretation_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/inspection/plot_linear_model_coefficient_interpretation.html#sphx-glr-auto-examples-inspection-plot-linear-model-coefficient-interpretation-py"><span class="std std-ref">Errores comunes en la interpretación de los coeficientes de los modelos lineales</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.linear_model.RidgeCV.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.linear_model.LinearRegression &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.linear_model.SGDClassifier.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.SGDClassifier">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.linear_model.Ridge.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.Ridge">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>.LinearRegression</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-linear-model-linearregression">Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.LinearRegression</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-linear-model-linearregression">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.linear_model" title="sklearn.linear_model"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code></a>.LinearRegression<a class="headerlink" href="#sklearn-linear-model-linearregression" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.linear_model.LinearRegression">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.linear_model.</span></span><span class="sig-name descname"><span class="pre">LinearRegression</span></span><a class="headerlink" href="#sklearn.linear_model.LinearRegression" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Regresión lineal por mínimos cuadrados ordinarios (ordinary least squares Linear Regression).</p>
+<p>LinearRegression ajusta un modelo lineal con coeficientes w = (w1, …, wp) para minimizar la suma de cuadrados residual entre los objetivos observados en el conjunto de datos y los objetivos predichos por la aproximación lineal.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>fit_intercept</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si se calcula el intercepto para este modelo. Si se establece en False, no se utilizará ningún intercepto en los cálculos (es decir, se espera que los datos estén centrados).</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">bool, default=False</span></dt><dd><p>Este parámetro se ignora cuando <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code> se establece en False. Si es True, los regresores X serán normalizados antes de la regresión restando la media y dividiendo entre la norma l2. Si deseas normalizar, por favor utiliza <a class="reference internal" href="sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> antes de llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> en un estimador con <code class="docutils literal notranslate"><span class="pre">normalize=False</span></code>.</p>
+</dd>
+<dt><strong>copy_X</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, X se copiará; si no, puede ser sobrescrita.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>El número de trabajos a utilizar para el cálculo. Esto sólo proporcionará un aumento de velocidad para n_targets &gt; 1 y problemas suficientemente grandes. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que esté en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa usar todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>positive</strong><span class="classifier">bool, default=False</span></dt><dd><p>Cuando se establece en <code class="docutils literal notranslate"><span class="pre">True</span></code>, obliga a que los coeficientes sean positivos. Esta opción sólo está soportada para arreglos densos.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>coef_</strong><span class="classifier">arreglo de forma (n_features, ) o (n_targets, n_features)</span></dt><dd><p>Coeficientes estimados para el problema de regresión lineal. Si se pasan varios objetivos durante el ajuste (y 2D), se trata de un arreglo 2D de forma (n_targets, n_features), mientras que si sólo se pasa un objetivo, se trata de un arreglo 1D de longitud n_features.</p>
+</dd>
+<dt><strong>rank_</strong><span class="classifier">int</span></dt><dd><p>Rango de la matriz <code class="docutils literal notranslate"><span class="pre">X</span></code>. Sólo está disponible cuando <code class="docutils literal notranslate"><span class="pre">X</span></code> es densa.</p>
+</dd>
+<dt><strong>singular_</strong><span class="classifier">arreglo de forma (min(X, y),)</span></dt><dd><p>Valores singulares de <code class="docutils literal notranslate"><span class="pre">X</span></code>. Sólo está disponible cuando <code class="docutils literal notranslate"><span class="pre">X</span></code> es densa.</p>
+</dd>
+<dt><strong>intercept_</strong><span class="classifier">float o arreglo de forma (n_targets,)</span></dt><dd><p>Término independiente en el modelo lineal. Se establece en 0.0 si <code class="docutils literal notranslate"><span class="pre">fit_intercept</span> <span class="pre">=</span> <span class="pre">False</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ridge</span></code></a></dt><dd><p>La regresión Ridge aborda algunos de los problemas de los Mínimos Cuadrados Ordinarios imponiendo una penalización al tamaño de los coeficientes con la regularización l2.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lasso</span></code></a></dt><dd><p>El Lasso es un modelo lineal que estima coeficientes dispersos con regularización l1.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElasticNet</span></code></a></dt><dd><p>Elastic-Net es un modelo de regresión lineal entrenado con la regularización de la norma l1 y l2 de los coeficientes.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Desde el punto de vista de la implementación, esto es simplemente Mínimos Cuadrados Ordinarios (scipy.linalg.lstsq) o Mínimos Cuadrados No Negativos (scipy.optimize.nnls) envueltos (wrapped) como un objeto predictor.</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># y = 1 * x_0 + 2 * x_1 + 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([1., 2.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="go">3.0...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]))</span>
+<span class="go">array([16.])</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LinearRegression.fit" title="sklearn.linear_model.LinearRegression.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo lineal.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LinearRegression.get_params" title="sklearn.linear_model.LinearRegression.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LinearRegression.get_params" title="sklearn.linear_model.LinearRegression.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Predice utilizando el modelo lineal.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LinearRegression.score" title="sklearn.linear_model.LinearRegression.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LinearRegression.score" title="sklearn.linear_model.LinearRegression.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LinearRegression.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LinearRegression.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo lineal.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Datos de entrenamiento</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_targets)</span></dt><dd><p>Valores objetivo. Se convertirá en el dtype de X si es necesario</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones individuales para cada muestra</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span>parámetro <em>sample_weight</em> da soporte a LinearRegression.</p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">devuelve una instancia de self.</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LinearRegression.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LinearRegression.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LinearRegression.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LinearRegression.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice utilizando el modelo lineal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like o matriz dispersa, forma (n_samples, n_features)</span></dt><dd><p>Muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Devuelve los valores predichos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LinearRegression.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LinearRegression.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p>
+<p>El coeficiente <span class="math notranslate nohighlight">\(R^2\)</span> se define como <span class="math notranslate nohighlight">\((1 - \frac{u}{v})\)</span>, donde <span class="math notranslate nohighlight">\(u\)</span> es la suma de cuadrados residual <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_pred)</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code> y <span class="math notranslate nohighlight">\(v\)</span> es la suma total de cuadrados <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_true.mean())</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code>. La mejor puntuación posible es 1.0 y puede ser negativa (porque el modelo puede ser arbitrariamente peor). Un modelo constante que siempre predice el valor esperado de <code class="docutils literal notranslate"><span class="pre">y</span></code>, sin tener en cuenta las características de entrada, obtendría una puntuación <span class="math notranslate nohighlight">\(R^2\)</span> de 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba. Para algunos estimadores puede ser una matriz de núcleo precalculada o una lista de objetos genéricos con forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_samples_fitted)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">n_samples_fitted</span></code> es el número de muestras utilizadas en el ajuste para el estimador.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Valores verdaderos para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p><span class="math notranslate nohighlight">\(R^2\)</span> de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>La puntuación <span class="math notranslate nohighlight">\(R^2\)</span> utilizada al llamar a <code class="docutils literal notranslate"><span class="pre">score</span></code> en un regresor utiliza <code class="docutils literal notranslate"><span class="pre">multioutput='uniform_average'</span></code> desde la versión 0.23 para mantener la consistencia con el valor predeterminado de <a class="reference internal" href="sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="sklearn.metrics.r2_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">r2_score</span></code></a>. Esto influye en el método <code class="docutils literal notranslate"><span class="pre">score</span></code> de todos los regresores de salida múltiple (excepto para <a class="reference internal" href="sklearn.multioutput.MultiOutputRegressor.html#sklearn.multioutput.MultiOutputRegressor" title="sklearn.multioutput.MultiOutputRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputRegressor</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LinearRegression.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LinearRegression.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-linear-model-linearregression">
+<h2>Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.LinearRegression</span></code><a class="headerlink" href="#examples-using-sklearn-linear-model-linearregression" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Ridge regression is basically minimizing a penalised version of the least-squared function. The..."><figure class="align-default" id="id1">
+<img alt="Ordinary Least Squares and Ridge Regression Variance" src="../../_images/sphx_glr_plot_ols_ridge_variance_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_ols_ridge_variance.html#sphx-glr-auto-examples-linear-model-plot-ols-ridge-variance-py"><span class="std std-ref">Varianza de mínimos cuadrados ordinarios y regresión Ridge</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Shown in the plot is how the logistic regression would, in this synthetic dataset, classify val..."><figure class="align-default" id="id2">
+<img alt="Logistic function" src="../../_images/sphx_glr_plot_logistic_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_logistic.html#sphx-glr-auto-examples-linear-model-plot-logistic-py"><span class="std std-ref">Función logística</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we fit a linear model with positive constraints on the regression coefficients..."><figure class="align-default" id="id3">
+<img alt="Non-negative least squares" src="../../_images/sphx_glr_plot_nnls_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_nnls.html#sphx-glr-auto-examples-linear-model-plot-nnls-py"><span class="std std-ref">Mínimos cuadrados no negativos</span></a></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The coefficients, residual sum of squares and the coefficient of determination are also calcula..."><figure class="align-default" id="id4">
+<img alt="Linear Regression Example" src="../../_images/sphx_glr_plot_ols_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_ols.html#sphx-glr-auto-examples-linear-model-plot-ols-py"><span class="std std-ref">Ejemplo de regresión lineal</span></a></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example we see how to robustly fit a linear model to faulty data using the RANSAC algor..."><figure class="align-default" id="id5">
+<img alt="Robust linear model estimation using RANSAC" src="../../_images/sphx_glr_plot_ransac_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_ransac.html#sphx-glr-auto-examples-linear-model-plot-ransac-py"><span class="std std-ref">Estimación robusta de modelos lineales mediante RANSAC</span></a></span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Features 1 and 2 of the diabetes-dataset are fitted and plotted below. It illustrates that alth..."><figure class="align-default" id="id6">
+<img alt="Sparsity Example: Fitting only features 1  and 2" src="../../_images/sphx_glr_plot_ols_3d_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_ols_3d.html#sphx-glr-auto-examples-linear-model-plot-ols-3d-py"><span class="std std-ref">Ejemplo de sparsity: Ajustar sólo las características 1 y 2</span></a></span><a class="headerlink" href="#id6" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Computes a Theil-Sen Regression on a synthetic dataset."><figure class="align-default" id="id7">
+<img alt="Theil-Sen Regression" src="../../_images/sphx_glr_plot_theilsen_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_theilsen.html#sphx-glr-auto-examples-linear-model-plot-theilsen-py"><span class="std std-ref">Regresión de Theil-Sen</span></a></span><a class="headerlink" href="#id7" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Here a sine function is fit with a polynomial of order 3, for values close to zero."><figure class="align-default" id="id8">
+<img alt="Robust linear estimator fitting" src="../../_images/sphx_glr_plot_robust_fit_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_robust_fit.html#sphx-glr-auto-examples-linear-model-plot-robust-fit-py"><span class="std std-ref">Ajuste del estimador lineal robusto</span></a></span><a class="headerlink" href="#id8" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Here a sine function is fit with a polynomial of order 3, for values close to zero."><figure class="align-default" id="id9">
+<img alt="Robust linear estimator fitting" src="../../_images/sphx_glr_plot_robust_fit_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_robust_fit.html#sphx-glr-auto-examples-linear-model-plot-robust-fit-py"><span class="std std-ref">Ajuste del estimador lineal robusto</span></a></span><a class="headerlink" href="#id9" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Fit regression model with Bayesian Ridge Regression."><figure class="align-default" id="id10">
+<img alt="Automatic Relevance Determination Regression (ARD)" src="../../_images/sphx_glr_plot_ard_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_ard.html#sphx-glr-auto-examples-linear-model-plot-ard-py"><span class="std std-ref">Regresión automática de determinación de la relevancia (ARD)</span></a></span><a class="headerlink" href="#id10" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Fit regression model with Bayesian Ridge Regression."><figure class="align-default" id="id11">
+<img alt="Automatic Relevance Determination Regression (ARD)" src="../../_images/sphx_glr_plot_ard_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_ard.html#sphx-glr-auto-examples-linear-model-plot-ard-py"><span class="std std-ref">Regresión automática de determinación de la relevancia (ARD)</span></a></span><a class="headerlink" href="#id11" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Computes a Bayesian Ridge Regression on a synthetic dataset."><figure class="align-default" id="id12">
+<img alt="Bayesian Ridge Regression" src="../../_images/sphx_glr_plot_bayesian_ridge_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_bayesian_ridge.html#sphx-glr-auto-examples-linear-model-plot-bayesian-ridge-py"><span class="std std-ref">Regresión Bayesiana de Cresta</span></a></span><a class="headerlink" href="#id12" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Computes a Bayesian Ridge Regression on a synthetic dataset."><figure class="align-default" id="id13">
+<img alt="Bayesian Ridge Regression" src="../../_images/sphx_glr_plot_bayesian_ridge_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_bayesian_ridge.html#sphx-glr-auto-examples-linear-model-plot-bayesian-ridge-py"><span class="std std-ref">Regresión Bayesiana de Cresta</span></a></span><a class="headerlink" href="#id13" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="An illustration of the isotonic regression on generated data (non-linear monotonic trend with h..."><figure class="align-default" id="id14">
+<img alt="Isotonic Regression" src="../../_images/sphx_glr_plot_isotonic_regression_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/miscellaneous/plot_isotonic_regression.html#sphx-glr-auto-examples-miscellaneous-plot-isotonic-regression-py"><span class="std std-ref">Regresión Isotónica</span></a></span><a class="headerlink" href="#id14" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows the use of multi-output estimator to complete images. The goal is to predict..."><figure class="align-default" id="id15">
+<img alt="Face completion with a multi-output estimators" src="../../_images/sphx_glr_plot_multioutput_face_completion_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/miscellaneous/plot_multioutput_face_completion.html#sphx-glr-auto-examples-miscellaneous-plot-multioutput-face-completion-py"><span class="std std-ref">Finalización facial con estimadores de salida múltiple</span></a></span><a class="headerlink" href="#id15" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use cross_val_predict to visualize prediction errors."><figure class="align-default" id="id16">
+<img alt="Plotting Cross-Validated Predictions" src="../../_images/sphx_glr_plot_cv_predict_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/model_selection/plot_cv_predict.html#sphx-glr-auto-examples-model-selection-plot-cv-predict-py"><span class="std std-ref">Graficando predicciones con validación cruzada</span></a></span><a class="headerlink" href="#id16" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the problems of underfitting and overfitting and how we can use linea..."><figure class="align-default" id="id17">
+<img alt="Underfitting vs. Overfitting" src="../../_images/sphx_glr_plot_underfitting_overfitting_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/model_selection/plot_underfitting_overfitting.html#sphx-glr-auto-examples-model-selection-plot-underfitting-overfitting-py"><span class="std std-ref">Sobreajuste vs Subajuste</span></a></span><a class="headerlink" href="#id17" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The example compares prediction result of linear regression (linear model) and decision tree (t..."><figure class="align-default" id="id18">
+<img alt="Using KBinsDiscretizer to discretize continuous features" src="../../_images/sphx_glr_plot_discretization_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/preprocessing/plot_discretization.html#sphx-glr-auto-examples-preprocessing-plot-discretization-py"><span class="std std-ref">Usar KBinsDiscretizer para discretizar características continuas</span></a></span><a class="headerlink" href="#id18" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.linear_model.LinearRegression.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

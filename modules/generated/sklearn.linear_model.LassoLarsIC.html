@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.linear_model.LassoLarsIC &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLarsIC.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.linear_model.LassoLarsCV.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.LassoLarsCV">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.linear_model.OrthogonalMatchingPursuit.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.OrthogonalMatchingPursuit">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>.LassoLarsIC</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-linear-model-lassolarsic">Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.LassoLarsIC</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-linear-model-lassolarsic">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.linear_model" title="sklearn.linear_model"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code></a>.LassoLarsIC<a class="headerlink" href="#sklearn-linear-model-lassolarsic" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.linear_model.LassoLarsIC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.linear_model.</span></span><span class="sig-name descname"><span class="pre">LassoLarsIC</span></span><a class="headerlink" href="#sklearn.linear_model.LassoLarsIC" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajuste del modelo Lasso con Lars utilizando BIC o AIC para la selección del modelo</p>
+<p>El objetivo de optimización para Lasso es:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">))</span> <span class="o">*</span> <span class="o">||</span><span class="n">y</span> <span class="o">-</span> <span class="n">Xw</span><span class="o">||^</span><span class="mi">2_2</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_1</span>
+</pre></div>
+</div>
+<p>El AIC es el criterio de información de Akaike y el BIC es el criterio de Información de Bayes. Estos criterios son útiles para seleccionar el valor del parámetro de regularización haciendo una compensación entre la bondad del ajuste y la complejidad del modelo. Un buen modelo debe explicar bien los datos y al mismo tiempo ser sencillo.</p>
+<p>Lee más en el <a class="reference internal" href="../linear_model.html#least-angle-regression"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>criterion</strong><span class="classifier">{“bic” , “aic”}, default=”aic”</span></dt><dd><p>El tipo de criterio a utilizar.</p>
+</dd>
+<dt><strong>fit_intercept</strong><span class="classifier">bool, default=True</span></dt><dd><p>si se calcula el intercepto para este modelo. Si se establece en False, no se utilizará ningún intercepto en los cálculos (es decir, se espera que los datos estén centrados).</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool o int, default=False</span></dt><dd><p>Establece la cantidad de verbosidad.</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">bool, default=True</span></dt><dd><p>Este parámetro es ignorado cuando <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code> se establece en False. Si es True, los regresores X serán normalizados antes de la regresión restando la media y dividiendo por la norma l2. Si deseas estandarizar, por favor utiliza <a class="reference internal" href="sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> antes de invocar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> en un estimador con <code class="docutils literal notranslate"><span class="pre">normalize=False</span></code>.</p>
+</dd>
+<dt><strong>precompute</strong><span class="classifier">bool, “auto” o array-like, default=”auto”</span></dt><dd><p>Si se utiliza una matriz de Gram precalculada para acelerar los cálculos. Si se establece como <code class="docutils literal notranslate"><span class="pre">'auto'</span></code> podemos decidir. La matriz de Gram también se puede pasar como argumento.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=500</span></dt><dd><p>Número máximo de iteraciones a realizar. Se puede utilizar para una parada anticipada.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, default=np.finfo(float).eps</span></dt><dd><p>La regularización de máquina-precisión en el cálculo de los factores diagonales de Cholesky. Aumenta este parámetro para sistemas muy mal condicionados. A diferencia del parámetro <code class="docutils literal notranslate"><span class="pre">tol</span></code> en algunos algoritmos basados en la optimización iterativa, este parámetro no controla la tolerancia de la optimización.</p>
+</dd>
+<dt><strong>copy_X</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, X se copiará; si no, puede ser sobrescrito.</p>
+</dd>
+<dt><strong>positive</strong><span class="classifier">bool, default=False</span></dt><dd><p>Restringe los coeficientes para que sean &gt;= 0. Ten en cuenta que tal vez quieras eliminar fit_intercept que está establecido True por defecto. Bajo la restricción positiva los coeficientes del modelo no convergen a la solución de mínimos cuadrados ordinarios para valores pequeños de alfa. Sólo los coeficientes hasta el valor más pequeño de alfa (<code class="docutils literal notranslate"><span class="pre">alphas_[alphas_</span> <span class="pre">&gt;</span> <span class="pre">0.].min()</span></code> cuando fit_path=True) alcanzados por el algoritmo de Lars-Lasso por pasos están típicamente en congruencia con la solución del estimador Lasso de descenso coordinado. En consecuencia, utilizar LassoLarsIC sólo tiene sentido para los problemas en los que se espera y/o se alcanza una solución dispersa.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>coef_</strong><span class="classifier">array-like de forma (n_features,)</span></dt><dd><p>vector de parámetros (w en la fórmula de formulación)</p>
+</dd>
+<dt><strong>intercept_</strong><span class="classifier">float</span></dt><dd><p>término independiente en la función de decisión.</p>
+</dd>
+<dt><strong>alpha_</strong><span class="classifier">float</span></dt><dd><p>el parámetro alfa elegido por el criterio de información</p>
+</dd>
+<dt><strong>alphas_</strong><span class="classifier">array-like de forma (n_alphas + 1,) o lista de ese tipo de arreglos</span></dt><dd><p>Máximo de covarianzas (en valor absoluto) en cada iteración. <code class="docutils literal notranslate"><span class="pre">n_alphas</span></code> es <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>, <code class="docutils literal notranslate"><span class="pre">n_features</span></code> o el número de nodos en el camino con <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">&gt;=</span> <span class="pre">alpha_min</span></code>, el que sea menor. Si es una lista (list), será de longitud <code class="docutils literal notranslate"><span class="pre">n_targets</span></code>.</p>
+</dd>
+<dt><strong>n_iter_</strong><span class="classifier">int</span></dt><dd><p>número de iteraciones ejecutadas por lars_path para encontrar la cuadrícula de alfas.</p>
+</dd>
+<dt><strong>criterion_</strong><span class="classifier">array-like de forma (n_alphas,)</span></dt><dd><p>El valor de los criterios de información (“aic”, “bic”) en todos los alfas. Se elige el alfa que tiene el menor criterio de información. Este valor es mayor por un factor de <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> en comparación con las Ecuaciones 2.15 y 2.16 en (Zou et al, 2007).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.linear_model.lars_path.html#sklearn.linear_model.lars_path" title="sklearn.linear_model.lars_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lars_path</span></code></a>, <a class="reference internal" href="sklearn.linear_model.LassoLars.html#sklearn.linear_model.LassoLars" title="sklearn.linear_model.LassoLars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LassoLars</span></code></a>, <a class="reference internal" href="sklearn.linear_model.LassoLarsCV.html#sklearn.linear_model.LassoLarsCV" title="sklearn.linear_model.LassoLarsCV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LassoLarsCV</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>La estimación del número de grados de libertad viene dada por:</p>
+<p>«On the degrees of freedom of the lasso» Hui Zou, Trevor Hastie, y Robert Tibshirani Ann. Statist. Volume 35, Number 5 (2007), 2173-2192.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Akaike_information_criterion">https://en.wikipedia.org/wiki/Akaike_information_criterion</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Bayesian_information_criterion">https://en.wikipedia.org/wiki/Bayesian_information_criterion</a></p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LassoLarsIC</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;bic&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.1111</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1111</span><span class="p">])</span>
+<span class="go">LassoLarsIC(criterion=&#39;bic&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="go">[ 0.  -1.11...]</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LassoLarsIC.fit" title="sklearn.linear_model.LassoLarsIC.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo utilizando X, y como datos de entrenamiento.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LassoLarsIC.get_params" title="sklearn.linear_model.LassoLarsIC.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LassoLarsIC.predict" title="sklearn.linear_model.LassoLarsIC.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice utilizando el modelo lineal.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LassoLarsIC.score" title="sklearn.linear_model.LassoLarsIC.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LassoLarsIC.set_params" title="sklearn.linear_model.LassoLarsIC.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LassoLarsIC.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LassoLarsIC.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo utilizando X, y como datos de entrenamiento.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>datos del entrenamiento.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>valores objetivo. Se convertirá al dtype de X si es necesario</p>
+</dd>
+<dt><strong>copy_X</strong><span class="classifier">bool, default=None</span></dt><dd><p>Si se proporciona, este parámetro anulará la elección de copy_X realizada en la creación de la instancia. Si es <code class="docutils literal notranslate"><span class="pre">True</span></code>, X se copiará; de lo contrario, se puede sobrescribir.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>devuelve una instancia de sí misma.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LassoLarsIC.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LassoLarsIC.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Los nombres de los parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LassoLarsIC.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LassoLarsIC.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice utilizando el modelo lineal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like o matriz dispersa, de forma (n_samples, n_features)</span></dt><dd><p>Muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Devuelve los valores predichos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LassoLarsIC.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LassoLarsIC.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p>
+<p>El coeficiente <span class="math notranslate nohighlight">\(R^2\)</span> se define como <span class="math notranslate nohighlight">\((1 - \frac{u}{v})\)</span>, donde <span class="math notranslate nohighlight">\(u\)</span> es la suma de cuadrados de los residuos <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_pred)</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code> y <span class="math notranslate nohighlight">\(v\)</span> es la suma de cuadrados total <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_true.mean())</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code>. La mejor puntuación posible es 1.0 y puede ser negativa (porque el modelo puede ser arbitrariamente peor). Un modelo constante que siempre predice el valor esperado de <code class="docutils literal notranslate"><span class="pre">y</span></code>, sin tener en cuenta las características de entrada, obtendría una puntuación <span class="math notranslate nohighlight">\(R^2\)</span> de 0.0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba. Para algunos estimadores puede ser una matriz núcleo precalculada o una lista de objetos genéricos con forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_samples_fitted)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">n_samples_fitted</span></code> es el número de muestras utilizadas en el ajuste para el estimador.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Valores verdaderos para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de la muestra.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p><span class="math notranslate nohighlight">\(R^2\)</span> de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>La puntuación <span class="math notranslate nohighlight">\(R^2\)</span> utilizada al invocar a <code class="docutils literal notranslate"><span class="pre">score</span></code> en un regresor utiliza <code class="docutils literal notranslate"><span class="pre">multioutput='uniform_average'</span></code> desde la versión 0.23 para mantener la consistencia con el valor predeterminado de <a class="reference internal" href="sklearn.metrics.r2_score.html#sklearn.metrics.r2_score" title="sklearn.metrics.r2_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">r2_score</span></code></a>. Esto influye en el método <code class="docutils literal notranslate"><span class="pre">score</span></code> de todos los regresores de salida múltiple (excepto para <a class="reference internal" href="sklearn.multioutput.MultiOutputRegressor.html#sklearn.multioutput.MultiOutputRegressor" title="sklearn.multioutput.MultiOutputRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputRegressor</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LassoLarsIC.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LassoLarsIC.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia de estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-linear-model-lassolarsic">
+<h2>Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model.LassoLarsIC</span></code><a class="headerlink" href="#examples-using-sklearn-linear-model-lassolarsic" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Use the Akaike information criterion (AIC), the Bayes Information criterion (BIC) and cross-val..."><figure class="align-default" id="id1">
+<img alt="Lasso model selection: Cross-Validation / AIC / BIC" src="../../_images/sphx_glr_plot_lasso_model_selection_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/linear_model/plot_lasso_model_selection.html#sphx-glr-auto-examples-linear-model-plot-lasso-model-selection-py"><span class="std std-ref">Selección del modelo Lasso: Validación cruzada / AIC / BIC</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.linear_model.LassoLarsIC.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,585 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.impute.SimpleImputer &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.gaussian_process.kernels.WhiteKernel.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.gaussian_process.kernels.WhiteKernel">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.impute.IterativeImputer.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.impute.IterativeImputer">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.impute</span></code>.SimpleImputer</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-impute-simpleimputer">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.impute.SimpleImputer</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-impute-simpleimputer">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.impute" title="sklearn.impute"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.impute</span></code></a>.SimpleImputer<a class="headerlink" href="#sklearn-impute-simpleimputer" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.impute.SimpleImputer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.impute.</span></span><span class="sig-name descname"><span class="pre">SimpleImputer</span></span><a class="headerlink" href="#sklearn.impute.SimpleImputer" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Transformador de imputación para completar valores faltantes.</p>
+<p>Más información en el <a class="reference internal" href="../impute.html#impute"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.20: </span><code class="docutils literal notranslate"><span class="pre">SimpleImputer</span></code> sustituye al anterior estimador <code class="docutils literal notranslate"><span class="pre">sklearn.preprocessing.Imputer</span></code> que ahora se elimina.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>missing_values</strong><span class="classifier">int, float, str, np.nan o None, default=np.nan</span></dt><dd><p>El marcador de posición para los valores faltantes. Todas las ocurrencias de <code class="docutils literal notranslate"><span class="pre">missing_values</span></code> serán imputadas. Para los dataframes de pandas con dtypes enteros anulables con valores perdidos, <code class="docutils literal notranslate"><span class="pre">missing_values</span></code> debe establecerse en <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>, ya que <code class="docutils literal notranslate"><span class="pre">pd.NA</span></code> se convertirá en <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>.</p>
+</dd>
+<dt><strong>strategy</strong><span class="classifier">string, default=”mean”</span></dt><dd><p>La estrategia de imputación.</p>
+<ul class="simple">
+<li><p>Si es «mean», entonces reemplaza los valores faltantes usando la media a lo largo de cada columna. Sólo puede utilizarse con datos numéricos.</p></li>
+<li><p>Si es «median», entonces reemplaza los valores faltantes usando la mediana a lo largo de cada columna. Sólo puede utilizarse con datos numéricos.</p></li>
+<li><p>Si es » most_frequent», entonces reemplaza los faltantes usando el valor más frecuente a lo largo de cada columna. Puede utilizarse con cadenas o datos numéricos. Si hay más de un valor de este tipo, sólo se devuelve el más pequeño.</p></li>
+<li><p>Si es » constant «, entonces reemplaza los valores faltantes con fill_value. Puede utilizarse con cadenas o datos numéricos.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.20: </span>strategy=»constant» for fixed value imputation.</p>
+</div>
+</dd>
+<dt><strong>fill_value</strong><span class="classifier">cadena o valor numérico, default=None</span></dt><dd><p>Cuando la estrategia == «constant», fill_value se utiliza para reemplazar todas las ocurrencias de missing_values. Si se deja predeterminado, fill_value será 0 cuando se imputen datos numéricos y «missing_value» para cadenas o tipos de datos de objetos.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">integer, default=0</span></dt><dd><p>Controla la verbosidad del imputador.</p>
+</dd>
+<dt><strong>copy</strong><span class="classifier">boolean, default=True</span></dt><dd><p>Si es True, se creará una copia de X. Si es False, la imputación se hará en su lugar siempre que sea posible. Tenga en cuenta que, en los siguientes casos, siempre se hará una nueva copia, incluso si <code class="docutils literal notranslate"><span class="pre">copy=False</span></code>:</p>
+<ul class="simple">
+<li><p>Si X no es un arreglo de valores flotantes;</p></li>
+<li><p>Si X se codifica como una matriz CSR;</p></li>
+<li><p>Si add_indicator=True.</p></li>
+</ul>
+</dd>
+<dt><strong>add_indicator</strong><span class="classifier">boolean, default=False</span></dt><dd><p>Si es True, una transformación <a class="reference internal" href="sklearn.impute.MissingIndicator.html#sklearn.impute.MissingIndicator" title="sklearn.impute.MissingIndicator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MissingIndicator</span></code></a> se apilará en la salida de la transformación del imputador. Esto permite que un estimador predictivo tenga en cuenta los valores faltantes a pesar de la imputación. Si una característica no tiene valores faltantes en el tiempo de ajuste/entrenamiento, la característica no aparecerá en el indicador de falta aunque haya valores faltantes en el tiempo de transformación/prueba.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>statistics_</strong><span class="classifier">arreglo de forma(n_features,)</span></dt><dd><p>El valor de relleno de imputación para cada característica. El cálculo de las estadísticas puede dar lugar a valores <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>. Durante <a class="reference internal" href="#sklearn.impute.SimpleImputer.transform" title="sklearn.impute.SimpleImputer.transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">transform</span></code></a>, las características correspondientes a las estadísticas <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> serán descartadas.</p>
+</dd>
+<dt><strong>indicator_</strong><span class="classifier"><a class="reference internal" href="sklearn.impute.MissingIndicator.html#sklearn.impute.MissingIndicator" title="sklearn.impute.MissingIndicator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MissingIndicator</span></code></a></span></dt><dd><p>Indicador utilizado para añadir indicadores binarios para los valores faltantes. <code class="docutils literal notranslate"><span class="pre">None</span></code> si add_indicator es False.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a></dt><dd><p>Imputación multivariante de valores faltantes.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Las columnas que sólo contenían valores faltantes en <a class="reference internal" href="#sklearn.impute.SimpleImputer.fit" title="sklearn.impute.SimpleImputer.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit</span></code></a> se descartan en <a class="reference internal" href="#sklearn.impute.SimpleImputer.transform" title="sklearn.impute.SimpleImputer.transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">transform</span></code></a> si la estrategia no es «constant».</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp_mean</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">missing_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp_mean</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+<span class="go">SimpleImputer()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">imp_mean</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="go">[[ 7.   2.   3. ]</span>
+<span class="go"> [ 4.   3.5  6. ]</span>
+<span class="go"> [10.   3.5  9. ]]</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.impute.SimpleImputer.fit" title="sklearn.impute.SimpleImputer.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajustar el imputador en X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.impute.SimpleImputer.fit_transform" title="sklearn.impute.SimpleImputer.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a></p></td>
+<td><p>Se ajustan los datos y luego se transforman.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.impute.SimpleImputer.get_params" title="sklearn.impute.SimpleImputer.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.impute.SimpleImputer.inverse_transform" title="sklearn.impute.SimpleImputer.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a></p></td>
+<td><p>Convierte los datos a la representación original.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.impute.SimpleImputer.set_params" title="sklearn.impute.SimpleImputer.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.impute.SimpleImputer.transform" title="sklearn.impute.SimpleImputer.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a></p></td>
+<td><p>Imputa todos los valores faltantes en X.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.impute.SimpleImputer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.impute.SimpleImputer.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajustar el imputador en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix}, forma (n_samples, n_features)</span></dt><dd><p>Datos de entrada, donde <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> es el número de muestras y <code class="docutils literal notranslate"><span class="pre">n_features</span></code> es el número de características.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">SimpleImputer</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.impute.SimpleImputer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.impute.SimpleImputer.fit_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Se ajustan los datos y luego se transforman.</p>
+<p>Ajusta el transformador a <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> con los parámetros opcionales <code class="docutils literal notranslate"><span class="pre">fit_params</span></code> y devuelve una versión transformada de <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de entrada.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs),                 default=None</span></dt><dd><p>Valores objetivo (None para transformaciones no supervisadas).</p>
+</dd>
+<dt><strong>**fit_params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros de ajuste adicionales.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">arreglo ndarray de forma (n_samples, n_features_new)</span></dt><dd><p>Arreglo transformado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.impute.SimpleImputer.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.impute.SimpleImputer.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.impute.SimpleImputer.inverse_transform">
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.impute.SimpleImputer.inverse_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Convierte los datos a la representación original.</p>
+<p>Invierte la operación de <code class="docutils literal notranslate"><span class="pre">transform</span></code> realizada en un arreglo. Esta operación sólo puede realizarse después de instanciar <a class="reference internal" href="#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a> con <code class="docutils literal notranslate"><span class="pre">add_indicator=True</span></code>.</p>
+<p>Tenga en cuenta que <code class="docutils literal notranslate"><span class="pre">inverse_transform</span></code> sólo puede invertir la transformación en características que tienen indicadores binarios para los valores faltantes. Si una característica no tiene valores faltantes en el momento de <code class="docutils literal notranslate"><span class="pre">fit</span></code>, la característica no tendrá un indicador binario, y la imputación realizada en el momento de <code class="docutils literal notranslate"><span class="pre">transform</span></code> no se invertirá.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma                 (n_samples, n_features + n_features_missing_indicator)</span></dt><dd><p>Los datos imputados para ser revertidos a los datos originales. Tiene que ser un arreglo aumentado de datos imputados y la máscara del indicador faltante.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_original</strong><span class="classifier">ndarray de forma (n_samples, n_features)</span></dt><dd><p>La X original con valores faltantes tal y como estaba antes de la imputación.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.impute.SimpleImputer.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.impute.SimpleImputer.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.impute.SimpleImputer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.impute.SimpleImputer.transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Imputa todos los valores faltantes en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix}, forma (n_samples, n_features)</span></dt><dd><p>Los datos de entrada a completar.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-impute-simpleimputer">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.impute.SimpleImputer</span></code><a class="headerlink" href="#examples-using-sklearn-impute-simpleimputer" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Stacking refers to a method to blend estimators. In this strategy, some estimators are individu..."><figure class="align-default" id="id1">
+<img alt="Combine predictors using stacking" src="../../_images/sphx_glr_plot_stack_predictors_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/ensemble/plot_stack_predictors.html#sphx-glr-auto-examples-ensemble-plot-stack-predictors-py"><span class="std std-ref">Combinar predictores mediante el apilamiento (stacking)</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we will compare the impurity-based feature importance of RandomForestClassifie..."><figure class="align-default" id="id2">
+<img alt="Permutation Importance vs Random Forest Feature Importance (MDI)" src="../../_images/sphx_glr_plot_permutation_importance_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">Importancia de la Permutación vs la Importancia de las Características del Bosque Aleatorio (MDI)</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The IterativeImputer class is very flexible - it can be used with a variety of estimators to do..."><figure class="align-default" id="id3">
+<img alt="Imputing missing values with variants of IterativeImputer" src="../../_images/sphx_glr_plot_iterative_imputer_variants_comparison_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/impute/plot_iterative_imputer_variants_comparison.html#sphx-glr-auto-examples-impute-plot-iterative-imputer-variants-comparison-py"><span class="std std-ref">Imputar valores faltantes con variantes de IterativeImputer</span></a></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to apply different preprocessing and feature extraction pipelines ..."><figure class="align-default" id="id4">
+<img alt="Column Transformer with Mixed Types" src="../../_images/sphx_glr_plot_column_transformer_mixed_types_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">Transformador de columna con tipos mixtos</span></a></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.impute.SimpleImputer.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

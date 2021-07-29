@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.metrics.classification_report &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.metrics.brier_score_loss.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.metrics.brier_score_loss">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.metrics.cohen_kappa_score.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.metrics.cohen_kappa_score">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics</span></code>.classification_report</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-metrics-classification-report">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.metrics.classification_report</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-metrics-classification-report">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.metrics" title="sklearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics</span></code></a>.classification_report<a class="headerlink" href="#sklearn-metrics-classification-report" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sklearn.metrics.classification_report">
+<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">classification_report</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.metrics.classification_report" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Construye un informe de texto que muestre las principales métricas de clasificación.</p>
+<p>Más información en el <a class="reference internal" href="../model_evaluation.html#classification-report"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>y_true</strong><span class="classifier">array-like 1d, o arreglo indicador de etiqueta / matriz dispersa</span></dt><dd><p>Valores objetivo reales (correctos).</p>
+</dd>
+<dt><strong>y_pred</strong><span class="classifier">array-like 1d, o arreglo indicador de etiqueta / matriz dispersa</span></dt><dd><p>Objetivos estimados devueltos por un clasificador.</p>
+</dd>
+<dt><strong>labels</strong><span class="classifier">array-like de forma (n_labels,), default=None</span></dt><dd><p>Lista opcional de índices de etiqueta a incluir en el informe.</p>
+</dd>
+<dt><strong>target_names</strong><span class="classifier">lista de cadenas de forma (n_features,), default=None</span></dt><dd><p>Nombres de visualización opcionales coincidiendo con las etiquetas (mismo orden).</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderados de muestras.</p>
+</dd>
+<dt><strong>digits</strong><span class="classifier">entero, default=2</span></dt><dd><p>Número de dígitos para el formateo de valores de punto flotante de salida. Cuando <code class="docutils literal notranslate"><span class="pre">output_dict</span></code> es <code class="docutils literal notranslate"><span class="pre">True</span></code>, esto sera ignorado y los valores devueltos no serán redondeados.</p>
+</dd>
+<dt><strong>output_dict</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Si es True, devuelve la salida como dict.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.20.</span></p>
+</div>
+</dd>
+<dt><strong>zero_division</strong><span class="classifier">«warn», 0 o 1, default=»warn»</span></dt><dd><p>Establece el valor que se devolverá cuando haya una división cero. Si se establece en «warn», esto actúa como 0, pero también se generan advertencias.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl>
+<dt><strong>report</strong><span class="classifier">string / dict</span></dt><dd><p>Resumen en texto de la precisión, exhaustividad, puntuación F1 para cada clase. Devolverá un diccionario si output_dict es True. El diccionario tiene la siguiente estructura:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;label 1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;precision&#39;</span><span class="p">:</span><span class="mf">0.5</span><span class="p">,</span>
+             <span class="s1">&#39;recall&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span>
+             <span class="s1">&#39;f1-score&#39;</span><span class="p">:</span><span class="mf">0.67</span><span class="p">,</span>
+             <span class="s1">&#39;support&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">},</span>
+ <span class="s1">&#39;label 2&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Los promediados reportados incluyen el promedio macro (promediando la media sin ponderar por etiqueta), el promediado ponderado (promediando el apoyo-ponderado medio por etiqueta) y el promedio de muestras (solo para la clasificación multietiqueta). El promedio micro (promediando los verdaderos positivos totales, falsos negativos y falsos positivos) solo es mostrado para multi-etiqueta o multi-clase con un subconjunto de clases, porque corresponde a la precisión de otra forma y sería igual para todas las métricas. Ver también <a class="reference internal" href="sklearn.metrics.precision_recall_fscore_support.html#sklearn.metrics.precision_recall_fscore_support" title="sklearn.metrics.precision_recall_fscore_support"><code class="xref py py-func docutils literal notranslate"><span class="pre">precision_recall_fscore_support</span></code></a> para mas detalles acerca de los promedios.</p>
+<p>Note que en la clasificación binaria, la exhaustividad de la clase positiva también se conoce como «sensitivity»; la exhaustividad de la clase negativa es «specificity».</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.metrics.precision_recall_fscore_support.html#sklearn.metrics.precision_recall_fscore_support" title="sklearn.metrics.precision_recall_fscore_support"><code class="xref py py-obj docutils literal notranslate"><span class="pre">precision_recall_fscore_support</span></code></a>, <a class="reference internal" href="sklearn.metrics.confusion_matrix.html#sklearn.metrics.confusion_matrix" title="sklearn.metrics.confusion_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">confusion_matrix</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.metrics.multilabel_confusion_matrix.html#sklearn.metrics.multilabel_confusion_matrix" title="sklearn.metrics.multilabel_confusion_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multilabel_confusion_matrix</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class 0&#39;</span><span class="p">,</span> <span class="s1">&#39;class 1&#39;</span><span class="p">,</span> <span class="s1">&#39;class 2&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
+<span class="go">              precision    recall  f1-score   support</span>
+
+<span class="go">     class 0       0.50      1.00      0.67         1</span>
+<span class="go">     class 1       0.00      0.00      0.00         1</span>
+<span class="go">     class 2       1.00      0.67      0.80         3</span>
+
+<span class="go">    accuracy                           0.60         5</span>
+<span class="go">   macro avg       0.50      0.56      0.49         5</span>
+<span class="go">weighted avg       0.70      0.60      0.61         5</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<span class="go">              precision    recall  f1-score   support</span>
+
+<span class="go">           1       1.00      0.67      0.80         3</span>
+<span class="go">           2       0.00      0.00      0.00         0</span>
+<span class="go">           3       0.00      0.00      0.00         0</span>
+
+<span class="go">   micro avg       1.00      0.67      0.80         3</span>
+<span class="go">   macro avg       0.33      0.22      0.27         3</span>
+<span class="go">weighted avg       1.00      0.67      0.80         3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<section id="examples-using-sklearn-metrics-classification-report">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.metrics.classification_report</span></code><a class="headerlink" href="#examples-using-sklearn-metrics-classification-report" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The dataset used in this example is a preprocessed excerpt of the &quot;Labeled Faces in the Wild&quot;, ..."><figure class="align-default" id="id1">
+<img alt="Faces recognition example using eigenfaces and SVMs" src="../../_images/sphx_glr_plot_face_recognition_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/applications/plot_face_recognition.html#sphx-glr-auto-examples-applications-plot-face-recognition-py"><span class="std std-ref">Ejemplo de reconocimiento de rostros mediante eigenfaces y SVM</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Simple usage of Pipeline that runs successively a univariate feature selection with anova and t..."><figure class="align-default" id="id2">
+<img alt="Pipeline Anova SVM" src="../../_images/sphx_glr_plot_feature_selection_pipeline_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/feature_selection/plot_feature_selection_pipeline.html#sphx-glr-auto-examples-feature-selection-plot-feature-selection-pipeline-py"><span class="std std-ref">Pipeline Anova SVM</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The dataset used in this example is a preprocessed excerpt of the &quot;Labeled Faces in the Wild&quot;, ..."><figure class="align-default" id="id3">
+<img alt="Faces recognition example using eigenfaces and SVMs" src="../../_images/sphx_glr_plot_face_recognition_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/applications/plot_face_recognition.html#sphx-glr-auto-examples-applications-plot-face-recognition-py"><span class="std std-ref">Ejemplo de reconocimiento de rostros mediante eigenfaces y SVM</span></a></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This examples shows how a classifier is optimized by cross-validation, which is done using the ..."><figure class="align-default" id="id4">
+<img alt="Parameter estimation using grid search with cross-validation" src="../../_images/sphx_glr_plot_grid_search_digits_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/model_selection/plot_grid_search_digits.html#sphx-glr-auto-examples-model-selection-plot-grid-search-digits-py"><span class="std std-ref">Estimación de parámetros utilizando la búsqueda en cuadrícula con validación cruzada</span></a></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="For greyscale image data where pixel values can be interpreted as degrees of blackness on a whi..."><figure class="align-default" id="id5">
+<img alt="Restricted Boltzmann Machine features for digit classification" src="../../_images/sphx_glr_plot_rbm_logistic_classification_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/neural_networks/plot_rbm_logistic_classification.html#sphx-glr-auto-examples-neural-networks-plot-rbm-logistic-classification-py"><span class="std std-ref">Características de la Máquina de Boltzmann restringida para la clasificación de dígitos</span></a></span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Datasets can often contain components that require different feature extraction and processing ..."><figure class="align-default" id="id6">
+<img alt="Column Transformer with Heterogeneous Data Sources" src="../../_images/sphx_glr_plot_column_transformer_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/compose/plot_column_transformer.html#sphx-glr-auto-examples-compose-plot-column-transformer-py"><span class="std std-ref">Transformador de columnas con fuentes de datos heterogéneas</span></a></span><a class="headerlink" href="#id6" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the power of semisupervised learning by training a Label Spreading mo..."><figure class="align-default" id="id7">
+<img alt="Label Propagation digits: Demonstrating performance" src="../../_images/sphx_glr_plot_label_propagation_digits_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/semi_supervised/plot_label_propagation_digits.html#sphx-glr-auto-examples-semi-supervised-plot-label-propagation-digits-py"><span class="std std-ref">Dígitos de Propagación de Etiquetas: Demostración del rendimiento</span></a></span><a class="headerlink" href="#id7" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Demonstrates an active learning technique to learn handwritten digits using label propagation."><figure class="align-default" id="id8">
+<img alt="Label Propagation digits active learning" src="../../_images/sphx_glr_plot_label_propagation_digits_active_learning_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/semi_supervised/plot_label_propagation_digits_active_learning.html#sphx-glr-auto-examples-semi-supervised-plot-label-propagation-digits-active-learning-py"><span class="std std-ref">El aprendizaje activo de los dígitos de Propagación de Etiquetas</span></a></span><a class="headerlink" href="#id8" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a..."><figure class="align-default" id="id9">
+<img alt="Classification of text documents using sparse features" src="../../_images/sphx_glr_plot_document_classification_20newsgroups_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Clasificación de documentos de texto utilizando características dispersas</span></a></span><a class="headerlink" href="#id9" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.metrics.classification_report.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.inspection.PartialDependenceDisplay &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.inspection.PartialDependenceDisplay.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.inspection.permutation_importance.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.inspection.permutation_importance">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.inspection.plot_partial_dependence.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.inspection.plot_partial_dependence">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.inspection</span></code>.PartialDependenceDisplay</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-inspection-partialdependencedisplay">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.inspection.PartialDependenceDisplay</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-inspection-partialdependencedisplay">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.inspection" title="sklearn.inspection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.inspection</span></code></a>.PartialDependenceDisplay<a class="headerlink" href="#sklearn-inspection-partialdependencedisplay" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.inspection.PartialDependenceDisplay">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.inspection.</span></span><span class="sig-name descname"><span class="pre">PartialDependenceDisplay</span></span><a class="headerlink" href="#sklearn.inspection.PartialDependenceDisplay" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Gráfico de dependencia parcial (PDP).</p>
+<p>Esto también puede mostrar dependencias parciales individuales que a menudo se denominan: Expectativa de condición individual (ICE).</p>
+<p>Se recomienda utilizar <a class="reference internal" href="sklearn.inspection.plot_partial_dependence.html#sklearn.inspection.plot_partial_dependence" title="sklearn.inspection.plot_partial_dependence"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_partial_dependence</span></code></a> para crear una <a class="reference internal" href="#sklearn.inspection.PartialDependenceDisplay" title="sklearn.inspection.PartialDependenceDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PartialDependenceDisplay</span></code></a>. Todos los parámetros se almacenan como atributos.</p>
+<p>Lee más en <a class="reference internal" href="../../auto_examples/miscellaneous/plot_partial_dependence_visualization_api.html#sphx-glr-auto-examples-miscellaneous-plot-partial-dependence-visualization-api-py"><span class="std std-ref">Graficación Avanzada Con Dependencia Parcial</span></a> y el <a class="reference internal" href="../../visualizations.html#visualizations"><span class="std std-ref">Manual de Usuario</span></a>.</p>
+<blockquote>
+<div><div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</div></blockquote>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>pd_results</strong><span class="classifier">lista de Bunch</span></dt><dd><p>Resultados de <a class="reference internal" href="sklearn.inspection.partial_dependence.html#sklearn.inspection.partial_dependence" title="sklearn.inspection.partial_dependence"><code class="xref py py-func docutils literal notranslate"><span class="pre">partial_dependence</span></code></a> para <code class="docutils literal notranslate"><span class="pre">features</span></code>.</p>
+</dd>
+<dt><strong>features</strong><span class="classifier">list de (int,) o lista de (int, int)</span></dt><dd><p>Índices de características para un determinado gráfico. Una tupla de un entero trazará una curva de dependencia parcial de una característica. Una tupla de dos enteros trazará una curva de dependencia parcial de dos vías como un gráfico de contorno.</p>
+</dd>
+<dt><strong>feature_names</strong><span class="classifier">lista de str</span></dt><dd><p>Nombres de características correspondientes a los índices en <code class="docutils literal notranslate"><span class="pre">features</span></code>.</p>
+</dd>
+<dt><strong>target_idx</strong><span class="classifier">int</span></dt><dd><ul class="simple">
+<li><p>En un entorno multiclase, especifica la clase para la que deben calcularse las PDP. Tenga en cuenta que para la clasificación binaria, siempre se utiliza la clase positiva (índice 1).</p></li>
+<li><p>En una configuración de salida múltiple, especifica la tarea para la que se deben calcular las PDP.</p></li>
+</ul>
+<p>Ignorado en la clasificación binaria o en la configuración de regresión clásica.</p>
+</dd>
+<dt><strong>pdp_lim</strong><span class="classifier">dict</span></dt><dd><p>Predicciones promedio globales mínimas y máximas, de manera que todos los gráficos tendrán la misma escala y los mismos límites. <code class="docutils literal notranslate"><span class="pre">pdp_lim[1]</span></code> es el mínimo y el máximo global para las curvas de dependencia parcial simple. <code class="docutils literal notranslate"><span class="pre">pdp_lim[2]</span></code> es el mínimo y máximo global para las curvas de dependencia parcial de dos vías.</p>
+</dd>
+<dt><strong>deciles</strong><span class="classifier">dict</span></dt><dd><p>Deciles para los índices de características en <code class="docutils literal notranslate"><span class="pre">features</span></code>.</p>
+</dd>
+<dt><strong>kind</strong><span class="classifier">{“average”, “individual”, “both”}, default=”average”</span></dt><dd><blockquote>
+<div><p>Si se grafica la dependencia parcial promediada en todas las muestras del conjunto de datos o una línea por muestra o ambas.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kind='average'</span></code> da como resultado en el gráfico tradicional de PD;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kind='individual'</span></code> da como resultado el gráfico ICE.</p></li>
+</ul>
+</div></blockquote>
+<p>Nota que la opción rápida <code class="docutils literal notranslate"><span class="pre">method='recursion'</span></code> sólo está disponible para <code class="docutils literal notranslate"><span class="pre">kind='average'</span></code>. El gráfico de dependencias individuales requiere el uso de la opción más lenta <code class="docutils literal notranslate"><span class="pre">method='brute'</span></code>.</p>
+<blockquote>
+<div><div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</div></blockquote>
+</dd>
+<dt><strong>subsample</strong><span class="classifier">float, int o None, default=1000</span></dt><dd><p>Muestreo para las curvas ICE cuando <code class="docutils literal notranslate"><span class="pre">kind</span></code> es “individual” o “both”. Si es float, debe estar entre 0.0 y 1.0 y representa la proporción del conjunto de datos que se utilizará para trazar las curvas ICE. Si es int, representa el número absoluto máximo de muestras a utilizar.</p>
+<p>Nota que el conjunto de datos completo se sigue utilizando para calcular la dependencia parcial cuando <code class="docutils literal notranslate"><span class="pre">kind='both'</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, default=None</span></dt><dd><p>Controla la aleatoriedad de las muestras seleccionadas cuando submuestras no es <code class="docutils literal notranslate"><span class="pre">None</span></code>. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>bounding_ax_</strong><span class="classifier">ejes matplotlib o None</span></dt><dd><p>Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un eje o None, el <code class="docutils literal notranslate"><span class="pre">bounding_ax_</span></code> es el eje donde se dibuja la cuadrícula de gráficos de dependencia parcial. Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es una lista de ejes o un arreglo numpy de ejes, <code class="docutils literal notranslate"><span class="pre">bounding_ax_</span></code> es None.</p>
+</dd>
+<dt><strong>axes_</strong><span class="classifier">ndarray de matplotlib Axes</span></dt><dd><p>Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un eje o None, <code class="docutils literal notranslate"><span class="pre">axes_[i,</span> <span class="pre">j]</span></code> es el eje en la i-ésima fila y j-ésima columna. Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es una lista de ejes, <code class="docutils literal notranslate"><span class="pre">axes_[i]</span></code> es el i-ésimo elemento de <code class="docutils literal notranslate"><span class="pre">ax</span></code>. Los elementos que son None corresponden a ejes no existentes en esa posición.</p>
+</dd>
+<dt><strong>lines_</strong><span class="classifier">ndarray de matplotlib Artists</span></dt><dd><p>Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un eje o None, <code class="docutils literal notranslate"><span class="pre">lines_[i,</span> <span class="pre">j]</span></code> es la curva de dependencia parcial en la i-ésima fila y j-ésima columna. Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es una lista de ejes, <code class="docutils literal notranslate"><span class="pre">lines_[i]</span></code> es la curva de dependencia parcial correspondiente al i-ésimo elemento de <code class="docutils literal notranslate"><span class="pre">ax</span></code>. Los elementos que son None (Ninguno) corresponden a un eje no existente o a un eje que no incluye un gráfico de líneas.</p>
+</dd>
+<dt><strong>deciles_vlines_</strong><span class="classifier">ndarray de matplotlib LineCollection</span></dt><dd><p>Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un eje o None, <code class="docutils literal notranslate"><span class="pre">vlines_[i,</span> <span class="pre">j]</span></code> es la colección de líneas que representan los deciles del eje x de la i-ésima fila y j-ésima columna. Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es una lista de ejes, <code class="docutils literal notranslate"><span class="pre">vlines_[i]</span></code> corresponde al i-ésimo elemento de <code class="docutils literal notranslate"><span class="pre">ax</span></code>. Los elementos que son None corresponden a un eje no existente o a un eje que no incluye un gráfico PDP.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.23.</span></p>
+</div>
+</dd>
+<dt><strong>deciles_hlines_</strong><span class="classifier">ndarray de matplotlib LineCollection</span></dt><dd><p>Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un eje o None, <code class="docutils literal notranslate"><span class="pre">vlines_[i,</span> <span class="pre">j]</span></code> es la colección de líneas que representan los deciles del eje y de la i-ésima fila y j-ésima columna. Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es una lista de ejes, <code class="docutils literal notranslate"><span class="pre">vlines_[i]</span></code> corresponde al i-ésimo elemento de <code class="docutils literal notranslate"><span class="pre">ax</span></code>. Los elementos que son None corresponden a un eje no existente o a un eje que no incluye un gráfico de 2 vías.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.23.</span></p>
+</div>
+</dd>
+<dt><strong>contours_</strong><span class="classifier">ndarray de matplotlib Artists</span></dt><dd><p>Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un eje o None, <code class="docutils literal notranslate"><span class="pre">contours_[i,</span> <span class="pre">j]</span></code> es el gráfico de dependencia parcial en la i-ésima fila y j-ésima columna. Si <code class="docutils literal notranslate"><span class="pre">ax</span></code> es una lista de ejes, <code class="docutils literal notranslate"><span class="pre">contours_[i]</span></code> es el gráfico de dependencia parcial correspondiente al i-ésimo elemento de <code class="docutils literal notranslate"><span class="pre">ax</span></code>. Los elementos que son None corresponden a un eje no existente o a un eje que no incluye un gráfico de contorno.</p>
+</dd>
+<dt><strong>figure_</strong><span class="classifier">figura matplotlib</span></dt><dd><p>Figura que contiene gráficos de dependencia parcial.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.inspection.partial_dependence.html#sklearn.inspection.partial_dependence" title="sklearn.inspection.partial_dependence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partial_dependence</span></code></a></dt><dd><p>Calcular los valores de la Dependencia Parcial.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.inspection.plot_partial_dependence.html#sklearn.inspection.plot_partial_dependence" title="sklearn.inspection.plot_partial_dependence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_partial_dependence</span></code></a></dt><dd><p>Dependencia parcial del gráfico.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.inspection.PartialDependenceDisplay.plot" title="sklearn.inspection.PartialDependenceDisplay.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a></p></td>
+<td><p>Trazar gráficos de dependencia parcial.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.inspection.PartialDependenceDisplay.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.inspection.PartialDependenceDisplay.plot" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Trazar gráficos de dependencia parcial.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ax</strong><span class="classifier">Ejes de Matplotlib o array-like de ejes de Matplotlib, default=None</span></dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>Si se pasa un solo eje, se trata como un eje delimitador</dt><dd><p>y se dibujará una cuadrícula de gráficos de dependencia parcial dentro de estos límites. El parámetro <code class="docutils literal notranslate"><span class="pre">n_cols</span></code> controla el número de columnas de la cuadrícula.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Si se pasa un array-like, la dependencia parcial</dt><dd><p>los gráficos se dibujarán directamente en estos ejes.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Si es <code class="docutils literal notranslate"><span class="pre">None</span></code>, se crea y se trata una figura y unos ejes delimitadores</dt><dd><p>como el caso de los ejes individuales.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt><strong>n_cols</strong><span class="classifier">int, default=3</span></dt><dd><p>El número máximo de columnas en el gráfico de cuadricula. Sólo se activa cuando <code class="docutils literal notranslate"><span class="pre">ax</span></code> es un eje único o <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><strong>line_kw</strong><span class="classifier">dict, default=None</span></dt><dd><p>Diccionario con palabras clave pasadas a la llamada <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.plot</span></code>. Para gráficos de dependencia parcial unidireccional.</p>
+</dd>
+<dt><strong>contour_kw</strong><span class="classifier">dict, default=None</span></dt><dd><p>Diccionario con palabras clave pasadas a la llamada <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.contourf</span></code> para los gráficos de dependencia parcial de dos vías.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl>
+<dt><strong>display</strong><span class="classifier"><a class="reference internal" href="#sklearn.inspection.PartialDependenceDisplay" title="sklearn.inspection.PartialDependenceDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PartialDependenceDisplay</span></code></a></span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-inspection-partialdependencedisplay">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.inspection.PartialDependenceDisplay</span></code><a class="headerlink" href="#examples-using-sklearn-inspection-partialdependencedisplay" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="    See also sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py"><figure class="align-default" id="id1">
+<img alt="Advanced Plotting With Partial Dependence" src="../../_images/sphx_glr_plot_partial_dependence_visualization_api_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/miscellaneous/plot_partial_dependence_visualization_api.html#sphx-glr-auto-examples-miscellaneous-plot-partial-dependence-visualization-api-py"><span class="std std-ref">Graficación Avanzada Con Dependencia Parcial</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.inspection.PartialDependenceDisplay.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

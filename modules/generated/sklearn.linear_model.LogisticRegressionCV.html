@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.linear_model.LogisticRegressionCV &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegressionCV.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.linear_model.LogisticRegression.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.LogisticRegression">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.linear_model.PassiveAggressiveClassifier.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.linear_model.PassiveAggressiveClassifier">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>.LogisticRegressionCV</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-linear-model-logisticregressioncv">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.linear_model" title="sklearn.linear_model"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code></a>.LogisticRegressionCV<a class="headerlink" href="#sklearn-linear-model-logisticregressioncv" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.linear_model.</span></span><span class="sig-name descname"><span class="pre">LogisticRegressionCV</span></span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clasificador de Regresión Logística CV (también conocido como logit, MaxEnt).</p>
+<p>Ver entrada del glosario para <a class="reference internal" href="../../glossary.html#term-cross-validation-estimator"><span class="xref std std-term">cross-validation estimator</span></a>.</p>
+<p>Esta clase implementa la regresión logística utilizando el optimizador liblinear, newton-cg, sag o lbfgs. Los solucionadores newton-cg, sag y lbfgs sólo soportan la regularización L2 con formulación primal. El solucionador liblinear soporta tanto la regularización L1 como la L2, con una formulación dual sólo para la penalización L2. La penalización Elastic-Net sólo es compatible con el solucionador saga.</p>
+<p>Para la cuadrícula de valores <code class="docutils literal notranslate"><span class="pre">Cs</span></code> y <code class="docutils literal notranslate"><span class="pre">l1_ratios</span></code>, el mejor hiperparámetro es seleccionado por el validador cruzado <a class="reference internal" href="sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a>, pero puede ser cambiado usando el parámetro <a class="reference internal" href="../../glossary.html#term-cv"><span class="xref std std-term">cv</span></a>. Los solucionadores “newton-cg”, “sag”, “saga” y “lbfgs” pueden arrancar en caliente (warm-start) los coeficientes (ver <a class="reference internal" href="../../glossary.html#term-warm_start"><span class="xref std std-term">Glosario</span></a>).</p>
+<p>Leer más en el <a class="reference internal" href="../linear_model.html#logistic-regression"><span class="std std-ref">Manual de Usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>Cs</strong><span class="classifier">int o lista de flotantes, default=10</span></dt><dd><p>Cada uno de los valores en Cs describe el inverso de la fuerza de regularización. Si Cs es como un int, entonces se elige una cuadrícula de valores Cs en una escala logarítmica entre 1e-4 y 1e4. Como en las máquinas de vectores de soporte, los valores más pequeños especifican una regularización más fuerte.</p>
+</dd>
+<dt><strong>fit_intercept</strong><span class="classifier">bool, default=True</span></dt><dd><p>Especifica si una constante (también conocida como sesgo o intercepto) se debe añadir a la función de decisión.</p>
+</dd>
+<dt><strong>cv</strong><span class="classifier">int o generador de validación cruzada, default=None</span></dt><dd><p>El generador de validación cruzada utilizado por defecto es Stratified K-Folds. Si se proporciona un número entero, entonces es el número de partes (folds) utilizadas. Ver el módulo <a class="reference internal" href="../classes.html#module-sklearn.model_selection" title="sklearn.model_selection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code></a> para la lista de posibles objetos de validación cruzada.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.22: </span>El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">cv</span></code>, si es None, cambió de 3 partes a 5 partes.</p>
+</div>
+</dd>
+<dt><strong>dual</strong><span class="classifier">bool, default=False</span></dt><dd><p>Formulación dual o primal. La formulación dual sólo se implementa para la penalización l2 con el solucionador liblinear. Preferir dual=False cuando n_samples &gt; n_features.</p>
+</dd>
+<dt><strong>penalty</strong><span class="classifier">{“l1”, “l2”, “elasticnet”}, default=”l2”</span></dt><dd><p>Utilizado para especificar la norma usada en la penalización. Los solucionadores “newton-cg”, “sag” y “lbfgs” sólo soportan penalizaciones l2. “elasticnet” sólo es soportado por el solucionador “saga”.</p>
+</dd>
+<dt><strong>scoring</strong><span class="classifier">cadena de caracteres o invocable, default=None</span></dt><dd><p>Una cadena (ver la documentación sobre la evaluación del modelo) o un objeto / función de puntuación invocable con la firma <code class="docutils literal notranslate"><span class="pre">scorer(estimator,</span> <span class="pre">X,</span> <span class="pre">y)</span></code>. Para obtener una lista de funciones de puntuación que pueden ser usadas, consulta <a class="reference internal" href="../classes.html#module-sklearn.metrics" title="sklearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics</span></code></a>. La opción de puntuación utilizada por defecto es “accuracy”.</p>
+</dd>
+<dt><strong>solver</strong><span class="classifier">{“newton-cg”, “lbfgs”, “liblinear”, “sag”, “saga”},             default=”lbfgs”</span></dt><dd><p>Algoritmo a utilizar en el problema de optimización.</p>
+<ul class="simple">
+<li><p>Para conjuntos de datos pequeños, “liblinear” es una buena elección, mientras que “sag” y “saga” son más rápidos para los grandes.</p></li>
+<li><p>Para los problemas multiclase, sólo “newton-cg”, “sag”, “saga” y “lbfgs” manejan la pérdida multinomial; “liblinear” se limita a los esquemas de uno contra el resto.</p></li>
+<li><p>“newton-cg”, “lbfgs” y “sag” sólo manejan la penalización L2, mientras que “liblinear” y “saga” manejan la penalización L1.</p></li>
+<li><p>“liblinear” podría ser más lento en LogisticRegressionCV porque no maneja el arranque en caliente (warm-starting).</p></li>
+</ul>
+<p>Ten en cuenta que la convergencia rápida de “sag” y “saga” sólo está garantizada en características con aproximadamente la misma escala. Puedes preprocesar los datos con un escalador de sklearn.preprocessing.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span>Solucionador de descenso de Gradiente Medio Estocástico (Stochastic Average Gradient descent solver).</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.19: </span>Solucionador SAGA.</p>
+</div>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>Tolerancia para el criterio de parada.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=100</span></dt><dd><p>Número máximo de iteraciones del algoritmo de optimización.</p>
+</dd>
+<dt><strong>class_weight</strong><span class="classifier">diccionario o “balanced”, default=None</span></dt><dd><p>Ponderaciones asociadas a las clases de la forma <code class="docutils literal notranslate"><span class="pre">{class_label:</span> <span class="pre">weight}</span></code>. Si no se da, se supone que todas las clases tienen ponderación uno.</p>
+<p>El modo «balanced» utiliza los valores de y para ajustar automáticamente las ponderaciones de forma inversamente proporcional a las frecuencias de las clases en los datos de entrada como <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">/</span> <span class="pre">(n_classes</span> <span class="pre">*</span> <span class="pre">np.bincount(y))</span></code>.</p>
+<p>Ten en cuenta que estas ponderaciones se multiplicarán por sample_weight (pasado por el método de ajuste) si se especifica sample_weight.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span>class_weight == “balanced”</p>
+</div>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>Número de núcleos de CPU utilizados durante el bucle de validación cruzada. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que esté en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa usar todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int, default=0</span></dt><dd><p>Para los solucionadores “liblinear”, “sag” y “lbfgs” establece verbose a cualquier número positivo para la verbosidad.</p>
+</dd>
+<dt><strong>refit</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si se establece en True, las puntuaciones se promedian entre todas las partes, y se toman los coefs y la C correspondientes a la mejor puntuación, y se hace un reajuste final utilizando estos parámetros. En caso contrario, se promedian los coefs, interceptos y C correspondientes a las mejores puntuaciones en todas las partes.</p>
+</dd>
+<dt><strong>intercept_scaling</strong><span class="classifier">float, default=1</span></dt><dd><p>Útil sólo cuando se usa el solucionador “liblinear” y self.fit_intercept se establece en True. En este caso, x se convierte en [x, self.intercept_scaling], es decir, una característica «sintética» con valor constante igual a intercept_scaling se añade al vector de la instancia. El intercepto se convierte en <code class="docutils literal notranslate"><span class="pre">intercept_scaling</span> <span class="pre">*</span> <span class="pre">synthetic_feature_weight</span></code>.</p>
+<p>Nota: la ponderación de la característica sintética está sujeta a la regularización l1/l2 como todas las demás características. Para disminuir el efecto de la regularización en la ponderación de la característica sintética (y por lo tanto en el intercepto) el intercept_scaling tiene que aumentarse.</p>
+</dd>
+<dt><strong>multi_class</strong><span class="classifier">{“auto, “ovr”, “multinomial”}, default=”auto”</span></dt><dd><p>Si la opción elegida es “ovr”, entonces se ajusta un problema binario para cada etiqueta. Para “multinomial” la pérdida minimizada es la pérdida multinomial ajustada a través de toda la distribución de probabilidad, <em>incluso cuando los datos son binarios</em>. “multinomial” no está disponible cuando solver=”liblinear”. auto” selecciona “ovr” si los datos son binarios, o si solver=”liblinear”, y en caso contrario selecciona “multinomial”.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.18: </span>Solucionador de descenso de Gradiente Medio Estocástico para el caso “multinomial”.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.22: </span>Por defecto cambió de “ovr” a “auto” en 0.22.</p>
+</div>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState, default=None</span></dt><dd><p>Utilizado cuando <code class="docutils literal notranslate"><span class="pre">solver='sag'</span></code>, “saga” o “liblinear” para revolver los datos. Ten en cuenta que esto sólo se aplica al solucionador y no al generador de validación cruzada. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a> para obtener detalles.</p>
+</dd>
+<dt><strong>l1_ratios</strong><span class="classifier">lista de flotantes, default=None</span></dt><dd><p>La lista del parámetro de mezcla de Elastic-Net, con <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">l1_ratio</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code>. Sólo se utiliza si <code class="docutils literal notranslate"><span class="pre">penalty='elasticnet'</span></code>. Un valor de 0 es equivalente a utilizar <code class="docutils literal notranslate"><span class="pre">penalty='l2'</span></code>, mientras que 1 es equivalente a utilizar <code class="docutils literal notranslate"><span class="pre">penalty='l1'</span></code>. Para <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">l1_ratio</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>, la penalización es una combinación de L1 y L2.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>classes_</strong><span class="classifier">ndarray de forma (n_classes, )</span></dt><dd><p>Una lista de etiquetas de clase conocidas por el clasificador.</p>
+</dd>
+<dt><strong>coef_</strong><span class="classifier">ndarray de forma (1, n_features) o (n_classes, n_features)</span></dt><dd><p>Coeficiente de las características en la función de decisión.</p>
+<p><code class="docutils literal notranslate"><span class="pre">coef_</span></code> es de forma (1, n_features) cuando el problema dado es binario.</p>
+</dd>
+<dt><strong>intercept_</strong><span class="classifier">ndarray de forma (1,) o (n_classes,)</span></dt><dd><p>Intercepto (también conocido como sesgo) añadido a la función de decisión.</p>
+<p>Si <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code> se establece en False, el intercepto se establece en cero. <code class="docutils literal notranslate"><span class="pre">intercept_</span></code> es de forma (1,) cuando el problema es binario.</p>
+</dd>
+<dt><strong>Cs_</strong><span class="classifier">ndarray de forma (n_cs)</span></dt><dd><p>Arreglo de C, es decir, la inversa de los valores de los parámetros de regularización utilizados para la validación cruzada.</p>
+</dd>
+<dt><strong>l1_ratios_</strong><span class="classifier">ndarray de forma (n_l1_ratios)</span></dt><dd><p>Arreglo de l1_ratios utilizados para la validación cruzada. Si no se utiliza l1_ratio (es decir, la penalización no es “elasticnet”), se establece como <code class="docutils literal notranslate"><span class="pre">[None]</span></code></p>
+</dd>
+<dt><strong>coefs_paths_</strong><span class="classifier">ndarray de forma (n_folds, n_cs, n_features) o                    (n_folds, n_cs, n_features + 1)</span></dt><dd><p>Diccionario con las clases como claves, y la ruta de los coeficientes obtenidos durante la validación cruzada a través de cada parte (fold) y luego a través de cada Cs después de hacer un OvR para la clase correspondiente como valores. Si la opción “multi_class” se establece como “multinomial”, entonces los coefs_paths son los coeficientes correspondientes a cada clase. Cada valor del diccionario tiene forma <code class="docutils literal notranslate"><span class="pre">(n_folds,</span> <span class="pre">n_cs,</span> <span class="pre">n_features)</span></code> o <code class="docutils literal notranslate"><span class="pre">(n_folds,</span> <span class="pre">n_cs,</span> <span class="pre">n_features</span> <span class="pre">+</span> <span class="pre">1)</span></code> dependiendo de si el intercepto se ajusta o no. Si <code class="docutils literal notranslate"><span class="pre">penalty='elasticnet'</span></code>, la forma es <code class="docutils literal notranslate"><span class="pre">(n_folds,</span> <span class="pre">n_cs,</span> <span class="pre">n_l1_ratios_,</span> <span class="pre">n_features)</span></code> o <code class="docutils literal notranslate"><span class="pre">(n_folds,</span> <span class="pre">n_cs,</span> <span class="pre">n_l1_ratios_,</span> <span class="pre">n_features</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</p>
+</dd>
+<dt><strong>scores_</strong><span class="classifier">dict</span></dt><dd><p>Diccionario con las clases como claves, y los valores como la cuadrícula de puntuaciones obtenidas durante la validación cruzada de cada parte (fold), después de hacer un OvR para la clase correspondiente. Si la opción “multi_class” dada es “multinomial” entonces las mismas puntuaciones se repiten en todas las clases, ya que se trata de la clase multinomial. Cada valor del diccionario tiene forma <code class="docutils literal notranslate"><span class="pre">(n_folds,</span> <span class="pre">n_cs</span></code> o <code class="docutils literal notranslate"><span class="pre">(n_folds,</span> <span class="pre">n_cs,</span> <span class="pre">n_l1_ratios)</span></code> si <code class="docutils literal notranslate"><span class="pre">penalty='elasticnet'</span></code>.</p>
+</dd>
+<dt><strong>C_</strong><span class="classifier">ndarray de forma (n_classes,) o (n_classes - 1,)</span></dt><dd><p>Arreglo de C que se mapea a las mejores puntuaciones de cada clase. Si refit se establece en False, entonces para cada clase, la mejor C es la media de las C que corresponden a las mejores puntuaciones para cada parte. <code class="docutils literal notranslate"><span class="pre">C_</span></code> es de forma (n_classes,) cuando el problema es binario.</p>
+</dd>
+<dt><strong>l1_ratio_</strong><span class="classifier">ndarray de forma (n_classes,) o (n_classes - 1,)</span></dt><dd><p>Arreglo de l1_ratio que se mapea a las mejores puntuaciones de cada clase. Si refit se establece en False, entonces para cada clase, el mejor l1_ratio es el promedio de los l1_ratio que corresponden a las mejores puntuaciones para cada parte.  <code class="docutils literal notranslate"><span class="pre">l1_ratio_</span></code> es de forma (n_classes,) cuando el problema es binario.</p>
+</dd>
+<dt><strong>n_iter_</strong><span class="classifier">ndarray de forma (n_classes, n_folds, n_cs) o (1, n_folds, n_cs)</span></dt><dd><p>Número real de iteraciones para todas las clases, partes y Cs. En los casos binarios o multinomiales, la primera dimensión es igual a 1. Si <code class="docutils literal notranslate"><span class="pre">penalty='elasticnet'</span></code>, la forma es <code class="docutils literal notranslate"><span class="pre">(n_classes,</span> <span class="pre">n_folds,</span> <span class="pre">n_cs,</span> <span class="pre">n_l1_ratios)</span></code> o <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">n_folds,</span> <span class="pre">n_cs,</span> <span class="pre">n_l1_ratios)</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegressionCV</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>
+<span class="go">array([0, 0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">0.98...</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.decision_function" title="sklearn.linear_model.LogisticRegressionCV.decision_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_function</span></code></a></p></td>
+<td><p>Predice las puntuaciones de confianza de las muestras.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.densify" title="sklearn.linear_model.LogisticRegressionCV.densify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">densify</span></code></a></p></td>
+<td><p>Convierte la matriz de coeficientes en formato de arreglo denso.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.fit" title="sklearn.linear_model.LogisticRegressionCV.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo según los datos de entrenamiento dados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.get_params" title="sklearn.linear_model.LogisticRegressionCV.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.predict" title="sklearn.linear_model.LogisticRegressionCV.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice las etiquetas de clase para las muestras en X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.predict_log_proba" title="sklearn.linear_model.LogisticRegressionCV.predict_log_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_log_proba</span></code></a></p></td>
+<td><p>Predice el logaritmo de las estimaciones de probabilidad.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.predict_proba" title="sklearn.linear_model.LogisticRegressionCV.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Estimaciones de probabilidad.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.score" title="sklearn.linear_model.LogisticRegressionCV.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la puntuación utilizando la opción <code class="docutils literal notranslate"><span class="pre">scoring</span></code> en los datos de la prueba y las etiquetas dadas.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.set_params" title="sklearn.linear_model.LogisticRegressionCV.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.linear_model.LogisticRegressionCV.sparsify" title="sklearn.linear_model.LogisticRegressionCV.sparsify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sparsify</span></code></a></p></td>
+<td><p>Convierte la matriz de coeficientes en formato disperso.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.decision_function">
+<span class="sig-name descname"><span class="pre">decision_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.decision_function" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las puntuaciones de confianza de las muestras.</p>
+<p>La puntuación de confianza de una muestra es proporcional a la distancia con signo de esa muestra al hiperplano.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like o matriz dispersa, forma (n_samples, n_features)</span></dt><dd><p>Muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt>arreglo, forma=(n_samples,) si n_classes == 2 de lo contrario (n_samples, n_classes)</dt><dd><p>Puntuaciones de confianza por combinación (sample, class). En el caso binario, la puntuación de confianza para self.classes_[1] donde &gt;0 significa que esta clase sería predicha.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.densify">
+<span class="sig-name descname"><span class="pre">densify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.densify" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Convierte la matriz de coeficientes en formato de arreglo denso.</p>
+<p>Convierte el miembro <code class="docutils literal notranslate"><span class="pre">coef_</span></code> (de vuelta) en un numpy.ndarray. Este es el formato predeterminado de <code class="docutils literal notranslate"><span class="pre">coef_</span></code> y se requiere para el ajuste, por lo que llamar a este método sólo es necesario en los modelos que han sido previamente dispersados (sparsified); de lo contrario, es un no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>self</dt><dd><p>Estimador ajustado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo según los datos de entrenamiento dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Vector de entrenamiento, donde n_samples es el número de muestras y n_features es el número de características.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Vector objetivo relativo a X.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,) default=None</span></dt><dd><p>Arreglo de ponderaciones que se asignan a las muestras individuales. Si no se proporciona, entonces cada muestra recibe una ponderación unitaria.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las etiquetas de clase para las muestras en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like o matriz dispersa, forma (n_samples, n_features)</span></dt><dd><p>Muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">arreglo, forma [n_samples]</span></dt><dd><p>Etiqueta de clase predicha por muestra.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.predict_log_proba">
+<span class="sig-name descname"><span class="pre">predict_log_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.predict_log_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice el logaritmo de las estimaciones de probabilidad.</p>
+<p>Las estimaciones devueltas para todas las clases están ordenadas por la etiqueta de las clases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Vector a ser puntuado, donde <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> es el número de muestras y <code class="docutils literal notranslate"><span class="pre">n_features</span></code> es el número de características.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">array-like de forma (n_samples, n_classes)</span></dt><dd><p>Devuelve la probabilidad logarítmica de la muestra para cada clase en el modelo, donde las clases se ordenan como están en <code class="docutils literal notranslate"><span class="pre">self.classes_</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Estimaciones de probabilidad.</p>
+<p>Las estimaciones devueltas para todas las clases están ordenadas por la etiqueta de las clases.</p>
+<p>Para un problema multi_class, si multi_class está establecido como «multinomial» se utiliza la función softmax para encontrar la probabilidad predicha de cada clase. De lo contrario, se utiliza un enfoque de uno contra el resto, es decir, se calcula la probabilidad de cada clase asumiendo que es positiva utilizando la función logística y se normalizan estos valores en todas las clases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Vector a ser puntuado, donde <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> es el número de muestras y <code class="docutils literal notranslate"><span class="pre">n_features</span></code> es el número de características.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">array-like de forma (n_samples, n_classes)</span></dt><dd><p>Devuelve la probabilidad de la muestra para cada clase en el modelo, donde las clases se ordenan como están en <code class="docutils literal notranslate"><span class="pre">self.classes_</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la puntuación utilizando la opción <code class="docutils literal notranslate"><span class="pre">scoring</span></code> en los datos de la prueba y las etiquetas dadas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Etiquetas verdaderas para X.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p>Puntuación de self.predict(X) con respecto a y.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.linear_model.LogisticRegressionCV.sparsify">
+<span class="sig-name descname"><span class="pre">sparsify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.linear_model.LogisticRegressionCV.sparsify" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Convierte la matriz de coeficientes en formato disperso.</p>
+<p>Convierte el miembro <code class="docutils literal notranslate"><span class="pre">coef_</span></code> en una matriz scipy.sparse, que para los modelos L1-regularizados puede ser mucho más eficiente en cuanto a memoria y almacenamiento que la representación numpy.ndarray habitual.</p>
+<p>El miembro <code class="docutils literal notranslate"><span class="pre">intercept_</span></code> no se convierte.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>self</dt><dd><p>Estimador ajustado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>Para los modelos no dispersos, es decir, cuando no hay muchos ceros en <code class="docutils literal notranslate"><span class="pre">coef_</span></code>, esto puede en realidad <em>aumentar</em> el uso de la memoria, así que utiliza este método con cuidado. Una regla general es que el número de elementos cero, que puede ser calculado con <code class="docutils literal notranslate"><span class="pre">(coef_</span> <span class="pre">==</span> <span class="pre">0).sum()</span></code>, debe ser más del 50% para que esto proporcione beneficios significativos.</p>
+<p>Después de llamar a este método, el ajuste posterior con el método partial_fit (si lo hay) no funcionará hasta que llames a densify.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.linear_model.LogisticRegressionCV.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
