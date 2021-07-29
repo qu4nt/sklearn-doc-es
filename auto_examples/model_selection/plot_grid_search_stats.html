@@ -1,0 +1,1050 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Comparación estadística de modelos utilizando la búsqueda en cuadrícula &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/auto_examples/model_selection/plot_grid_search_stats.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="plot_learning_curve.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Graficando curvas de aprendizaje">Prev</a><a href="../index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Ejemplos">Arriba</a>
+            <a href="../multioutput/plot_classifier_chain_yeast.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Cadenas de Clasificadores">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Comparación estadística de modelos utilizando la búsqueda en cuadrícula</a><ul>
+<li><a class="reference internal" href="#comparing-two-models-frequentist-approach">Comparando dos modelos: enfoque frecuentista</a></li>
+<li><a class="reference internal" href="#comparing-two-models-bayesian-approach">Comparando dos modelos: enfoque Bayesiano</a><ul>
+<li><a class="reference internal" href="#region-of-practical-equivalence">Región de equivalencia práctica</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pairwise-comparison-of-all-models-frequentist-approach">Comparación por pares de todos los modelos: enfoque frecuentista</a></li>
+<li><a class="reference internal" href="#pairwise-comparison-of-all-models-bayesian-approach">Comparación por pares de todos los modelos: Enfoque bayesiano</a></li>
+<li><a class="reference internal" href="#take-home-messages">Mensajes para llevar a casa</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Nota</p>
+<p>Haz clic en <a class="reference internal" href="#sphx-glr-download-auto-examples-model-selection-plot-grid-search-stats-py"><span class="std std-ref">aquí</span></a> para descargar el código completo del ejemplo o para ejecutar este ejemplo en tu navegador a través de Binder</p>
+</div>
+<section class="sphx-glr-example-title" id="statistical-comparison-of-models-using-grid-search">
+<span id="sphx-glr-auto-examples-model-selection-plot-grid-search-stats-py"></span><h1>Comparación estadística de modelos utilizando la búsqueda en cuadrícula<a class="headerlink" href="#statistical-comparison-of-models-using-grid-search" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este ejemplo ilustra cómo comparar estadísticamente el rendimiento de los modelos entrenados y evaluados utilizando <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>.</p>
+<p>Empezaremos simulando datos con forma de luna (donde la separación ideal entre clases no es lineal), añadiendo a ello un grado moderado de ruido. Los puntos de datos pertenecerán a una de las dos clases posibles, que serán predichas por dos características. Simularemos 50 muestras para cada clase:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.make_moons.html#sklearn.datasets.make_moons" title="sklearn.datasets.make_moons" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_moons</span></a>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.make_moons.html#sklearn.datasets.make_moons" title="sklearn.datasets.make_moons" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_moons</span></a><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.352</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<a href="https://seaborn.pydata.org/generated/seaborn.scatterplot.html#seaborn.scatterplot" title="seaborn.scatterplot" class="sphx-glr-backref-module-seaborn sphx-glr-backref-type-py-function"><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span></a><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Data" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_grid_search_stats_001.png" />
+<p>Compararemos el rendimiento de los estimadores <a class="reference internal" href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">SVC</span></code></a> que varían en su parámetro <code class="docutils literal notranslate"><span class="pre">kernel</span></code>, para decidir qué elección de este hiperparámetro predice mejor nuestros datos simulados. Evaluaremos el rendimiento de los modelos utilizando <a class="reference internal" href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></a>, repitiendo 10 veces una validación cruzada estratificada de 10-pliegues(fold) utilizando una aleatorización diferente de los datos en cada repetición. El rendimiento se evaluará utilizando <a class="reference internal" href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score"><code class="xref py py-class docutils literal notranslate"><span class="pre">roc_auc_score</span></code></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GridSearchCV</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RepeatedStratifiedKFold</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SVC</span></a>
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;poly&#39;</span><span class="p">],</span> <span class="s1">&#39;degree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;rbf&#39;</span><span class="p">]}</span>
+<span class="p">]</span>
+
+<span class="n">svc</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SVC</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">cv</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RepeatedStratifiedKFold</span></a><span class="p">(</span>
+    <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+
+<span class="n">search</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GridSearchCV</span></a><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">svc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span>
+<span class="p">)</span>
+<span class="n">search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>GridSearchCV(cv=RepeatedStratifiedKFold(n_repeats=10, n_splits=10, random_state=0),
+             estimator=SVC(random_state=0),
+             param_grid=[{&#39;kernel&#39;: [&#39;linear&#39;]},
+                         {&#39;degree&#39;: [2, 3], &#39;kernel&#39;: [&#39;poly&#39;]},
+                         {&#39;kernel&#39;: [&#39;rbf&#39;]}],
+             scoring=&#39;roc_auc&#39;)
+</pre></div>
+</div>
+<p>Ahora podemos inspeccionar los resultados de nuestra búsqueda, ordenados por su <code class="docutils literal notranslate"><span class="pre">mean_test_score</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">results_df</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">search</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rank_test_score&#39;</span><span class="p">])</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">results_df</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">results_df</span><span class="p">[</span><span class="s2">&quot;params&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;kernel&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">results_df</span><span class="p">[</span>
+    <span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="s1">&#39;rank_test_score&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_test_score&#39;</span><span class="p">,</span> <span class="s1">&#39;std_test_score&#39;</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>params</th>
+      <th>rank_test_score</th>
+      <th>mean_test_score</th>
+      <th>std_test_score</th>
+    </tr>
+    <tr>
+      <th>kernel</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rbf</th>
+      <td>{'kernel': 'rbf'}</td>
+      <td>1</td>
+      <td>0.9400</td>
+      <td>0.079297</td>
+    </tr>
+    <tr>
+      <th>linear</th>
+      <td>{'kernel': 'linear'}</td>
+      <td>2</td>
+      <td>0.9300</td>
+      <td>0.077846</td>
+    </tr>
+    <tr>
+      <th>3_poly</th>
+      <td>{'degree': 3, 'kernel': 'poly'}</td>
+      <td>3</td>
+      <td>0.9044</td>
+      <td>0.098776</td>
+    </tr>
+    <tr>
+      <th>2_poly</th>
+      <td>{'degree': 2, 'kernel': 'poly'}</td>
+      <td>4</td>
+      <td>0.6852</td>
+      <td>0.169106</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<br />
+<br /><p>Podemos ver que el estimador que utiliza el kernel «rbf» es el que mejor funciona, seguido de cerca por el <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>. Ambos estimadores con un núcleo <code class="docutils literal notranslate"><span class="pre">'poly'</span></code> se comportaron peor, con el que utiliza un polinomio de segundo grado logrando un rendimiento mucho menor que todos los demás modelos.</p>
+<p>Normalmente, el análisis termina aquí, pero falta la mitad de la historia. La salida de <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> no proporciona información sobre la certeza de las diferencias entre los modelos. No sabemos si son <strong>estadísticamente</strong> significativas. Para evaluar esto, necesitamos realizar una prueba estadística. En concreto, para contrastar el rendimiento de dos modelos debemos comparar estadísticamente sus puntuaciones AUC. Hay 100 muestras (puntuaciones AUC) para cada modelo, ya que repetimos 10 veces una validación cruzada de 10-pliegues(fold).</p>
+<p>Sin embargo, las puntuaciones de los modelos no son independientes: todos los modelos se evalúan en las <strong>mismas</strong> 100 particiones, lo que aumenta la correlación entre el rendimiento de los modelos. Dado que algunas particiones de los datos pueden hacer que la distinción de las clases sea particularmente fácil o difícil de encontrar para todos los modelos, las puntuaciones de los modelos covarían.</p>
+<p>Inspeccionemos este efecto de partición graficando el rendimiento de todos los modelos en cada pliegue y calculando la correlación entre los modelos en todos los pliegues:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create df of model scores ordered by perfomance</span>
+<span class="n">model_scores</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;split\d*_test_score&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot 30 examples of dependency between cv fold and AUC scores</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">()</span>
+<a href="https://seaborn.pydata.org/generated/seaborn.lineplot.html#seaborn.lineplot" title="seaborn.lineplot" class="sphx-glr-backref-module-seaborn sphx-glr-backref-type-py-function"><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span></a><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">model_scores</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">30</span><span class="p">],</span>
+    <span class="n">dashes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;CV test fold&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Model AUC&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+
+<span class="c1"># print correlation of AUC scores across folds</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Correlation of models:</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="plot grid search stats" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_grid_search_stats_002.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Correlation of models:
+ kernel       rbf    linear    3_poly    2_poly
+kernel
+rbf     1.000000  0.882561  0.783392  0.351390
+linear  0.882561  1.000000  0.746492  0.298688
+3_poly  0.783392  0.746492  1.000000  0.355440
+2_poly  0.351390  0.298688  0.355440  1.000000
+</pre></div>
+</div>
+<p>Podemos observar que el rendimiento de los modelos depende en gran medida del pliegue.</p>
+<p>Como consecuencia, si asumimos independencia entre las muestras estaremos subestimando la varianza calculada en nuestras pruebas estadísticas, aumentando el número de errores falsos positivos (es decir, detectar una diferencia significativa entre los modelos cuando esta no existe) <a class="footnote-reference brackets" href="#id10" id="id1">1</a>.</p>
+<p>Se han desarrollado varias pruebas estadísticas con corrección de la varianza para estos casos. En este ejemplo mostraremos cómo implementar una de ellas (la llamada prueba t corregida de Nadeau y Bengio) bajo dos enfoques estadísticos diferentes: frecuentista y bayesiano.</p>
+<section id="comparing-two-models-frequentist-approach">
+<h2>Comparando dos modelos: enfoque frecuentista<a class="headerlink" href="#comparing-two-models-frequentist-approach" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Podemos empezar preguntando: «¿Es el primer modelo significativamente mejor que el segundo (cuando se clasifica por <code class="docutils literal notranslate"><span class="pre">mean_test_score</span></code>)?»</p>
+<p>Para responder a esta pregunta utilizando un enfoque frecuentista, podríamos ejecutar una prueba t pareada y calcular el valor p. Esto también se conoce como prueba de Diebold-Mariano en la literatura de pronósticos <a class="footnote-reference brackets" href="#id14" id="id2">5</a>. Se han desarrollado muchas variantes de dicha prueba t para tener en cuenta el «problema de la no independencia de las muestras» descrito en la sección anterior. Utilizaremos la que ha demostrado obtener las puntuaciones de replicabilidad más altas (que califica qué tan similar es el rendimiento de un modelo cuando se evalúa en diferentes particiones aleatorias del mismo conjunto de datos), manteniendo al mismo tiempo una tasa baja de falsos positivos y falsos negativos: la prueba t corregida de Nadeau y Bengio <a class="footnote-reference brackets" href="#id11" id="id3">2</a> que utiliza una validación cruzada de 10-pliegues 10 veces repetida <a class="footnote-reference brackets" href="#id12" id="id4">3</a>.</p>
+<p>Esta prueba t pareada corregida se calcula como:</p>
+<div class="math notranslate nohighlight">
+\[t=\frac{\frac{1}{k \cdot r}\sum_{i=1}^{k}\sum_{j=1}^{r}x_{ij}}
+{\sqrt{(\frac{1}{k \cdot r}+\frac{n_{test}}{n_{train}})\hat{\sigma}^2}}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(k\)</span> es el número de pliegues(folds), <span class="math notranslate nohighlight">\(r\)</span> el número de repeticiones en la validación cruzada, <span class="math notranslate nohighlight">\(x\)</span> es la diferencia en el rendimiento de los modelos, <span class="math notranslate nohighlight">\(n_{test}\)</span> es el número de muestras utilizadas para las pruebas, <span class="math notranslate nohighlight">\(n_{train}\)</span> es el número de muestras utilizadas para el entrenamiento, y <span class="math notranslate nohighlight">\(hat{\sigma}^2\)</span> representa la varianza de las diferencias observadas.</p>
+<p>Implementemos una prueba t pareada corregida de cola derecha para evaluar si el rendimiento del primer modelo es significativamente mejor que el del segundo. Nuestra hipótesis nula es que el segundo modelo funciona al menos tan bien como el primero.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a>
+
+
+<span class="k">def</span> <span class="nf">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Corrects standard deviation using Nadeau and Bengio&#39;s approach.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    differences : ndarray of shape (n_samples, 1)</span>
+<span class="sd">        Vector containing the differences in the score metrics of two models.</span>
+<span class="sd">    n_train : int</span>
+<span class="sd">        Number of samples in the training set.</span>
+<span class="sd">    n_test : int</span>
+<span class="sd">        Number of samples in the testing set.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    corrected_std : int</span>
+<span class="sd">        Variance-corrected standard deviation of the set of differences.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">n_train</span> <span class="o">+</span> <span class="n">n_test</span>
+    <span class="n">corrected_var</span> <span class="o">=</span> <span class="p">(</span>
+        <a href="https://numpy.org/doc/stable/reference/generated/numpy.var.html#numpy.var" title="numpy.var" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">n_test</span> <span class="o">/</span> <span class="n">n_train</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">corrected_std</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">corrected_var</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">corrected_std</span>
+
+
+<span class="k">def</span> <span class="nf">compute_corrected_ttest</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes right-tailed paired t-test with corrected variance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    differences : array-like of shape (n_samples, 1)</span>
+<span class="sd">        Vector containing the differences in the score metrics of two models.</span>
+<span class="sd">    df : int</span>
+<span class="sd">        Degrees of freedom.</span>
+<span class="sd">    n_train : int</span>
+<span class="sd">        Number of samples in the training set.</span>
+<span class="sd">    n_test : int</span>
+<span class="sd">        Number of samples in the testing set.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    t_stat : float</span>
+<span class="sd">        Variance-corrected t-statistic.</span>
+<span class="sd">    p_val : float</span>
+<span class="sd">        Variance-corrected p-value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mean</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
+    <span class="n">t_stat</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="n">std</span>
+    <span class="n">p_val</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t_stat</span><span class="p">),</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># right-tailed t-test</span>
+    <span class="k">return</span> <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_val</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model_1_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># scores of the best model</span>
+<span class="n">model_2_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># scores of the second-best model</span>
+
+<span class="n">differences</span> <span class="o">=</span> <span class="n">model_1_scores</span> <span class="o">-</span> <span class="n">model_2_scores</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">differences</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># number of test sets</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">n_train</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">n_test</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">t_stat</span><span class="p">,</span> <span class="n">p_val</span> <span class="o">=</span> <span class="n">compute_corrected_ttest</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Corrected t-value: </span><span class="si">{</span><span class="n">t_stat</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;Corrected p-value: </span><span class="si">{</span><span class="n">p_val</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Corrected t-value: 0.750
+Corrected p-value: 0.227
+</pre></div>
+</div>
+<p>Podemos comparar los valores t y p corregidos con los no corregidos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t_stat_uncorrected</span> <span class="o">=</span> <span class="p">(</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">)</span> <span class="o">/</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.var.html#numpy.var" title="numpy.var" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">p_val_uncorrected</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t_stat_uncorrected</span><span class="p">),</span> <span class="n">df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Uncorrected t-value: </span><span class="si">{</span><span class="n">t_stat_uncorrected</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;Uncorrected p-value: </span><span class="si">{</span><span class="n">p_val_uncorrected</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Uncorrected t-value: 2.611
+Uncorrected p-value: 0.005
+</pre></div>
+</div>
+<p>Utilizando el nivel de significación alfa convencional a <code class="docutils literal notranslate"><span class="pre">p=0.05</span></code>, observamos que la prueba t no corregida concluye que el primer modelo es significativamente mejor que el segundo.</p>
+<p>En contraste, con el enfoque corregido no detectamos esta diferencia.</p>
+<p>En este último caso, sin embargo, el enfoque frecuentista no nos permite concluir que el primer y el segundo modelo tengan un rendimiento equivalente. Si quisiéramos hacer esta afirmación, tendríamos que utilizar un enfoque bayesiano.</p>
+</section>
+<section id="comparing-two-models-bayesian-approach">
+<h2>Comparando dos modelos: enfoque Bayesiano<a class="headerlink" href="#comparing-two-models-bayesian-approach" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Podemos utilizar la estimación bayesiana para calcular la probabilidad de que el primer modelo sea mejor que el segundo. La estimación bayesiana dará como resultado una distribución seguida de la media <span class="math notranslate nohighlight">\(\mu\)</span> de las diferencias en el rendimiento de dos modelos.</p>
+<p>Para obtener la distribución posterior tenemos que definir una distribución a priori que modele nuestras creencias sobre cómo se distribuye la media antes de observar los datos, y multiplicarlo por una función de verosimilitud que calcule la probabilidad de nuestras diferencias observadas, dados los valores que podría tomar la media de las diferencias.</p>
+<p>La estimación bayesiana puede llevarse a cabo de muchas formas para responder a nuestra pregunta, pero en este ejemplo implementaremos el enfoque sugerido por Benavoli y colegas <a class="footnote-reference brackets" href="#id13" id="id5">4</a>.</p>
+<p>Una forma de definir nuestra posterior utilizando una expresión de forma cerrada es seleccionar una a priori conjugada a la función de verosimilitud. Benavoli y sus colegas <a class="footnote-reference brackets" href="#id13" id="id6">4</a> muestran que cuando se compara el rendimiento de dos clasificadores podemos modelar la a priori como una distribución Normal-Gamma (con media y varianza desconocidas) conjugada con una verosimilitud normal, para así expresar la posterior como una distribución normal. Marginalizando la varianza de esta posterior normal, podemos definir la posterior del parámetro de la media como una distribución t de Student. Específicamente:</p>
+<div class="math notranslate nohighlight">
+\[St(\mu;n-1,\overline{x},(\frac{1}{n}+\frac{n_{test}}{n_{train}})
+\hat{\sigma}^2)\]</div>
+<p>donde <span class="math notranslate nohighlight">\(n\)</span> es el número total de muestras, <span class="math notranslate nohighlight">\(overline{x}\)</span> representa la diferencia media de las puntuaciones, <span class="math notranslate nohighlight">\(n_{test}\)</span> es el número de muestras utilizadas para las pruebas, <span class="math notranslate nohighlight">\(n_{train}\)</span> es el número de muestras utilizadas para el entrenamiento, y <span class="math notranslate nohighlight">\(hat{\sigma}^2\)</span> representa la varianza de las diferencias observadas.</p>
+<p>Obsérvese que también utilizamos la varianza corregida de Nadeau y Bengio en nuestro enfoque bayesiano.</p>
+<p>Calculemos y grafiquemos la posterior:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># intitialize random variable</span>
+<span class="n">t_post</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">),</span>
+    <span class="n">scale</span><span class="o">=</span><span class="n">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Vamos a graficar la distribución posterior:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="n">t_post</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span> <span class="n">t_post</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.999</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.xticks.html#matplotlib.pyplot.xticks" title="matplotlib.pyplot.xticks" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="o">-</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;Probability density&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Mean difference ($\mu$)&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s2">&quot;Posterior distribution&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Posterior distribution" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_grid_search_stats_003.png" />
+<p>Podemos calcular la probabilidad de que el primer modelo sea mejor que el segundo calculando el área bajo la curva de la distribución posterior de cero a infinito. Y también a la inversa: podemos calcular la probabilidad de que el segundo modelo sea mejor que el primero calculando el área bajo la curva de menos infinito a cero.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">better_prob</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Probability of </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> being more accurate than &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">better_prob</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Probability of </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> being more accurate than &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="mi">1</span> <span class="o">-</span> <span class="n">better_prob</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Probability of rbf being more accurate than linear: 0.773
+Probability of linear being more accurate than rbf: 0.227
+</pre></div>
+</div>
+<p>En contraste con el enfoque frecuentista, podemos calcular la probabilidad de que un modelo sea mejor que el otro.</p>
+<p>Ten en cuenta que obtuvimos resultados similares a los del enfoque frecuentista. Dada nuestra elección de a prioris, estamos realizando esencialmente los mismos cálculos, pero podemos hacer diferentes afirmaciones.</p>
+<section id="region-of-practical-equivalence">
+<h3>Región de equivalencia práctica<a class="headerlink" href="#region-of-practical-equivalence" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A veces nos interesa determinar las probabilidades de que nuestros modelos tengan un rendimiento equivalente, donde «equivalente» se define de forma práctica. Un enfoque ingenuo <a class="footnote-reference brackets" href="#id13" id="id7">4</a> sería definir los estimadores como prácticamente equivalentes cuando difieren en menos de un 1% en su precisión. Pero también podríamos definir esta equivalencia práctica teniendo en cuenta el problema que intentamos resolver. Por ejemplo, una diferencia del 5% en la precisión significaría un aumento de 1.000$ en las ventas, y consideramos que cualquier cantidad superior a esa es relevante para nuestro negocio.</p>
+<p>En este ejemplo vamos a definir la Región de Equivalencia Práctica (ROPE) como <span class="math notranslate nohighlight">\([-0.01, 0.01]\)</span>. Es decir, consideraremos que dos modelos son prácticamente equivalentes si difieren en menos de un 1% en su rendimiento.</p>
+<p>Para calcular las probabilidades de que los clasificadores sean prácticamente equivalentes, calculamos el área bajo la curva de la posterior sobre el intervalo ROPE:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rope_interval</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
+<span class="n">rope_prob</span> <span class="o">=</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Probability of </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;being practically equivalent: </span><span class="si">{</span><span class="n">rope_prob</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Probability of rbf and linear being practically equivalent: 0.432
+</pre></div>
+</div>
+<p>Podemos graficar cómo se distribuye la posterior sobre el intervalo ROPE:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_rope</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.xticks.html#matplotlib.pyplot.xticks" title="matplotlib.pyplot.xticks" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="o">-</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.vlines.html#matplotlib.pyplot.vlines" title="matplotlib.pyplot.vlines" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">vlines</span></a><span class="p">([</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span></a><span class="p">(</span><span class="n">x_rope</span><span class="p">,</span> <span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_rope</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;Probability density&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Mean difference ($\mu$)&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s2">&quot;Posterior distribution under the ROPE&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Posterior distribution under the ROPE" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_grid_search_stats_004.png" />
+<p>Como se sugiere en <a class="footnote-reference brackets" href="#id13" id="id8">4</a>, podemos seguir interpretando estas probabilidades utilizando los mismos criterios que el enfoque frecuentista: ¿es la probabilidad de caer dentro del ROPE mayor del 95% (valor alfa del 5%)?  En ese caso, podemos concluir que ambos modelos son prácticamente equivalentes.</p>
+<p>El enfoque de la estimación bayesiana también nos permite calcular el grado de incertidumbre de nuestra estimación de la diferencia. Esto puede calcularse utilizando intervalos de credibilidad. Para una probabilidad dada, muestran el rango de valores que puede tomar la cantidad estimada, en nuestro caso la diferencia media de rendimiento. Por ejemplo, un intervalo de credibilidad del 50% [x, y] nos dice que hay un 50% de probabilidad de que la verdadera (media) diferencia de rendimiento entre los modelos esté entre x e y.</p>
+<p>Vamos a determinar los intervalos de credibilidad de nuestros datos utilizando el 50%, el 75% y el 95%:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cred_intervals</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">intervals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
+    <span class="n">cred_interval</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">t_post</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="n">interval</span><span class="p">))</span>
+    <span class="n">cred_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">interval</span><span class="p">,</span> <span class="n">cred_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cred_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">cred_int_df</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
+    <span class="n">cred_intervals</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;interval&#39;</span><span class="p">,</span> <span class="s1">&#39;lower value&#39;</span><span class="p">,</span> <span class="s1">&#39;upper value&#39;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;interval&#39;</span><span class="p">)</span>
+<span class="n">cred_int_df</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lower value</th>
+      <th>upper value</th>
+    </tr>
+    <tr>
+      <th>interval</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.50</th>
+      <td>0.000977</td>
+      <td>0.019023</td>
+    </tr>
+    <tr>
+      <th>0.75</th>
+      <td>-0.005422</td>
+      <td>0.025422</td>
+    </tr>
+    <tr>
+      <th>0.95</th>
+      <td>-0.016445</td>
+      <td>0.036445</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<br />
+<br /><p>Como se muestra en la tabla, hay un 50% de probabilidad de que la verdadera diferencia media entre los modelos esté entre 0.000977 y 0.019023, un 70% de probabilidad de que esté entre -0.005422 y 0.025422, y un 95% de probabilidad de que esté entre -0.016445 y 0.036445.</p>
+</section>
+</section>
+<section id="pairwise-comparison-of-all-models-frequentist-approach">
+<h2>Comparación por pares de todos los modelos: enfoque frecuentista<a class="headerlink" href="#pairwise-comparison-of-all-models-frequentist-approach" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>También podríamos estar interesados en comparar el rendimiento de todos nuestros modelos evaluados con <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>. En este caso estaríamos ejecutando nuestra prueba estadística múltiples veces, lo que nos lleva al <a class="reference external" href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">problema de las comparaciones múltiples</a>.</p>
+<p>Hay muchas formas posibles de abordar este problema, pero un enfoque estándar es aplicar una <a class="reference external" href="https://en.wikipedia.org/wiki/Bonferroni_correction">corrección de Bonferroni</a>. El Bonferroni se puede calcular multiplicando el valor p por el número de comparaciones que estamos probando.</p>
+<p>Comparemos el rendimiento de los modelos utilizando la prueba t corregida:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a>
+
+<span class="n">n_comparisons</span> <span class="o">=</span> <span class="p">(</span>
+    <a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">))</span>
+    <span class="o">/</span> <span class="p">(</span><a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="n">pairwise_t_test</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">model_i</span><span class="p">,</span> <span class="n">model_k</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">model_i_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">model_k_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">differences</span> <span class="o">=</span> <span class="n">model_i_scores</span> <span class="o">-</span> <span class="n">model_k_scores</span>
+    <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_val</span> <span class="o">=</span> <span class="n">compute_corrected_ttest</span><span class="p">(</span>
+        <span class="n">differences</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span>
+    <span class="p">)</span>
+    <span class="n">p_val</span> <span class="o">*=</span> <span class="n">n_comparisons</span>  <span class="c1"># implement Bonferroni correction</span>
+    <span class="c1"># Bonferroni can output p-values higher than 1</span>
+    <span class="n">p_val</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">p_val</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">p_val</span>
+    <span class="n">pairwise_t_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">model_i</span><span class="p">],</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">model_k</span><span class="p">],</span>
+         <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_val</span><span class="p">]</span>
+    <span class="p">)</span>
+
+<span class="n">pairwise_comp_df</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
+    <span class="n">pairwise_t_test</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;model_1&#39;</span><span class="p">,</span> <span class="s1">&#39;model_2&#39;</span><span class="p">,</span> <span class="s1">&#39;t_stat&#39;</span><span class="p">,</span> <span class="s1">&#39;p_val&#39;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">pairwise_comp_df</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model_1</th>
+      <th>model_2</th>
+      <th>t_stat</th>
+      <th>p_val</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>rbf</td>
+      <td>linear</td>
+      <td>0.750</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rbf</td>
+      <td>3_poly</td>
+      <td>1.657</td>
+      <td>0.302</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>rbf</td>
+      <td>2_poly</td>
+      <td>4.565</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>linear</td>
+      <td>3_poly</td>
+      <td>1.111</td>
+      <td>0.807</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>linear</td>
+      <td>2_poly</td>
+      <td>4.276</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>3_poly</td>
+      <td>2_poly</td>
+      <td>3.851</td>
+      <td>0.001</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<br />
+<br /><p>Observamos que, tras corregir las comparaciones múltiples, el único modelo que difiere significativamente de los demás es <code class="docutils literal notranslate"><span class="pre">'2_poly'</span></code>. <code class="docutils literal notranslate"><span class="pre">'rbf'</span></code>, el modelo clasificado en primer lugar por <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>, no difiere significativamente de <code class="docutils literal notranslate"><span class="pre">'linear'</span></code> o <code class="docutils literal notranslate"><span class="pre">'3_poly'</span></code>.</p>
+</section>
+<section id="pairwise-comparison-of-all-models-bayesian-approach">
+<h2>Comparación por pares de todos los modelos: Enfoque bayesiano<a class="headerlink" href="#pairwise-comparison-of-all-models-bayesian-approach" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando se utiliza la estimación bayesiana para comparar múltiples modelos, no es necesario corregir las comparaciones múltiples (para saber por qué, véase <a class="footnote-reference brackets" href="#id13" id="id9">4</a>).</p>
+<p>Podemos realizar nuestras comparaciones por pares de la misma manera que en la primera sección:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pairwise_bayesian</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">model_i</span><span class="p">,</span> <span class="n">model_k</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">model_i_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">model_k_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">differences</span> <span class="o">=</span> <span class="n">model_i_scores</span> <span class="o">-</span> <span class="n">model_k_scores</span>
+    <span class="n">t_post</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="p">(</span>
+        <span class="n">df</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">),</span>
+        <span class="n">scale</span><span class="o">=</span><span class="n">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">worse_prob</span> <span class="o">=</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">better_prob</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">rope_prob</span> <span class="o">=</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">pairwise_bayesian</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">worse_prob</span><span class="p">,</span> <span class="n">better_prob</span><span class="p">,</span> <span class="n">rope_prob</span><span class="p">])</span>
+
+<span class="n">pairwise_bayesian_df</span> <span class="o">=</span> <span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
+    <span class="n">pairwise_bayesian</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;worse_prob&#39;</span><span class="p">,</span> <span class="s1">&#39;better_prob&#39;</span><span class="p">,</span> <span class="s1">&#39;rope_prob&#39;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="n">pairwise_comp_df</span> <span class="o">=</span> <span class="n">pairwise_comp_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pairwise_bayesian_df</span><span class="p">)</span>
+<span class="n">pairwise_comp_df</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model_1</th>
+      <th>model_2</th>
+      <th>t_stat</th>
+      <th>p_val</th>
+      <th>worse_prob</th>
+      <th>better_prob</th>
+      <th>rope_prob</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>rbf</td>
+      <td>linear</td>
+      <td>0.750</td>
+      <td>1.000</td>
+      <td>0.068</td>
+      <td>0.500</td>
+      <td>0.432</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rbf</td>
+      <td>3_poly</td>
+      <td>1.657</td>
+      <td>0.302</td>
+      <td>0.018</td>
+      <td>0.882</td>
+      <td>0.100</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>rbf</td>
+      <td>2_poly</td>
+      <td>4.565</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.000</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>linear</td>
+      <td>3_poly</td>
+      <td>1.111</td>
+      <td>0.807</td>
+      <td>0.063</td>
+      <td>0.750</td>
+      <td>0.187</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>linear</td>
+      <td>2_poly</td>
+      <td>4.276</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.000</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>3_poly</td>
+      <td>2_poly</td>
+      <td>3.851</td>
+      <td>0.001</td>
+      <td>0.000</td>
+      <td>1.000</td>
+      <td>0.000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<br />
+<br /><p>Utilizando el enfoque bayesiano podemos calcular la probabilidad de que un modelo tenga un rendimiento mejor, peor o prácticamente equivalente a otro.</p>
+<p>Los resultados muestran que el modelo clasificado en primer lugar por <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> <code class="docutils literal notranslate"><span class="pre">'rbf'</span></code>, tiene aproximadamente un 6.8% de incertidumbre(chance) de ser peor que <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>, y un 1.8% de incertidumbre de ser peor que <code class="docutils literal notranslate"><span class="pre">'3_poly'</span></code>. <code class="docutils literal notranslate"><span class="pre">'rbf'</span></code> y <code class="docutils literal notranslate"><span class="pre">'linear'</span></code> tienen un 43% de probabilidad de ser prácticamente equivalentes, mientras que <code class="docutils literal notranslate"><span class="pre">'rbf'</span></code> y <code class="docutils literal notranslate"><span class="pre">'3_poly'</span></code> tienen un 10% de probabilidad de serlo.</p>
+<p>Al igual que las conclusiones obtenidas con el enfoque frecuentista, todos los modelos tienen una probabilidad del 100% de ser mejores que <code class="docutils literal notranslate"><span class="pre">'2_poly'</span></code>, y ninguno tiene un rendimiento prácticamente equivalente con este último.</p>
+</section>
+<section id="take-home-messages">
+<h2>Mensajes para llevar a casa<a class="headerlink" href="#take-home-messages" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>Las pequeñas diferencias en las medidas de rendimiento pueden resultar fácilmente ser mera casualidad, pero no porque un modelo prediga sistemáticamente mejor que el otro. Como se muestra en este ejemplo, las estadísticas puede indicar la probabilidad de que eso ocurra.</p></li>
+<li><p>Al comparar estadísticamente el rendimiento de dos modelos evaluados en GridSearchCV, es necesario corregir la varianza calculada, que podría estar subestimada, ya que las puntuaciones de los modelos no son independientes entre sí.</p></li>
+<li><p>Un enfoque frecuentista que utiliza una prueba t pareada (con corrección de la varianza) puede decirnos si el rendimiento de un modelo es mejor que el de otro con un grado de certeza superior al del azar.</p></li>
+<li><p>Un enfoque bayesiano puede proporcionar las probabilidades de que un modelo sea mejor, peor o prácticamente equivalente a otro. También puede indicarnos el grado de confianza que tenemos para saber que las verdaderas diferencias de nuestros modelos se encuentran bajo un determinado rango de valores.</p></li>
+<li><p>Si se comparan estadísticamente múltiples modelos, se necesita una corrección de comparaciones múltiples cuando se utiliza el enfoque frecuentista.</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Dietterich, T. G. (1998). <a class="reference external" href="http://web.cs.iastate.edu/~jtian/cs573/Papers/Dietterich-98.pdf">Approximate statistical tests for
+comparing supervised classification learning algorithms</a>.
+Neural computation, 10(7).</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Nadeau, C., y Bengio, Y. (2000). <a class="reference external" href="https://papers.nips.cc/paper/1661-inference-for-the-generalization-error.pdf">Inference for the generalization error</a>. In Advances in neural information processing systems.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>Bouckaert, R. R., y Frank, E. (2004). <a class="reference external" href="https://www.cms.waikato.ac.nz/~ml/publications/2004/bouckaert-frank.pdf">Evaluating the replicability of significance tests for comparing learning algorithms</a>. In Pacific-Asia Conference on Knowledge Discovery and Data Mining.</p>
+</dd>
+<dt class="label" id="id13"><span class="brackets">4</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id6">2</a>,<a href="#id7">3</a>,<a href="#id8">4</a>,<a href="#id9">5</a>)</span></dt>
+<dd><p>Benavoli, A., Corani, G., Demšar, J., y Zaffalon, M. (2017). <a class="reference external" href="http://www.jmlr.org/papers/volume18/16-305/16-305.pdf">Time for a change: a tutorial for comparing multiple classifiers through Bayesian analysis</a>. The Journal of Machine Learning Research, 18(1). Consulta la biblioteca de Python que acompaña a este documento <a class="reference external" href="https://github.com/janezd/baycomp">aquí</a>.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id2">5</a></span></dt>
+<dd><p>Diebold, F.X. y Mariano R.S. (1995). <a class="reference external" href="http://www.est.uc3m.es/esp/nueva_docencia/comp_col_get/lade/tecnicas_prediccion/Practicas0708/Comparing%20Predictive%20Accuracy%20(Dielbold).pdf">Comparing predictive accuracy</a> Journal of Business &amp; economic statistics, 20(1), 134-144.</p>
+</dd>
+</dl>
+</div>
+<p class="sphx-glr-timing"><strong>Tiempo total de ejecución del script:</strong> (0 minutos 1.736 segundos)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-model-selection-plot-grid-search-stats-py">
+<div class="binder-badge docutils container">
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/0.24.X?urlpath=lab/tree/notebooks/auto_examples/model_selection/plot_grid_search_stats.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo21.svg" width="150px" /></a>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/efb3df90d4ec295fa0dafe6c8b46211b/plot_grid_search_stats.py"><code class="xref download docutils literal notranslate"><span class="pre">Descargar</span> <span class="pre">código</span> <span class="pre">fuente</span> <span class="pre">de</span> <span class="pre">Python:</span> <span class="pre">plot_grid_search_stats.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/2402de18d671ce5087e3760b2540184f/plot_grid_search_stats.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Descargar</span> <span class="pre">el</span> <span class="pre">cuaderno</span> <span class="pre">Jupyter:</span> <span class="pre">plot_grid_search_stats.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Galería generada por Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/auto_examples/model_selection/plot_grid_search_stats.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

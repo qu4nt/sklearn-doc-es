@@ -1,0 +1,1018 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Regresión de Poisson y pérdida no normal &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/auto_examples/linear_model/plot_poisson_regression_non_normal_loss.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="plot_sgd_early_stopping.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Parada anticipada del descenso de gradiente estocástico">Prev</a><a href="../index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Ejemplos">Arriba</a>
+            <a href="plot_tweedie_regression_insurance_claims.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Regresión de Tweedie en los reclamos de seguros">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Regresión de Poisson y pérdida no normal</a><ul>
+<li><a class="reference internal" href="#the-french-motor-third-party-liability-claims-dataset">El conjunto de datos de siniestros de responsabilidad civil del automóvil en Francia</a></li>
+<li><a class="reference internal" href="#a-constant-prediction-baseline">Una línea de base de predicción constante</a></li>
+<li><a class="reference internal" href="#generalized-linear-models">Modelos lineales (generalizados)</a></li>
+<li><a class="reference internal" href="#gradient-boosting-regression-trees-for-poisson-regression">Árboles de regresión con potenciación de gradiente para la regresión de Poisson</a></li>
+<li><a class="reference internal" href="#evaluation-of-the-calibration-of-predictions">Evaluación de la calibración de las predicciones</a></li>
+<li><a class="reference internal" href="#evaluation-of-the-ranking-power">Evaluación del poder de clasificación</a></li>
+<li><a class="reference internal" href="#main-takeaways">Principales conclusiones</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Nota</p>
+<p>Haz clic en <a class="reference internal" href="#sphx-glr-download-auto-examples-linear-model-plot-poisson-regression-non-normal-loss-py"><span class="std std-ref">aquí</span></a> para descargar el código de ejemplo completo o para ejecutar este ejemplo en tu navegador a través de Binder</p>
+</div>
+<section class="sphx-glr-example-title" id="poisson-regression-and-non-normal-loss">
+<span id="sphx-glr-auto-examples-linear-model-plot-poisson-regression-non-normal-loss-py"></span><h1>Regresión de Poisson y pérdida no normal<a class="headerlink" href="#poisson-regression-and-non-normal-loss" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este ejemplo ilustra el uso de la regresión logarítmica lineal de Poisson en el conjunto de datos de reclamaciones de responsabilidad civil de automóviles de Francia &lt;<a class="reference external" href="https://www.openml.org/d/41214">https://www.openml.org/d/41214</a>&gt;`_ de <a class="footnote-reference brackets" href="#id2" id="id1">1</a> y lo compara con un modelo lineal ajustado con el error mínimo cuadrático habitual y un modelo no lineal GBRT ajustado con la pérdida de Poisson (y un enlace logarítmico).</p>
+<p>Unas cuantas definiciones:</p>
+<ul class="simple">
+<li><p>Una <strong>póliza</strong> es un contrato entre una compañía de seguros y un individuo: el <strong>tomador del seguro</strong>, es decir, el conductor del vehículo en este caso.</p></li>
+<li><p>Un <strong>reclamo</strong> es la petición que hace el asegurado a la aseguradora para que le indemnice por un siniestro cubierto por el seguro.</p></li>
+<li><p>La <strong>exposición</strong> es la duración de la cobertura del seguro de una determinada póliza, en años.</p></li>
+<li><p>La <strong>frecuencia de los siniestros</strong> es el número de siniestros dividido por la exposición, que suele medirse en número de siniestros por año.</p></li>
+</ul>
+<p>En este conjunto de datos, cada muestra corresponde a una póliza de seguro. Las características disponibles incluyen la edad del conductor, la edad del vehículo, la potencia del vehículo, etc.</p>
+<p>Nuestro objetivo es predecir la frecuencia esperada de siniestros tras un accidente de coche para un nuevo asegurado, dados los datos históricos sobre una población de asegurados.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>A. Noll, R. Salzmann and M.V. Wuthrich, Case Study: French Motor
+Third-Party Liability Claims (November 8, 2018). <a class="reference external" href="http://dx.doi.org/10.2139/ssrn.3164764">doi:10.2139/ssrn.3164764</a></p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+<span class="c1"># Authors: Christian Lorentzen &lt;lorentzen.ch@gmail.com&gt;</span>
+<span class="c1">#          Roman Yurchak &lt;rth.yurchak@gmail.com&gt;</span>
+<span class="c1">#          Olivier Grisel &lt;olivier.grisel@ensta.org&gt;</span>
+<span class="c1"># License: BSD 3 clause</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+<section id="the-french-motor-third-party-liability-claims-dataset">
+<h2>El conjunto de datos de siniestros de responsabilidad civil del automóvil en Francia<a class="headerlink" href="#the-french-motor-third-party-liability-claims-dataset" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Carguemos el conjunto de datos de siniestros de automóviles desde OpenML: <a class="reference external" href="https://www.openml.org/d/41214">https://www.openml.org/d/41214</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
+
+
+<span class="n">df</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">41214</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">frame</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/mapologo/miniconda3/envs/sklearn/lib/python3.9/site-packages/scikit_learn-0.24.1-py3.9-linux-x86_64.egg/sklearn/datasets/_openml.py:849: UserWarning: Version 1 of dataset freMTPL2freq is inactive, meaning that issues have been found in the dataset. Try using a newer version from this URL: https://www.openml.org/data/v1/download/20649148/freMTPL2freq.arff
+  warn(&quot;Version {} of dataset {} is inactive, meaning that issues have &quot;
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>IDpol</th>
+      <th>ClaimNb</th>
+      <th>Exposure</th>
+      <th>Area</th>
+      <th>VehPower</th>
+      <th>VehAge</th>
+      <th>DrivAge</th>
+      <th>BonusMalus</th>
+      <th>VehBrand</th>
+      <th>VehGas</th>
+      <th>Density</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.10000</td>
+      <td>D</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>55.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Regular</td>
+      <td>1217.0</td>
+      <td>R82</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>0.77000</td>
+      <td>D</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>55.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Regular</td>
+      <td>1217.0</td>
+      <td>R82</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>0.75000</td>
+      <td>B</td>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>52.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Diesel</td>
+      <td>54.0</td>
+      <td>R22</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>0.09000</td>
+      <td>B</td>
+      <td>7.0</td>
+      <td>0.0</td>
+      <td>46.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Diesel</td>
+      <td>76.0</td>
+      <td>R72</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11.0</td>
+      <td>1.0</td>
+      <td>0.84000</td>
+      <td>B</td>
+      <td>7.0</td>
+      <td>0.0</td>
+      <td>46.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Diesel</td>
+      <td>76.0</td>
+      <td>R72</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>678008</th>
+      <td>6114326.0</td>
+      <td>0.0</td>
+      <td>0.00274</td>
+      <td>E</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>54.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Regular</td>
+      <td>3317.0</td>
+      <td>R93</td>
+    </tr>
+    <tr>
+      <th>678009</th>
+      <td>6114327.0</td>
+      <td>0.0</td>
+      <td>0.00274</td>
+      <td>E</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>41.0</td>
+      <td>95.0</td>
+      <td>B12</td>
+      <td>Regular</td>
+      <td>9850.0</td>
+      <td>R11</td>
+    </tr>
+    <tr>
+      <th>678010</th>
+      <td>6114328.0</td>
+      <td>0.0</td>
+      <td>0.00274</td>
+      <td>D</td>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>45.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Diesel</td>
+      <td>1323.0</td>
+      <td>R82</td>
+    </tr>
+    <tr>
+      <th>678011</th>
+      <td>6114329.0</td>
+      <td>0.0</td>
+      <td>0.00274</td>
+      <td>B</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>60.0</td>
+      <td>50.0</td>
+      <td>B12</td>
+      <td>Regular</td>
+      <td>95.0</td>
+      <td>R26</td>
+    </tr>
+    <tr>
+      <th>678012</th>
+      <td>6114330.0</td>
+      <td>0.0</td>
+      <td>0.00274</td>
+      <td>B</td>
+      <td>7.0</td>
+      <td>6.0</td>
+      <td>29.0</td>
+      <td>54.0</td>
+      <td>B12</td>
+      <td>Diesel</td>
+      <td>65.0</td>
+      <td>R72</td>
+    </tr>
+  </tbody>
+</table>
+<p>678013 rows × 12 columns</p>
+</div>
+</div>
+<br />
+<br /><p>El número de siniestros (<code class="docutils literal notranslate"><span class="pre">ClaimNb</span></code>) es un número entero positivo que puede modelarse como una distribución de Poisson. Se supone entonces que es el número de eventos discretos que ocurren con una tasa constante en un intervalo de tiempo determinado (<code class="docutils literal notranslate"><span class="pre">Exposure</span></code>, en unidades de años).</p>
+<p>Aquí queremos modelar la frecuencia <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">ClaimNb</span> <span class="pre">/</span> <span class="pre">Exposure</span></code> condicionada a <code class="docutils literal notranslate"><span class="pre">X</span></code> mediante una distribución de Poisson (escalada), y utilizar <code class="docutils literal notranslate"><span class="pre">Exposure</span></code> como <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;ClaimNb&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average Frequency = </span><span class="si">{}</span><span class="s2">&quot;</span>
+      <span class="o">.</span><span class="n">format</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.average.html#numpy.average" title="numpy.average" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span> <span class="n">weights</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">])))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fraction of exposure with zero claims = </span><span class="si">{0:.1%}</span><span class="s2">&quot;</span>
+      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ClaimNb&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Exposure&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span>
+              <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Number of claims&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;ClaimNb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax0</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Exposure in years&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Frequency (number of claims per year)&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Number of claims, Exposure in years, Frequency (number of claims per year)" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_poisson_regression_non_normal_loss_001.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Average Frequency = 0.10070308464041304
+Fraction of exposure with zero claims = 93.9%
+</pre></div>
+</div>
+<p>Las columnas restantes pueden utilizarse para predecir la frecuencia de los siniestros. Esas columnas son muy heterogéneas con una mezcla de variables categóricas y numéricas con diferentes escalas, posiblemente muy desigualmente distribuidas.</p>
+<p>Por lo tanto, para ajustar los modelos lineales con esos predictores es necesario realizar las transformaciones estándar de las características, como se indica a continuación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.FunctionTransformer.html#sklearn.preprocessing.FunctionTransformer" title="sklearn.preprocessing.FunctionTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FunctionTransformer</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">OneHotEncoder</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.preprocessing.KBinsDiscretizer.html#sklearn.preprocessing.KBinsDiscretizer" title="sklearn.preprocessing.KBinsDiscretizer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">KBinsDiscretizer</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ColumnTransformer</span></a>
+
+
+<span class="n">log_scale_transformer</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span>
+    <a href="../../modules/generated/sklearn.preprocessing.FunctionTransformer.html#sklearn.preprocessing.FunctionTransformer" title="sklearn.preprocessing.FunctionTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FunctionTransformer</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.log.html#numpy.log" title="numpy.log" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">log</span></a><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">linear_model_preprocessor</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ColumnTransformer</span></a><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;passthrough_numeric&quot;</span><span class="p">,</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;BonusMalus&quot;</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s2">&quot;binned_numeric&quot;</span><span class="p">,</span> <a href="../../modules/generated/sklearn.preprocessing.KBinsDiscretizer.html#sklearn.preprocessing.KBinsDiscretizer" title="sklearn.preprocessing.KBinsDiscretizer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">KBinsDiscretizer</span></a><span class="p">(</span><span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+            <span class="p">[</span><span class="s2">&quot;VehAge&quot;</span><span class="p">,</span> <span class="s2">&quot;DrivAge&quot;</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s2">&quot;log_scaled_numeric&quot;</span><span class="p">,</span> <span class="n">log_scale_transformer</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;Density&quot;</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s2">&quot;onehot_categorical&quot;</span><span class="p">,</span> <a href="../../modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">OneHotEncoder</span></a><span class="p">(),</span>
+            <span class="p">[</span><span class="s2">&quot;VehBrand&quot;</span><span class="p">,</span> <span class="s2">&quot;VehPower&quot;</span><span class="p">,</span> <span class="s2">&quot;VehGas&quot;</span><span class="p">,</span> <span class="s2">&quot;Region&quot;</span><span class="p">,</span> <span class="s2">&quot;Area&quot;</span><span class="p">]),</span>
+    <span class="p">],</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="a-constant-prediction-baseline">
+<h2>Una línea de base de predicción constante<a class="headerlink" href="#a-constant-prediction-baseline" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cabe destacar que más del 93% de los asegurados tienen cero siniestros. Si convirtiéramos este problema en una tarea de clasificación binaria, estaría significativamente desequilibrado, e incluso un modelo simplista que sólo predijera la media puede alcanzar una precisión del 93%.</p>
+<p>Para evaluar la pertinencia de las métricas utilizadas, consideraremos como línea de base un estimador «ficticio» que predice constantemente la frecuencia media de la muestra de entrenamiento.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.dummy.DummyRegressor.html#sklearn.dummy.DummyRegressor" title="sklearn.dummy.DummyRegressor" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyRegressor</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Pipeline</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
+
+<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">dummy</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Pipeline</span></a><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">linear_model_preprocessor</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;regressor&quot;</span><span class="p">,</span> <a href="../../modules/generated/sklearn.dummy.DummyRegressor.html#sklearn.dummy.DummyRegressor" title="sklearn.dummy.DummyRegressor" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyRegressor</span></a><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)),</span>
+<span class="p">])</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span>
+       <span class="n">regressor__sample_weight</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Calculemos el rendimiento de esta línea de base de predicción constante con 3 métricas de regresión diferentes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" title="sklearn.metrics.mean_squared_error" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">mean_squared_error</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.mean_absolute_error.html#sklearn.metrics.mean_absolute_error" title="sklearn.metrics.mean_absolute_error" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">mean_absolute_error</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.mean_poisson_deviance.html#sklearn.metrics.mean_poisson_deviance" title="sklearn.metrics.mean_poisson_deviance" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">mean_poisson_deviance</span></a>
+
+
+<span class="k">def</span> <span class="nf">score_estimator</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">df_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Score an estimator on the test set.&quot;&quot;&quot;</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MSE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span>
+          <a href="../../modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" title="sklearn.metrics.mean_squared_error" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">mean_squared_error</span></a><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">,</span>
+                             <span class="n">sample_weight</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span>
+          <a href="../../modules/generated/sklearn.metrics.mean_absolute_error.html#sklearn.metrics.mean_absolute_error" title="sklearn.metrics.mean_absolute_error" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">mean_absolute_error</span></a><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">,</span>
+                              <span class="n">sample_weight</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">]))</span>
+
+    <span class="c1"># Ignore non-positive predictions, as they are invalid for</span>
+    <span class="c1"># the Poisson deviance.</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">y_pred</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">n_masked</span><span class="p">,</span> <span class="n">n_samples</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: Estimator yields invalid, non-positive predictions &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot; for </span><span class="si">{</span><span class="n">n_masked</span><span class="si">}</span><span class="s2"> samples out of </span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s2">. These predictions &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;are ignored when computing the Poisson deviance.&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mean Poisson deviance: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span>
+          <a href="../../modules/generated/sklearn.metrics.mean_poisson_deviance.html#sklearn.metrics.mean_poisson_deviance" title="sklearn.metrics.mean_poisson_deviance" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">mean_poisson_deviance</span></a><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">][</span><span class="n">mask</span><span class="p">],</span>
+                                <span class="n">y_pred</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span>
+                                <span class="n">sample_weight</span><span class="o">=</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">][</span><span class="n">mask</span><span class="p">]))</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Constant mean frequency evaluation:&quot;</span><span class="p">)</span>
+<span class="n">score_estimator</span><span class="p">(</span><span class="n">dummy</span><span class="p">,</span> <span class="n">df_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Constant mean frequency evaluation:
+MSE: 0.564
+MAE: 0.189
+mean Poisson deviance: 0.625
+</pre></div>
+</div>
+</section>
+<section id="generalized-linear-models">
+<h2>Modelos lineales (generalizados)<a class="headerlink" href="#generalized-linear-models" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Comenzamos modelando la variable objetivo con el modelo de regresión lineal por mínimos cuadrados (l2 penalizado), más conocido como regresión Ridge. Utilizamos una penalización <code class="docutils literal notranslate"><span class="pre">alpha</span></code> baja, ya que esperamos que un modelo lineal de este tipo no se ajuste a un conjunto de datos tan grande.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Ridge</span></a>
+
+
+<span class="n">ridge_glm</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Pipeline</span></a><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">linear_model_preprocessor</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;regressor&quot;</span><span class="p">,</span> <a href="../../modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Ridge</span></a><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)),</span>
+<span class="p">])</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span>
+       <span class="n">regressor__sample_weight</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>La desviación de Poisson no puede calcularse sobre los valores no positivos predichos por el modelo. Para los modelos que devuelven algunas predicciones no positivas (por ejemplo, <a class="reference internal" href="../../modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>) ignoramos las muestras correspondientes, lo que significa que la desviación de Poisson obtenida es aproximada. Un enfoque alternativo podría ser utilizar el meta-estimador <a class="reference internal" href="../../modules/generated/sklearn.compose.TransformedTargetRegressor.html#sklearn.compose.TransformedTargetRegressor" title="sklearn.compose.TransformedTargetRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformedTargetRegressor</span></code></a> para asignar <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> a un dominio estrictamente positivo.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ridge evaluation:&quot;</span><span class="p">)</span>
+<span class="n">score_estimator</span><span class="p">(</span><span class="n">ridge_glm</span><span class="p">,</span> <span class="n">df_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Ridge evaluation:
+MSE: 0.560
+MAE: 0.177
+WARNING: Estimator yields invalid, non-positive predictions  for 1315 samples out of 223745. These predictions are ignored when computing the Poisson deviance.
+mean Poisson deviance: 0.601
+</pre></div>
+</div>
+<p>A continuación, ajustamos el regresor de Poisson a la variable objetivo. Fijamos la fuerza de regularización <code class="docutils literal notranslate"><span class="pre">alpha</span></code> a aproximadamente 1e-6 sobre el número de muestras (es decir, <code class="docutils literal notranslate"><span class="pre">1e-12</span></code>) para imitar el regresor Ridge cuyo término de penalización L2 escala de forma diferente con el número de muestras.</p>
+<p>Dado que el regresor de Poisson modela internamente el logaritmo del valor objetivo esperado en lugar del valor esperado directamente (función de enlace logarítmica frente a identidad), la relación entre X e y ya no es exactamente lineal. Por lo tanto, el regresor de Poisson se denomina modelo lineal generalizado (GLM) en lugar de un modelo lineal simple como es el caso de la regresión Ridge.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.PoissonRegressor.html#sklearn.linear_model.PoissonRegressor" title="sklearn.linear_model.PoissonRegressor" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">PoissonRegressor</span></a>
+
+<span class="n">n_samples</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">poisson_glm</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Pipeline</span></a><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">linear_model_preprocessor</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;regressor&quot;</span><span class="p">,</span> <a href="../../modules/generated/sklearn.linear_model.PoissonRegressor.html#sklearn.linear_model.PoissonRegressor" title="sklearn.linear_model.PoissonRegressor" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">PoissonRegressor</span></a><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">))</span>
+<span class="p">])</span>
+<span class="n">poisson_glm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span>
+                <span class="n">regressor__sample_weight</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PoissonRegressor evaluation:&quot;</span><span class="p">)</span>
+<span class="n">score_estimator</span><span class="p">(</span><span class="n">poisson_glm</span><span class="p">,</span> <span class="n">df_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>PoissonRegressor evaluation:
+MSE: 0.560
+MAE: 0.186
+mean Poisson deviance: 0.594
+</pre></div>
+</div>
+</section>
+<section id="gradient-boosting-regression-trees-for-poisson-regression">
+<h2>Árboles de regresión con potenciación de gradiente para la regresión de Poisson<a class="headerlink" href="#gradient-boosting-regression-trees-for-poisson-regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Por último, consideraremos un modelo no lineal, a saber, los árboles de regresión con potenciación de gradiente. Los modelos basados en árboles no requieren que los datos categóricos estén codificados en un solo punto: en su lugar, podemos codificar cada etiqueta de categoría con un número entero arbitrario utilizando <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder" title="sklearn.preprocessing.OrdinalEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code></a>. Con esta codificación, los árboles tratarán las características categóricas como características ordenadas, lo que podría no ser siempre un comportamiento deseado. Sin embargo, este efecto es limitado para los árboles suficientemente profundos que son capaces de recuperar la naturaleza categórica de las características. La principal ventaja del <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder" title="sklearn.preprocessing.OrdinalEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code></a> sobre el <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> es que el entrenamiento será más rápido.</p>
+<p>La potenciación de gradiente también ofrece la posibilidad de ajustar los árboles con una pérdida de Poisson (con una función implícita de enlace logarítmico) en lugar de la pérdida por defecto por mínimos cuadrados. Aquí sólo ajustamos los árboles con la pérdida de Poisson para mantener este ejemplo conciso.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_hist_gradient_boosting</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">HistGradientBoostingRegressor</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder" title="sklearn.preprocessing.OrdinalEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">OrdinalEncoder</span></a>
+
+
+<span class="n">tree_preprocessor</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ColumnTransformer</span></a><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;categorical&quot;</span><span class="p">,</span> <a href="../../modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder" title="sklearn.preprocessing.OrdinalEncoder" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">OrdinalEncoder</span></a><span class="p">(),</span>
+            <span class="p">[</span><span class="s2">&quot;VehBrand&quot;</span><span class="p">,</span> <span class="s2">&quot;VehPower&quot;</span><span class="p">,</span> <span class="s2">&quot;VehGas&quot;</span><span class="p">,</span> <span class="s2">&quot;Region&quot;</span><span class="p">,</span> <span class="s2">&quot;Area&quot;</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;VehAge&quot;</span><span class="p">,</span> <span class="s2">&quot;DrivAge&quot;</span><span class="p">,</span> <span class="s2">&quot;BonusMalus&quot;</span><span class="p">,</span> <span class="s2">&quot;Density&quot;</span><span class="p">]),</span>
+    <span class="p">],</span>
+    <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">poisson_gbrt</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Pipeline</span></a><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">tree_preprocessor</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;regressor&quot;</span><span class="p">,</span> <a href="../../modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">HistGradientBoostingRegressor</span></a><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;poisson&quot;</span><span class="p">,</span>
+                                                <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">128</span><span class="p">)),</span>
+<span class="p">])</span>
+<span class="n">poisson_gbrt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span>
+                 <span class="n">regressor__sample_weight</span><span class="o">=</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Poisson Gradient Boosted Trees evaluation:&quot;</span><span class="p">)</span>
+<span class="n">score_estimator</span><span class="p">(</span><span class="n">poisson_gbrt</span><span class="p">,</span> <span class="n">df_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Poisson Gradient Boosted Trees evaluation:
+MSE: 0.567
+MAE: 0.183
+mean Poisson deviance: 0.575
+</pre></div>
+</div>
+<p>Al igual que el MLG de Poisson anterior, el modelo de árboles con refuerzo de gradiente minimiza la desviación de Poisson. Sin embargo, debido a un mayor poder de predicción, alcanza valores más bajos de desviación de Poisson.</p>
+<p>La evaluación de modelos con una única división de entrenamiento/prueba es propensa a fluctuaciones aleatorias. Si los recursos informáticos lo permiten, habría que comprobar que las métricas de rendimiento con validación cruzada llevarían a conclusiones similares.</p>
+<p>La diferencia cualitativa entre estos modelos también puede visualizarse comparando el histograma de los valores objetivo observados con el de los valores predichos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">n_bins</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+                              <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">],</span>
+                              <span class="p">[</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">]):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">),</span>
+                         <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Data&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;y (observed Frequency)&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">1e1</span><span class="p">,</span> <span class="mf">5e5</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="s2">&quot; samples&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">ridge_glm</span><span class="p">,</span> <span class="n">poisson_glm</span><span class="p">,</span> <span class="n">poisson_gbrt</span><span class="p">]):</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+        <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">),</span>
+                               <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;y_pred (predicted expected Frequency)&quot;</span>
+        <span class="p">)</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Data, Ridge, PoissonRegressor, HistGradientBoostingRegressor, Data, Ridge, PoissonRegressor, HistGradientBoostingRegressor" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_poisson_regression_non_normal_loss_002.png" />
+<p>Los datos experimentales presentan una distribución de cola larga para <code class="docutils literal notranslate"><span class="pre">y</span></code>. En todos los modelos, predecimos la frecuencia esperada de una variable aleatoria, por lo que tendremos necesariamente menos valores extremos que para las realizaciones observadas de esa variable aleatoria. Esto explica que la moda de los histogramas de las predicciones del modelo no corresponda necesariamente al valor más pequeño. Además, la distribución normal utilizada en <code class="docutils literal notranslate"><span class="pre">Ridge</span></code> tiene una varianza constante, mientras que para la distribución Poisson utilizada en <code class="docutils literal notranslate"><span class="pre">PoissonRegressor</span></code> y <code class="docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code>, la varianza es proporcional al valor esperado predicho.</p>
+<p>Por lo tanto, entre los estimadores considerados, <code class="docutils literal notranslate"><span class="pre">PoissonRegressor</span></code> y <code class="docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code> son a priori más adecuados para modelar la distribución de la cola larga de los datos no negativos en comparación con el modelo <code class="docutils literal notranslate"><span class="pre">Ridge</span></code> que hace una suposición errónea sobre la distribución de la variable objetivo.</p>
+<p>El estimador <code class="docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code> es el más flexible y puede predecir valores esperados más altos.</p>
+<p>Ten en cuenta que podríamos haber utilizado la pérdida de mínimos cuadrados para el modelo <code class="docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code>. Esto supondría erróneamente una variable de respuesta de distribución normal, como hace el modelo <code class="docutils literal notranslate"><span class="pre">Ridge</span></code>, y posiblemente también llevaría a predicciones ligeramente negativas. Sin embargo, los árboles con potenciación de gradiente seguirían funcionando relativamente bien y, en particular, mejor que <code class="docutils literal notranslate"><span class="pre">PoissonRegressor</span></code> gracias a la flexibilidad de los árboles combinada con el gran número de muestras de entrenamiento.</p>
+</section>
+<section id="evaluation-of-the-calibration-of-predictions">
+<h2>Evaluación de la calibración de las predicciones<a class="headerlink" href="#evaluation-of-the-calibration-of-predictions" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para garantizar que los estimadores ofrezcan predicciones razonables para los distintos tipos de asegurados, podemos clasificar las muestras de prueba en función de <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> devuelta por cada modelo. Luego, para cada intervalo, comparamos la media de las predicciones de <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> con la media del objetivo observado:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.utils.gen_even_slices.html#sklearn.utils.gen_even_slices" title="sklearn.utils.gen_even_slices" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-function"><span class="n">gen_even_slices</span></a>
+
+
+<span class="k">def</span> <span class="nf">_mean_frequency_by_risk_group</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                  <span class="n">n_bins</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compare predictions and observations for bins ordered by y_pred.</span>
+
+<span class="sd">    We order the samples by ``y_pred`` and split it in bins.</span>
+<span class="sd">    In each bin the observed mean is compared with the predicted mean.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y_true: array-like of shape (n_samples,)</span>
+<span class="sd">        Ground truth (correct) target values.</span>
+<span class="sd">    y_pred: array-like of shape (n_samples,)</span>
+<span class="sd">        Estimated target values.</span>
+<span class="sd">    sample_weight : array-like of shape (n_samples,)</span>
+<span class="sd">        Sample weights.</span>
+<span class="sd">    n_bins: int</span>
+<span class="sd">        Number of bins to use.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bin_centers: ndarray of shape (n_bins,)</span>
+<span class="sd">        bin centers</span>
+<span class="sd">    y_true_bin: ndarray of shape (n_bins,)</span>
+<span class="sd">        average y_pred for each bin</span>
+<span class="sd">    y_pred_bin: ndarray of shape (n_bins,)</span>
+<span class="sd">        average y_pred for each bin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">idx_sort</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html#numpy.argsort" title="numpy.argsort" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">argsort</span></a><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">bin_centers</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">n_bins</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">/</span><span class="n">n_bins</span>
+    <span class="n">y_pred_bin</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="numpy.zeros" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">(</span><span class="n">n_bins</span><span class="p">)</span>
+    <span class="n">y_true_bin</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="numpy.zeros" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">(</span><span class="n">n_bins</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">sl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><a href="../../modules/generated/sklearn.utils.gen_even_slices.html#sklearn.utils.gen_even_slices" title="sklearn.utils.gen_even_slices" class="sphx-glr-backref-module-sklearn-utils sphx-glr-backref-type-py-function"><span class="n">gen_even_slices</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">),</span> <span class="n">n_bins</span><span class="p">)):</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">sample_weight</span><span class="p">[</span><span class="n">idx_sort</span><span class="p">][</span><span class="n">sl</span><span class="p">]</span>
+        <span class="n">y_pred_bin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.average.html#numpy.average" title="numpy.average" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span>
+            <span class="n">y_pred</span><span class="p">[</span><span class="n">idx_sort</span><span class="p">][</span><span class="n">sl</span><span class="p">],</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span>
+        <span class="p">)</span>
+        <span class="n">y_true_bin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.average.html#numpy.average" title="numpy.average" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">average</span></a><span class="p">(</span>
+            <span class="n">y_true</span><span class="p">[</span><span class="n">idx_sort</span><span class="p">][</span><span class="n">sl</span><span class="p">],</span>
+            <span class="n">weights</span><span class="o">=</span><span class="n">weights</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">bin_centers</span><span class="p">,</span> <span class="n">y_true_bin</span><span class="p">,</span> <span class="n">y_pred_bin</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Actual number of claims: </span><span class="si">{</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;ClaimNb&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots_adjust.html#matplotlib.pyplot.subplots_adjust" title="matplotlib.pyplot.subplots_adjust" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span></a><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">axi</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="p">[</span><span class="n">ridge_glm</span><span class="p">,</span> <span class="n">poisson_glm</span><span class="p">,</span> <span class="n">poisson_gbrt</span><span class="p">,</span>
+                                   <span class="n">dummy</span><span class="p">]):</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">exposure</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">q</span><span class="p">,</span> <span class="n">y_true_seg</span><span class="p">,</span> <span class="n">y_pred_seg</span> <span class="o">=</span> <span class="n">_mean_frequency_by_risk_group</span><span class="p">(</span>
+        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">exposure</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="c1"># Name of the model after the estimator used in the last step of the</span>
+    <span class="c1"># pipeline.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicted number of claims by </span><span class="si">{</span><span class="n">model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">: &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="numpy.sum" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">sum</span></a><span class="p">(</span><span class="n">y_pred</span> <span class="o">*</span> <span class="n">exposure</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">axi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">y_pred_seg</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;predictions&quot;</span><span class="p">)</span>
+    <span class="n">axi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">y_true_seg</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;observations&quot;</span><span class="p">)</span>
+    <span class="n">axi</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">axi</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">axi</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Fraction of samples sorted by y_pred&#39;</span><span class="p">,</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Mean Frequency (y_pred)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">axi</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Ridge(alpha=1e-06), PoissonRegressor(alpha=1e-12, max_iter=300), HistGradientBoostingRegressor(loss='poisson', max_leaf_nodes=128), DummyRegressor()" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_poisson_regression_non_normal_loss_003.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Actual number of claims: 11935.0
+Predicted number of claims by Ridge(alpha=1e-06): 10692.7
+Predicted number of claims by PoissonRegressor(alpha=1e-12, max_iter=300): 11924.4
+Predicted number of claims by HistGradientBoostingRegressor(loss=&#39;poisson&#39;, max_leaf_nodes=128): 12112.9
+Predicted number of claims by DummyRegressor(): 11931.2
+</pre></div>
+</div>
+<p>El modelo de regresión dummy predice una frecuencia constante. Este modelo no atribuye el mismo rango ligado a todas las muestras, pero está sin embargo globalmente bien calibrado (para estimar la frecuencia media de toda la población).</p>
+<p>El modelo de regresión «Ridge» puede predecir frecuencias esperadas muy bajas que no se correspondan a los datos. Por tanto, puede subestimar gravemente el riesgo de algunos asegurados.</p>
+<p>El <code class="docutils literal notranslate"><span class="pre">PoissonRegressor</span></code> y el <code class="docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code> muestran una mejor consistencia entre los objetivos predichos y los observados, especialmente para los valores bajos de los objetivos predichos.</p>
+<p>La suma de todas las predicciones también confirma el problema de calibración del modelo <code class="docutils literal notranslate"><span class="pre">Ridge</span></code>: subestima en más de un 3% el número total de siniestros del conjunto de pruebas, mientras que los otros tres modelos pueden recuperar aproximadamente el número total de siniestros de la cartera de pruebas.</p>
+</section>
+<section id="evaluation-of-the-ranking-power">
+<h2>Evaluación del poder de clasificación<a class="headerlink" href="#evaluation-of-the-ranking-power" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para algunas aplicaciones empresariales, nos interesa la capacidad del modelo para clasificar a los asegurados más arriesgados de los más seguros, independientemente del valor absoluto de la predicción. En este caso, la evaluación del modelo convertiría el problema en un problema de clasificación en lugar de un problema de regresión.</p>
+<p>Para comparar los 3 modelos desde esta perspectiva, se puede trazar la proporción acumulativa de siniestros frente a la proporción acumulativa de exposición para las muestras de prueba ordenadas por las predicciones del modelo, de la más segura a la más arriesgada según cada modelo.</p>
+<p>Este gráfico se denomina curva de Lorenz y puede resumirse con el índice de Gini:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">auc</span></a>
+
+
+<span class="k">def</span> <span class="nf">lorenz_curve</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">exposure</span><span class="p">):</span>
+    <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">asarray</span></a><span class="p">(</span><span class="n">y_true</span><span class="p">),</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">asarray</span></a><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">exposure</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.asarray.html#numpy.asarray" title="numpy.asarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">asarray</span></a><span class="p">(</span><span class="n">exposure</span><span class="p">)</span>
+
+    <span class="c1"># order samples by increasing predicted risk:</span>
+    <span class="n">ranking</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.argsort.html#numpy.argsort" title="numpy.argsort" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">argsort</span></a><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">ranked_frequencies</span> <span class="o">=</span> <span class="n">y_true</span><span class="p">[</span><span class="n">ranking</span><span class="p">]</span>
+    <span class="n">ranked_exposure</span> <span class="o">=</span> <span class="n">exposure</span><span class="p">[</span><span class="n">ranking</span><span class="p">]</span>
+    <span class="n">cumulated_claims</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html#numpy.cumsum" title="numpy.cumsum" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span></a><span class="p">(</span><span class="n">ranked_frequencies</span> <span class="o">*</span> <span class="n">ranked_exposure</span><span class="p">)</span>
+    <span class="n">cumulated_claims</span> <span class="o">/=</span> <span class="n">cumulated_claims</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cumulated_exposure</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.cumsum.html#numpy.cumsum" title="numpy.cumsum" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span></a><span class="p">(</span><span class="n">ranked_exposure</span><span class="p">)</span>
+    <span class="n">cumulated_exposure</span> <span class="o">/=</span> <span class="n">cumulated_exposure</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">cumulated_exposure</span><span class="p">,</span> <span class="n">cumulated_claims</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="n">dummy</span><span class="p">,</span> <span class="n">ridge_glm</span><span class="p">,</span> <span class="n">poisson_glm</span><span class="p">,</span> <span class="n">poisson_gbrt</span><span class="p">]:</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+    <span class="n">cum_exposure</span><span class="p">,</span> <span class="n">cum_claims</span> <span class="o">=</span> <span class="n">lorenz_curve</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">,</span>
+                                            <span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">])</span>
+    <span class="n">gini</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">auc</span></a><span class="p">(</span><span class="n">cum_exposure</span><span class="p">,</span> <span class="n">cum_claims</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (Gini: </span><span class="si">{:.2f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">gini</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cum_exposure</span><span class="p">,</span> <span class="n">cum_claims</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># Oracle model: y_pred == y_test</span>
+<span class="n">cum_exposure</span><span class="p">,</span> <span class="n">cum_claims</span> <span class="o">=</span> <span class="n">lorenz_curve</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span>
+                                        <span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Frequency&quot;</span><span class="p">],</span>
+                                        <span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Exposure&quot;</span><span class="p">])</span>
+<span class="n">gini</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">auc</span></a><span class="p">(</span><span class="n">cum_exposure</span><span class="p">,</span> <span class="n">cum_claims</span><span class="p">)</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Oracle (Gini: </span><span class="si">{:.2f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gini</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cum_exposure</span><span class="p">,</span> <span class="n">cum_claims</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># Random Baseline</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Random baseline&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Lorenz curves by model&quot;</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Cumulative proportion of exposure (from safest to riskiest)&#39;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Cumulative proportion of claims&#39;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Lorenz curves by model" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_poisson_regression_non_normal_loss_004.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7f2c1e763760&gt;
+</pre></div>
+</div>
+<p>Como era de esperar, el regresor ficticio es incapaz de clasificar correctamente las muestras y, por tanto, es el que peor funciona en este gráfico.</p>
+<p>El modelo basado en el árbol es significativamente mejor a la hora de clasificar a los asegurados por riesgo, mientras que los dos modelos lineales tienen un rendimiento similar.</p>
+<p>Los tres modelos son significativamente mejores que el azar, pero también están muy lejos de hacer predicciones perfectas.</p>
+<p>Este último punto es esperable debido a la naturaleza del problema: la ocurrencia de accidentes está dominada en su mayoría por causas circunstanciales que no se recogen en las columnas del conjunto de datos y que, de hecho, pueden considerarse puramente aleatorias.</p>
+<p>Los modelos lineales asumen que no hay interacciones entre las variables de entrada, lo que probablemente provoca un ajuste insuficiente. La inserción de un extractor de características polinómicas (<a class="reference internal" href="../../modules/generated/sklearn.preprocessing.PolynomialFeatures.html#sklearn.preprocessing.PolynomialFeatures" title="sklearn.preprocessing.PolynomialFeatures"><code class="xref py py-func docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code></a>) aumenta efectivamente su poder de discriminación en 2 puntos del índice de Gini. En particular, mejora la capacidad de los modelos para identificar el 5% de los perfiles.</p>
+</section>
+<section id="main-takeaways">
+<h2>Principales conclusiones<a class="headerlink" href="#main-takeaways" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>El rendimiento de los modelos puede evaluarse por su capacidad de producir predicciones bien calibradas y una buena clasificación.</p></li>
+<li><p>La calibración del modelo puede evaluarse graficando el valor medio observado frente al valor medio previsto en grupos de muestras de prueba clasificados por riesgo previsto.</p></li>
+<li><p>La pérdida por mínimos cuadrados (junto con el uso implícito de la función de enlace de identidad) del modelo de regresión Ridge parece hacer que este modelo esté mal calibrado. En particular, tiende a subestimar el riesgo y puede incluso predecir frecuencias negativas no válidas.</p></li>
+<li><p>El uso de la pérdida de Poisson con un enlace logarítmico puede corregir estos problemas y conducir a un modelo lineal bien calibrado.</p></li>
+<li><p>El índice de Gini refleja la capacidad de un modelo para clasificar las predicciones con independencia de sus valores absolutos, por lo que sólo evalúa su poder de clasificación.</p></li>
+<li><p>A pesar de la mejora en la calibración, el poder de clasificación de ambos modelos lineales es comparable y está muy por debajo del poder de clasificación de los árboles de regresión de potenciación de gradiente.</p></li>
+<li><p>La desviación de Poisson calculada como métrica de evaluación refleja tanto la calibración como el poder de clasificación del modelo. También hace una suposición lineal sobre la relación ideal entre el valor esperado y la varianza de la variable de respuesta. En aras de la concisión, no comprobamos si este supuesto se cumple.</p></li>
+<li><p>Las métricas de regresión tradicionales, como el error cuadrático medio y el error absoluto medio, son difíciles de interpretar de forma significativa en valores de recuento con muchos ceros.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Tiempo total de ejecución del script:</strong> (1 minutos 35.081 segundos)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-linear-model-plot-poisson-regression-non-normal-loss-py">
+<div class="binder-badge docutils container">
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/0.24.X?urlpath=lab/tree/notebooks/auto_examples/linear_model/plot_poisson_regression_non_normal_loss.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo17.svg" width="150px" /></a>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d08611fad91456a69eecccc558014285/plot_poisson_regression_non_normal_loss.py"><code class="xref download docutils literal notranslate"><span class="pre">Descargar</span> <span class="pre">el</span> <span class="pre">código</span> <span class="pre">fuente</span> <span class="pre">de</span> <span class="pre">Python:</span> <span class="pre">plot_poisson_regression_non_normal_loss.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/2e4791a177381a6102b21e44083615c8/plot_poisson_regression_non_normal_loss.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Descarga</span> <span class="pre">el</span> <span class="pre">cuaderno</span> <span class="pre">de</span> <span class="pre">Jupyter:</span> <span class="pre">plot_poisson_regression_non_normal_loss.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Galería generada por Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/auto_examples/linear_model/plot_poisson_regression_non_normal_loss.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
