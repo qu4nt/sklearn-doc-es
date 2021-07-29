@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Trabajar con datos de texto &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="../statistical_inference/putting_together.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Recapitulemos">Prev</a><a href="../index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="tutoriales de scikit-learn">Arriba</a>
+            <a href="../machine_learning_map/index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Elegir el estimador adecuado">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Trabajar con datos de texto</a><ul>
+<li><a class="reference internal" href="#tutorial-setup">Configuración del tutorial</a></li>
+<li><a class="reference internal" href="#loading-the-20-newsgroups-dataset">Carga del conjunto de datos de 20 grupos de noticias</a></li>
+<li><a class="reference internal" href="#extracting-features-from-text-files">Extracción de características de archivos de texto</a><ul>
+<li><a class="reference internal" href="#bags-of-words">Empaquetado de palabras</a></li>
+<li><a class="reference internal" href="#tokenizing-text-with-scikit-learn">Tokenización de texto con <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code></a></li>
+<li><a class="reference internal" href="#from-occurrences-to-frequencies">De ocurrencias a frecuencias</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#training-a-classifier">Entrenar un clasificador</a></li>
+<li><a class="reference internal" href="#building-a-pipeline">Construir un pipeline</a></li>
+<li><a class="reference internal" href="#evaluation-of-the-performance-on-the-test-set">Evaluación del rendimiento en el conjunto de pruebas</a></li>
+<li><a class="reference internal" href="#parameter-tuning-using-grid-search">Ajuste de parámetros mediante la búsqueda exhaustiva</a><ul>
+<li><a class="reference internal" href="#exercises">Ejercicios</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercise-1-language-identification">Ejercicio 1: Identificación de la lengua</a></li>
+<li><a class="reference internal" href="#exercise-2-sentiment-analysis-on-movie-reviews">Ejercicio 2: Análisis del sentimiento en las críticas de películas</a></li>
+<li><a class="reference internal" href="#exercise-3-cli-text-classification-utility">Ejercicio 3: Utilidad de clasificación de texto CLI</a></li>
+<li><a class="reference internal" href="#where-to-from-here">A partir de aquí, a dónde ir</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="working-with-text-data">
+<span id="text-data-tutorial"></span><h1>Trabajar con datos de texto<a class="headerlink" href="#working-with-text-data" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El objetivo de esta guía es explorar algunas de las principales herramientas de <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> en una única tarea práctica: analizar una colección de documentos de texto (posts de grupos de noticias) sobre veinte temas diferentes.</p>
+<p>En esta sección veremos cómo:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>cargar el contenido del archivo y las categorías</p></li>
+<li><p>extraer vectores de características adecuados para el aprendizaje automático</p></li>
+<li><p>entrenar un modelo lineal para realizar la categorización</p></li>
+<li><p>utiliza una estrategia de búsqueda exhaustiva para encontrar una buena configuración tanto de los componentes de extracción de características como del clasificador</p></li>
+</ul>
+</div></blockquote>
+<section id="tutorial-setup">
+<h2>Configuración del tutorial<a class="headerlink" href="#tutorial-setup" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para empezar con este tutorial, primero debes instalar <em>scikit-learn</em> y todas sus dependencias necesarias.</p>
+<p>Consulta la página <a class="reference internal" href="../../install.html#installation-instructions"><span class="std std-ref">instrucciones de instalación</span></a> para obtener más información y conocer las instrucciones específicas del sistema.</p>
+<p>La fuente de este tutorial se puede encontrar dentro de su carpeta scikit-learn:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">tutorial</span><span class="o">/</span><span class="n">text_analytics</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>El código fuente también se puede encontrar <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/tree/main/doc/tutorial/text_analytics">en Github</a>.</p>
+<p>La carpeta del tutorial debe contener las siguientes subcarpetas:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*.rst</span> <span class="pre">files</span></code> - la fuente del documento tutorial escrito con sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> - carpeta para poner los conjuntos de datos utilizados durante el tutorial</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skeletons</span></code> -muestra de script incompletos para los ejercicios</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solutions</span></code> - soluciones de los ejercicios</p></li>
+</ul>
+</div></blockquote>
+<p>Ya puedes copiar los esqueletos en una nueva carpeta en algún lugar de tu disco duro llamada <code class="docutils literal notranslate"><span class="pre">sklearn_tut_workspace</span></code> donde editarás tus propios archivos para los ejercicios manteniendo los esqueletos (skeletons) originales intactos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">cp -r skeletons work_directory/sklearn_tut_workspace</span>
+</pre></div></div><p>Los algoritmos de aprendizaje automático necesitan datos. Ve a cada subcarpeta <code class="docutils literal notranslate"><span class="pre">$TUTORIAL_HOME/data</span></code> y ejecuta el script <code class="docutils literal notranslate"><span class="pre">fetch_data.py</span></code> desde allí (después de haberlos leído primero).</p>
+<p>Por ejemplo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> <span class="nv">$TUTORIAL_HOME</span>/data/languages</span>
+<span class="prompt1">less fetch_data.py</span>
+<span class="prompt1">python fetch_data.py</span>
+</pre></div></div></section>
+<section id="loading-the-20-newsgroups-dataset">
+<h2>Carga del conjunto de datos de 20 grupos de noticias<a class="headerlink" href="#loading-the-20-newsgroups-dataset" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El conjunto de datos se llama «Twenty Newsgroups». Aquí está la descripción oficial, citada del <a class="reference external" href="http://people.csail.mit.edu/jrennie/20Newsgroups/">sitio web</a>:</p>
+<blockquote>
+<div><p>El conjunto de datos 20 Newsgroups es una colección de aproximadamente 20.000 documentos de grupos de noticias, repartidos (casi) uniformemente entre 20 grupos de noticias diferentes. Por lo que sabemos, fue recopilado originalmente por Ken Lang, probablemente para su artículo «Newsweeder: Learning to filter netnews», aunque no menciona explícitamente esta colección. La colección de 20 grupos de noticias se ha convertido en un popular conjunto de datos para experimentos en aplicaciones de texto de técnicas de aprendizaje automático, como la clasificación y la agrupación de textos.</p>
+</div></blockquote>
+<p>A continuación utilizaremos el cargador de conjuntos de datos incorporado para 20 grupos de noticias de scikit-learn. Alternativamente, es posible descargar el conjunto de datos manualmente desde el sitio web y utilizar la función <a class="reference internal" href="../../modules/generated/sklearn.datasets.load_files.html#sklearn.datasets.load_files" title="sklearn.datasets.load_files"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.datasets.load_files</span></code></a> apuntando a la subcarpeta <code class="docutils literal notranslate"><span class="pre">20news-bydate-train</span></code> de la carpeta de archivos sin comprimir.</p>
+<p>Para conseguir tiempos de ejecución más rápidos para este primer ejemplo trabajaremos sobre un conjunto de datos parcial con sólo 4 categorías de las 20 disponibles en el conjunto de datos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alt.atheism&#39;</span><span class="p">,</span> <span class="s1">&#39;soc.religion.christian&#39;</span><span class="p">,</span>
+<span class="gp">... </span>              <span class="s1">&#39;comp.graphics&#39;</span><span class="p">,</span> <span class="s1">&#39;sci.med&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Ahora podemos cargar la lista de archivos de correspondencia con esas categorías de la siguiente manera:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_20newsgroups</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">twenty_train</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>El conjunto de datos devuelto es un «bunch» de <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>: un simple objeto titular con campos a los que se puede acceder como claves <code class="docutils literal notranslate"><span class="pre">dict</span></code> de python o como atributos <code class="docutils literal notranslate"><span class="pre">object</span></code> para mayor comodidad, por ejemplo el <code class="docutils literal notranslate"><span class="pre">target_names</span></code> contiene la lista de los nombres de las categorías solicitadas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">twenty_train</span><span class="o">.</span><span class="n">target_names</span>
+<span class="go">[&#39;alt.atheism&#39;, &#39;comp.graphics&#39;, &#39;sci.med&#39;, &#39;soc.religion.christian&#39;]</span>
+</pre></div>
+</div>
+<p>Los propios archivos se cargan en la memoria en el atributo <code class="docutils literal notranslate"><span class="pre">data</span></code>. Como referencia, los nombres de los archivos también están disponibles:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="go">2257</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">filenames</span><span class="p">)</span>
+<span class="go">2257</span>
+</pre></div>
+</div>
+<p>Imprimamos las primeras líneas del primer archivo cargado:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]))</span>
+<span class="go">From: sd345@city.ac.uk (Michael Collier)</span>
+<span class="go">Subject: Converting images to HP LaserJet III?</span>
+<span class="go">Nntp-Posting-Host: hampton</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="go">comp.graphics</span>
+</pre></div>
+</div>
+<p>Los algoritmos de aprendizaje supervisado requieren una etiqueta de categoría para cada documento del conjunto de entrenamiento. En este caso, la categoría es el nombre del grupo de noticias, que también es el nombre de la carpeta que contiene los documentos individuales.</p>
+<p>Por razones de velocidad y eficiencia de espacio <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> carga el atributo target como un arreglo de enteros que corresponde al índice del nombre de la categoría en la lista <code class="docutils literal notranslate"><span class="pre">target_names</span></code>. El identificador de categoría de cada muestra se almacena en el atributo <code class="docutils literal notranslate"><span class="pre">target</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">array([1, 1, 3, 3, 3, 3, 3, 2, 2, 2])</span>
+</pre></div>
+</div>
+<p>Es posible recuperar los nombres de las categorías de la siguiente manera:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+<span class="gp">...</span>
+<span class="go">comp.graphics</span>
+<span class="go">comp.graphics</span>
+<span class="go">soc.religion.christian</span>
+<span class="go">soc.religion.christian</span>
+<span class="go">soc.religion.christian</span>
+<span class="go">soc.religion.christian</span>
+<span class="go">soc.religion.christian</span>
+<span class="go">sci.med</span>
+<span class="go">sci.med</span>
+<span class="go">sci.med</span>
+</pre></div>
+</div>
+<p>Habrás notado que las muestras se barajan aleatoriamente cuando llamamos a <code class="docutils literal notranslate"><span class="pre">fetch_20newsgroups(...,</span> <span class="pre">shuffle=True,</span> <span class="pre">random_state=42)</span></code>: esto es útil si quieres seleccionar sólo un subconjunto de muestras para entrenar rápidamente un modelo y tener una primera idea de los resultados antes de volver a entrenar en el conjunto de datos completo más tarde.</p>
+</section>
+<section id="extracting-features-from-text-files">
+<h2>Extracción de características de archivos de texto<a class="headerlink" href="#extracting-features-from-text-files" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para llevar a cabo el aprendizaje automático de documentos de texto, primero tenemos que convertir el contenido del texto en vectores de características numéricas.</p>
+<section id="bags-of-words">
+<h3>Empaquetado de palabras<a class="headerlink" href="#bags-of-words" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La forma más intuitiva de hacerlo es utilizar una representación de empaquetado de palabras:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Asigna un identificador entero fijo a cada palabra que aparezca en cualquier documento del conjunto de entrenamiento (por ejemplo, construyendo un diccionario de palabras con índices enteros).</p></li>
+<li><p>Para cada documento <code class="docutils literal notranslate"><span class="pre">#i</span></code>, se cuenta el número de apariciones de cada palabra <code class="docutils literal notranslate"><span class="pre">w</span></code> y se almacena en <code class="docutils literal notranslate"><span class="pre">X[i,</span> <span class="pre">j]</span></code> como valor de la característica <code class="docutils literal notranslate"><span class="pre">#j</span></code> donde <code class="docutils literal notranslate"><span class="pre">j</span></code> es el índice de la palabra <code class="docutils literal notranslate"><span class="pre">w</span></code> en el diccionario.</p></li>
+</ol>
+</div></blockquote>
+<p>La representación de empaquetado de palabras implica que <code class="docutils literal notranslate"><span class="pre">n_features</span></code> es el número de palabras distintas en el corpus: este número suele ser superior a 100.000.</p>
+<p>Si <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">==</span> <span class="pre">10000</span></code>, almacenar <code class="docutils literal notranslate"><span class="pre">X</span></code> como un arreglo de NumPy de tipo float32 requeriría 10000 x 100000 x 4 bytes = <strong>4GB en RAM</strong> que es apenas manejable en las computadoras actuales.</p>
+<p>Afortunadamente, <strong>la mayoría de los valores de X serán ceros</strong>, ya que para un documento determinado se utilizarán menos de unos pocos miles de palabras distintas. Por eso decimos que los empaquetado de palabras son típicamente <strong>conjuntos de datos dispersos de alta dimensión</strong>. Podemos ahorrar mucha memoria almacenando sólo las partes distintas de cero de los vectores de características en la memoria.</p>
+<p>Las matrices <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> son estructuras de datos que hacen exactamente esto, y <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> tiene soporte incorporado para estas estructuras.</p>
+</section>
+<section id="tokenizing-text-with-scikit-learn">
+<h3>Tokenización de texto con <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code><a class="headerlink" href="#tokenizing-text-with-scikit-learn" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El preprocesamiento de texto, la tokenización y el filtrado de palabras de parada están incluidos en <a class="reference internal" href="../../modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>, que construye un diccionario de características y transforma los documentos en vectores de características:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count_vect</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_counts</span> <span class="o">=</span> <span class="n">count_vect</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_counts</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2257, 35788)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../../modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> soporta recuentos de N-gramas de palabras o caracteres consecutivos. Una vez ajustado, el vectorizador ha construido un diccionario de índices de características:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">count_vect</span><span class="o">.</span><span class="n">vocabulary_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;algorithm&#39;</span><span class="p">)</span>
+<span class="go">4690</span>
+</pre></div>
+</div>
+<p>El valor del índice de una palabra en el vocabulario está vinculado a su frecuencia en todo el corpus de entrenamiento.</p>
+</section>
+<section id="from-occurrences-to-frequencies">
+<h3>De ocurrencias a frecuencias<a class="headerlink" href="#from-occurrences-to-frequencies" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El recuento de ocurrencias es un buen comienzo, pero hay un problema: los documentos más largos tendrán valores de recuento medio más altos que los documentos más cortos, aunque hablen de los mismos temas.</p>
+<p>Para evitar estas posibles discrepancias, basta con dividir el número de apariciones de cada palabra en un documento entre el número total de palabras del mismo: estas nuevas características se denominan <code class="docutils literal notranslate"><span class="pre">tf</span></code> para las frecuencias de términos.</p>
+<p>Otro refinamiento sobre tf consiste en reducir las ponderaciones de las palabras que aparecen en muchos documentos del corpus y que, por tanto, son menos informativas que las que sólo aparecen en una parte más pequeña del corpus.</p>
+<p>Esta reducción de escala se denomina <a class="reference external" href="https://en.wikipedia.org/wiki/Tf-idf">tf-idf</a> por «Term Frequency times Inverse Document Frequency».</p>
+<p>Tanto <strong>tf</strong> como <strong>tf-idf</strong> pueden calcularse de la siguiente manera utilizando <a class="reference internal" href="../../modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf_transformer</span> <span class="o">=</span> <span class="n">TfidfTransformer</span><span class="p">(</span><span class="n">use_idf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_counts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_tf</span> <span class="o">=</span> <span class="n">tf_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train_counts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_tf</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2257, 35788)</span>
+</pre></div>
+</div>
+<p>En el código de ejemplo anterior, primero utilizamos el método <code class="docutils literal notranslate"><span class="pre">fit(..)</span></code> para ajustar nuestro estimador a los datos y, en segundo lugar, el método <code class="docutils literal notranslate"><span class="pre">transform(..)</span></code> para transformar nuestra matriz de recuento a una representación tf-idf. Estos dos pasos pueden combinarse para lograr el mismo resultado final más rápidamente, omitiendo el procesamiento redundante. Esto se hace utilizando el método <code class="docutils literal notranslate"><span class="pre">fit_transform(..)</span></code> como se muestra a continuación, y como se menciona en la nota de la sección anterior:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf_transformer</span> <span class="o">=</span> <span class="n">TfidfTransformer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_tfidf</span> <span class="o">=</span> <span class="n">tfidf_transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train_counts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_tfidf</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2257, 35788)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="training-a-classifier">
+<h2>Entrenar un clasificador<a class="headerlink" href="#training-a-classifier" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Ahora que tenemos nuestras características, podemos entrenar un clasificador para intentar predecir la categoría de un post. Empecemos con un clasificador <a class="reference internal" href="../../modules/naive_bayes.html#naive-bayes"><span class="std std-ref">naive Bayes</span></a>, que proporciona una buena línea de base para esta tarea. <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> incluye varias variantes de este clasificador; la más adecuada para el recuento de palabras es la variante multinomial:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_tfidf</span><span class="p">,</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Para intentar predecir el resultado en un nuevo documento necesitamos extraer las características utilizando casi la misma cadena de extracción de características que antes. La diferencia es que llamamos a <code class="docutils literal notranslate"><span class="pre">transform</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> a los transformadores, ya que estos ya han sido ajustados al conjunto de entrenamiento:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">docs_new</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;God is love&#39;</span><span class="p">,</span> <span class="s1">&#39;OpenGL on the GPU is fast&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new_counts</span> <span class="o">=</span> <span class="n">count_vect</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">docs_new</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new_tfidf</span> <span class="o">=</span> <span class="n">tfidf_transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_new_counts</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predicted</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_new_tfidf</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">docs_new</span><span class="p">,</span> <span class="n">predicted</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%r</span><span class="s1"> =&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">category</span><span class="p">]))</span>
+<span class="gp">...</span>
+<span class="go">&#39;God is love&#39; =&gt; soc.religion.christian</span>
+<span class="go">&#39;OpenGL on the GPU is fast&#39; =&gt; comp.graphics</span>
+</pre></div>
+</div>
+</section>
+<section id="building-a-pipeline">
+<h2>Construir un pipeline<a class="headerlink" href="#building-a-pipeline" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para facilitar el trabajo del vectorizador =&gt; transformador =&gt; clasificador, <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> proporciona una clase <a class="reference internal" href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> que se comporta como un clasificador compuesto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text_clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">()),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">()),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">MultinomialNB</span><span class="p">()),</span>
+<span class="gp">... </span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Los nombres <code class="docutils literal notranslate"><span class="pre">vect</span></code>, <code class="docutils literal notranslate"><span class="pre">tfidf</span></code> y <code class="docutils literal notranslate"><span class="pre">clf</span></code> (clasificador) son arbitrarios. Los utilizaremos para realizar la búsqueda exhaustiva de hiperparámetros adecuados más adelante. Ahora podemos entrenar el modelo con un solo comando:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">Pipeline(...)</span>
+</pre></div>
+</div>
+</section>
+<section id="evaluation-of-the-performance-on-the-test-set">
+<h2>Evaluación del rendimiento en el conjunto de pruebas<a class="headerlink" href="#evaluation-of-the-performance-on-the-test-set" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Evaluar la precisión predictiva del modelo es igualmente fácil:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">twenty_test</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">docs_test</span> <span class="o">=</span> <span class="n">twenty_test</span><span class="o">.</span><span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predicted</span> <span class="o">=</span> <span class="n">text_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">docs_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">twenty_test</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">0.8348...</span>
+</pre></div>
+</div>
+<p>Hemos conseguido un 83,5% de precisión. Vamos a ver si podemos hacerlo mejor con una <a class="reference internal" href="../../modules/svm.html#svm"><span class="std std-ref">máquina de vectores de soporte (SVM)</span></a>, que es ampliamente considerado como uno de los mejores algoritmos de clasificación de texto (aunque también es un poco más lento que el Bayes ingenuo). Podemos cambiar el algoritmos de aprendizaje simplemente introduciendo un objeto clasificador diferente en nuestro pipeline:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text_clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">()),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">()),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;hinge&#39;</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">alpha</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span>
+<span class="gp">... </span><span class="p">])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">Pipeline(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predicted</span> <span class="o">=</span> <span class="n">text_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">docs_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">twenty_test</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">0.9101...</span>
+</pre></div>
+</div>
+<p>Hemos conseguido un 91,3% de precisión con la SVM. <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> proporciona más utilidades para un análisis más detallado del rendimiento de los resultados:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">twenty_test</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">target_names</span><span class="o">=</span><span class="n">twenty_test</span><span class="o">.</span><span class="n">target_names</span><span class="p">))</span>
+<span class="go">                        precision    recall  f1-score   support</span>
+
+<span class="go">           alt.atheism       0.95      0.80      0.87       319</span>
+<span class="go">         comp.graphics       0.87      0.98      0.92       389</span>
+<span class="go">               sci.med       0.94      0.89      0.91       396</span>
+<span class="go">soc.religion.christian       0.90      0.95      0.93       398</span>
+
+<span class="go">              accuracy                           0.91      1502</span>
+<span class="go">             macro avg       0.91      0.91      0.91      1502</span>
+<span class="go">          weighted avg       0.91      0.91      0.91      1502</span>
+
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">twenty_test</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">predicted</span><span class="p">)</span>
+<span class="go">array([[256,  11,  16,  36],</span>
+<span class="go">       [  4, 380,   3,   2],</span>
+<span class="go">       [  5,  35, 353,   3],</span>
+<span class="go">       [  5,  11,   4, 378]])</span>
+</pre></div>
+</div>
+<p>Como era de esperar, la matriz de confusión muestra que los mensajes de los grupos de noticias sobre ateísmo y cristianismo se confunden más a menudo entre sí que con la infografía.</p>
+</section>
+<section id="parameter-tuning-using-grid-search">
+<h2>Ajuste de parámetros mediante la búsqueda exhaustiva<a class="headerlink" href="#parameter-tuning-using-grid-search" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Ya hemos encontrado algunos parámetros como <code class="docutils literal notranslate"><span class="pre">use_idf</span></code> en el <code class="docutils literal notranslate"><span class="pre">TfidfTransformer</span></code>. Los clasificadores también suelen tener muchos parámetros; por ejemplo, <code class="docutils literal notranslate"><span class="pre">MultinomialNB</span></code> incluye un parámetro de suavizado <code class="docutils literal notranslate"><span class="pre">alpha</span></code> y <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code> tiene un parámetro de penalización <code class="docutils literal notranslate"><span class="pre">alpha</span></code> y términos de pérdida y penalización configurables en la función objetivo (ver la documentación del módulo, o utiliza la función <code class="docutils literal notranslate"><span class="pre">help</span></code> de Python para obtener una descripción de los mismos).</p>
+<p>En lugar de ajustar los parámetros de los distintos componentes de la cadena, es posible realizar una búsqueda exhaustiva de los mejores parámetros en una parrilla de valores posibles. Probamos todos los clasificadores con palabras o bigramas, con o sin idf, y con un parámetro de penalización de 0.01 o 0.001 para la SVM lineal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="s1">&#39;tfidf__use_idf&#39;</span><span class="p">:</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;clf__alpha&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Obviamente, una búsqueda tan exhaustiva puede resultar cara. Si tenemos varios núcleos de CPU a nuestra disposición, podemos decirle al buscador de la red que pruebe estas ocho combinaciones de parámetros en paralelo con el parámetro <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>. Si damos a este parámetro un valor de <code class="docutils literal notranslate"><span class="pre">-1</span></code>, la búsqueda en la red detectará cuántos núcleos hay instalados y los utilizará todos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs_clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">text_clf</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>La instancia de búsqueda exhaustiva se comporta como un modelo <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> normal. Vamos a realizar la búsqueda en un subconjunto más pequeño de los datos de entrenamiento para acelerar el cálculo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs_clf</span> <span class="o">=</span> <span class="n">gs_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">400</span><span class="p">],</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">[:</span><span class="mi">400</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>El resultado de llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> en un objeto <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> es un clasificador que podemos utilizar para <code class="docutils literal notranslate"><span class="pre">predict</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">twenty_train</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">gs_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="s1">&#39;God is love&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="go">&#39;soc.religion.christian&#39;</span>
+</pre></div>
+</div>
+<p>Los atributos <code class="docutils literal notranslate"><span class="pre">best_score_</span></code> y <code class="docutils literal notranslate"><span class="pre">best_params_</span></code> del objeto almacenan la mejor puntuación media y la configuración de los parámetros correspondientes a esa puntuación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs_clf</span><span class="o">.</span><span class="n">best_score_</span>
+<span class="go">0.9...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">param_name</span><span class="p">,</span> <span class="n">gs_clf</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="n">param_name</span><span class="p">]))</span>
+<span class="gp">...</span>
+<span class="go">clf__alpha: 0.001</span>
+<span class="go">tfidf__use_idf: True</span>
+<span class="go">vect__ngram_range: (1, 1)</span>
+</pre></div>
+</div>
+<p>Un resumen más detallado de la búsqueda está disponible en <code class="docutils literal notranslate"><span class="pre">gs_clf.cv_results_</span></code>.</p>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">cv_results_</span></code> puede ser fácilmente importado a pandas como un <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> para su posterior inspección.</p>
+<section id="exercises">
+<h3>Ejercicios<a class="headerlink" href="#exercises" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para hacer los ejercicios, copia el contenido de la carpeta “skeletons” como una nueva carpeta llamada “workspace”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">cp -r skeletons workspace</span>
+</pre></div></div><p>A continuación, puedes editar el contenido del espacio de trabajo sin temor a perder las instrucciones originales del ejercicio.</p>
+<p>A continuación, inicia un terminal ipython y ejecuta el script de trabajo en curso con:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span><span class="n">run</span> <span class="n">workspace</span><span class="o">/</span><span class="n">exercise_XX_script</span><span class="o">.</span><span class="n">py</span> <span class="n">arg1</span> <span class="n">arg2</span> <span class="n">arg3</span>
+</pre></div>
+</div>
+<p>Si se produce una excepción, utilice <code class="docutils literal notranslate"><span class="pre">%debug</span></code> para iniciar una sesión ipdb post mortem.</p>
+<p>Perfecciona la aplicación e itera hasta resolver el ejercicio.</p>
+<p><strong>Para cada ejercicio, el archivo de esqueleto proporciona todas las sentencias de importación necesarias, el código de plantilla para cargar los datos y el código de muestra para evaluar la precisión predictiva del modelo.</strong></p>
+</section>
+</section>
+<section id="exercise-1-language-identification">
+<h2>Ejercicio 1: Identificación de la lengua<a class="headerlink" href="#exercise-1-language-identification" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>Escribir una pipeline de clasificación de texto utilizando un preprocesador personalizado y <code class="docutils literal notranslate"><span class="pre">CharNGramAnalyzer</span></code> utilizando datos de artículos de Wikipedia como conjunto de entrenamiento.</p></li>
+<li><p>Evalúa el rendimiento en un conjunto de pruebas que se haya mantenido.</p></li>
+</ul>
+<p>línea de comandos ipython:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">run</span> <span class="n">workspace</span><span class="o">/</span><span class="n">exercise_01_language_train_model</span><span class="o">.</span><span class="n">py</span> <span class="n">data</span><span class="o">/</span><span class="n">languages</span><span class="o">/</span><span class="n">paragraphs</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-2-sentiment-analysis-on-movie-reviews">
+<h2>Ejercicio 2: Análisis del sentimiento en las críticas de películas<a class="headerlink" href="#exercise-2-sentiment-analysis-on-movie-reviews" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>Escribe un pipeline de clasificación de textos para clasificar las críticas de películas como positivas o negativas.</p></li>
+<li><p>Encuentra un buen conjunto de parámetros utilizando la búsqueda exhaustiva.</p></li>
+<li><p>Evalua el rendimiento en un conjunto de pruebas retenidas.</p></li>
+</ul>
+<p>línea de comandos ipython:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">run</span> <span class="n">workspace</span><span class="o">/</span><span class="n">exercise_02_sentiment</span><span class="o">.</span><span class="n">py</span> <span class="n">data</span><span class="o">/</span><span class="n">movie_reviews</span><span class="o">/</span><span class="n">txt_sentoken</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-3-cli-text-classification-utility">
+<h2>Ejercicio 3: Utilidad de clasificación de texto CLI<a class="headerlink" href="#exercise-3-cli-text-classification-utility" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Utilizando los resultados de los ejercicios anteriores y el módulo <code class="docutils literal notranslate"><span class="pre">cPickle</span></code> de la biblioteca estándar, escribe una utilidad de línea de comandos que detecte el idioma de algún texto proporcionado en <code class="docutils literal notranslate"><span class="pre">stdin</span></code> y estime la polaridad (positiva o negativa) si el texto está escrito en inglés.</p>
+<p>Punto extra si la empresa es capaz de dar un nivel de confianza para sus predicciones.</p>
+</section>
+<section id="where-to-from-here">
+<h2>A partir de aquí, a dónde ir<a class="headerlink" href="#where-to-from-here" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Aquí hay algunas sugerencias para ayudar a mejorar su intuición de scikit-learn después de la finalización de este tutorial:</p>
+<ul class="simple">
+<li><p>Prueba a jugar con el <code class="docutils literal notranslate"><span class="pre">analyzer</span></code> y la <code class="docutils literal notranslate"><span class="pre">token</span> <span class="pre">normalisation</span></code> en <a class="reference internal" href="../../modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.</p></li>
+<li><p>Si no tienes etiquetas, intenta utilizar <a class="reference internal" href="../../auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py"><span class="std std-ref">Clustering</span></a> en tu problema.</p></li>
+<li><p>Si tienes varias etiquetas por documento, por ejemplo, categorías, echa un vistazo a la sección <a class="reference internal" href="../../modules/multiclass.html#multiclass"><span class="std std-ref">Multiclase y multietiqueta</span></a>.</p></li>
+<li><p>Prueba utilizar <a class="reference internal" href="../../modules/decomposition.html#lsa"><span class="std std-ref">Truncated SVD</span></a> para el <a class="reference external" href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">análisis semántico latente</a>.</p></li>
+<li><p>Echa un vistazo al uso de <a class="reference internal" href="../../auto_examples/applications/plot_out_of_core_classification.html#sphx-glr-auto-examples-applications-plot-out-of-core-classification-py"><span class="std std-ref">Out-of-core Classification</span></a> para aprender de los datos que no caben en la memoria principal del ordenador.</p></li>
+<li><p>Echa un vistazo a la <a class="reference internal" href="../../modules/feature_extraction.html#hashing-vectorizer"><span class="std std-ref">Hashing Vectorizer</span></a> como una alternativa de memoria eficiente a <a class="reference internal" href="../../modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/tutorial/text_analytics/working_with_text_data.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

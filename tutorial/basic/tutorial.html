@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Introducción al aprendizaje automático con scikit-learn &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/tutorial/basic/tutorial.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="../index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="tutoriales de scikit-learn">Prev</a><a href="../index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="tutoriales de scikit-learn">Arriba</a>
+            <a href="../statistical_inference/index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Un tutorial sobre aprendizaje estadístico para el procesamiento de datos científicos">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Introducción al aprendizaje automático con scikit-learn</a><ul>
+<li><a class="reference internal" href="#machine-learning-the-problem-setting">Aprendizaje automático: el escenario del problema</a></li>
+<li><a class="reference internal" href="#loading-an-example-dataset">Carga de un conjunto de datos de ejemplo</a></li>
+<li><a class="reference internal" href="#learning-and-predicting">Aprendizaje y predicción</a></li>
+<li><a class="reference internal" href="#conventions">Convenciones</a><ul>
+<li><a class="reference internal" href="#type-casting">Fundición de tipo</a></li>
+<li><a class="reference internal" href="#refitting-and-updating-parameters">Reajuste y actualización de los parámetros</a></li>
+<li><a class="reference internal" href="#multiclass-vs-multilabel-fitting">Ajuste multiclase vs. multietiqueta</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="an-introduction-to-machine-learning-with-scikit-learn">
+<span id="introduction"></span><h1>Introducción al aprendizaje automático con scikit-learn<a class="headerlink" href="#an-introduction-to-machine-learning-with-scikit-learn" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="topic">
+<p class="topic-title">Sección de contenidos</p>
+<p>En esta sección, introducimos el vocabulario <a class="reference external" href="https://en.wikipedia.org/wiki/Machine_learning">machine learning</a> que utilizamos en todo scikit-learn y damos un ejemplo sencillo de aprendizaje.</p>
+</div>
+<section id="machine-learning-the-problem-setting">
+<h2>Aprendizaje automático: el escenario del problema<a class="headerlink" href="#machine-learning-the-problem-setting" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En general, un problema de aprendizaje considera un conjunto de n <a class="reference external" href="https://en.wikipedia.org/wiki/Sample_(statistics)">muestras</a> de datos y, a continuación, intenta predecir propiedades de datos desconocidos. Si cada muestra es más que un solo número y, por ejemplo, una entrada multidimensional (también conocida como <a class="reference external" href="https://en.wikipedia.org/wiki/Multivariate_random_variable">datos multivariantes</a>), se dice que tiene varios atributos o <strong>características</strong>.</p>
+<p>Los problemas de aprendizaje se dividen en varias categorías:</p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Supervised_learning">aprendizaje supervisado</a>, en el que los datos vienen con atributos adicionales que queremos predecir (<a class="reference internal" href="../../supervised_learning.html#supervised-learning"><span class="std std-ref">Haz clic aquí</span></a> para ir a la página de aprendizaje supervisado de scikit-learn).Este problema puede ser:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Classification_in_machine_learning">clasificación</a>: las muestras pertenecen a dos o más clases y queremos aprender, a partir de datos ya etiquetados, a predecir la clase de los datos no etiquetados. Un ejemplo de problema de clasificación sería el reconocimiento de dígitos escritos a mano, en el que el objetivo es asignar cada vector de entrada a una de un número finito de categorías discretas.  Otra forma de pensar en la clasificación es como una forma discreta (en contraposición a la continua) de aprendizaje supervisado en la que se tiene un número limitado de categorías y para cada una de las n muestras proporcionadas, se trata de etiquetarlas con la categoría o clase correcta.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Regression_analysis">regresión</a>: si la salida deseada consiste en una o más variables continuas, entonces la tarea se llama <em>regresión</em>. Un ejemplo de problema de regresión sería la predicción de la longitud de un salmón en función de su edad y peso.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Unsupervised_learning">aprendizaje no supervisado</a>, en el que los datos de entrenamiento consisten en un conjunto de vectores de entrada x sin ningún valor objetivo correspondiente. El objetivo de estos problemas puede ser descubrir grupos de ejemplos similares dentro de los datos, lo que se denomina <a class="reference external" href="https://es.wikipedia.org/wiki/An%C3%A1lisis_de_grupos">conglomerado</a>, o determinar la distribución de los datos dentro del espacio de entrada, lo que se conoce como <a class="reference external" href="https://en.wikipedia.org/wiki/Density_estimation">estimación de la densidad</a>, o proyectar los datos desde un espacio de alta dimensión hasta dos o tres dimensiones con el fin de <em>visualizarlos</em> (<a class="reference internal" href="../../unsupervised_learning.html#unsupervised-learning"><span class="std std-ref">Haz clic aquí</span></a> para ir a la página de aprendizaje no supervisado de Scikit-Learn).</p></li>
+</ul>
+</div></blockquote>
+<div class="topic">
+<p class="topic-title">Conjunto de entrenamiento y conjunto de pruebas</p>
+<p>El aprendizaje automático consiste en aprender algunas propiedades de un conjunto de datos y, a continuación, comprobar esas propiedades con otro conjunto de datos. Una práctica habitual en el aprendizaje automático es evaluar un algoritmo dividiendo un conjunto de datos en dos. Llamamos a uno de esos conjuntos el <strong>conjunto de entrenamiento</strong>, sobre el que aprendemos algunas propiedades; llamamos al otro conjunto el <strong>conjunto de prueba</strong>, sobre el que probamos las propiedades aprendidas.</p>
+</div>
+</section>
+<section id="loading-an-example-dataset">
+<span id="loading-example-dataset"></span><h2>Carga de un conjunto de datos de ejemplo<a class="headerlink" href="#loading-an-example-dataset" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> viene con unos cuantos conjuntos de datos estándar, por ejemplo los conjuntos de datos <a class="reference external" href="https://en.wikipedia.org/wiki/Iris_flower_data_set">iris</a> y <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Pen-Based+Recognition+of+Handwritten+Digits">digits</a> para clasificación y el conjunto de datos <a class="reference external" href="https://www4.stat.ncsu.edu/~boos/var.select/diabetes.html">diabetes</a> para regresión.</p>
+<p>A continuación, iniciamos un intérprete de Python desde nuestro shell y luego cargamos los conjuntos de datos <code class="docutils literal notranslate"><span class="pre">iris</span></code> y <code class="docutils literal notranslate"><span class="pre">digits</span></code>.  Nuestra convención de notación es que <code class="docutils literal notranslate"><span class="pre">$</span></code> denota el prompt del terminal mientras que <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> denota el prompt del intérprete de Python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python
+&gt;&gt;&gt; from sklearn import datasets
+&gt;&gt;&gt; iris = datasets.load_iris()
+&gt;&gt;&gt; digits = datasets.load_digits()
+</pre></div>
+</div>
+<p>Un conjunto de datos es un objeto tipo diccionario que contiene todos los datos y algunos metadatos sobre los datos. Estos datos se almacenan en el miembro <code class="docutils literal notranslate"><span class="pre">.data</span></code>, que es un arreglo <code class="docutils literal notranslate"><span class="pre">n_samples,</span> <span class="pre">n_features</span></code>. En el caso del problema supervisado, una o más variables de respuesta se almacenan en el miembro <code class="docutils literal notranslate"><span class="pre">.target</span></code>. Puedes encontrar más detalles sobre los diferentes conjuntos de datos en la sección <a class="reference internal" href="../../datasets.html#datasets"><span class="std std-ref">dedicada a los conjuntos de datos</span></a>.</p>
+<p>Por ejemplo, en el caso del conjunto de datos de dígitos, <code class="docutils literal notranslate"><span class="pre">digits.data</span></code> da acceso a las características que pueden utilizarse para clasificar las muestras de dígitos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="go">[[ 0.   0.   5. ...   0.   0.   0.]</span>
+<span class="go"> [ 0.   0.   0. ...  10.   0.   0.]</span>
+<span class="go"> [ 0.   0.   0. ...  16.   9.   0.]</span>
+<span class="go"> ...</span>
+<span class="go"> [ 0.   0.   1. ...   6.   0.   0.]</span>
+<span class="go"> [ 0.   0.   2. ...  12.   0.   0.]</span>
+<span class="go"> [ 0.   0.  10. ...  12.   1.   0.]]</span>
+</pre></div>
+</div>
+<p>y <code class="docutils literal notranslate"><span class="pre">digits.target</span></code> da la verdad fundamental para el conjunto de datos de dígitos, es decir, el número correspondiente a cada imagen de dígitos que estamos tratando de aprender:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">digits</span><span class="o">.</span><span class="n">target</span>
+<span class="go">array([0, 1, 2, ..., 8, 9, 8])</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Forma de los arreglos de datos</p>
+<p>Los datos son siempre un arreglo 2D, de forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_features)</span></code>, aunque los datos originales pueden haber tenido una forma diferente. En el caso de los dígitos, cada muestra original es una imagen de forma <code class="docutils literal notranslate"><span class="pre">(8,</span> <span class="pre">8)</span></code> y se puede acceder a ella mediante:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[  0.,   0.,   5.,  13.,   9.,   1.,   0.,   0.],</span>
+<span class="go">       [  0.,   0.,  13.,  15.,  10.,  15.,   5.,   0.],</span>
+<span class="go">       [  0.,   3.,  15.,   2.,   0.,  11.,   8.,   0.],</span>
+<span class="go">       [  0.,   4.,  12.,   0.,   0.,   8.,   8.,   0.],</span>
+<span class="go">       [  0.,   5.,   8.,   0.,   0.,   9.,   8.,   0.],</span>
+<span class="go">       [  0.,   4.,  11.,   0.,   1.,  12.,   7.,   0.],</span>
+<span class="go">       [  0.,   2.,  14.,   5.,  10.,  12.,   0.,   0.],</span>
+<span class="go">       [  0.,   0.,   6.,  13.,  10.,   0.,   0.,   0.]])</span>
+</pre></div>
+</div>
+<p>El ejemplo <a class="reference internal" href="../../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">simple sobre este conjunto de datos</span></a> ilustra cómo partiendo del problema original se pueden moldear los datos para su consumo en scikit-learn.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Carga de conjuntos de datos externos</p>
+<p>Para cargar desde un conjunto de datos externo, consulte <a class="reference internal" href="../../datasets/loading_other_datasets.html#external-datasets"><span class="std std-ref">cargar conjuntos de datos externos</span></a>.</p>
+</div>
+</section>
+<section id="learning-and-predicting">
+<h2>Aprendizaje y predicción<a class="headerlink" href="#learning-and-predicting" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En el caso del conjunto de datos de dígitos, la tarea consiste en predecir, dada una imagen, qué dígito representa. Se nos dan muestras de cada una de las 10 clases posibles (los dígitos del cero al nueve) sobre las que <em>ajustamos</em> un <a class="reference external" href="https://en.wikipedia.org/wiki/Estimator">estimador</a> para poder <em>predecir</em> las clases a las que pertenecen las muestras no vistas.</p>
+<p>En scikit-learn, un estimador para la clasificación es un objeto Python que implementa los métodos <code class="docutils literal notranslate"><span class="pre">fit(X,</span> <span class="pre">y)</span></code> y <code class="docutils literal notranslate"><span class="pre">predict(T)</span></code>.</p>
+<p>Un ejemplo de estimador es la clase <code class="docutils literal notranslate"><span class="pre">sklearn.svm.SVC</span></code>, que implementa la <a class="reference external" href="https://en.wikipedia.org/wiki/Support_vector_machine">clasificación por vectores de soporte</a>. El constructor del estimador toma como argumentos los parámetros del modelo.</p>
+<p>Por ahora, consideraremos el estimador como una caja negra:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">100.</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Elección de los parámetros del modelo</p>
+<p>En este ejemplo, establecemos el valor de <code class="docutils literal notranslate"><span class="pre">gamma</span></code> manualmente. Para encontrar buenos valores para estos parámetros, podemos utilizar herramientas como <a class="reference internal" href="../../modules/grid_search.html#grid-search"><span class="std std-ref">grid search</span></a> y <a class="reference internal" href="../../modules/cross_validation.html#cross-validation"><span class="std std-ref">cross validation</span></a>.</p>
+</div>
+<p>La instancia del estimador <code class="docutils literal notranslate"><span class="pre">clf</span></code> (para clasificador) se ajusta primero al modelo; es decir, debe <em>aprender</em> del modelo. Esto se hace pasando nuestro conjunto de entrenamiento al método <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Para el conjunto de entrenamiento, utilizaremos todas las imágenes de nuestro conjunto de datos, excepto la última imagen, que reservaremos para nuestra predicción. Seleccionamos el conjunto de entrenamiento con la sintaxis <code class="docutils literal notranslate"><span class="pre">[:-1]</span></code> de Python, que produce un nuevo arreglo que contiene todos los elementos menos el último de <code class="docutils literal notranslate"><span class="pre">digits.data</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">SVC(C=100.0, gamma=0.001)</span>
+</pre></div>
+</div>
+<p>Ahora puedes <em>predecir</em> nuevos valores. En este caso, predecirás utilizando la última imagen de <code class="docutils literal notranslate"><span class="pre">digits.data</span></code>. Al predecir, determinarás la imagen del conjunto de entrenamiento que mejor corresponda con la última imagen.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:])</span>
+<span class="go">array([8])</span>
+</pre></div>
+</div>
+<p>La imagen correspondiente es:</p>
+<a class="reference external image-reference" href="../../auto_examples/datasets/plot_digits_last_image.html"><img alt="../../_images/sphx_glr_plot_digits_last_image_001.png" class="align-center" src="../../_images/sphx_glr_plot_digits_last_image_001.png" style="width: 150.0px; height: 150.0px;" /></a>
+<p>Como puedes ver, es una tarea difícil: al fin y al cabo, las imágenes tienen poca resolución. ¿Estás de acuerdo con el clasificador?</p>
+<p>Un ejemplo completo de este problema de clasificación está disponible como ejemplo que puede ejecutar y estudiar: <a class="reference internal" href="../../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">Reconocimiento de dígitos escritos a mano</span></a>.</p>
+</section>
+<section id="conventions">
+<h2>Convenciones<a class="headerlink" href="#conventions" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>los estimadores de scikit-learn siguen ciertas reglas para hacer su comportamiento más predictivo.  Estas se describen con más detalle en el <a class="reference internal" href="../../glossary.html#glossary"><span class="std std-ref">Glosario de Términos Comunes y Elementos de la API</span></a>.</p>
+<section id="type-casting">
+<h3>Fundición de tipo<a class="headerlink" href="#type-casting" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A menos que se especifique lo contrario, la entrada se convertirá en <code class="docutils literal notranslate"><span class="pre">float64</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">random_projection</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float32&#39;)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">random_projection</span><span class="o">.</span><span class="n">GaussianRandomProjection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float64&#39;)</span>
+</pre></div>
+</div>
+<p>En este ejemplo, <code class="docutils literal notranslate"><span class="pre">X</span></code> es <code class="docutils literal notranslate"><span class="pre">float32</span></code>, que se convierte en <code class="docutils literal notranslate"><span class="pre">float64</span></code> mediante <code class="docutils literal notranslate"><span class="pre">fit_transform(X)</span></code>.</p>
+<p>Los objetivos de regresión se convierten en <code class="docutils literal notranslate"><span class="pre">float64</span></code> y los objetivos de clasificación se mantienen:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">SVC()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span>
+<span class="go">[0, 0, 0]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">])</span>
+<span class="go">SVC()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span>
+<span class="go">[&#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;]</span>
+</pre></div>
+</div>
+<p>Aquí, el primer <code class="docutils literal notranslate"><span class="pre">predict()</span></code> devuelve un arreglo de enteros, ya que <code class="docutils literal notranslate"><span class="pre">iris.target</span></code> (un arreglo de enteros) fue utilizado en <code class="docutils literal notranslate"><span class="pre">fit</span></code>. El segundo <code class="docutils literal notranslate"><span class="pre">predict()</span></code> devuelve un arreglo de cadenas, ya que <code class="docutils literal notranslate"><span class="pre">iris.target_names</span></code> fue para el ajuste.</p>
+</section>
+<section id="refitting-and-updating-parameters">
+<h3>Reajuste y actualización de los parámetros<a class="headerlink" href="#refitting-and-updating-parameters" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los hiperparámetros de un estimador pueden actualizarse después de su construcción mediante el método <a class="reference internal" href="../../glossary.html#term-set_params"><span class="xref std std-term">set_params()</span></a>. Llamar a <code class="docutils literal notranslate"><span class="pre">fit()</span></code> más de una vez sobrescribirá lo aprendido por cualquier <code class="docutils literal notranslate"><span class="pre">fit()</span></code> anterior:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">SVC(kernel=&#39;linear&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="go">array([0, 0, 0, 0, 0])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">SVC()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="go">array([0, 0, 0, 0, 0])</span>
+</pre></div>
+</div>
+<p>Aquí, el núcleo por defecto <code class="docutils literal notranslate"><span class="pre">rbf</span></code> se cambia primero a <code class="docutils literal notranslate"><span class="pre">lineal</span></code> mediante <a class="reference internal" href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC.set_params" title="sklearn.svm.SVC.set_params"><code class="xref py py-func docutils literal notranslate"><span class="pre">SVC.set_params()</span></code></a> después de construir el estimador, y se vuelve a cambiar a <code class="docutils literal notranslate"><span class="pre">rbf</span></code> para volver a ajustar el estimador y hacer una segunda predicción.</p>
+</section>
+<section id="multiclass-vs-multilabel-fitting">
+<h3>Ajuste multiclase vs. multietiqueta<a class="headerlink" href="#multiclass-vs-multilabel-fitting" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Cuando se utiliza <a class="reference internal" href="../../modules/classes.html#module-sklearn.multiclass" title="sklearn.multiclass"><code class="xref py py-class docutils literal notranslate"><span class="pre">clasificadores</span> <span class="pre">multiclase</span></code></a>, la tarea de aprendizaje y predicción que se realiza depende del formato de los datos de destino que se ajustan a:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.multiclass</span> <span class="kn">import</span> <span class="n">OneVsRestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelBinarizer</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">classif</span> <span class="o">=</span> <span class="n">OneVsRestClassifier</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">classif</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([0, 0, 1, 1, 2])</span>
+</pre></div>
+</div>
+<p>En el caso anterior, el clasificador se ajusta a un arreglo 1d de etiquetas multiclase y el método <code class="docutils literal notranslate"><span class="pre">predict()</span></code> por lo tanto proporciona las correspondientes predicciones multiclase. También es posible ajustar sobre un arreglo 2d de indicadores de etiquetas binarias:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">LabelBinarizer</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">classif</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[1, 0, 0],</span>
+<span class="go">       [1, 0, 0],</span>
+<span class="go">       [0, 1, 0],</span>
+<span class="go">       [0, 0, 0],</span>
+<span class="go">       [0, 0, 0]])</span>
+</pre></div>
+</div>
+<p>Aquí, el clasificador es <code class="docutils literal notranslate"><span class="pre">fit()</span></code> en una representación de etiqueta binaria 2d de <code class="docutils literal notranslate"><span class="pre">y</span></code>, utilizando la <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.LabelBinarizer.html#sklearn.preprocessing.LabelBinarizer" title="sklearn.preprocessing.LabelBinarizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelBinarizer</span></code></a>. En este caso, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> devuelve un arreglo 2d que representa las correspondientes predicciones multietiqueta.</p>
+<p>Obsérvese que la cuarta y la quinta instancia devuelven todos ceros, lo que indica que no coinciden con ninguna de las tres etiquetas <code class="docutils literal notranslate"><span class="pre">fit</span></code>. En el caso de las salidas multietiquetas, también es posible que una instancia reciba varias etiquetas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MultiLabelBinarizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">MultiLabelBinarizer</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">classif</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[1, 1, 0, 0, 0],</span>
+<span class="go">       [1, 0, 1, 0, 0],</span>
+<span class="go">       [0, 1, 0, 1, 0],</span>
+<span class="go">       [1, 0, 1, 0, 0],</span>
+<span class="go">       [1, 0, 1, 0, 0]])</span>
+</pre></div>
+</div>
+<p>En este caso, el clasificador se ajusta a las instancias que tienen asignadas múltiples etiquetas. El <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MultiLabelBinarizer.html#sklearn.preprocessing.MultiLabelBinarizer" title="sklearn.preprocessing.MultiLabelBinarizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiLabelBinarizer</span></code></a> se utiliza para binarizar el arreglo 2d de multilabels para <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Como resultado, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> devuelve un arreglo 2d con múltiples etiquetas predichas para cada instancia.</p>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/tutorial/basic/tutorial.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

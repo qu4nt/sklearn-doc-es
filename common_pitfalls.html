@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>10. Fallas comunes y prácticas recomendadas &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/common_pitfalls.html" />
+
+  
+  <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="index.html">
+        <img
+          class="sk-brand-img"
+          src="_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="index.html">
+            <img
+              class="sk-brand-img"
+              src="_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="modules/model_persistence.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="9. Persistencia del modelo">Prev</a><a href="user_guide.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Manual de Usuario">Arriba</a>
+            <a href="glossary.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Glosario de Términos Comunes y Elementos de la API">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+            
+              <ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              <li>
+                <a href="user_guide.html" class="sk-toc-active">Manual de Usuario</a>
+              </li>
+              <ul>
+              
+                <li>
+                  <a href="supervised_learning.html" class="">1. Aprendizaje supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="unsupervised_learning.html" class="">2. Aprendizaje no supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="model_selection.html" class="">3. Selección y evaluación del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="inspection.html" class="">4. Inspección</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="visualizations.html" class="">5. Visualizaciones</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="data_transforms.html" class="">6. Transformaciones de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="datasets.html" class="">7. Herramientas de carga de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="computing.html" class="">8. Calculando con scikit-learn</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="modules/model_persistence.html" class="">9. Persistencia del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="" class="sk-toc-active">10. Fallas comunes y prácticas recomendadas</a>
+                  
+                </li>
+              
+              </ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </ul>
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <style type="text/css">
+  div.body div.toctree-wrapper ul {
+      padding-left: 0;
+  }
+
+  div.body li.toctree-l1 {
+      padding: 0 0 0.5em 0;
+      list-style-type: none;
+      font-size: 150%;
+      font-weight: bold;
+  }
+
+  div.body li.toctree-l2 {
+      font-size: 70%;
+      list-style-type: square;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l3 {
+      font-size: 85%;
+      list-style-type: circle;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l4 {
+      margin-left: 40px;
+  }
+
+</style><section id="common-pitfalls-and-recommended-practices">
+<span id="common-pitfalls"></span><h1><span class="section-number">10. </span>Fallas comunes y prácticas recomendadas<a class="headerlink" href="#common-pitfalls-and-recommended-practices" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El propósito de este capítulo es ilustrar algunas fallas comunes y antipatrones que ocurren cuando se utiliza scikit-learn. Proporciona ejemplos de lo que <strong>no</strong> hacer, junto con un ejemplo correcto correspondiente.</p>
+<section id="inconsistent-preprocessing">
+<h2><span class="section-number">10.1. </span>Preprocesamiento inconsistente<a class="headerlink" href="#inconsistent-preprocessing" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>scikit-learn proporciona una biblioteca de <a class="reference internal" href="data_transforms.html#data-transforms"><span class="std std-ref">Transformaciones de conjuntos de datos</span></a>, que puede limpiar (ver <a class="reference internal" href="modules/preprocessing.html#preprocessing"><span class="std std-ref">Preprocesamiento de los datos</span></a>), reducir (ver <a class="reference internal" href="modules/unsupervised_reduction.html#data-reduction"><span class="std std-ref">Reducción de dimensionalidad no supervisada</span></a>), expandir (ver <a class="reference internal" href="modules/kernel_approximation.html#kernel-approximation"><span class="std std-ref">Aproximación de núcleo</span></a>) o generar (ver las representaciones de características de <a class="reference internal" href="modules/feature_extraction.html#feature-extraction"><span class="std std-ref">Extracción de características</span></a>). Si estas transformaciones de datos se utilizan cuando se capacita un modelo, también deben ser utilizadas en conjuntos de datos subsiguientes, si se trata de datos de prueba o datos en un sistema en producción. De lo contrario, el espacio de características cambiará, y el modelo no podrá funcionar eficazmente.</p>
+<p>Para el siguiente ejemplo, vamos a crear un conjunto de datos sintéticos con una única característica:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Incorrecto</strong></p>
+<p>El conjunto de datos de entrenamiento es escalado, pero no el conjunto de datos de prueba, por lo que el rendimiento del modelo en el conjunto de datos de prueba es peor de lo esperado:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="go">62.80...</span>
+</pre></div>
+</div>
+<p><strong>Correcto</strong></p>
+<p>En lugar de pasar el <code class="docutils literal notranslate"><span class="pre">X_test</span></code> no transformado a <code class="docutils literal notranslate"><span class="pre">predic</span></code>, debemos transformar los datos de prueba, de la misma manera que transformamos los datos de entrenamiento:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_transformed</span><span class="p">))</span>
+<span class="go">0.90...</span>
+</pre></div>
+</div>
+<p>Alternativamente, recomendamos usar un <a class="reference internal" href="modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>, lo que hace más fácil encadenar las transformaciones con estimadores y reduce la posibilidad de olvidar una transformación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LinearRegression</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;standardscaler&#39;, StandardScaler()),</span>
+<span class="go">                (&#39;linearregression&#39;, LinearRegression())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="go">0.90...</span>
+</pre></div>
+</div>
+<p>Los pipelines también ayudan a evitar otra falla común: filtrar los datos de prueba en los datos de entrenamiento.</p>
+</section>
+<section id="data-leakage">
+<span id="id1"></span><h2><span class="section-number">10.2. </span>Fuga de datos<a class="headerlink" href="#data-leakage" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La fuga de datos ocurre cuando la información que no este disponible a tiempo de predicción se utiliza al construir el modelo. Esto resulta en estimaciones de rendimiento demasiado optimistas, por ejemplo de <a class="reference internal" href="modules/cross_validation.html#cross-validation"><span class="std std-ref">validación cruzada</span></a>, y por lo tanto rendimiento empobrecido cuando el modelo se utiliza en datos realmente nuevos, por ejemplo durante producción.</p>
+<p>Una causa común es no mantener separados los subconjuntos de datos de prueba y entrenamiento. Los datos de prueba nunca deben utilizarse para tomar decisiones acerca del modelo. <strong>La regla general es nunca llamar</strong> <code class="docutils literal notranslate"><span class="pre">fit</span></code> <strong>en los datos de prueba</strong>. Aunque esto puede parecer obvio, esto es fácil de perder en algunos casos, por ejemplo cuando se aplican ciertos pasos de preprocesamiento.</p>
+<p>Aunque tanto los subconjuntos de datos de entrenamiento como de prueba deben recibir la misma transformación de preprocesamiento (como se describe en la sección anterior), es importante que estas transformaciones sólo se aprendan de los datos de entrenamiento. Por ejemplo, si se tiene un paso de normalización donde se divide entre el valor promedio, el promedio debe ser el promedio del subconjunto de entrenamiento, <strong>no</strong> el promedio de todos los datos. Si el subconjunto de pruebas está incluido en el cálculo promedio, la información del subconjunto de pruebas está influyendo en el modelo.</p>
+<p>A continuación se detalla un ejemplo de fuga de datos durante el preprocesamiento.</p>
+<section id="data-leakage-during-pre-processing">
+<h3><span class="section-number">10.2.1. </span>Fuga de datos durante el preprocesamiento<a class="headerlink" href="#data-leakage-during-pre-processing" title="Enlazar permanentemente con este título">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aquí elegimos ilustrar la fuga de datos con un paso de selección de características. Este riesgo de fuga es sin embargo relevante con casi todas las transformaciones en scikit-learn, incluyendo (pero no limitado a) <a class="reference internal" href="modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a>, <a class="reference internal" href="modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a>, y <a class="reference internal" href="modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">PCA</span></code></a>.</p>
+</div>
+<p>Un número de funciones <a class="reference internal" href="modules/feature_selection.html#feature-selection"><span class="std std-ref">Selección de características</span></a> están disponibles en scikit-learn. Pueden ayudar a eliminar características irrelevantes, redundantes y ruidosas, así como a mejorar el tiempo y el rendimiento de su modelo. Como en cualquier otro tipo de preprocesamiento, la selección de características debe <strong>sólo</strong> usar los datos de entrenamiento. Incluir los datos de prueba en la selección de características optimizará el sesgo de su modelo.</p>
+<p>Para demostrar crearemos este problema de clasificación binaria con 10.000 características generadas aleatoriamente:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_classes</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Incorrecto</strong></p>
+<p>El uso de todos los datos para realizar la selección de características da como resultado una puntuación de precisión muy superior al azar, a pesar de que nuestros objetivos son completamente aleatorios. Esta aleatoriedad significa que nuestros <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> son independientes y por lo tanto esperamos que la precisión sea de alrededor de 0.5. Sin embargo, dado que el paso de selección de características «ve» los datos de prueba, el modelo tiene una ventaja injusta. En el ejemplo incorrecto de abajo utilizamos primero todos los datos para la selección de características y luego dividimos los datos en subconjuntos de entrenamiento y de pruebas para el ajuste del modelo. El resultado es una puntuación de precisión muy superior a la esperada:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Incorrect preprocessing: the entire data is transformed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_selected</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X_selected</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">GradientBoostingClassifier(random_state=1)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gbc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.76</span>
+</pre></div>
+</div>
+<p><strong>Correcto</strong></p>
+<p>Para evitar la fuga de datos, es una buena práctica dividir los datos en subconjuntos de entrenamiento y de prueba <strong>primero</strong>. La selección de características se puede formar utilizando sólo el conjunto de datos del entrenamiento. Ten en cuenta que cada vez que usamos <code class="docutils literal notranslate"><span class="pre">fit</span></code> o <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>, sólo usamos el conjunto de datos de entrenamiento. La puntuación es ahora la que cabría esperar para los datos, cercana al azar:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">select</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_selected</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_selected</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">GradientBoostingClassifier(random_state=1)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_selected</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gbc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_selected</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.46</span>
+</pre></div>
+</div>
+<p>De nuevo, recomendamos utilizar una <a class="reference internal" href="modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> para encadenar la selección de características y los estimadores del modelo. El pipeline garantiza que sólo se utilicen los datos de entrenamiento al realizar el <code class="docutils literal notranslate"><span class="pre">fit</span></code> y que los datos de prueba se utilicen únicamente para calcular la puntuación de precisión:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">),</span>
+<span class="gp">... </span>                         <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;selectkbest&#39;, SelectKBest(k=25)),</span>
+<span class="go">                (&#39;gradientboostingclassifier&#39;,</span>
+<span class="go">                GradientBoostingClassifier(random_state=1))])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.46</span>
+</pre></div>
+</div>
+<p>El pipeline también puede ser alimentado en una función de validación cruzada como <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a>. De nuevo, el pipeline asegura que el subconjunto de datos correcto y el método de estimación se utilicen durante el ajuste y la predicción:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean accuracy: </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">+/-</span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Mean accuracy: 0.45+/-0.07</span>
+</pre></div>
+</div>
+</section>
+<section id="how-to-avoid-data-leakage">
+<h3><span class="section-number">10.2.2. </span>Cómo evitar fuga de datos<a class="headerlink" href="#how-to-avoid-data-leakage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A continuación hay algunos consejos para evitar fugas de datos:</p>
+<ul>
+<li><p>Siempre dividir los datos en subconjuntos de entrenamiento y de pruebas primero, especialmente antes de cualquier paso de preprocesamiento.</p></li>
+<li><p>Nunca incluya datos de prueba cuando utilice los métodos <code class="docutils literal notranslate"><span class="pre">fit</span></code> y <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>. Usando todos los datos, por ejemplo, <code class="docutils literal notranslate"><span class="pre">fit(X)</span></code>, puede resultar en puntuaciones demasiado optimistas.</p>
+<p>Por el contrario, el método <code class="docutils literal notranslate"><span class="pre">transform</span></code> debe utilizarse tanto en el subconjunto de entrenamiento como en el de prueba, ya que debe aplicarse el mismo preprocesamiento a todos los datos. Esto puede lograrse utilizando <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> en el subconjunto de entrenamiento y <code class="docutils literal notranslate"><span class="pre">transform</span></code> en el subconjunto de prueba.</p>
+</li>
+<li><p>El scikit-learn <a class="reference internal" href="modules/compose.html#pipeline"><span class="std std-ref">pipeline</span></a> es una gran manera de evitar la fuga de datos, ya que asegura que el método apropiado se realiza en el subconjunto de datos correcto. El pipeline es ideal para su uso en funciones de validación cruzada y de ajuste de hiperparámetros.</p></li>
+</ul>
+</section>
+</section>
+<section id="controlling-randomness">
+<span id="randomness"></span><h2><span class="section-number">10.3. </span>Control de aleatoriedad<a class="headerlink" href="#controlling-randomness" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Algunos objetos de scikit-learn son inherentemente aleatorios. Estos suelen ser estimadores (por ejemplo, <a class="reference internal" href="modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a>) y separadores de validación cruzada (por ejemplo, <a class="reference internal" href="modules/generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>). La aleatoriedad de estos objetos se controla a través de su parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code>, como se describe en el <a class="reference internal" href="glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>. Esta sección se expande en la entrada del glosario, y describe buenas prácticas y fallas comunes con respecto a este parámetro sutil.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Resumen de recomendaciones</p>
+<p>Para una robustez óptima de los resultados de la validación cruzada (CV), pasa las instancias de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> al crear estimadores, o deja <code class="docutils literal notranslate"><span class="pre">random_state</span></code> a <code class="docutils literal notranslate"><span class="pre">None</span></code>. Pasar enteros a separadores CV es generalmente la opción más segura y es preferible; pasar las instancias de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> a los separadores puede ser útil a veces para lograr casos de uso muy específicos. Tanto para los estimadores como para los separadores, pasar un entero vs pasar una instancia (o <code class="docutils literal notranslate"><span class="pre">None</span></code>) conduce a diferencias sutiles pero significativas, especialmente para los procedimientos de CV. Estas diferencias son importantes para entender cuando se reportan resultados.</p>
+<p>Para resultados reproducibles a través de ejecuciones, elimine cualquier uso de <code class="docutils literal notranslate"><span class="pre">random_state=None</span></code>.</p>
+</div>
+<section id="using-none-or-randomstate-instances-and-repeated-calls-to-fit-and-split">
+<h3><span class="section-number">10.3.1. </span>Usando instancias de <code class="docutils literal notranslate"><span class="pre">None</span></code> o <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>, y llamadas repetidas a <code class="docutils literal notranslate"><span class="pre">fit</span></code> y <code class="docutils literal notranslate"><span class="pre">split</span></code><a class="headerlink" href="#using-none-or-randomstate-instances-and-repeated-calls-to-fit-and-split" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code> determina si varias llamadas a <a class="reference internal" href="glossary.html#term-fit"><span class="xref std std-term">fit</span></a> (para estimadores) o a <a class="reference internal" href="glossary.html#term-split"><span class="xref std std-term">split</span></a> (para separadores CV) producirán los mismos resultados. de acuerdo a estas reglas:</p>
+<ul class="simple">
+<li><p>Si se pasa un entero, llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> o <code class="docutils literal notranslate"><span class="pre">split</span></code> varias veces siempre produce los mismos resultados.</p></li>
+<li><p>Si se pasa <code class="docutils literal notranslate"><span class="pre">None</span></code> o una instancia <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>: <code class="docutils literal notranslate"><span class="pre">fit</span></code> y <code class="docutils literal notranslate"><span class="pre">split</span></code> producirán diferentes resultados cada vez que se llamen, y la sucesión de llamadas explora todas las fuentes de entropía. <code class="docutils literal notranslate"><span class="pre">None</span></code> es el valor predeterminado para todos los parámetros <code class="docutils literal notranslate"><span class="pre">random_state</span></code>.</p></li>
+</ul>
+<p>Aquí se ilustra estas normas tanto para estimadores como para separadores CV.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Dado que pasar <code class="docutils literal notranslate"><span class="pre">random_state=None</span></code> es equivalente a pasar la instancia global de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> desde <code class="docutils literal notranslate"><span class="pre">numpy</span></code> (<code class="docutils literal notranslate"><span class="pre">random_state=np.random.</span> <span class="pre">trand._rand</span></code>), no mencionaremos explícitamente <code class="docutils literal notranslate"><span class="pre">None</span></code> aquí. Todo lo que aplica a las instancias también se aplica al uso de <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</div>
+<section id="estimators">
+<h4><span class="section-number">10.3.1.1. </span>Estimadores<a class="headerlink" href="#estimators" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Pasar instancias significa que llamar <code class="docutils literal notranslate"><span class="pre">fit</span></code> varias veces no producirá los mismos resultados, incluso si el estimador se ajusta a los mismos datos y con los mismos hiperparámetros:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sgd</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sgd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([[ 8.85418642,  4.79084103, -3.13077794,  8.11915045, -0.56479934]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sgd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([[ 6.70814003,  5.25291366, -7.55212743,  5.18197458,  1.37845099]])</span>
+</pre></div>
+</div>
+<p>Podemos ver desde el fragmento de código de arriba que la llamada repetidamente <code class="docutils literal notranslate"><span class="pre">sgd.fit</span></code> ha producido modelos diferentes, incluso si los datos eran los mismos. Esto se debe a que el Generador de Números Aleatorios (RNG) del estimador es consumido (i.e. mutado) cuando <code class="docutils literal notranslate"><span class="pre">fit</span></code> es llamado, y este RNG mutado será usado en las llamadas subsiguientes a <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Además, el objeto <code class="docutils literal notranslate"><span class="pre">rng</span></code> se comparte a través de todos los objetos que lo usan, y como consecuencia, estos objetos se vuelven algo interdependientes. Por ejemplo, dos estimadores que comparten la misma instancia de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> influirán entre sí, como veremos más adelante cuando discutamos la clonación. Este punto es importante tener en cuenta a la hora de depurar.</p>
+<p>Si hubiéramos pasado un entero al parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code> del <code class="xref py py-class docutils literal notranslate"> <span class="pre">andomForestClassifier</span></code>, habríamos obtenido los mismos modelos, y por lo tanto los mismos puntajes cada vez. Cuando pasamos un entero, el mismo RNG se usa a través de todas las llamadas a <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Lo que ocurre internamente es que aunque el RNG se consume cuando se llama <code class="docutils literal notranslate"><span class="pre">fit</span></code>, siempre se reinicia a su estado original al principio de <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+</section>
+<section id="cv-splitters">
+<h4><span class="section-number">10.3.1.2. </span>Separadores de CV (Validación cruzada)<a class="headerlink" href="#cv-splitters" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Los separadores aleatorios CV tienen un comportamiento similar cuando se pasa una instancia de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>; llamar a <code class="docutils literal notranslate"><span class="pre">split</span></code> varias veces produce diferentes divisiones de datos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+<span class="go">[0 3 5 6 7] [1 2 4 8 9]</span>
+<span class="go">[1 2 4 8 9] [0 3 5 6 7]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+<span class="go">[0 4 6 7 8] [1 2 3 5 9]</span>
+<span class="go">[1 2 3 5 9] [0 4 6 7 8]</span>
+</pre></div>
+</div>
+<p>Podemos ver que las divisiones son diferentes de la segunda vez que se llama <code class="docutils literal notranslate"><span class="pre">split</span></code>. Esto puede llevar a resultados inesperados si comparas el rendimiento de múltiples estimadores llamando a <code class="docutils literal notranslate"><span class="pre">split</span></code> muchas veces, como veremos en la siguiente sección.</p>
+</section>
+</section>
+<section id="common-pitfalls-and-subtleties">
+<h3><span class="section-number">10.3.2. </span>Fallas comunes y sutilezas<a class="headerlink" href="#common-pitfalls-and-subtleties" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Aunque las reglas que rigen el parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code> son aparentemente sencillas, sin embargo tienen algunas implicaciones sutiles. En algunos casos, esto puede incluso conducir a conclusiones equivocadas.</p>
+<section id="id2">
+<h4><span class="section-number">10.3.2.1. </span>Estimadores<a class="headerlink" href="#id2" title="Enlazar permanentemente con este título">¶</a></h4>
+<p><strong>Diferentes tipos de `random_state` conducen a diferentes procedimientos de validación cruzada</strong></p>
+<p>Dependiendo del tipo del parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code>, los estimadores se comportarán de forma diferente, especialmente en los procedimientos de validación cruzada. Considere el siguiente fragmento de código:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf_123</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">rf_123</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([0.85, 0.95, 0.95, 0.9 , 0.9 ])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf_inst</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">rf_inst</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([0.9 , 0.95, 0.95, 0.9 , 0.9 ])</span>
+</pre></div>
+</div>
+<p>Vemos que las puntuaciones de validación cruzada de <code class="docutils literal notranslate"><span class="pre">rf_123</span></code> y <code class="docutils literal notranslate"><span class="pre">rf_inst</span></code> son diferentes, como era de esperar ya que no pasamos el mismo parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code>. Sin embargo, la diferencia entre estas puntuaciones es más sutil de lo que parece, y <strong>los procedimientos de validación cruzada que fueron realizados por</strong> <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> <strong>difieren significativamente en cada caso</strong>:</p>
+<ul class="simple">
+<li><p>Dado que a <code class="docutils literal notranslate"><span class="pre">rf_123</span></code> se le pasó un número entero, cada llamada a <code class="docutils literal notranslate"><span class="pre">fit</span></code> utiliza el mismo RNG: esto significa que todas las características aleatorias del estimador de bosque aleatorio serán las mismas para cada uno de los 5 pliegues del procedimiento CV. En particular, el subconjunto (elegido al azar) de características del estimador será el mismo en todos los pliegues.</p></li>
+<li><p>Como a <code class="docutils literal notranslate"><span class="pre">rf_inst</span></code> se le pasó una instancia de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>, cada llamada a <code class="docutils literal notranslate"><span class="pre">fit</span></code> parte de un RNG diferente. Como resultado, el subconjunto aleatorio de características será diferente para cada pliegue.</p></li>
+</ul>
+<p>Aunque tener un estimador RNG constante en todos los pliegues no es intrínsecamente incorrecto, normalmente queremos resultados de CV que sean robustos con respecto a la aleatoriedad del estimador. Como resultado, pasar una instancia en lugar de un entero puede ser preferible, ya que permitirá que el RNG del estimador varíe para cada pliegue.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aquí, <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> usará un separador de CV no aleatoriado (como es el predeterminado), así que ambos estimadores serán evaluados en los mismos separadores. Esta sección no trata de variabilidad en los separadores. También, si pasamos un entero o una instancia a <code class="xref py py-func docutils literal notranslate"> <span class="pre">ake_classification</span></code> no es relevante para nuestro propósito de ilustración: lo que importa es lo que pasamos al estimador <a class="reference internal" href="modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a>.</p>
+</div>
+<p><strong>Clonado</strong></p>
+<p>Otro sutil efecto secundario de pasar instancias de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> es cómo funcionará <code class="xref py py-func docutils literal notranslate"><span class="pre">clone</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">clone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Dado que se ha pasado una instancia de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> a <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">b</span></code> no son clones en sentido estricto, sino clones en sentido estadístico: <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">b</span></code> seguirán siendo modelos diferentes, incluso cuando se llame a <code class="docutils literal notranslate"><span class="pre">fit(X,</span> <span class="pre">y)</span></code> con los mismos datos. Además, <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">b</span></code> se influirán mutuamente ya que comparten el mismo RNG interno: llamar a <code class="docutils literal notranslate"><span class="pre">a.fit</span></code> consumirá el RNG de <code class="docutils literal notranslate"><span class="pre">b</span></code>, y llamar a <code class="docutils literal notranslate"><span class="pre">b.fit</span></code> consumirá el RNG de <code class="docutils literal notranslate"><span class="pre">a</span></code>, ya que son el mismo. Esto es válido para cualquier estimador que comparta el parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code>; no es específico de los clones.</p>
+<p>Si se pasara un entero, <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">b</span></code> serían clones exactos y no influirían entre sí.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Aunque <code class="xref py py-func docutils literal notranslate"><span class="pre">clone</span></code> se usa raramente en el código de usuario, se llama de forma generalizada en todo el código base de scikit-learn: en particular, la mayoría de los meta-estimadores que aceptan estimadores no ajustados llaman internamente a <code class="xref py py-func docutils literal notranslate"><span class="pre">clone</span></code> (<a class="reference internal" href="modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>, <a class="reference internal" href="modules/generated/sklearn.ensemble.StackingClassifier.html#sklearn.ensemble.StackingClassifier" title="sklearn.ensemble.StackingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackingClassifier</span></code></a>, <a class="reference internal" href="modules/generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a>, etc.).</p>
+</div>
+</section>
+<section id="id3">
+<h4><span class="section-number">10.3.2.2. </span>Separadores de CV (Validación cruzada)<a class="headerlink" href="#id3" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Cuando se les pasa una instancia de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>, los separadores de CV producen diferentes divisiones cada vez que se llama a <code class="docutils literal notranslate"><span class="pre">split</span></code>. Al comparar diferentes estimadores, esto puede llevar a sobreestimar la varianza de la diferencia de rendimiento entre los estimadores:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lda</span> <span class="o">=</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">est</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lda</span><span class="p">,</span> <span class="n">nb</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">))</span>
+<span class="go">[0.8  0.75 0.75 0.7  0.85]</span>
+<span class="go">[0.85 0.95 0.95 0.85 0.95]</span>
+</pre></div>
+</div>
+<p>Comparar directamente el rendimiento del estimador <a class="reference internal" href="modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a> frente al estimador <a class="reference internal" href="modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> <strong>en cada pliegue</strong> sería un error: <strong>las divisiones en las que se evalúan los estimadores son diferentes</strong>. De hecho, <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> llamará internamente a <code class="docutils literal notranslate"><span class="pre">cv.split</span></code> en la misma instancia <a class="reference internal" href="modules/generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>, pero las divisiones serán diferentes cada vez. Esto también es cierto para cualquier herramienta que realice la selección del modelo a través de la validación cruzada, por ejemplo, <a class="reference internal" href="modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> y <a class="reference internal" href="modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>: las puntuaciones no son comparables pliegue a pliegue a través de diferentes llamadas a <code class="docutils literal notranslate"><span class="pre">search.fit</span></code>, ya que <code class="docutils literal notranslate"><span class="pre">cv.split</span></code> habría sido llamado varias veces. Sin embargo, dentro de una sola llamada a <code class="docutils literal notranslate"><span class="pre">search.fit</span></code>, la comparación entre pliegues es posible ya que el estimador de búsqueda sólo llama a <code class="docutils literal notranslate"><span class="pre">cv.split</span></code> una vez.</p>
+<p>Para obtener resultados comparables entre pliegues en todos los escenarios, se debe pasar un número entero al separador de CV: <code class="docutils literal notranslate"><span class="pre">cv</span> <span class="pre">=</span> <span class="pre">KFold(shuffle=True,</span> <span class="pre">random_state=0)</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aunque la comparación entre pliegues no es aconsejable con las instancias de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>, se puede esperar que las puntuaciones medias permitan concluir si un estimador es mejor que otro, siempre que se utilicen suficientes pliegues y datos.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Lo que importa en este ejemplo es lo que se pasó a <a class="reference internal" href="modules/generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>. Si pasamos una instancia de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> o un entero a <a class="reference internal" href="modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification" title="sklearn.datasets.make_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_classification</span></code></a> no es relevante para nuestro propósito de ilustración. Además, ni <a class="reference internal" href="modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a> ni <a class="reference internal" href="modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> son estimadores aleatorios.</p>
+</div>
+</section>
+</section>
+<section id="general-recommendations">
+<h3><span class="section-number">10.3.3. </span>Recomendaciones generales<a class="headerlink" href="#general-recommendations" title="Enlazar permanentemente con este título">¶</a></h3>
+<section id="getting-reproducible-results-across-multiple-executions">
+<h4><span class="section-number">10.3.3.1. </span>Obteniendo resultados reproducibles a través de múltiples ejecuciones<a class="headerlink" href="#getting-reproducible-results-across-multiple-executions" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Para obtener resultados reproducibles (es decir, constantes) a través de múltiples <em>ejecuciones del programa</em>, necesitamos eliminar todos los usos de <code class="docutils literal notranslate"><span class="pre">random_state=None</span></code>, que es el valor por defecto. La forma recomendada es declarar una variable <code class="docutils literal notranslate"><span class="pre">rng</span></code> en la parte superior del programa, y pasarla a cualquier objeto que acepte un parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+<span class="gp">... </span>                                                    <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="go">0.84</span>
+</pre></div>
+</div>
+<p>Ahora tenemos la garantía que el resultado de este script será siempre 0.84, sin importar cuántas veces lo ejecutemos. Cambiar la variable global <code class="docutils literal notranslate"><span class="pre">rng</span></code> a un valor diferente debería afectar los resultados, como se esperaba.</p>
+<p>También es posible declarar la variable <code class="docutils literal notranslate"><span class="pre">rng</span></code> como un entero. Sin embargo, esto puede llevar a resultados de validación cruzada menos robustos, como veremos en la siguiente sección.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>No recomendamos establecer la semilla global <code class="docutils literal notranslate"><span class="pre">numpy</span></code> llamando <code class="docutils literal notranslate"><span class="pre">np.random.seed(0)</span></code>. Ver <a class="reference external" href="https://stackoverflow.com/questions/5836335/consistently-create-same-random-numpy-array/5837352#comment6712034_5837352">aquí</a> para una discusión.</p>
+</div>
+</section>
+<section id="robustness-of-cross-validation-results">
+<h4><span class="section-number">10.3.3.2. </span>Robustez de los resultados de validación cruzada<a class="headerlink" href="#robustness-of-cross-validation-results" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Cuando evaluamos el rendimiento de un estimador aleatorio mediante validación cruzada, queremos asegurarnos de que el estimador puede producir predicciones precisas para los nuevos datos, pero también queremos asegurarnos de que el estimador es robusto con respecto a su inicialización aleatoria. Por ejemplo, nos gustaría que la inicialización de las ponderaciones aleatorias de un <code class="xref py py-class docutils literal notranslate"><span class="pre">SGDCLassifier</span></code> fuera consistentemente buena en todos los pliegues: de lo contrario, cuando entrenemos ese estimador con nuevos datos, podríamos tener mala suerte y la inicialización aleatoria podría conducir a un mal rendimiento. Del mismo modo, queremos que un bosque aleatorio sea robusto con respecto al conjunto de características seleccionadas aleatoriamente que utilizará cada árbol.</p>
+<p>Por estas razones, es preferible evaluar el rendimiento de la validación cruzada dejando que el estimador utilice un RNG diferente en cada pliegue. Esto se hace pasando una instancia de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> (o <code class="docutils literal notranslate"><span class="pre">None</span></code>) a la inicialización del estimador.</p>
+<p>Cuando pasamos un número entero, el estimador utilizará el mismo RNG en cada pliegue: si el estimador funciona bien (o mal), según la evaluación de CV, puede ser sólo porque tuvimos suerte (o mala suerte) con esa semilla específica. Pasar instancias conduce a resultados de CV más robustos, y hace que la comparación entre varios algoritmos sea más justa. También ayuda a limitar la tentación de tratar el RNG del estimador como un hiperparámetro que se puede ajustar.</p>
+<p>El hecho de que pasemos instancias de <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> o enteros a los divisores de CV no tiene ningún impacto en la robustez, siempre y cuando se llame a <code class="docutils literal notranslate"><span class="pre">split</span></code> sólo una vez. Cuando se llama a <code class="docutils literal notranslate"><span class="pre">split</span></code> varias veces, la comparación entre pliegues ya no es posible. Como resultado, pasar enteros a los separadores CV es normalmente más seguro y cubre la mayoría de los casos de uso.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="_sources/common_pitfalls.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

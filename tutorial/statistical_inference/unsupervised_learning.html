@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Aprendizaje no supervisado: búsqueda de representaciones de los datos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/tutorial/statistical_inference/unsupervised_learning.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="model_selection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Selección de modelos: elección de estimadores y sus parámetros">Prev</a><a href="index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Un tutorial sobre aprendizaje estadístico para el procesamiento de datos científicos">Arriba</a>
+            <a href="putting_together.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Recapitulemos">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Aprendizaje no supervisado: búsqueda de representaciones de los datos</a><ul>
+<li><a class="reference internal" href="#clustering-grouping-observations-together">Conglomerado: grupo de observaciones</a><ul>
+<li><a class="reference internal" href="#k-means-clustering">Conglomerado de k-medias</a></li>
+<li><a class="reference internal" href="#hierarchical-agglomerative-clustering-ward">Conglomerado jerárquico aglomerado: Ward</a><ul>
+<li><a class="reference internal" href="#connectivity-constrained-clustering">Conglomerado de conectividad restringida</a></li>
+<li><a class="reference internal" href="#feature-agglomeration">Aglomeración de características</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#decompositions-from-a-signal-to-components-and-loadings">Descomposiciones: de nombres de etiquetas a componentes y cargas</a><ul>
+<li><a class="reference internal" href="#principal-component-analysis-pca">Análisis de componentes principales: PCA</a></li>
+<li><a class="reference internal" href="#independent-component-analysis-ica">Análisis de componentes independientes: ICA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="unsupervised-learning-seeking-representations-of-the-data">
+<h1>Aprendizaje no supervisado: búsqueda de representaciones de los datos<a class="headerlink" href="#unsupervised-learning-seeking-representations-of-the-data" title="Enlazar permanentemente con este título">¶</a></h1>
+<section id="clustering-grouping-observations-together">
+<h2>Conglomerado: grupo de observaciones<a class="headerlink" href="#clustering-grouping-observations-together" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="topic">
+<p class="topic-title">El problema resuelto en el conglomerado</p>
+<p>Dado el conjunto de datos del iris, si supiéramos que hay 3 tipos de iris, pero no tuviéramos acceso a un taxónomo para etiquetarlos: podríamos intentar una <strong>tarea de conglomerado</strong>: dividir las observaciones en grupos bien separados llamados <em>conglomerado</em>.</p>
+</div>
+<section id="k-means-clustering">
+<h3>Conglomerado de k-medias<a class="headerlink" href="#k-means-clustering" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Ten en cuenta que existen muchos criterios de conglomerado diferentes y algoritmos asociados. El algoritmo de conglomerado más sencillo es <a class="reference internal" href="../../modules/clustering.html#k-means"><span class="std std-ref">K-medias</span></a>.</p>
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_cluster_iris.html"><img alt="../../_images/sphx_glr_plot_cluster_iris_002.png" class="align-center" src="../../_images/sphx_glr_plot_cluster_iris_002.png" style="width: 280.0px; height: 210.0px;" /></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_iris</span><span class="p">,</span> <span class="n">y_iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k_means</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k_means</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_iris</span><span class="p">)</span>
+<span class="go">KMeans(n_clusters=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">k_means</span><span class="o">.</span><span class="n">labels_</span><span class="p">[::</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">[1 1 1 1 1 0 0 0 0 0 2 2 2 2 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y_iris</span><span class="p">[::</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">[0 0 0 0 0 1 1 1 1 1 2 2 2 2 2]</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>No hay ninguna garantía de que se recupere la verdad fundamental. En primer lugar, elegir el número correcto de conglomerados es difícil. En segundo lugar, el algoritmo es sensible a la inicialización y puede caer en mínimos locales, aunque scikit-learn emplea varios trucos para mitigar este problema.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<figure class="align-default" id="id1">
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_cluster_iris.html"><img alt="../../_images/sphx_glr_plot_cluster_iris_003.png" src="../../_images/sphx_glr_plot_cluster_iris_003.png" style="width: 252.0px; height: 189.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>Mala inicialización</strong></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_cluster_iris.html"><img alt="../../_images/sphx_glr_plot_cluster_iris_001.png" src="../../_images/sphx_glr_plot_cluster_iris_001.png" style="width: 252.0px; height: 189.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>8 conglomerados</strong></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_cluster_iris.html"><img alt="../../_images/sphx_glr_plot_cluster_iris_004.png" src="../../_images/sphx_glr_plot_cluster_iris_004.png" style="width: 252.0px; height: 189.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>verdad fundamental</strong></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<p><strong>No hay que sobreinterpretar los resultados del conglomerado</strong></p>
+</div>
+<div class="topic">
+<p class="topic-title"><strong>Application example: vector quantization</strong></p>
+<p>El análisis de conglomerados en general y KMeans, en particular, puede verse como una forma de elegir un número reducido de ejemplares para comprimir la información. El problema se conoce a veces como <a class="reference external" href="https://en.wikipedia.org/wiki/Vector_quantization">cuantización vectorial</a>. Por ejemplo, esto se puede utilizar para posterizar una imagen:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">face</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">face</span><span class="p">(</span><span class="n">gray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">misc</span>
+<span class="gp">... </span>   <span class="n">face</span> <span class="o">=</span> <span class="n">misc</span><span class="o">.</span><span class="n">face</span><span class="p">(</span><span class="n">gray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">face</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="c1"># We need an (n_sample, n_feature) array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k_means</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k_means</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">KMeans(n_clusters=5, n_init=1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">k_means</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">k_means</span><span class="o">.</span><span class="n">labels_</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">face_compressed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">choose</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">face_compressed</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">face</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<figure class="align-default" id="id4">
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_face_compress.html"><img alt="../../_images/sphx_glr_plot_face_compress_001.png" src="../../_images/sphx_glr_plot_face_compress_001.png" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>Imagen en bruto</strong></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id5">
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_face_compress.html"><img alt="../../_images/sphx_glr_plot_face_compress_003.png" src="../../_images/sphx_glr_plot_face_compress_003.png" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>Cuantificación k-medias</strong></span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id6">
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_face_compress.html"><img alt="../../_images/sphx_glr_plot_face_compress_002.png" src="../../_images/sphx_glr_plot_face_compress_002.png" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>Igualdad de intervalos</strong></span><a class="headerlink" href="#id6" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id7">
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_face_compress.html"><img alt="../../_images/sphx_glr_plot_face_compress_004.png" src="../../_images/sphx_glr_plot_face_compress_004.png" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>Histograma de la imagen</strong></span><a class="headerlink" href="#id7" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="hierarchical-agglomerative-clustering-ward">
+<h3>Conglomerado jerárquico aglomerado: Ward<a class="headerlink" href="#hierarchical-agglomerative-clustering-ward" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Un método de <a class="reference internal" href="../../modules/clustering.html#hierarchical-clustering"><span class="std std-ref">Análisis de conglomerados jerárquicos</span></a> es un tipo de análisis de conglomerados que pretende construir una jerarquía de conglomerados. En general, los distintos enfoques de esta técnica son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Aglomerativo</strong> - enfoques ascendentes: cada observación comienza en su propio conglomerado, y los conglomerados se fusionan iterativamente de manera que se minimice un criterio de <em>enlace</em>. Este enfoque es especialmente interesante cuando los conglomerados de interés están formados por pocas observaciones. Cuando el número de conglomerados es grande, es mucho más eficiente desde el punto de vista computacional que k-medias.</p></li>
+<li><p><strong>Divisivo</strong> - enfoques descendentes: todas las observaciones comienzan en un conglomerado, que se divide iterativamente a medida que se desciende en la jerarquía. Para estimar un gran número de conglomerados, este enfoque es lento (debido a que todas las observaciones comienzan en un conglomerado, que se divide recursivamente) y estadísticamente mal planteado.</p></li>
+</ul>
+</div></blockquote>
+<section id="connectivity-constrained-clustering">
+<h4>Conglomerado de conectividad restringida<a class="headerlink" href="#connectivity-constrained-clustering" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Con el conglomerado aglomerativo, es posible especificar qué muestras pueden agruparse dando un gráfico de conectividad. Los grafos en scikit-learn se representan mediante su matriz de adyacencia. A menudo, se utiliza una matriz dispersa. Esto puede ser útil, por ejemplo, para recuperar regiones conectadas (a veces también denominadas componentes conectados) cuando se conglomera una imagen.</p>
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_coin_ward_segmentation.html"><img alt="../../_images/sphx_glr_plot_coin_ward_segmentation_001.png" class="align-center" src="../../_images/sphx_glr_plot_coin_ward_segmentation_001.png" style="width: 200.0px; height: 200.0px;" /></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skimage.data</span> <span class="kn">import</span> <span class="n">coins</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.ndimage.filters</span> <span class="kn">import</span> <span class="n">gaussian_filter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">rescale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rescaled_coins</span> <span class="o">=</span> <span class="n">rescale</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">gaussian_filter</span><span class="p">(</span><span class="n">coins</span><span class="p">(),</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="mf">0.2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span><span class="p">,</span> <span class="n">anti_aliasing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">multichannel</span><span class="o">=</span><span class="kc">False</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rescaled_coins</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Necesitamos una versión vectorizada de la imagen. <code class="docutils literal notranslate"><span class="pre">'rescaled_coins'</span></code> es una versión reducida de la imagen de las monedas para acelerar el proceso:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">grid_to_graph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connectivity</span> <span class="o">=</span> <span class="n">grid_to_graph</span><span class="p">(</span><span class="o">*</span><span class="n">rescaled_coins</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Define la estructura gráfica de los datos. Píxeles conectados a sus vecinos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">27</span>  <span class="c1"># number of regions</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ward</span> <span class="o">=</span> <span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">linkage</span><span class="o">=</span><span class="s1">&#39;ward&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">connectivity</span><span class="o">=</span><span class="n">connectivity</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ward</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">AgglomerativeClustering(connectivity=..., n_clusters=27)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ward</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="n">rescaled_coins</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="feature-agglomeration">
+<h4>Aglomeración de características<a class="headerlink" href="#feature-agglomeration" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Hemos visto que la dispersión podría utilizarse para mitigar la maldición de la dimensionalidad, es decir, una cantidad insuficiente de observaciones en comparación con el número de características. Otro enfoque consiste en fusionar características similares: <strong>aglomeración de características</strong>. Este enfoque puede aplicarse mediante el conglomerado en la dirección de las características, es decir, agrupando los datos transpuestos.</p>
+<a class="reference external image-reference" href="../../auto_examples/cluster/plot_digits_agglomeration.html"><img alt="../../_images/sphx_glr_plot_digits_agglomeration_001.png" class="align-center" src="../../_images/sphx_glr_plot_digits_agglomeration_001.png" style="width: 227.99999999999997px; height: 199.49999999999997px;" /></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">images</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connectivity</span> <span class="o">=</span> <span class="n">grid_to_graph</span><span class="p">(</span><span class="o">*</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">agglo</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">FeatureAgglomeration</span><span class="p">(</span><span class="n">connectivity</span><span class="o">=</span><span class="n">connectivity</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">n_clusters</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">agglo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">FeatureAgglomeration(connectivity=..., n_clusters=32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_reduced</span> <span class="o">=</span> <span class="n">agglo</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_approx</span> <span class="o">=</span> <span class="n">agglo</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">X_reduced</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">images_approx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_approx</span><span class="p">,</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">métodos <code class="docutils literal notranslate"><span class="pre">transform</span></code> y <code class="docutils literal notranslate"><span class="pre">inverse_transform</span></code></p>
+<p>Algunos estimadores exponen un método de <code class="docutils literal notranslate"><span class="pre">transform</span></code>, por ejemplo para reducir la dimensionalidad del conjunto de datos.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="decompositions-from-a-signal-to-components-and-loadings">
+<h2>Descomposiciones: de nombres de etiquetas a componentes y cargas<a class="headerlink" href="#decompositions-from-a-signal-to-components-and-loadings" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="topic">
+<p class="topic-title"><strong>Componentes y cargas</strong></p>
+<p>Si X son nuestros datos multivariantes, el problema que intentamos resolver es reescribirlo sobre una base observacional diferente: queremos aprender las cargas L y un conjunto de componentes C tal que <em>X = L C</em>. Existen diferentes criterios para elegir los componentes</p>
+</div>
+<section id="principal-component-analysis-pca">
+<h3>Análisis de componentes principales: PCA<a class="headerlink" href="#principal-component-analysis-pca" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="../../modules/decomposition.html#pca"><span class="std std-ref">Análisis de componentes principales (PCA)</span></a> selecciona los componentes sucesivos que explican la máxima varianza de la señal.</p>
+<p class="centered"><a class="reference external" href="../../auto_examples/decomposition/plot_pca_3d.html"><img alt="pca_3d_axis" src="../../_images/sphx_glr_plot_pca_3d_001.png" style="width: 280.0px; height: 210.0px;" /></a> <a class="reference external" href="../../auto_examples/decomposition/plot_pca_3d.html"><img alt="pca_3d_aligned" src="../../_images/sphx_glr_plot_pca_3d_002.png" style="width: 280.0px; height: 210.0px;" /></a></p>
+<p>La nube de puntos abarcada por las observaciones anteriores es muy plana en una dirección: una de las tres características univariantes puede calcularse casi exactamente con las otras dos. PCA encuentra las direcciones en las que los datos no son <em>planos</em></p>
+<p>Cuando se utiliza para <em>transformar</em> los datos, el PCA puede reducir la dimensionalidad de los datos proyectándolos en un subespacio principal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a signal with only 2 useful dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x3</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">decomposition</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca</span> <span class="o">=</span> <span class="n">decomposition</span><span class="o">.</span><span class="n">PCA</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">PCA()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_</span><span class="p">)</span>  
+<span class="go">[  2.18565811e+00   1.19346747e+00   8.43026679e-32]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># As we can see, only the 2 first components are useful</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_reduced</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(100, 2)</span>
+</pre></div>
+</div>
+</section>
+<section id="independent-component-analysis-ica">
+<h3>Análisis de componentes independientes: ICA<a class="headerlink" href="#independent-component-analysis-ica" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="../../modules/decomposition.html#ica"><span class="std std-ref">Análisis de componentes independientes (ICA)</span></a> selecciona los componentes de forma que la distribución de sus cargas contenga la máxima cantidad de información independiente. Es capaz de recuperar señales independientes <strong>no gaussianas</strong>:</p>
+<a class="reference external image-reference" href="../../auto_examples/decomposition/plot_ica_blind_source_separation.html"><img alt="../../_images/sphx_glr_plot_ica_blind_source_separation_001.png" class="align-center" src="../../_images/sphx_glr_plot_ica_blind_source_separation_001.png" style="width: 448.0px; height: 336.0px;" /></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate sample data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">time</span><span class="p">)</span>  <span class="c1"># Signal 1 : sinusoidal signal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">time</span><span class="p">))</span>  <span class="c1"># Signal 2 : square signal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">sawtooth</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time</span><span class="p">)</span>  <span class="c1"># Signal 3: saw tooth signal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">+=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">S</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Add noise</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">/=</span> <span class="n">S</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Standardize data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Mix data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>  <span class="c1"># Mixing matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># Generate observations</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute ICA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ica</span> <span class="o">=</span> <span class="n">decomposition</span><span class="o">.</span><span class="n">FastICA</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S_</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># Get the estimated sources</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A_</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">mixing_</span><span class="o">.</span><span class="n">T</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>  <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S_</span><span class="p">,</span> <span class="n">A_</span><span class="p">)</span> <span class="o">+</span> <span class="n">ica</span><span class="o">.</span><span class="n">mean_</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/tutorial/statistical_inference/unsupervised_learning.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

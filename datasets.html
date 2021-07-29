@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>7. Herramientas de carga de conjuntos de datos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/datasets.html" />
+
+  
+  <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="index.html">
+        <img
+          class="sk-brand-img"
+          src="_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="index.html">
+            <img
+              class="sk-brand-img"
+              src="_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="modules/preprocessing_targets.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.9. Transformación del objetivo de predicción (y)">Prev</a><a href="user_guide.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Manual de Usuario">Arriba</a>
+            <a href="datasets/toy_dataset.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="7.1. Conjuntos de datos de juguetes">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+            
+              <ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              <li>
+                <a href="user_guide.html" class="sk-toc-active">Manual de Usuario</a>
+              </li>
+              <ul>
+              
+                <li>
+                  <a href="supervised_learning.html" class="">1. Aprendizaje supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="unsupervised_learning.html" class="">2. Aprendizaje no supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="model_selection.html" class="">3. Selección y evaluación del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="inspection.html" class="">4. Inspección</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="visualizations.html" class="">5. Visualizaciones</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="data_transforms.html" class="">6. Transformaciones de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="" class="sk-toc-active">7. Herramientas de carga de conjuntos de datos</a>
+                  
+                  <ul>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="datasets/toy_dataset.html">7.1. Conjuntos de datos de juguetes</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="datasets/real_world.html">7.2. Conjuntos de datos del mundo real</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="datasets/sample_generators.html">7.3. Conjuntos de datos generados</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="datasets/loading_other_datasets.html">7.4. Cargando otros conjuntos de datos</a>
+                      </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+                <li>
+                  <a href="computing.html" class="">8. Calculando con scikit-learn</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="modules/model_persistence.html" class="">9. Persistencia del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="common_pitfalls.html" class="">10. Fallas comunes y prácticas recomendadas</a>
+                  
+                </li>
+              
+              </ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </ul>
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <style type="text/css">
+  div.body div.toctree-wrapper ul {
+      padding-left: 0;
+  }
+
+  div.body li.toctree-l1 {
+      padding: 0 0 0.5em 0;
+      list-style-type: none;
+      font-size: 150%;
+      font-weight: bold;
+  }
+
+  div.body li.toctree-l2 {
+      font-size: 70%;
+      list-style-type: square;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l3 {
+      font-size: 85%;
+      list-style-type: circle;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l4 {
+      margin-left: 40px;
+  }
+
+</style><section id="dataset-loading-utilities">
+<span id="datasets"></span><h1><span class="section-number">7. </span>Herramientas de carga de conjuntos de datos<a class="headerlink" href="#dataset-loading-utilities" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El paquete <code class="docutils literal notranslate"><span class="pre">sklearn.datasets</span></code> incorpora algunos pequeños conjuntos de datos de prueba, tal y como se introdujo en la sección <a class="reference internal" href="tutorial/basic/tutorial.html#loading-example-dataset"><span class="std std-ref">Iniciando</span></a>.</p>
+<p>Este paquete también incluye ayudas para obtener conjuntos de datos más grandes comúnmente utilizados por la comunidad de aprendizaje automático para comparar algoritmos con datos que provienen del “mundo real”.</p>
+<p>Para evaluar el impacto de la escala del conjunto de datos (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code> y <code class="docutils literal notranslate"><span class="pre">n_features</span></code>) mientras se controlan las propiedades estadísticas de los datos (normalmente la correlación y la informatividad de las características), también es posible generar datos sintéticos.</p>
+<p><strong>API de conjunto de datos generales.</strong> Hay tres tipos principales de interfaces de datos que pueden ser usados para obtener conjuntos de datos dependiendo del tipo de datos deseado.</p>
+<p><strong>Los cargadores de conjuntos de datos.</strong> Pueden utilizarse para cargar pequeños conjuntos de datos estándar, descritos en la sección <a class="reference internal" href="datasets/toy_dataset.html#toy-datasets"><span class="std std-ref">Conjuntos de datos de juguetes</span></a>.</p>
+<p><strong>Los recolectores de conjuntos de datos.</strong> Pueden ser usados para descargar y cargar conjuntos de datos más grandes, descritos en la sección <a class="reference internal" href="datasets/real_world.html#real-world-datasets"><span class="std std-ref">Conjuntos de datos del mundo real</span></a>.</p>
+<p>Tanto las funciones cargadoras como recolectoras devuelven un objeto <a class="reference internal" href="modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a> que contiene al menos dos elementos: una arreglo de la forma <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> * <code class="docutils literal notranslate"><span class="pre">n_features</span></code> con la clave <code class="docutils literal notranslate"><span class="pre">data</span></code> (excepto 20newsgroups) y un arreglo de numpy de longitud <code class="docutils literal notranslate"><span class="pre">n_samples</span></code>, que contiene los valores de destino, con la clave <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p>
+<p>El objeto Bunch es un diccionario que expone sus claves como atributos. Para más información sobre el objeto Bunch, vea <a class="reference internal" href="modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a>.</p>
+<p>También es posible que casi todas estas funciones limiten la salida a ser una tupla que contenga sólo los datos y el objetivo, estableciendo el parámetro <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> a <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>Los conjuntos de datos también contienen una descripción completa en su atributo <code class="docutils literal notranslate"><span class="pre">DESCR</span></code> y algunos contienen <code class="docutils literal notranslate"><span class="pre">feature_names</span></code> y <code class="docutils literal notranslate"><span class="pre">target_names</span></code>. Ver las descripciones del conjunto de datos a continuación para más detalles.</p>
+<p><strong>Las funciones de generación de conjuntos de datos.</strong> Pueden utilizarse para generar conjuntos de datos sintéticos controlados, descritos en la sección <a class="reference internal" href="datasets/sample_generators.html#sample-generators"><span class="std std-ref">Conjuntos de datos generados</span></a>.</p>
+<p>Estas funciones devuelven una tupla <code class="docutils literal notranslate"><span class="pre">(X,</span> <span class="pre">y)</span></code> que consiste de <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> * <code class="docutils literal notranslate"><span class="pre">n_features</span></code> arreglo de numpy <code class="docutils literal notranslate"><span class="pre">X</span></code> y un arreglo de longitud <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> que contiene los objetivos <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>Además, también hay varias herramientas para cargar conjuntos de datos de otros formatos o desde otras ubicaciones, descritas en la sección <a class="reference internal" href="datasets/loading_other_datasets.html#loading-other-datasets"><span class="std std-ref">Cargando otros conjuntos de datos</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="datasets/toy_dataset.html">7.1. Conjuntos de datos de juguetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="datasets/toy_dataset.html#boston-house-prices-dataset">7.1.1. Conjunto de datos sobre los precios de la vivienda en Boston</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/toy_dataset.html#iris-plants-dataset">7.1.2. Conjunto de datos de plantas de lirio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/toy_dataset.html#diabetes-dataset">7.1.3. Conjunto de datos sobre la diabetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/toy_dataset.html#optical-recognition-of-handwritten-digits-dataset">7.1.4. Conjunto de datos de reconocimiento óptico de dígitos manuscritos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/toy_dataset.html#linnerrud-dataset">7.1.5. Conjunto de datos de Linnerrud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/toy_dataset.html#wine-recognition-dataset">7.1.6. Conjunto de datos de reconocimiento de vinos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/toy_dataset.html#breast-cancer-wisconsin-diagnostic-dataset">7.1.7. Conjunto de datos sobre el cáncer de mama en Wisconsin (diagnóstico)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/real_world.html">7.2. Conjuntos de datos del mundo real</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="datasets/real_world.html#the-olivetti-faces-dataset">7.2.1. El conjunto de datos de caras Olivetti</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/real_world.html#the-20-newsgroups-text-dataset">7.2.2. El conjunto de datos de texto de 20 grupos de noticias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/real_world.html#the-labeled-faces-in-the-wild-face-recognition-dataset">7.2.3. El conjunto de datos de reconocimiento facial Labeled Faces in the Wild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/real_world.html#forest-covertypes">7.2.4. Tipos de cobertura forestal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/real_world.html#rcv1-dataset">7.2.5. Conjunto de datos RCV1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/real_world.html#kddcup-99-dataset">7.2.6. Conjunto de datos Kddcup 99</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/real_world.html#california-housing-dataset">7.2.7. Conjunto de datos California Housing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/sample_generators.html">7.3. Conjuntos de datos generados</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="datasets/sample_generators.html#generators-for-classification-and-clustering">7.3.1. Generadores para clasificación y análisis de conglomerados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/sample_generators.html#generators-for-regression">7.3.2. Generadores para regresión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/sample_generators.html#generators-for-manifold-learning">7.3.3. Generadores para aprendizaje múltiple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/sample_generators.html#generators-for-decomposition">7.3.4. Generadores para descomposición</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/loading_other_datasets.html">7.4. Cargando otros conjuntos de datos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="datasets/loading_other_datasets.html#sample-images">7.4.1. Imágenes de ejemplo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/loading_other_datasets.html#datasets-in-svmlight-libsvm-format">7.4.2. Conjuntos de datos en formato svmlight / libsvm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/loading_other_datasets.html#downloading-datasets-from-the-openml-org-repository">7.4.3. Descargando conjuntos de datos desde el repositorio openml.org</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets/loading_other_datasets.html#loading-from-external-datasets">7.4.4. Cargando desde conjuntos de datos externos</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="_sources/datasets.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

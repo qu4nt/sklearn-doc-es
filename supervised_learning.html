@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1. Aprendizaje supervisado &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/supervised_learning.html" />
+
+  
+  <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="index.html">
+        <img
+          class="sk-brand-img"
+          src="_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="index.html">
+            <img
+              class="sk-brand-img"
+              src="_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="user_guide.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Manual de Usuario">Prev</a><a href="user_guide.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Manual de Usuario">Arriba</a>
+            <a href="modules/linear_model.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.1. Modelos lineales">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+            
+              <ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              <li>
+                <a href="user_guide.html" class="sk-toc-active">Manual de Usuario</a>
+              </li>
+              <ul>
+              
+                <li>
+                  <a href="" class="sk-toc-active">1. Aprendizaje supervisado</a>
+                  
+                  <ul>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/linear_model.html">1.1. Modelos lineales</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/lda_qda.html">1.2. Análisis Discriminante Lineal y Cuadrático</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/kernel_ridge.html">1.3. Regresión de cresta de núcleo</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/svm.html">1.4. Máquinas de Vectores de Soporte</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/sgd.html">1.5. Descenso de Gradiente Estocástico</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/neighbors.html">1.6. Vecino más cercano</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/gaussian_process.html">1.7. Procesos Gaussianos</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/cross_decomposition.html">1.8. Descomposición cruzada</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/naive_bayes.html">1.9. Bayesiano ingenuo</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/tree.html">1.10. Árboles de decisión</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/ensemble.html">1.11. Métodos combinados</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/multiclass.html">1.12. Algoritmos multiclase y multisalida</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/feature_selection.html">1.13. Selección de características</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/semi_supervised.html">1.14. Aprendizaje semi supervisado</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/isotonic.html">1.15. Regresión isotónica</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/calibration.html">1.16. Calibración de probabilidad</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/neural_networks_supervised.html">1.17. Modelos de redes neuronales (supervisadas)</a>
+                      </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+                <li>
+                  <a href="unsupervised_learning.html" class="">2. Aprendizaje no supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="model_selection.html" class="">3. Selección y evaluación del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="inspection.html" class="">4. Inspección</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="visualizations.html" class="">5. Visualizaciones</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="data_transforms.html" class="">6. Transformaciones de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="datasets.html" class="">7. Herramientas de carga de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="computing.html" class="">8. Calculando con scikit-learn</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="modules/model_persistence.html" class="">9. Persistencia del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="common_pitfalls.html" class="">10. Fallas comunes y prácticas recomendadas</a>
+                  
+                </li>
+              
+              </ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </ul>
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <style type="text/css">
+  div.body div.toctree-wrapper ul {
+      padding-left: 0;
+  }
+
+  div.body li.toctree-l1 {
+      padding: 0 0 0.5em 0;
+      list-style-type: none;
+      font-size: 150%;
+      font-weight: bold;
+  }
+
+  div.body li.toctree-l2 {
+      font-size: 70%;
+      list-style-type: square;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l3 {
+      font-size: 85%;
+      list-style-type: circle;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l4 {
+      margin-left: 40px;
+  }
+
+</style><section id="supervised-learning">
+<span id="id1"></span><h1><span class="section-number">1. </span>Aprendizaje supervisado<a class="headerlink" href="#supervised-learning" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/linear_model.html">1.1. Modelos lineales</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#ordinary-least-squares">1.1.1. Mínimos Cuadrados Ordinarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#ridge-regression-and-classification">1.1.2. Regresión de cresta y clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#lasso">1.1.3. Lasso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#multi-task-lasso">1.1.4. Lasso multitarea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#elastic-net">1.1.5. Elastic-Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#multi-task-elastic-net">1.1.6. Elastic-Net multitarea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#least-angle-regression">1.1.7. Regresión de ángulo mínimo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#lars-lasso">1.1.8. LARS Lasso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#orthogonal-matching-pursuit-omp">1.1.9. Búsqueda de coincidencias ortogonales (OMP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#bayesian-regression">1.1.10. Regresión bayesiana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#logistic-regression">1.1.11. Regresión logística</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#generalized-linear-regression">1.1.12. Regresión lineal generalizada</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#stochastic-gradient-descent-sgd">1.1.13. Descenso de gradiente estocástico - SGD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#perceptron">1.1.14. Perceptrón</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#passive-aggressive-algorithms">1.1.15. Algoritmos pasivo-agresivos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#robustness-regression-outliers-and-modeling-errors">1.1.16. Regresión robusta: valores atípicos y errores de modelización,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html#polynomial-regression-extending-linear-models-with-basis-functions">1.1.17. Regresión polinómica: ampliación de los modelos lineales con funciones de base</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/lda_qda.html">1.2. Análisis Discriminante Lineal y Cuadrático</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/lda_qda.html#dimensionality-reduction-using-linear-discriminant-analysis">1.2.1. Reducción de dimensionalidad usando el Análisis Discriminante Lineal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/lda_qda.html#mathematical-formulation-of-the-lda-and-qda-classifiers">1.2.2. Formulación matemática de los clasificadores ADL y ADQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/lda_qda.html#mathematical-formulation-of-lda-dimensionality-reduction">1.2.3. Formulación matemática de la reducción de dimensionalidad del ADL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/lda_qda.html#shrinkage-and-covariance-estimator">1.2.4. Estimador de Reducción y Covarianza</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/lda_qda.html#estimation-algorithms">1.2.5. Algoritmos de estimación</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/kernel_ridge.html">1.3. Regresión de cresta de núcleo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/svm.html">1.4. Máquinas de Vectores de Soporte</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#classification">1.4.1. Clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#regression">1.4.2. Regresión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#density-estimation-novelty-detection">1.4.3. Estimación de la densidad, detección de novedades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#complexity">1.4.4. Complejidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#tips-on-practical-use">1.4.5. Consejos de Uso Práctico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#kernel-functions">1.4.6. Funciones del núcleo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#mathematical-formulation">1.4.7. Formulación matemática</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html#implementation-details">1.4.8. Detalles de implementación</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/sgd.html">1.5. Descenso de Gradiente Estocástico</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#classification">1.5.1. Clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#regression">1.5.2. Regresión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#stochastic-gradient-descent-for-sparse-data">1.5.3. Descenso de Gradiente Estocástico para datos dispersos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#complexity">1.5.4. Complejidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#stopping-criterion">1.5.5. Criterio de parada</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#tips-on-practical-use">1.5.6. Consejos de Uso Práctico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#mathematical-formulation">1.5.7. Formulación matemática</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html#implementation-details">1.5.8. Detalles de implementación</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/neighbors.html">1.6. Vecino más cercano</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html#unsupervised-nearest-neighbors">1.6.1. Vecinos más cercanos no supervisados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html#nearest-neighbors-classification">1.6.2. Clasificación de los vecinos más cercanos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html#nearest-neighbors-regression">1.6.3. Regresión de vecinos más cercanos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html#nearest-neighbor-algorithms">1.6.4. Algoritmos del vecino más cercano</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html#nearest-centroid-classifier">1.6.5. Clasificador de centroides más cercano</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html#nearest-neighbors-transformer">1.6.6. Transformador de vecinos más cercanos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html#neighborhood-components-analysis">1.6.7. Análisis de componentes de Neighborhood</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gaussian_process.html">1.7. Procesos Gaussianos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/gaussian_process.html#gaussian-process-regression-gpr">1.7.1. Regresión de Procesos Gaussianos (GPR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/gaussian_process.html#gpr-examples">1.7.2. Ejemplos de GPR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/gaussian_process.html#gaussian-process-classification-gpc">1.7.3. Clasificación de Procesos Gaussianos (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/gaussian_process.html#gpc-examples">1.7.4. Ejemplos de GPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/gaussian_process.html#kernels-for-gaussian-processes">1.7.5. Núcleos para procesos gaussianos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/cross_decomposition.html">1.8. Descomposición cruzada</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cross_decomposition.html#plscanonical">1.8.1. PLSCanonical</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cross_decomposition.html#plssvd">1.8.2. PLSSVD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cross_decomposition.html#plsregression">1.8.3. PLSRegression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cross_decomposition.html#canonical-correlation-analysis">1.8.4. Análisis de Correlación Canónica</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/naive_bayes.html">1.9. Bayesiano ingenuo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/naive_bayes.html#gaussian-naive-bayes">1.9.1. Bayesiano ingenuo Gaussiano</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/naive_bayes.html#multinomial-naive-bayes">1.9.2. Bayesiano ingenuo multinomial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/naive_bayes.html#complement-naive-bayes">1.9.3. Complemento de Bayesiano ingenuo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/naive_bayes.html#bernoulli-naive-bayes">1.9.4. Bayesiano ingenuo de Bernoulli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/naive_bayes.html#categorical-naive-bayes">1.9.5. Bayesiano ingenuo categórico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/naive_bayes.html#out-of-core-naive-bayes-model-fitting">1.9.6. Ajuste del modelo de Bayesiano ingenuo fuera del núcleo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/tree.html">1.10. Árboles de decisión</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#classification">1.10.1. Clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#regression">1.10.2. Regresión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#multi-output-problems">1.10.3. Problemas de salida múltiple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#complexity">1.10.4. Complejidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#tips-on-practical-use">1.10.5. Consejos sobre uso práctico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#tree-algorithms-id3-c4-5-c5-0-and-cart">1.10.6. Algoritmos de árbol: ID3, C4.5, C5.0 y CART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#mathematical-formulation">1.10.7. Formulación matemática</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html#minimal-cost-complexity-pruning">1.10.8. Poda de Coste-Complejidad Mínima</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/ensemble.html">1.11. Métodos combinados</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#bagging-meta-estimator">1.11.1. Meta estimador de bagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#forests-of-randomized-trees">1.11.2. Bosques de árboles aleatorios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#adaboost">1.11.3. AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#gradient-tree-boosting">1.11.4. Gradient Tree Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#histogram-based-gradient-boosting">1.11.5. Boosting por gradientes basado en Histogramas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#voting-classifier">1.11.6. Clasificador de voto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#voting-regressor">1.11.7. Regresor de voto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html#stacked-generalization">1.11.8. Generalización apilada</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/multiclass.html">1.12. Algoritmos multiclase y multisalida</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/multiclass.html#multiclass-classification">1.12.1. Clasificación multiclase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/multiclass.html#multilabel-classification">1.12.2. Clasificación multietiqueta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/multiclass.html#multiclass-multioutput-classification">1.12.3. Clasificación multiclase y multisalida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/multiclass.html#multioutput-regression">1.12.4. Regresión de salida múltiple</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/feature_selection.html">1.13. Selección de características</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_selection.html#removing-features-with-low-variance">1.13.1. Remover características con varianza baja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_selection.html#univariate-feature-selection">1.13.2. Selección de características univariantes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_selection.html#recursive-feature-elimination">1.13.3. Eliminación recursiva de características</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_selection.html#feature-selection-using-selectfrommodel">1.13.4. Selección de características mediante SelectFromModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_selection.html#sequential-feature-selection">1.13.5. Selección secuencial de características</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_selection.html#feature-selection-as-part-of-a-pipeline">1.13.6. Selección de rasgos como parte de un pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/semi_supervised.html">1.14. Aprendizaje semi supervisado</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/semi_supervised.html#self-training">1.14.1. Auto entrenamiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/semi_supervised.html#label-propagation">1.14.2. Propagación de etiquetas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/isotonic.html">1.15. Regresión isotónica</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/calibration.html">1.16. Calibración de probabilidad</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/calibration.html#calibration-curves">1.16.1. Curvas de calibración</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/calibration.html#calibrating-a-classifier">1.16.2. Calibrar un clasificador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/calibration.html#usage">1.16.3. Uso</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/neural_networks_supervised.html">1.17. Modelos de redes neuronales (supervisadas)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#multi-layer-perceptron">1.17.1. Perceptrón multicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#classification">1.17.2. Clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#regression">1.17.3. Regresión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#regularization">1.17.4. Regularización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#algorithms">1.17.5. Algoritmos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#complexity">1.17.6. Complejidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#mathematical-formulation">1.17.7. Formulación matemática</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#tips-on-practical-use">1.17.8. Consejos de Uso Práctico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html#more-control-with-warm-start">1.17.9. Más control con warm_start</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="_sources/supervised_learning.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

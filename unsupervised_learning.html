@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2. Aprendizaje no supervisado &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/unsupervised_learning.html" />
+
+  
+  <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="index.html">
+        <img
+          class="sk-brand-img"
+          src="_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="index.html">
+            <img
+              class="sk-brand-img"
+              src="_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="modules/neural_networks_supervised.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.17. Modelos de redes neuronales (supervisadas)">Prev</a><a href="user_guide.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Manual de Usuario">Arriba</a>
+            <a href="modules/mixture.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.1. Modelos de mezclas gaussianas">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+            
+              <ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              <li>
+                <a href="user_guide.html" class="sk-toc-active">Manual de Usuario</a>
+              </li>
+              <ul>
+              
+                <li>
+                  <a href="supervised_learning.html" class="">1. Aprendizaje supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="" class="sk-toc-active">2. Aprendizaje no supervisado</a>
+                  
+                  <ul>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/mixture.html">2.1. Modelos de mezclas gaussianas</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/manifold.html">2.2. Aprendizaje múltiple</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/clustering.html">2.3. Análisis de conglomerados (Agrupamiento)</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/biclustering.html">2.4. Biclustering</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/decomposition.html">2.5. Descomposición de señales en componentes (problemas de factorización de matrices)</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/covariance.html">2.6. Estimación de covarianza</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/outlier_detection.html">2.7. Detección de novedades y valores atípicos</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/density.html">2.8. Estimación de densidad</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="modules/neural_networks_unsupervised.html">2.9. Modelos de red neural (no supervisados)</a>
+                      </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+                <li>
+                  <a href="model_selection.html" class="">3. Selección y evaluación del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="inspection.html" class="">4. Inspección</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="visualizations.html" class="">5. Visualizaciones</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="data_transforms.html" class="">6. Transformaciones de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="datasets.html" class="">7. Herramientas de carga de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="computing.html" class="">8. Calculando con scikit-learn</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="modules/model_persistence.html" class="">9. Persistencia del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="common_pitfalls.html" class="">10. Fallas comunes y prácticas recomendadas</a>
+                  
+                </li>
+              
+              </ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </ul>
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <style type="text/css">
+  div.body div.toctree-wrapper ul {
+      padding-left: 0;
+  }
+
+  div.body li.toctree-l1 {
+      padding: 0 0 0.5em 0;
+      list-style-type: none;
+      font-size: 150%;
+      font-weight: bold;
+  }
+
+  div.body li.toctree-l2 {
+      font-size: 70%;
+      list-style-type: square;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l3 {
+      font-size: 85%;
+      list-style-type: circle;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l4 {
+      margin-left: 40px;
+  }
+
+</style><section id="unsupervised-learning">
+<span id="id1"></span><h1><span class="section-number">2. </span>Aprendizaje no supervisado<a class="headerlink" href="#unsupervised-learning" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/mixture.html">2.1. Modelos de mezclas gaussianas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/mixture.html#gaussian-mixture">2.1.1. Mezcla Gaussiana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/mixture.html#variational-bayesian-gaussian-mixture">2.1.2. Mezcla Gaussiana Bayesiana Variante</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/manifold.html">2.2. Aprendizaje múltiple</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#introduction">2.2.1. Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#isomap">2.2.2. Isomap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#locally-linear-embedding">2.2.3. Embedding localmente lineal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#modified-locally-linear-embedding">2.2.4. Embedding modificado localmente lineal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#hessian-eigenmapping">2.2.5. Eigenmapeo Hessiano</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#spectral-embedding">2.2.6. Embedding Espectral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#local-tangent-space-alignment">2.2.7. Alineación del Espacio Tangente Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#multi-dimensional-scaling-mds">2.2.8. Escalamiento Multidimensional (EMD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#t-distributed-stochastic-neighbor-embedding-t-sne">2.2.9. Embedding Estocástico de Vecinos distribuido en t (t-EEV, o t-SNE en inglés)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html#tips-on-practical-use">2.2.10. Consejos sobre el uso práctico</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/clustering.html">2.3. Análisis de conglomerados (Agrupamiento)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#overview-of-clustering-methods">2.3.1. Resumen de los métodos de análisis de conglomerados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#k-means">2.3.2. K-medias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#affinity-propagation">2.3.3. Propagación de la afinidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#mean-shift">2.3.4. Media desplazada</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#spectral-clustering">2.3.5. Análisis espectral de conglomerados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#hierarchical-clustering">2.3.6. Análisis de conglomerados jerárquicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#dbscan">2.3.7. DBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#optics">2.3.8. OPTICS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#birch">2.3.9. Birch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html#clustering-performance-evaluation">2.3.10. Evaluación del rendimiento del análisis de conglomerados (agrupamiento)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/biclustering.html">2.4. Biclustering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/biclustering.html#spectral-co-clustering">2.4.1. Co-Clustering espectral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/biclustering.html#spectral-biclustering">2.4.2. Biclustering espectral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/biclustering.html#biclustering-evaluation">2.4.3. Evaluación de Biclustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/decomposition.html">2.5. Descomposición de señales en componentes (problemas de factorización de matrices)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html#principal-component-analysis-pca">2.5.1. Análisis de componentes principales (PCA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html#truncated-singular-value-decomposition-and-latent-semantic-analysis">2.5.2. Descomposición de valor singular truncado y análisis semántico latente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html#dictionary-learning">2.5.3. Diccionario de aprrendizaje</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html#factor-analysis">2.5.4. Análisis de factores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html#independent-component-analysis-ica">2.5.5. Análisis de componentes independientes (ICA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html#non-negative-matrix-factorization-nmf-or-nnmf">2.5.6. Factorización matricial no negativa (NMF o NNMF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html#latent-dirichlet-allocation-lda">2.5.7. Asignación Latente de Dirichlet (LDA)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/covariance.html">2.6. Estimación de covarianza</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/covariance.html#empirical-covariance">2.6.1. Covarianza empírica</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/covariance.html#shrunk-covariance">2.6.2. Covarianza Reducida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/covariance.html#sparse-inverse-covariance">2.6.3. Covarianza inversa dispersa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/covariance.html#robust-covariance-estimation">2.6.4. Estimación de Covarianza Robusta</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/outlier_detection.html">2.7. Detección de novedades y valores atípicos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/outlier_detection.html#overview-of-outlier-detection-methods">2.7.1. Resumen de los métodos de detección de valores atípicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/outlier_detection.html#novelty-detection">2.7.2. Detección de novedades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/outlier_detection.html#id1">2.7.3. Detección de valores atípicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/outlier_detection.html#novelty-detection-with-local-outlier-factor">2.7.4. Detección de novedades con Local Outlier Factor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/density.html">2.8. Estimación de densidad</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/density.html#density-estimation-histograms">2.8.1. Estimación de Densidad: Histogramas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/density.html#kernel-density-estimation">2.8.2. Estimación de densidad del Kernel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/neural_networks_unsupervised.html">2.9. Modelos de red neural (no supervisados)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_unsupervised.html#restricted-boltzmann-machines">2.9.1. Máquinas Boltzmann restringidas</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="_sources/unsupervised_learning.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
