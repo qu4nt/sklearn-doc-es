@@ -1,0 +1,598 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.feature_selection.SequentialFeatureSelector &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SequentialFeatureSelector.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.feature_selection.SelectFwe.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.feature_selection.SelectFwe">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.feature_selection.RFE.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.feature_selection.RFE">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.feature_selection</span></code>.SequentialFeatureSelector</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-feature-selection-sequentialfeatureselector">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.feature_selection.SequentialFeatureSelector</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-feature-selection-sequentialfeatureselector">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.feature_selection" title="sklearn.feature_selection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.feature_selection</span></code></a>.SequentialFeatureSelector<a class="headerlink" href="#sklearn-feature-selection-sequentialfeatureselector" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.feature_selection.</span></span><span class="sig-name descname"><span class="pre">SequentialFeatureSelector</span></span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Transformador que realiza la Selección Secuencial de Características.</p>
+<p>Este Selector de Características Secuencial añade (selección hacia delante) o elimina (selección hacia atrás) características para formar un subconjunto de características de forma codiciosa. En cada etapa, este estimador elige la mejor característica para añadir o eliminar basándose en la puntuación de validación cruzada de un estimador.</p>
+<p>Más información en el <a class="reference internal" href="../feature_selection.html#sequential-feature-selection"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>estimator</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Un estimador sin ajustar.</p>
+</dd>
+<dt><strong>n_features_to_select</strong><span class="classifier">int o float, default=None</span></dt><dd><p>El número de características a seleccionar. Si es <code class="docutils literal notranslate"><span class="pre">None</span></code>, se selecciona la mitad de las características. Si es un número entero, el parámetro es el número absoluto de características a seleccionar. Si es float entre 0 y 1, es la fracción de características a seleccionar.</p>
+</dd>
+<dt><strong>direction</strong><span class="classifier">{“forward”, “backward”}, default=”forward”</span></dt><dd><p>Si se realiza una selección hacia delante o hacia atrás.</p>
+</dd>
+<dt><strong>scoring</strong><span class="classifier">str, callable, list/tuple o dict, default=None</span></dt><dd><p>Una sola cadena (ver <a class="reference internal" href="../model_evaluation.html#scoring-parameter"><span class="std std-ref">El parámetro scoring: definir las reglas de evaluación del modelo</span></a>) o una llamada (ver <a class="reference internal" href="../model_evaluation.html#scoring"><span class="std std-ref">Definir tu estrategia de puntuación a partir de funciones métricas</span></a>) para evaluar las predicciones en el conjunto de prueba.</p>
+<p>Tener en cuenta que cuando se utilizan puntuadores personalizados, cada puntuador debe devolver un único valor. Las funciones métricas que devuelven una lista/matriz de valores pueden incluirse en múltiples calificadores que devuelven un valor cada uno.</p>
+<p>Si es None, se utiliza el método de puntuación del estimador.</p>
+</dd>
+<dt><strong>cv</strong><span class="classifier">entero, generador de validación cruzada o un iterable, default=None</span></dt><dd><p>Determina la estrategia de división de la validación cruzada. Las entradas posibles para cv son:</p>
+<ul class="simple">
+<li><p>None, para utilizar la validación cruzada de 5-fold por defecto,</p></li>
+<li><p>entero, para especificar el número de pliegues en un <code class="docutils literal notranslate"><span class="pre">(Stratified)KFold</span></code>,</p></li>
+<li><p><a class="reference internal" href="../../glossary.html#term-CV-splitter"><span class="xref std std-term">separador de CV</span></a>,</p></li>
+<li><p>Un iterable que produce divisiones (tren, prueba) como arreglos de índices.</p></li>
+</ul>
+<p>For integer/None inputs, if the estimator is a classifier and <code class="docutils literal notranslate"><span class="pre">y</span></code> is
+either binary or multiclass, <code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code> is used. In all
+other cases, <code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code> is used. These splitters are instantiated
+with <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> so the splits will be the same across calls.</p>
+<p>Consulta <a class="reference internal" href="../cross_validation.html#cross-validation"><span class="std std-ref">Manual de usuario</span></a> para las diversas estrategias de validación cruzada que pueden ser utilizadas aquí.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>Número de trabajos a ejecutar en paralelo. Cuando se evalúa una nueva característica para añadir o eliminar, el procedimiento de validación cruzada es paralelo sobre los pliegues. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa que se utilizan todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>n_features_to_select_</strong><span class="classifier">int</span></dt><dd><p>El número de características seleccionadas.</p>
+</dd>
+<dt><strong>support_</strong><span class="classifier">ndarray de forma (n_features,), dtype=bool</span></dt><dd><p>La máscara de las características seleccionadas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.feature_selection.RFE.html#sklearn.feature_selection.RFE" title="sklearn.feature_selection.RFE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RFE</span></code></a></dt><dd><p>Eliminación recursiva de características basada en pesos de importancia.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.feature_selection.RFECV.html#sklearn.feature_selection.RFECV" title="sklearn.feature_selection.RFECV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RFECV</span></code></a></dt><dd><p>Eliminación recursiva de características basada en pesos de importancia, con selección automática del número de características.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.feature_selection.SelectFromModel.html#sklearn.feature_selection.SelectFromModel" title="sklearn.feature_selection.SelectFromModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SelectFromModel</span></code></a></dt><dd><p>Selección de características basada en umbrales de pesos de importancia.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SequentialFeatureSelector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sfs</span> <span class="o">=</span> <span class="n">SequentialFeatureSelector</span><span class="p">(</span><span class="n">knn</span><span class="p">,</span> <span class="n">n_features_to_select</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sfs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">SequentialFeatureSelector(estimator=KNeighborsClassifier(n_neighbors=3),</span>
+<span class="go">                          n_features_to_select=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sfs</span><span class="o">.</span><span class="n">get_support</span><span class="p">()</span>
+<span class="go">array([ True, False,  True,  True])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sfs</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(150, 3)</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.fit" title="sklearn.feature_selection.SequentialFeatureSelector.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Aprender las características para seleccionar.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.fit_transform" title="sklearn.feature_selection.SequentialFeatureSelector.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a></p></td>
+<td><p>Ajustar a los datos y luego transformarlos.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.get_params" title="sklearn.feature_selection.SequentialFeatureSelector.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.get_support" title="sklearn.feature_selection.SequentialFeatureSelector.get_support"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_support</span></code></a></p></td>
+<td><p>Obtiene una máscara, o índice entero, de las características seleccionadas</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.inverse_transform" title="sklearn.feature_selection.SequentialFeatureSelector.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a></p></td>
+<td><p>Revierte la operación de transformación</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.set_params" title="sklearn.feature_selection.SequentialFeatureSelector.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.transform" title="sklearn.feature_selection.SequentialFeatureSelector.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a></p></td>
+<td><p>Reduce X a las características seleccionadas.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aprender las características para seleccionar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Vectores de entrenamiento.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Valores objetivo.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">objeto</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector.fit_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajustar a los datos y luego transformarlos.</p>
+<p>Ajusta el transformador a <code class="docutils literal notranslate"><span class="pre">X</span></code> e <code class="docutils literal notranslate"><span class="pre">y</span></code> con los parámetros opcionales <code class="docutils literal notranslate"><span class="pre">fit_params</span></code> y devuelve una versión transformada de <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de entrada.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs),                 default=None</span></dt><dd><p>Valores objetivo (None para transformaciones no supervisadas).</p>
+</dd>
+<dt><strong>**fit_params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros de ajuste adicionales.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">arreglo ndarray de forma (n_samples, n_features_new)</span></dt><dd><p>Arreglo transformado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros de este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los sub objetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Los nombres de los parámetros se asignan a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector.get_support">
+<span class="sig-name descname"><span class="pre">get_support</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector.get_support" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene una máscara, o índice entero, de las características seleccionadas</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>indices</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Si es True, el valor de retorno será un arreglo de enteros, en lugar de una máscara booleana.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>support</strong><span class="classifier">arreglo</span></dt><dd><p>Un índice que selecciona las características retenidas de un vector de características. Si <code class="docutils literal notranslate"><span class="pre">indices</span></code> es False, se trata de un arreglo booleano de forma [# características de entrada], en la que un elemento es True si su característica correspondiente es seleccionada para ser retenida. Si <code class="docutils literal notranslate"><span class="pre">indices</span></code> es True, se trata de un arreglo de enteros de forma [# características de salida] cuyos valores son índices en el vector de características de entrada.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector.inverse_transform">
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector.inverse_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Revierte la operación de transformación</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">arreglo de forma [n_samples, n_selected_features]</span></dt><dd><p>Las muestras de entrada.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_r</strong><span class="classifier">arreglo de forma [n_samples, n_original_features]</span></dt><dd><p>X` con columnas de ceros insertadas donde las características habrían sido eliminadas por <a class="reference internal" href="#sklearn.feature_selection.SequentialFeatureSelector.transform" title="sklearn.feature_selection.SequentialFeatureSelector.transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">transform</span></code></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto con estimadores simples como con objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <a href="#id1"><span class="problematic" id="id2">``</span></a>&lt;component&gt;__&lt;parameter&gt;` para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_selection.SequentialFeatureSelector.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_selection.SequentialFeatureSelector.transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Reduce X a las características seleccionadas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">arreglo de forma [n_samples, n_features]</span></dt><dd><p>Las muestras de entrada.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_r</strong><span class="classifier">arreglo de forma [n_samples, n_selected_features]</span></dt><dd><p>Las muestras de entrada con sólo las características seleccionadas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-feature-selection-sequentialfeatureselector">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.feature_selection.SequentialFeatureSelector</span></code><a class="headerlink" href="#examples-using-sklearn-feature-selection-sequentialfeatureselector" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 0.24! Many bug fixes and improvements we..."><figure class="align-default" id="id1">
+<img alt="Release Highlights for scikit-learn 0.24" src="../../_images/sphx_glr_plot_release_highlights_0_24_0_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/release_highlights/plot_release_highlights_0_24_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-0-24-0-py"><span class="std std-ref">Aspectos Destacados de scikit-learn 0.24</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.feature_selection.SequentialFeatureSelector.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

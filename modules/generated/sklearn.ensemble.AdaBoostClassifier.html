@@ -1,0 +1,741 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.ensemble.AdaBoostClassifier &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.dummy.DummyRegressor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.dummy.DummyRegressor">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.ensemble.AdaBoostRegressor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.ensemble.AdaBoostRegressor">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.ensemble</span></code>.AdaBoostClassifier</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-ensemble-adaboostclassifier">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.ensemble" title="sklearn.ensemble"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.ensemble</span></code></a>.AdaBoostClassifier<a class="headerlink" href="#sklearn-ensemble-adaboostclassifier" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.ensemble.</span></span><span class="sig-name descname"><span class="pre">AdaBoostClassifier</span></span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Un clasificador AdaBoost.</p>
+<p>Un clasificador de AdaBoost [1] es un meta-estimador que comienza por ajustar un clasificador en el conjunto de datos original y luego se ajusta a copias adicionales del clasificador en el mismo conjunto de datos pero donde las pesas de instancias mal clasificadas se ajustan de tal manera que los clasificadores posteriores se centran más en casos difíciles.</p>
+<p>Esta clase implementa el algoritmo conocido como AdaBoost-SAMME [2].</p>
+<p>Más información en el <a class="reference internal" href="../ensemble.html#adaboost"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.14.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>base_estimator</strong><span class="classifier">objecto, default=None</span></dt><dd><p>El estimador base desde el cual se construye el ensemble potenciado. Se requiere soporte para la ponderación de la muestra, así como los atributos apropiados <code class="docutils literal notranslate"><span class="pre">classes_</span></code> y <code class="docutils literal notranslate"><span class="pre">n_classes_</span></code>. Si <code class="docutils literal notranslate"><span class="pre">None</span></code>, el estimador base es <a class="reference internal" href="sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a> inicializado con <code class="docutils literal notranslate"><span class="pre">max_depth=1</span></code>.</p>
+</dd>
+<dt><strong>n_estimators</strong><span class="classifier">int, default=50</span></dt><dd><p>El número máximo de estimadores en los que se termina la potenciación. En caso de ajuste perfecto, el procedimiento de aprendizaje se detiene pronto.</p>
+</dd>
+<dt><strong>learning_rate</strong><span class="classifier">flotante, default=1.</span></dt><dd><p>Weight applied to each classifier at each boosting iteration. A higher
+learning rate increases the contribution of each classifier. There is
+a trade-off between the <code class="docutils literal notranslate"><span class="pre">learning_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">n_estimators</span></code> parameters.</p>
+</dd>
+<dt><strong>algorithm</strong><span class="classifier">{“SAMME”, “SAMME.R”}, default=”SAMME.R”</span></dt><dd><p>Si es <code class="docutils literal notranslate"><span class="pre">SAMME.R</span></code>, utiliza el algoritmo potenciador real de SAMME.R. <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> debe soportar el cálculo de las probabilidades de clase. Si es «SAMME», utilice el algoritmo potenciador discreto SAMME. El algoritmo SAMME.R suele converger más rápido que SAMME, logrando un menor error de prueba con menos iteraciones potenciadoras.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, default=None</span></dt><dd><p>Controla la semilla aleatoria dada en cada <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> en cada iteración potenciadora. Por lo tanto, sólo se utiliza cuando <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> expone un <code class="docutils literal notranslate"><span class="pre">random_state</span></code>. Pasa un int para una salida reproducible a través de múltiples llamadas a la función. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>base_estimator_</strong><span class="classifier">estimador</span></dt><dd><p>El estimador base a partir del cual crece el ensemble.</p>
+</dd>
+<dt><strong>estimators_</strong><span class="classifier">lista de clasificadores</span></dt><dd><p>La colección de sub-estimadores ajustados.</p>
+</dd>
+<dt><strong>classes_</strong><span class="classifier">ndarray de forma (n_classes,)</span></dt><dd><p>Las etiquetas de clases.</p>
+</dd>
+<dt><strong>n_classes_</strong><span class="classifier">int</span></dt><dd><p>El número de clases.</p>
+</dd>
+<dt><strong>estimator_pesos_</strong><span class="classifier">ndarray de floats</span></dt><dd><p>Ponderaciones para cada estimador en el ensemble potenciados.</p>
+</dd>
+<dt><strong>estimator_errors_</strong><span class="classifier">ndarray de floats</span></dt><dd><p>Error de clasificación para cada estimador en el ensemble potenciado.</p>
+</dd>
+<dt><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.feature_importances_" title="sklearn.ensemble.AdaBoostClassifier.feature_importances_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_importances_</span></code></a><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Las importancias basadas en la impureza de las características.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.ensemble.AdaBoostRegressor.html#sklearn.ensemble.AdaBoostRegressor" title="sklearn.ensemble.AdaBoostRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdaBoostRegressor</span></code></a></dt><dd><p>Un regresor de AdaBoost que comienza por ajustar un regresor en el conjunto de datos original y luego ajusta copias adicionales del regresor en el mismo conjunto de datos pero donde los pesos de las instancias se ajustan de acuerdo al error de la predicción actual.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier" title="sklearn.ensemble.GradientBoostingClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GradientBoostingClassifier</span></code></a></dt><dd><p>GB construye un modelo aditivo por etapas. Los árboles de regresión se ajustan al gradiente negativo de la función de pérdida de desviación binomial o multinomial. La clasificación binaria es un caso especial en el que sólo se induce un único árbol de regresión.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.tree.DecisionTreeClassifier</span></code></a></dt><dd><p>Método de aprendizaje supervisado no paramétrico utilizado para la clasificación. Crea un modelo que predice el valor de una variable objetivo mediante el aprendizaje de reglas de decisión simples inferidas a partir de las características de los datos.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Referencias</p>
+<dl class="citation">
+<dt class="label" id="r33e4ec8c4ad5-1"><span class="brackets">1</span></dt>
+<dd><p>Y. Freund, R. Schapire, «A Decision-Theoretic Generalization of
+on-Line Learning and an Application to Boosting», 1995.</p>
+</dd>
+<dt class="label" id="r33e4ec8c4ad5-2"><span class="brackets">2</span></dt>
+<dd><ol class="upperalpha simple" start="10">
+<li><p>Zhu, H. Zou, S. Rosset, T. Hastie, «Multi-class AdaBoost», 2009.</p></li>
+</ol>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">AdaBoostClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">AdaBoostClassifier(n_estimators=100, random_state=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="go">array([1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">0.983...</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.decision_function" title="sklearn.ensemble.AdaBoostClassifier.decision_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_function</span></code></a></p></td>
+<td><p>Calcula la función de decisión de <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.fit" title="sklearn.ensemble.AdaBoostClassifier.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Construye un clasificador potenciado del conjunto de entrenamiento (X, y).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.get_params" title="sklearn.ensemble.AdaBoostClassifier.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.predict" title="sklearn.ensemble.AdaBoostClassifier.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice clases para X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.predict_log_proba" title="sklearn.ensemble.AdaBoostClassifier.predict_log_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_log_proba</span></code></a></p></td>
+<td><p>Predice las probabilidades logarítmicas de clase para X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.predict_proba" title="sklearn.ensemble.AdaBoostClassifier.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Predice las probabilidades de clase para X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.score" title="sklearn.ensemble.AdaBoostClassifier.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.set_params" title="sklearn.ensemble.AdaBoostClassifier.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establecer los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.staged_decision_function" title="sklearn.ensemble.AdaBoostClassifier.staged_decision_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">staged_decision_function</span></code></a></p></td>
+<td><p>Calcula la función de decisión de <code class="docutils literal notranslate"><span class="pre">X</span></code> para cada iteración potenciadora.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.staged_predict" title="sklearn.ensemble.AdaBoostClassifier.staged_predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">staged_predict</span></code></a></p></td>
+<td><p>Devuelve predicciones escalonadas para X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.staged_predict_proba" title="sklearn.ensemble.AdaBoostClassifier.staged_predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">staged_predict_proba</span></code></a></p></td>
+<td><p>Predice las probabilidades de clase para X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.AdaBoostClassifier.staged_score" title="sklearn.ensemble.AdaBoostClassifier.staged_score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">staged_score</span></code></a></p></td>
+<td><p>Devuelve las puntuaciones escalonadas para X, y.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.decision_function">
+<span class="sig-name descname"><span class="pre">decision_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.decision_function" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la función de decisión de <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">ndarray de forma de (n_samples, k)</span></dt><dd><p>La función de decisión de las muestras de entrada. El orden de salida es igual al del atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>. La clasificación binaria es un caso especial con <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">==</span> <span class="pre">1</span></code>, de lo contrario <code class="docutils literal notranslate"><span class="pre">k==n_classes</span></code>. Para la clasificación binaria, los valores más cercanos a -1 o 1 significan más como la primera o la segunda clase en <code class="docutils literal notranslate"><span class="pre">classes_</span></code>, respectivamente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.feature_importances_">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">feature_importances_</span></span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.feature_importances_" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Las importancias basadas en la impureza de las características.</p>
+<p>Cuanto más alto, más importante sera la característica. La importancia de una característica se calcula como la reducción total (normalizada) del criterio traído por esa función. También se le conoce como la importancia de Gini.</p>
+<p>Advertencia: las importancias de característica basadas en la impureza pueden ser engañosas para las características de alta cardinalidad (muchos valores únicos). Ver <a class="reference internal" href="sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="sklearn.inspection.permutation_importance"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.inspection.permutation_importance</span></code></a> como una alternativa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>feature_importances_</strong><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>La importancia de las características.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Construye un clasificador potenciado del conjunto de entrenamiento (X, y).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Los valores objetivo (etiquetas de clase).</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de muestra. Si es None, las ponderaciones de las muestras se inicializan a <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">n_samples</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>Estimador ajustado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los sub objetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Los nombres de los parámetros se asignan a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice clases para X.</p>
+<p>La clase predicha de una muestra de entrada se calcula como la predicción ponderada de los clasificadores en el conjunto.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>Las clases predichas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.predict_log_proba">
+<span class="sig-name descname"><span class="pre">predict_log_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.predict_log_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las probabilidades logarítmicas de clase para X.</p>
+<p>Las probabilidades logarítmicas de clase predichas de una muestra de entrada se calculan como la media ponderada de las probabilidades logarítmicas de clase predichas de los clasificadores del ensemble.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>p</strong><span class="classifier">ndarray de forma (n_samples, n_classes)</span></dt><dd><p>Las probabilidades de clase de las muestras de entrada. El orden de salida es el mismo que el del atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las probabilidades de clase para X.</p>
+<p>Las probabilidades de clase predichas de una muestra de entrada se calculan como las probabilidades de clase ponderadas predichas de los clasificadores en el ensemble.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>p</strong><span class="classifier">ndarray de forma (n_samples, n_classes)</span></dt><dd><p>Las probabilidades de clase de las muestras de entrada. El orden de salida es el mismo que el del atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p>
+<p>En la clasificación multietiqueta, esta es la precisión del subconjunto, la cual es una métrica rigurosa ya que se requiere para cada muestra que cada conjunto de etiquetas sea predicho correctamente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Etiquetas verdaderas para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderación de muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p>Precisión media de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con relación a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establecer los parámetros de este estimador.</p>
+<p>El método funciona en estimadores simples así como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.staged_decision_function">
+<span class="sig-name descname"><span class="pre">staged_decision_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.staged_decision_function" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la función de decisión de <code class="docutils literal notranslate"><span class="pre">X</span></code> para cada iteración potenciadora.</p>
+<p>Este método permite el monitoreo (es decir, determinar el error en el conjunto de pruebas) después de cada iteración potenciadora.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Produce</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">generador de ndarray de forma (n_samples, k)</span></dt><dd><p>La función de decisión de las muestras de entrada. El orden de salida es igual al del atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>. La clasificación binaria es un caso especial con <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">==</span> <span class="pre">1</span></code>, de lo contrario <code class="docutils literal notranslate"><span class="pre">k==n_classes</span></code>. Para la clasificación binaria, los valores más cercanos a -1 o 1 significan más como la primera o la segunda clase en <code class="docutils literal notranslate"><span class="pre">classes_</span></code>, respectivamente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.staged_predict">
+<span class="sig-name descname"><span class="pre">staged_predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.staged_predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve predicciones escalonadas para X.</p>
+<p>La clase predicha de una muestra de entrada se calcula como la predicción ponderada de los clasificadores en el conjunto.</p>
+<p>Este método generador produce la predicción del ensemble después de cada iteración potenciadora y por lo tanto permite el monitoreo, tal como determinar la predicción en un conjunto de pruebas después de cada potenciación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. La matriz dispersa puede ser CSC, CSR, COO, DOK, LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Produce</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y</strong><span class="classifier">generador de ndarray de forma (n_samples,)</span></dt><dd><p>Las clases predichas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.staged_predict_proba">
+<span class="sig-name descname"><span class="pre">staged_predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.staged_predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las probabilidades de clase para X.</p>
+<p>Las probabilidades de clase predichas de una muestra de entrada se calculan como las probabilidades de clase ponderadas predichas de los clasificadores en el ensemble.</p>
+<p>Este método generador produce las probabilidades de clase predichas del conjunto después de cada iteración de potenciación y por lo tanto permite el monitoreo, tal como determinar las probabilidades de clase predichas en un conjunto de pruebas después de cada potenciación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Produce</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>p</strong><span class="classifier">generador de ndarray de forma (n_samples,)</span></dt><dd><p>Las probabilidades de clase de las muestras de entrada. El orden de salida es el mismo que el del atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.AdaBoostClassifier.staged_score">
+<span class="sig-name descname"><span class="pre">staged_score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.AdaBoostClassifier.staged_score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve las puntuaciones escalonadas para X, y.</p>
+<p>Este método generador produce la puntuación del ensemble después de cada iteración potenciadora y por lo tanto permite el monitoreo, tal como determinar la puntuación en un conjunto de pruebas después de cada potenciación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. La matriz dispersa puede ser CSC, CSR, COO, DOK o LIL. COO, DOK, y LIL se convierten en CSR.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Etiquetas para X.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderación de muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Produce</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>z</strong><span class="classifier">float</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.ensemble.AdaBoostClassifier.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

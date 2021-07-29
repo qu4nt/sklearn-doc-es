@@ -1,0 +1,608 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.decomposition.NMF &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.decomposition.MiniBatchSparsePCA.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.decomposition.MiniBatchSparsePCA">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.decomposition.PCA.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.decomposition.PCA">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.decomposition</span></code>.NMF</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-decomposition-nmf">Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.decomposition.NMF</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-decomposition-nmf">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.decomposition" title="sklearn.decomposition"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.decomposition</span></code></a>.NMF<a class="headerlink" href="#sklearn-decomposition-nmf" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.decomposition.NMF">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.decomposition.</span></span><span class="sig-name descname"><span class="pre">NMF</span></span><a class="headerlink" href="#sklearn.decomposition.NMF" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Factorización de Matrices No Negativas (Non-Negative Matrix Factorization, NMF).</p>
+<p>Encontrar dos matrices no negativas (W, H) cuyo producto se aproxime a la matriz no negativa X. Esta factorización se puede utilizar, por ejemplo, para la reducción de la dimensionalidad, la separación de fuentes o la extracción de temas.</p>
+<p>La función objetivo es:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}0.5 * ||X - WH||_{loss}^2 + alpha * l1_{ratio} * ||vec(W)||_1\\+ alpha * l1_{ratio} * ||vec(H)||_1\\+ 0.5 * alpha * (1 - l1_{ratio}) * ||W||_{Fro}^2\\+ 0.5 * alpha * (1 - l1_{ratio}) * ||H||_{Fro}^2\end{aligned}\end{align} \]</div>
+</div></blockquote>
+<p>Donde:</p>
+<p><span class="math notranslate nohighlight">\(||A||_{Fro}^2 = \sum_{i,j} A_{ij}^2\)</span> (norma de Frobenius)</p>
+<p><span class="math notranslate nohighlight">\(||vec(A)||_1 = \sum_{i,j} abs(A_{ij})\)</span> (Norma componente a componente L1)</p>
+<p>The generic norm <span class="math notranslate nohighlight">\(||X - WH||_{loss}\)</span> may represent
+the Frobenius norm or another supported beta-divergence loss.
+The choice between options is controlled by the <code class="docutils literal notranslate"><span class="pre">beta_loss</span></code> parameter.</p>
+<p>La función objetivo se minimiza con una minimización alterna de W y H.</p>
+<p>Lee más en el <a class="reference internal" href="../decomposition.html#nmf"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_components</strong><span class="classifier">int, default=None</span></dt><dd><p>Número de componentes, si n_components no se establece se mantienen todas las características.</p>
+</dd>
+<dt><strong>init</strong><span class="classifier">{“random”, “nndsvd”, “nndsvda”, “nndsvdar”, “custom”}, default=None</span></dt><dd><p>Método utilizado para inicializar el procedimiento. Por defecto: None. Opciones válidas:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: “nndsvd” si n_components &lt;= min(n_samples, n_features), en caso contrario, aleatorio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'random'</span></code>: matrices aleatorias no negativas, escaladas con: sqrt(X.mean() / n_components)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'nndsvd'</span></code>: Inicialización de la Descomposición en Valores Singulares Doble no negativos (Nonnegative Double Singular Value Decomposition, NNDSVD) (mejor para la dispersión)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'nndsvda'</span></code>: NNDSVD con ceros rellenados con el promedio de X (mejor cuando no se desea la dispersión)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'nndsvdar'</span></code> NNDSVD con ceros rellenados con pequeños valores aleatorios (generalmente una alternativa más rápida y menos precisa a NNDSVDa para cuando no se desea la dispersión)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'custom'</span></code>: utiliza matrices personalizadas W y H</p></li>
+</ul>
+</dd>
+<dt><strong>solver</strong><span class="classifier">{“cd”, “mu”}, default=”cd”</span></dt><dd><p>Solver numérico a utilizar: “cd” es un solucionador del Descenso Coordinado. “mu” es un solucionador de Actualización Multiplicativa.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span>Solucionador del Descenso Coordinado.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.19: </span>Solucionador de Actualización Multiplicativa.</p>
+</div>
+</dd>
+<dt><strong>beta_loss</strong><span class="classifier">float o {“frobenius”, “kullback-leibler”,             “itakura-saito”}, default=”frobenius”</span></dt><dd><p>Se minimiza la Divergencia Beta, midiendo la distancia entre X y el producto punto WH. Ten en cuenta que los valores diferentes de “frobenius” (o 2) y “kullback-leibler” (o 1) conducen ajustes significativamente más lentos. Ten en cuenta que para beta_loss &lt;= 0 (o “itakura-saito”), la matriz de entrada X no puede contener ceros. Sólo se utiliza en el solucionador “mu”.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.19.</span></p>
+</div>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>Tolerancia de la condición de parada.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=200</span></dt><dd><p>Número máximo de iteraciones antes de que se agote el tiempo.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, default=None</span></dt><dd><p>Se utiliza para la inicialización (cuando <code class="docutils literal notranslate"><span class="pre">init</span></code> == “nndsvdar” o “random”), y en el Descenso Coordinado. Pasa un número entero (int) para resultados reproducibles a través de múltiples llamadas a la función. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float, default=0.</span></dt><dd><p>Constante que multiplica los términos de regularización. Ponlo en cero para no tener regularización.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span><em>alpha</em> utilizado en el solucionador del Descenso Coordinado.</p>
+</div>
+</dd>
+<dt><strong>l1_ratio</strong><span class="classifier">float, default=0.</span></dt><dd><p>El parámetro de mezcla de la regularización, con 0 &lt;= l1_ratio &lt;= 1. Para l1_ratio = 0 la penalización es una penalización componente a componente L2 (también conocida como Norma de Frobenius). Para l1_ratio = 1 es una penalización componente a componente L1. Para 0 &lt; l1_ratio &lt; 1, la penalización es una combinación de L1 y L2.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span>El parámetro de regularización <em>l1_ratio</em> utilizado en el solucionador del Descenso Coordinado.</p>
+</div>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int, default=0</span></dt><dd><p>Si debe o no ser verboso.</p>
+</dd>
+<dt><strong>shuffle</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es verdadero, aleatoriza el orden de las coordenadas en el solucionador del CD.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span>El parámetro <a href="#id1"><span class="problematic" id="id2">*</span></a>shuffle*Parámetro utilizado en el solucionador del Descenso Coordinado.</p>
+</div>
+</dd>
+<dt><strong>regularization</strong><span class="classifier">{“both”, “components”, “transformation”, None},                      default=”both”</span></dt><dd><p>Selecciona si la regularización afecta a los componentes (H), a la transformación (W), a ambos o a ninguno de ellos.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>components_</strong><span class="classifier">ndarray de forma (n_components, n_features)</span></dt><dd><p>Matriz de factorización, a veces llamada “dictionary”.</p>
+</dd>
+<dt><strong>n_components_</strong><span class="classifier">int</span></dt><dd><p>El número de componentes. Es el mismo que el parámetro <code class="docutils literal notranslate"><span class="pre">n_components</span></code> si fue dado. De lo contrario, será el mismo que el número de características.</p>
+</dd>
+<dt><strong>reconstruction_err_</strong><span class="classifier">float</span></dt><dd><p>La norma de Frobenius de la diferencia matricial, o beta-divergencia, entre los datos de entrenamiento <code class="docutils literal notranslate"><span class="pre">X</span></code> y los datos reconstruidos <code class="docutils literal notranslate"><span class="pre">WH</span></code> a partir del modelo ajustado.</p>
+</dd>
+<dt><strong>n_iter_</strong><span class="classifier">int</span></dt><dd><p>Número real de iteraciones.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Referencias</p>
+<p>Cichocki, Andrzej, and P. H. A. N. Anh-Huy. «Fast local algorithms for
+large scale nonnegative matrix and tensor factorizations.»
+IEICE transactions on fundamentals of electronics, communications and
+computer sciences 92.3: 708-721, 2009.</p>
+<p>Fevotte, C., &amp; Idier, J. (2011). Algorithms for nonnegative matrix
+factorization with the beta-divergence. Neural Computation, 23(9).</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">NMF</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">NMF</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">W</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">components_</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.NMF.fit" title="sklearn.decomposition.NMF.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Aprende un modelo NMF para los datos X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.decomposition.NMF.fit_transform" title="sklearn.decomposition.NMF.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a></p></td>
+<td><p>Aprende un modelo NMF para los datos X y devuelve los datos transformados.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.NMF.get_params" title="sklearn.decomposition.NMF.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtener los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.decomposition.NMF.inverse_transform" title="sklearn.decomposition.NMF.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a></p></td>
+<td><p>Transforma los datos de nuevo a su espacio original.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.NMF.set_params" title="sklearn.decomposition.NMF.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.decomposition.NMF.transform" title="sklearn.decomposition.NMF.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a></p></td>
+<td><p>Transforma los datos X según el modelo NMF ajustado.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.NMF.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.NMF.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aprende un modelo NMF para los datos X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Matriz de datos a descomponer</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt>self</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.NMF.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.NMF.fit_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aprende un modelo NMF para los datos X y devuelve los datos transformados.</p>
+<p>Esto es más eficiente que llamar a fit seguido de transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Matriz de datos a descomponer</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd></dd>
+<dt><strong>W</strong><span class="classifier">array-like de forma (n_samples, n_components)</span></dt><dd><p>Si init=”custom”, se utiliza como conjetura inicial para la solución.</p>
+</dd>
+<dt><strong>H</strong><span class="classifier">array-like de forma (n_components, n_features)</span></dt><dd><p>Si init=”custom”, se utiliza como conjetura inicial para la solución.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>W</strong><span class="classifier">ndarray de forma (n_samples, n_components)</span></dt><dd><p>Datos transformados.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.NMF.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.NMF.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener los parámetros de este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Los nombres de los parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.NMF.inverse_transform">
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.NMF.inverse_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Transforma los datos de nuevo a su espacio original.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>W</strong><span class="classifier">{ndarray, sparse matrix} de forma (n_samples, n_components)</span></dt><dd><p>Matriz de datos transformada.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{ndarray, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Matriz de datos de la forma original.</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.18: </span>..</p>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.NMF.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.NMF.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.NMF.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.NMF.transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Transforma los datos X según el modelo NMF ajustado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>La matriz de datos a transformar por el modelo.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>W</strong><span class="classifier">ndarray de forma (n_samples, n_components)</span></dt><dd><p>Datos transformados.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-decomposition-nmf">
+<h2>Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.decomposition.NMF</span></code><a class="headerlink" href="#examples-using-sklearn-decomposition-nmf" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example constructs a pipeline that does dimensionality reduction followed by prediction wi..."><figure class="align-default" id="id1">
+<img alt="Selecting dimensionality reduction with Pipeline and GridSearchCV" src="../../_images/sphx_glr_plot_compare_reduction_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/compose/plot_compare_reduction.html#sphx-glr-auto-examples-compose-plot-compare-reduction-py"><span class="std std-ref">Selección de la reducción de la dimensionalidad con Pipeline y GridSearchCV</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.decomposition.NMF.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.discriminant_analysis.LinearDiscriminantAnalysis">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.dummy.DummyClassifier.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.dummy.DummyClassifier">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.discriminant_analysis</span></code>.QuadraticDiscriminantAnalysis</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-discriminant-analysis-quadraticdiscriminantanalysis">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.discriminant_analysis" title="sklearn.discriminant_analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.discriminant_analysis</span></code></a>.QuadraticDiscriminantAnalysis<a class="headerlink" href="#sklearn-discriminant-analysis-quadraticdiscriminantanalysis" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.discriminant_analysis.</span></span><span class="sig-name descname"><span class="pre">QuadraticDiscriminantAnalysis</span></span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Análisis Discriminante Cuadrático</p>
+<p>Un clasificador con un límite de decisión cuadrático, generado ajustando las densidades condicionales de las clases a los datos y utilizando la regla de Bayes.</p>
+<p>El modelo se ajusta una densidad Gaussiana a cada clase.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span><em>QuadraticDiscriminantAnalysis</em></p>
+</div>
+<p>Más información en el <a class="reference internal" href="../lda_qda.html#lda-qda"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>priors</strong><span class="classifier">ndarray de forma (n_classes,), default=None</span></dt><dd><p>A prioris de clase. Por defecto, las proporciones de clase se infieren a partir de los datos de entrenamiento.</p>
+</dd>
+<dt><strong>reg_param</strong><span class="classifier">float, default=0.0</span></dt><dd><p>Regulariza las estimaciones de covarianza por clase transformando S2 como <code class="docutils literal notranslate"><span class="pre">S2</span> <span class="pre">=</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">reg_param)</span> <span class="pre">*</span> <span class="pre">S2</span> <span class="pre">+</span> <span class="pre">reg_param</span> <span class="pre">*</span> <span class="pre">np.eye(n_features)</span></code>, donde S2 corresponde al atributo <code class="docutils literal notranslate"><span class="pre">scaling_</span></code> de una clase determinada.</p>
+</dd>
+<dt><strong>store_covariance</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, las matrices de covarianza de la clase se calculan explícitamente y se almacenan en el atributo <code class="docutils literal notranslate"><span class="pre">self.covariance_</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17.</span></p>
+</div>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1.0e-4</span></dt><dd><p>Umbral absoluto para que un valor singular se considere significativo, utilizado para estimar el rango de <code class="docutils literal notranslate"><span class="pre">Xk</span></code> donde <code class="docutils literal notranslate"><span class="pre">Xk</span></code> es la matriz centrada de muestras en la clase k. Este parámetro no afecta a las predicciones. Sólo controla una advertencia que se produce cuando las características se consideran colineales.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>covariance_</strong><span class="classifier">lista de len n_classes o ndarray             de forma (n_features, n_features)</span></dt><dd><p>Para cada clase, da la matriz de covarianza estimada utilizando las muestras de esa clase. Las estimaciones son insesgadas. Sólo está presente si <code class="docutils literal notranslate"><span class="pre">store_covariance</span></code> es True.</p>
+</dd>
+<dt><strong>means_</strong><span class="classifier">array-like de forma (n_classes, n_features)</span></dt><dd><p>Medios de la clase.</p>
+</dd>
+<dt><strong>priors_</strong><span class="classifier">array-like de forma (n_classes,)</span></dt><dd><p>A prioris de clase (suma 1).</p>
+</dd>
+<dt><strong>rotations_</strong><span class="classifier">lista de len n_classes o ndarray de forma (n_features, n_k)</span></dt><dd><p>Para cada clase k, un arreglo de forma (n_features, n_k), donde <code class="docutils literal notranslate"><span class="pre">n_k</span> <span class="pre">=</span> <span class="pre">min(n_features,</span> <span class="pre">número</span> <span class="pre">de</span> <span class="pre">elementos</span> <span class="pre">en</span> <span class="pre">la</span> <span class="pre">clase</span> <span class="pre">k)</span></code> Es la rotación de la distribución Gaussiana, es decir, su eje principal. Corresponde a <code class="docutils literal notranslate"><span class="pre">V</span></code>, la matriz de autovectores procedente de la SVD de <code class="docutils literal notranslate"><span class="pre">Xk</span> <span class="pre">=</span> <span class="pre">U</span> <span class="pre">S</span> <span class="pre">Vt</span></code> donde <code class="docutils literal notranslate"><span class="pre">Xk</span></code> es la matriz centrada de las muestras de la clase k.</p>
+</dd>
+<dt><strong>scalings_</strong><span class="classifier">lista de len n_classes o ndarray de forma (n_k,)</span></dt><dd><p>Para cada clase, contiene la escala de las distribuciones Gaussianas a lo largo de sus ejes principales, es decir, la varianza en el sistema de coordenadas rotado. Corresponde a <code class="docutils literal notranslate"><span class="pre">S^2</span> <span class="pre">/</span> <span class="pre">(n_samples</span> <span class="pre">-</span> <span class="pre">1)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">S</span></code> es la matriz diagonal de valores singulares de la SVD de <code class="docutils literal notranslate"><span class="pre">Xk</span></code>, donde <code class="docutils literal notranslate"><span class="pre">Xk</span></code> es la matriz centrada de muestras de la clase k.</p>
+</dd>
+<dt><strong>classes_</strong><span class="classifier">ndarray de forma (n_classes,)</span></dt><dd><p>Etiquetas de clase únicas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a></dt><dd><p>Análisis Discriminante Lineal.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">QuadraticDiscriminantAnalysis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">QuadraticDiscriminantAnalysis</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">QuadraticDiscriminantAnalysis()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+<span class="go">[1]</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.decision_function" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.decision_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_function</span></code></a></p></td>
+<td><p>Aplica la función de decisión a un arreglo de muestras.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.fit" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo según los datos de entrenamiento y los parámetros dados.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.get_params" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Realiza la clasificación en un arreglo de vectores de prueba X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_log_proba" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_log_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_log_proba</span></code></a></p></td>
+<td><p>Devuelve el logaritmo de las probabilidades posteriores de la clasificación.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_proba" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Devuelve las probabilidades posteriores de clasificación.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.score" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.set_params" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.decision_function">
+<span class="sig-name descname"><span class="pre">decision_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.decision_function" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aplica la función de decisión a un arreglo de muestras.</p>
+<p>La función de decisión es igual (hasta un factor constante) al log-posterior del modelo, es decir, <code class="docutils literal notranslate"><span class="pre">log</span> <span class="pre">p(y</span> <span class="pre">=</span> <span class="pre">k</span> <span class="pre">|</span> <span class="pre">x)</span></code>. En un entorno de clasificación binaria, esto corresponde a la diferencia <code class="docutils literal notranslate"><span class="pre">log</span> <span class="pre">p(y</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">|</span> <span class="pre">x)</span> <span class="pre">-</span> <span class="pre">log</span> <span class="pre">p(y</span> <span class="pre">=</span> <span class="pre">0</span> <span class="pre">|</span> <span class="pre">x)</span></code>. Ver <a class="reference internal" href="../lda_qda.html#lda-qda-math"><span class="std std-ref">Formulación matemática de los clasificadores ADL y ADQ</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Arreglo de muestras (vectores de prueba).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">ndarray de forma (n_samples,) o (n_samples, n_classes)</span></dt><dd><p>Valores de la función de decisión relacionados con cada clase, por muestra. En el caso de dos clases, la forma (shape) es (n_samples,), lo que da la razón de verosimilitud logarítmica de la clase positiva.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo según los datos de entrenamiento y los parámetros dados.</p>
+<blockquote>
+<div><div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.19: </span><code class="docutils literal notranslate"><span class="pre">store_covariances</span></code> se ha movido al constructor principal (main) como <code class="docutils literal notranslate"><span class="pre">store_covariance</span></code></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.19: </span><a href="#id1"><span class="problematic" id="id2">``</span></a>tol* se ha movido al constructor principal.</p>
+</div>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Vector de entrenamiento, donde n_samples es el número de muestras y n_features es el número de características.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Valores objetivo (enteros)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Realiza la clasificación en un arreglo de vectores de prueba X.</p>
+<p>Se devuelve la clase C predicha para cada muestra en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_log_proba">
+<span class="sig-name descname"><span class="pre">predict_log_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_log_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el logaritmo de las probabilidades posteriores de la clasificación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Arreglo de vectores de muestras/prueba.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">ndarray de forma (n_samples, n_classes)</span></dt><dd><p>Probabilidades logarítmicas posteriores de clasificación por clase.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve las probabilidades posteriores de clasificación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Arreglo de vectores de muestras/prueba.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">ndarray de forma (n_samples, n_classes)</span></dt><dd><p>Probabilidades posteriores de clasificación por clase.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p>
+<p>En la clasificación multietiqueta, se trata de la precisión del subconjunto, que es una métrica rigurosa, ya que se requiere para cada muestra que cada conjunto de etiquetas sea predicho correctamente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Etiquetas True para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de la muestra.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p>Precisión media de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

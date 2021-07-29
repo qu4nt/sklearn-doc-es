@@ -1,0 +1,662 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.gaussian_process.GaussianProcessRegressor &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.gaussian_process.GaussianProcessClassifier.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.gaussian_process.GaussianProcessClassifier">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.gaussian_process.kernels.CompoundKernel.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.gaussian_process.kernels.CompoundKernel">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.gaussian_process</span></code>.GaussianProcessRegressor</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-gaussian-process-gaussianprocessregressor">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.gaussian_process.GaussianProcessRegressor</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-gaussian-process-gaussianprocessregressor">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.gaussian_process" title="sklearn.gaussian_process"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.gaussian_process</span></code></a>.GaussianProcessRegressor<a class="headerlink" href="#sklearn-gaussian-process-gaussianprocessregressor" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.gaussian_process.</span></span><span class="sig-name descname"><span class="pre">GaussianProcessRegressor</span></span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Regresión de procesos gaussianos (Gaussian process regression, GPR).</p>
+<p>La implementación se basa en el algoritmo 2.1 de Gaussian Processes for Machine Learning (GPML) de Rasmussen y Williams.</p>
+<p>Además de la API del estimador estándar de scikit-learn, GaussianProcessRegressor:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>permite la predicción sin ajuste previo (basado en el previo GP)</p></li>
+<li><p>proporciona un método adicional <code class="docutils literal notranslate"><span class="pre">sample_y(X)</span></code>, que evalúa las muestras extraídas del GPR (a priori o a posteriori) en entradas específicas</p></li>
+<li><p>expone un método <code class="docutils literal notranslate"><span class="pre">log_marginal_likelihood(theta)</span></code>, que puede ser usado externamente para otras maneras de seleccionar hiperparámetros, por ejemplo, a través de la cadena de Markov Monte Carlo.</p></li>
+</ul>
+</div></blockquote>
+<p>Más información en el <a class="reference internal" href="../gaussian_process.html#gaussian-process"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.18.</span></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>kernel</strong><span class="classifier">instancia del núcleo, default=None</span></dt><dd><p>El núcleo que especifica la función de covarianza de la GP. Si se pasa None, el núcleo <code class="docutils literal notranslate"><span class="pre">ConstantKernel(1.0,</span> <span class="pre">constant_value_bounds=&quot;fixed&quot;</span> <span class="pre">*</span> <span class="pre">RBF(1.0,</span> <span class="pre">length_scale_bounds=&quot;fixed&quot;)</span></code> se utiliza por defecto. Ten en cuenta que los hiperparámetros del núcleo se optimizan durante el ajuste a menos que los límites estén marcados como «fijos».</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float o ndarray de forma (n_samples,), default=1e-10</span></dt><dd><p>Valor añadido a la diagonal de la matriz del núcleo durante el ajuste. Esto puede evitar un posible problema numérico durante el ajuste, garantizando que los valores calculados formen una matriz positiva definida. También puede interpretarse como la varianza del ruido de medición gaussiano adicional en las observaciones de entrenamiento. Ten en cuenta que esto es diferente de utilizar un <code class="docutils literal notranslate"><span class="pre">WhiteKernel</span></code>. Si se pasa un arreglo, debe tener el mismo número de entradas que los datos utilizados para el ajuste y se utiliza como nivel de ruido dependiente del punto de datos. Permitir especificar el nivel de ruido directamente como un parámetro es principalmente por conveniencia y por consistencia con Ridge.</p>
+</dd>
+<dt><strong>optimizer</strong><span class="classifier">«fmin_l_bfgs_b» o invocable, default=»fmin_l_bfgs_b»</span></dt><dd><p>Puede ser uno de los optimizadores soportados internamente para optimizar los parámetros del núcleo, especificado por una cadena, o un optimizador definido externamente pasado como invocable. Si se pasa un invocable, debe tener la firma (signature):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">optimizer</span><span class="p">(</span><span class="n">obj_func</span><span class="p">,</span> <span class="n">initial_theta</span><span class="p">,</span> <span class="n">bounds</span><span class="p">):</span>
+    <span class="c1"># * &#39;obj_func&#39; is the objective function to be minimized, which</span>
+    <span class="c1">#   takes the hyperparameters theta as parameter and an</span>
+    <span class="c1">#   optional flag eval_gradient, which determines if the</span>
+    <span class="c1">#   gradient is returned additionally to the function value</span>
+    <span class="c1"># * &#39;initial_theta&#39;: the initial value for theta, which can be</span>
+    <span class="c1">#   used by local optimizers</span>
+    <span class="c1"># * &#39;bounds&#39;: the bounds on the values of theta</span>
+    <span class="o">....</span>
+    <span class="c1"># Returned are the best found hyperparameters theta and</span>
+    <span class="c1"># the corresponding value of the target function.</span>
+    <span class="k">return</span> <span class="n">theta_opt</span><span class="p">,</span> <span class="n">func_min</span>
+</pre></div>
+</div>
+<p>Por defecto, se utiliza el algoritmo “L-BFGS-B” de scipy.optimize.minimize. Si se pasa None, los parámetros del núcleo se mantienen fijos. Los optimizadores internos disponibles son:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;fmin_l_bfgs_b&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>n_restarts_optimizer</strong><span class="classifier">int, default=0</span></dt><dd><p>El número de reinicios del optimizador para encontrar los parámetros del núcleo que maximizan la verosimilitud logarítmica marginal. La primera ejecución del optimizador se realiza a partir de los parámetros iniciales del núcleo, los restantes (si los hay) a partir de los valores logarítmicos uniformes muestreados aleatoriamente del espacio de valores logarítmicos permitidos. Si es mayor que 0, todos los límites deben ser finitos. Nótese que n_restarts_optimizer == 0 implica que se realiza una ejecución.</p>
+</dd>
+<dt><strong>normalize_y</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si los valores objetivo y están normalizados, la media y la varianza de los valores objetivo se establecen igual a 0 y 1 respectivamente. Esto se recomienda para los casos en los que se utilicen distribuciones a priori de media cero y varianza unitaria. Ten en cuenta que, en esta implementación, la normalización se invierte antes de que se informen las predicciones GP.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.23.</span></p>
+</div>
+</dd>
+<dt><strong>copy_X_train</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, se almacena una copia persistente de los datos de entrenamiento en el objeto. De lo contrario, sólo se almacena una referencia a los datos de entrenamiento, lo que podría hacer que las predicciones cambien si los datos se modifican externamente.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, default=None</span></dt><dd><p>Determina la generación de números aleatorios utilizados para inicializar los centros. Se pasa un int para obtener resultados reproducibles a través de múltiples invocaciones a la función. Ver :term: <code class="docutils literal notranslate"><span class="pre">Glosario</span> <span class="pre">&lt;random_state&gt;</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_train_</strong><span class="classifier">array-like de forma (n_samples, n_features) o lista de objeto</span></dt><dd><p>Vectores de características u otras representaciones de los datos de entrenamiento (también necesarios para la predicción).</p>
+</dd>
+<dt><strong>y_train_</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_targets)</span></dt><dd><p>Valores objetivo en los datos de entrenamiento (también necesarios para la predicción)</p>
+</dd>
+<dt><strong>kernel_</strong><span class="classifier">instancia de núcleo</span></dt><dd><p>El núcleo (kernel) utilizado para la predicción. La estructura del núcleo es la misma que la pasada como parámetro pero con hiperparámetros optimizados</p>
+</dd>
+<dt><strong>L_</strong><span class="classifier">array-like de forma (n_samples, n_samples)</span></dt><dd><p>Descomposición Cholesky triangular inferior del núcleo en <code class="docutils literal notranslate"><span class="pre">X_train_</span></code></p>
+</dd>
+<dt><strong>alpha_</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Coeficientes duales de los puntos de datos de entrenamiento en el espacio del núcleo</p>
+</dd>
+<dt><strong>log_marginal_likelihood_value_</strong><span class="classifier">float</span></dt><dd><p>La verosimilitud logarítmica marginal de <code class="docutils literal notranslate"><span class="pre">self.kernel_.theta</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_friedman2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">DotProduct</span><span class="p">,</span> <span class="n">WhiteKernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_friedman2</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kernel</span> <span class="o">=</span> <span class="n">DotProduct</span><span class="p">()</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gpr</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gpr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">0.3680...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gpr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">2</span><span class="p">,:],</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">(array([653.0..., 592.1...]), array([316.6..., 316.6...]))</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.gaussian_process.GaussianProcessRegressor.fit" title="sklearn.gaussian_process.GaussianProcessRegressor.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajustar el modelo de regresión del proceso gaussiano.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.gaussian_process.GaussianProcessRegressor.get_params" title="sklearn.gaussian_process.GaussianProcessRegressor.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.gaussian_process.GaussianProcessRegressor.log_marginal_likelihood" title="sklearn.gaussian_process.GaussianProcessRegressor.log_marginal_likelihood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log_marginal_likelihood</span></code></a></p></td>
+<td><p>Devuelve la verosimilitud logarítmica marginal de theta para los datos de entrenamiento.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.gaussian_process.GaussianProcessRegressor.predict" title="sklearn.gaussian_process.GaussianProcessRegressor.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predicción mediante el modelo de regresión del proceso gaussiano</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.gaussian_process.GaussianProcessRegressor.sample_y" title="sklearn.gaussian_process.GaussianProcessRegressor.sample_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_y</span></code></a></p></td>
+<td><p>Extraer muestras del proceso gaussiano y evaluar en X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.gaussian_process.GaussianProcessRegressor.score" title="sklearn.gaussian_process.GaussianProcessRegressor.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.gaussian_process.GaussianProcessRegressor.set_params" title="sklearn.gaussian_process.GaussianProcessRegressor.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajustar el modelo de regresión del proceso gaussiano.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features) o lista de objeto</span></dt><dd><p>Vectores de características u otras representaciones de los datos de entrenamiento.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_targets)</span></dt><dd><p>Valores objetivo</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">devuelve una instancia de sí misma.</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor.log_marginal_likelihood">
+<span class="sig-name descname"><span class="pre">log_marginal_likelihood</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor.log_marginal_likelihood" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la verosimilitud logarítmica marginal de theta para los datos de entrenamiento.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>theta</strong><span class="classifier">array-like de forma (n_kernel_params,) default=None</span></dt><dd><p>Hiperparámetros del núcleo para los que se evalúa la verosimilitud logarítmica marginal. Si es None, se devuelve la log_marginal_likelihood precalculada de <code class="docutils literal notranslate"><span class="pre">self.kernel_.theta</span></code>.</p>
+</dd>
+<dt><strong>eval_gradient</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, el gradiente de la verosimilitud logarítmica marginal con respecto a los hiperparámetros del núcleo en la posición theta se devuelve adicionalmente. Si es True, theta no debe ser None.</p>
+</dd>
+<dt><strong>clone_kernel</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, se copia el atributo del núcleo. Si es False, el atributo del núcleo se modifica, pero puede dar lugar a una mejora del rendimiento.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>log_likelihood</strong><span class="classifier">float</span></dt><dd><p>Verosimilitud logarítmica marginal de theta para los datos de entrenamiento.</p>
+</dd>
+<dt><strong>log_likelihood_gradient</strong><span class="classifier">ndarray de forma (n_kernel_params,), optional</span></dt><dd><p>Gradiente de la verosimilitud logarítmica marginal con respecto a los hiperparámetros del núcleo en la posición theta. Sólo se devuelve cuando eval_gradient es True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predicción mediante el modelo de regresión del proceso gaussiano</p>
+<p>También podemos predecir basándonos en un modelo no ajustado utilizando la prioridad GP. Además de la media de la distribución de predicción, también su desviación estándar (return_std=True) o covarianza (return_cov=True). Ten en cuenta que como máximo se puede solicitar una de las dos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features) o lista de objeto</span></dt><dd><p>Puntos de consulta donde se evalúa el GP.</p>
+</dd>
+<dt><strong>return_std</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, se devuelve la desviación estándar de la distribución predictiva en los puntos de consulta junto con la media.</p>
+</dd>
+<dt><strong>return_cov</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, se devuelve la covarianza de la distribución predictiva conjunta en los puntos de consulta junto con la media.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y_mean</strong><span class="classifier">ndarray de forma (n_samples, [n_output_dims])</span></dt><dd><p>Media de la distribución predictiva de los puntos de consulta.</p>
+</dd>
+<dt><strong>y_std</strong><span class="classifier">ndarray de forma (n_samples,), opcional</span></dt><dd><p>Desviación estándar de la distribución predictiva en los puntos de consulta. Sólo se devuelve cuando <code class="docutils literal notranslate"><span class="pre">return_std</span></code> es True.</p>
+</dd>
+<dt><strong>y_cov</strong><span class="classifier">ndarray de forma (n_samples, n_samples), optional</span></dt><dd><p>Covarianza de la distribución predictiva conjunta de los puntos de la consulta. Sólo se devuelve cuando <code class="docutils literal notranslate"><span class="pre">return_cov</span></code> es True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor.sample_y">
+<span class="sig-name descname"><span class="pre">sample_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor.sample_y" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Extraer muestras del proceso gaussiano y evaluar en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features) o lista de objeto</span></dt><dd><p>Puntos de consulta donde se evalúa el GP.</p>
+</dd>
+<dt><strong>n_samples</strong><span class="classifier">int, default=1</span></dt><dd><p>El número de muestras extraídas del proceso gaussiano</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, default=0</span></dt><dd><p>Determina la generación de números aleatorios para extraer muestras al azar. Pasa un int para obtener resultados reproducibles a través de múltiples llamadas a la función. Ver :term: <code class="docutils literal notranslate"><span class="pre">Glosario</span> <span class="pre">&lt;random_state&gt;</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y_samples</strong><span class="classifier">ndarray de forma (n_samples_X, [n_output_dims], n_samples)</span></dt><dd><p>Valores de n_muestras extraídos del proceso gaussiano y evaluados en los puntos de consulta.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> de la predicción.</p>
+<p>El coeficiente <span class="math notranslate nohighlight">\(R^2\)</span> se define como <span class="math notranslate nohighlight">\((1 - \frac{u}{v})\)</span>, donde <span class="math notranslate nohighlight">\(u\)</span> es la suma residual de cuadrados <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_pred)</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code> y <span class="math notranslate nohighlight">\(v\)</span> es la suma total de cuadrados <code class="docutils literal notranslate"><span class="pre">((y_true</span> <span class="pre">-</span> <span class="pre">y_true.mean())</span> <span class="pre">**</span> <span class="pre">2).sum()</span></code>. La mejor puntuación posible es 1.0 y puede ser negativa (porque el modelo puede ser arbitrariamente peor). Un modelo constante que siempre predice el valor esperado de <code class="docutils literal notranslate"><span class="pre">y</span></code>, sin tener en cuenta las características de entrada, obtendría una puntuación <span class="math notranslate nohighlight">\(R^2\)</span> de 0,0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba. Para algunos estimadores puede ser una matriz de núcleo precalculada o una lista de objetos genéricos con forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_samples_fitted)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">n_samples_fitted</span></code> es el número de muestras utilizadas en el ajuste para el estimador.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Valores verdaderos para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de la muestra.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd><p><span class="math notranslate nohighlight">\(R^2\)</span> de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>La puntuación <span class="math notranslate nohighlight">\(R^2\)</span> utilizada al llamar a <code class="docutils literal notranslate"><span class="pre">score</span></code> en un regresor utiliza <code class="docutils literal notranslate"><span class="pre">multioutput='uniform_average'</span></code> desde la versión 0.23 para mantener la coherencia con el valor predeterminado de <code class="xref py py-func docutils literal notranslate"><span class="pre">r2_score`</span></code>. Esto influye en el método <code class="docutils literal notranslate"><span class="pre">score</span></code> de todos los regresores de salida múltiple (excepto para <a class="reference internal" href="sklearn.multioutput.MultiOutputRegressor.html#sklearn.multioutput.MultiOutputRegressor" title="sklearn.multioutput.MultiOutputRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputRegressor</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.gaussian_process.GaussianProcessRegressor.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.gaussian_process.GaussianProcessRegressor.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;`</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-gaussian-process-gaussianprocessregressor">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.gaussian_process.GaussianProcessRegressor</span></code><a class="headerlink" href="#examples-using-sklearn-gaussian-process-gaussianprocessregressor" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Both kernel ridge regression (KRR) and Gaussian process regression (GPR) learn a target functio..."><figure class="align-default" id="id1">
+<img alt="Comparison of kernel ridge and Gaussian process regression" src="../../_images/sphx_glr_plot_compare_gpr_krr_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/gaussian_process/plot_compare_gpr_krr.html#sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py"><span class="std std-ref">Comparación de la cresta del núcleo y la regresión del proceso gaussiano</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the prior and posterior of a GPR with different kernels. Mean, standar..."><figure class="align-default" id="id2">
+<img alt="Illustration of prior and posterior Gaussian process for different kernels" src="../../_images/sphx_glr_plot_gpr_prior_posterior_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_prior_posterior.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-prior-posterior-py"><span class="std std-ref">Illustración del proceso Gaussiano anterior y posterior para diferentes núcleos</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates that GPR with a sum-kernel including a WhiteKernel can estimate the no..."><figure class="align-default" id="id3">
+<img alt="Gaussian process regression (GPR) with noise-level estimation" src="../../_images/sphx_glr_plot_gpr_noisy_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_noisy.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-py"><span class="std std-ref">Regresión del proceso gaussiano (GPR) con estimación a nivel de ruido</span></a></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="A simple one-dimensional regression example computed in two different ways:"><figure class="align-default" id="id4">
+<img alt="Gaussian Processes regression: basic introductory example" src="../../_images/sphx_glr_plot_gpr_noisy_targets_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_noisy_targets.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-targets-py"><span class="std std-ref">Regresión de procesos Gaussianos: ejemplo introductorio básico</span></a></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example is based on Section 5.4.3 of &quot;Gaussian Processes for Machine Learning&quot; [RW2006]. I..."><figure class="align-default" id="id5">
+<img alt="Gaussian process regression (GPR) on Mauna Loa CO2 data." src="../../_images/sphx_glr_plot_gpr_co2_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_co2.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-co2-py"><span class="std std-ref">Regresión del proceso gaussiano (GPR) en los datos de CO2 de Mauna Loa.</span></a></span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of Gaussian processes for regression and classification tasks ..."><figure class="align-default" id="id6">
+<img alt="Gaussian processes on discrete data structures" src="../../_images/sphx_glr_plot_gpr_on_structured_data_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_on_structured_data.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-on-structured-data-py"><span class="std std-ref">Procesos Gaussianos en estructuras de datos discretos</span></a></span><a class="headerlink" href="#id6" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

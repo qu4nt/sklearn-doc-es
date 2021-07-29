@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.ensemble.ExtraTreesClassifier &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.ensemble.BaggingRegressor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.ensemble.BaggingRegressor">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.ensemble.ExtraTreesRegressor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.ensemble.ExtraTreesRegressor">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.ensemble</span></code>.ExtraTreesClassifier</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-ensemble-extratreesclassifier">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.ensemble" title="sklearn.ensemble"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.ensemble</span></code></a>.ExtraTreesClassifier<a class="headerlink" href="#sklearn-ensemble-extratreesclassifier" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.ensemble.</span></span><span class="sig-name descname"><span class="pre">ExtraTreesClassifier</span></span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Un clasificador extra-árbol.</p>
+<p>Esta clase implementa un metaestimador que se ajusta a un número de árboles de decisión aleatorios (alias extra-arboles) en varias submuestras del conjunto de datos y utiliza el promedio para mejorar la precisión predictiva y controlar el sobre-ajuste.</p>
+<p>Más información en <a class="reference internal" href="../ensemble.html#forest"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_estimators</strong><span class="classifier">entero, default=100</span></dt><dd><p>El número de árboles en el bosque.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.22: </span>El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">n_estimators</span></code> cambió de 10 a 100 en 0.22.</p>
+</div>
+</dd>
+<dt><strong>criterion</strong><span class="classifier">{«gini», «entropy»}, default=»gini»</span></dt><dd><p>La función de medir la calidad de una división, los criterios soportados son «gini» para la impureza de Gini y «entropy» para la ganancia de información.</p>
+</dd>
+<dt><strong>max_depth</strong><span class="classifier">entero, default=None</span></dt><dd><p>La profundidad máxima del árbol. Si None, entonces los nodos se expanden hasta que todas las hojas sean puras o hasta que todas contengan menos que min_samples_split muestras.</p>
+</dd>
+<dt><strong>min_samples_split</strong><span class="classifier">entero o flotante, default=2</span></dt><dd><p>El número mínimo de muestras requeridas para dividir un nodo interno:</p>
+<ul class="simple">
+<li><p>Si es entero, entonces considera <code class="docutils literal notranslate"><span class="pre">min_samples_split</span></code> como el número mínimo.</p></li>
+<li><p>Si es flotante, entonces <code class="docutils literal notranslate"><span class="pre">min_samples_split</span></code> es una fracción y <code class="docutils literal notranslate"><span class="pre">ceil(min_samples_split</span> <span class="pre">*</span> <span class="pre">n_samples)</span></code> son el número mínimo de muestras para cada división.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.18: </span>Se añadieron valores flotantes para las fracciones.</p>
+</div>
+</dd>
+<dt><strong>min_samples_leaf</strong><span class="classifier">entero o flotante, default=1</span></dt><dd><p>El número mínimo de muestras requeridas para estar en un nodo de hoja. Un punto dividido a cualquier profundidad sólo se considerará si deja al menos <code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code> muestras de entrenamiento en cada una de las ramas izquierda y derecha. Esto puede tener el efecto de suavizar el modelo, especialmente en regresión.</p>
+<ul class="simple">
+<li><p>Si es entero, entonces considera <code class="docutils literal notranslate"><span class="pre">min_samples_split</span></code> como el número mínimo.</p></li>
+<li><p>Si es flotante, entonces <code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code> es una fracción y <code class="docutils literal notranslate"><span class="pre">ceil(min_samples_leaf</span> <span class="pre">*</span> <span class="pre">n_samples)</span></code> son el número mínimo de muestras para cada nodo.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.18: </span>Se añadieron valores flotantes para las fracciones.</p>
+</div>
+</dd>
+<dt><strong>min_weight_fraction_leaf</strong><span class="classifier">flotante, default=0.0</span></dt><dd><p>La fracción mínima ponderada de la suma total de las ponderaciones (de todas las muestras de entrada) requeridas para estar en un nodo de hoja. Las muestras tienen la misma ponderación cuando no se proporciona sample_weight.</p>
+</dd>
+<dt><strong>max_features</strong><span class="classifier">{«auto», «sqrt», «log2»}, entero o flotante, default=»auto»</span></dt><dd><p>El número de características a tener en cuenta cuando se busca la mejor división:</p>
+<ul class="simple">
+<li><p>Si es entero, entonces considere las características <code class="docutils literal notranslate"><span class="pre">max_features</span></code> en cada división.</p></li>
+<li><p>Si es flotante, entonces <code class="docutils literal notranslate"><span class="pre">max_features</span></code> es una fracción y las características <code class="docutils literal notranslate"><span class="pre">round(max_features</span> <span class="pre">*</span> <span class="pre">n_features)</span></code> son consideradas en cada división.</p></li>
+<li><p>Si «auto», entonces <code class="docutils literal notranslate"><span class="pre">max_features=sqrt(n_features)</span></code>.</p></li>
+<li><p>Si «sqrt», entonces <code class="docutils literal notranslate"><span class="pre">max_features=sqrt(n_features)</span></code>.</p></li>
+<li><p>Si «log2», entonces <code class="docutils literal notranslate"><span class="pre">max_features=log2(n_features)</span></code>.</p></li>
+<li><p>Si None, entonces <code class="docutils literal notranslate"><span class="pre">max_features=n_features</span></code>.</p></li>
+</ul>
+<p>Nota: la búsqueda de una división no se detiene hasta que se encuentre al menos una partición válida de las muestras de nodos, incluso si requiere inspeccionar eficazmente más de las características de <code class="docutils literal notranslate"><span class="pre">max_features</span></code>.</p>
+</dd>
+<dt><strong>max_leaf_nodes</strong><span class="classifier">entero, default=None</span></dt><dd><p>Hacer crecer árboles con <code class="docutils literal notranslate"><span class="pre">max_leaf_nodes</span></code> en modo best-first. Los mejores nodos se definen como una reducción relativa de la impureza. Si es None, el número de nodos hoja es ilimitado.</p>
+</dd>
+<dt><strong>min_impurity_decrease</strong><span class="classifier">flotante, default=0.0</span></dt><dd><p>Un nodo se dividirá si esta división induce una disminución de la impureza mayor o igual a este valor.</p>
+<p>La ecuación de disminución de impureza ponderada es la siguiente:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_t</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="p">(</span><span class="n">impurity</span> <span class="o">-</span> <span class="n">N_t_R</span> <span class="o">/</span> <span class="n">N_t</span> <span class="o">*</span> <span class="n">right_impurity</span>
+                    <span class="o">-</span> <span class="n">N_t_L</span> <span class="o">/</span> <span class="n">N_t</span> <span class="o">*</span> <span class="n">left_impurity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>donde <code class="docutils literal notranslate"><span class="pre">N</span></code> es el número total de muestras, <code class="docutils literal notranslate"><span class="pre">N_t</span></code> es el número de muestras en el nodo actual, <code class="docutils literal notranslate"><span class="pre">N_t_L</span></code> es el número de muestras en el hijo izquierdo, y <code class="docutils literal notranslate"><span class="pre">N_t_R</span></code> es el número de muestras en el hijo derecho.</p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">N_t</span></code>, <code class="docutils literal notranslate"><span class="pre">N_t_R</span></code> y <code class="docutils literal notranslate"><span class="pre">N_t_L</span></code> se refieren a la suma ponderada, si <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> es pasada.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.19.</span></p>
+</div>
+</dd>
+<dt><strong>min_impurity_split</strong><span class="classifier">flotante, default=None</span></dt><dd><p>Umbral para la detención temprana del crecimiento del árbol. Un nodo se dividirá si su impureza está por encima del umbral, de lo contrario es una hoja.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Obsoleto desde la versión 0.19: </span><code class="docutils literal notranslate"><span class="pre">min_impurity_split</span></code> ha quedado obsoleto en favor de <code class="docutils literal notranslate"><span class="pre">min_impurity_decrease</span></code> en la versión 0.19. El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">min_impurity_split</span></code> ha cambiado de 1e-7 a 0 en 0.23 y se eliminará en 1.0 (cambio de nombre de 0.25). Utiliza <code class="docutils literal notranslate"><span class="pre">min_impurity_decrease</span></code> en su lugar.</p>
+</div>
+</dd>
+<dt><strong>bootstrap</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Si se utilizan muestras por bootstrap al construir árboles. Si es False, todo el conjunto de datos se utiliza para construir cada árbol.</p>
+</dd>
+<dt><strong>oob_score</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Whether to use out-of-bag samples to estimate the generalization score.
+Only available if bootstrap=True.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">entero, default=None</span></dt><dd><p>El número de trabajos a ejecutar en paralelo. <a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.fit" title="sklearn.ensemble.ExtraTreesClassifier.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit</span></code></a>, <a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.predict" title="sklearn.ensemble.ExtraTreesClassifier.predict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">predict</span></code></a>, <a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.decision_path" title="sklearn.ensemble.ExtraTreesClassifier.decision_path"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decision_path</span></code></a> y <a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.apply" title="sklearn.ensemble.ExtraTreesClassifier.apply"><code class="xref py py-meth docutils literal notranslate"><span class="pre">apply</span></code></a> son todos paralelizados sobre los árboles. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 excepto en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa usar todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState, default=None</span></dt><dd><p>Controla 3 fuentes de aleatoriedad:</p>
+<ul class="simple">
+<li><p>el bootstrapping de las muestras utilizadas al construir árboles (si <code class="docutils literal notranslate"><span class="pre">bootstrap=True</span></code>)</p></li>
+<li><p>el muestreo de las características a considerar al buscar la mejor división en cada nodo (si <code class="docutils literal notranslate"><span class="pre">max_features</span> <span class="pre">&lt;</span> <span class="pre">n_features</span></code>)</p></li>
+<li><p>el sorteo de las divisiones para cada una de las <code class="docutils literal notranslate"><span class="pre">max_features</span></code></p></li>
+</ul>
+<p>Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">entero, default=0</span></dt><dd><p>Controla la verbosidad a la hora de ajustar y predecir.</p>
+</dd>
+<dt><strong>warm_start</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Cuando se establece a <code class="docutils literal notranslate"><span class="pre">True</span></code>, reutiliza la solución de la llamada anterior para ajustar y añadir más estimadores al ensemble, de lo contrario, solamente ajustara un nuevo bosque. Ver <a class="reference internal" href="../../glossary.html#term-warm_start"><span class="xref std std-term">el Glosario</span></a>.</p>
+</dd>
+<dt><strong>class_weight</strong><span class="classifier">{«balanced», «balanced_subsample»}, dict o list of dicts,             default=None</span></dt><dd><p>Ponderaciones asociadas a las clases de la forma <code class="docutils literal notranslate"><span class="pre">{class_label:</span> <span class="pre">weight}</span></code>. Si no se da, se supone que todas las clases tienen una ponderación de uno. Para los problemas de varias salidas, se puede proporcionar una lista de diccionarios en el mismo orden que las columnas de y.</p>
+<p>Ten en cuenta que para multisalida (incluyendo multietiqueta) las ponderaciones deben ser definidas para cada clase de cada columna en su propio diccionario. Por ejemplo, para la clasificación múltiple de cuatro clases debe ser [{0: 1, 1: 1}, {0: 1, 1: 5}, {0: 1, 1: 1}, {0: 1, 1: 1}] en lugar de [{1:1}, {2:5}, {3:1}, {4:1}].</p>
+<p>El modo «balanced» utiliza los valores de y para ajustar automáticamente las ponderaciones inversamente proporcionales a las frecuencias de clase en los datos de entrada como <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">/</span> <span class="pre">(n_classes</span> <span class="pre">*</span> <span class="pre">np.bincount(y))</span></code></p>
+<p>El modo «balanced_subsample» es igual que «balanced», excepto que las ponderaciones se calculan basándose en la muestra de bootstrap para cada árbol que crece.</p>
+<p>Para multisalida, las ponderaciones de cada columna de y se multiplicarán.</p>
+<p>Ten en cuenta que estas ponderaciones serán multiplicadas con sample_weight (pasadas por el método de ajuste) si se especifica sample_weight.</p>
+</dd>
+<dt><strong>ccp_alpha</strong><span class="classifier">flotante no negativo, default=0.0</span></dt><dd><p>Parámetro de complejidad utilizado para la poda de complejidad de costes mínima. Se elegirá el subárbol con la mayor complejidad de costes que sea menor que <code class="docutils literal notranslate"><span class="pre">ccp_alpha</span></code>. Por defecto, no se realiza ninguna poda. Ver <a class="reference internal" href="../tree.html#minimal-cost-complexity-pruning"><span class="std std-ref">Poda de Coste-Complejidad Mínima</span></a> para más detalles.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</dd>
+<dt><strong>max_samples</strong><span class="classifier">entero o flotante, default=None</span></dt><dd><p>Si el bootstrap es True, el número de muestras a escoger de X para entrenar cada estimador base.</p>
+<ul class="simple">
+<li><p>Si es None (predeterminado), entonces escoge <code class="docutils literal notranslate"><span class="pre">X.shape[0]</span></code> muestras.</p></li>
+<li><p>Si es entero, entonces escoge <code class="docutils literal notranslate"><span class="pre">max_samples</span></code> muestras.</p></li>
+<li><p>Si es flotante, entonces escoge <code class="docutils literal notranslate"><span class="pre">max_samples</span> <span class="pre">*</span> <span class="pre">X.shape[0]</span></code> muestras. Entonces, <code class="docutils literal notranslate"><span class="pre">max_samples</span></code> debería estar en el intervalo <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1)</span></code>.</p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>base_estimator_</strong><span class="classifier">ExtraTreesClassifier</span></dt><dd><p>La plantilla de estimador hijo utilizada para crear la colección de sub-estimadores ajustados.</p>
+</dd>
+<dt><strong>estimators_</strong><span class="classifier">lista de DecisionTreeClassifier</span></dt><dd><p>La colección de sub-estimadores ajustados.</p>
+</dd>
+<dt><strong>classes_</strong><span class="classifier">ndarray de la forma (n_classes,) o una lista de dichos arreglos</span></dt><dd><p>Las etiquetas de clases (problema de salida única), o una lista de arreglos de etiquetas de clase (problema de multi-salida).</p>
+</dd>
+<dt><strong>n_classes_</strong><span class="classifier">entero o lista</span></dt><dd><p>El número de clases (problema de salida única), o una lista que contiene el número de clases para cada salida (problema de salida múltiple).</p>
+</dd>
+<dt><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.feature_importances_" title="sklearn.ensemble.ExtraTreesClassifier.feature_importances_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_importances_</span></code></a><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Las importancias basadas en la impureza de las características.</p>
+</dd>
+<dt><strong>n_features_</strong><span class="classifier">entero</span></dt><dd><p>El número de características cuando <code class="docutils literal notranslate"><span class="pre">fit</span></code> es realizado.</p>
+</dd>
+<dt><strong>n_outputs_</strong><span class="classifier">entero</span></dt><dd><p>El número de salidas cuando se realiza <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+</dd>
+<dt><strong>oob_score_</strong><span class="classifier">flotante</span></dt><dd><p>Puntuación del conjunto de datos de entrenamiento obtenido utilizando una estimación fuera de bolsa. Este atributo solo existe cuando <code class="docutils literal notranslate"><span class="pre">oob_score</span></code> es True.</p>
+</dd>
+<dt><strong>oob_decision_function_</strong><span class="classifier">ndarray de forma (n_samples, n_classes)</span></dt><dd><p>Función de decisión calculada con estimación de fuera de bolsa sobre el conjunto de entrenamiento. Si n_estimators es pequeño, puede ser posible que un punto de datos nunca se haya dejado fuera durante el bootstrap. En este caso, <code class="docutils literal notranslate"><span class="pre">oob_decision_function_</span></code> podría contener NaN. Este atributo existe sólo cuando <code class="docutils literal notranslate"><span class="pre">oob_score</span></code> es True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.tree.ExtraTreeClassifier.html#sklearn.tree.ExtraTreeClassifier" title="sklearn.tree.ExtraTreeClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.tree.ExtraTreeClassifier</span></code></a></dt><dd><p>Clasificador base para este ensemble.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a></dt><dd><p>Clasificador de Ensemble basado en árboles con divisiones óptimas.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Los valores predeterminados de los parámetros que controlan el tamaño de los árboles (por ejemplo, <code class="docutils literal notranslate"><span class="pre">`max_depth</span></code>, <code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code>, etc.) conducen a árboles completamente desarrollados y sin podar que pueden ser potencialmente muy grandes en algunos conjuntos de datos. Para reducir el consumo de memoria, la complejidad y el tamaño de los árboles deben controlarse estableciendo los valores de esos parámetros.</p>
+<p class="rubric">Referencias</p>
+<dl class="citation">
+<dt class="label" id="rc8f28bfad63f-1"><span class="brackets">1</span></dt>
+<dd><p>P. Geurts, D. Ernst., and L. Wehenkel, «Extremely randomized
+trees», Machine Learning, 63(1), 3-42, 2006.</p>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">ExtraTreesClassifier(random_state=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="go">array([1])</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.apply" title="sklearn.ensemble.ExtraTreesClassifier.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a></p></td>
+<td><p>Aplica los árboles en el bosque a X, devuelve los índices de las hojas.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.decision_path" title="sklearn.ensemble.ExtraTreesClassifier.decision_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_path</span></code></a></p></td>
+<td><p>Devuelve la ruta de decisión en el bosque.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.fit" title="sklearn.ensemble.ExtraTreesClassifier.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Construye un bosque de árboles a partir del conjunto de entrenamiento (X, y).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.get_params" title="sklearn.ensemble.ExtraTreesClassifier.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.predict" title="sklearn.ensemble.ExtraTreesClassifier.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice la clase para X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.predict_log_proba" title="sklearn.ensemble.ExtraTreesClassifier.predict_log_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_log_proba</span></code></a></p></td>
+<td><p>Predice las probabilidades logarítmicas de clase para X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.predict_proba" title="sklearn.ensemble.ExtraTreesClassifier.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Predice las probabilidades de clase para X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.score" title="sklearn.ensemble.ExtraTreesClassifier.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.ensemble.ExtraTreesClassifier.set_params" title="sklearn.ensemble.ExtraTreesClassifier.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.apply" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aplica los árboles en el bosque a X, devuelve los índices de las hojas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, su dtype se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code>. Si se proporciona una matriz dispersa, se convertirá a una <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code> dispersa.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_leaves</strong><span class="classifier">ndarray de forma (n_samples, n_estimators)</span></dt><dd><p>Para cada punto de dato x en X y para cada árbol en el bosque, devuelve el índice de la hoja en la que termina x.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.decision_path">
+<span class="sig-name descname"><span class="pre">decision_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.decision_path" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la ruta de decisión en el bosque.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.18.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, su dtype se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code>. Si se proporciona una matriz dispersa, se convertirá a una <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code> dispersa.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>indicator</strong><span class="classifier">matriz dispersa de forma (n_samples, n_nodes)</span></dt><dd><p>Devuelve una matriz de indicadores de nodos donde los elementos no nulos indican que las muestras pasan por los nodos. La matriz tiene el formato CSR.</p>
+</dd>
+<dt><strong>n_nodes_ptr</strong><span class="classifier">ndarray de forma (n_estimators + 1,)</span></dt><dd><p>Las columnas de indicator[n_nodes_ptr[i]:n_nodes_ptr[i+1]] devuelve el valor de indicador para el estimador i-ésimo.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.feature_importances_">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">feature_importances_</span></span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.feature_importances_" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Las importancias basadas en la impureza de las características.</p>
+<p>Cuanto más alto, más importante sera la característica. La importancia de una característica se calcula como la reducción total (normalizada) del criterio traído por esa función. También se le conoce como la importancia de Gini.</p>
+<p>Advertencia: las importancias de característica basadas en la impureza pueden ser engañosas para las características de alta cardinalidad (muchos valores únicos). Ver <a class="reference internal" href="sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="sklearn.inspection.permutation_importance"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.inspection.permutation_importance</span></code></a> como una alternativa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>feature_importances_</strong><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Los valores de este arreglo suman a 1, a menos que todos los árboles sean árboles de nodos individuales consistiendo de solo el nodo raíz, en cuyo caso sera un arreglo de ceros.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Construye un bosque de árboles a partir del conjunto de entrenamiento (X, y).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. Internamente, su dtype se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code>. Si se proporciona una matriz dispersa, se convertirá a una <code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code> dispersa.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Los valores objetivo (etiquetas de clase en clasificación, números reales en regresión).</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de muestra. Si es None, entonces las muestras están ponderadas de la misma manera. Divisiones que crearían nodos hijos con ponderado neto cero o negativo son ignoradas al buscar una división en cada nodo. En el caso de la clasificación, las divisiones también se ignoran si resultarían en cualquier clase individual llevando un ponderado negativo en cualquiera de los nodos hijos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice la clase para X.</p>
+<p>La clase predicha de una muestra de entrada es un voto de los árboles en el bosque, ponderado por sus estimaciones de probabilidad. Es decir, la clase predicha es la más alta media estimación de probabilidad a través de los árboles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, su dtype se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code>. Si se proporciona una matriz dispersa, se convertirá a una <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code> dispersa.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y</strong><span class="classifier">ndarray de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Las clases predichas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.predict_log_proba">
+<span class="sig-name descname"><span class="pre">predict_log_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.predict_log_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las probabilidades logarítmicas de clase para X.</p>
+<p>Las probabilidades logarítmicas de clase predichas de una muestra de entrada se calculan como el logaritmo de las probabilidades medias de clase predichas de los árboles del bosque.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, su dtype se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code>. Si se proporciona una matriz dispersa, se convertirá a una <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code> dispersa.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>p</strong><span class="classifier">ndarray de forma (n_samples, n_classes), o una lista de n_outputs</span></dt><dd><p>tales arreglos si n_outputs &gt; 1. Las probabilidades de clase de las muestras de entrada. El orden de las clases corresponde a eso en el atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las probabilidades de clase para X.</p>
+<p>Las probabilidades de clase predichas de una muestra de entrada se calculan como las probabilidades de clase predichas de los árboles en el bosque. La probabilidad de clase de un solo árbol es la fracción de muestras de la misma clase en una hoja.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, su dtype se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code>. Si se proporciona una matriz dispersa, se convertirá a una <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code> dispersa.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>p</strong><span class="classifier">ndarray de forma (n_samples, n_classes), o una lista de n_outputs</span></dt><dd><p>tales arreglos si n_outputs &gt; 1. Las probabilidades de clase de las muestras de entrada. El orden de las clases corresponde a eso en el atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p>
+<p>En la clasificación multietiqueta, esta es la precisión del subconjunto, la cual es una métrica rigurosa ya que se requiere para cada muestra que cada conjunto de etiquetas sea predicho correctamente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Etiquetas verdaderas para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderados de muestras.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">flotante</span></dt><dd><p>Precisión media de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con relación a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.ensemble.ExtraTreesClassifier.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.ensemble.ExtraTreesClassifier.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;`</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.ensemble.ExtraTreesClassifier.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

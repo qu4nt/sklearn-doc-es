@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.decomposition.IncrementalPCA &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.IncrementalPCA.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.decomposition.FastICA.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.decomposition.FastICA">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.decomposition.KernelPCA.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.decomposition.KernelPCA">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.decomposition</span></code>.IncrementalPCA</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-decomposition-incrementalpca">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.decomposition" title="sklearn.decomposition"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.decomposition</span></code></a>.IncrementalPCA<a class="headerlink" href="#sklearn-decomposition-incrementalpca" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.decomposition.</span></span><span class="sig-name descname"><span class="pre">IncrementalPCA</span></span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Análisis de componentes principales incremental (Incremental principal components analysis, IPCA).</p>
+<p>Reducción lineal de la dimensionalidad mediante la Descomposición en Valores Singulares de los datos, manteniendo sólo los vectores singulares más significativos para proyectar los datos a un espacio de menor dimensión. Los datos de entrada se centran pero no se escalan para cada característica antes de aplicar la SVD.</p>
+<p>Dependiendo del tamaño de los datos de entrada, este algoritmo puede ser mucho más eficiente en cuanto a memoria que un PCA, y permite una entrada dispersa.</p>
+<p>Este algoritmo tiene una complejidad de memoria constante, del orden de <code class="docutils literal notranslate"><span class="pre">batch_size</span> <span class="pre">*</span> <span class="pre">n_features</span></code>, lo que permite utilizar archivos np.memmap sin cargar todo el archivo en memoria. En el caso de las matrices dispersas, la entrada se convierte en densa por lotes (para poder restar la media), lo que evita almacenar la matriz densa completa en cualquier momento.</p>
+<p>La sobrecarga computacional de cada SVD es <code class="docutils literal notranslate"><span class="pre">O(batch_size</span> <span class="pre">*</span> <span class="pre">n_features</span> <span class="pre">**</span> <span class="pre">2)</span></code>, pero sólo 2 * batch_size muestras permanecen en memoria a la vez. Habrá <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">/</span> <span class="pre">batch_size</span></code> cálculos de SVD para obtener los componentes principales, frente a 1 SVD grande de complejidad <code class="docutils literal notranslate"><span class="pre">O(n_samples</span> <span class="pre">*</span> <span class="pre">n_features</span> <span class="pre">**</span> <span class="pre">2)</span></code> para PCA.</p>
+<p>Lee más en el <a class="reference internal" href="../decomposition.html#incrementalpca"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.16.</span></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_components</strong><span class="classifier">int, default=None</span></dt><dd><p>Número de componentes a mantener. Si <code class="docutils literal notranslate"><span class="pre">n_components</span> <span class="pre">es</span> <span class="pre">``None</span></code>, entonces <code class="docutils literal notranslate"><span class="pre">n_components</span></code> se establece en <code class="docutils literal notranslate"><span class="pre">min(n_samples,</span> <span class="pre">n_features)</span></code>.</p>
+</dd>
+<dt><strong>whiten</strong><span class="classifier">bool, default=False</span></dt><dd><p>Cuando es True (False por defecto) los <code class="docutils literal notranslate"><span class="pre">components_</span></code> vectores se dividen entre <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> por <code class="docutils literal notranslate"><span class="pre">components_</span></code> para asegurar salidas no correlacionadas con varianzas unitarias de los componentes.</p>
+<p>El whitening eliminará parte de la información de la señal transformada (las escalas de varianza relativas de los componentes), pero a veces puede mejorar la precisión predictiva de los estimadores posteriores al hacer que los datos respeten algunos supuestos fijos.</p>
+</dd>
+<dt><strong>copy</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es False, X se sobrescribirá. <code class="docutils literal notranslate"><span class="pre">copy=False</span></code> puede utilizarse para ahorrar memoria pero no es seguro para el uso general.</p>
+</dd>
+<dt><strong>batch_size</strong><span class="classifier">int, default=None</span></dt><dd><p>El número de muestras a utilizar para cada lote. Sólo se utiliza cuando se llama a <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Si <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> es <code class="docutils literal notranslate"><span class="pre">None</span></code>, entonces <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> se infiere de los datos y se establece en <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">*</span> <span class="pre">n_features</span></code>, para proporcionar un equilibrio entre la precisión de la aproximación y el consumo de memoria.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>components_</strong><span class="classifier">ndarray de forma (n_components, n_features)</span></dt><dd><p>Componentes con máxima varianza.</p>
+</dd>
+<dt><strong>explained_variance_</strong><span class="classifier">ndarray de forma (n_components,)</span></dt><dd><p>Varianza explicada por cada uno de los componentes seleccionados.</p>
+</dd>
+<dt><strong>explained_variance_ratio_</strong><span class="classifier">ndarray de forma (n_components,)</span></dt><dd><p>Porcentaje de la varianza explicada por cada uno de los componentes seleccionados. Si se almacenan todos los componentes, la suma de las varianzas explicadas es igual a 1,0.</p>
+</dd>
+<dt><strong>singular_values_</strong><span class="classifier">ndarray de forma (n_components,)</span></dt><dd><p>Los valores singulares correspondientes a cada uno de los componentes seleccionados. Los valores singulares son iguales a las 2-normas de las <code class="docutils literal notranslate"><span class="pre">n_components</span></code> variables en el espacio de menor dimensión.</p>
+</dd>
+<dt><strong>mean_</strong><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Media empírica por característica, agregada sobre las llamadas a <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
+</dd>
+<dt><strong>var_</strong><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Varianza empírica por característica, agregada sobre las llamadas a <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
+</dd>
+<dt><strong>noise_variance_</strong><span class="classifier">float</span></dt><dd><p>La covarianza del ruido estimada según el modelo de PCA probabilístico de Tipping y Bishop 1999. Vea «Pattern Recognition and Machine Learning» de C. Bishop, 12.2.1 p. 574 o <a class="reference external" href="http://www.miketipping.com/papers/met-mppca.pdf">http://www.miketipping.com/papers/met-mppca.pdf</a>.</p>
+</dd>
+<dt><strong>n_components_</strong><span class="classifier">int</span></dt><dd><p>El número estimado de componentes. Relevante cuando <code class="docutils literal notranslate"><span class="pre">n_components=None</span></code>.</p>
+</dd>
+<dt><strong>n_samples_seen_</strong><span class="classifier">int</span></dt><dd><p>El número de muestras procesadas por el estimador. Se restablecerá en las nuevas llamadas a fit, pero se incrementa a través de las llamadas a <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code>.</p>
+</dd>
+<dt><strong>batch_size_</strong><span class="classifier">int</span></dt><dd><p>Tamaño de lote inferido a partir de <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCA</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.decomposition.KernelPCA.html#sklearn.decomposition.KernelPCA" title="sklearn.decomposition.KernelPCA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KernelPCA</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.decomposition.SparsePCA.html#sklearn.decomposition.SparsePCA" title="sklearn.decomposition.SparsePCA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SparsePCA</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.decomposition.TruncatedSVD.html#sklearn.decomposition.TruncatedSVD" title="sklearn.decomposition.TruncatedSVD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TruncatedSVD</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Implementa el modelo de PCA incremental de: <em>D. Ross, J. Lim, R. Lin, M. Yang, Incremental Learning for Robust Visual Tracking, International Journal of Computer Vision, Volume 77, Issue 1-3, pp. 125-141, Mayo de 2008.</em> Ver <a class="reference external" href="https://www.cs.toronto.edu/~dross/ivt/RossLimLinYang_ijcv.pdf">https://www.cs.toronto.edu/~dross/ivt/RossLimLinYang_ijcv.pdf</a></p>
+<p>Este modelo es una extensión de la Transformación Secuencial Karhunen-Loeve de: <em>A. Levy y M. Lindenbaum, Sequential Karhunen-Loeve Basis Extraction and its Application to Images, IEEE Transactions on Image Processing, Volume 9, Number 8, pp. 1371-1374, August 2000.</em> Ver <a class="reference external" href="https://www.cs.technion.ac.il/~mic/doc/skl-ip.pdf">https://www.cs.technion.ac.il/~mic/doc/skl-ip.pdf</a></p>
+<p>Nos hemos abstenido específicamente de una optimización utilizada por los autores de ambos artículos, una descomposición QR utilizada en situaciones específicas para reducir la complejidad algorítmica de la SVD. La fuente de esta técnica es <em>Matrix Computations, Tercera Edición, G. Holub y C. Van Loan, Capítulo 5, Sección 5.4.4, pp 252-253.</em>. Esta técnica se ha omitido porque sólo es ventajosa al descomponer cuando se descompone una matriz con <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> (filas) &gt;= 5/3 * <a href="#id1"><span class="problematic" id="id2">``</span></a>n_features``(columnas), y perjudica la legibilidad del algoritmo implementado. Esta sería una buena oportunidad para una optimización futura, si se considera necesaria.</p>
+<p class="rubric">Referencias</p>
+<p>D. Ross, J. Lim, R. Lin, M. Yang. Incremental Learning for Robust Visual
+Tracking, International Journal of Computer Vision, Volume 77,
+Issue 1-3, pp. 125-141, May 2008.</p>
+<p>G. Golub and C. Van Loan. Matrix Computations, Third Edition, Chapter 5,
+Section 5.4.4, pp. 252-253.</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">IncrementalPCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">IncrementalPCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># either partially fit on smaller batches of data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span><span class="o">.</span><span class="n">partial_fit</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">100</span><span class="p">,</span> <span class="p">:])</span>
+<span class="go">IncrementalPCA(batch_size=200, n_components=7)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or let the fit function itself divide the data into batches</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_sparse</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_transformed</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_sparse</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_transformed</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(1797, 7)</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.fit" title="sklearn.decomposition.IncrementalPCA.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajuste del modelo con X, utilizando minilotes de tamaño batch_size.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.fit_transform" title="sklearn.decomposition.IncrementalPCA.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a></p></td>
+<td><p>Ajusta a los datos y luego los transforma.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.get_covariance" title="sklearn.decomposition.IncrementalPCA.get_covariance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_covariance</span></code></a></p></td>
+<td><p>Calcula la covarianza de los datos con el modelo generativo.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.get_params" title="sklearn.decomposition.IncrementalPCA.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.get_precision" title="sklearn.decomposition.IncrementalPCA.get_precision"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_precision</span></code></a></p></td>
+<td><p>Calcula la matriz de precisión de los datos con el modelo generativo.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.inverse_transform" title="sklearn.decomposition.IncrementalPCA.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a></p></td>
+<td><p>Transforma los datos de nuevo a su espacio original.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.partial_fit" title="sklearn.decomposition.IncrementalPCA.partial_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">partial_fit</span></code></a></p></td>
+<td><p>Ajuste incremental con X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.set_params" title="sklearn.decomposition.IncrementalPCA.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.decomposition.IncrementalPCA.transform" title="sklearn.decomposition.IncrementalPCA.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a></p></td>
+<td><p>Aplica la reducción de la dimensionalidad a X.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajuste del modelo con X, utilizando minilotes de tamaño batch_size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Datos de entrenamiento, donde n_samples es el número de muestras y n_features es el número de características.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>Devuelve la propia instancia.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.fit_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta a los datos y luego los transforma.</p>
+<p>Ajusta el transformador a <code class="docutils literal notranslate"><span class="pre">X</span></code> e <code class="docutils literal notranslate"><span class="pre">y</span></code> con los parámetros opcionales <code class="docutils literal notranslate"><span class="pre">fit_params</span></code> y devuelve una versión transformada de <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de entrada.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs),                 default=None</span></dt><dd><p>Valores objetivo (None para transformaciones no supervisadas).</p>
+</dd>
+<dt><strong>**fit_params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros de ajuste adicionales.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">arreglo ndarray de forma (n_samples, n_features_new)</span></dt><dd><p>Arreglo transformado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.get_covariance">
+<span class="sig-name descname"><span class="pre">get_covariance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.get_covariance" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la covarianza de los datos con el modelo generativo.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cov</span> <span class="pre">=</span> <span class="pre">components_.T</span> <span class="pre">*</span> <span class="pre">S**2</span> <span class="pre">*</span> <span class="pre">components_</span> <span class="pre">+</span> <span class="pre">sigma2</span> <span class="pre">*</span> <span class="pre">eye(n_features)</span></code> donde S**2 contiene las varianzas explicadas, y sigma2 contiene las varianzas del ruido.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>cov</strong><span class="classifier">arreglo, forma=(n_features, n_features)</span></dt><dd><p>Covarianza estimada de los datos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Los nombres de los parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.get_precision">
+<span class="sig-name descname"><span class="pre">get_precision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.get_precision" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la matriz de precisión de los datos con el modelo generativo.</p>
+<p>Es igual a la inversa de la covarianza, pero calculada con el lema de inversión de matrices por eficiencia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>precision</strong><span class="classifier">arreglo, forma=(n_features, n_features)</span></dt><dd><p>Precisión estimada de los datos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.inverse_transform">
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.inverse_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Transforma los datos de nuevo a su espacio original.</p>
+<p>En otras palabras, devuelve una entrada X_original cuya transformación sería X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, forma (n_samples, n_components)</span></dt><dd><p>Nuevos datos, donde n_samples es el número de muestras y n_components es el número de componentes.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt>X_original array-like, de forma (n_samples, n_features)</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>Si whitening está activado, inverse_transform calculará la operación inversa exacta, que incluye el whitening reversible.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.partial_fit">
+<span class="sig-name descname"><span class="pre">partial_fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.partial_fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajuste incremental con X. Todo X se procesa como un solo lote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Datos de entrenamiento, donde n_samples es el número de muestras y n_features es el número de características.</p>
+</dd>
+<dt><strong>check_input</strong><span class="classifier">bool, default=True</span></dt><dd><p>Ejecuta check_array en X.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>Devuelve la propia instancia.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.decomposition.IncrementalPCA.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.decomposition.IncrementalPCA.transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aplica la reducción de la dimensionalidad a X.</p>
+<p>X se proyecta sobre los primeros componentes principales previamente extraídos de un conjunto de entrenamiento, utilizando minilotes de tamaño batch_size si X es disperso.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Nuevos datos, donde n_samples es el número de muestras y n_features es el número de características.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_new</strong><span class="classifier">ndarray de forma (n_samples, n_components)</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">IncrementalPCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipca</span> <span class="o">=</span> <span class="n">IncrementalPCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">IncrementalPCA(batch_size=3, n_components=2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.decomposition.IncrementalPCA.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

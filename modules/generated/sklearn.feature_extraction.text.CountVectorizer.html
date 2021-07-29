@@ -1,0 +1,725 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.feature_extraction.text.CountVectorizer &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.feature_extraction.image.PatchExtractor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.feature_extraction.image.PatchExtractor">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.feature_extraction.text.HashingVectorizer.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.feature_extraction.text.HashingVectorizer">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.feature_extraction.text</span></code>.CountVectorizer</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-feature-extraction-text-countvectorizer">Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.feature_extraction.text.CountVectorizer</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-feature-extraction-text-countvectorizer">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.feature_extraction.text" title="sklearn.feature_extraction.text"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.feature_extraction.text</span></code></a>.CountVectorizer<a class="headerlink" href="#sklearn-feature-extraction-text-countvectorizer" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.feature_extraction.text.</span></span><span class="sig-name descname"><span class="pre">CountVectorizer</span></span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Convertir una colección de documentos de texto en una matriz de conteo de tokens</p>
+<p>Esta implementación produce una representación dispersa de los conteos utilizando scipy.sparse.csr_matrix.</p>
+<p>Si no proporcionas un diccionario a priori y no utilizas un analizador que haga algún tipo de selección de características, entonces el número de características será igual al tamaño del vocabulario encontrado al analizar los datos.</p>
+<p>Lee más en el <a class="reference internal" href="../feature_extraction.html#text-feature-extraction"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>input</strong><span class="classifier">{“filename”, “file”, “content”}, default=”content”</span></dt><dd><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">'filename'</span></code>, the sequence passed as an argument to fit is
+expected to be a list of filenames that need reading to fetch
+the raw content to analyze.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">'file'</span></code>, the sequence items must have a “read” method (file-like
+object) that is called to fetch the bytes in memory.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">'content'</span></code>, the input is expected to be a sequence of items that
+can be of type string or byte.</p></li>
+</ul>
+</dd>
+<dt><strong>encoding</strong><span class="classifier">string, default=”utf-8”</span></dt><dd><p>Si se dan bytes o archivos para analizar, se utiliza esta codificación para decodificar.</p>
+</dd>
+<dt><strong>decode_error</strong><span class="classifier">{“strict”, “ignore”, “replace”}, default=”strict”</span></dt><dd><p>Instrucción sobre qué hacer si se proporciona una secuencia de bytes para analizar que contiene caracteres que no pertencen al <code class="docutils literal notranslate"><span class="pre">encoding</span></code> (codificación) dado. Por defecto, es “strict”, lo que significa que se producirá un UnicodeDecodeError. Otros valores son “ignore” y “replace”.</p>
+</dd>
+<dt><strong>strip_accents</strong><span class="classifier">{“ascii”, “unicode”}, default=None</span></dt><dd><p>Elimina acentos y realiza otra normalización de caracteres durante el paso de preprocesamiento. “ascii” es un método rápido que sólo funciona sobre caracteres que tienen un mapeo ASCII directo. “unicode” es un método ligeramente más lento que funciona en cualquier carácter. None (predeterminado) no hace nada.</p>
+<p>Tanto “ascii” como “unicode” utilizan la normalización NFKD de <a class="reference external" href="https://docs.python.org/3/library/unicodedata.html#unicodedata.normalize" title="(en Python versión 3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">unicodedata.normalize</span></code></a>.</p>
+</dd>
+<dt><strong>lowercase</strong><span class="classifier">bool, default=True</span></dt><dd><p>Convierte todos los caracteres en minúsculas antes de la tokenización.</p>
+</dd>
+<dt><strong>preprocessor</strong><span class="classifier">callable, default=None</span></dt><dd><p>Anula la etapa de preprocesamiento (strip_accents y lowercase) conservando las etapas de tokenización y generación de n-gramas. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">callable</span></code>.</p>
+</dd>
+<dt><strong>tokenizer</strong><span class="classifier">callable, default=None</span></dt><dd><p>Anula el paso de tokenización de cadenas conservando los pasos de preprocesamiento y generación de n-gramas. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>.</p>
+</dd>
+<dt><strong>stop_words</strong><span class="classifier">{“english”}, list, default=None</span></dt><dd><p>Si es “english”, se utiliza una lista de palabras funcionales incorporada para el inglés. Hay varias incidencias conocidas con “english” y deberías considerar una alternativa (ver <a class="reference internal" href="../feature_extraction.html#stop-words"><span class="std std-ref">Usando palabras funcionales (stop words)</span></a>).</p>
+<p>Si es una lista (list), se asume que dicha lista contiene palabras funcionales, las cuales serán eliminadas de los tokens resultantes. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>.</p>
+<p>Si es None, no se utilizará ninguna de las palabras funcionales. max_df puede establecerse en un valor en el rango [0.7, 1.0) para detectar y filtrar automáticamente las palabras funcionales basándose en la frecuencia de los términos del documento dentro del corpus.</p>
+</dd>
+<dt><strong>token_pattern</strong><span class="classifier">str, default=r»(?u)\b\w\w+\b»</span></dt><dd><p>Expresión regular que denota lo que constituye un «token», sólo se utiliza si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>. La regexp predeterminada selecciona tokens de 2 o más caracteres alfanuméricos (la puntuación se ignora por completo y se trata siempre como un separador de tokens).</p>
+<p>Si hay un grupo de captura en token_pattern entonces el contenido del grupo capturado, no la correspondencia completa, se convierte en el token. Se permite como máximo un grupo de captura.</p>
+</dd>
+<dt><strong>ngram_range</strong><span class="classifier">tuple (min_n, max_n), default=(1, 1)</span></dt><dd><p>El límite inferior y superior del rango de n-valores para los diferentes n-gramas de palabras o n-gramas de caracteres que se van a extraer. Se utilizarán todos los valores de n tales que min_n &lt;= n &lt;= max_n. Por ejemplo, un <code class="docutils literal notranslate"><span class="pre">ngram_range</span></code> de <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1)</span></code> significa sólo unigramas, <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2)</span></code> significa unigramas y bigramas, y <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">2)</span></code> significa sólo bigramas. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">callable</span></code>.</p>
+</dd>
+<dt><strong>analyzer</strong><span class="classifier">{“word”, “char”, “char_wb”} o callable, default=”word”</span></dt><dd><p>Si la característica debe estar hecha de n-gramas de palabras o de n-gramas de caracteres. La opción “char_wb” crea n-gramas de caracteres sólo a partir del texto dentro de los límites de las palabras; los n-gramas en los bordes de las palabras se rellenan con espacio.</p>
+<p>Si se pasa un invocable, se utiliza para extraer la secuencia de características de la entrada en bruto y sin procesar.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.21.</span></p>
+</div>
+<p>Desde la v0.21, si <code class="docutils literal notranslate"><span class="pre">input</span></code> es <code class="docutils literal notranslate"><span class="pre">filename</span></code> o <code class="docutils literal notranslate"><span class="pre">file</span></code>, los datos se leen primero del archivo y luego se pasan al analizador invocable dado.</p>
+</dd>
+<dt><strong>max_df</strong><span class="classifier">float en el rango [0.0, 1.0] o int, default=1.0</span></dt><dd><p>Cuando se construye el vocabulario se ignoran los términos que tienen una frecuencia de documento estrictamente superior al umbral dado (palabras funcionales específicas del corpus). Si es un número de punto flotante (float), el parámetro representa una proporción de documentos, cuentas absolutas enteras. Este parámetro se ignora si vocabulary no es None.</p>
+</dd>
+<dt><strong>min_df</strong><span class="classifier">float en el rango [0.0, 1.0] o int, default=1</span></dt><dd><p>Al construir el vocabulario se ignoran los términos que tienen una frecuencia de documento estrictamente inferior al umbral dado. Este valor también se denomina cut-off en la literatura. Si es un número de punto flotante (float), el parámetro representa una proporción de documentos, conteo absoluto entero. Este parámetro se ignora si vocabulary no es None.</p>
+</dd>
+<dt><strong>max_features</strong><span class="classifier">int, default=None</span></dt><dd><p>Si no es None, construye un vocabulario que sólo ten en cuenta el top de max_features ordenado por la frecuencia de los términos en todo el corpus.</p>
+<p>Este parámetro es ignorado si vocabulary no es None.</p>
+</dd>
+<dt><strong>vocabulary</strong><span class="classifier">Mapping o iterable, default=None</span></dt><dd><p>Un mapeo (por ejemplo, un dict) donde las claves son términos y los valores son índices en la matriz de características, o un iterable sobre términos. Si no se da, se determina un vocabulario a partir de los documentos de entrada. Los índices en el mapeo no deben repetirse y no deben tener ninguna brecha entre 0 y el índice más grande.</p>
+</dd>
+<dt><strong>binary</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, todos los contadores distintos de cero se establecen en 1. Esto es útil para modelos probabilísticos discretos que modelan eventos binarios en lugar de conteos enteros.</p>
+</dd>
+<dt><strong>dtype</strong><span class="classifier">type, default=np.int64</span></dt><dd><p>Tipo de la matriz devuelta por fit_transform() o transform().</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>vocabulary_</strong><span class="classifier">dict</span></dt><dd><p>Un mapeo de términos para los índices de características.</p>
+</dd>
+<dt><strong>fixed_vocabulary_: boolean</strong></dt><dd><p>True si el usuario proporciona un vocabulario fijo de mapeo de términos a índices</p>
+</dd>
+<dt><strong>stop_words_</strong><span class="classifier">set</span></dt><dd><p>Términos que fueron ignorados porque:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>aparecen en demasiados documentos (<code class="docutils literal notranslate"><span class="pre">max_df</span></code>)</p></li>
+<li><p>aparecen en muy pocos documentos (<code class="docutils literal notranslate"><span class="pre">min_df</span></code>)</p></li>
+<li><p>se han eliminado mediante la selección de características (max_features).</p></li>
+</ul>
+</div></blockquote>
+<p>Esto sólo está disponible si no se ha dado ningún vocabulario.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>, <a class="reference internal" href="sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>El atributo <code class="docutils literal notranslate"><span class="pre">stop_words_</span></code> puede hacerse grande y aumentar el tamaño del modelo cuando se hace el pickling (serializar). Este atributo se proporciona sólo para la introspección y se puede eliminar de forma segura utilizando delattr o estableciendo None antes del pickling.</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="s1">&#39;This is the first document.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;This document is the second document.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;And this is the third one.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;Is this the first document?&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span>
+<span class="go">[&#39;and&#39;, &#39;document&#39;, &#39;first&#39;, &#39;is&#39;, &#39;one&#39;, &#39;second&#39;, &#39;the&#39;, &#39;third&#39;, &#39;this&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="go">[[0 1 1 1 0 0 1 0 1]</span>
+<span class="go"> [0 2 0 1 0 1 1 0 1]</span>
+<span class="go"> [1 0 0 1 1 0 1 1 1]</span>
+<span class="go"> [0 1 1 1 0 0 1 0 1]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer2</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;word&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X2</span> <span class="o">=</span> <span class="n">vectorizer2</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">vectorizer2</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span>
+<span class="go">[&#39;and this&#39;, &#39;document is&#39;, &#39;first document&#39;, &#39;is the&#39;, &#39;is this&#39;,</span>
+<span class="go">&#39;second document&#39;, &#39;the first&#39;, &#39;the second&#39;, &#39;the third&#39;, &#39;third one&#39;,</span>
+<span class="go"> &#39;this document&#39;, &#39;this is&#39;, &#39;this the&#39;]</span>
+<span class="go"> &gt;&gt;&gt; print(X2.toarray())</span>
+<span class="go"> [[0 0 1 1 0 0 1 0 0 0 0 1 0]</span>
+<span class="go"> [0 1 0 1 0 1 0 1 0 0 1 0 0]</span>
+<span class="go"> [1 0 0 1 0 0 0 0 1 1 0 1 0]</span>
+<span class="go"> [0 0 1 0 1 0 1 0 0 0 0 0 1]]</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.build_analyzer" title="sklearn.feature_extraction.text.CountVectorizer.build_analyzer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_analyzer</span></code></a></p></td>
+<td><p>Devuelve un invocable que maneja el preprocesamiento, tokenización y la generación de n-gramas.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.build_preprocessor" title="sklearn.feature_extraction.text.CountVectorizer.build_preprocessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_preprocessor</span></code></a></p></td>
+<td><p>Devuelve una función para preprocesar el texto antes de la tokenización.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.build_tokenizer" title="sklearn.feature_extraction.text.CountVectorizer.build_tokenizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_tokenizer</span></code></a></p></td>
+<td><p>Devuelve una función que divide una cadena en una secuencia de tokens.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.decode" title="sklearn.feature_extraction.text.CountVectorizer.decode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decode</span></code></a></p></td>
+<td><p>Decodifica la entrada en una cadena de símbolos Unicode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.fit" title="sklearn.feature_extraction.text.CountVectorizer.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Aprende un diccionario de vocabulario de todos los tokens en los documentos en bruto.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.fit_transform" title="sklearn.feature_extraction.text.CountVectorizer.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a></p></td>
+<td><p>Aprende el diccionario de vocabulario y devuelve la matriz de términos y documentos (document-term).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.get_feature_names" title="sklearn.feature_extraction.text.CountVectorizer.get_feature_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_feature_names</span></code></a></p></td>
+<td><p>Mapeo de arreglos de índices enteros de características a nombres de características.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.get_params" title="sklearn.feature_extraction.text.CountVectorizer.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.get_stop_words" title="sklearn.feature_extraction.text.CountVectorizer.get_stop_words"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stop_words</span></code></a></p></td>
+<td><p>Construye o busca la lista efectiva de palabras funcionales.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.inverse_transform" title="sklearn.feature_extraction.text.CountVectorizer.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a></p></td>
+<td><p>Devuelve los términos por documento con entradas no nulas en X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.set_params" title="sklearn.feature_extraction.text.CountVectorizer.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.feature_extraction.text.CountVectorizer.transform" title="sklearn.feature_extraction.text.CountVectorizer.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a></p></td>
+<td><p>Transforma los documentos a la matriz documento-término (document-term).</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.build_analyzer">
+<span class="sig-name descname"><span class="pre">build_analyzer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.build_analyzer" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve un invocable que maneja el preprocesamiento, tokenización y la generación de n-gramas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>analyzer: callable</dt><dd><p>Una función para manejar el preprocesamiento, tokenización y la generación de n-gramas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.build_preprocessor">
+<span class="sig-name descname"><span class="pre">build_preprocessor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.build_preprocessor" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve una función para preprocesar el texto antes de la tokenización.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>preprocessor: callable</dt><dd><p>Una función para preprocesar el texto antes de la tokenización.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.build_tokenizer">
+<span class="sig-name descname"><span class="pre">build_tokenizer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.build_tokenizer" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve una función que divide una cadena en una secuencia de tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tokenizer: callable</dt><dd><p>Una función para dividir una cadena en una secuencia de tokens.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.decode" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Decodifica la entrada en una cadena de símbolos Unicode.</p>
+<p>La estrategia de decodificación depende de los parámetros del vectorizador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>doc</strong><span class="classifier">str</span></dt><dd><p>La cadena a decodificar.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt>doc: str</dt><dd><p>Una cadena de símbolos Unicode.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aprende un diccionario de vocabulario de todos los tokens en los documentos en bruto.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>raw_documents</strong><span class="classifier">iterable</span></dt><dd><p>Un iterable que produce objetos str, unicode o file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt>self</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.fit_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Aprende el diccionario de vocabulario y devuelve la matriz de términos y documentos (document-term).</p>
+<p>Esto es equivalente al ajuste (fit) seguido de la transformación (transform), pero se implementa de forma más eficiente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>raw_documents</strong><span class="classifier">iterable</span></dt><dd><p>Un iterable que produce objetos str, unicode o file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">arreglo de forma (n_samples, n_features)</span></dt><dd><p>Matriz documento-término (document-term).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.get_feature_names">
+<span class="sig-name descname"><span class="pre">get_feature_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.get_feature_names" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Mapeo de arreglos de índices enteros de características a nombres de características.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>feature_names</strong><span class="classifier">list</span></dt><dd><p>Una lista de nombres de características.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Los nombres de los parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.get_stop_words">
+<span class="sig-name descname"><span class="pre">get_stop_words</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.get_stop_words" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Construye o busca la lista efectiva de palabras funcionales.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>stop_words: lista o None</dt><dd><p>Una lista de palabras funcionales.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.inverse_transform">
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.inverse_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve los términos por documento con entradas no nulas en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Matriz documento-término (document-term).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_inv</strong><span class="classifier">lista de arreglo de forma (n_samples,)</span></dt><dd><p>Lista de arreglos de términos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia de estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.feature_extraction.text.CountVectorizer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.feature_extraction.text.CountVectorizer.transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Transforma los documentos a la matriz documento-término (document-term).</p>
+<p>Extrae los recuentos de tokens de los documentos de texto en bruto utilizando el vocabulario ajustado con fit o el proporcionado al constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>raw_documents</strong><span class="classifier">iterable</span></dt><dd><p>Un iterable que produce objetos str, unicode o file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">matriz dispersa de forma (n_samples, n_features)</span></dt><dd><p>Matriz documento-término (document-term).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-feature-extraction-text-countvectorizer">
+<h2>Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.feature_extraction.text.CountVectorizer</span></code><a class="headerlink" href="#examples-using-sklearn-feature-extraction-text-countvectorizer" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The dataset used in this example is the 20 newsgroups dataset which will be automatically downl..."><figure class="align-default" id="id1">
+<img alt="Sample pipeline for text feature extraction and evaluation" src="../../_images/sphx_glr_grid_search_text_feature_extraction_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/model_selection/grid_search_text_feature_extraction.html#sphx-glr-auto-examples-model-selection-grid-search-text-feature-extraction-py"><span class="std std-ref">Ejemplo de pipeline para la extracción y evaluación de características de texto</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.feature_extraction.text.CountVectorizer.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
