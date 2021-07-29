@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Consejos y Trucos de los Desarrolladores &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/developers/tips.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="develop.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Desarrollando estimadores de scikit-learn">Prev</a><a href="index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Guía del Desarrollador">Arriba</a>
+            <a href="utilities.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Utilidades para Desarrolladores">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Consejos y Trucos de los Desarrolladores</a><ul>
+<li><a class="reference internal" href="#productivity-and-sanity-preserving-tips">Consejos para preservar la productividad y la cordura</a><ul>
+<li><a class="reference internal" href="#folding-and-unfolding-outdated-diffs-on-pull-requests">Pliegue y despliegue de diffs obsoletos en pull requests</a></li>
+<li><a class="reference internal" href="#checking-out-pull-requests-as-remote-tracking-branches">Comprobación de pull requests como ramas de seguimiento remoto</a></li>
+<li><a class="reference internal" href="#display-code-coverage-in-pull-requests">Mostrar la cobertura del código en los pull requests</a></li>
+<li><a class="reference internal" href="#useful-pytest-aliases-and-flags">Alias e indicadores útiles de pytest</a></li>
+<li><a class="reference internal" href="#standard-replies-for-reviewing">Respuestas estándar para la revisión</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#debugging-memory-errors-in-cython-with-valgrind">Depuración de errores de memoria en Cython con valgrind</a></li>
+<li><a class="reference internal" href="#building-and-testing-for-the-arm64-platform-on-a-x86-64-machine">Construcción y pruebas para la plataforma ARM64 en una máquina x86_64</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="developers-tips-and-tricks">
+<span id="developers-tips"></span><h1>Consejos y Trucos de los Desarrolladores<a class="headerlink" href="#developers-tips-and-tricks" title="Enlazar permanentemente con este título">¶</a></h1>
+<section id="productivity-and-sanity-preserving-tips">
+<h2>Consejos para preservar la productividad y la cordura<a class="headerlink" href="#productivity-and-sanity-preserving-tips" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En esta sección recogemos algunos consejos y herramientas útiles que pueden aumentar tu calidad de vida a la hora de revisar pull requests, ejecutar pruebas unitarias, etc. Algunos de estos trucos consisten en userscripts que requieren una extensión del navegador como <a class="reference external" href="https://tampermonkey.net/">TamperMonkey</a> o <a class="reference external" href="https://www.greasespot.net/">GreaseMonkey</a>; para configurar los userscripts debes tener una de estas extensiones instalada, habilitada y funcionando.  Proporcionamos los userscripts como gists de GitHub; para instalarlos, haz clic en el botón «Raw» de la página del gist.</p>
+<section id="folding-and-unfolding-outdated-diffs-on-pull-requests">
+<h3>Pliegue y despliegue de diffs obsoletos en pull requests<a class="headerlink" href="#folding-and-unfolding-outdated-diffs-on-pull-requests" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>GitHub oculta las discusiones en los PR cuando las líneas de código correspondientes han sido cambiadas mientras tanto. Este <a class="reference external" href="https://raw.githubusercontent.com/lesteve/userscripts/master/github-expand-all.user.js">userscript</a> proporciona un atajo (Control-Alt-P en el momento de escribir esto, pero mira el código para estar seguro) para desplegar todas esas discusiones ocultas a la vez, para que puedas ponerte al día.</p>
+</section>
+<section id="checking-out-pull-requests-as-remote-tracking-branches">
+<h3>Comprobación de pull requests como ramas de seguimiento remoto<a class="headerlink" href="#checking-out-pull-requests-as-remote-tracking-branches" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En tu fork local, añade a tu <code class="docutils literal notranslate"><span class="pre">.git/config</span></code>, bajo el encabezado <code class="docutils literal notranslate"><span class="pre">[remote</span> <span class="pre">&quot;upstream&quot;]</span></code>, la línea:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fetch</span> <span class="o">=</span> <span class="o">+</span><span class="n">refs</span><span class="o">/</span><span class="n">pull</span><span class="o">/*/</span><span class="n">head</span><span class="p">:</span><span class="n">refs</span><span class="o">/</span><span class="n">remotes</span><span class="o">/</span><span class="n">upstream</span><span class="o">/</span><span class="n">pr</span><span class="o">/*</span>
+</pre></div>
+</div>
+<p>A continuación, puedes utilizar <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">pr/PR_NUMBER</span></code> para navegar hasta el código del pull-request con el número dado. (<a class="reference external" href="https://gist.github.com/piscisaureus/3342247">Lee más en este gist.</a>)</p>
+</section>
+<section id="display-code-coverage-in-pull-requests">
+<h3>Mostrar la cobertura del código en los pull requests<a class="headerlink" href="#display-code-coverage-in-pull-requests" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para superponer los informes de cobertura de código generados por la integración continua de CodeCov, considere <a class="reference external" href="https://github.com/codecov/browser-extension">esta extensión del navegador</a>. La cobertura de cada línea se mostrará como un fondo de color detrás del número de línea.</p>
+</section>
+<section id="useful-pytest-aliases-and-flags">
+<span id="pytest-tips"></span><h3>Alias e indicadores útiles de pytest<a class="headerlink" href="#useful-pytest-aliases-and-flags" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El conjunto de pruebas completo tarda bastante en ejecutarse. Para iteraciones más rápidas, es posible seleccionar un subconjunto de pruebas utilizando selectores de pytest. En particular, se puede ejecutar una <a class="reference external" href="https://docs.pytest.org/en/latest/example/markers.html#selecting-tests-based-on-their-node-id">sola prueba basada en su ID de nodo</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">pytest -v sklearn/linear_model/tests/test_logistic.py::test_sparsify</span>
+</pre></div></div><p>o utilizar el <a class="reference external" href="https://docs.pytest.org/en/latest/example/markers.html#using-k-expr-to-select-tests-based-on-their-name">parámetro -k pytest</a> para seleccionar las pruebas en función de su nombre. Por ejemplo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pytest sklearn/tests/test_common.py -v -k LogisticRegression</span>
+</pre></div></div><p>ejecutará todas los <a class="reference internal" href="../glossary.html#term-common-tests"><span class="xref std std-term">common tests</span></a> para el estimador <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>.</p>
+<p>Cuando una prueba unitaria falla, los siguientes trucos pueden facilitar la depuración:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>El argumento de la línea de comandos <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">-l</span></code> indica a pytest que imprima las variables locales cuando se produce un fallo.</p></li>
+<li><p>El argumento <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">--pdb</span></code> pasa al depurador de Python en caso de fallo. En cambio, para entrar en el depurador enriquecido de IPython <code class="docutils literal notranslate"><span class="pre">ipdb</span></code>, puedes configurar un alias de shell para:</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pytest --pdbcls<span class="o">=</span>IPython.terminal.debugger:TerminalPdb --capture no</span>
+</pre></div></div><p>Otras opciones de <code class="docutils literal notranslate"><span class="pre">pytest</span></code> que pueden resultar útiles son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-x</span></code> que sale en la primera prueba fallida</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--lf</span></code> para volver a ejecutar las pruebas que fallaron en la ejecución anterior</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--ff</span></code> para volver a ejecutar todas las pruebas anteriores, ejecutando las que fallaron primero</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code> para que pytest no capture la salida de las declaraciones <code class="docutils literal notranslate"><span class="pre">print()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--tb=short</span></code> o <code class="docutils literal notranslate"><span class="pre">--tb=line</span></code> para controlar la longitud de los registros</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--runxfail</span></code> también ejecuta las pruebas marcadas como fallo conocido (XFAIL) y reporta los errores.</p></li>
+</ul>
+</div></blockquote>
+<p>Dado que nuestras pruebas de integración continua darán un error si <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> no se captura correctamente, también se recomienda ejecutar <code class="docutils literal notranslate"><span class="pre">pytest</span></code> junto con el indicador <code class="docutils literal notranslate"><span class="pre">-Werror::FutureWarning</span></code>.</p>
+</section>
+<section id="standard-replies-for-reviewing">
+<span id="saved-replies"></span><h3>Respuestas estándar para la revisión<a class="headerlink" href="#standard-replies-for-reviewing" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Puede ser útil almacenar algunas de ellas en las <a class="reference external" href="https://github.com/settings/replies/">respuestas guardadas</a> de GitHub para revisarlas:</p>
+<dl>
+<dt>Incidencia: Preguntas sobre el uso</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>You are asking a usage question. The issue tracker is for bugs and new features. For usage questions, it is recommended to try [Stack Overflow](https://stackoverflow.com/questions/tagged/scikit-learn) or [the Mailing List](https://mail.python.org/mailman/listinfo/scikit-learn).
+
+Unfortunately, we need to close this issue as this issue tracker is a communication tool used for the development of scikit-learn. The additional activity created by usage questions crowds it too much and impedes this development. The conversation can continue here, however there is no guarantee that is will receive attention from core developers.
+</pre></div>
+</div>
+</dd>
+<dt>Incidencia: Puedes actualizar los documentos</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please feel free to offer a pull request updating the documentation if you feel it could be improved.
+</pre></div>
+</div>
+</dd>
+<dt>Incidencia: Ejemplo autocontenido para el error</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please provide [self-contained example code](https://stackoverflow.com/help/mcve), including imports and data (if possible), so that other contributors can just run it and reproduce your issue. Ideally your example code should be minimal.
+</pre></div>
+</div>
+</dd>
+<dt>Incidencia: Versiones de software</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>To help diagnose your issue, please paste the output of:
+```py
+import sklearn; sklearn.show_versions()
+```
+Thanks.
+</pre></div>
+</div>
+</dd>
+<dt>Incidencia: Bloques de código</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Readability can be greatly improved if you [format](https://help.github.com/articles/creating-and-highlighting-code-blocks/) your code snippets and complete error messages appropriately. For example:
+
+    ```python
+    print(something)
+    ```
+generates:
+```python
+print(something)
+```
+And:
+
+    ```pytb
+    Traceback (most recent call last):
+      File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+    ImportError: No module named &#39;hello&#39;
+    ```
+generates:
+```pytb
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ImportError: No module named &#39;hello&#39;
+```
+You can edit your issue descriptions and comments at any time to improve readability. This helps maintainers a lot. Thanks!
+</pre></div>
+</div>
+</dd>
+<dt>Incidencias/comentarios: Vinculación con el código</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Friendly advice: for clarity&#39;s sake, you can link to code like [this](https://help.github.com/articles/creating-a-permanent-link-to-a-code-snippet/).
+</pre></div>
+</div>
+</dd>
+<dt>Incidencias/Comentarios: Vinculación con los comentarios</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please use links to comments, which make it a lot easier to see what you are referring to, rather than just linking to the issue. See [this](https://stackoverflow.com/questions/25163598/how-do-i-reference-a-specific-issue-comment-on-github) for more details.
+</pre></div>
+</div>
+</dd>
+<dt>PR-NEW: Mejor descripción y título</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Thanks for the pull request! Please make the title of the PR more descriptive. The title will become the commit message when this is merged. You should state what issue (or PR) it fixes/resolves in the description using the syntax described [here](http://scikit-learn.org/dev/developers/contributing.html#contributing-pull-requests).
+</pre></div>
+</div>
+</dd>
+<dt>PR-NUEVO: Corrección #</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please use &quot;Fix #issueNumber&quot; in your PR description (and you can do it more than once). This way the associated issue gets closed automatically when the PR is merged. For more details, look at [this](https://github.com/blog/1506-closing-issues-via-pull-requests).
+</pre></div>
+</div>
+</dd>
+<dt>PR-NUEVO o Incidencia: Coste de mantenimiento</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Every feature we include has a [maintenance cost](http://scikit-learn.org/dev/faq.html#why-are-you-so-selective-on-what-algorithms-you-include-in-scikit-learn). Our maintainers are mostly volunteers. For a new feature to be included, we need evidence that it is often useful and, ideally, [well-established](http://scikit-learn.org/dev/faq.html#what-are-the-inclusion-criteria-for-new-algorithms) in the literature or in practice. That doesn&#39;t stop you implementing it for yourself and publishing it in a separate repository, or even [scikit-learn-contrib](https://scikit-learn-contrib.github.io).
+</pre></div>
+</div>
+</dd>
+<dt>PR-WIP: ¿Qué se necesita antes de la fusión (merge)?</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please clarify (perhaps as a TODO list in the PR description) what work you believe still needs to be done before it can be reviewed for merge. When it is ready, please prefix the PR title with `[MRG]`.
+</pre></div>
+</div>
+</dd>
+<dt>PR-WIP: Se necesita una prueba de regresión</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please add a [non-regression test](https://en.wikipedia.org/wiki/Non-regression_testing) that would fail at main but pass in this PR.
+</pre></div>
+</div>
+</dd>
+<dt>PR-WIP: PEP8</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>You have some [PEP8](https://www.python.org/dev/peps/pep-0008/) violations, whose details you can see in the Circle CI `lint` job. It might be worth configuring your code editor to check for such errors on the fly, so you can catch them before committing.
+</pre></div>
+</div>
+</dd>
+<dt>PR-MRG: Paciencia</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Before merging, we generally require two core developers to agree that your pull request is desirable and ready. [Please be patient](http://scikit-learn.org/dev/faq.html#why-is-my-pull-request-not-getting-any-attention), as we mostly rely on volunteered time from busy core developers. (You are also welcome to help us out with [reviewing other PRs](http://scikit-learn.org/dev/developers/contributing.html#code-review-guidelines).)
+</pre></div>
+</div>
+</dd>
+<dt>PR-MRG: Añadir a las novedades</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please add an entry to the change log at `doc/whats_new/v*.rst`. Like the other entries there, please reference this pull request with `:pr:` and credit yourself (and other contributors if applicable) with `:user:`.
+</pre></div>
+</div>
+</dd>
+<dt>PR: No cambies lo que no está relacionado</dt><dd><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Please do not change unrelated lines. It makes your contribution harder to review and may introduce merge conflicts to other pull requests.
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+<section id="debugging-memory-errors-in-cython-with-valgrind">
+<h2>Depuración de errores de memoria en Cython con valgrind<a class="headerlink" href="#debugging-memory-errors-in-cython-with-valgrind" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Aunque la gestión de la memoria incorporada en python/numpy es relativamente robusta, puede llevar a penalizaciones en el rendimiento de algunas rutinas. Por esta razón, gran parte del código de alto rendimiento en scikit-learn está escrito en cython. Sin embargo, esta ganancia de rendimiento viene con una compensación: es muy fácil que surjan errores de memoria en el código de cython, especialmente en situaciones en las que ese código depende en gran medida de la aritmética de punteros.</p>
+<p>Los errores de memoria pueden manifestarse de varias maneras. Los más fáciles de depurar suelen ser los fallos de segmentación y los errores glibc relacionados. Las variables no inicializadas pueden conducir a un comportamiento inesperado que es difícil de rastrear. Una herramienta muy útil para depurar este tipo de errores es <a class="reference external" href="http://valgrind.org">valgrind</a>.</p>
+<p>Valgrind es una herramienta de línea de comandos que puede rastrear errores de memoria en una variedad de código. Sigue estos pasos:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Instala <a class="reference external" href="http://valgrind.org">valgrind</a> en tu sistema.</p></li>
+<li><p>Descarga el archivo de supresión de valgrind de python: <a class="reference external" href="https://github.com/python/cpython/blob/master/Misc/valgrind-python.supp">valgrind-python.supp</a>.</p></li>
+<li><p>Sigue las instrucciones del archivo <a class="reference external" href="https://github.com/python/cpython/blob/master/Misc/README.valgrind">README.valgrind</a> para personalizar tus supresiones de python. Si no lo haces, tendrás salidas espurias relacionadas con el intérprete de python en lugar de tu propio código.</p></li>
+<li><p>Ejecuta valgrind de la siguiente manera:</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">valgrind -v --suppressions<span class="o">=</span>valgrind-python.supp python my_test_script.py</span>
+</pre></div></div><p>El resultado será una lista de todos los errores relacionados con la memoria, que hacen referencia a líneas en el código C generado por cython desde su archivo .pyx. Si examinas las líneas referenciadas en el archivo .c, verás comentarios que indican la ubicación correspondiente en tu archivo fuente .pyx. Con suerte, la salida te dará pistas sobre el origen de tu error de memoria.</p>
+<p>Para más información sobre valgrind y el arreglo de opciones que tiene, consulta los tutoriales y la documentación en el <a class="reference external" href="http://valgrind.org">sitio web de valgrind</a>.</p>
+</section>
+<section id="building-and-testing-for-the-arm64-platform-on-a-x86-64-machine">
+<span id="arm64-dev-env"></span><h2>Construcción y pruebas para la plataforma ARM64 en una máquina x86_64<a class="headerlink" href="#building-and-testing-for-the-arm64-platform-on-a-x86-64-machine" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las máquinas basadas en ARM son un objetivo popular para las implementaciones móviles, de arista u otras de bajo consumo de energía (incluso en la nube, por ejemplo en Scaleway o AWS Graviton).</p>
+<p>Aquí tienes las instrucciones para configurar un entorno de desarrollo local para reproducir errores específicos de ARM o fallos de prueba en una computadora portátil o estación de trabajo host x86_64. Esto se basa en la emulación del modo de usuario de QEMU que utiliza docker para mayor comodidad (consulta <a class="reference external" href="https://github.com/multiarch/qemu-user-static">https://github.com/multiarch/qemu-user-static</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Las siguientes instrucciones se ilustran para ARM64 pero también se aplican a ppc64le, después de cambiar la imagen Docker y las rutas de Miniforge apropiadamente.</p>
+</div>
+<p>Prepara una carpeta en el sistema de archivos del host y descarga las herramientas y el código fuente necesarios:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">mkdir arm64</span>
+<span class="prompt1"><span class="nb">pushd</span> arm64</span>
+<span class="prompt1">wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh</span>
+<span class="prompt1">git clone https://github.com/scikit-learn/scikit-learn.git</span>
+</pre></div></div><p>Utiliza docker para instalar el modo de usuario QEMU y ejecutar un contenedor ARM64v8 con acceso a tu carpeta compartida bajo el punto de montaje <code class="docutils literal notranslate"><span class="pre">/io</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run --rm --privileged multiarch/qemu-user-static --reset -p yes</span>
+<span class="prompt1">docker run -v<span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:/io --rm -it arm64v8/ubuntu /bin/bash</span>
+</pre></div></div><p>En el contenedor, instala miniforge3 para la arquitectura ARM64 (también conocida como aarch64):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">bash Miniforge3-Linux-aarch64.sh</span>
+<span class="prompt1"><span class="c1"># Choose to install miniforge3 under: `/io/miniforge3`</span></span>
+</pre></div></div><p>Cada vez que reinicies un nuevo contenedor, tendrás que reiniciar el env de conda previamente instalado en <code class="docutils literal notranslate"><span class="pre">/io/miniforge3</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">/io/miniforge3/bin/conda init</span>
+<span class="prompt1"><span class="nb">source</span> /root/.bashrc</span>
+</pre></div></div><p>ya que la carpeta de inicio <code class="docutils literal notranslate"><span class="pre">/root</span></code> forma parte del contenedor docker efímero. Por otro lado, cada archivo o directorio almacenado en <code class="docutils literal notranslate"><span class="pre">/io</span></code> es persistente.</p>
+<p>A continuación, puedes construir scikit-learn como de costumbre (tendrás que instalar las herramientas de compilación y las dependencias utilizando apt o conda como de costumbre). La construcción de scikit-learn lleva mucho tiempo debido a la capa de emulación, sin embargo, sólo es necesario hacerlo una vez si se pone la carpeta de scikit-learn bajo el punto de montaje <code class="docutils literal notranslate"><span class="pre">/io</span></code>.</p>
+<p>Luego utiliza pytest para ejecutar sólo las pruebas del módulo que te interesa depurar.</p>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/developers/tips.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

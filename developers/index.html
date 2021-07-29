@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Guía del Desarrollador &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/developers/index.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="#">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="#">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="../modules/generated/sklearn.utils.register_parallel_backend.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.utils.register_parallel_backend">Prev</a>
+            <a href="#" role="button" class="btn sk-btn-rellink disabled py-1">Arriba</a>
+            <a href="contributing.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Contribuyendo">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+            
+              <ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              <li>
+                <a href="" class="sk-toc-active">Guía del Desarrollador</a>
+              </li>
+              <ul>
+              
+                <li>
+                  <a href="contributing.html" class="">Contribuyendo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="develop.html" class="">Desarrollando estimadores de scikit-learn</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="tips.html" class="">Consejos y Trucos de los Desarrolladores</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="utilities.html" class="">Utilidades para Desarrolladores</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="performance.html" class="">Cómo optimizar para velocidad</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="advanced_installation.html" class="">Instalación de la versión de desarrollo de scikit-learn</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="bug_triaging.html" class="">Evaluación de errores y curación de problemas</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="maintainer.html" class="">Información sobre el mantenedor/desarrollador del núcleo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="plotting.html" class="">Desarrollo con la API Plotting</a>
+                  
+                </li>
+              
+              </ul>
+              
+              
+              </ul>
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="developer-s-guide">
+<span id="developers-guide"></span><h1>Guía del Desarrollador<a class="headerlink" href="#developer-s-guide" title="Enlazar permanentemente con este título">¶</a></h1>
+<style type="text/css">
+  div.body div.toctree-wrapper ul {
+      padding-left: 0;
+  }
+
+  div.body li.toctree-l1 {
+      padding: 0 0 0.5em 0;
+      list-style-type: none;
+      font-size: 150%;
+      font-weight: bold;
+  }
+
+  div.body li.toctree-l2 {
+      font-size: 70%;
+      list-style-type: square;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l3 {
+      font-size: 85%;
+      list-style-type: circle;
+      font-weight: normal;
+      margin-left: 40px;
+  }
+
+  div.body li.toctree-l4 {
+      margin-left: 40px;
+  }
+
+</style> <script>
+ window.addEventListener('DOMContentLoaded', function() {
+      (function($) {
+ //Function to make the index toctree collapsible
+ $(function () {
+     $('div.body .toctree-l2')
+         .click(function(event){
+             if (event.target.tagName.toLowerCase() != "a") {
+                 if ($(this).children('ul').length > 0) {
+                      $(this).attr('data-content',
+                          (!$(this).children('ul').is(':hidden')) ? '\u25ba' : '\u25bc');
+                     $(this).children('ul').toggle();
+                 }
+                 return true; //Makes links clickable
+             }
+         })
+         .mousedown(function(event){ return false; }) //Firefox highlighting fix
+         .children('ul').hide();
+     // Initialize the values
+     $('div.body li.toctree-l2:not(:has(ul))').attr('data-content', '-');
+     $('div.body li.toctree-l2:has(ul)').attr('data-content', '\u25ba');
+     $('div.body li.toctree-l2:has(ul)').css('cursor', 'pointer');
+
+     $('div.body .toctree-l2').hover(
+         function () {
+             if ($(this).children('ul').length > 0) {
+                 $(this).css('background-color', '#e5e5e5').children('ul').css('background-color', '#F0F0F0');
+                 $(this).attr('data-content',
+                     (!$(this).children('ul').is(':hidden')) ? '\u25bc' : '\u25ba');
+             }
+             else {
+                 $(this).css('background-color', '#F9F9F9');
+             }
+         },
+         function () {
+             $(this).css('background-color', 'white').children('ul').css('background-color', 'white');
+             if ($(this).children('ul').length > 0) {
+                 $(this).attr('data-content',
+                     (!$(this).children('ul').is(':hidden')) ? '\u25bc' : '\u25ba');
+             }
+         }
+     );
+ });
+      })(jQuery);
+  });
+ </script>
+
+<style type="text/css">
+  div.body li, div.body ul {
+      transition-duration: 0.2s;
+  }
+
+  div.body li.toctree-l1 {
+      padding: 5px 0 0;
+      list-style-type: none;
+      font-size: 150%;
+      background-color: #f2f2f2;
+      font-weight: normal;
+      color: #20435c;
+      margin-left: 0;
+      margin-bottom: 1.2em;
+      font-weight: bold;
+      }
+
+  div.body li.toctree-l1 a {
+      color: #314F64;
+  }
+
+  div.body li.toctree-l1 > a {
+      margin-left: 0.75rem;
+  }
+
+  div.body li.toctree-l2 {
+      padding: 0.25em 0 0.25em 0 ;
+      list-style-type: none;
+      background-color: #FFFFFF;
+      font-size: 85% ;
+      font-weight: normal;
+      margin-left: 0;
+  }
+
+  div.body li.toctree-l2 ul {
+      padding-left: 40px ;
+  }
+
+  div.body li.toctree-l2:before {
+      content: attr(data-content);
+      font-size: 1rem;
+      color: #777;
+      display: inline-block;
+      width: 1.5rem;
+  }
+
+  div.body li.toctree-l3 {
+      font-size: 88% ;
+      list-style-type: square;
+      font-weight: normal;
+      margin-left: 0;
+  }
+
+  div.body li.toctree-l4 {
+      font-size: 93% ;
+      list-style-type: circle;
+      font-weight: normal;
+      margin-left: 0;
+  }
+
+  div.body div.topic li.toctree-l1 {
+      font-size: 100% ;
+      font-weight: bold;
+      background-color: transparent;
+      margin-bottom: 0;
+      margin-left: 1.5em;
+      display:inline;
+  }
+
+  div.body div.topic p {
+      font-size: 90% ;
+      margin: 0.4ex;
+  }
+
+  div.body div.topic p.topic-title {
+      display:inline;
+      font-size: 100% ;
+      margin-bottom: 0;
+  }
+</style><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contribuyendo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#ways-to-contribute">Formas de contribuir</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#submitting-a-bug-report-or-a-feature-request">Enviar un informe de errores o una solicitud de funcionalidad(feature request)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#how-to-make-a-good-bug-report">Cómo hacer un buen informe de errores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing-code">Contribución de código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#video-resources">Recursos de video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#how-to-contribute">Cómo contribuir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#pull-request-checklist">Lista de comprobación de pull request</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contributing.html#continuous-integration-ci">Integración continua (CI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="contributing.html#stalled-pull-requests">Pull requests estancados(stalled)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="contributing.html#stalled-and-unclaimed-issues">Incidencias estancadas y no reclamadas</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#issues-for-new-contributors">Incidencias para los nuevos colaboradores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#documentation">Documentación</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#building-the-documentation">Construyendo la documentación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#guidelines-for-writing-documentation">Pautas para la redacción de la documentación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#generated-documentation-on-circleci">Documentación generada sobre CircleCI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#testing-and-improving-test-coverage">Pruebas y mejora de la cobertura de las pruebas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#writing-matplotlib-related-tests">Escribir pruebas relacionadas con matplotlib</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#workflow-to-improve-test-coverage">Flujo de trabajo para mejorar la cobertura de las pruebas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#monitoring-performance">Monitorización del rendimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#issue-tracker-tags">Etiquetas del rastreador de incidencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#maintaining-backwards-compatibility">Mantener la compatibilidad con versiones anteriores</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#deprecation">Obsolescencia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#change-the-default-value-of-a-parameter">Cambia el valor predeterminado de un parámetro</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#code-review-guidelines">Pautas para la revisión del código</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#reading-the-existing-code-base">Lectura del código base existente</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Desarrollando estimadores de scikit-learn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#apis-of-scikit-learn-objects">APIs de objetos de scikit-learn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#different-objects">Objetos diferentes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#estimators">Estimadores</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#instantiation">Instanciación</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#fitting">Ajuste</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#estimated-attributes">Atributos estimados</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#optional-arguments">Argumentos opcionales</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#pairwise-attributes">Atributos en pareja</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#universal-attributes">Atributos universales</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#rolling-your-own-estimator">Rodando tu propio estimador</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#get-params-and-set-params">get_params y set_params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#parameters-and-init">Parámetros e init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#cloning">Clonado</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#pipeline-compatibility">Compatibilidad con pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#estimator-types">Tipos de estimador</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#specific-models">Modelos específicos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#estimator-tags">Etiquetas de Estimador</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#coding-guidelines">Directrices de codificación</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#input-validation">Validación de entrada</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#random-numbers">Números aleatorios</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Consejos y Trucos de los Desarrolladores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#productivity-and-sanity-preserving-tips">Consejos para preservar la productividad y la cordura</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#folding-and-unfolding-outdated-diffs-on-pull-requests">Pliegue y despliegue de diffs obsoletos en pull requests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#checking-out-pull-requests-as-remote-tracking-branches">Comprobación de pull requests como ramas de seguimiento remoto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#display-code-coverage-in-pull-requests">Mostrar la cobertura del código en los pull requests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#useful-pytest-aliases-and-flags">Alias e indicadores útiles de pytest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#standard-replies-for-reviewing">Respuestas estándar para la revisión</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#debugging-memory-errors-in-cython-with-valgrind">Depuración de errores de memoria en Cython con valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#building-and-testing-for-the-arm64-platform-on-a-x86-64-machine">Construcción y pruebas para la plataforma ARM64 en una máquina x86_64</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilidades para Desarrolladores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#validation-tools">Herramientas de Validación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#efficient-linear-algebra-array-operations">Álgebra Lineal Eficiente y Operaciones de Arreglos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#efficient-random-sampling">Muestreo Aleatorio Eficiente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#efficient-routines-for-sparse-matrices">Rutinas Eficientes para Matrices Dispersas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#graph-routines">Rutinas gráficas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#testing-functions">Funciones de prueba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#multiclass-and-multilabel-utility-function">Función de utilidad multiclase y multietiqueta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#helper-functions">Funciones de Ayuda (Helper)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#hash-functions">Funciones Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#warnings-and-exceptions">Advertencias y Excepciones</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Cómo optimizar para velocidad</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#python-cython-or-c-c">¿Python, Cython o C/C++?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#profiling-python-code">Perfilar el código Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#memory-usage-profiling">Perfilar el uso de memoria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#performance-tips-for-the-cython-developer">Tips de rendimiento para el desarrollador Cython</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#using-openmp">Utilizando OpenMP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#profiling-compiled-extensions">Perfilar las extensiones compiladas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#using-yep-and-gperftools">Utilizando yep y gperftools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#using-gprof">Utilizando gprof</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#using-valgrind-callgrind-kcachegrind">Utilizando valgrind / callgrind / kcachegrind</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="performance.html#kcachegrind">kcachegrind</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#multi-core-parallelism-using-joblib-parallel">Paralelismo multinúcleo utilizando <code class="docutils literal notranslate"><span class="pre">joblib.Parallel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#a-simple-algorithmic-trick-warm-restarts">Un simple truco algorítmico: reinicios en caliente</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_installation.html">Instalación de la versión de desarrollo de scikit-learn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#installing-nightly-builds">Instalación de compilaciones nocturnas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#building-from-source">Compilando desde la fuente</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#dependencies">Dependencias</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#runtime-dependencies">Dependencias de ejecución</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#build-dependencies">Dependencias de compilación</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#test-dependencies">Dependencias de prueba</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#building-a-specific-version-from-a-tag">Compilar una versión específica de una etiqueta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#editable-mode">Modo editable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#platform-specific-instructions">Instrucciones específicas de la plataforma</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#macos">macOS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#macos-compilers-from-conda-forge">compiladores macOS de conda-forge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#macos-compilers-from-homebrew">compiladores macOS de Homebrew</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#linux">Linux</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#linux-compilers-from-the-system">Compiladores Linux del sistema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#linux-compilers-from-conda-forge">Compiladores Linux de conda-forge</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#freebsd">FreeBSD</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#alternative-compilers">Compiladores alternativos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#building-with-intel-c-compiler-icc-using-oneapi-on-linux">Compilar con Intel C Compiler (ICC) usando oneAPI en Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#parallel-builds">Compilaciones paralelas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bug_triaging.html">Evaluación de errores y curación de problemas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#working-on-issues-to-improve-them">Trabajar en las incidencias (issues) para mejorarlas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#working-on-prs-to-help-review">Trabajar en los PR para ayudar a la revisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#triaging-operations-for-members-of-the-core-and-triage-teams">Operaciones de triaje para los miembros de los equipos centrales y de triaje</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#a-typical-workflow-for-triaging-issues">Un flujo de trabajo típico para el triaje de incidencias</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="maintainer.html">Información sobre el mantenedor/desarrollador del núcleo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#releasing">Lanzamiento de versiones</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="maintainer.html#before-a-release">Antes de una versión</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maintainer.html#preparing-a-release-pr">Preparando un PR de lanzamiento</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="maintainer.html#major-version-release">Lanzamiento de la versión principal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="maintainer.html#minor-version-release">Lanzamiento de una versión menor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="maintainer.html#making-a-release">Haciendo un lanzamiento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maintainer.html#release-checklist">Lista de verificación de lanzamiento</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#merging-pull-requests">Fusión de Pull Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#the-scikit-learn-org-web-site">El sitio web scikit-learn.org</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#travis-cron-jobs">Trabajos de Travis Cron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#experimental-features">Características experimentales</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Desarrollo con la API Plotting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#plotting-api-overview">Visión general de la API Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#plotting-with-multiple-axes">Graficar con Múltiples Ejes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/developers/index.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Evaluación de errores y curación de problemas &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/developers/bug_triaging.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="advanced_installation.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Instalación de la versión de desarrollo de scikit-learn">Prev</a><a href="index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Guía del Desarrollador">Arriba</a>
+            <a href="maintainer.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Información sobre el mantenedor/desarrollador del núcleo">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Evaluación de errores y curación de problemas</a><ul>
+<li><a class="reference internal" href="#working-on-issues-to-improve-them">Trabajar en las incidencias (issues) para mejorarlas</a></li>
+<li><a class="reference internal" href="#working-on-prs-to-help-review">Trabajar en los PR para ayudar a la revisión</a></li>
+<li><a class="reference internal" href="#triaging-operations-for-members-of-the-core-and-triage-teams">Operaciones de triaje para los miembros de los equipos centrales y de triaje</a></li>
+<li><a class="reference internal" href="#a-typical-workflow-for-triaging-issues">Un flujo de trabajo típico para el triaje de incidencias</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="bug-triaging-and-issue-curation">
+<span id="bug-triaging"></span><h1>Evaluación de errores y curación de problemas<a class="headerlink" href="#bug-triaging-and-issue-curation" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">issue tracker</a> es importante para la comunicación en el proyecto: ayuda a los desarrolladores a identificar los principales proyectos en los que trabajar, así como a discutir las prioridades. Por esta razón, es importante conservarlo, añadiendo etiquetas a las incidencias y cerrando las incidencias que no son necesarias.</p>
+<section id="working-on-issues-to-improve-them">
+<h2>Trabajar en las incidencias (issues) para mejorarlas<a class="headerlink" href="#working-on-issues-to-improve-them" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La mejora de las incidencias aumenta las posibilidades de que se resuelvan con éxito. Las directrices para presentar buenas incidencias pueden encontrarse <a class="reference internal" href="contributing.html#filing-bugs"><span class="std std-ref">aquí</span></a>. Un tercero puede dar una opinión útil o incluso añadir comentarios sobre la incidencia. Las siguientes acciones suelen ser útiles:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>documentar las incidencias en las que faltan elementos para reproducir el problema, como ejemplos de código</p></li>
+<li><p>sugerir un mejor uso del formato del código</p></li>
+<li><p>sugerir que se reformulen el título y la descripción para que sean más explícitos en cuanto al problema que hay que resolver</p></li>
+<li><p>enlazar con incidencias o discusiones relacionadas mientras se describe brevemente cómo están relacionadas, por ejemplo «Ver también #xyz para un intento similar de esto» o «Ver también #xyz donde ocurrió lo mismo en SomeEstimator» proporciona contexto y ayuda a la discusión.</p></li>
+</ul>
+</div></blockquote>
+<div class="topic">
+<p class="topic-title">Discusiones fructíferas</p>
+<p>Las discusiones en línea pueden ser más difíciles de lo que parece a primera vista, sobre todo teniendo en cuenta que una persona nueva en el mundo del código abierto puede tener una comprensión muy diferente del proceso que un mantenedor experimentado.</p>
+<p>En general, es útil mantenerse positivo y asumir la buena voluntad. <a class="reference external" href="http://gael-varoquaux.info/programming/technical-discussions-are-hard-a-few-tips.html">El siguiente artículo</a> explora cómo dirigir los debates en línea en el contexto del código abierto.</p>
+</div>
+</section>
+<section id="working-on-prs-to-help-review">
+<h2>Trabajar en los PR para ayudar a la revisión<a class="headerlink" href="#working-on-prs-to-help-review" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>También se fomenta la revisión del código. Los colaboradores y usuarios son bienvenidos a participar en el proceso de revisión siguiendo nuestras <a class="reference internal" href="contributing.html#code-review"><span class="std std-ref">directrices de revisión</span></a>.</p>
+</section>
+<section id="triaging-operations-for-members-of-the-core-and-triage-teams">
+<h2>Operaciones de triaje para los miembros de los equipos centrales y de triaje<a class="headerlink" href="#triaging-operations-for-members-of-the-core-and-triage-teams" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Además de lo anterior, los miembros del equipo central y del equipo de triaje pueden realizar las siguientes tareas importantes:</p>
+<ul class="simple">
+<li><p>Actualizar <a class="reference internal" href="contributing.html#issue-tracker-tags"><span class="std std-ref">etiquetas para temas y los PR</span></a>: ver la lista de las <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/labels">etiquetas disponibles en github</a>.</p></li>
+<li><p><a class="reference internal" href="contributing.html#stalled-pull-request"><span class="std std-ref">Determinar si un PR debe ser reetiquetado como estancado (stalled)</span></a> o si necesita ayuda (esto suele ser muy importante en el contexto de los sprints, donde el riesgo es crear muchos PR inconclusos)</p></li>
+<li><p>Incidencias de triaje:</p>
+<ul>
+<li><p><strong>cierra las preguntas de uso</strong> e indica amablemente al reportero que utilice Stack Overflow en su lugar.</p></li>
+<li><p><strong>cierra las incidencias duplicadas</strong>, después de comprobar que efectivamente son duplicados. Lo ideal es que el remitente original traslade la discusión a la incidencia duplicada más antigua</p></li>
+<li><p><strong>cierra las incidencias que no se pueden replicar</strong>, después de dejar tiempo (al menos una semana) para añadir información adicional</p></li>
+</ul>
+</li>
+</ul>
+<p><a class="reference internal" href="tips.html#saved-replies"><span class="std std-ref">Las respuestas guardadas</span></a> son útiles para ganar tiempo y a la vez ser acogedor y educado a la hora de triar.</p>
+<p>Consulta la descripción de github para conocer los <a class="reference external" href="https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization">roles en la organización</a>.</p>
+<div class="topic">
+<p class="topic-title">Incidencias de cierre: una decisión difícil</p>
+<p>En caso de duda sobre si una incidencia debe cerrarse o no, lo mejor es tratar de llegar a un consenso con el autor original y, posiblemente, buscar los conocimientos técnicos pertinentes. Sin embargo, cuando la incidencia es una cuestión de uso, o cuando se considera poco clara desde hace muchos años, debe cerrarse.</p>
+</div>
+</section>
+<section id="a-typical-workflow-for-triaging-issues">
+<h2>Un flujo de trabajo típico para el triaje de incidencias<a class="headerlink" href="#a-typical-workflow-for-triaging-issues" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El siguiente flujo de trabajo <a class="footnote-reference brackets" href="#id2" id="id1">1</a> es una buena manera de abordar el triaje de incidencias:</p>
+<ol class="arabic">
+<li><p>Agradece al reportero que haya abierto una incidencia</p>
+<p>El gestor de incidencias (issue tracker) es la primera interacción de muchas personas con el proyecto scikit-learn, más allá del simple uso de la biblioteca. Como tal, queremos que sea una experiencia acogedora y agradable.</p>
+</li>
+<li><p>¿Es una pregunta de uso? Si es así, ciérrala con un mensaje de cortesía (<a class="reference internal" href="tips.html#saved-replies"><span class="std std-ref">aquí tienes un ejemplo</span></a>).</p></li>
+<li><p>¿Se proporciona la información necesaria?</p>
+<p>Si falta información crucial (como la versión de scikit-learn utilizada), no dudes en pedirla y etiquetar la incidencia con «Needs info».</p>
+</li>
+<li><p>¿Se trata de una incidencia duplicada?</p>
+<p>Tenemos muchas incidencias abiertas. Si una nueva incidencia parece ser un duplicado, señala la incidencia original. Si es un claro duplicado, o el consenso es que es redundante, ciérralo. Asegúrate de dar las gracias al reportero y anímale a que intervenga en la incidencia original y, tal vez, a que intente solucionarla.</p>
+<p>Si la nueva incidencia proporciona información relevante, como un ejemplo mejor o ligeramente diferente, añádela a la incidencia original como un comentario o una edición al post original.</p>
+</li>
+<li><p>Asegúrate de que el título refleja correctamente la incidencia. Si tienes los permisos necesarios, edítalo tú mismo si no está claro.</p></li>
+<li><p>¿La incidencia o problema es mínimo y reproducible?</p>
+<p>Para los informes de errores, pedimos que el informante proporcione un ejemplo mínimo reproducible. Mira <a class="reference external" href="https://matthewrocklin.com/blog/work/2018/02/28/minimal-bug-reports">este útil post</a> de Matthew Rocklin para una buena explicación. Si el ejemplo no es reproducible o si claramente no es mínimo, no dudes en preguntar al reportero si puede proporcionar un ejemplo o simplificar el proporcionado. Reconoce que escribir ejemplos mínimos reproducibles es un trabajo duro. Si el reportero tiene problemas, puedes intentar escribir uno tú mismo.</p>
+<p>Si se proporciona un ejemplo reproducible, pero ves una simplificación, añade tu ejemplo reproducible más sencillo.</p>
+</li>
+<li><p>Añade las etiquetas pertinentes, como «Documentation» cuando la incidencia se refiere a la documentación, «Bug» si se trata claramente de un error, «Enhancement» si se trata de una solicitud de mejora, …</p>
+<p>Si la incidencia está claramente definida y la solución parece relativamente sencilla, etiqueta la incidencia como «Good first issue» (buen primer problema).</p>
+<p>Un paso adicional útil puede ser etiquetar el módulo correspondiente, por ejemplo, <code class="docutils literal notranslate"><span class="pre">sklearn.linear_models</span></code> cuando sea relevante.</p>
+</li>
+</ol>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Adaptado del proyecto pandas <a class="reference external" href="https://dev.pandas.io/docs/development/maintaining.html">maintainers guide</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/developers/bug_triaging.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

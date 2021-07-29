@@ -1,0 +1,1037 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Contribuyendo &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/developers/contributing.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Guía del Desarrollador">Prev</a><a href="index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Guía del Desarrollador">Arriba</a>
+            <a href="develop.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Desarrollando estimadores de scikit-learn">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Contribuyendo</a><ul>
+<li><a class="reference internal" href="#ways-to-contribute">Formas de contribuir</a></li>
+<li><a class="reference internal" href="#submitting-a-bug-report-or-a-feature-request">Enviar un informe de errores o una solicitud de funcionalidad(feature request)</a><ul>
+<li><a class="reference internal" href="#how-to-make-a-good-bug-report">Cómo hacer un buen informe de errores</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributing-code">Contribución de código</a><ul>
+<li><a class="reference internal" href="#video-resources">Recursos de video</a></li>
+<li><a class="reference internal" href="#how-to-contribute">Cómo contribuir</a></li>
+<li><a class="reference internal" href="#pull-request-checklist">Lista de comprobación de pull request</a><ul>
+<li><a class="reference internal" href="#continuous-integration-ci">Integración continua (CI)</a></li>
+<li><a class="reference internal" href="#stalled-pull-requests">Pull requests estancados(stalled)</a></li>
+<li><a class="reference internal" href="#stalled-and-unclaimed-issues">Incidencias estancadas y no reclamadas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#issues-for-new-contributors">Incidencias para los nuevos colaboradores</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#documentation">Documentación</a><ul>
+<li><a class="reference internal" href="#building-the-documentation">Construyendo la documentación</a></li>
+<li><a class="reference internal" href="#guidelines-for-writing-documentation">Pautas para la redacción de la documentación</a></li>
+<li><a class="reference internal" href="#generated-documentation-on-circleci">Documentación generada sobre CircleCI</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#testing-and-improving-test-coverage">Pruebas y mejora de la cobertura de las pruebas</a><ul>
+<li><a class="reference internal" href="#writing-matplotlib-related-tests">Escribir pruebas relacionadas con matplotlib</a></li>
+<li><a class="reference internal" href="#workflow-to-improve-test-coverage">Flujo de trabajo para mejorar la cobertura de las pruebas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#monitoring-performance">Monitorización del rendimiento</a></li>
+<li><a class="reference internal" href="#issue-tracker-tags">Etiquetas del rastreador de incidencias</a></li>
+<li><a class="reference internal" href="#maintaining-backwards-compatibility">Mantener la compatibilidad con versiones anteriores</a><ul>
+<li><a class="reference internal" href="#deprecation">Obsolescencia</a></li>
+<li><a class="reference internal" href="#change-the-default-value-of-a-parameter">Cambia el valor predeterminado de un parámetro</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-review-guidelines">Pautas para la revisión del código</a></li>
+<li><a class="reference internal" href="#reading-the-existing-code-base">Lectura del código base existente</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="contributing">
+<span id="id1"></span><h1>Contribuyendo<a class="headerlink" href="#contributing" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este proyecto es un esfuerzo comunitario, y todos son bienvenidos a contribuir.</p>
+<p>El proyecto está alojado en <a class="reference external" href="https://github.com/scikit-learn/scikit-learn">https://github.com/scikit-learn/scikit-learn</a></p>
+<p>El proceso de toma de decisiones y la estructura de gobernanza de scikit-learn se exponen en el documento de gobernanza: <a class="reference internal" href="../governance.html#governance"><span class="std std-ref">La gestión y toma de decisiones en el ámbito de la ciencia</span></a>.</p>
+<p>Scikit-learn es un poco <a class="reference internal" href="../faq.html#selectiveness"><span class="std std-ref">selective</span></a> cuando se trata de añadir nuevos algoritmos, y la mejor manera de contribuir y ayudar al proyecto es empezar a trabajar en las incidencias(issues) conocidas. Ver <a class="reference internal" href="#new-contributors"><span class="std std-ref">Incidencias para los nuevos colaboradores</span></a> para empezar.</p>
+<div class="topic">
+<p class="topic-title"><strong>Nuestra comunidad, nuestros valores</strong></p>
+<p>Somos una comunidad basada en la apertura y los debates amistosos y didácticos.</p>
+<p>Aspiramos a tratar a todos por igual y a valorar sus contribuciones.  Buscamos especialmente a personas con poca representación en el software de código abierto y en scikit-learn en particular para que participen y aporten sus conocimientos y experiencia.</p>
+<p>Las decisiones se toman basándose en el mérito técnico y el consenso.</p>
+<p>El código no es la única forma de ayudar al proyecto. Revisar pull requests, responder a preguntas para ayudar a otros en las listas de correo o en las incidencias, organizar y enseñar tutoriales, trabajar en el sitio web, mejorar la documentación, son todas contribuciones que no tienen precio.</p>
+<p>Nos atenemos a los principios de apertura, respeto y consideración de los demás de la Python Software Foundation: <a class="reference external" href="https://www.python.org/psf/codeofconduct/">https://www.python.org/psf/codeofconduct/</a></p>
+</div>
+<p>En caso de que experimentes alguna incidencia al utilizar este paquete, no dudes en enviar un ticket al <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">Rastreador de problemas de GitHub</a>. También puedes enviar solicitudes de funcionalidad o pull requests.</p>
+<section id="ways-to-contribute">
+<h2>Formas de contribuir<a class="headerlink" href="#ways-to-contribute" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Hay muchas maneras de contribuir a scikit-learn, siendo las más comunes la contribución de código o a la documentación del proyecto. Mejorar la documentación no es menos importante que mejorar la propia biblioteca. Si encuentras un error en la documentación, o has hecho mejoras, no dudes en enviar un correo electrónico a la lista de correo o, preferiblemente, envía una solicitud de extracción de GitHub. La documentación completa se encuentra en el directorio doc/.</p>
+<p>Pero hay muchas otras formas de ayudar. En particular, ayudar a <a class="reference internal" href="bug_triaging.html#bug-triaging"><span class="std std-ref">improve, triage, and investigate issues</span></a> y <a class="reference internal" href="#code-review"><span class="std std-ref">reviewing other developers” pull requests</span></a> son contribuciones muy valiosas que disminuyen la carga de los mantenedores del proyecto.</p>
+<p>Otra forma de contribuir es informar de las incidencias a las que te enfrentas, y dar un «pulgar arriba» a las incidencias que otros informaron y que son relevantes para ti. También nos ayuda que corras la voz: haz referencia al proyecto desde tu blog y artículos, enlaza con él desde tu sitio web, o simplemente destaca para decir «yo lo uso»:</p>
+<p>En el caso de que una contribución/incidencia implique cambios en los principios de la API o cambios en las dependencias o en las versiones soportadas, debe estar respaldada por un <a class="reference internal" href="../governance.html#slep"><span class="std std-ref">Propuestas de mejora (SLEPs)</span></a>, donde un SLEP debe ser enviado como un pull request a <a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io">propuestas de mejora</a> utilizando la <a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html">plantilla SLEP</a> y sigue el proceso de toma de decisiones descrito en <a class="reference internal" href="../governance.html#governance"><span class="std std-ref">La gestión y toma de decisiones en el ámbito de la ciencia</span></a>.</p>
+<a class="github-button" href="https://github.com/scikit-learn/scikit-learn"
+data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star
+scikit-learn/scikit-learn on GitHub">Star</a>
+<script async defer src="https://buttons.github.io/buttons.js"></script><div class="topic">
+<p class="topic-title">Contribuyendo a proyectos relacionados</p>
+<p>Scikit-learn prospera en un ecosistema de varios proyectos relacionados, que también pueden tener incidencias relevantes en los que trabajar, incluyendo proyectos más pequeños como:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/search?q=org%3Ascikit-learn-contrib+is%3Aissue+is%3Aopen+sort%3Aupdated-desc&amp;type=Issues">scikit-learn-contrib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/joblib/joblib/issues">joblib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sphinx-gallery/sphinx-gallery/issues">sphinx-gallery</a></p></li>
+<li><p><a class="reference external" href="https://github.com/numpy/numpydoc/issues">numpydoc</a></p></li>
+<li><p><a class="reference external" href="https://github.com/renatopp/liac-arff">liac-arff</a></p></li>
+</ul>
+<p>y proyectos más grandes:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/numpy/numpy/issues">numpy</a></p></li>
+<li><p><a class="reference external" href="https://github.com/scipy/scipy/issues">scipy</a></p></li>
+<li><p><a class="reference external" href="https://github.com/matplotlib/matplotlib/issues">matplotlib</a></p></li>
+<li><p>y así sucesivamente.</p></li>
+</ul>
+<p>Busca incidencias marcadas como «se necesita ayuda»(«help wanted») o similares. Ayudar a estos proyectos puede ayudar a Scikit-learn también. Ver también <a class="reference internal" href="../related_projects.html#related-projects"><span class="std std-ref">Proyectos Relacionados</span></a>.</p>
+</div>
+</section>
+<section id="submitting-a-bug-report-or-a-feature-request">
+<h2>Enviar un informe de errores o una solicitud de funcionalidad(feature request)<a class="headerlink" href="#submitting-a-bug-report-or-a-feature-request" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Utilizamos las incidencias(issues) de GitHub para hacer un seguimiento de todos los errores y solicitudes de funcionalidades; no dudes en abrir una incidencia si has encontrado un error o deseas que se implemente una funcionalidad.</p>
+<p>En caso de que experimentes incidencias al utilizar este paquete, no dudes en enviar un ticket al <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">Rastreador de errores</a>. También puedes enviar solicitudes de funcionalidad o pull requests.</p>
+<p>Se recomienda comprobar que tu incidencia se ajusta a las siguientes normas antes de presentarlo:</p>
+<ul class="simple">
+<li><p>Comprueba que tu incidencia(issue) no está siendo tratada por otros <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues?q=">issues</a> o <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/pulls?q=">pull requests</a>.</p></li>
+<li><p>Si estás enviando una solicitud de algoritmo o funcionalidad, por favor verifica que el algoritmo cumple con nuestros <a class="reference external" href="http://scikit-learn.org/stable/faq.html#what-are-the-inclusion-criteria-for-new-algorithms">nuevos requisitos del algoritmo</a>.</p></li>
+<li><p>Si estás enviando un informe de errores, te recomendamos encarecidamente que sigas las directrices de <a class="reference internal" href="#filing-bugs"><span class="std std-ref">Cómo hacer un buen informe de errores</span></a>.</p></li>
+</ul>
+<section id="how-to-make-a-good-bug-report">
+<span id="filing-bugs"></span><h3>Cómo hacer un buen informe de errores<a class="headerlink" href="#how-to-make-a-good-bug-report" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Cuando envíes una incidencia a <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">Github</a>, ¡haz lo posible por seguir estas directrices! Esto hará que sea mucho más fácil proporcionarte una buena retroalimentación:</p>
+<ul>
+<li><p>El informe de error ideal contiene un <strong>corto fragmento de código reproducible</strong>, de esta manera cualquiera puede intentar reproducir el error fácilmente (ver <a class="reference external" href="https://stackoverflow.com/help/mcve">esto</a> para más detalles). Si tu fragmento es más largo que unas 50 líneas, por favor, enlaza con un <a class="reference external" href="https://gist.github.com">gist</a> o un repo de github.</p></li>
+<li><p>Si no es posible incluir un fragmento reproducible, por favor, especifica qué <strong>estimadores y/o funciones están involucrados y la forma de los datos</strong>.</p></li>
+<li><p>Si se lanza una excepción, por favor <strong>proporciona el rastreo(traceback) completo</strong>.</p></li>
+<li><p>Por favor, incluye tu <strong>tipo de sistema operativo y número de versión</strong>, así como tus <strong>versiones de Python, scikit-learn, numpy y scipy</strong>. Esta información se puede encontrar ejecutando el siguiente fragmento de código:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sklearn</span><span class="o">.</span><span class="n">show_versions</span><span class="p">()</span>  
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Esta función de utilidad sólo está disponible en scikit-learn v0.20+. Para versiones anteriores, hay que ejecutar explícitamente:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">platform</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">())</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NumPy&quot;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">scipy</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SciPy&quot;</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">sklearn</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scikit-Learn&quot;</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Por favor, asegúrate de que todos los <strong>fragmentos de código y mensajes de error están formateados en bloques de código apropiados</strong>.  Consulta <a class="reference external" href="https://help.github.com/articles/creating-and-highlighting-code-blocks">Creación y resaltado de bloques de código</a> para obtener más detalles.</p></li>
+</ul>
+<p>Si quieres ayudar a solucionar las incidencias, lee <a class="reference internal" href="bug_triaging.html#bug-triaging"><span class="std std-ref">lo siguiente</span></a>.</p>
+</section>
+</section>
+<section id="contributing-code">
+<h2>Contribución de código<a class="headerlink" href="#contributing-code" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>To avoid duplicating work, it is highly advised that you search through the
+<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">issue tracker</a> and
+the <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/pulls">PR list</a>.
+If in doubt about duplicated work, or if you want to work on a non-trivial
+feature, it’s recommended to first open an issue in
+the <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">issue tracker</a>
+to get some feedbacks from core developers.</p>
+<p>Una forma fácil de encontrar una incidencia en la que trabajar es aplicar la etiqueta «se busca ayuda»(«help wanted») en tu búsqueda. En ella se enumeran todas las incidencias que no han sido reclamadas hasta el momento. Para reclamar un incidencia para ti, comenta exactamente <code class="docutils literal notranslate"><span class="pre">take</span></code> en ella para que el CI te asigne automáticamente la incidencia.</p>
+</div>
+<section id="video-resources">
+<h3>Recursos de video<a class="headerlink" href="#video-resources" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Estos videos son introducciones paso a paso sobre cómo contribuir a scikit-learn, y son un gran complemento a las siguientes pautas de texto. Por favor, asegúrate de seguir revisando nuestras directrices a continuación, ya que describen nuestro último flujo de trabajo actualizado.</p>
+<ul class="simple">
+<li><p>Curso intensivo de contribución a proyectos de Scikit-Learn y de código abierto: <a class="reference external" href="https://youtu.be/5OL8XoMMOfA">Video</a>, <a class="reference external" href="https://github.com/data-umbrella/event-transcripts/blob/main/2020/05-andreas-mueller-contributing.md">Traducción</a></p></li>
+<li><p>Ejemplo de envío de un Pull Request a scikit-learn: <a class="reference external" href="https://youtu.be/PU1WyDPGePI">Video</a>, <a class="reference external" href="https://github.com/data-umbrella/event-transcripts/blob/main/2020/06-reshama-shaikh-sklearn-pr.md">Traducción</a></p></li>
+<li><p>Instrucciones específicas para el sprint y consejos prácticos: <a class="reference external" href="https://youtu.be/p_2Uw2BxdhA">Video</a>, <a class="reference external" href="https://github.com/data-umbrella/data-umbrella-scikit-learn-sprint/blob/master/3_transcript_ACM_video_vol2.md">Traducción</a></p></li>
+</ul>
+</section>
+<section id="how-to-contribute">
+<h3>Cómo contribuir<a class="headerlink" href="#how-to-contribute" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La forma preferida de contribuir a scikit-learn es hacer un fork del <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/">repositorio principal</a> en GitHub, y luego enviar un «pull request» (PR).</p>
+<p>En los primeros pasos, explicamos cómo instalar localmente scikit-learn, y cómo configurar tu repositorio git:</p>
+<ol class="arabic">
+<li><p><a class="reference external" href="https://github.com/join">Crea una cuenta</a> en GitHub si aún no tienes una.</p></li>
+<li><p>Haz un fork del <a class="reference external" href="https://github.com/scikit-learn/scikit-learn">repositorio del proyecto</a>: haz clic en el botón “Fork” cerca de la parte superior de la página. Esto crea una copia del código bajo tu cuenta en la cuenta de usuario de GitHub. Para más detalles sobre cómo bifurcar(fork) un repositorio ver <a class="reference external" href="https://help.github.com/articles/fork-a-repo/">esta guía</a>.</p></li>
+<li><p>Clona tu fork del repo de scikit-learn desde tu cuenta de GitHub a tu disco local:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">git clone git@github.com:YourLogin/scikit-learn.git  <span class="c1"># add --depth 1 if your connection is slow</span></span>
+<span class="prompt1"><span class="nb">cd</span> scikit-learn</span>
+</pre></div></div></li>
+<li><p>Instala las dependencias de desarrollo:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip install cython pytest pytest-cov flake8 mypy</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Instala scikit-learn en modo editable:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip install --no-build-isolation --editable .</span>
+</pre></div></div></div></blockquote>
+<p>Si recibes errores en la construcción de scikit-learn, consulta la sección <a class="reference internal" href="advanced_installation.html#install-bleeding-edge"><span class="std std-ref">Compilando desde la fuente</span></a>.</p>
+</li>
+</ol>
+<ol class="arabic" id="upstream" start="6">
+<li><p>Añade el remoto <code class="docutils literal notranslate"><span class="pre">upstream</span></code>. Esto guarda una referencia al repositorio principal de scikit-learn, que puedes utilizar para mantener tu repositorio sincronizado con los últimos cambios:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git remote add upstream https://github.com/scikit-learn/scikit-learn.git</span>
+</pre></div></div></li>
+</ol>
+<p>Ahora deberías tener una instalación de scikit-learn que funcione, y tu repositorio git correctamente configurado. Los siguientes pasos describen el proceso de modificación del código y el envío de un PR:</p>
+<ol class="arabic" start="7">
+<li><p>Sincroniza tu rama principal con la rama principal ascendente(upstream):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git checkout main</span>
+<span class="prompt1">git pull upstream main</span>
+</pre></div></div></li>
+<li><p>Crea una rama de funcionalidad(feature) para mantener tus cambios de desarrollo:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git checkout -b my_feature</span>
+</pre></div></div></div></blockquote>
+<p>y empieza a hacer cambios. Utiliza siempre una rama de funcionalidad. ¡Es una buena práctica no trabajar nunca en la rama <code class="docutils literal notranslate"><span class="pre">main</span></code>!</p>
+</li>
+<li><p>(<strong>Opcional</strong>) Instala <a class="reference external" href="https://pre-commit.com/#install">pre-commit</a> para ejecutar comprobaciones de estilo de código antes de cada confirmación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip install pre-commit</span>
+<span class="prompt1">pre-commit install</span>
+</pre></div></div><p>Las comprobaciones pre-commit pueden desactivarse para un commit particular con <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-n</span></code>.</p>
+</li>
+<li><p>Desarrolla la funcionalidad en tu rama de funcionalidad(feature) en tu ordenador, utilizando Git para hacer el control de versiones. Cuando termines de editar, añade los archivos modificados utilizando <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> y luego <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git add modified_files</span>
+<span class="prompt1">git commit</span>
+</pre></div></div><p>para registrar tus cambios en Git, y luego subir(push) los cambios a tu cuenta de GitHub con:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git push -u origin my_feature</span>
+</pre></div></div></li>
+<li><p>Sigue <a class="reference external" href="https://help.github.com/articles/creating-a-pull-request-from-a-fork">estas</a> instrucciones para crear un pull request desde tu fork. Esto enviará un correo electrónico a los confirmantes. Puedes considerar enviar un correo electrónico a la lista de correo para tener más visibilidad.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si estás modificando un módulo de Cython, tienes que volver a compilar después de las modificaciones y antes de probarlas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip install --no-build-isolation -e .</span>
+</pre></div></div><p>Utiliza la opción <code class="docutils literal notranslate"><span class="pre">--no-build-isolation</span></code> para evitar compilar todo el proyecto cada vez, sólo los archivos que has modificado.</p>
+</div>
+<p>A menudo es útil mantener su rama local de funcionalidad sincronizada con los últimos cambios del repositorio principal de scikit-learn:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git fetch upstream</span>
+<span class="prompt1">git merge upstream/main</span>
+</pre></div></div><p>Posteriormente, es posible que tengas que resolver los conflictos. Puedes consultar la <a class="reference external" href="https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/">documentación de Git relacionada con la resolución de conflictos de fusión utilizando la línea de comandos</a>.</p>
+<div class="topic">
+<p class="topic-title">Aprendiendo git:</p>
+<p>La <a class="reference external" href="https://git-scm.com/documentation">Documentación de Git</a> y <a class="reference external" href="http://try.github.io">http://try.github.io</a> son excelentes recursos para iniciarse en git, y entender todos los comandos que se muestran aquí.</p>
+</div>
+</section>
+<section id="pull-request-checklist">
+<span id="pr-checklist"></span><h3>Lista de comprobación de pull request<a class="headerlink" href="#pull-request-checklist" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Antes de fusionar un PR, debe ser aprobado por dos desarrolladores centrales. Por favor, anteponga al título de su pull request el prefijo <code class="docutils literal notranslate"><span class="pre">[MRG]</span></code> si la contribución está completa y debe ser sometida a una revisión detallada. Una contribución incompleta -en la que se espera hacer más trabajo antes de recibir una revisión completa- debe llevar el prefijo <code class="docutils literal notranslate"><span class="pre">[WIP]</span></code> (para indicar que es un trabajo en curso) y cambiarlo por <code class="docutils literal notranslate"><span class="pre">[MRG]</span></code> cuando madure. Los WIPs pueden ser útiles para: indicar que se está trabajando en algo para evitar la duplicación de trabajo, solicitar una revisión amplia de la funcionalidad o la API, o buscar colaboradores. Los WIPs suelen beneficiarse de la inclusión de una <a class="reference external" href="https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments">lista de tareas</a> en la descripción del PR.</p>
+<p>Para facilitar el proceso de revisión, recomendamos que tu contribución cumpla con las siguientes reglas antes de marcar un PR como <code class="docutils literal notranslate"><span class="pre">[MRG]</span></code>. Las <strong>en negrita</strong> son especialmente importantes:</p>
+<ol class="arabic">
+<li><p><strong>Ponle a tu pull request un título útil</strong> que resuma lo que hace tu contribución. Este título a menudo se convertirá en el mensaje de confirmación una vez fusionado, por lo que debe resumir tu contribución para la posteridad. En algunos casos, «Fix &lt;ISSUE TITLE&gt;» es suficiente. «Fix #&lt;ISSUE NUMBER&gt;» nunca es un buen título.</p></li>
+<li><p><strong>Asegúrate de que tu código pasa las pruebas</strong>. Se puede ejecutar toda la suite de pruebas con <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, pero normalmente no se recomienda porque lleva mucho tiempo. A menudo es suficiente con ejecutar sólo las pruebas relacionadas con tus cambios: por ejemplo, si has cambiado algo en <code class="docutils literal notranslate"><span class="pre">sklearn/linear_model/logistic.py</span></code>, ejecutar los siguientes comandos suele ser suficiente:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">sklearn/linear_model/logistic.py</span></code> para asegurarte de que los ejemplos de doctest son correctos</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">sklearn/linear_model/tests/test_logistic.py</span></code> para ejecutar las pruebas específicas del archivo</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">sklearn/linear_model</span></code> para probar todo el módulo <a class="reference internal" href="../modules/classes.html#module-sklearn.linear_model" title="sklearn.linear_model"><code class="xref py py-mod docutils literal notranslate"><span class="pre">linear_model</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">doc/modules/linear_model.rst</span></code> para asegurarte de que los ejemplos de la guía del usuario son correctos.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">sklearn/tests/test_common.py</span> <span class="pre">-k</span> <span class="pre">LogisticRegression</span></code> para ejecutar todas las comprobaciones de nuestros estimadores (específicamente para <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, si es el estimador que has cambiado).</p></li>
+</ul>
+<p>Puede haber otras pruebas que fallen, pero serán capturadas por el CI, por lo que no es necesario ejecutar toda la suite de pruebas localmente. Para obtener directrices sobre cómo utilizar <code class="docutils literal notranslate"><span class="pre">pytest</span></code> de manera eficiente, consulta la <a class="reference internal" href="tips.html#pytest-tips"><span class="std std-ref">Alias e indicadores útiles de pytest</span></a>.</p>
+</li>
+<li><p><strong>Asegúrate de que tu código está correctamente comentado y documentado</strong>, y <strong>asegúrate de que la documentación se muestra correctamente</strong>. Para construir la documentación, por favor consulta nuestra guía <a class="reference internal" href="#contribute-documentation"><span class="std std-ref">Documentación</span></a>. El CI también construirá la documentación: por favor, consulta <a class="reference internal" href="#generated-doc-ci"><span class="std std-ref">Documentación generada sobre CircleCI</span></a>.</p></li>
+<li><p><strong>Las pruebas son necesarias para que se acepten las mejoras</strong>. Las correcciones de errores o nuevas funcionalidades deben proporcionarse con las <a class="reference external" href="https://en.wikipedia.org/wiki/Non-regression_testing">pruebas de no regresión</a>. Estas pruebas verifican el comportamiento correcto de la corrección o funcionalidad. De esta manera, se otorgan modificaciones adicionales en el código base para que sean coherentes con el comportamiento deseado. En el caso de las correcciones de errores, en el momento del PR, las pruebas de no regresión deben fallar para el código base en la rama principal y pasar para el código PR.</p></li>
+<li><p><strong>Asegúrate de que tu PR no añade violaciones de PEP8</strong>. Para comprobar el código que has cambiado, puedes ejecutar el siguiente comando (ver <a class="reference internal" href="#upstream"><span class="std std-ref">above</span></a> para configurar el remoto upstream):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git diff upstream/main -u -- <span class="s2">&quot;*.py&quot;</span> <span class="p">|</span> flake8 --diff</span>
+</pre></div></div><p>o <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">flake8-diff</span></code> que debería funcionar en sistemas tipo unix.</p>
+</li>
+<li><p>Sigue las <a class="reference internal" href="develop.html#coding-guidelines"><span class="std std-ref">Directrices de codificación</span></a>.</p></li>
+<li><p>Cuando sea aplicable, utiliza las herramientas y scripts de validación del submódulo <code class="docutils literal notranslate"><span class="pre">sklearn.utils</span></code>.  En la página <a class="reference internal" href="utilities.html#developers-utils"><span class="std std-ref">Utilidades para Desarrolladores</span></a> se puede encontrar una lista de rutinas de utilidad disponibles para los desarrolladores.</p></li>
+<li><p>A menudo los pull requests resuelven una o más incidencias (o pull requests). Si la fusión de tu pull request significa que algunas otras incidencias/PRs deben ser cerradas, debes <a class="reference external" href="https://github.com/blog/1506-closing-issues-via-pull-requests/">utilizar palabras clave para crear un enlace a ellas</a> (por ejemplo, <code class="docutils literal notranslate"><span class="pre">Fixes</span> <span class="pre">#1234</span></code>; se permiten múltiples incidencias/PRs siempre que cada una esté precedida por una palabra clave). Una vez fusionadas, esas incidencias/PRs serán cerradas automáticamente por GitHub. Si tu pull request está simplemente relacionada con otras incidencias/PRs, crea un enlace a ellas sin utilizar las palabras clave (por ejemplo, <code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">also</span> <span class="pre">#1234</span></code>).</p></li>
+<li><p>Los PRs deben justificar a menudo el cambio, a través de pruebas de rendimiento y eficiencia (ver <a class="reference internal" href="#monitoring-performances"><span class="std std-ref">Monitorización del rendimiento</span></a>) o a través de ejemplos de uso. Los ejemplos también ilustran las características y complejidades de la biblioteca a los usuarios. Echa un vistazo a otros ejemplos en el directorio <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/tree/main/examples">examples/</a> como referencia. Los ejemplos deben demostrar por qué la nueva funcionalidad es útil en la práctica y, si es posible, compararla con otros métodos disponibles en scikit-learn.</p></li>
+<li><p>A menudo, las nuevas funcionalidades deben ilustrarse con documentación narrativa en el manual de usuario, con pequeños fragmentos de código. Si es pertinente, añade también referencias en la literatura, con enlaces a PDF cuando sea posible.</p></li>
+<li><p>El manual de usuario también debería incluir la complejidad temporal y espacial esperada del algoritmo y la escalabilidad, por ejemplo, «este algoritmo puede escalar a un gran número de muestras &gt; 100000, pero no escala en dimensionalidad: se espera que n_features sea inferior a 100».</p></li>
+</ol>
+<p>También puedes consultar nuestra <a class="reference internal" href="#code-review"><span class="std std-ref">Pautas para la revisión del código</span></a> para hacerte una idea de lo que esperan los revisores.</p>
+<p>Puedes comprobar los errores de programación más comunes con las siguientes herramientas:</p>
+<ul>
+<li><p>Código con una buena cobertura de pruebas unitarias(unitest) (al menos el 80%, mejor el 100%), comprobar con:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip install pytest pytest-cov</span>
+<span class="prompt1">pytest --cov sklearn path/to/tests_for_package</span>
+</pre></div></div><p>ver también <a class="reference internal" href="#testing-coverage"><span class="std std-ref">Pruebas y mejora de la cobertura de las pruebas</span></a></p>
+<p>Ejecuta el análisis estático con <code class="docutils literal notranslate"><span class="pre">mypy</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">mypy sklearn</span>
+</pre></div></div><p>no debe producir nuevos errores en tu pull request. El uso de la anotación <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">type:</span> <span class="pre">ignore</span></code> puede ser una solución para algunos casos que no son soportados por mypy, en particular,</p>
+<ul class="simple">
+<li><p>al importar módulos C o Cython</p></li>
+<li><p>en propiedades con decoradores</p></li>
+</ul>
+</li>
+</ul>
+<p>Puntos extra para las contribuciones que incluyan un análisis de rendimiento con un script de pruebas de rendimiento y la salida de perfiles (ver <a class="reference internal" href="#monitoring-performances"><span class="std std-ref">Monitorización del rendimiento</span></a>).</p>
+<p>Consulta también la guía <a class="reference internal" href="performance.html#performance-howto"><span class="std std-ref">Cómo optimizar para velocidad</span></a> para obtener más detalles sobre la creación de perfiles y las optimizaciones de Cython.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El estado actual de la base de código de scikit-learn no cumple con todas esas directrices, pero esperamos que la aplicación de esas restricciones en todas las nuevas contribuciones hará que la calidad general de la base de código vaya en la dirección correcta.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Para dos guías muy bien documentadas y más detalladas sobre el flujo de trabajo de desarrollo, por favor visita las secciones <a class="reference external" href="https://docs.scipy.org/doc/numpy/dev/gitwash/development_workflow.html">Flujo de trabajo de desarrollo de Scipy</a> y <a class="reference external" href="https://astropy.readthedocs.io/en/latest/development/workflow/development_workflow.html">Flujo de trabajo de Astropy para desarrolladores</a>.</p>
+</div>
+<section id="continuous-integration-ci">
+<h4>Integración continua (CI)<a class="headerlink" href="#continuous-integration-ci" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>Los pipelines de Azure se utilizan para probar scikit-learn en Linux, Mac y Windows, con diferentes dependencias y configuraciones.</p></li>
+<li><p>CircleCI se utiliza para construir los documentos para su visualización, para linting con flake8, y para las pruebas con PyPy en Linux</p></li>
+</ul>
+<p>Ten en cuenta que si uno de los siguientes marcadores aparece en el último mensaje de confirmación, se toman las siguientes acciones.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Marcador de mensaje de confirmación</p></td>
+<td><p>Medidas adoptadas por CI</p></td>
+</tr>
+<tr class="row-even"><td><p>[ci skip]</p></td>
+<td><p>La CI se salta por completo</p></td>
+</tr>
+<tr class="row-odd"><td><p>[cd build]</p></td>
+<td><p>Se ejecuta el CD (se construyen los wheels y la distribución fuente)</p></td>
+</tr>
+<tr class="row-even"><td><p>[lint skip]</p></td>
+<td><p>Azure pipeline se salta el linting</p></td>
+</tr>
+<tr class="row-odd"><td><p>[scipy-dev]</p></td>
+<td><p>Agrega una compilación de Travis con nuestras compilaciones de dependencias desarrollo (numpy, scipy, etc.)</p></td>
+</tr>
+<tr class="row-even"><td><p>[icc-build]</p></td>
+<td><p>Añade una compilación Travis con el compilador Intel C (ICC)</p></td>
+</tr>
+<tr class="row-odd"><td><p>[arm64]</p></td>
+<td><p>Añade una compilación Travis para la arquitectura ARM64 / aarch64 little endian</p></td>
+</tr>
+<tr class="row-even"><td><p>[doc skip]</p></td>
+<td><p>Los documentos no se compilan</p></td>
+</tr>
+<tr class="row-odd"><td><p>[doc quick]</p></td>
+<td><p>Se compilan los documentos, pero se excluyen los gráficos de la galería de ejemplo</p></td>
+</tr>
+<tr class="row-even"><td><p>[doc build]</p></td>
+<td><p>Documentos compilados que incluyen gráficos de galería de ejemplo (muy largos)</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Ten en cuenta que, por defecto, se construye la documentación, pero sólo se ejecutan los ejemplos que son modificados directamente por el pull request.</p>
+</section>
+<section id="stalled-pull-requests">
+<span id="stalled-pull-request"></span><h4>Pull requests estancados(stalled)<a class="headerlink" href="#stalled-pull-requests" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Como contribuir con una funcionalidad puede ser un proceso largo, algunos pull requests aparecen inactivos pero sin terminar. En tal caso, hacerse cargo de ellos es un gran servicio para el proyecto.</p>
+<p>Una buena etiqueta para hacerse cargo es:</p>
+<ul>
+<li><p><strong>Determina si un PR está estancado</strong></p>
+<ul>
+<li><p>Un pull request puede tener la etiqueta «stalled» o «help wanted» si ya lo hemos identificado como candidato para otros colaboradores.</p></li>
+<li><p>Para decidir si un PR inactivo está estancado, pregunta al colaborador si tiene previsto seguir trabajando en el PR en un futuro próximo. Si no se responde en un plazo de 2 semanas con una actividad que haga avanzar el PR, se sugiere que el PR está estancado y se etiquetará ese PR con «help wanted».</p>
+<p>Ten en cuenta que si un PR ha recibido comentarios anteriores sobre la contribución que no han tenido respuesta en un mes, es seguro asumir que el PR está estancado y acortar el tiempo de espera a un día.</p>
+<p>Después de un sprint, el seguimiento de los PRs no fusionados abiertos durante el sprint se comunicará a los participantes en el sprint, y esos PRs serán etiquetados como «sprint». Los PRs etiquetados con «sprint» pueden ser reasignados o declarados estancados por los líderes del sprint.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Toma el control de un PR estancado</strong>: Para tomar un PR, es importante comentar el PR estancado que se está tomando y enlazar desde el nuevo PR al antiguo. El nuevo PR debe crearse a partir del anterior.</p></li>
+</ul>
+</section>
+<section id="stalled-and-unclaimed-issues">
+<h4>Incidencias estancadas y no reclamadas<a class="headerlink" href="#stalled-and-unclaimed-issues" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Por lo general, las incidencias(issues) que están disponibles tendrán una etiqueta de <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/labels/help%20wanted">«help wanted»</a>. Sin embargo, no todas las incidencias que necesitan colaboradores tendrán esta etiqueta, ya que la etiqueta «help wanted» no siempre está actualizada con el estado de la incidencia. Los colaboradores pueden encontrar las incidencias que aún están disponibles siguiendo las siguientes directrices:</p>
+<ul class="simple">
+<li><p>En primer lugar, <strong>determinar si se reclama una incidencia</strong>:</p>
+<ul>
+<li><p>Comprueba los pull requests vinculados</p></li>
+<li><p>Comprueba la conversación para ver si alguien ha dicho que está trabajando en la creación de un pull request</p></li>
+</ul>
+</li>
+<li><p>Si un colaborador comenta una incidencia para decir que está trabajando en ella, se espera un pull request en un plazo de 2 semanas (nuevo colaborador) o 4 semanas (colaborador o desarrollador central), a menos que se indique explícitamente un plazo mayor. Más allá de ese plazo, otro colaborador puede tomar la incidencia y hacer un pull request para ella. Animamos a los colaboradores a que comenten directamente la incidencia estancada o no reclamada para que los miembros de la comunidad sepan que van a trabajar en ella.</p></li>
+<li><p>Si la incidencia está vinculada a una <a class="reference internal" href="#stalled-pull-request"><span class="std std-ref">stalled pull request</span></a>, recomendamos que los colaboradores sigan el procedimiento descrito en la sección <a class="reference internal" href="#stalled-pull-request"><span class="std std-ref">Pull requests estancados(stalled)</span></a> en lugar de trabajar directamente en la incidencia.</p></li>
+</ul>
+</section>
+</section>
+<section id="issues-for-new-contributors">
+<span id="new-contributors"></span><h3>Incidencias para los nuevos colaboradores<a class="headerlink" href="#issues-for-new-contributors" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los nuevos colaboradores deben buscar las siguientes etiquetas cuando busquen incidencias. Recomendamos encarecidamente que los nuevos colaboradores se ocupen primero de las incidencias «fáciles»(«easy»): esto ayuda a que el colaborador se familiarice con el flujo de trabajo de las contribuciones, y a que los desarrolladores centrales se familiaricen con el colaborador; además, ¡a menudo subestimamos lo fácil que es resolver una incidencia!</p>
+<div class="topic">
+<p class="topic-title">etiqueta good first issue</p>
+<p>Una gran manera de empezar a contribuir a scikit-learn es elegir un elemento de la lista de <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/labels/good%20first%20issue">buenas primeras incidencias(good first issues)</a> en el rastreador de incidencias. La resolución de estas incidencias te permite comenzar a contribuir al proyecto sin mucho conocimiento previo. Si ya has contribuido a scikit-learn, debes mirar las incidencias fáciles en su lugar.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Etiqueta easy</p>
+<p>Si ya has contribuido a scikit-learn, otra gran manera de contribuir a scikit-learn es elegir un elemento de la lista de <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/labels/Easy">Incidencias fáciles</a> en el rastreador de incidencias. Tu ayuda en esta área será muy apreciada por los desarrolladores más experimentados, ya que ayuda a liberar su tiempo para concentrarse en otras cuestiones.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Etiqueta help wanted</p>
+<p>A menudo utilizamos la etiqueta help wanted(se necesita ayuda) para marcar incidencias independientemente de su dificultad. Además, utilizamos la etiqueta help wanted para marcar los Pull Requests que han sido abandonados por su colaborador original y están disponibles para que alguien las retome donde el colaborador original las dejó. La lista de incidencias con la etiqueta help wanted se puede encontrar <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/labels/help%20wanted">aquí</a>.</p>
+<p>Ten en cuenta que no todas las incidencias que necesitan colaboradores tendrán esta etiqueta.</p>
+</div>
+</section>
+</section>
+<section id="documentation">
+<span id="contribute-documentation"></span><h2>Documentación<a class="headerlink" href="#documentation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Estamos encantados de aceptar cualquier tipo de documentación: cadenas de documentación de funciones, documentos reStructuredText (como éste), tutoriales, etc. Los documentos reStructuredText se encuentran en el repositorio de código fuente bajo el directorio <code class="docutils literal notranslate"><span class="pre">doc/</span></code>.</p>
+<p>Puedes editar la documentación usando cualquier editor de texto, y luego generar la salida HTML escribiendo <code class="docutils literal notranslate"><span class="pre">make</span></code> desde el directorio <code class="docutils literal notranslate"><span class="pre">doc/</span></code>. Alternativamente, se puede utilizar <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> para generar la documentación <strong>con</strong> la galería de ejemplos (lo que lleva bastante tiempo). Los archivos HTML resultantes se colocarán en <code class="docutils literal notranslate"><span class="pre">build/html/stable</span></code> y se podrán ver en un navegador web.</p>
+<section id="building-the-documentation">
+<h3>Construyendo la documentación<a class="headerlink" href="#building-the-documentation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En primer lugar, asegúrate de tener <a class="reference internal" href="advanced_installation.html#install-bleeding-edge"><span class="std std-ref">properly installed</span></a> la versión de desarrollo.</p>
+<p>La construcción de la documentación requiere la instalación de algunos paquetes adicionales:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip install sphinx sphinx-gallery numpydoc matplotlib Pillow pandas <span class="se">\</span>
+            scikit-image packaging seaborn sphinx-prompt</span>
+</pre></div></div><p>Para construir la documentación, es necesario estar en la carpeta <code class="docutils literal notranslate"><span class="pre">doc</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> doc</span>
+</pre></div></div><p>En la gran mayoría de los casos, sólo es necesario generar el sitio web completo, sin la galería de ejemplos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make</span>
+</pre></div></div><p>La documentación se generará en el directorio <code class="docutils literal notranslate"><span class="pre">build/html/stable</span></code>. Para generar también la galería de ejemplos puedes utilizar:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make html</span>
+</pre></div></div><p>Esto ejecutará todos los ejemplos, lo que lleva algo de tiempo. Si sólo quieres generar unos pocos ejemplos, puedes utilizar:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">EXAMPLES_PATTERN</span><span class="o">=</span>your_regex_goes_here make html</span>
+</pre></div></div><p>Esto es especialmente útil si se modifican algunos ejemplos.</p>
+<p>Establece la variable de entorno <code class="docutils literal notranslate"><span class="pre">NO_MATHJAX=1</span></code> si pretendes ver la documentación en un entorno sin conexión.</p>
+<p>Para construir el manual en PDF, ejecuta:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make latexpdf</span>
+</pre></div></div><div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p><strong>Versión de Sphinx</strong></p>
+<p>Aunque hacemos todo lo posible para que la documentación se construya bajo tantas versiones de Sphinx como sea posible, las diferentes versiones tienden a comportarse de forma ligeramente diferente. Para obtener los mejores resultados, debes utilizar la misma versión que la que utilizamos en CircleCI. Mira esta <a class="reference external" href="https://github.com/search?utf8=%E2%9C%93&amp;q=sphinx+repo%3Ascikit-learn%2Fscikit-learn+extension%3Ash+path%3Abuild_tools%2Fcircle&amp;type=Code">búsqueda en github</a> para conocer la versión exacta.</p>
+</div>
+</section>
+<section id="guidelines-for-writing-documentation">
+<h3>Pautas para la redacción de la documentación<a class="headerlink" href="#guidelines-for-writing-documentation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Es importante mantener un buen compromiso entre los detalles matemáticos y los algorítmicos, y dar la intuición al lector sobre lo que hace el algoritmo.</p>
+<p>Básicamente, para desarrollar lo anterior, lo mejor es empezar siempre con un pequeño párrafo con una explicación a mano de lo que el método hace con los datos. A continuación, es muy útil señalar por qué la característica es útil y cuándo debe utilizarse - esto último también incluye las complejidades «big O» (<span class="math notranslate nohighlight">\(O\left(g\left(n\right)\right)\)</span>) del algoritmo, en lugar de sólo <em>reglas empíricas</em>, ya que estas últimas pueden ser muy dependientes de la máquina. Si esas complejidades no están disponibles, entonces se pueden proporcionar reglas empíricas en su lugar.</p>
+<p>En segundo lugar, debería incluirse una figura generada a partir de un ejemplo (como se menciona en el párrafo anterior) para proporcionar una mayor intuición.</p>
+<p>A continuación, se pueden añadir uno o dos pequeños ejemplos de código para mostrar su uso.</p>
+<p>Luego, se pueden añadir cualquier matemática y ecuaciones, seguidas de las referencias, para ampliar la documentación. El hecho de no empezar la documentación con las matemáticas hace que sea más fácil para los usuarios que sólo se interesan por lo que hace la función, en lugar de cómo funciona «bajo el capó».</p>
+<p>Por último, sigue las reglas de formato que se indican a continuación para que sea consistente:</p>
+<ul>
+<li><p>Añade «Ver también»(See Also) en las cadenas de documentación para las clases/funciones relacionadas.</p></li>
+<li><p>Los «See Also» en las cadenas de documentación deben ser de una línea por referencia, con dos puntos y una explicación, por ejemplo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">See</span> <span class="n">Also</span>
+<span class="o">--------</span>
+<span class="n">SelectKBest</span> <span class="p">:</span> <span class="n">Select</span> <span class="n">features</span> <span class="n">based</span> <span class="n">on</span> <span class="n">the</span> <span class="n">k</span> <span class="n">highest</span> <span class="n">scores</span><span class="o">.</span>
+<span class="n">SelectFpr</span> <span class="p">:</span> <span class="n">Select</span> <span class="n">features</span> <span class="n">based</span> <span class="n">on</span> <span class="n">a</span> <span class="n">false</span> <span class="n">positive</span> <span class="n">rate</span> <span class="n">test</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>A la hora de documentar los parámetros y atributos, he aquí una lista de algunos ejemplos bien formateados:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>n_clusters : int, default=3
+    The number of clusters detected by the algorithm.
+
+some_param : {&#39;hello&#39;, &#39;goodbye&#39;}, bool or int, default=True
+    The parameter description goes here, which can be either a string
+    literal (either `hello` or `goodbye`), a bool, or an int. The default
+    value is True.
+
+array_parameter : {array-like, sparse matrix} of shape (n_samples, n_features) or (n_samples,)
+    This parameter accepts data in either of the mentioned forms, with one
+    of the mentioned shapes. The default value is
+    `np.ones(shape=(n_samples,))`.
+
+list_param : list of int
+
+typed_ndarray : ndarray of shape (n_samples,), dtype=np.int32
+
+sample_weight : array-like of shape (n_samples,), default=None
+
+multioutput_array : ndarray of shape (n_samples, n_classes) or list of such arrays
+</pre></div>
+</div>
+<p>En general, ten en cuenta lo siguiente:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Utiliza los tipos básicos de Python. (<code class="docutils literal notranslate"><span class="pre">bool</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">boolean</span></code>)</p></li>
+<li><p>Utiliza paréntesis para definir las formas: <code class="docutils literal notranslate"><span class="pre">array-like</span> <span class="pre">of</span> <span class="pre">shape</span> <span class="pre">(n_samples,)</span></code> o <code class="docutils literal notranslate"><span class="pre">array-like</span> <span class="pre">de</span> <span class="pre">forma</span> <span class="pre">(n_samples,</span> <span class="pre">n_features)</span></code></p></li>
+<li><p>Para cadenas con múltiples opciones, utiliza llaves: <code class="docutils literal notranslate"><span class="pre">input:</span> <span class="pre">{'log',</span> <span class="pre">'squared',</span> <span class="pre">'multinomial'}</span></code></p></li>
+<li><p>Los datos 1D o 2D pueden ser un subconjunto de <code class="docutils literal notranslate"><span class="pre">{array-like,</span> <span class="pre">ndarray,</span> <span class="pre">sparse</span> <span class="pre">matrix,</span> <span class="pre">dataframe}</span></code>. Ten en cuenta que <code class="docutils literal notranslate"><span class="pre">array-like</span></code> también puede ser una <code class="docutils literal notranslate"><span class="pre">list</span></code>, mientras que <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> es explícitamente sólo un <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p></li>
+<li><p>Especifica <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> cuando se utilicen características «frame-like», como los nombres de las columnas.</p></li>
+<li><p>Cuando se especifica el tipo de datos de una lista, se utiliza <code class="docutils literal notranslate"><span class="pre">de</span></code> como delimitador: <code class="docutils literal notranslate"><span class="pre">list</span> <span class="pre">de</span> <span class="pre">int</span></code>. Cuando el parámetro admite arreglos que dan detalles sobre la forma y/o el tipo de datos y una lista de dichos arreglos, puedes utilizar uno de los siguientes: <code class="docutils literal notranslate"><span class="pre">array-like</span> <span class="pre">de</span> <span class="pre">forma</span> <span class="pre">(n_samples,)</span> <span class="pre">o</span> <span class="pre">lista</span> <span class="pre">de</span> <span class="pre">tales</span> <span class="pre">arreglos</span></code>.</p></li>
+<li><p>Al especificar el dtype de un ndarray, utiliza, por ejemplo, <code class="docutils literal notranslate"><span class="pre">dtype=np.int32</span></code> después de definir la forma: <code class="docutils literal notranslate"><span class="pre">ndarray</span> <span class="pre">de</span> <span class="pre">forma</span> <span class="pre">(n_muestras,),</span> <span class="pre">dtype=np.int32</span></code>. Puedes especificar múltiples dtype como un conjunto: <code class="docutils literal notranslate"><span class="pre">array-like</span> <span class="pre">de</span> <span class="pre">forma</span> <span class="pre">(n_muestras,),</span> <span class="pre">dtype={np.float64,</span> <span class="pre">np.float32}</span></code>. Si quieres mencionar una precisión arbitraria, tienes que utilizar <code class="docutils literal notranslate"><span class="pre">integral</span></code> y <code class="docutils literal notranslate"><span class="pre">floating</span></code> en lugar de los dtype de Python <code class="docutils literal notranslate"><span class="pre">int</span></code> y <code class="docutils literal notranslate"><span class="pre">float</span></code>. Cuando se soportan tanto <code class="docutils literal notranslate"><span class="pre">int</span></code> como <code class="docutils literal notranslate"><span class="pre">floating</span></code>, no es necesario especificar el dtype.</p></li>
+<li><p>Cuando el valor predeterminado es <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code> sólo necesita ser especificado al final con <code class="docutils literal notranslate"><span class="pre">default=None</span></code>. Asegúrate de incluir en la cadena de documentación lo que significa que el parámetro o atributo sea <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Para las reglas de formato no escritas, intenta seguir las buenas obras existentes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Para «Referencias» en cadenas de documentación, ver el Coeficiente de Silueta (<a class="reference internal" href="../modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score" title="sklearn.metrics.silhouette_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.silhouette_score</span></code></a>).</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Cuando edites archivos reStructuredText (<code class="docutils literal notranslate"><span class="pre">.rst</span></code>), intenta mantener la longitud de las líneas por debajo de los 80 caracteres siempre que sea posible (las excepciones son los enlaces y las tablas).</p></li>
+<li><p>No modifiques las etiquetas de sphinx ya que esto rompería las referencias cruzadas existentes y los enlaces externos que apuntan a secciones específicas en la documentación de scikit-learn.</p></li>
+<li><p>Antes de enviar tu pull request comprueba si tus modificaciones han introducido nuevas advertencias de sphinx e intenta solucionarlas.</p></li>
+</ul>
+</section>
+<section id="generated-documentation-on-circleci">
+<span id="generated-doc-ci"></span><h3>Documentación generada sobre CircleCI<a class="headerlink" href="#generated-documentation-on-circleci" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Cuando cambias la documentación en un pull request, CircleCI la construye automáticamente. Para ver la documentación generada por CircleCI, simplemente dirígete al final de tu página de PR y busca el enlace «ci/circleci: doc artifact».</p>
+</section>
+</section>
+<section id="testing-and-improving-test-coverage">
+<span id="testing-coverage"></span><h2>Pruebas y mejora de la cobertura de las pruebas<a class="headerlink" href="#testing-and-improving-test-coverage" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las <a class="reference external" href="https://en.wikipedia.org/wiki/Unit_testing">pruebas unitarias</a> de alta calidad son la piedra angular del proceso de desarrollo de scikit-learn. Para ello, utilizamos el paquete <a class="reference external" href="https://docs.pytest.org">pytest</a>. Las pruebas son funciones con un nombre apropiado, ubicadas en los subdirectorios <code class="docutils literal notranslate"><span class="pre">tests</span></code>, que comprueban la validez de los algoritmos y las diferentes opciones del código.</p>
+<p>Al ejecutar <code class="docutils literal notranslate"><span class="pre">pytest</span></code> en una carpeta se ejecutarán todas las pruebas de los subpaquetes correspondientes. Para un flujo de trabajo más detallado de <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, consulta la <a class="reference internal" href="#pr-checklist"><span class="std std-ref">Lista de comprobación de pull request</span></a>.</p>
+<p>Esperamos que la cobertura del código de las nuevas funcionalidades sea de al menos un 90%.</p>
+<section id="writing-matplotlib-related-tests">
+<h3>Escribir pruebas relacionadas con matplotlib<a class="headerlink" href="#writing-matplotlib-related-tests" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los elementos(fixtures) de prueba garantizan que un conjunto de pruebas se ejecute con la inicialización y la limpieza adecuadas. La suite de pruebas de scikit-learn implementa un elemento que puede ser utilizado con `` matplotlib “”.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">pyplot</span></code></dt><dd><p>El elemento <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> debe ser utilizado cuando una función de prueba está tratando con <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> es una dependencia blanda y no es necesaria. Este elemento se encarga de saltar las pruebas si <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> no está instalado. Además, las figuras creadas durante las pruebas se cerrarán automáticamente una vez ejecutada la función de prueba.</p>
+</dd>
+</dl>
+<p>Para utilizar este elemento en una función de prueba, hay que pasarlo como argumento:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_requiring_mpl_fixture</span><span class="p">(</span><span class="n">pyplot</span><span class="p">):</span>
+    <span class="c1"># you can now safely use matplotlib</span>
+</pre></div>
+</div>
+</section>
+<section id="workflow-to-improve-test-coverage">
+<h3>Flujo de trabajo para mejorar la cobertura de las pruebas<a class="headerlink" href="#workflow-to-improve-test-coverage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para probar la cobertura del código, es necesario instalar el paquete <a class="reference external" href="https://pypi.org/project/coverage/">coverage</a> además de pytest.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Ejecuta “make test-coverage”. La salida lista para cada archivo los números de línea</dt><dd><p>números que no están probados.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Encuentra tareas fáciles de hacer, mirando las líneas que no se han probado,</dt><dd><p>escribe o adapta una prueba específicamente para estas líneas.</p>
+</dd>
+</dl>
+</li>
+<li><p>Bucle.</p></li>
+</ol>
+</section>
+</section>
+<section id="monitoring-performance">
+<span id="monitoring-performances"></span><h2>Monitorización del rendimiento<a class="headerlink" href="#monitoring-performance" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><em>Esta sección está muy inspirada en la</em> <a class="reference external" href="https://pandas.pydata.org/docs/development/contributing.html#running-the-performance-test-suite">documentación de Pandas</a>.</p>
+<p>Cuando se proponen cambios en la base de código existente, es importante asegurarse de que no introducen regresiones en el rendimiento. Scikit-learn utiliza <a class="reference external" href="https://github.com/airspeed-velocity/asv">Pruebas de rendimiento asv</a> para controlar el rendimiento de una selección de estimadores y funciones comunes. La suite de pruebas de rendimiento (benchmarks) se puede encontrar en el directorio <code class="docutils literal notranslate"><span class="pre">scikit-learn/asv_benchmarks</span></code>.</p>
+<p>Para utilizar todas las características de asv, necesitarás <code class="docutils literal notranslate"><span class="pre">conda</span></code> o <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>. Para más detalles, consulta la <a class="reference external" href="https://asv.readthedocs.io/en/latest/installing.html">página web de instalación de asv</a>.</p>
+<p>En primer lugar, es necesario instalar la versión de desarrollo de asv:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">pip install git+https://github.com/airspeed-velocity/asv</span>
+</pre></div></div><p>y cambia tu directorio a <code class="docutils literal notranslate"><span class="pre">asv_benchmarks/</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> asv_benchmarks/</span>
+</pre></div></div><p>La suite de pruebas de rendimiento está configurada para ejecutarse contra tu clon local de scikit-learn. Asegúrate de que está actualizado:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git fetch upstream</span>
+</pre></div></div><p>En la suite de pruebas de rendimiento, estas pruebas están organizadas siguiendo la misma estructura que scikit-learn. Por ejemplo, puedes comparar el rendimiento de un estimador específico entre upstream/main y la rama en la que estás trabajando:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv continuous -b LogisticRegression upstream/main HEAD</span>
+</pre></div></div><p>El comando utiliza conda por defecto para crear los entornos de pruebas de rendimiento. Si quieres usar virtualenv en su lugar, utiliza la opción <code class="docutils literal notranslate"><span class="pre">-E</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv continuous -E virtualenv -b LogisticRegression upstream/main HEAD</span>
+</pre></div></div><p>También puedes especificar un módulo completo para las pruebas de rendimiento:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv continuous -b linear_model upstream/main HEAD</span>
+</pre></div></div><p>Puedes sustituir <code class="docutils literal notranslate"><span class="pre">HEAD</span></code> por cualquier rama local. Por defecto, sólo informará de las pruebas de rendimiento que hayan cambiado al menos un 10%. Puedes controlar esta proporción con la opción`-f`.</p>
+<p>Para ejecutar la suite completa de pruebas de rendimiento, basta con eliminar la opción <code class="docutils literal notranslate"><span class="pre">-b</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv continuous upstream/main HEAD</span>
+</pre></div></div><p>Sin embargo, esto puede llevar hasta dos horas. La opción <code class="docutils literal notranslate"><span class="pre">-b</span></code> también acepta una expresión regular para ejecutar un subconjunto más complejo de pruebas de rendimiento.</p>
+<p>Para ejecutar las pruebas de rendimiento sin comparar con otra rama, utiliza el comando <code class="docutils literal notranslate"><span class="pre">run</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv run -b linear_model HEAD^!</span>
+</pre></div></div><p>También puedes ejecutar la suite de pruebas de rendimiento utilizando la versión de scikit-learn ya instalada en tu entorno actual de Python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv run --python<span class="o">=</span>same</span>
+</pre></div></div><p>Es particularmente útil cuando se instala scikit-learn en modo editable para evitar la creación de un nuevo entorno cada vez que se ejecutan las pruebas de rendimiento. Por defecto, los resultados no se guardan cuando se utiliza una instalación existente. Para guardar los resultados debes especificar un hash de confirmación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv run --python<span class="o">=</span>same --set-commit-hash<span class="o">=</span>&lt;commit hash&gt;</span>
+</pre></div></div><p>Las pruebas de rendimiento se guardan y organizan por máquina, entorno y confirmación(commit). Para ver la lista de todas las pruebas de rendimiento guardadas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv show</span>
+</pre></div></div><p>y para ver el informe de una ejecución específica:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">asv show &lt;commit hash&gt;</span>
+</pre></div></div><p>Cuando ejecutes las pruebas de rendimiento para un pull request en el que estés trabajando, por favor, informa de los resultados en github.</p>
+<p>La suite de pruebas de rendimiento soporta opciones configurables adicionales que pueden establecerse en el archivo de configuración <code class="docutils literal notranslate"><span class="pre">benchmarks/config.json</span></code>. Por ejemplo, las pruebas de rendimiento pueden ejecutarse para una lista de valores proporcionada para el parámetro <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>.</p>
+<p>Más información sobre cómo escribir una prueba de rendimiento y cómo utilizar asv, puedes encontrarla en la <a class="reference external" href="https://asv.readthedocs.io/en/latest/index.html">documentación de asv</a>.</p>
+</section>
+<section id="issue-tracker-tags">
+<span id="id3"></span><h2>Etiquetas del rastreador de incidencias<a class="headerlink" href="#issue-tracker-tags" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Todas las incidencias(issues) y pull requests en el <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">Rastreador de incidencias en GitHub</a> deben tener (al menos) una de las siguientes etiquetas:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Bug / Crash (Error/fallo)</dt>
+<dd class="field-odd"><p>Está ocurriendo algo que claramente no debería ocurrir. Los resultados erróneos así como los errores inesperados de los estimadores van aquí.</p>
+</dd>
+<dt class="field-even">Cleanup / Enhancement (Limpieza / Mejora)</dt>
+<dd class="field-even"><p>Mejorar el rendimiento, la usabilidad y la coherencia.</p>
+</dd>
+<dt class="field-odd">Documentación</dt>
+<dd class="field-odd"><p>Documentación y ejemplos que faltan, son incorrectos o están por debajo del estándar.</p>
+</dd>
+<dt class="field-even">New Feature (Nueva funcionalidad)</dt>
+<dd class="field-even"><p>Solicitudes de funcionalidad y pull requests que implementan una nueva funcionalidad.</p>
+</dd>
+</dl>
+<p>Hay otras cuatro etiquetas para ayudar a los nuevos colaboradores:</p>
+<dl class="field-list simple">
+<dt class="field-odd">good first issue (buena primera incidencia)</dt>
+<dd class="field-odd"><p>Esta incidencia es ideal para una primera contribución a scikit-learn. Pide ayuda si la formulación no es clara. Si ya has contribuido a scikit-learn, mira en su lugar las incidencias Easy(fácil).</p>
+</dd>
+<dt class="field-even">Easy (fácil)</dt>
+<dd class="field-even"><p>Esta incidencia puede abordarse sin mucha experiencia previa.</p>
+</dd>
+<dt class="field-odd">Moderate (moderado)</dt>
+<dd class="field-odd"><p>Puede que se necesiten algunos conocimientos de aprendizaje automático o del paquete, pero sigue siendo accesible para alguien nuevo en el proyecto.</p>
+</dd>
+<dt class="field-even">help wanted (se necesita ayuda)</dt>
+<dd class="field-even"><p>Esta etiqueta marca una incidencia que actualmente carece de un colaborador o un PR que necesita que otro colaborador se haga cargo del trabajo. Estas incidencias pueden variar en dificultad, y pueden no ser accesibles para los nuevos colaboradores. Ten en cuenta que no todas las incidencias que necesitan colaboradores tendrán esta etiqueta.</p>
+</dd>
+</dl>
+</section>
+<section id="maintaining-backwards-compatibility">
+<span id="backwards-compatibility"></span><h2>Mantener la compatibilidad con versiones anteriores<a class="headerlink" href="#maintaining-backwards-compatibility" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="deprecation">
+<span id="contributing-deprecation"></span><h3>Obsolescencia<a class="headerlink" href="#deprecation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si cualquier método, función, atributo o parámetro de acceso público es renombrado, seguimos soportando el antiguo durante dos versiones y emitimos una advertencia de obsolescencia cuando es llamado/pasado/accesado. Por ejemplo, si la función <code class="docutils literal notranslate"><span class="pre">zero_one</span></code> es renombrada a <code class="docutils literal notranslate"><span class="pre">zero_one_loss</span></code>, añadimos el decorador <code class="docutils literal notranslate"><span class="pre">deprecated</span></code> (de <code class="docutils literal notranslate"><span class="pre">sklearn.utils</span></code>) a <code class="docutils literal notranslate"><span class="pre">zero_one</span></code> y llamamos a <code class="docutils literal notranslate"><span class="pre">zero_one_loss</span></code> desde esa función:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="k">def</span> <span class="nf">zero_one_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># actual implementation</span>
+    <span class="k">pass</span>
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Function &#39;zero_one&#39; was renamed to &#39;zero_one_loss&#39; &quot;</span>
+            <span class="s2">&quot;in version 0.13 and will be removed in release 0.15. &quot;</span>
+            <span class="s2">&quot;Default behavior is changed from &#39;normalize=False&#39; to &quot;</span>
+            <span class="s2">&quot;&#39;normalize=True&#39;&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">zero_one</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">zero_one_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">normalize</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Si un atributo va a ser obsoleto, utiliza el decorador <code class="docutils literal notranslate"><span class="pre">deprecated</span></code> en uno property. Ten en cuenta que el decorador <code class="docutils literal notranslate"><span class="pre">property</span></code> debe colocarse antes del decorador <code class="docutils literal notranslate"><span class="pre">deprecated</span></code> para que las cadenas de documentación se muestren correctamente. Por ejemplo, cambiar el nombre de un atributo <code class="docutils literal notranslate"><span class="pre">labels_</span></code> a <code class="docutils literal notranslate"><span class="pre">classes_</span></code> puede hacerse como:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Attribute labels_ was deprecated in version 0.13 and &quot;</span>
+            <span class="s2">&quot;will be removed in 0.15. Use &#39;classes_&#39; instead&quot;</span><span class="p">)</span>
+<span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">labels_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span>
+</pre></div>
+</div>
+<p>Si un parámetro tiene que quedar obsoleto, una advertencia <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> debe ser levantada también. En el siguiente ejemplo, k está obsoleto y se ha renombrado a n_clusters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">def</span> <span class="nf">example_function</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="s1">&#39;deprecated&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;deprecated&#39;</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&#39;k&#39; was renamed to n_clusters in version 0.13 and &quot;</span>
+                      <span class="s2">&quot;will be removed in 0.15.&quot;</span><span class="p">,</span>
+                      <span class="ne">FutureWarning</span><span class="p">)</span>
+        <span class="n">n_clusters</span> <span class="o">=</span> <span class="n">k</span>
+</pre></div>
+</div>
+<p>Cuando el cambio es en una clase, validamos y levantamos la advertencia en <code class="docutils literal notranslate"><span class="pre">fit</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">class</span> <span class="nc">ExampleEstimator</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="s1">&#39;deprecated&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">n_clusters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;deprecated&#39;</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&#39;k&#39; was renamed to n_clusters in version 0.13 and &quot;</span>
+                          <span class="s2">&quot;will be removed in 0.15.&quot;</span><span class="p">,</span>
+                          <span class="ne">FutureWarning</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n_clusters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n_clusters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span>
+</pre></div>
+</div>
+<p>Como en estos ejemplos, el mensaje de advertencia debería indicar siempre tanto la versión en la que se produjo la obsolescencia como la versión en la que se eliminará el antiguo comportamiento. Si la obsolescencia ocurrió en la versión 0.x-dev, el mensaje debería decir que la obsolescencia ocurrió en la versión 0.x y que la eliminación será en 0.(x+2), para que los usuarios tengan tiempo suficiente para adaptar su código al nuevo comportamiento. Por ejemplo, si la obsolescencia se produjo en la versión 0.18-dev, el mensaje debería decir que se produjo en la versión 0.18 y que el antiguo comportamiento se eliminará en la versión 0.20.</p>
+<p>Además, debe añadirse una nota de obsolescencia en la cadena de documentación, recordando la misma información que la advertencia de obsolescencia explicada anteriormente. Utiliza la directiva <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">deprecated::</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.. deprecated:: 0.13
+   ``k`` was renamed to ``n_clusters`` in version 0.13 and will be removed
+   in 0.15.
+</pre></div>
+</div>
+<p>Además, una obsolescencia requiere una prueba que garantice que la advertencia se produzca en los casos pertinentes, pero no en los demás. La advertencia debe capturarse en todas las demás pruebas (utilizando, por ejemplo, <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.filterwarnings</span></code>), y no debe haber ninguna advertencia en los ejemplos.</p>
+</section>
+<section id="change-the-default-value-of-a-parameter">
+<h3>Cambia el valor predeterminado de un parámetro<a class="headerlink" href="#change-the-default-value-of-a-parameter" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si es necesario cambiar el valor predeterminado de un parámetro, sustituye el valor por defecto por un valor específico (por ejemplo, <code class="docutils literal notranslate"><span class="pre">warn</span></code>) y lanza <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> cuando los usuarios utilicen el valor predeterminado. En el siguiente ejemplo, cambiamos el valor predeterminado de <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> de 5 a 10 (la versión actual es 0.20):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">def</span> <span class="nf">example_function</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="s1">&#39;warn&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n_clusters</span> <span class="o">==</span> <span class="s1">&#39;warn&#39;</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The default value of n_clusters will change from &quot;</span>
+                      <span class="s2">&quot;5 to 10 in 0.22.&quot;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
+        <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>Cuando el cambio es en una clase, validamos y levantamos la advertencia en <code class="docutils literal notranslate"><span class="pre">fit</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">class</span> <span class="nc">ExampleEstimator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="s1">&#39;warn&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">n_clusters</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">==</span> <span class="s1">&#39;warn&#39;</span><span class="p">:</span>
+          <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The default value of n_clusters will change from &quot;</span>
+                        <span class="s2">&quot;5 to 10 in 0.22.&quot;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_n_clusters</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>Como en el caso de las obsolescencias, el mensaje de advertencia debe indicar siempre la versión en la que se ha producido el cambio y la versión en la que se eliminará el antiguo comportamiento. En consecuencia, la cadena de documentación debe actualizarse. Necesitamos una prueba para garantizar que la advertencia se produce en los casos pertinentes, pero no en otros casos. La advertencia debe ser capturada en todas las demás pruebas (usando, por ejemplo, <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.filterwarnings</span></code>), y no debe haber ninguna advertencia en los ejemplos.</p>
+</section>
+</section>
+<section id="code-review-guidelines">
+<span id="code-review"></span><h2>Pautas para la revisión del código<a class="headerlink" href="#code-review-guidelines" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La revisión del código aportado al proyecto como PRs es un componente crucial del desarrollo de scikit-learn. Animamos a cualquiera a empezar a revisar el código de otros desarrolladores. El proceso de revisión de código es a menudo muy educativo para todos los involucrados. Esto es particularmente apropiado si se trata de una característica que te gustaría utilizar, y así puedes responder críticamente sobre si el PR satisface tus necesidades. Aunque cada pull request debe ser aprobado por dos desarrolladores principales, puedes acelerar este proceso aportando tus comentarios.</p>
+<p>He aquí algunos aspectos importantes que deben cubrirse en cualquier revisión de código, desde preguntas de alto nivel hasta una lista de comprobación más detallada.</p>
+<ul class="simple">
+<li><p>¿Lo queremos en la biblioteca? ¿Es probable que se utilice? ¿A ti, como usuario de scikit-learn, te gusta el cambio y tienes la intención de utilizarlo? ¿Está dentro del alcance de scikit-learn? ¿Valdrá la pena el coste de mantenimiento de una nueva característica?</p></li>
+<li><p>¿Es el código coherente con la API de scikit-learn? ¿Las funciones/clases/parámetros públicos están bien nombrados y diseñados intuitivamente?</p></li>
+<li><p>¿Están todas las funciones/clases públicas y sus parámetros, tipos de retorno y atributos almacenados nombrados de acuerdo con las convenciones de scikit-learn y documentados claramente?</p></li>
+<li><p>¿Se describen las nuevas funcionalidades en el manual de usuario y se ilustran con ejemplos?</p></li>
+<li><p>¿Se prueban todas las funciones/clases públicas? ¿Se prueba un conjunto razonable de parámetros, sus valores, tipos de valores y combinaciones? ¿Las pruebas validan que el código es correcto, es decir, que hace lo que dice la documentación? Si el cambio es una corrección de errores, ¿se incluye una prueba de no regresión? Mira <a class="reference external" href="https://jeffknupp.com/blog/2013/12/09/improve-your-python-understanding-unit-testing">esto</a> para empezar con las pruebas en Python.</p></li>
+<li><p>¿Pasan las pruebas en la compilación de integración continua? Si procede, ayuda al colaborador a entender por qué han fallado las pruebas.</p></li>
+<li><p>¿Cubren las pruebas todas las líneas de código (ver el informe de cobertura en el registro de construcción)? Si no es así, ¿las líneas que no tienen cobertura son buenas excepciones?</p></li>
+<li><p>¿Es el código fácil de leer y poco redundante? ¿Hay que mejorar los nombres de las variables para que sean más claros o coherentes? ¿Hay que añadir comentarios? ¿Hay que eliminar los comentarios por considerarlos inútiles o extraños?</p></li>
+<li><p>¿Podría reescribirse fácilmente el código para que se ejecute de forma mucho más eficiente para los ajustes pertinentes?</p></li>
+<li><p>¿Es el código compatible con versiones anteriores? (¿o es necesario un ciclo de depreciación?)</p></li>
+<li><p>¿Añadirá el nuevo código alguna dependencia de otras bibliotecas? (es poco probable que se acepte)</p></li>
+<li><p>¿La documentación se muestra correctamente (ver la sección <a class="reference internal" href="#contribute-documentation"><span class="std std-ref">Documentación</span></a> para más detalles), y los gráficos son instructivos?</p></li>
+</ul>
+<p><a class="reference internal" href="tips.html#saved-replies"><span class="std std-ref">Respuestas estándar para la revisión</span></a> incluye algunos comentarios frecuentes que pueden hacer los revisores.</p>
+</section>
+<section id="reading-the-existing-code-base">
+<h2>Lectura del código base existente<a class="headerlink" href="#reading-the-existing-code-base" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Leer y digerir una base de código existente es siempre un ejercicio difícil que requiere tiempo y experiencia para dominarlo. Aunque intentemos escribir código sencillo en general, la comprensión del código puede parecer abrumadora al principio, dado el gran tamaño del proyecto. He aquí una lista de consejos que pueden ayudar a hacer esta tarea más fácil y rápida (sin ningún orden en particular).</p>
+<ul class="simple">
+<li><p>Familiarízate con la <a class="reference internal" href="develop.html#api-overview"><span class="std std-ref">APIs de objetos de scikit-learn</span></a>: entiende para qué se utilizan <a class="reference internal" href="../glossary.html#term-fit"><span class="xref std std-term">fit</span></a>, <a class="reference internal" href="../glossary.html#term-predict"><span class="xref std std-term">predict</span></a>, <a class="reference internal" href="../glossary.html#term-transform"><span class="xref std std-term">transform</span></a>, etc.</p></li>
+<li><p>Antes de sumergirte en la lectura del código de una función/clase, revisa primero los documentos e intenta hacerte una idea de lo que hace cada parámetro/atributo. También puede ayudar el detenerse un minuto y pensar <em>¿Cómo haría esto yo mismo si tuviera que hacerlo?</em></p></li>
+<li><p>Lo más complicado suele ser identificar qué partes del código son relevantes y cuáles no. En scikit-learn se realiza <strong>una gran cantidad</strong> de comprobaciones de entrada, especialmente al principio de los métodos <a class="reference internal" href="../glossary.html#term-fit"><span class="xref std std-term">fit</span></a>. A veces, sólo una parte muy pequeña del código está haciendo el trabajo real. Por ejemplo, mirando el método <code class="docutils literal notranslate"><span class="pre">fit()</span></code> de <a class="reference internal" href="../modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression" title="sklearn.linear_model.LinearRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearRegression</span></code></a>, lo que se está buscando podría ser sólo la llamada al <code class="docutils literal notranslate"><span class="pre">scipy.linalg.lstsq</span></code>, pero está enterrado en múltiples líneas de comprobación de entrada y el manejo de diferentes tipos de parámetros.</p></li>
+<li><p>Debido al uso de la <a class="reference external" href="https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)">Herencia</a>, algunos métodos pueden ser implementados en las clases padre. Todos los estimadores heredan al menos de <a class="reference internal" href="../modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></a>, y de una clase <code class="docutils literal notranslate"><span class="pre">Mixin</span></code> (por ejemplo, <a class="reference internal" href="../modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassifierMixin</span></code></a>) que permite un comportamiento por defecto dependiendo de la naturaleza del estimador (clasificador, regresor, transformador, etc.).</p></li>
+<li><p>A veces, la lectura de las pruebas de una función determinada te dará una idea de cuál es su propósito. Puedes utilizar <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">grep</span></code> (ver más abajo) para encontrar todas las pruebas escritas para una función. La mayoría de las pruebas para una función/clase específica se encuentran en la carpeta <code class="docutils literal notranslate"><span class="pre">tests/</span></code> del módulo</p></li>
+<li><p>A menudo verás código con este aspecto <code class="docutils literal notranslate"><span class="pre">out</span> <span class="pre">=</span> <span class="pre">Parallel(...)(delayed(some_function)(param)</span> <span class="pre">for</span> <span class="pre">param</span> <span class="pre">in</span> <span class="pre">some_iterable)</span></code>. Esto ejecuta <code class="docutils literal notranslate"><span class="pre">some_function</span></code> en paralelo usando <a class="reference external" href="https://joblib.readthedocs.io/">Joblib</a>. <code class="docutils literal notranslate"><span class="pre">out</span></code> es entonces un iterable que contiene los valores devueltos por <code class="docutils literal notranslate"><span class="pre">some_function</span></code> para cada llamada.</p></li>
+<li><p>Utilizamos <a class="reference external" href="https://cython.org/">Cython</a> para escribir código rápido. El código Cython se encuentra en los archivos <code class="docutils literal notranslate"><span class="pre">.pyx</span></code> y <code class="docutils literal notranslate"><span class="pre">.pxd</span></code>. El código Cython tiene un sabor más parecido al de C: utilizamos punteros, realizamos asignaciones de memoria manuales, etc. Tener una mínima experiencia en C / C++ es prácticamente obligatorio aquí.</p></li>
+<li><p>Domina tus herramientas.</p>
+<ul>
+<li><p>Con un proyecto tan grande, ser eficiente con tu editor o IDE favorito ayuda mucho a digerir el código base. Ser capaz de saltar rápidamente (o <em>mirar</em>) a la definición de una función/clase/atributo ayuda mucho. También lo es poder ver rápidamente dónde se utiliza un nombre determinado en un archivo.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">&lt;https://git-scm.com/book/en&gt;`_</span> <span class="pre">también</span> <span class="pre">tiene</span> <span class="pre">algunas</span> <span class="pre">funcionalidades</span> <span class="pre">esenciales</span> <span class="pre">(killer)</span> <span class="pre">incorporadas.</span> <span class="pre">A</span> <span class="pre">menudo</span> <span class="pre">es</span> <span class="pre">útil</span> <span class="pre">entender</span> <span class="pre">cómo</span> <span class="pre">ha</span> <span class="pre">cambiado</span> <span class="pre">un</span> <span class="pre">archivo</span> <span class="pre">a</span> <span class="pre">lo</span> <span class="pre">largo</span> <span class="pre">del</span> <span class="pre">tiempo,</span> <span class="pre">utilizando</span> <span class="pre">por</span> <span class="pre">ejemplo,</span> <span class="pre">``git</span> <span class="pre">blame</span></code> (<a class="reference external" href="https://git-scm.com/docs/git-blame">manual</a>). Esto también se puede hacer directamente en GitHub. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">grep</span></code> (<a class="reference external" href="https://git-scm.com/docs/git-grep#_examples">ejemplos</a>) también es extremadamente útil para ver cada ocurrencia de un patrón (por ejemplo, una llamada a una función o una variable) en la base de código.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/developers/contributing.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Desarrollando estimadores de scikit-learn &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/developers/develop.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="contributing.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Contribuyendo">Prev</a><a href="index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Guía del Desarrollador">Arriba</a>
+            <a href="tips.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Consejos y Trucos de los Desarrolladores">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Desarrollando estimadores de scikit-learn</a><ul>
+<li><a class="reference internal" href="#apis-of-scikit-learn-objects">APIs de objetos de scikit-learn</a><ul>
+<li><a class="reference internal" href="#different-objects">Objetos diferentes</a></li>
+<li><a class="reference internal" href="#estimators">Estimadores</a><ul>
+<li><a class="reference internal" href="#instantiation">Instanciación</a></li>
+<li><a class="reference internal" href="#fitting">Ajuste</a></li>
+<li><a class="reference internal" href="#estimated-attributes">Atributos estimados</a></li>
+<li><a class="reference internal" href="#optional-arguments">Argumentos opcionales</a></li>
+<li><a class="reference internal" href="#pairwise-attributes">Atributos en pareja</a></li>
+<li><a class="reference internal" href="#universal-attributes">Atributos universales</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rolling-your-own-estimator">Rodando tu propio estimador</a><ul>
+<li><a class="reference internal" href="#get-params-and-set-params">get_params y set_params</a></li>
+<li><a class="reference internal" href="#parameters-and-init">Parámetros e init</a></li>
+<li><a class="reference internal" href="#cloning">Clonado</a></li>
+<li><a class="reference internal" href="#pipeline-compatibility">Compatibilidad con pipeline</a></li>
+<li><a class="reference internal" href="#estimator-types">Tipos de estimador</a></li>
+<li><a class="reference internal" href="#specific-models">Modelos específicos</a></li>
+<li><a class="reference internal" href="#estimator-tags">Etiquetas de Estimador</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#coding-guidelines">Directrices de codificación</a><ul>
+<li><a class="reference internal" href="#input-validation">Validación de entrada</a></li>
+<li><a class="reference internal" href="#random-numbers">Números aleatorios</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="developing-scikit-learn-estimators">
+<span id="develop"></span><h1>Desarrollando estimadores de scikit-learn<a class="headerlink" href="#developing-scikit-learn-estimators" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Ya sea que estes proponiendo un estimador para su inclusión en scikit-learn, desarrollando un paquete separado compatible con scikit-learn, o implementando componentes personalizados para tus propios proyectos, este capítulo detalla cómo desarrollar objetos que interactúan de forma segura con los Pipelines de scikit-learn y las herramientas de selección de modelos.</p>
+<section id="apis-of-scikit-learn-objects">
+<span id="api-overview"></span><h2>APIs de objetos de scikit-learn<a class="headerlink" href="#apis-of-scikit-learn-objects" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para tener una API uniforme, intentamos tener una API básica común para todos los objetos. Además, para evitar la proliferación de código del framework, intentamos adoptar convenciones sencillas y limitar al mínimo el número de métodos que debe implementar un objeto.</p>
+<p>Los elementos de la API de scikit-learn se describen de forma más definitiva en el <a class="reference internal" href="../glossary.html#glossary"><span class="std std-ref">Glosario de Términos Comunes y Elementos de la API</span></a>.</p>
+<section id="different-objects">
+<h3>Objetos diferentes<a class="headerlink" href="#different-objects" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los objetos principales en scikit-learn son (una clase puede implementar múltiples interfaces):</p>
+<dl class="field-list">
+<dt class="field-odd">Estimador</dt>
+<dd class="field-odd"><p>El objeto base, implementa un método <code class="docutils literal notranslate"><span class="pre">fit</span></code> para aprender de los datos, o bien:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>o:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">Predictor</dt>
+<dd class="field-even"><p>Para el aprendizaje supervisado, o algunos problemas no supervisados, implementa:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prediction</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Los algoritmos de clasificación generalmente también ofrecen una manera de cuantificar la certidumbre de una predicción, ya sea usando <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> o <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">probability</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-odd">Transformador</dt>
+<dd class="field-odd"><p>Para filtrar o modificar los datos, de forma supervisada o no supervisada, implementa:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Cuando se ajusta y transforma se puede realizar de forma mucho más eficiente juntos que por separado, implementa:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">Modelo</dt>
+<dd class="field-even"><p>Un modelo que puede dar una medida de <a class="reference external" href="https://es.wikipedia.org/wiki/Bondad_de_ajuste">bondad de ajuste</a> o una probabilidad de los datos no vistos, implementa (mayor es mejor):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="estimators">
+<h3>Estimadores<a class="headerlink" href="#estimators" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La API tiene un objeto predominante: el estimador. Un estimador es un objeto que se ajusta a un modelo basado en algunos datos de capacitación y es capaz de inferir algunas propiedades sobre nuevos datos. Puede ser, por ejemplo, un clasificador o un regresor. Todos los estimadores implementan el método de ajuste:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Todos los estimadores incorporados también tienen un método <code class="docutils literal notranslate"><span class="pre">set_params</span></code>, que establece parámetros independientes de los datos (anulando los valores de los parámetros anteriores pasados a <code class="docutils literal notranslate"><span class="pre">__init__</span></code>).</p>
+<p>Todos los estimadores en el código base principal de scikit-learn deben heredar de <code class="docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>.</p>
+<section id="instantiation">
+<h4>Instanciación<a class="headerlink" href="#instantiation" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Se trata de la creación de un objeto. El método <code class="docutils literal notranslate"><span class="pre">__init__</span></code> del objeto puede aceptar constantes como argumentos que determinen el comportamiento del estimador (como la constante C en los SVM). Sin embargo, no debería tomar los datos de entrenamiento como argumento, ya que esto se deja al método <code class="docutils literal notranslate"><span class="pre">fit()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clf2</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">2.3</span><span class="p">)</span>
+<span class="n">clf3</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># WRONG!</span>
+</pre></div>
+</div>
+<p>Los argumentos aceptados por <code class="docutils literal notranslate"><span class="pre">__init__</span></code> deberían ser todos argumentos de palabra clave con un valor predeterminado. En otras palabras, un usuario debe ser capaz de instanciar un estimador sin pasarle ningún argumento. Todos los argumentos deberían corresponder a hiperparámetros que describan el modelo o el problema de optimización que el estimador intenta resolver. Estos argumentos (o parámetros) iniciales son siempre recordados por el estimador. También hay que tener en cuenta que no deben documentarse en la sección «Atributos», sino en la sección «Parámetros» de ese estimador.</p>
+<p>Además, <strong>cada argumento de palabra clave aceptado por</strong> <code class="docutils literal notranslate"><span class="pre">__init__</span></code> debe corresponder a un atributo en la instancia**. Scikit-learn se basa en esto para encontrar los atributos relevantes para establecer en un estimador al hacer la selección del modelo.</p>
+<p>Para resumir, un <code class="docutils literal notranslate"><span class="pre">__init__</span></code> debería parecer así:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">param2</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">param1</span> <span class="o">=</span> <span class="n">param1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">param2</span> <span class="o">=</span> <span class="n">param2</span>
+</pre></div>
+</div>
+<p>No debería haber lógica, ni siquiera validación de entrada, y los parámetros no deberían cambiarse. La lógica correspondiente debería ponerse donde se utilizan los parámetros, normalmente en <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Lo siguiente es incorrecto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">param2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">param3</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="c1"># WRONG: parameters should not be modified</span>
+    <span class="k">if</span> <span class="n">param1</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">param2</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">param1</span> <span class="o">=</span> <span class="n">param1</span>
+    <span class="c1"># WRONG: the object&#39;s attributes should have exactly the name of</span>
+    <span class="c1"># the argument in the constructor</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">param3</span> <span class="o">=</span> <span class="n">param2</span>
+</pre></div>
+</div>
+<p>La razón para posponer la validación es que la misma validación tendría que realizarse en <code class="docutils literal notranslate"><span class="pre">set_params</span></code>, que se utiliza en algoritmos como <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>.</p>
+</section>
+<section id="fitting">
+<h4>Ajuste<a class="headerlink" href="#fitting" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Lo siguiente que probablemente querras hacer es estimar algunos parámetros en el modelo. Esto está implementado en el método <code class="docutils literal notranslate"><span class="pre">fit()</span></code>.</p>
+<p>El método <code class="docutils literal notranslate"><span class="pre">fit()</span></code> toma los datos de entrenamiento como argumentos, que puede ser una matriz en el caso de aprendizaje no supervisado, o dos matrices en el caso de aprendizaje supervisado.</p>
+<p>Ten en cuenta que el modelo se ajusta usando <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code>, pero el objeto no contiene ninguna referencia a <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code>. Sin embargo, hay algunas excepciones a esto. como en el caso de los núcleos precomputados donde estos datos deben ser almacenados para su uso por el método predeterminado.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parámetros</p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>X</p></td>
+<td><p>array-like de forma (n_samples, n_features)</p></td>
+</tr>
+<tr class="row-odd"><td><p>y</p></td>
+<td><p>array-like de forma (n_samples,)</p></td>
+</tr>
+<tr class="row-even"><td><p>kwargs</p></td>
+<td><p>parámetros opcionales dependientes de datos</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">X.shape[0]</span></code> debe ser el mismo que <code class="docutils literal notranslate"><span class="pre">y.shape[0]</span></code>. Si no se cumple este requisito, se lanzará una excepción de tipo <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">y</span></code> podría ignorarse en el caso del aprendizaje no supervisado. Sin embargo, para hacer posible el uso del estimador como parte de una cadena que puede mezclar transformadores supervisados y no supervisados, incluso los estimadores no supervisados necesitan aceptar un argumento de palabra clave <code class="docutils literal notranslate"><span class="pre">y=None</span></code> en la segunda posición que es simplemente ignorado por el estimador. Por la misma razón, los métodos <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>, <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code> y <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> necesitan aceptar un argumento <code class="docutils literal notranslate"><span class="pre">y</span></code> en la segunda posición si se implementan.</p>
+<p>El método debe devolver el objeto (<code class="docutils literal notranslate"><span class="pre">self</span></code>). Este patrón es útil para poder implementar one liners rápidos en una sesión de IPython como:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y_predicted</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Dependiendo de la naturaleza del algoritmo, <code class="docutils literal notranslate"><span class="pre">fit</span></code> a veces también puede aceptar argumentos de palabras clave adicionales. Sin embargo, cualquier parámetro al que se le pueda asignar un valor antes de tener acceso a los datos debería ser un argumento de palabra clave <code class="docutils literal notranslate"><span class="pre">__init__</span></code>. <strong>Los parámetros de fit deben restringirse a las variables directamente dependientes de los datos</strong>. Por ejemplo, una matriz de Gram o una matriz de afinidad que se calculan previamente a partir de la matriz de datos <code class="docutils literal notranslate"><span class="pre">X</span></code> son dependientes de los datos. Un criterio de parada de tolerancia <code class="docutils literal notranslate"><span class="pre">tol</span></code> no depende directamente de los datos (aunque el valor óptimo según alguna función de puntuación probablemente lo sea).</p>
+<p>Cuando se llama a <code class="docutils literal notranslate"><span class="pre">fit</span></code>, cualquier llamada anterior a <code class="docutils literal notranslate"><span class="pre">fit</span></code> debe ser ignorada. En general, llamar a <code class="docutils literal notranslate"><span class="pre">estimator.fit(X1)</span></code> y luego a <code class="docutils literal notranslate"><span class="pre">estimator.fit(X2)</span></code> debería ser lo mismo que llamar sólo a <code class="docutils literal notranslate"><span class="pre">estimator.fit(X2)</span></code>. Sin embargo, esto puede no ser cierto en la práctica cuando <code class="docutils literal notranslate"><span class="pre">fit</span></code> depende de algún proceso aleatorio, ver <a class="reference internal" href="../glossary.html#term-random_state"><span class="xref std std-term">random_state</span></a>. Otra excepción a esta regla es cuando el hiperparámetro <code class="docutils literal notranslate"><span class="pre">inicio</span> <span class="pre">de</span> <span class="pre">calentamiento</span></code> se establece en <code class="docutils literal notranslate"><span class="pre">Verdadero</span></code> para los estimadores que lo admiten. El parámetro <code class="docutils literal notranslate"><span class="pre">warm_start=True</span></code> significa que se reutiliza el estado anterior de los parámetros entrenables del estimador en lugar de utilizar la estrategia de inicialización por defecto.</p>
+</section>
+<section id="estimated-attributes">
+<h4>Atributos estimados<a class="headerlink" href="#estimated-attributes" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Los atributos que se han estimado a partir de los datos deben tener siempre un nombre que termine con subrayado final, por ejemplo, los coeficientes de algún estimador de regresión se almacenarían en un atributo <code class="docutils literal notranslate"><span class="pre">coef_</span></code> después de que se haya llamado <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+<p>Se espera que los atributos estimados se anulen cuando llame a <code class="docutils literal notranslate"><span class="pre">fit</span></code> una segunda vez.</p>
+</section>
+<section id="optional-arguments">
+<h4>Argumentos opcionales<a class="headerlink" href="#optional-arguments" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>En algoritmos iterativos, el número de iteraciones debe ser especificado por un entero llamado <code class="docutils literal notranslate"><span class="pre">n_iter</span></code>.</p>
+</section>
+<section id="pairwise-attributes">
+<h4>Atributos en pareja<a class="headerlink" href="#pairwise-attributes" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Un estimador que acepta <code class="docutils literal notranslate"><span class="pre">X</span></code> de la forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_samples)</span></code> y define una propiedad <a class="reference internal" href="../glossary.html#term-_pairwise"><span class="xref std std-term">_pairwise</span></a> igual a <code class="docutils literal notranslate"><span class="pre">True</span></code> permite la validación cruzada del conjunto de datos, por ejemplo, cuando <code class="docutils literal notranslate"><span class="pre">X</span></code> es una matriz de núcleo precalculada. Específicamente, la propiedad <a class="reference internal" href="../glossary.html#term-_pairwise"><span class="xref std std-term">_pairwise</span></a> es usada por <code class="docutils literal notranslate"><span class="pre">utils.metaestimators._safe_split</span></code> para dividir filas y columnas.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Obsoleto desde la versión 0.24: </span>El atributo _pairwise queda obsoleto en 0.24. A partir de la versión 1.1 (cambio de nombre de la versión 0.26), se utilizará la etiqueta del estimador <code class="docutils literal notranslate"><span class="pre">pairwise</span></code>.</p>
+</div>
+</section>
+<section id="universal-attributes">
+<h4>Atributos universales<a class="headerlink" href="#universal-attributes" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Los estimadores que esperan una entrada tabular deben establecer un atributo <code class="docutils literal notranslate"><span class="pre">n_features_in_</span></code> en el momento de <code class="docutils literal notranslate"><span class="pre">fit</span></code> para indicar el número de características que el estimador espera para las siguientes llamadas a <code class="docutils literal notranslate"><span class="pre">predict</span></code> o <code class="docutils literal notranslate"><span class="pre">transform</span></code>. Ver <a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep010/proposal.html">SLEP010</a> para más detalles.</p>
+</section>
+</section>
+</section>
+<section id="rolling-your-own-estimator">
+<span id="id1"></span><h2>Rodando tu propio estimador<a class="headerlink" href="#rolling-your-own-estimator" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Si quieres implementar un nuevo estimador que sea compatible con scikit-learn, ya sea sólo para ti o para contribuir a scikit-learn, hay varios aspectos internos de scikit-learn que debes conocer además de la API de scikit-learn descrita anteriormente. Puede comprobar si tu estimador se adhiere a la interfaz y las normas de scikit-learn ejecutando <a class="reference internal" href="../modules/generated/sklearn.utils.estimator_checks.check_estimator.html#sklearn.utils.estimator_checks.check_estimator" title="sklearn.utils.estimator_checks.check_estimator"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_estimator</span></code></a> en una instancia. El decorador <a class="reference internal" href="../modules/generated/sklearn.utils.estimator_checks.parametrize_with_checks.html#sklearn.utils.estimator_checks.parametrize_with_checks" title="sklearn.utils.estimator_checks.parametrize_with_checks"><code class="xref py py-func docutils literal notranslate"><span class="pre">parametrize_with_checks</span></code></a> pytest también se puede utilizar (ver su docstring para más detalles y posibles interacciones con <code class="docutils literal notranslate"><span class="pre">pytest</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.utils.estimator_checks</span> <span class="kn">import</span> <span class="n">check_estimator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_estimator</span><span class="p">(</span><span class="n">LinearSVC</span><span class="p">())</span>  <span class="c1"># passes</span>
+</pre></div>
+</div>
+<p>La motivación principal para hacer que una clase sea compatible con la interfaz de estimadores de scikit-learn puede ser que quieras usarla junto con la evaluación del modelo y herramientas de selección como <a class="reference internal" href="../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">model_selection.GridSearchCV</span></code></a> y <a class="reference internal" href="../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">pipeline.Pipeline</span></code></a>.</p>
+<p>Antes de detallar la interfaz requerida a continuación, describimos dos maneras de lograr la interfaz correcta más fácilmente.</p>
+<div class="topic">
+<p class="topic-title">Project template:</p>
+<p>Proveemos una <a class="reference external" href="https://github.com/scikit-learn-contrib/project-template/">plantilla de proyecto</a> que ayuda en la creación de paquetes Python que contengan estimadores compatibles con scikit-learn. Provee:</p>
+<ul class="simple">
+<li><p>un repositorio git inicial con estructura de directorio de paquetes Python</p></li>
+<li><p>una plantilla de un estimador de scikit-learn</p></li>
+<li><p>una suite de pruebas inicial incluyendo el uso de <code class="docutils literal notranslate"><span class="pre">check_estimator</span></code></p></li>
+<li><p>estructuras de directorios y scripts para compilar documentación y galerías de ejemplo</p></li>
+<li><p>scripts para gestionar la integración continua (pruebas en Linux y Windows)</p></li>
+<li><p>instrucciones para empezar a publicar en <a class="reference external" href="https://pypi.org/">PyPi</a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title"><code class="docutils literal notranslate"><span class="pre">BaseEstimator</span></code> y mezclas:</p>
+<p>Tendemos a utilizar la «duck typing», por lo que la compilación de un estimador que sigue la API es suficiente para la compatibilidad, sin necesidad de heredar o incluso importar cualquier clase de scikit-learn.</p>
+<p>Sin embargo, si una dependencia de scikit-learn es aceptable en su código, puedes evitar un montón de código boilerplate derivando una clase de <code class="docutils literal notranslate"><span class="pre">BaseEstimator</span></code> y opcionalmente las clases mezcladas en <code class="docutils literal notranslate"><span class="pre">sklearn.base</span></code>. Por ejemplo, a continuación se muestra un clasificador personalizado, con más ejemplos incluidos en scikit-learn-contrib en su <a class="reference external" href="https://github.com/scikit-learn-contrib/project-template/blob/master/skltemplate/_template.py">plantilla del proyecto</a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">ClassifierMixin</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_X_y</span><span class="p">,</span> <span class="n">check_array</span><span class="p">,</span> <span class="n">check_is_fitted</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.utils.multiclass</span> <span class="kn">import</span> <span class="n">unique_labels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">euclidean_distances</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TemplateClassifier</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">ClassifierMixin</span><span class="p">):</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">demo_param</span><span class="o">=</span><span class="s1">&#39;demo&#39;</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">demo_param</span> <span class="o">=</span> <span class="n">demo_param</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="c1"># Check that X and y have correct shape</span>
+<span class="gp">... </span>        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="c1"># Store the classes seen during fit</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="n">unique_labels</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">X_</span> <span class="o">=</span> <span class="n">X</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">y_</span> <span class="o">=</span> <span class="n">y</span>
+<span class="gp">... </span>        <span class="c1"># Return the classifier</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="c1"># Check is fit had been called</span>
+<span class="gp">... </span>        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="c1"># Input validation</span>
+<span class="gp">... </span>        <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="n">closest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">euclidean_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_</span><span class="p">[</span><span class="n">closest</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<section id="get-params-and-set-params">
+<h3>get_params y set_params<a class="headerlink" href="#get-params-and-set-params" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Todas las estimaciones de scikit-learn tienen las funciones <code class="docutils literal notranslate"><span class="pre">get_params</span></code> y <code class="docutils literal notranslate"><span class="pre">set_params</span></code>. La función <code class="docutils literal notranslate"><span class="pre">get_params</span></code> no toma argumentos y devuelve un diccionario (dict) de los parámetros <code class="docutils literal notranslate"><span class="pre">__init__</span></code> del estimador, junto con sus valores.</p>
+<p>Debe tomar un argumento de palabra clave, <code class="docutils literal notranslate"><span class="pre">deep</span></code>, que recibe un valor booleano que determina si el método debe devolver los parámetros de subestimadores (para la mayoría de los estimadores, esto puede ser ignorado). El valor predeterminado para <code class="docutils literal notranslate"><span class="pre">deep</span></code> debe ser <code class="docutils literal notranslate"><span class="pre">True</span></code>. Por ejemplo considerando el siguiente estimador:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyEstimator</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subestimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">my_extra_param</span><span class="o">=</span><span class="s2">&quot;random&quot;</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">subestimator</span> <span class="o">=</span> <span class="n">subestimator</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">my_extra_param</span> <span class="o">=</span> <span class="n">my_extra_param</span>
+</pre></div>
+</div>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">deep</span></code> controlará si los parámetros del <code class="docutils literal notranslate"><span class="pre">subsestimator</span></code> deben ser reportados. Así que cuando <code class="docutils literal notranslate"><span class="pre">deep=True</span></code>, la salida será:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_estimator</span> <span class="o">=</span> <span class="n">MyEstimator</span><span class="p">(</span><span class="n">subestimator</span><span class="o">=</span><span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">my_estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">my_extra_param -&gt; random</span>
+<span class="go">subestimator__C -&gt; 1.0</span>
+<span class="go">subestimator__class_weight -&gt; None</span>
+<span class="go">subestimator__dual -&gt; False</span>
+<span class="go">subestimator__fit_intercept -&gt; True</span>
+<span class="go">subestimator__intercept_scaling -&gt; 1</span>
+<span class="go">subestimator__l1_ratio -&gt; None</span>
+<span class="go">subestimator__max_iter -&gt; 100</span>
+<span class="go">subestimator__multi_class -&gt; auto</span>
+<span class="go">subestimator__n_jobs -&gt; None</span>
+<span class="go">subestimator__penalty -&gt; l2</span>
+<span class="go">subestimator__random_state -&gt; None</span>
+<span class="go">subestimator__solver -&gt; lbfgs</span>
+<span class="go">subestimator__tol -&gt; 0.0001</span>
+<span class="go">subestimator__verbose -&gt; 0</span>
+<span class="go">subestimator__warm_start -&gt; False</span>
+<span class="go">subestimator -&gt; LogisticRegression()</span>
+</pre></div>
+</div>
+<p>A menudo, el <code class="docutils literal notranslate"><span class="pre">subestimador</span></code> tiene un nombre (como, por ejemplo, los pasos nombrados en un objeto <a class="reference internal" href="../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>), en cuyo caso la clave debería convertirse en <code class="docutils literal notranslate"><span class="pre">&lt;nombre&gt;__C</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;nombre&gt;__class_weight</span></code>, etc.</p>
+<p>Mientras que cuando <code class="docutils literal notranslate"><span class="pre">deep=False</span></code>, la salida será:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">my_estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">my_extra_param -&gt; random</span>
+<span class="go">subestimator -&gt; LogisticRegression()</span>
+</pre></div>
+</div>
+<p>Por otro lado, <code class="docutils literal notranslate"><span class="pre">set_params</span></code> toma como entrada un diccionario (dict) de la forma <code class="docutils literal notranslate"><span class="pre">'parameter':</span> <span class="pre">value</span></code> y establece el parámetro del estimador utilizando este diccionario. El valor de retorno debe ser el propio estimador.</p>
+<p>Mientras que el mecanismo <code class="docutils literal notranslate"><span class="pre">get_params</span></code> no es esencial (ver <a class="reference internal" href="#cloning"><span class="std std-ref">Clonado</span></a> a continuación), la función <code class="docutils literal notranslate"><span class="pre">set_params</span></code> es necesaria ya que se usa para establecer parámetros durante las búsquedas en cuadrícula.</p>
+<p>La forma más fácil de implementar estas funciones, y de obtener un método <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> sensato, es heredar de <code class="docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>. Si no quieres hacer que tu código dependa de scikit-learn, la forma más fácil de implementar la interfaz es:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># suppose this estimator has parameters &quot;alpha&quot; and &quot;recursive&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="s2">&quot;recursive&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">recursive</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+</div>
+</section>
+<section id="parameters-and-init">
+<h3>Parámetros e init<a class="headerlink" href="#parameters-and-init" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Como <a class="reference internal" href="../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">model_selection.GridSearchCV</span></code></a> utiliza <code class="docutils literal notranslate"><span class="pre">set_params</span></code> para aplicar la configuración de parámetros a los estimadores, es esencial que llamar a <code class="docutils literal notranslate"><span class="pre">set_params</span></code> tenga el mismo efecto que la configuración de parámetros utilizando el método <code class="docutils literal notranslate"><span class="pre">__init__</span></code>. La forma más fácil y recomendada para lograr esto es <strong>no hacer ninguna validación de parámetros en</strong> <code class="docutils literal notranslate"><span class="pre">__init__</span></code>. Toda la lógica detrás de los parámetros del estimador, como la traducción de argumentos de cadena en funciones, debe hacerse en <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+<p>También se espera que los parámetros con la terminación <code class="docutils literal notranslate"><span class="pre">_</span></code> <strong>no se establezcan dentro del método</strong> <code class="docutils literal notranslate"><span class="pre">init__</span></code>. Todos y sólo los atributos públicos espablecidos por ajuste fit tienen una terminación <code class="docutils literal notranslate"><span class="pre">_</span></code>. Como resultado, la existencia de los parámetros con el final <code class="docutils literal notranslate"><span class="pre">_</span></code> se utiliza para comprobar si el estimador ha sido ajustado.</p>
+</section>
+<section id="cloning">
+<span id="id2"></span><h3>Clonado<a class="headerlink" href="#cloning" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para su uso con el módulo <code class="xref py py-mod docutils literal notranslate"><span class="pre">model_selection</span></code>, un estimador debe soportar la <code class="docutils literal notranslate"><span class="pre">base.clone</span></code> para replicar un estimador. Esto puede hacerse proporcionando un método <code class="docutils literal notranslate"><span class="pre">get_params</span></code>. Si <code class="docutils literal notranslate"><span class="pre">get_params</span></code> está presente, entonces <code class="docutils literal notranslate"><span class="pre">clone(estimator)</span></code> será una instancia de <code class="docutils literal notranslate"><span class="pre">type(estimator)</span></code> en la que <code class="docutils literal notranslate"><span class="pre">set_params</span></code> ha sido llamado con clones del resultado de <code class="docutils literal notranslate"><span class="pre">estimator.get_params()</span></code>.</p>
+<p>Los objetos que no proporcionan este método serán copiados profundamente (usando la función estándar de Python <code class="docutils literal notranslate"><span class="pre">copy.deepcopy</span></code>) si <code class="docutils literal notranslate"><span class="pre">safe=False</span></code> es pasado a <code class="docutils literal notranslate"><span class="pre">clone</span></code>.</p>
+</section>
+<section id="pipeline-compatibility">
+<h3>Compatibilidad con pipeline<a class="headerlink" href="#pipeline-compatibility" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para que un estimador pueda utilizarse junto con <code class="docutils literal notranslate"><span class="pre">pipeline.Pipeline</span></code> en cualquier paso, excepto en el último, debe proporcionar una función <code class="docutils literal notranslate"><span class="pre">fit</span></code> o <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>. Para poder evaluar el pipeline en cualquier dato que no sea el conjunto de entrenamiento, también necesita proporcionar una función <code class="docutils literal notranslate"><span class="pre">transform</span></code>. No hay requisitos especiales para el último paso de un pipeline, excepto que tiene una función <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Todas las funciones <code class="docutils literal notranslate"><span class="pre">fit</span></code> y <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> deben tomar argumentos <code class="docutils literal notranslate"><span class="pre">X,</span> <span class="pre">y</span></code>, incluso si no se utiliza y. Del mismo modo, para que <code class="docutils literal notranslate"><span class="pre">score</span></code> sea utilizable, el último paso del pipeline debe tener una función <code class="docutils literal notranslate"><span class="pre">score</span></code> que acepte un <code class="docutils literal notranslate"><span class="pre">y</span></code> opcional.</p>
+</section>
+<section id="estimator-types">
+<h3>Tipos de estimador<a class="headerlink" href="#estimator-types" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Algunas funcionalidades comunes dependen de la clase de estimador que se pase. Por ejemplo, la validación cruzada en <a class="reference internal" href="../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">model_selection.GridSearchCV</span></code></a> y <a class="reference internal" href="../modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">model_selection.cross_val_score</span></code></a> está por defecto estratificada cuando se utiliza en un clasificador, pero no en otro caso. Del mismo modo, los calificadores de precisión media que toman una predicción continua necesitan llamar a <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> para los clasificadores, pero a <code class="docutils literal notranslate"><span class="pre">predict</span></code> para los regresores. Esta distinción entre clasificadores y regresores se implementa mediante el atributo <code class="docutils literal notranslate"><span class="pre">_estimator_type</span></code>, que toma un valor de cadena. Debe ser <code class="docutils literal notranslate"><span class="pre">classifier</span></code> para los clasificadores y <code class="docutils literal notranslate"><span class="pre">regresor</span></code> para los regresores y <code class="docutils literal notranslate"><span class="pre">clusterer</span></code> para los métodos de clustering, para que funcione como se espera. Al heredar de <code class="docutils literal notranslate"><span class="pre">ClassifierMixin</span></code>, <code class="docutils literal notranslate"><span class="pre">RegressorMixin</span></code> o <code class="docutils literal notranslate"><span class="pre">ClusterMixin</span></code> se establecerá el atributo automáticamente.  Cuando un meta-estimador necesita distinguir entre tipos de estimadores, en lugar de comprobar <code class="docutils literal notranslate"><span class="pre">_estimator_type</span></code> directamente, se deben utilizar ayudantes como <code class="xref py py-func docutils literal notranslate"><span class="pre">base.is_classifier`</span></code>.</p>
+</section>
+<section id="specific-models">
+<h3>Modelos específicos<a class="headerlink" href="#specific-models" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los clasificadores deben aceptar argumentos <code class="docutils literal notranslate"><span class="pre">y</span></code> (objetivo) para <code class="docutils literal notranslate"><span class="pre">fit</span></code> que son secuencias (listas, arreglos) de cadenas o enteros.  No deben asumir que las etiquetas de clase son un rango contiguo de enteros; en su lugar, deben almacenar una lista de clases en un atributo o propiedad <code class="docutils literal notranslate"><span class="pre">classes_</span></code>.  El orden de las etiquetas de clase en este atributo debe coincidir con el orden en que <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>, <code class="docutils literal notranslate"><span class="pre">predict_log_proba</span></code> y <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> devuelven sus valores.  La forma más sencilla de conseguirlo es poner:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>en <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Esto devuelve un nuevo <code class="docutils literal notranslate"><span class="pre">y</span></code> que contiene índices de clase, en lugar de etiquetas, en el rango [0, <code class="docutils literal notranslate"><span class="pre">n_classes</span></code>).</p>
+<p>El método <code class="docutils literal notranslate"><span class="pre">predict</span></code> de un clasificador debe devolver arreglos que contengan etiquetas de clase de <code class="docutils literal notranslate"><span class="pre">classes_</span></code>. En un clasificador que implementa <code class="docutils literal notranslate"><span class="pre">decision_function</span></code>, esto se puede lograr con:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>En modelos lineales, los coeficientes se almacenan en un arreglo llamado <code class="docutils literal notranslate"><span class="pre">coef_</span></code>, y el término independiente se almacena en <code class="docutils literal notranslate"><span class="pre">intercept_</span></code>. <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model._base</span></code> contiene algunas clases base y mezclas que implementan patrones de modelo lineal comunes.</p>
+<p>El módulo <code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.utils.multiclass</span></code> contiene funciones útiles para trabajar con problemas multiclase y multietiqueta.</p>
+</section>
+<section id="estimator-tags">
+<span id="id3"></span><h3>Etiquetas de Estimador<a class="headerlink" href="#estimator-tags" title="Enlazar permanentemente con este título">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Las etiquetas de estimación son experimentales y la API está sujeta a cambios.</p>
+</div>
+<p>Scikit-learn introdujo etiquetas de estimadores en la versión 0.21. Son anotaciones de los estimadores que permiten la inspección programática de sus capacidades, como el soporte de matrices dispersas, los tipos de salida y los métodos soportados. Las etiquetas del estimador son un diccionario devuelto por el método <code class="docutils literal notranslate"><span class="pre">_get_tags()</span></code>. Estas etiquetas se utilizan en las comprobaciones comunes ejecutadas por la función <a class="reference internal" href="../modules/generated/sklearn.utils.estimator_checks.check_estimator.html#sklearn.utils.estimator_checks.check_estimator" title="sklearn.utils.estimator_checks.check_estimator"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_estimator</span></code></a> y el decorador <a class="reference internal" href="../modules/generated/sklearn.utils.estimator_checks.parametrize_with_checks.html#sklearn.utils.estimator_checks.parametrize_with_checks" title="sklearn.utils.estimator_checks.parametrize_with_checks"><code class="xref py py-func docutils literal notranslate"><span class="pre">parametrize_with_checks</span></code></a>. Las etiquetas determinan qué comprobaciones deben realizarse y qué datos de entrada son apropiados. Las etiquetas pueden depender de los parámetros del estimador o incluso de la arquitectura del sistema y, en general, sólo pueden determinarse en tiempo de ejecución.</p>
+<p>El conjunto actual de etiquetas de estimación son:</p>
+<dl class="simple">
+<dt>allow_nan (default=False)</dt><dd><p>si el estimador soporta datos con valores faltantes codificados como np.NaN</p>
+</dd>
+<dt>binary_only (default=False)</dt><dd><p>si el estimador soporta la clasificación binaria pero carece de soporte de clasificación multiclase.</p>
+</dd>
+<dt>multilabel (default=False)</dt><dd><p>si el estimador soporta salida multietiqueta</p>
+</dd>
+<dt>multioutput (default=False)</dt><dd><p>si un regresor admite salidas multiobjetivo o un clasificador admite multiples salidas multiclase.</p>
+</dd>
+<dt>multioutput_only (default=False)</dt><dd><p>si el estimador soporta sólo clasificación de salida múltiple o regresión.</p>
+</dd>
+<dt>no_validation (default=False)</dt><dd><p>si el estimador se salta la validación de entrada. Esto sólo está pensado para los transformadores sin estado y ficticios!</p>
+</dd>
+<dt>non_deterministic (default=False)</dt><dd><p>si el estimador no es determinista dado un <code class="docutils literal notranslate"><span class="pre">random_state</span></code> fijo</p>
+</dd>
+<dt>por pares (default=False)</dt><dd><p>Este atributo booleano indica si los datos (<code class="docutils literal notranslate"><span class="pre">X</span></code>) <a class="reference internal" href="../glossary.html#term-fit"><span class="xref std std-term">fit</span></a> y métodos similares consisten en medidas de pares sobre muestras en lugar de una representación de características para cada muestra.  Suele ser <code class="docutils literal notranslate"><span class="pre">True</span></code> cuando un estimador tiene un parámetro <code class="docutils literal notranslate"><span class="pre">métric</span></code> o de <code class="docutils literal notranslate"><span class="pre">affinity</span></code> o <code class="docutils literal notranslate"><span class="pre">kernel</span></code> con valor <code class="docutils literal notranslate"><span class="pre">precomputed</span></code>. Su propósito principal es que cuando un <a class="reference internal" href="../glossary.html#term-meta-estimator"><span class="xref std std-term">meta-estimator</span></a> extrae una submuestra de datos destinada a un estimador por pares, los datos necesitan ser indexados en ambos ejes, mientras que otros datos son indexados sólo en el primer eje.</p>
+</dd>
+<dt>preserves_dtype (default=``[np.float64]``)</dt><dd><p>se aplica sólo a los transformadores. Corresponde a los tipos de datos que se conservarán de forma que <code class="docutils literal notranslate"><span class="pre">X_trans.dtype</span></code> sea el mismo que <code class="docutils literal notranslate"><span class="pre">X.dtype</span></code> después de llamar a <code class="docutils literal notranslate"><span class="pre">transformer.transform(X)</span></code>. Si esta lista está vacía, no se espera que el transformador conserve el tipo de datos. El primer valor de la lista se considera el tipo de datos predeterminados, correspondiente al tipo de datos de la salida cuando no se va a preservar el tipo de datos de entrada.</p>
+</dd>
+<dt>poor_score (default=False)</dt><dd><p>si el estimador no proporciona una puntuación «razonable» del conjunto de pruebas, que actualmente para la regresión es un R2 de 0,5 en un subconjunto del conjunto de datos de viviendas de Boston, y para la clasificación una precisión de 0,83 en <code class="docutils literal notranslate"><span class="pre">make_blobs(n_samples=300,</span> <span class="pre">random_state=0)</span></code>. Estos conjuntos de datos y valores se basan en los estimadores actuales de sklearn y podrían ser sustituidos por algo más sistemático.</p>
+</dd>
+<dt>requires_fit (default=True)</dt><dd><p>si el estimador requiere ser ajustado antes de llamar a una de las funciones <code class="docutils literal notranslate"><span class="pre">transform</span></code>, <code class="docutils literal notranslate"><span class="pre">predict</span></code>, <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>, o <code class="docutils literal notranslate"><span class="pre">decision_function</span></code>.</p>
+</dd>
+<dt>requires_positive_X (default=False)</dt><dd><p>si el estimador requiere una X positiva.</p>
+</dd>
+<dt>requires_y (default=False)</dt><dd><p>si el estimador requiere que se pase y a los métodos <code class="docutils literal notranslate"><span class="pre">fit</span></code>, <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> o <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>. La etiqueta es True para los estimadores que heredan de <code class="docutils literal notranslate"><span class="pre">~sklearn.base.RegressorMixin</span></code> y <code class="docutils literal notranslate"><span class="pre">~sklearn.base.ClassifierMixin</span></code>.</p>
+</dd>
+<dt>requires_positive_y (default=False)</dt><dd><p>si el estimador requiere una y positiva (sólo aplicable para la regresión).</p>
+</dd>
+<dt>_skip_test (default=False)</dt><dd><p>si omitir por completo las pruebas comunes. No utilice esto a menos que tenga una <em>muy buena</em>.</p>
+</dd>
+<dt>_xfail_checks (default=False)</dt><dd><p>diccionario <code class="docutils literal notranslate"><span class="pre">{check_name:</span> <span class="pre">reason}</span></code> de comprobaciones comunes que se marcarán como <code class="docutils literal notranslate"><span class="pre">XFAIL</span></code> para pytest, cuando se utilice <a class="reference internal" href="../modules/generated/sklearn.utils.estimator_checks.parametrize_with_checks.html#sklearn.utils.estimator_checks.parametrize_with_checks" title="sklearn.utils.estimator_checks.parametrize_with_checks"><code class="xref py py-func docutils literal notranslate"><span class="pre">parametrize_with_checks</span></code></a>. Estas comprobaciones serán simplemente ignoradas y no serán ejecutadas por <a class="reference internal" href="../modules/generated/sklearn.utils.estimator_checks.check_estimator.html#sklearn.utils.estimator_checks.check_estimator" title="sklearn.utils.estimator_checks.check_estimator"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_estimator</span></code></a>, pero se lanzará un <code class="docutils literal notranslate"><span class="pre">SkipTestWarning</span></code>. No utilices esto a menos que haya una <em>muy buena</em> razón para que su estimador no pase la comprobación. También ten en cuenta que el uso de esta etiqueta está muy sujeto a cambios porque estamos tratando de hacerla más flexible: prepárate para cambios de última hora en el futuro.</p>
+</dd>
+<dt>stateless (default=False)</dt><dd><p>si el estimador necesita acceso a los datos para ajuste. Aunque un estimador no tiene estado, podría necesitar una llamada a <code class="docutils literal notranslate"><span class="pre">fit</span></code> para la inicialización.</p>
+</dd>
+<dt>X_types (default=[“2darray”])</dt><dd><p>Tipos de entrada soportados para X como lista de cadenas. Actualmente las pruebas sólo se ejecutan si “2darray” está contenido en la lista, lo que significa que el estimador toma arreglos numpy continuos 2d como entrada. El valor por defecto es [“2darray”]. Otros tipos posibles son <code class="docutils literal notranslate"><span class="pre">'string'</span></code>, <code class="docutils literal notranslate"><span class="pre">'sparse'</span></code>, <code class="docutils literal notranslate"><span class="pre">'categorical'</span></code>, <code class="docutils literal notranslate"><span class="pre">dict</span></code>, <code class="docutils literal notranslate"><span class="pre">'1dlabels'</span></code> y <code class="docutils literal notranslate"><span class="pre">'2dlabels'</span></code>. El objetivo es que en el futuro el tipo de entrada soportado determine los datos utilizados durante la prueba, en particular para los datos``”string”<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">``'sparse'</span></code> y <code class="docutils literal notranslate"><span class="pre">'categorical'</span></code>. Por ahora, las pruebas para datos dispersos no hacen uso de la etiqueta <code class="docutils literal notranslate"><span class="pre">'sparse'</span></code>.</p>
+</dd>
+</dl>
+<p>Es poco probable que los valores por defecto de cada etiqueta se ajusten a las necesidades de su estimador específico. Etiquetas adicionales pueden ser creadas o por defecto pueden ser sobreescritas definiendo un método <code class="docutils literal notranslate"><span class="pre">_more_tags()</span></code> que devuelve un diccionario (dict) con las etiquetas sobreescritas o nuevas etiquetas. Por ejemplo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMultiOutputEstimator</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_more_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;multioutput_only&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s1">&#39;non_deterministic&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Cualquier etiqueta que no esté en <code class="docutils literal notranslate"><span class="pre">_more_tags()</span></code> simplemente volverá a los valores predeterminados documentados arriba.</p>
+<p>Incluso si no se recomienda, es posible sobreescribir el método <code class="docutils literal notranslate"><span class="pre">_get_tags()</span></code>. Sin embargo, ten en cuenta que <strong>todas las etiquetas deben estar presentes en el diccionario (dict)</strong>. Si alguna de las claves documentadas arriba no está presente en la salida de <code class="docutils literal notranslate"><span class="pre">_get_tags()</span></code>, ocurrirá un error.</p>
+<p>Además de las etiquetas, los estimadores también necesitan declarar cualquier parámetro no opcional a <code class="docutils literal notranslate"><span class="pre">__init__</span></code> en el atributo de clase <code class="docutils literal notranslate"><span class="pre">_required_parameters</span></code>, que es una lista o tupla.  Si <code class="docutils literal notranslate"><span class="pre">_required_parameters</span></code> es sólo <code class="docutils literal notranslate"><span class="pre">[&quot;estimator&quot;]</span></code> o <code class="docutils literal notranslate"><span class="pre">[&quot;base_estimator&quot;]</span></code>, el estimador se instanciará con una instancia de <code class="docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code> (o <code class="docutils literal notranslate"><span class="pre">RidgeRegression</span></code> si el estimador es un regresor) en las pruebas. La elección de estos dos modelos es algo idiosincrática, pero ambos deberían proporcionar soluciones robustas de forma cerrada.</p>
+</section>
+</section>
+<section id="coding-guidelines">
+<span id="id4"></span><h2>Directrices de codificación<a class="headerlink" href="#coding-guidelines" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>A continuación se presentan algunas directrices sobre cómo debe escribirse el nuevo código para su inclusión en scikit-learn, y que puede ser apropiado adoptar en proyectos externos. Por supuesto, hay casos especiales y habrá excepciones a estas reglas. Sin embargo, seguir estas reglas cuando se presenta un nuevo código facilita la revisión, por lo que el nuevo código puede ser integrado en menos tiempo.</p>
+<p>Un código con formato uniforme hace más fácil compartir la propiedad del código. El proyecto scikit-learn trata de seguir de cerca las directrices oficiales de Python detalladas en <a class="reference external" href="https://www.python.org/dev/peps/pep-0008">PEP8</a> que detallan cómo el código debe ser formateado y sangrado. Por favor, Léelo y síguelo.</p>
+<p>Además, añadimos las siguientes directrices:</p>
+<ul class="simple">
+<li><p>Usa guiones bajos para separar palabras en nombres no de clase: <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">nsamples</span></code>.</p></li>
+<li><p>Evita múltiples sentencias en una línea. Prefiere un retorno de línea después de una sentencia de flujo de control (<code class="docutils literal notranslate"><span class="pre">if</span></code>/<code class="docutils literal notranslate"><span class="pre">for</span></code>).</p></li>
+<li><p>Utiliza las importaciones relativas para las referencias dentro de scikit-learn.</p></li>
+<li><p>Las pruebas unitarias son una excepción a la regla anterior; deben usar importaciones absolutas, exactamente como lo haría el código del cliente. Un corolario es que, si <code class="docutils literal notranslate"><span class="pre">sklearn.foo</span></code> exporta una clase o función que está implementada en <code class="docutils literal notranslate"><span class="pre">sklearn.foo.bar.baz</span></code>, la prueba debe importarla de <code class="docutils literal notranslate"><span class="pre">sklearn.foo</span></code>.</p></li>
+<li><p><strong>Por favor, no utilices</strong> <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">*</span></code> <strong>en ningún caso</strong>. Se considera perjudicial según las recomendaciones oficiales de Python &lt;<a class="reference external" href="https://docs.python.org/3.1/howto/doanddont.html#at-module-level">https://docs.python.org/3.1/howto/doanddont.html#at-module-level</a>&gt;`_. Hace que el código sea más difícil de leer ya que el origen de los símbolos ya no está explícitamente referenciado, pero lo más importante es que impide el uso de una herramienta de análisis estático como <a class="reference external" href="https://divmod.readthedocs.io/en/latest/products/pyflakes.html">pyflakes</a> para encontrar automáticamente errores en scikit-learn.</p></li>
+<li><p>Usa el <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#numpydoc-docstring-guide">numpy docstring standard</a> en todos tus docstrings.</p></li>
+</ul>
+<p>Un buen ejemplo de código que nos gusta se puede encontrar <a class="reference external" href="https://gist.github.com/nateGeorge/5455d2c57fb33c1ae04706f2dc4fee01">aquí</a>.</p>
+<section id="input-validation">
+<h3>Validación de entrada<a class="headerlink" href="#input-validation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El módulo <a class="reference internal" href="../modules/classes.html#module-sklearn.utils" title="sklearn.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.utils</span></code></a> contiene varias funciones para realizar la validación y conversión de entradas. A veces, <code class="docutils literal notranslate"><span class="pre">np.asarray</span></code> es suficiente para la validación; <em>no</em> utilices <code class="docutils literal notranslate"><span class="pre">np.asanyarray</span></code> o <code class="docutils literal notranslate"><span class="pre">np.</span> <span class="pre">tleast_2d</span></code>, ya que estos permiten pasar <code class="docutils literal notranslate"><span class="pre">np.matrix</span></code> de NumPy, que tiene una API diferente (por ejemplo, <code class="docutils literal notranslate"><span class="pre">*</span></code> significa producto punto en <code class="docutils literal notranslate"><span class="pre">np.matrix</span></code>, pero producto de Hadamard en <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>).</p>
+<p>En otros casos, asegúrate de llamar a <a class="reference internal" href="../modules/generated/sklearn.utils.check_array.html#sklearn.utils.check_array" title="sklearn.utils.check_array"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_array</span></code></a> en cualquier argumento array-like pasado a una función API de scikit-learn. Los parámetros exactos a utilizar dependen principalmente de si se deben aceptar las matrices <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> y de cuáles.</p>
+<p>Para obtener más información, consulta la página <a class="reference internal" href="utilities.html#developers-utils"><span class="std std-ref">Utilidades para Desarrolladores</span></a>.</p>
+</section>
+<section id="random-numbers">
+<h3>Números aleatorios<a class="headerlink" href="#random-numbers" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si su código depende de un generador de números aleatorios, no utilices <code class="docutils literal notranslate"><span class="pre">numpy.random.random()</span></code> o rutinas similares.  Para asegurar la repetibilidad en la comprobación de errores, la rutina debería aceptar una palabra clave <code class="docutils literal notranslate"><span class="pre">random_state</span></code> y usarla para construir un objeto <code class="docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code>. Ver <a class="reference internal" href="../modules/generated/sklearn.utils.check_random_state.html#sklearn.utils.check_random_state" title="sklearn.utils.check_random_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.utils.check_random_state</span></code></a> en <a class="reference internal" href="utilities.html#developers-utils"><span class="std std-ref">Utilidades para Desarrolladores</span></a>.</p>
+<p>Aquí hay un ejemplo simple de código usando algunas de las directrices anteriores:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_array</span><span class="p">,</span> <span class="n">check_random_state</span>
+
+<span class="k">def</span> <span class="nf">choose_random_sample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Choose a random point from X.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        An array representing the data.</span>
+<span class="sd">    random_state : int or RandomState instance, default=0</span>
+<span class="sd">        The seed of the pseudo random number generator that selects a</span>
+<span class="sd">        random sample. Pass an int for reproducible output across multiple</span>
+<span class="sd">        function calls.</span>
+<span class="sd">        See :term:`Glossary &lt;random_state&gt;`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : ndarray of shape (n_features,)</span>
+<span class="sd">        A random point selected from X.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">random_state</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">random_state</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Si utiliza la aleatoriedad en un estimador en lugar de una función independiente, se aplican algunas directrices adicionales.</p>
+<p>En primer lugar, el estimador debe tomar un argumento <code class="docutils literal notranslate"><span class="pre">estado_aleatorio</span></code> en su <code class="docutils literal notranslate"><span class="pre">__init__</span></code> con un valor predeterminado de <code class="docutils literal notranslate"><span class="pre">None</span></code>. Debería almacenar el valor de ese argumento, <strong>sin modificar</strong>, en un atributo <code class="docutils literal notranslate"><span class="pre">random_state</span></code>. <code class="docutils literal notranslate"><span class="pre">fit</span></code> puede llamar a <code class="docutils literal notranslate"><span class="pre">check_random_state</span></code> en ese atributo para obtener un generador de números aleatorios real. Si, por alguna razón, la aleatoriedad es necesaria después de <code class="docutils literal notranslate"><span class="pre">fit</span></code>, el RNG debe ser almacenado en un atributo <code class="docutils literal notranslate"><span class="pre">random_state_</span></code>. El siguiente ejemplo debería aclarar esto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GaussianNoise</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This estimator ignores its input and returns random Gaussian noise.</span>
+
+<span class="sd">    It also does not adhere to all scikit-learn conventions,</span>
+<span class="sd">    but showcases how to handle randomness.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
+
+    <span class="c1"># the arguments are ignored anyway, so we make them optional</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state_</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">n_samples</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_state_</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>La razón de esta configuración es la reproducibilidad: cuando un estimador es <code class="docutils literal notranslate"><span class="pre">ajustado</span></code> dos veces a los mismos datos, debería producir un modelo idéntico ambas veces, de ahí la validación en <code class="docutils literal notranslate"><span class="pre">fit</span></code>, no <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/developers/develop.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
