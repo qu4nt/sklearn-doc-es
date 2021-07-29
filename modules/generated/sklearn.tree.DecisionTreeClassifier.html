@@ -1,0 +1,821 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.tree.DecisionTreeClassifier &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.svm.l1_min_c.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.svm.l1_min_c">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.tree.DecisionTreeRegressor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.tree.DecisionTreeRegressor">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.tree</span></code>.DecisionTreeClassifier</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-tree-decisiontreeclassifier">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.tree.DecisionTreeClassifier</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-tree-decisiontreeclassifier">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.tree" title="sklearn.tree"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.tree</span></code></a>.DecisionTreeClassifier<a class="headerlink" href="#sklearn-tree-decisiontreeclassifier" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.tree.</span></span><span class="sig-name descname"><span class="pre">DecisionTreeClassifier</span></span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Un clasificador de árbol de decisiones.</p>
+<p>Lee más en el <a class="reference internal" href="../tree.html#tree"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>criterion</strong><span class="classifier">{«gini», «entropy»}, default=»gini»</span></dt><dd><p>La función de medir la calidad de una división, los criterios soportados son «gini» para la impureza de Gini y «entropy» para la ganancia de información.</p>
+</dd>
+<dt><strong>splitter</strong><span class="classifier">{«best», «random»}, default=»best»</span></dt><dd><p>La estrategia utilizada para elegir la división en cada nodo. Las estrategias apoyadas son «best» para elegir la mejor división y «random» para elegir la mejor división aleatoria.</p>
+</dd>
+<dt><strong>max_depth</strong><span class="classifier">entero, default=None</span></dt><dd><p>La profundidad máxima del árbol. Si None, entonces los nodos se expanden hasta que todas las hojas sean puras o hasta que todas contengan menos que min_samples_split muestras.</p>
+</dd>
+<dt><strong>min_samples_split</strong><span class="classifier">entero o flotante, default=2</span></dt><dd><p>El número mínimo de muestras requeridas para dividir un nodo interno:</p>
+<ul class="simple">
+<li><p>Si es entero, entonces considera <code class="docutils literal notranslate"><span class="pre">min_samples_split</span></code> como el número mínimo.</p></li>
+<li><p>Si float, entonces <code class="docutils literal notranslate"><span class="pre">min_samples_split</span></code> es una fracción y <code class="docutils literal notranslate"><span class="pre">ceil(min_samples_split</span> <span class="pre">*</span> <span class="pre">n_samples)</span></code> son el número mínimo de muestras para cada división.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.18: </span>Se añadieron valores flotantes para las fracciones.</p>
+</div>
+</dd>
+<dt><strong>min_samples_leaf</strong><span class="classifier">entero o punto flotante, default=1</span></dt><dd><p>El número mínimo de muestras requeridas para estar en un nodo de hoja. Un punto dividido a cualquier profundidad sólo se considerará si deja al menos <code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code> muestras de entrenamiento en cada una de las ramas izquierda y derecha. Esto puede tener el efecto de suavizar el modelo, especialmente en regresión.</p>
+<ul class="simple">
+<li><p>Si es entero, entonces considera <code class="docutils literal notranslate"><span class="pre">min_samples_split</span></code> como el número mínimo.</p></li>
+<li><p>Si es flotante, entonces <code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code> es una fracción y <code class="docutils literal notranslate"><span class="pre">ceil(min_samples_leaf</span> <span class="pre">*</span> <span class="pre">n_samples)</span></code> son el número mínimo de muestras para cada nodo.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.18: </span>Se añadieron valores flotantes para las fracciones.</p>
+</div>
+</dd>
+<dt><strong>min_weight_fraction_leaf</strong><span class="classifier">flotante, default=0.0</span></dt><dd><p>La fracción mínima ponderada de la suma total de las ponderaciones (de todas las muestras de entrada) requeridas para estar en un nodo de hoja. Las muestras tienen la misma ponderación cuando no se proporciona sample_weight.</p>
+</dd>
+<dt><strong>max_features</strong><span class="classifier">int, float or {«auto», «sqrt», «log2»}, default=None</span></dt><dd><p>El número de características a tener en cuenta cuando se busca la mejor división:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Si es entero, entonces considere las características <code class="docutils literal notranslate"><span class="pre">max_features</span></code> en cada división.</p></li>
+<li><p>Si float, entonces <code class="docutils literal notranslate"><span class="pre">max_features</span></code> es una fracción y las características <code class="docutils literal notranslate"><span class="pre">int(max_features</span> <span class="pre">*</span> <span class="pre">n_features)</span></code> son consideradas en cada división.</p></li>
+<li><p>Si «auto», entonces <code class="docutils literal notranslate"><span class="pre">max_features=sqrt(n_features)</span></code>.</p></li>
+<li><p>Si «sqrt», entonces <code class="docutils literal notranslate"><span class="pre">max_features=sqrt(n_features)</span></code>.</p></li>
+<li><p>Si «log2», entonces <code class="docutils literal notranslate"><span class="pre">max_features=log2(n_features)</span></code>.</p></li>
+<li><p>Si None, entonces <code class="docutils literal notranslate"><span class="pre">max_features=n_features</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>Nota: la búsqueda de una división no se detiene hasta que se encuentre al menos una partición válida de las muestras de nodos, incluso si requiere inspeccionar eficazmente más de las características de <code class="docutils literal notranslate"><span class="pre">max_features</span></code>.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, por defecto=None</span></dt><dd><p>Controla la aleatoriedad del estimador. Las características siempre son aleatoriamente permutadas en cada división, incluso si <code class="docutils literal notranslate"><span class="pre">splitter</span></code> es establecido a <code class="docutils literal notranslate"><span class="pre">&quot;best&quot;</span></code>. Cuando <code class="docutils literal notranslate"><span class="pre">max_features</span> <span class="pre">&lt;</span> <span class="pre">n_features</span></code>, el algoritmo seleccionará <code class="docutils literal notranslate"><span class="pre">max_features</span></code> aleatoriamente en cada división antes de encontrar la mejor división entre ellos. Pero la mejor división encontrada podría variar a lo largo de diferentes ejecuciones, incluso sí <code class="docutils literal notranslate"><span class="pre">max_features=n_features</span></code>. Ese es el caso, si la mejoría del criterio es idéntica para numerosas divisiones y una división tiene que ser seleccionada aleatoriamente. Para obtener un comportamiento determinístico durante el ajuste, <code class="docutils literal notranslate"><span class="pre">random_state</span></code> debe ser fijado a un entero. Ver el <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>max_leaf_nodes</strong><span class="classifier">entero, default=None</span></dt><dd><p>Hace crecer un árbol con <code class="docutils literal notranslate"><span class="pre">max_leaf_nodes</span></code> en modo best-first. Los mejores nodos se definen como una reducción relativa de la impureza. Si es None, el número de nodos hoja es ilimitado.</p>
+</dd>
+<dt><strong>min_impurity_decrease</strong><span class="classifier">flotante, default=0.0</span></dt><dd><p>Un nodo se dividirá si esta división induce una disminución de la impureza mayor o igual a este valor.</p>
+<p>La ecuación de disminución de impureza ponderada es la siguiente:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_t</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="p">(</span><span class="n">impurity</span> <span class="o">-</span> <span class="n">N_t_R</span> <span class="o">/</span> <span class="n">N_t</span> <span class="o">*</span> <span class="n">right_impurity</span>
+                    <span class="o">-</span> <span class="n">N_t_L</span> <span class="o">/</span> <span class="n">N_t</span> <span class="o">*</span> <span class="n">left_impurity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>donde <code class="docutils literal notranslate"><span class="pre">N</span></code> es el número total de muestras, <code class="docutils literal notranslate"><span class="pre">N_t</span></code> es el número de muestras en el nodo actual, <code class="docutils literal notranslate"><span class="pre">N_t_L</span></code> es el número de muestras en el hijo izquierdo, y <code class="docutils literal notranslate"><span class="pre">N_t_R</span></code> es el número de muestras en el hijo derecho.</p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">N_t</span></code>, <code class="docutils literal notranslate"><span class="pre">N_t_R</span></code> y <code class="docutils literal notranslate"><span class="pre">N_t_L</span></code> se refieren a la suma ponderada, si <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> es pasada.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.19.</span></p>
+</div>
+</dd>
+<dt><strong>min_impurity_split</strong><span class="classifier">float, default=0</span></dt><dd><p>El umbral para la parada anticipada en el crecimiento de árboles. Un nodo se dividirá si su impureza está por encima del umbral, de lo contrario será una hoja.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Obsoleto desde la versión 0.19: </span><code class="docutils literal notranslate"><span class="pre">min_impurity_split</span></code> ha sido obviado en favor de <code class="docutils literal notranslate"><span class="pre">min_impurity_decrease</span></code> en 0.19. El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">min_impurity_split</span></code> ha cambiado de 1e-7 a 0 en 0.23 y se eliminará en 1.0 (renombrado de 0.25). Use <code class="docutils literal notranslate"><span class="pre">min_impurity_decrease</span></code> en su lugar.</p>
+</div>
+</dd>
+<dt><strong>class_weight</strong><span class="classifier">dict, list of dict o «balanced», default=None</span></dt><dd><p>Ponderaciones asociadas a las clases de la forma <code class="docutils literal notranslate"><span class="pre">{class_label:</span> <span class="pre">weight}</span></code>. Si es None, se supone que todas las clases tienen ponderación uno. Para los problemas de salida múltiple, se puede proporcionar una lista de dicts en el mismo orden que las columnas de y.</p>
+<p>Ten en cuenta que para la salida múltiple (incluyendo la multietiqueta) las ponderaciones deben ser definidas para cada clase de cada columna en su propio diccionario. Por ejemplo, para la clasificación multietiqueta de cuatro clases las ponderaciones deben ser [{0: 1, 1: 1}, {0: 1, 1: 5}, {0: 1, 1: 1}, {0: 1, 1: 1}] en lugar de [{1:1}, {2:5}, {3:1}, {4:1}].</p>
+<p>El modo «balanced» utiliza los valores de y para ajustar automáticamente las ponderaciones inversamente proporcionales a las frecuencias de clase en los datos de entrada como <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">/</span> <span class="pre">(n_classes</span> <span class="pre">*</span> <span class="pre">np.bincount(y))</span></code></p>
+<p>Para multisalida, las ponderaciones de cada columna de y se multiplicarán.</p>
+<p>Ten en cuenta que estas ponderaciones serán multiplicadas con sample_weight (pasadas por el método de ajuste) si se especifica sample_weight.</p>
+</dd>
+<dt><strong>ccp_alpha</strong><span class="classifier">float no negativo, default=0.0</span></dt><dd><p>Parámetro de complejidad utilizado para la Poda de Mínima Complejidad de Costo. El subárbol con la complejidad de costo mayor que sea menor que <code class="docutils literal notranslate"><span class="pre">ccp_alpha</span></code> será elegido. Por defecto, no se realiza ninguna poda. Ver <a class="reference internal" href="../tree.html#minimal-cost-complexity-pruning"><span class="std std-ref">Poda de Coste-Complejidad Mínima</span></a> para más detalles.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>classes_</strong><span class="classifier">ndarray de forma (n_classes,) o lista de ndarray</span></dt><dd><p>Las etiquetas de clases (problema de salida única), o una lista de arreglos de etiquetas de clase (problema de multi-salida).</p>
+</dd>
+<dt><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.feature_importances_" title="sklearn.tree.DecisionTreeClassifier.feature_importances_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_importances_</span></code></a><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Devuelve la importancia de las características.</p>
+</dd>
+<dt><strong>max_features_</strong><span class="classifier">entero</span></dt><dd><p>El valor inferido de max_features.</p>
+</dd>
+<dt><strong>n_classes_</strong><span class="classifier">int o lista de int</span></dt><dd><p>El número de clases (para problemas de salida única), o una lista que contiene el número de clases para cada salida (para problemas de salida múltiple).</p>
+</dd>
+<dt><strong>n_features_</strong><span class="classifier">entero</span></dt><dd><p>El número de características cuando <code class="docutils literal notranslate"><span class="pre">fit</span></code> es realizado.</p>
+</dd>
+<dt><strong>n_outputs_</strong><span class="classifier">entero</span></dt><dd><p>El número de salidas cuando se realiza <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+</dd>
+<dt><strong>tree_</strong><span class="classifier">Instancia del árbol</span></dt><dd><p>El objeto Tree subyacente. Por favor, consulte <code class="docutils literal notranslate"><span class="pre">help(sklearn.tree._tree.Tree)</span></code> para obtener los atributos del objeto Tree y <a class="reference internal" href="../../auto_examples/tree/plot_unveil_tree_structure.html#sphx-glr-auto-examples-tree-plot-unveil-tree-structure-py"><span class="std std-ref">Comprensión de la estructura del árbol de decisiones</span></a> para el uso básico de estos atributos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.tree.DecisionTreeRegressor.html#sklearn.tree.DecisionTreeRegressor" title="sklearn.tree.DecisionTreeRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DecisionTreeRegressor</span></code></a></dt><dd><p>Un regresor de árbol de decisión.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Los valores predeterminados de los parámetros que controlan el tamaño de los árboles (por ejemplo, <code class="docutils literal notranslate"><span class="pre">`max_depth</span></code>, <code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code>, etc.) conducen a árboles completamente desarrollados y sin podar que pueden ser potencialmente muy grandes en algunos conjuntos de datos. Para reducir el consumo de memoria, la complejidad y el tamaño de los árboles deben controlarse estableciendo los valores de esos parámetros.</p>
+<p>El método <a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.predict" title="sklearn.tree.DecisionTreeClassifier.predict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">predict</span></code></a> opera usando la función <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.argmax.html#numpy.argmax" title="(en NumPy versión 1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.argmax</span></code></a> en las salidas de <a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.predict_proba" title="sklearn.tree.DecisionTreeClassifier.predict_proba"><code class="xref py py-meth docutils literal notranslate"><span class="pre">predict_proba</span></code></a>. Esto significa que en caso de que las mayores probabilidades predichas estén atadas, el clasificador predirá la clase vinculada con el índice más bajo en <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+<p class="rubric">Referencias</p>
+<dl class="citation">
+<dt class="label" id="rb1ec977cd307-1"><span class="brackets">1</span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Decision_tree_learning">https://en.wikipedia.org/wiki/Decision_tree_learning</a></p>
+</dd>
+<dt class="label" id="rb1ec977cd307-2"><span class="brackets">2</span></dt>
+<dd><p>L. Breiman, J. Friedman, R. Olshen, and C. Stone, «Classification
+and Regression Trees», Wadsworth, Belmont, CA, 1984.</p>
+</dd>
+<dt class="label" id="rb1ec977cd307-3"><span class="brackets">3</span></dt>
+<dd><p>T. Hastie, R. Tibshirani and J. Friedman. «Elements of Statistical
+Learning», Springer, 2009.</p>
+</dd>
+<dt class="label" id="rb1ec977cd307-4"><span class="brackets">4</span></dt>
+<dd><p>L. Breiman, and A. Cutler, «Random Forests»,
+<a class="reference external" href="https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm">https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm</a></p>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">... </span>                            
+<span class="gp">...</span>
+<span class="go">array([ 1.     ,  0.93...,  0.86...,  0.93...,  0.93...,</span>
+<span class="go">        0.93...,  0.93...,  1.     ,  0.93...,  1.      ])</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.apply" title="sklearn.tree.DecisionTreeClassifier.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a></p></td>
+<td><p>Devuelve el índice de la hoja en la que se predice cada muestra.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.cost_complexity_pruning_path" title="sklearn.tree.DecisionTreeClassifier.cost_complexity_pruning_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cost_complexity_pruning_path</span></code></a></p></td>
+<td><p>Calcula la ruta de poda durante la Poda de Mínima Complejidad de costes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.decision_path" title="sklearn.tree.DecisionTreeClassifier.decision_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_path</span></code></a></p></td>
+<td><p>Devuelve la ruta de decisión en el árbol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.fit" title="sklearn.tree.DecisionTreeClassifier.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Construye un clasificador de árbol de decisión a partir del conjunto de entrenamiento (X, y).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.get_depth" title="sklearn.tree.DecisionTreeClassifier.get_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_depth</span></code></a></p></td>
+<td><p>Devuelve la profundidad del árbol de decisión.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.get_n_leaves" title="sklearn.tree.DecisionTreeClassifier.get_n_leaves"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_n_leaves</span></code></a></p></td>
+<td><p>Devuelve el número de hojas del árbol de decisión.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.get_params" title="sklearn.tree.DecisionTreeClassifier.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.predict" title="sklearn.tree.DecisionTreeClassifier.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice la clase de regresión para X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.predict_log_proba" title="sklearn.tree.DecisionTreeClassifier.predict_log_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_log_proba</span></code></a></p></td>
+<td><p>Predice las log-probabilidades de clase de las muestras de entrada X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.predict_proba" title="sklearn.tree.DecisionTreeClassifier.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Predice las probabilidades de clase de las muestras de entrada X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.score" title="sklearn.tree.DecisionTreeClassifier.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la precisión media en los datos y etiquetas de prueba dados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.tree.DecisionTreeClassifier.set_params" title="sklearn.tree.DecisionTreeClassifier.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.apply" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el índice de la hoja en la que se predice cada muestra.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> y si se proporciona una matriz dispersa se convertirá a una dispersa <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
+</dd>
+<dt><strong>check_input</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Permite omitir varias comprobaciones de entrada. No uses este parámetro a menos que sepas lo que haces.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X_leaves</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Para cada punto de datos x en X, devuelve el índice de la hoja en la que termina x. Las hojas se numeran dentro de <code class="docutils literal notranslate"><span class="pre">[0;</span> <span class="pre">self.tree_.node_count)</span></code>, posiblemente con huecos en la numeración.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.cost_complexity_pruning_path">
+<span class="sig-name descname"><span class="pre">cost_complexity_pruning_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.cost_complexity_pruning_path" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la ruta de poda durante la Poda de Mínima Complejidad de costes.</p>
+<p>Ver <a class="reference internal" href="../tree.html#minimal-cost-complexity-pruning"><span class="std std-ref">Poda de Coste-Complejidad Mínima</span></a> for details on the pruning process.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. Internamente, se convertirán a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> y si se proporciona una matriz dispersa a una <code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code> dispersa.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Los valores destino (etiquetas de clase) como enteros o cadenas.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,) default=None</span></dt><dd><p>Ponderación de las muestras. Si es None, las muestras se ponderan por igual. Las divisiones que crearían nodos hijos con peso neto cero o negativo se ignoran al buscar una división en cada nodo. Las divisiones también se ignoran si dan lugar a que una sola clase tenga un peso negativo en cualquiera de los nodos hijos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl>
+<dt><strong>ccp_path</strong><span class="classifier"><a class="reference internal" href="sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a></span></dt><dd><p>Objeto tipo diccionario, con los siguientes atributos.</p>
+<dl class="simple">
+<dt>ccp_alphas<span class="classifier">ndarray</span></dt><dd><p>Alfas efectivos del subárbol durante la poda.</p>
+</dd>
+<dt>impurezas<span class="classifier">ndarray</span></dt><dd><p>Suma de las impurezas de las hojas del subárbol para el valor alfa correspondiente en <code class="docutils literal notranslate"><span class="pre">ccp_alphas</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.decision_path">
+<span class="sig-name descname"><span class="pre">decision_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.decision_path" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la ruta de decisión en el árbol.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.18.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> y si se proporciona una matriz dispersa se convertirá a una dispersa <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
+</dd>
+<dt><strong>check_input</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Permite omitir varias comprobaciones de entrada. No uses este parámetro a menos que sepas lo que haces.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>indicator</strong><span class="classifier">matriz dispersa de forma (n_samples, n_nodes)</span></dt><dd><p>Devuelve una matriz CSR indicadora de nodos donde los elementos distintos de cero indican que las muestras pasan por los nodos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.feature_importances_">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">feature_importances_</span></span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.feature_importances_" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la importancia de las características.</p>
+<p>La importancia de una característica se calcula como la reducción total (normalizada) del criterio traído por esa función. También se le conoce como la importancia de Gini.</p>
+<p>Advertencia: las importancias de característica basadas en la impureza pueden ser engañosas para las características de alta cardinalidad (muchos valores únicos). Ver <a class="reference internal" href="sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="sklearn.inspection.permutation_importance"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.inspection.permutation_importance</span></code></a> como una alternativa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>feature_importances_</strong><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Reducción total normalizada del criterio por función (importancia Gini).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Construye un clasificador de árbol de decisión a partir del conjunto de entrenamiento (X, y).</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada de entrenamiento. Internamente, se convertirán a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> y si se proporciona una matriz dispersa a una <code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code> dispersa.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Los valores destino (etiquetas de clase) como enteros o cadenas.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,) default=None</span></dt><dd><p>Ponderación de las muestras. Si es None, las muestras se ponderan por igual. Las divisiones que crearían nodos hijos con peso neto cero o negativo se ignoran al buscar una división en cada nodo. Las divisiones también se ignoran si dan lugar a que una sola clase tenga un peso negativo en cualquiera de los nodos hijos.</p>
+</dd>
+<dt><strong>check_input</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Permite omitir varias comprobaciones de entrada. No uses este parámetro a menos que sepas lo que haces.</p>
+</dd>
+<dt><strong>X_idx_sorted</strong><span class="classifier">obsoleto, default=»deprecated»</span></dt><dd><p>Este atributo está obsoleto y no tiene ningún efecto. Se eliminará en 1.1 (cambio de nombre de 0.26).</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Obsoleto desde la versión 0.24.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">DecisionTreeClassifier</span></dt><dd><p>Estimador ajustado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.get_depth">
+<span class="sig-name descname"><span class="pre">get_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.get_depth" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la profundidad del árbol de decisión.</p>
+<p>La profundidad de un árbol es la distancia máxima entre la raíz y cualquier hoja.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self.tree_.max_depth</strong><span class="classifier">entero</span></dt><dd><p>La profundidad máxima del árbol.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.get_n_leaves">
+<span class="sig-name descname"><span class="pre">get_n_leaves</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.get_n_leaves" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve el número de hojas del árbol de decisión.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self.tree_.n_leaves</strong><span class="classifier">entero</span></dt><dd><p>Número de hojas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los sub objetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice la clase de regresión para X.</p>
+<p>Para un modelo de clasificación, se devuelve la clase predicha para cada muestra en X. Para un modelo de regresión, se devuelve el valor predicho basado en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> y si se proporciona una matriz dispersa se convertirá a una dispersa <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
+</dd>
+<dt><strong>check_input</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Permite omitir varias comprobaciones de entrada. No uses este parámetro a menos que sepas lo que haces.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Las clases predichas, o los valores predichos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.predict_log_proba">
+<span class="sig-name descname"><span class="pre">predict_log_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.predict_log_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las log-probabilidades de clase de las muestras de entrada X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> y si se proporciona una matriz dispersa se convertirá a una dispersa <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>proba</strong><span class="classifier">ndarray de forma (n_samples, n_classes), o una lista de n_outputs             tales arreglos sí n_outputs &gt; 1</span></dt><dd><p>Las log-probabilidades de clase de las muestras de entrada. El orden de las clases corresponde a aquel en el atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las probabilidades de clase de las muestras de entrada X.</p>
+<p>La probabilidad predicha de clase es la fracción de muestras de la misma clase en una hoja.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)</span></dt><dd><p>Las muestras de entrada. Internamente, se convertirá a <code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> y si se proporciona una matriz dispersa se convertirá a una dispersa <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
+</dd>
+<dt><strong>check_input</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Permite omitir varias comprobaciones de entrada. No uses este parámetro a menos que sepas lo que haces.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>proba</strong><span class="classifier">ndarray de forma (n_samples, n_classes), o una lista de n_outputs             tales arreglos sí n_outputs &gt; 1</span></dt><dd><p>Las probabilidades de clase de las muestras de entrada. El orden de las clases corresponde a aquel en el atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la precisión media en los datos y etiquetas de prueba dados.</p>
+<p>En la clasificación multietiqueta, se trata de la precisión del subconjunto, que es una métrica rigurosa, ya que se requiere para cada muestra que cada conjunto de etiquetas sea predicho correctamente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples_X, n_features)</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Etiquetas True para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,) default=None</span></dt><dd><p>Ponderaciones de la muestra.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">de punto flotante (float)</span></dt><dd><p>Precisión media de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.tree.DecisionTreeClassifier.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.tree.DecisionTreeClassifier.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto con estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia de estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-tree-decisiontreeclassifier">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.tree.DecisionTreeClassifier</span></code><a class="headerlink" href="#examples-using-sklearn-tree-decisiontreeclassifier" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Multiple metric parameter search can be done by setting the scoring parameter to a list of metr..."><figure class="align-default" id="id5">
+<img alt="Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV" src="../../_images/sphx_glr_plot_multi_metric_evaluation_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/model_selection/plot_multi_metric_evaluation.html#sphx-glr-auto-examples-model-selection-plot-multi-metric-evaluation-py"><span class="std std-ref">Demostración de la evaluación multimétrica en cross_val_score y GridSearchCV</span></a></span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.tree.DecisionTreeClassifier.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

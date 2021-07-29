@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.neighbors.LocalOutlierFactor &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.neighbors.KNeighborsTransformer.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.neighbors.KNeighborsTransformer">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.neighbors.RadiusNeighborsClassifier.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.neighbors.RadiusNeighborsClassifier">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code>.LocalOutlierFactor</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-neighbors-localoutlierfactor">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.neighbors.LocalOutlierFactor</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-neighbors-localoutlierfactor">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a>.LocalOutlierFactor<a class="headerlink" href="#sklearn-neighbors-localoutlierfactor" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.neighbors.</span></span><span class="sig-name descname"><span class="pre">LocalOutlierFactor</span></span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Detección no supervisada de valores atípicos mediante el factor local de valores atípicos (LOF)</p>
+<p>El valor de anomalía de cada muestra se denomina Factor de Anomalía Local. Mide la desviación local de la densidad de una muestra dada con respecto a sus vecinos. Es local en el sentido de que el valor de la anomalía depende de lo aislado que esté el objeto con respecto al vecindario circundante. Más concretamente, la localidad viene dada por los k vecinos más cercanos, cuya distancia se utiliza para estimar la densidad local. Comparando la densidad local de una muestra con las densidades locales de sus vecinos, se pueden identificar las muestras que tienen una densidad sustancialmente menor que sus vecinos. Éstas se consideran valores atípicos.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.19.</span></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_neighbors</strong><span class="classifier">entero, default=20</span></dt><dd><p>Número de vecinos a usar por defecto para <a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.kneighbors" title="sklearn.neighbors.LocalOutlierFactor.kneighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">kneighbors</span></code></a> consultas. Si n_neighbors es mayor que el número de muestras proporcionadas, todas las muestras serán usadas.</p>
+</dd>
+<dt><strong>algorithm</strong><span class="classifier">{“auto”, “ball_tree”, “kd_tree”, “brute”}, default=”auto”</span></dt><dd><p>Algoritmo usado para calcular los vecinos más cercanos:</p>
+<ul class="simple">
+<li><p>“ball_tree” usará <a class="reference internal" href="sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a></p></li>
+<li><p>“kd_tree” usará <a class="reference internal" href="sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a></p></li>
+<li><p>“brute” usará una búsqueda de fuerza bruta.</p></li>
+<li><p>“auto” intentará decidir el algoritmo más apropiado basado en los valores pasados al método <a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.fit" title="sklearn.neighbors.LocalOutlierFactor.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit</span></code></a>.</p></li>
+</ul>
+<p>Nota: el ajuste en la entrada dispersa anulará el ajuste de este parámetro, utilizando la fuerza bruta.</p>
+</dd>
+<dt><strong>leaf_size</strong><span class="classifier">entero, default=30</span></dt><dd><p>Tamaño de la hoja que se pasa a <a class="reference internal" href="sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> o <a class="reference internal" href="sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a>. Esto puede afectar a la velocidad de construcción y consulta, así como a la memoria necesaria para almacenar el árbol. El valor óptimo depende de la naturaleza del problema.</p>
+</dd>
+<dt><strong>metric</strong><span class="classifier">cadena de caracteres o invocable, default=»minkowski”</span></dt><dd><p>métrica utilizada para el cálculo a distancia. Cualquier métrica de scikit-learn o scipy.spatial.distance puede ser usada.</p>
+<p>Si la métrica es «precomputed», se supone que X es una matriz de distancia y debe ser cuadrada. X puede ser una matriz dispersa, en cuyo caso sólo los elementos «no nulos» pueden considerarse vecinos.</p>
+<p>Si la métrica es una función invocable, se llama a cada par de instancias (filas) y se registra el valor resultante. El invocable debe tomar dos arreglos como entrada y devolver un valor que indique la distancia entre ellos. Esto funciona para las métricas de Scipy, pero es menos eficiente que pasar el nombre de la métrica como una cadena.</p>
+<p>Valores válidos para la métrica son:</p>
+<ul class="simple">
+<li><p>de scikit-learn: [“cityblock”, “cosine”, “euclidean”, “l1”, “l2”, “manhattan”]</p></li>
+<li><p>de scipy.spatial.distance: [“braycurtis”, “canberra”, “chebyshev”, “correlation”, “dice”, “hamming”, “jaccard”, “kulsinski”, “mahalanobis”, “minkowski”, “rogerstanimoto”, “russellrao”, “seuclidean”, “sokalmichener”, “sokalsneath”, “sqeuclidean”, “yule”]</p></li>
+</ul>
+<p>Consulta la documentación de scipy.spatial.distance para obtener detalles sobre estas métricas: <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/spatial.distance.html">https://docs.scipy.org/doc/scipy/reference/spatial.distance.html</a></p>
+</dd>
+<dt><strong>p</strong><span class="classifier">entero, default=2</span></dt><dd><p>Parámetro para la métrica de Minkowski de <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise.pairwise_distances</span></code>. Cuando p = 1, esto es equivalente a usar manhattan_distance (l1), y euclidean_distance (l2) para p = 2. Para una p arbitraria, se usa minkowski_distance (l_p).</p>
+</dd>
+<dt><strong>metric_params</strong><span class="classifier">dict, default=None</span></dt><dd><p>Argumentos adicionales de palabras clave para la función métrica.</p>
+</dd>
+<dt><strong>contamination</strong><span class="classifier">“auto” o flotante, default=”auto”</span></dt><dd><p>La cantidad de contaminación del conjunto de datos, es decir, la proporción de los atajos en el conjunto de datos. Cuando se ajusta esto se utiliza para definir el umbral en los valores de las muestras.</p>
+<ul class="simple">
+<li><p>si “auto”, el umbral se determina como en el artículo original,</p></li>
+<li><p>si un flotante, la contaminación debería estar en el rango [0, 0.5].</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.22: </span>El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">contaminación</span></code> cambió de 0.1 a <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>.</p>
+</div>
+</dd>
+<dt><strong>novelty</strong><span class="classifier">booleano, default=False</span></dt><dd><p>By default, LocalOutlierFactor is only meant to be used for outlier
+detection (novelty=False). Set novelty to True if you want to use
+LocalOutlierFactor for novelty detection. In this case be aware that
+you should only use predict, decision_function and score_samples
+on new unseen data and not on the training set.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.20.</span></p>
+</div>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">entero, default=None</span></dt><dd><p>El número de trabajos paralelos a ejecutar para la búsqueda de vecinos. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que en un <code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.</span> <span class="pre">contexto</span> <span class="pre">arallel_backend</span></code>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa usar todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>negative_outlier_factor_</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>El LOF opuesto de las muestras de entrenamiento. Cuanto más alto, más normal. Los valores típicos tienden a tener un valor de LOF cercana a 1 (<code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code> cercano a -1), mientras que los valores atípìcos tienden a tener un valor de LOF mayor.</p>
+<p>El factor local de valores atìpicos (LOF) de una muestra capta su supuesto «grado de anormalidad». Es la media de la relación entre la densidad de accesibilidad local de una muestra y las de sus k vecinos más cercanos.</p>
+</dd>
+<dt><strong>n_neighbors_</strong><span class="classifier">entero</span></dt><dd><p>El número real de vecinos usados para <a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.kneighbors" title="sklearn.neighbors.LocalOutlierFactor.kneighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">kneighbors</span></code></a> consultas.</p>
+</dd>
+<dt><strong>offset_</strong><span class="classifier">flotante</span></dt><dd><p>Desplazamiento utilizado para obtener etiquetas binarias a partir de las puntuaciones brutas. Las observaciones que tienen un factor_de_extremo_negativo menor que <code class="docutils literal notranslate"><span class="pre">offset_</span></code> se detectan como anormales. El desplazamiento se fija en -1,5 (los valores típicos se sitúan en torno a -1), excepto cuando se proporciona un parámetro de contaminación distinto de «auto». En ese caso, el desplazamiento se define de forma que se obtiene el número esperado de valores atípicos en el entrenamiento.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.20.</span></p>
+</div>
+</dd>
+<dt><strong>effective_metric_</strong><span class="classifier">cadena</span></dt><dd><p>La métrica efectiva utilizada para el cálculo a distancia.</p>
+</dd>
+<dt><strong>effective_metric_params_</strong><span class="classifier">dict</span></dt><dd><p>Los argumentos adicionales efectivos de la palabra clave para la función métrica.</p>
+</dd>
+<dt><strong>n_samples_fit_</strong><span class="classifier">entero</span></dt><dd><p>Es el número de muestras en los datos ajustados.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Referencias</p>
+<dl class="citation">
+<dt class="label" id="rca479bb49841-1"><span class="brackets">1</span></dt>
+<dd><p>Breunig, M. M., Kriegel, H. P., Ng, R. T., &amp; Sander, J. (2000, May).
+LOF: identifying density-based local outliers. In ACM sigmod record.</p>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">101.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([ 1,  1, -1,  1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+<span class="go">array([ -0.9821...,  -1.0370..., -73.3697...,  -0.9821...])</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.fit" title="sklearn.neighbors.LocalOutlierFactor.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el detector local de valores atípicos del conjunto de datos de entrenamiento.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.get_params" title="sklearn.neighbors.LocalOutlierFactor.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.kneighbors" title="sklearn.neighbors.LocalOutlierFactor.kneighbors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kneighbors</span></code></a></p></td>
+<td><p>Encuentra a los K-vecinos de un punto.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.kneighbors_graph" title="sklearn.neighbors.LocalOutlierFactor.kneighbors_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kneighbors_graph</span></code></a></p></td>
+<td><p>Calcula el grafo (ponderado) de k-vecinos para los puntos de X</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.LocalOutlierFactor.set_params" title="sklearn.neighbors.LocalOutlierFactor.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.decision_function">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">decision_function</span></span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.decision_function" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Desplazamiento opuesto al Factor Local de Desviación de X.</p>
+<p>Más grande es mejor, es decir, los valores grandes corresponden a los valores típicos.</p>
+<p><strong>Sólo disponible para la detección de novedades (cuando la novedad se establece en True).</strong> El desplazamiento permite un umbral cero para ser un valor atípico. El argumento X se supone que contiene <em>datos nuevos</em>: si X contiene un punto del entrenamiento, se considera el posterior en su propia vecindad. Además, las muestras de X no se consideran en la vecindad de ningún punto.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>La muestra o muestras de consulta para calcular el factor local de valores atípicos con respecto a las muestras de entrenamiento.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>shifted_opposite_lof_scores</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>El opuesto desplazado del Factor de Anomalía Local de cada muestra de entrada. Cuanto más bajo, más anormal. Las puntuaciones negativas representan valores atípicos, y las positivas representan valores atípicos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el detector local de valores atípicos del conjunto de datos de entrenamiento.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features) o (n_samples, n_samples) si metric=”precomputed”</span></dt><dd><p>Datos de entrenamiento.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd><p>No se utiliza, está presente para la coherencia de la API por convención.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">LocalOutlierFactor</span></dt><dd><p>El detector de factores atípicos locales ajustado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.fit_predict">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">fit_predict</span></span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.fit_predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo al conjunto de entrenamiento X y devuelve las etiquetas.</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>No disponible para la detección de novedades (cuando la novedad se establece como True). <a href="#id3"><span class="problematic" id="id4">**</span></a>La etiqueta es 1 para un valor típico y -1 para un valor atípico según el valor LOF y el parámetro de contaminación.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features), default=None</span></dt><dd><p>La muestra o muestras de consulta para calcular el factor local de valores atípicos con respecto a las muestras de entrenamiento.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd><p>No se utiliza, está presente para la coherencia de la API por convención.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>is_inlier</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>Devuelve -1 para las anomalías/atípicos y +1 para los típicos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros de este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los sub objetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.kneighbors">
+<span class="sig-name descname"><span class="pre">kneighbors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.kneighbors" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Encuentra a los K-vecinos de un punto.</p>
+<p>Devuelve los índices y las distancias a los vecinos de cada punto.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, forma (n_queries, n_features),             o (n_queries, n_indexed) si metric == “precomputed”,                 default=None</span></dt><dd><p>El punto o puntos de la consulta. Si no se proporciona, se devuelven los vecinos de cada punto indexado. En este caso, el punto de consulta no se considera su propio vecino.</p>
+</dd>
+<dt><strong>n_neighbors</strong><span class="classifier">entero, default=None</span></dt><dd><p>Número de vecinos necesarios para cada muestra. El valor predeterminado es el que se pasa al constructor.</p>
+</dd>
+<dt><strong>return_distance</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si se devuelven o no las distancias.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>neigh_dist</strong><span class="classifier">ndarray de forma (n_queries, n_neighbors)</span></dt><dd><p>Un arreglo que representa las longitudes de los puntos, sólo presente si return_distance=True</p>
+</dd>
+<dt><strong>neigh_ind</strong><span class="classifier">ndarray de forma (n_queries, n_neighbors)</span></dt><dd><p>Indices de los puntos más cercanos en la matriz de la población.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<p>En el siguiente ejemplo, construimos una clase NearestNeighbors a partir de un arreglo que representa nuestro conjunto de datos y preguntamos cuál es el punto más cercano a [1,1,1]</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+<span class="go">NearestNeighbors(n_neighbors=1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">neigh</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]]))</span>
+<span class="go">(array([[0.5]]), array([[2]]))</span>
+</pre></div>
+</div>
+<p>Como puedes ver, devuelve [[0.5]], y [[2]], lo que significa que el elemento está a la distancia 0.5 y es el tercer elemento de las muestras (los índices empiezan en 0). También puede consultar varios puntos:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_distance</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">array([[1],</span>
+<span class="go">       [2]]...)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.kneighbors_graph">
+<span class="sig-name descname"><span class="pre">kneighbors_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.kneighbors_graph" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula el grafo (ponderado) de k-vecinos para los puntos de X</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_queries, n_features), o (n_queries, n_indexed) si metric == “precomputed”, default=None</span></dt><dd><p>El punto o puntos de la consulta. Si no se proporciona, se devuelven los vecinos de cada punto indexado. En este caso, el punto de consulta no se considera su propio vecino. Para <code class="docutils literal notranslate"><span class="pre">metric='precomputed'</span></code> la forma debe ser (n_queries, n_indexed). En caso contrario, la forma debe ser (n_queries, n_features).</p>
+</dd>
+<dt><strong>n_neighbors</strong><span class="classifier">entero, default=None</span></dt><dd><p>Número de vecinos para cada muestra. El valor predeterminado es el que se pasa al constructor.</p>
+</dd>
+<dt><strong>mode</strong><span class="classifier">{“connectivity”, “distance”}, default=”connectivity”</span></dt><dd><p>Tipo de matriz devuelta: “connectivity” devolverá la matriz de conectividad con unos y ceros, en “distance” los bordes son la distancia euclidiana entre puntos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">matriz dispersa de forma (n_queries, n_samples_fit)</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">n_samples_fit</span></code> es el número de muestras en los datos ajustados <code class="docutils literal notranslate"><span class="pre">A[i,</span> <span class="pre">j]</span></code> se asigna el peso del borde que conecta <code class="docutils literal notranslate"><span class="pre">i</span></code> con <code class="docutils literal notranslate"><span class="pre">j</span></code>. La matriz tiene el formato CSR.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.neighbors.NearestNeighbors.html#sklearn.neighbors.NearestNeighbors.radius_neighbors_graph" title="sklearn.neighbors.NearestNeighbors.radius_neighbors_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NearestNeighbors.radius_neighbors_graph</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">NearestNeighbors(n_neighbors=2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">neigh</span><span class="o">.</span><span class="n">kneighbors_graph</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1., 0., 1.],</span>
+<span class="go">       [0., 1., 1.],</span>
+<span class="go">       [1., 0., 1.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.predict">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">predict</span></span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las etiquetas (1 típico, -1 atípico) de X de acuerdo al LOF.</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Sólo disponible para la detección de novedades (cuando la novedad se establece como True). ** Este método permite generalizar la predicción a <em>nuevas observaciones</em> (no en el conjunto de entrenamiento).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>La muestra o muestras de consulta para calcular el factor local de valores atípicos con respecto a las muestras de entrenamiento.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>is_inlier</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>Devuelve -1 para las anomalías/atípicos y +1 para los típicos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.score_samples">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">score_samples</span></span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.score_samples" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Opuesto al Factor Local de Excedencia de X.</p>
+<p>Es lo contrario, ya que lo más grande es mejor, es decir, los valores grandes corresponden a los valores típicos.</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>Sólo disponible para la detección de novedades (cuando la novedad se establece como True). <a href="#id3"><span class="problematic" id="id4">**</span></a>Se supone que el argumento X contiene <em>datos nuevos</em>: si X contiene un punto de entrenamiento, se considera el posterior en su propia vecindad. Además, las muestras de X no se consideran en la vecindad de ningún punto. El valor de las muestras en los datos de entrenamiento está disponible al considerar el atributo <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>La muestra o muestras de consulta para calcular el factor local de valores atípicos con respecto a las muestras de entrenamiento.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>opposite_lof_scores</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>Lo contrario del Factor de Anomalía Local de cada muestra de entrada. Cuanto más bajo, más anormal.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.LocalOutlierFactor.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.LocalOutlierFactor.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto con estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia de estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-neighbors-localoutlierfactor">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.neighbors.LocalOutlierFactor</span></code><a class="headerlink" href="#examples-using-sklearn-neighbors-localoutlierfactor" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows characteristics of different anomaly detection algorithms on 2D datasets. Da..."><figure class="align-default" id="id2">
+<img alt="Comparing anomaly detection algorithms for outlier detection on toy datasets" src="../../_images/sphx_glr_plot_anomaly_comparison_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/miscellaneous/plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">Comparación de algoritmos de detección de valores atípicos en conjuntos de datos de juguete</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Local Outlier Factor (LOF) algorithm is an unsupervised anomaly detection method which comp..."><figure class="align-default" id="id3">
+<img alt="Outlier detection with Local Outlier Factor (LOF)" src="../../_images/sphx_glr_plot_lof_outlier_detection_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/neighbors/plot_lof_outlier_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-outlier-detection-py"><span class="std std-ref">Detección de valores atípicos con Local Outlier Factor (LOF)</span></a></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Local Outlier Factor (LOF) algorithm is an unsupervised anomaly detection method which comp..."><figure class="align-default" id="id4">
+<img alt="Novelty detection with Local Outlier Factor (LOF)" src="../../_images/sphx_glr_plot_lof_novelty_detection_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/neighbors/plot_lof_novelty_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-novelty-detection-py"><span class="std std-ref">Detección de novedades con Local Outlier Factor (LOF)</span></a></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.neighbors.LocalOutlierFactor.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

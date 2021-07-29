@@ -1,0 +1,623 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.neighbors.BallTree &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.naive_bayes.MultinomialNB.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.naive_bayes.MultinomialNB">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.neighbors.DistanceMetric.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.neighbors.DistanceMetric">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code>.BallTree</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-neighbors-balltree">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a>.BallTree<a class="headerlink" href="#sklearn-neighbors-balltree" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.neighbors.</span></span><span class="sig-name descname"><span class="pre">BallTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leaf_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minkowski'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>BallTree para problemas rápidos de N puntos generalizados</p>
+<p>Más información en el <a class="reference internal" href="../neighbors.html#unsupervised-neighbors"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>n_samples es el número de puntos del conjunto de datos, y n_features es la dimensión del espacio de parámetros. Nota: si X es una matriz de dobles contigua a C, los datos no se copiarán. En caso contrario, se realizará una copia interna.</p>
+</dd>
+<dt><strong>leaf_size</strong><span class="classifier">entero positivo, default=40</span></dt><dd><p>Número de puntos en los que se cambia a fuerza bruta. Cambiar el tamaño de las hojas no afectará a los resultados de una consulta, pero puede afectar significativamente a la velocidad de una consulta y a la memoria necesaria para almacenar el árbol construido.  La cantidad de memoria necesaria para almacenar el árbol es aproximadamente n_samples / leaf_size. Para un <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> especificado, se garantiza que un nodo hoja satisface <code class="docutils literal notranslate"><span class="pre">leaf_size</span> <span class="pre">&lt;=</span> <span class="pre">n_points</span> <span class="pre">&lt;=</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">leaf_size</span></code>, excepto en el caso de que <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">&lt;</span> <span class="pre">leaf_size</span></code>.</p>
+</dd>
+<dt><strong>metric</strong><span class="classifier">str o DistanceMetric object</span></dt><dd><p>la métrica de distancia a utilizar para el árbol.  Default=”minkowski” con p=2 (es decir, una métrica euclidiana). Ver la documentación de la clase DistanceMetric para una lista de métricas disponibles. ball_tree.valid_metrics da una lista de las métricas que son válidas para BallTree.</p>
+</dd>
+<dt><strong>Las palabras clave adicionales se pasan a la clase de métrica de distancia.</strong></dt><dd></dd>
+<dt><strong>Nota: Las funciones invocables en el parámetro métrico NO son compatibles con KDTree</strong></dt><dd></dd>
+<dt><strong>y el Árbol de Bolas. La sobrecarga de las llamadas a las funciones dará lugar a un rendimiento muy pobre.</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">vista de la memoria</span></dt><dd><p>Datos del entrenamiento</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<p>Consulta de los vecinos más cercanos (k-nearest neighbors)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random_sample</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># 10 points in 3 dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">BallTree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">leaf_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>              
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="p">,</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>                
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>  <span class="c1"># indices of 3 closest neighbors</span>
+<span class="go">[0 3 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>  <span class="c1"># distances to 3 closest neighbors</span>
+<span class="go">[ 0.          0.19662693  0.29473397]</span>
+</pre></div>
+</div>
+<p>Recoge y despeja un árbol.  Tenga en cuenta que el estado del árbol se guarda en la operación de pickle: el árbol no necesita ser reconstruido al unpickle.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random_sample</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># 10 points in 3 dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">BallTree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">leaf_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>        
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>                     
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree_copy</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>                
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="p">,</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">tree_copy</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>     
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>  <span class="c1"># indices of 3 closest neighbors</span>
+<span class="go">[0 3 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>  <span class="c1"># distances to 3 closest neighbors</span>
+<span class="go">[ 0.          0.19662693  0.29473397]</span>
+</pre></div>
+</div>
+<p>Búsqueda de vecinos en un radio determinado</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random_sample</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># 10 points in 3 dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">BallTree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">leaf_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>     
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">query_radius</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">count_only</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ind</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query_radius</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>  <span class="c1"># indices of neighbors within distance 0.3</span>
+<span class="go">[3 0 1]</span>
+</pre></div>
+</div>
+<p>Calcular una estimación de la densidad del núcleo gaussiano:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random_sample</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">BallTree</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>                
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span><span class="o">.</span><span class="n">kernel_density</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">)</span>
+<span class="go">array([ 6.94114649,  7.83281226,  7.2071716 ])</span>
+</pre></div>
+</div>
+<p>Calcula una función de autocorrelación de dos puntos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random_sample</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">BallTree</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>                
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span><span class="o">.</span><span class="n">two_point_correlation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="go">array([ 30,  62, 278, 580, 820])</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.get_arrays" title="sklearn.neighbors.BallTree.get_arrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arrays</span></code></a>(self)</p></td>
+<td><p>Obtener datos y arreglos de nodos.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.get_n_calls" title="sklearn.neighbors.BallTree.get_n_calls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_n_calls</span></code></a>(self)</p></td>
+<td><p>Obtenga el número de llamadas.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.get_tree_stats" title="sklearn.neighbors.BallTree.get_tree_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tree_stats</span></code></a>(self)</p></td>
+<td><p>Obtener el estado del árbol.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.kernel_density" title="sklearn.neighbors.BallTree.kernel_density"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kernel_density</span></code></a>(self, X, h[, kernel, atol, …])</p></td>
+<td><p>Calcula la estimación de la densidad del núcleo en los puntos X con el núcleo dado, utilizando la métrica de distancia especificada en la creación del árbol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.query" title="sklearn.neighbors.BallTree.query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query</span></code></a>(X[, k, return_distance, dualtree, …])</p></td>
+<td><p>consultar el árbol para los k vecinos más cercanos</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.query_radius" title="sklearn.neighbors.BallTree.query_radius"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_radius</span></code></a>(X, r[, return_distance, …])</p></td>
+<td><p>consultar el árbol en busca de vecinos en un radio r</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.reset_n_calls" title="sklearn.neighbors.BallTree.reset_n_calls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_n_calls</span></code></a>(self)</p></td>
+<td><p>Restablecer el número de llamadas a 0.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.BallTree.two_point_correlation" title="sklearn.neighbors.BallTree.two_point_correlation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_point_correlation</span></code></a>(X, r[, dualtree])</p></td>
+<td><p>Calcula la función de correlación de dos puntos</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.get_arrays">
+<span class="sig-name descname"><span class="pre">get_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.get_arrays" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener datos y arreglos de nodos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>arrays: tupla de arreglo</dt><dd><p>Arreglos para almacenar datos de árboles, índices, datos de nodos y límites de nodos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.get_n_calls">
+<span class="sig-name descname"><span class="pre">get_n_calls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.get_n_calls" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtenga el número de llamadas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>n_calls: int</dt><dd><p>número de llamadas de cálculo de la distancia</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.get_tree_stats">
+<span class="sig-name descname"><span class="pre">get_tree_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.get_tree_stats" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtener el estado del árbol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tree_stats: tupla de int</dt><dd><p>(número de recortes, número de hojas, número de divisiones)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.kernel_density">
+<span class="sig-name descname"><span class="pre">kernel_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1E-8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">breadth_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.kernel_density" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la estimación de la densidad del núcleo en los puntos X con el núcleo dado, utilizando la métrica de distancia especificada en la creación del árbol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Un arreglo de puntos a consultar.  La última dimensión debe coincidir con la dimensión de los datos de entrenamiento.</p>
+</dd>
+<dt><strong>h</strong><span class="classifier">float</span></dt><dd><p>el ancho de banda del núcleo</p>
+</dd>
+<dt><strong>kernel</strong><span class="classifier">cadena, default=»gaussian»</span></dt><dd><p>especifica el núcleo a utilizar. Las opciones son - “gaussian” - “tophat” - “epanechnikov” - “exponential” - “linear” - “cosine” Por defecto es kernel = “gaussian”</p>
+</dd>
+<dt><strong>atol, rtol</strong><span class="classifier">float, default=0, 1e-8</span></dt><dd><p>Especifica la tolerancia relativa y absoluta deseada del resultado. Si el resultado verdadero es K_true, entonces el resultado devuelto K_ret satisface <code class="docutils literal notranslate"><span class="pre">abs(K_true</span> <span class="pre">-</span> <span class="pre">K_ret)</span> <span class="pre">&lt;</span> <span class="pre">atol</span> <span class="pre">+</span> <span class="pre">rtol</span> <span class="pre">*</span> <span class="pre">K_ret</span></code> El valor predeterminado es cero (es decir, precisión de máquina) para ambos.</p>
+</dd>
+<dt><strong>breadth_first</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, utiliza una búsqueda de tipo breadth-first.  Si es False (predeterminado) utiliza una búsqueda de profundidad.  La búsqueda en profundidad es generalmente más rápida para los núcleos compactos y/o las tolerancias altas.</p>
+</dd>
+<dt><strong>return_log</strong><span class="classifier">bool, default=False</span></dt><dd><p>Devuelve el logaritmo del resultado.  Esto puede ser más preciso que devolver el propio resultado para los núcleos estrechos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>density</strong><span class="classifier">ndarray de forma X.forma[:-1]</span></dt><dd><p>El arreglo de evaluaciones de densidad (logarítmica)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dualtree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">breadth_first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.query" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>consultar el árbol para los k vecinos más cercanos</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Un arreglo de puntos a consultar</p>
+</dd>
+<dt><strong>k</strong><span class="classifier">int, default=1</span></dt><dd><p>El número de vecinos más cercanos a devolver</p>
+</dd>
+<dt><strong>return_distance</strong><span class="classifier">bool, default=True</span></dt><dd><p>si es True, devuelve una tupla (d, i) de distancias e índices si es False, devuelve el arreglo i</p>
+</dd>
+<dt><strong>dualtree</strong><span class="classifier">bool, default=False</span></dt><dd><p>si es True, utiliza el formalismo de árbol dual para la consulta: se construye un árbol para los puntos de la consulta, y el par de árboles se utiliza para buscar eficientemente en este espacio.  Esto puede conducir a un mejor rendimiento a medida que el número de puntos crece.</p>
+</dd>
+<dt><strong>breadth_first</strong><span class="classifier">bool, default=False</span></dt><dd><p>si es True, se consultan los nodos de una manera breadth-first. En caso contrario, consulta los nodos en profundidad.</p>
+</dd>
+<dt><strong>sort_results</strong><span class="classifier">bool, default=True</span></dt><dd><p>si es True, entonces las distancias y los índices de cada punto se ordenan al regresar, de manera que la primera columna contiene los puntos más cercanos. En caso contrario, los vecinos se devuelven en un orden arbitrario.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>i</strong><span class="classifier">si return_distance == False</span></dt><dd></dd>
+<dt><strong>(d,i)</strong><span class="classifier">si return_distance == True</span></dt><dd></dd>
+<dt><strong>d</strong><span class="classifier">ndarray de forma X.forma[:-1] + (k,), dtype=double</span></dt><dd><p>Cada entrada da la lista de distancias a los vecinos del punto correspondiente.</p>
+</dd>
+<dt><strong>i</strong><span class="classifier">ndarray de forma X.forma[:-1] + (k,), dtype=int</span></dt><dd><p>Cada entrada da la lista de índices de los vecinos del punto correspondiente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.query_radius">
+<span class="sig-name descname"><span class="pre">query_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.query_radius" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>consultar el árbol en busca de vecinos en un radio r</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Un arreglo de puntos a consultar</p>
+</dd>
+<dt><strong>r</strong><span class="classifier">distancia dentro de la cual se devuelven los vecinos</span></dt><dd><p>r puede ser un valor único, o un arreglo de valores de forma x.shape[:-1] si se desean diferentes radios para cada punto.</p>
+</dd>
+<dt><strong>return_distance</strong><span class="classifier">bool, default=False</span></dt><dd><p>si es True, devuelve las distancias a los vecinos de cada punto si es False, devuelve sólo los vecinos. Ten en cuenta que, a diferencia del método query(), establecer return_distance=True aquí aumenta el tiempo de cálculo.  No es necesario calcular explícitamente todas las distancias para return_distance=False.  Los resultados no están ordenados por defecto: ver la palabra clave <code class="docutils literal notranslate"><span class="pre">sort_results</span></code>.</p>
+</dd>
+<dt><strong>count_only</strong><span class="classifier">bool, default=False</span></dt><dd><p>si es True, devuelve sólo el recuento de puntos dentro de la distancia r si es False, devuelve los índices de todos los puntos dentro de la distancia r Si return_distance==True, establecer count_only=True dará lugar a un error.</p>
+</dd>
+<dt><strong>sort_results</strong><span class="classifier">bool, default=False</span></dt><dd><p>si es True, las distancias e índices serán ordenados antes de ser devueltos.  Si es False, los resultados no se ordenarán.  Si return_distance == False, al establecer sort_results = True se producirá un error.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>count</strong><span class="classifier">si count_only == True</span></dt><dd></dd>
+<dt><strong>ind</strong><span class="classifier">si count_only == False y return_distance == False</span></dt><dd></dd>
+<dt><strong>(ind, dist)</strong><span class="classifier">si count_only == False y return_distance == True</span></dt><dd></dd>
+<dt><strong>count</strong><span class="classifier">ndarray de forma X.forma[:-1], dtype=int</span></dt><dd><p>Cada entrada da el número de vecinos a una distancia r del punto correspondiente.</p>
+</dd>
+<dt><strong>ind</strong><span class="classifier">ndarrayde forma X.forma[:-1], dtype=object</span></dt><dd><p>Cada elemento es un arreglo de enteros de numpy que lista los índices de los vecinos del punto correspondiente.  Ten en cuenta que, a diferencia de los resultados de una consulta k-neighbors, los vecinos devueltos no están ordenados por distancia de forma predeterminada.</p>
+</dd>
+<dt><strong>dist</strong><span class="classifier">ndarrayde forma X.forma[:-1], dtype=object</span></dt><dd><p>Cada elemento es un arreglo doble de numpy que lista las distancias correspondientes a los índices en i.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.reset_n_calls">
+<span class="sig-name descname"><span class="pre">reset_n_calls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.reset_n_calls" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Restablecer el número de llamadas a 0.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.BallTree.two_point_correlation">
+<span class="sig-name descname"><span class="pre">two_point_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dualtree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.BallTree.two_point_correlation" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula la función de correlación de dos puntos</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Un arreglo de puntos a consultar.  La última dimensión debe coincidir con la dimensión de los datos de entrenamiento.</p>
+</dd>
+<dt><strong>r</strong><span class="classifier">array-like</span></dt><dd><p>Un arreglo unidimensional de distancias</p>
+</dd>
+<dt><strong>dualtree</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, utiliza un algoritmo de doble árbol.  En caso contrario, utilice un algoritmo de árbol único.  Los algoritmos de árbol dual pueden tener un mejor escalado para N grandes.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>counts</strong><span class="classifier">ndarray</span></dt><dd><p>counts[i] contiene el número de pares de puntos con distancia menor o igual a r[i]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.neighbors.BallTree.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

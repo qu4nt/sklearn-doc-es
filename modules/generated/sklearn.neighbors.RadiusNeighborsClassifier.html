@@ -1,0 +1,683 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.neighbors.RadiusNeighborsClassifier &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.RadiusNeighborsClassifier.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.neighbors.LocalOutlierFactor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.neighbors.LocalOutlierFactor">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.neighbors.RadiusNeighborsRegressor.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.neighbors.RadiusNeighborsRegressor">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code>.RadiusNeighborsClassifier</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-neighbors-radiusneighborsclassifier">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a>.RadiusNeighborsClassifier<a class="headerlink" href="#sklearn-neighbors-radiusneighborsclassifier" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.neighbors.</span></span><span class="sig-name descname"><span class="pre">RadiusNeighborsClassifier</span></span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clasificador que implementa un voto entre vecinos dentro de un radio determinado</p>
+<p>Más información en el <a class="reference internal" href="../neighbors.html#classification"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>radius</strong><span class="classifier">flotante, default=1.0</span></dt><dd><p>Rango del espacio de parámetros a usar por defecto para consultas <a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors" title="sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">radius_neighbors</span></code></a>.</p>
+</dd>
+<dt><strong>weights</strong><span class="classifier">{“uniform”, “distance”} o invocable, default=”uniform”</span></dt><dd><p>función de ponderación utilizada en la predicción.  Valores posibles:</p>
+<ul class="simple">
+<li><p>“uniform” : ponderaciones uniformes. Todos los puntos de cada vecindad se ponderan por igual.</p></li>
+<li><p>“distance” : ponderar los puntos por la inversa de su distancia. en este caso, los vecinos más cercanos de un punto de consulta tendrán una mayor influencia que los vecinos más alejados.</p></li>
+<li><p>[callable] : una función definida por el usuario que acepta un arreglo de distancias, y devuelve un arreglo de la misma forma que contiene las ponderaciones.</p></li>
+</ul>
+<p>Las ponderaciones uniformes se utilizan por defecto.</p>
+</dd>
+<dt><strong>algorithm</strong><span class="classifier">{“auto”, “ball_tree”, “kd_tree”, “brute”}, default=”auto”</span></dt><dd><p>Algoritmo usado para calcular los vecinos más cercanos:</p>
+<ul class="simple">
+<li><p>“ball_tree” usará <a class="reference internal" href="sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a></p></li>
+<li><p>“kd_tree” usará <a class="reference internal" href="sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a></p></li>
+<li><p>“brute” usará una búsqueda de fuerza bruta.</p></li>
+<li><p>“auto” intentará decidir el algoritmo más apropiado basado en los valores pasados al método <a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.fit" title="sklearn.neighbors.RadiusNeighborsClassifier.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit</span></code></a>.</p></li>
+</ul>
+<p>Nota: el ajuste en la entrada dispersa anulará el ajuste de este parámetro, utilizando la fuerza bruta.</p>
+</dd>
+<dt><strong>leaf_size</strong><span class="classifier">entero, default=30</span></dt><dd><p>Tamaño de hoja pasado a BallTree o KDTree. Esto puede afectar la velocidad de la construcción y la consulta, así como la memoria necesaria para almacenar el árbol. El valor óptimo depende de la naturaleza del problema.</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">entero, default=2</span></dt><dd><p>Parámetro de potencia para la métrica de Minkowski. Cuando p = 1, esto equivale a utilizar manhattan_distance (l1), y euclidean_distance (l2) para p = 2. Para p arbitrario, se utiliza minkowski_distance (l_p).</p>
+</dd>
+<dt><strong>metric</strong><span class="classifier">cadena de caracteres o invocable, default=»minkowski”</span></dt><dd><p>la métrica de distancia a utilizar para el árbol. La métrica predeterminada es minkowski, y con p=2 es equivalente a la métrica Euclideana estándar. Ver la documentación de <a class="reference internal" href="sklearn.neighbors.DistanceMetric.html#sklearn.neighbors.DistanceMetric" title="sklearn.neighbors.DistanceMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceMetric</span></code></a> para una lista de métricas disponibles. Si la métrica es «precomputed», se asume que X es una matriz de distancias y debe ser cuadrada durante el ajuste. X puede ser un <a class="reference internal" href="../../glossary.html#term-sparse-graph"><span class="xref std std-term">grafo disperso</span></a>, en cuyo caso sólo elementos «distintos de cero» pueden ser considerados vecinos.</p>
+</dd>
+<dt><strong>outlier_label</strong><span class="classifier">{manual label, “most_frequent”}, default=None</span></dt><dd><p>etiqueta para muestras atípicas (muestras sin vecinos en un radio determinado).</p>
+<ul class="simple">
+<li><p>etiqueta manual: etiqueta cadena o entero (debe ser del mismo tipo que y) o lista de etiquetas manuales si se utiliza multi-salida.</p></li>
+<li><p>“most_frequent” : asignar la etiqueta más frecuente de y a los atípicos.</p></li>
+<li><p>None: cuando se detecta algún atípico, ValueError se levantará.</p></li>
+</ul>
+</dd>
+<dt><strong>metric_params</strong><span class="classifier">diccionario, default=None</span></dt><dd><p>Argumentos adicionales de la palabra clave para la función métrica.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">entero, default=None</span></dt><dd><p>El número de trabajos paralelos a ejecutar para la búsqueda de vecinos. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que esté en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa usar todos los procesadores. Consulta <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>classes_</strong><span class="classifier">ndarray de forma (n_classes,)</span></dt><dd><p>Etiquetas de clase conocidas por el clasificador.</p>
+</dd>
+<dt><strong>effective_metric_</strong><span class="classifier">cadena de caracteres o invocable</span></dt><dd><p>La métrica de distancia utilizada. Será la misma que el parámetro <code class="docutils literal notranslate"><span class="pre">metric</span></code> o un sinónimo de la misma, por ejemplo, <code class="docutils literal notranslate"><span class="pre">euclidean</span></code> si el parámetro <code class="docutils literal notranslate"><span class="pre">metric</span></code> es <code class="docutils literal notranslate"><span class="pre">minkowski</span></code> y el parámetro <code class="docutils literal notranslate"><span class="pre">p</span></code> es 2.</p>
+</dd>
+<dt><strong>effective_metric_params_</strong><span class="classifier">dict</span></dt><dd><p>Argumentos adicionales para la función métrica. Para la mayoría de las métricas será lo mismo que el parámetro <code class="docutils literal notranslate"><span class="pre">metric_params</span></code>, pero también puede contener el valor del parámetro <code class="docutils literal notranslate"><span class="pre">p</span></code> si el atributo <code class="docutils literal notranslate"><span class="pre">effective_metric_</span></code> se establece como <code class="docutils literal notranslate"><span class="pre">minkowski</span></code>.</p>
+</dd>
+<dt><strong>n_samples_fit_</strong><span class="classifier">entero</span></dt><dd><p>Número de muestras en los datos ajustados.</p>
+</dd>
+<dt><strong>outlier_label_</strong><span class="classifier">entero o array-like de forma (n_class,)</span></dt><dd><p>Etiqueta que se da para muestras atípicas (muestras sin vecinos en un radio determinado).</p>
+</dd>
+<dt><strong>outputs_2d_</strong><span class="classifier">booleano</span></dt><dd><p>False cuando la forma de <code class="docutils literal notranslate"><span class="pre">y</span></code> es (n_samples, ) o (n_samples, 1) durante el ajuste, de lo contrario True.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.neighbors.RadiusNeighborsRegressor.html#sklearn.neighbors.RadiusNeighborsRegressor" title="sklearn.neighbors.RadiusNeighborsRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RadiusNeighborsRegressor</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.neighbors.KNeighborsRegressor.html#sklearn.neighbors.KNeighborsRegressor" title="sklearn.neighbors.KNeighborsRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KNeighborsRegressor</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="sklearn.neighbors.NearestNeighbors.html#sklearn.neighbors.NearestNeighbors" title="sklearn.neighbors.NearestNeighbors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NearestNeighbors</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Ver <a class="reference internal" href="../neighbors.html#neighbors"><span class="std std-ref">Nearest Neighbors</span></a> en la documentación en línea para una discusión sobre la elección del <code class="docutils literal notranslate"><span class="pre">algorithm</span></code> y el <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code>.</p>
+<p><a class="reference external" href="https://https://es.wikipedia.org/wiki/K_vecinos_m%C3%A1s_pr%C3%B3ximos">https://https://es.wikipedia.org/wiki/K_vecinos_m%C3%A1s_pr%C3%B3ximos</a></p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">RadiusNeighborsClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span> <span class="o">=</span> <span class="n">RadiusNeighborsClassifier</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">RadiusNeighborsClassifier(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">neigh</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">1.5</span><span class="p">]]))</span>
+<span class="go">[0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">neigh</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">]]))</span>
+<span class="go">[[0.66666667 0.33333333]]</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.fit" title="sklearn.neighbors.RadiusNeighborsClassifier.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el clasificador de radio de vecinos a partir del conjunto de datos de entrenamiento.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.get_params" title="sklearn.neighbors.RadiusNeighborsClassifier.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.predict" title="sklearn.neighbors.RadiusNeighborsClassifier.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice las etiquetas de la clase para los datos proporcionados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.predict_proba" title="sklearn.neighbors.RadiusNeighborsClassifier.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Devuelve las estimaciones de probabilidad para los datos de prueba X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors" title="sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">radius_neighbors</span></code></a></p></td>
+<td><p>Encuentra a los vecinos dentro de un radio determinado de un punto o puntos.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors_graph" title="sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">radius_neighbors_graph</span></code></a></p></td>
+<td><p>Calcula el grafo (ponderado) de vecinos para los puntos de X</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.score" title="sklearn.neighbors.RadiusNeighborsClassifier.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.RadiusNeighborsClassifier.set_params" title="sklearn.neighbors.RadiusNeighborsClassifier.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el clasificador de radio de vecinos a partir del conjunto de datos de entrenamiento.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features) o (n_samples, n_samples) si metric=”precomputed”</span></dt><dd><p>Datos del entrenamiento.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples,) o         (n_samples, n_outputs)</span></dt><dd><p>Valores objetivo.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">RadiusNeighborsClassifier</span></dt><dd><p>El clasificador de vecinos de radio ajustado.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros de este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las etiquetas de la clase para los datos proporcionados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_queries, n_features), o (n_queries, n_indexed) si metric == “precomputed”</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y</strong><span class="classifier">ndarray de forma (n_queries,) o (n_queries, n_outputs)</span></dt><dd><p>Etiquetas de clase para cada muestra de datos.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve las estimaciones de probabilidad para los datos de prueba X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_queries, n_features), o (n_queries, n_indexed) si metric == “precomputed”</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>p</strong><span class="classifier">ndarray de forma (n_queries, n_classes), o una lista de n_outputs</span></dt><dd><p>de dichos arreglos si n_outputs &gt; 1. Las probabilidades de clase de las muestras de entrada. Las clases se ordenan por orden lexicográfico.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors">
+<span class="sig-name descname"><span class="pre">radius_neighbors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Encuentra a los vecinos dentro de un radio determinado de un punto o puntos.</p>
+<p>Devuelve los índices y distancias de cada punto del conjunto de datos que se encuentra en una bola con el tamaño <code class="docutils literal notranslate"><span class="pre">radius</span></code> alrededor de los puntos del arreglo de consultas. Los puntos en el límite están incluidos en los resultados.</p>
+<p>Los puntos de resultado <em>no</em> necesariamente están ordenados por distancia a su punto de consulta.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">array-like de (n_samples, n_features), default=None</span></dt><dd><p>El punto o puntos de la consulta. Si no se proporciona, se devuelven los vecinos de cada punto indexado. En este caso, el punto de consulta no se considera su propio vecino.</p>
+</dd>
+<dt><strong>radius</strong><span class="classifier">flotante, default=None</span></dt><dd><p>Limitando la distancia de vecinos a regresar. El valor predeterminado es pasado al constructor.</p>
+</dd>
+<dt><strong>return_distance</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si se devuelven o no las distancias.</p>
+</dd>
+<dt><strong>sort_results</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Si es True, las distancias e índices serán ordenados antes de ser devueltos. Si es False, los resultados no se ordenarán. Si <code class="docutils literal notranslate"><span class="pre">return_distance=False</span></code>, al establecer <code class="docutils literal notranslate"><span class="pre">sort_results=True</span></code> se producirá un error.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>neigh_dist</strong><span class="classifier">ndarray de forma (n_samples,) de arreglos</span></dt><dd><p>Arreglo que representa las distancias a cada punto, sólo presente si <code class="docutils literal notranslate"><span class="pre">return_distance=True</span></code>. Los valores de la distancia se calculan según el parámetro del constructor <code class="docutils literal notranslate"><span class="pre">metric</span></code>.</p>
+</dd>
+<dt><strong>neigh_ind</strong><span class="classifier">ndarray de forma (n_samples,) de arreglos</span></dt><dd><p>Un arreglo de arreglos de los puntos más cercanos aproximados de la matriz de población que se encuentran dentro de una bola de tamaño <code class="docutils literal notranslate"><span class="pre">radius</span></code> alrededor de los puntos de la consulta.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>Debido a que el número de vecinos de cada punto no es necesariamente igual, los resultados para múltiples puntos de consulta no pueden encajar en un arreglo de datos estándar. Por eficiencia, <code class="docutils literal notranslate"><span class="pre">radius_neighbors</span></code> devuelve arreglos de objetos, donde cada objeto es un arreglo 1D de índices o distancias.</p>
+<p class="rubric">Ejemplos</p>
+<p>En el siguiente ejemplo, construimos una clase NeighborsClassifier a partir de un arreglo que representa nuestro conjunto de datos y preguntamos cuál es el punto más cercano a [1,1,1]:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+<span class="go">NearestNeighbors(radius=1.6)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">neigh</span><span class="o">.</span><span class="n">radius_neighbors</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rng</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+<span class="go">[1.5 0.5]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rng</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+<span class="go">[1 2]</span>
+</pre></div>
+</div>
+<p>El primer arreglo devuelto contiene las distancias a todos los puntos más cercanos a 1.6, mientras que el segundo arreglo devuelto contiene sus índices. En general, se pueden consultar varios puntos al mismo tiempo.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors_graph">
+<span class="sig-name descname"><span class="pre">radius_neighbors_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.radius_neighbors_graph" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula el grafo (ponderado) de vecinos para los puntos de X</p>
+<p>Las vecindades son los puntos restringidos a una distancia inferior al radio.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features), default=None</span></dt><dd><p>El punto o puntos de la consulta. Si no se proporciona, se devuelven los vecinos de cada punto indexado. En este caso, el punto de consulta no se considera su propio vecino.</p>
+</dd>
+<dt><strong>radius</strong><span class="classifier">flotante, default=None</span></dt><dd><p>Radio de vecindades. El valor predeterminado es pasado al constructor.</p>
+</dd>
+<dt><strong>mode</strong><span class="classifier">{“connectivity”, “distance”}, default=”connectivity”</span></dt><dd><p>Tipo de matriz devuelta: “connectivity” devolverá la matriz de conectividad con unos y ceros, en “distance” los bordes son la distancia euclidiana entre puntos.</p>
+</dd>
+<dt><strong>sort_results</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Si es True, en cada fila del resultado, las entradas que no sean de cero se ordenarán aumentando las distancias. Si es False, las entradas que no sean nulas no pueden ser ordenadas. Sólo se utiliza con mode=”distance”.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">matriz dispersa de forma (n_queries, n_samples_fit)</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">n_samples_fit</span></code> es el número de muestras en los datos especificados <code class="docutils literal notranslate"><span class="pre">A[i,</span> <span class="pre">j]</span></code> se le asigna la ponderación de borde que conecta <code class="docutils literal notranslate"><span class="pre">i</span></code> a <code class="docutils literal notranslate"><span class="pre">j</span></code>. La matriz si de formato CSR.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.neighbors.kneighbors_graph.html#sklearn.neighbors.kneighbors_graph" title="sklearn.neighbors.kneighbors_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kneighbors_graph</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">NearestNeighbors(radius=1.5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">neigh</span><span class="o">.</span><span class="n">radius_neighbors_graph</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1., 0., 1.],</span>
+<span class="go">       [0., 1., 0.],</span>
+<span class="go">       [1., 0., 1.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p>
+<p>En la clasificación multietiqueta, se trata de la precisión del subconjunto, que es una métrica rigurosa, ya que se requiere para cada muestra que cada conjunto de etiquetas sea predicho correctamente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Etiquetas verdaderas para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de muestra.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">flotante</span></dt><dd><p>Precisión media de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.RadiusNeighborsClassifier.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.RadiusNeighborsClassifier.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto con estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia de estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.neighbors.RadiusNeighborsClassifier.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

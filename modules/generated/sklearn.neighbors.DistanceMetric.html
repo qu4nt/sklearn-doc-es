@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.neighbors.DistanceMetric &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.neighbors.BallTree.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.neighbors.BallTree">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.neighbors.KDTree.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.neighbors.KDTree">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code>.DistanceMetric</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-neighbors-distancemetric">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a>.DistanceMetric<a class="headerlink" href="#sklearn-neighbors-distancemetric" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.neighbors.DistanceMetric">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.neighbors.</span></span><span class="sig-name descname"><span class="pre">DistanceMetric</span></span><a class="headerlink" href="#sklearn.neighbors.DistanceMetric" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase DistanceMetric</p>
+<p>Esta clase proporciona una interfaz uniforme para las funciones métricas de distancia rápida.  Se puede acceder a las distintas métricas a través del método de clase <a class="reference internal" href="#sklearn.neighbors.DistanceMetric.get_metric" title="sklearn.neighbors.DistanceMetric.get_metric"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_metric</span></code></a> y del identificador de la cadena métrica (ver más abajo).</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">DistanceMetric</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">DistanceMetric</span><span class="o">.</span><span class="n">get_metric</span><span class="p">(</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="go">         [3, 4, 5]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[ 0.        ,  5.19615242],</span>
+<span class="go">       [ 5.19615242,  0.        ]])</span>
+</pre></div>
+</div>
+<p>Métricas disponibles</p>
+<p>A continuación se detallan los identificadores métricos de cadena y las clases métricas de distancia asociadas:</p>
+<p><strong>Métricas destinadas a espacios vectoriales con valor real:</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 27%" />
+<col style="width: 11%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>identificador</p></td>
+<td><p>nombre de la clase</p></td>
+<td><p>args</p></td>
+<td><p>función de distancia</p></td>
+</tr>
+<tr class="row-even"><td><p>«euclidean»</p></td>
+<td><p>EuclideanDistance</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sqrt(sum((x</span> <span class="pre">-</span> <span class="pre">y)^2))</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>«manhattan»</p></td>
+<td><p>ManhattanDistance</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sum(|x</span> <span class="pre">-</span> <span class="pre">y|)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>«chebyshev»</p></td>
+<td><p>ChebyshevDistance</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max(|x</span> <span class="pre">-</span> <span class="pre">y|)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>«minkowski»</p></td>
+<td><p>MinkowskiDistance</p></td>
+<td><p>p</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sum(|x</span> <span class="pre">-</span> <span class="pre">y|^p)^(1/p)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>«wminkowski</p></td>
+<td><p>WMinkowskiDistance</p></td>
+<td><p>p, w</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sum(|w</span> <span class="pre">*</span> <span class="pre">(x</span> <span class="pre">-</span> <span class="pre">y)|^p)^(1/p)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>«seuclidean»</p></td>
+<td><p>SEuclideanDistance</p></td>
+<td><p>V</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sqrt(sum((x</span> <span class="pre">-</span> <span class="pre">y)^2</span> <span class="pre">/</span> <span class="pre">V))</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>«mahalanobis»</p></td>
+<td><p>MahalanobisDistance</p></td>
+<td><p>V o VI</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sqrt((x</span> <span class="pre">-</span> <span class="pre">y)'</span> <span class="pre">V^-1</span> <span class="pre">(x</span> <span class="pre">-</span> <span class="pre">y))</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Métrica pensada para espacios vectoriales bidimensionales:</strong> Nótese que la métrica de distancia haversina requiere datos en forma de [latitud, longitud] y tanto las entradas como las salidas están en unidades de radianes.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>identificador</p></td>
+<td><p>nombre de la clase</p></td>
+<td><p>función de distancia</p></td>
+</tr>
+<tr class="row-even"><td><p>«haversine»</p></td>
+<td><p>HaversineDistance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">arcsin(sqrt(sin^2(0.5*dx)</span> <span class="pre">+</span> <span class="pre">cos(x1)cos(x2)sin^2(0.5*dy)))</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Métricas destinadas a espacios vectoriales con valor entero:</strong> Aunque están destinadas a vectores con valor entero, estas también son métricas válidas en el caso de vectores con valor real.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 27%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>identificador</p></td>
+<td><p>nombre de la clase</p></td>
+<td><p>función de distancia</p></td>
+</tr>
+<tr class="row-even"><td><p>«hamming»</p></td>
+<td><p>HammingDistance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">N_unequal(x,</span> <span class="pre">y)</span> <span class="pre">/</span> <span class="pre">N_tot</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>«canberra»</p></td>
+<td><p>CanberraDistance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sum(|x</span> <span class="pre">-</span> <span class="pre">y|</span> <span class="pre">/</span> <span class="pre">(|x|</span> <span class="pre">+</span> <span class="pre">|y|))</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>«braycurtis»</p></td>
+<td><p>BrayCurtisDistance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sum(|x</span> <span class="pre">-</span> <span class="pre">y|)</span> <span class="pre">/</span> <span class="pre">(sum(|x|)</span> <span class="pre">+</span> <span class="pre">sum(|y|))</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Métricas destinadas a espacios vectoriales con valor booleano:</strong> Cualquier entrada no cero es evaluada a «True». En los listados a continuación, se utilizan las siguientes abreviaturas:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>N : número de dimensiones</p></li>
+<li><p>NTT : número de dims en los que ambos valores son True</p></li>
+<li><p>NTF : número de dims en los que el primer valor es True, el segundo es False</p></li>
+<li><p>NFT : número de dims en los que el primer valor es False, el segundo es True</p></li>
+<li><p>NFF : número de dims en los que ambos valores son False</p></li>
+<li><p>NNEQ : número de dimensiones no iguales, NNEQ = NTF + NFT</p></li>
+<li><p>NNZ : número de dimensiones no nulas, NNZ = NTF + NFT + NTT</p></li>
+</ul>
+</div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 32%" />
+<col style="width: 44%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>identificador</p></td>
+<td><p>nombre de la clase</p></td>
+<td><p>función de distancia</p></td>
+</tr>
+<tr class="row-even"><td><p>«jaccard»</p></td>
+<td><p>JaccardDistance</p></td>
+<td><p>NNEQ / NNZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>«matching»</p></td>
+<td><p>MatchingDistance</p></td>
+<td><p>NNEQ / N</p></td>
+</tr>
+<tr class="row-even"><td><p>«dice»</p></td>
+<td><p>DiceDistance</p></td>
+<td><p>NNEQ / (NTT + NNZ)</p></td>
+</tr>
+<tr class="row-odd"><td><p>«kulsinski»</p></td>
+<td><p>KulsinskiDistance</p></td>
+<td><p>(NNEQ + N - NTT) / (NNEQ + N)</p></td>
+</tr>
+<tr class="row-even"><td><p>«rogerstanimoto»</p></td>
+<td><p>RogersTanimotoDistance</p></td>
+<td><p>2 * NNEQ / (N + NNEQ)</p></td>
+</tr>
+<tr class="row-odd"><td><p>«russellrao»</p></td>
+<td><p>RussellRaoDistance</p></td>
+<td><p>(N - NTT) / N</p></td>
+</tr>
+<tr class="row-even"><td><p>«sokalmichener»</p></td>
+<td><p>SokalMichenerDistance</p></td>
+<td><p>2 * NNEQ / (N + NNEQ)</p></td>
+</tr>
+<tr class="row-odd"><td><p>«sokalsneath»</p></td>
+<td><p>SokalSneathDistance</p></td>
+<td><p>NNEQ / (NNEQ + 0.5 * NTT)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Distancia definida por el usuario:</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 45%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>identificador</p></td>
+<td><p>nombre de la clase</p></td>
+<td><p>args</p></td>
+</tr>
+<tr class="row-even"><td><p>«pyfunc»</p></td>
+<td><p>PyFuncDistance</p></td>
+<td><p>func</p></td>
+</tr>
+</tbody>
+</table>
+<p>Aquí <code class="docutils literal notranslate"><span class="pre">func</span></code> es una función que toma dos arreglos unidimensionales de numpy, y devuelve una distancia.  Ten en cuenta que para ser utilizada dentro del BallTree, la distancia debe ser una métrica verdadera: es decir, debe satisfacer las siguientes propiedades</p>
+<ol class="arabic simple">
+<li><p>Non-negativity: d(x, y) &gt;= 0</p></li>
+<li><p>Identity: d(x, y) = 0 si solo si x == y</p></li>
+<li><p>Symmetry: d(x, y) = d(y, x)</p></li>
+<li><p>Triangle Inequality: d(x, y) + d(y, z) &gt;= d(x, z)</p></li>
+</ol>
+<p>Debido a la sobrecarga de objetos de Python implicada en la llamada a la función de Python, esto será bastante lento, pero tendrá la misma escala que otras distancias.</p>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.DistanceMetric.dist_to_rdist" title="sklearn.neighbors.DistanceMetric.dist_to_rdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dist_to_rdist</span></code></a></p></td>
+<td><p>Convierte la distancia real en la distancia reducida.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.DistanceMetric.get_metric" title="sklearn.neighbors.DistanceMetric.get_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_metric</span></code></a></p></td>
+<td><p>Obtiene la métrica de distancia dada a partir del identificador de la cadena.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.neighbors.DistanceMetric.pairwise" title="sklearn.neighbors.DistanceMetric.pairwise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pairwise</span></code></a></p></td>
+<td><p>Calcular las distancias por pares entre X e Y</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.neighbors.DistanceMetric.rdist_to_dist" title="sklearn.neighbors.DistanceMetric.rdist_to_dist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rdist_to_dist</span></code></a></p></td>
+<td><p>Convierte la distancia reducida a la distancia real.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.DistanceMetric.dist_to_rdist">
+<span class="sig-name descname"><span class="pre">dist_to_rdist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.DistanceMetric.dist_to_rdist" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Convierte la distancia real en la distancia reducida.</p>
+<p>La distancia reducida, definida para algunas métricas, es una medida computacionalmente más eficiente que preserva el rango de la distancia verdadera. Por ejemplo, en la métrica de la distancia euclidiana, la distancia reducida es la distancia euclidiana al cuadrado.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.DistanceMetric.get_metric">
+<span class="sig-name descname"><span class="pre">get_metric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.DistanceMetric.get_metric" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene la métrica de distancia dada a partir del identificador de la cadena.</p>
+<p>Consulta el docstring de DistanceMetric para obtener una lista de métricas disponibles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>metric</strong><span class="classifier">string o nombre de clase</span></dt><dd><p>La métrica de distancia a utilizar</p>
+</dd>
+<dt><strong>**kwargs</strong></dt><dd><p>se pasarán argumentos adicionales a la métrica solicitada</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.DistanceMetric.pairwise">
+<span class="sig-name descname"><span class="pre">pairwise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.DistanceMetric.pairwise" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcular las distancias por pares entre X e Y</p>
+<p>Esta es una rutina de conveniencia para las pruebas.  Para muchas métricas, las utilidades de scipy.spatial.distance.cdist y scipy.spatial.distance.pdist serán más rápidas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like</span></dt><dd><p>Arreglo de forma (Nx, D), que representa Nx puntos en D dimensiones.</p>
+</dd>
+<dt><strong>Y</strong><span class="classifier">array-like (opcional)</span></dt><dd><p>Arreglo de forma (Ny, D), que representa Ny puntos en D dimensiones. Si no se especifica, entonces Y=X.</p>
+</dd>
+<dt><strong>Devuelve</strong></dt><dd></dd>
+<dt><strong>——-</strong></dt><dd></dd>
+<dt><strong>dist</strong><span class="classifier">ndarray</span></dt><dd><p>La forma (Nx, Ny) arreglo de distancias por pares entre puntos en X e Y.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.neighbors.DistanceMetric.rdist_to_dist">
+<span class="sig-name descname"><span class="pre">rdist_to_dist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.neighbors.DistanceMetric.rdist_to_dist" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Convierte la distancia reducida a la distancia real.</p>
+<p>La distancia reducida, definida para algunas métricas, es una medida computacionalmente más eficiente que preserva el rango de la distancia verdadera. Por ejemplo, en la métrica de la distancia euclidiana, la distancia reducida es la distancia euclidiana al cuadrado.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.neighbors.DistanceMetric.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

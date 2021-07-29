@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.svm.NuSVC &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.NuSVC.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.svm.LinearSVR.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.svm.LinearSVR">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.svm.NuSVR.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.svm.NuSVR">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.svm</span></code>.NuSVC</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-svm-nusvc">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.svm.NuSVC</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-svm-nusvc">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.svm" title="sklearn.svm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.svm</span></code></a>.NuSVC<a class="headerlink" href="#sklearn-svm-nusvc" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.svm.</span></span><span class="sig-name descname"><span class="pre">NuSVC</span></span><a class="headerlink" href="#sklearn.svm.NuSVC" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clasificación de Vector Nu-Apoyo.</p>
+<p>Similar al SVC pero usa un parámetro para controlar el número de vectores de soporte.</p>
+<p>La implementación se basa en libsvm.</p>
+<p>Más información en el <a class="reference internal" href="../svm.html#svm-classification"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>nu</strong><span class="classifier">flotante, default=0.5</span></dt><dd><p>Un límite superior en la fracción de errores de margen (ver el <a class="reference internal" href="../svm.html#nu-svc"><span class="std std-ref">Manual de Usuario</span></a>) y un límite inferior en la fracción de vectores de soporte. Debe estar en el intervalo (0, 1].</p>
+</dd>
+<dt><strong>kernel</strong><span class="classifier">{“linear”, “poly”, “rbf”, “sigmoid”, “precomputed”}, default=”rbf”</span></dt><dd><p>Especifica el tipo de núcleo a ser usado en el algoritmo. Debe ser uno de “linear”, “poly”, “rby”, “sigmoid”, “precomputed” o un invocable. Si no se da ninguna, se utilizará “rbf”. Si un invocable es dado se utilizara para precalcular la matriz del núcleo.</p>
+</dd>
+<dt><strong>degree</strong><span class="classifier">entero, default=3</span></dt><dd><p>Grado de la función de núcleo polinómico (“poly”). Ignorado por todos los otros núcleos.</p>
+</dd>
+<dt><strong>gamma</strong><span class="classifier">{“scale”, “auto”} o flotante, default=”scale”</span></dt><dd><p>Coeficiente de núcleo para “rbf”, “poly” y “sigmoid”.</p>
+<ul class="simple">
+<li><p>si se pasa <code class="docutils literal notranslate"><span class="pre">gamma='scale'</span></code> (valor predeterminado), entonces se usa 1 / (n_features * X.var()) como valor de gamma,</p></li>
+<li><p>si “auto”, utiliza 1 / n_features.</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.22: </span>El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">gamma</span></code> cambió de “auto” a “scale”.</p>
+</div>
+</dd>
+<dt><strong>coef0</strong><span class="classifier">flotante, default=0.0</span></dt><dd><p>Término independiente en la función del núcleo. Sólo es significativo en “poly” y “sigmoid”.</p>
+</dd>
+<dt><strong>shrinking</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si se usa o no la heurística de reducción. Ver el <a class="reference internal" href="../svm.html#shrinking-svm"><span class="std std-ref">Manual de usuario</span></a>.</p>
+</dd>
+<dt><strong>probability</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Si se habilitan los estimados de probabilidad. Esto se debe habilitar antes de llamar <code class="docutils literal notranslate"><span class="pre">fit</span></code>, ralentizará ese método ya que internamente utiliza la validación cruzada de 5 pliegues, y <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> podría ser inconsistente con <code class="docutils literal notranslate"><span class="pre">predict</span></code>. Lea más en el <a class="reference internal" href="../svm.html#scores-probabilities"><span class="std std-ref">Manual de Usuario</span></a>.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">flotante, default=1e-3</span></dt><dd><p>Tolerancia para el criterio de parada.</p>
+</dd>
+<dt><strong>cache_size</strong><span class="classifier">flotante, default=200</span></dt><dd><p>Específica el tamaño del caché del núcleo (en MB).</p>
+</dd>
+<dt><strong>class_weight</strong><span class="classifier">{dict, “balanced”}, default=None</span></dt><dd><p>Establece el parámetro C de la clase i a class_weight[i]*C para SVC. Si no es dado, todas las clases se suponen que tienen peso uno. El modo «balanced» utiliza los valores de y para ajustar automáticamente los ponderados inversamente proporcionales a las frecuencias de clase como <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">/</span> <span class="pre">(n_classes</span> <span class="pre">*</span> <span class="pre">np.bincount(y))</span></code></p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Activar salida detallada. Ten en cuenta que esta configuración toma ventaja de una configuración por proceso en el tiempo de ejecución en libsvm que, si está habilitada, puede no funcionar correctamente en un contexto multihilo.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=-1</span></dt><dd><p>Limite fuerte en iteraciones dentro del solucionador, o -1 para ningún límite.</p>
+</dd>
+<dt><strong>decision_function_shape</strong><span class="classifier">{“ovo”, “ovr”}, default=”ovr”</span></dt><dd><p>Devolver o no una función de decisión uno contra el resto (“ovr”) de la forma (n_samples, n_classes) como todos los demás clasificadores, o la función original uno contra uno (“ovo”) de la función de decisión de libsvm que tiene forma (n_samples, n_classes * (n_classes - 1) / 2). Sin embargo, uno contra uno (“ovo”) siempre se utiliza como estrategia de multiclase. El parámetro se ignora para la clasificación binaria.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.19: </span>decision_function_shape es “ovr” por defecto.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.17: </span><em>decision_function_shape=”ovr”</em> es recomendado.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.17: </span><em>decision_function_shape=”ovo” and None</em> se ha hecho obsoleto.</p>
+</div>
+</dd>
+<dt><strong>break_ties</strong><span class="classifier">booleano, default=False</span></dt><dd><p>Si es verdadero, <code class="docutils literal notranslate"><span class="pre">decision_function_shape='ovr'</span></code>, y el número de clases &gt; 2, <a class="reference internal" href="../../glossary.html#term-predict"><span class="xref std std-term">predict</span></a> romperá vínculos de acuerdo a los valores de confianza de <a class="reference internal" href="../../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a>; de lo contrario se devuelve la primera clase entre las clases enlazadas. Por favor note que romper enlaces tiene un costo computacional relativamente alto comparado a una predicción simple.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.22.</span></p>
+</div>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, instancia RandomState o None, default=None</span></dt><dd><p>Controla la generación de números pseudo-aleatorios para barajear los datos para estimados de probabilidad. Ignorado cuando <code class="docutils literal notranslate"><span class="pre">probability</span></code> es Falso. Pase un int para salida reproducible a través de múltiples llamadas de función. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>class_weight_</strong><span class="classifier">ndarray de forma (n_classes,)</span></dt><dd><p>Multiplicadores del parámetro C de cada clase. Calculado basado en el parámetro <code class="docutils literal notranslate"><span class="pre">class_weight</span></code>.</p>
+</dd>
+<dt><strong>classes_</strong><span class="classifier">ndarray de forma (n_classes,)</span></dt><dd><p>Etiquetas de clase únicas.</p>
+</dd>
+<dt><strong>coef_</strong><span class="classifier">ndarray de forma (n_classes * (n_classes -1) / 2, n_features)</span></dt><dd><p>Ponderados asignados a las características (coeficientes en el problema primario). Esto solo está disponible en el caso de un núcleo lineal.</p>
+<p><code class="docutils literal notranslate"><span class="pre">coef_</span></code> es propiedad de solo lectura derivada de <code class="docutils literal notranslate"><span class="pre">dual_coef_</span></code> y <code class="docutils literal notranslate"><span class="pre">support_vectors_</span></code>.</p>
+</dd>
+<dt><strong>dual_coef_</strong><span class="classifier">ndarray de forma (n_classes - 1, n_SV)</span></dt><dd><p>Coeficientes duales del vector de apoyo en la función de decisión (ver <a class="reference internal" href="../sgd.html#sgd-mathematical-formulation"><span class="std std-ref">Formulación matemática</span></a>), multiplicado por sus objetivos. Para la multiclase, coeficiente para todos los clasificadores 1-vs-1. El diseño de los coeficientes en el caso multiclase es algo no-trivial. Ver la <a class="reference internal" href="../svm.html#svm-multi-class"><span class="std std-ref">sección multiclase del Manual de Usuario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>fit_status_</strong><span class="classifier">entero</span></dt><dd><p>0 si se ajusta correctamente, 1 si el algoritmo no converge.</p>
+</dd>
+<dt><strong>intercept_</strong><span class="classifier">ndarray de forma (n_classes * (n_classes - 1) / 2,)</span></dt><dd><p>Constantes en la función de decisión.</p>
+</dd>
+<dt><strong>support_</strong><span class="classifier">ndarray de forma (n_SV,)</span></dt><dd><p>Indices de vectores de apoyo.</p>
+</dd>
+<dt><strong>support_vectors_</strong><span class="classifier">ndarray de forma (n_SV, n_features)</span></dt><dd><p>Vectores de apoyo.</p>
+</dd>
+<dt><strong>n_support_</strong><span class="classifier">ndarray de forma (n_classes,), dtype=int32</span></dt><dd><p>Número de vectores de soporte para cada clase.</p>
+</dd>
+<dt><strong>fit_status_</strong><span class="classifier">entero</span></dt><dd><p>0 si se ajusta correctamente, 1 si el algoritmo no converge.</p>
+</dd>
+<dt><strong>probA_</strong><span class="classifier">ndarray de forma (n_classes * (n_classes - 1) / 2,)</span></dt><dd></dd>
+<dt><strong>probB_</strong><span class="classifier">ndarray de forma (n_classes * (n_classes - 1) / 2,)</span></dt><dd><p>Si <code class="docutils literal notranslate"><span class="pre">probability=True</span></code>, corresponde a los parámetros aprendidos en el escalado de Platt para producir estimados de probabilidad de los valores de decisión. Si <code class="docutils literal notranslate"><span class="pre">probability=False</span></code>, es un arreglo vacio. El escalado de Platt utiliza la función logistica <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">exp(decision_value</span> <span class="pre">*</span> <span class="pre">probA_</span> <span class="pre">+</span> <span class="pre">probB_))</span></code> donde <code class="docutils literal notranslate"><span class="pre">probA_</span></code> y <code class="docutils literal notranslate"><span class="pre">probB_</span></code> son aprendidos del conjunto de datos <a class="reference internal" href="#r9709ce4a60d3-2" id="id1">[2]</a>. Para más información en el caso multiclase y el procedimiento de entrenamiento ver la sección 8 de <a class="reference internal" href="#r9709ce4a60d3-1" id="id2">[1]</a>.</p>
+</dd>
+<dt><strong>shape_fit_</strong><span class="classifier">tupla de int de la forma (n_dimensions_of_X,)</span></dt><dd><p>Dimensiones del arreglo del vector de entrenamiento <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVC</span></code></a></dt><dd><p>Maquina de Vectores de Soporte para clasificación usando libsvm.</p>
+</dd>
+<dt><a class="reference internal" href="sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearSVC</span></code></a></dt><dd><p>Maquina de Vectores de Soporte escalable lineal para clasificación usando liblinear.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Referencias</p>
+<dl class="citation">
+<dt class="label" id="r9709ce4a60d3-1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="http://www.csie.ntu.edu.tw/~cjlin/papers/libsvm.pdf">LIBSVM: A Library for Support Vector Machines</a></p>
+</dd>
+<dt class="label" id="r9709ce4a60d3-2"><span class="brackets"><a class="fn-backref" href="#id1">2</a></span></dt>
+<dd><p><a class="reference external" href="http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.1639">Platt, John (1999). «Probabilistic outputs for support vector
+machines and comparison to regularizedlikelihood methods.»</a></p>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">NuSVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">NuSVC</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;standardscaler&#39;, StandardScaler()), (&#39;nusvc&#39;, NuSVC())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+<span class="go">[1]</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.svm.NuSVC.decision_function" title="sklearn.svm.NuSVC.decision_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_function</span></code></a></p></td>
+<td><p>Evalúa la función de decisión para las muestras en X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.svm.NuSVC.fit" title="sklearn.svm.NuSVC.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo SVM de acuerdo a los datos de entrenamiento dados.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.svm.NuSVC.get_params" title="sklearn.svm.NuSVC.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.svm.NuSVC.predict" title="sklearn.svm.NuSVC.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Realiza la clasificación en las muestras en X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.svm.NuSVC.score" title="sklearn.svm.NuSVC.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.svm.NuSVC.set_params" title="sklearn.svm.NuSVC.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.decision_function">
+<span class="sig-name descname"><span class="pre">decision_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.svm.NuSVC.decision_function" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Evalúa la función de decisión para las muestras en X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray de forma (n_samples, n_classes * (n_classes-1) / 2)</span></dt><dd><p>Devuelve la función de decisión de la muestra para cada clase en el modelo. Si decision_function_shape=”ovr”, la forma es (n_samples, n_classes).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>Si decision_function_shape=”ovo”, los valores de función son proporcionales a la distancia de las muestras X al hiperplano separador. Si las distancias exactas son requeridas, divida los valores de función por la norma del vector de ponderado (<code class="docutils literal notranslate"><span class="pre">coef_</span></code>). Ver también <a class="reference external" href="https://stats.stackexchange.com/questions/14876/interpreting-distance-from-hyperplane-in-svm">esta pregunta</a> para más detalles. Si decision_function_shape=”ovr”, la función de decisión es una transformación monotónica de la función de decisión ovo.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.svm.NuSVC.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo SVM de acuerdo a los datos de entrenamiento dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features)                 o (n_samples, n_samples)</span></dt><dd><p>Vectores de entrenamiento, donde n_samples es el número de muestras y n_features es el número de características. Para kernel=»precomputed», la forma esperada de X es (n_samples, n_samples).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,)</span></dt><dd><p>Valores objetivo (etiquetas de clase en clasificación, números reales en regresión).</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderados por muestra. Reescalado de C por muestra. Los ponderados más altos obligan al clasificador a poner más énfasis en estos puntos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>Si X y y no son arreglos contiguos y C-ordenados de np.float64 y X no es un scipy.sparse.csr_matrix, X y/o y pueden ser copiados.</p>
+<p>Si X es un arreglo denso, entonces los otros métodos no soportaran matrices dispersas como entrada.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.svm.NuSVC.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los sub objetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.svm.NuSVC.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Realiza la clasificación en las muestras en X.</p>
+<p>Para un modelo de una clase, se devuelve +1 o -1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features) o                 (n_samples_test, n_samples_train)</span></dt><dd><p>Para kernel=»precomputed», la forma esperada de X es (n_samples_test, n_samples_train).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y_pred</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>Etiquetas de clase para las muestras en X.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.predict_log_proba">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">predict_log_proba</span></span><a class="headerlink" href="#sklearn.svm.NuSVC.predict_log_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula las probabilidades log de los posibles resultados de las muestras en X.</p>
+<p>El modelo necesita tener información de probabilidad calculada en el tiempo de entrenamiento: ajustar con el atributo <code class="docutils literal notranslate"><span class="pre">probabilidad</span></code> establecido como True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features) o (n_samples_test, n_samples_train)</span></dt><dd><p>Para kernel=»precomputed», la forma esperada de X es (n_samples_test, n_samples_train).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">ndarray de forma (n_samples, n_classes)</span></dt><dd><p>Devuelve las probabilidades logarítmica de las muestras para cada clase del modelo. Las columnas corresponden a las clases ordenadas, tal y como aparecen en el atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>El modelo de probabilidad es creado utilizando la validación cruzada, así que los resultados pueden ser ligeramente diferentes que aquellos obtenidos mediante predict. También producirá resultandos sin sentido en conjuntos de datos muy pequeños.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.predict_proba">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">predict_proba</span></span><a class="headerlink" href="#sklearn.svm.NuSVC.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula las probabilidades de los posibles resultados de las muestras en X.</p>
+<p>El modelo necesita tener información de probabilidad calculada en el tiempo de entrenamiento: ajustar con el atributo <code class="docutils literal notranslate"><span class="pre">probabilidad</span></code> establecido como True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Para kernel=»precomputed», la forma esperada de X es (n_samples_test, n_samples_train).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">ndarray de forma (n_samples, n_classes)</span></dt><dd><p>Devuelve la probabilidad de las muestras para cada clase del modelo. Las columnas corresponden a las clases ordenadas, tal y como aparecen en el atributo <a class="reference internal" href="../../glossary.html#term-classes_"><span class="xref std std-term">classes_</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>El modelo de probabilidad es creado utilizando la validación cruzada, así que los resultados pueden ser ligeramente diferentes que aquellos obtenidos mediante predict. También producirá resultandos sin sentido en conjuntos de datos muy pequeños.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.svm.NuSVC.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la precisión media en los datos de prueba y las etiquetas dados.</p>
+<p>En la clasificación multietiqueta, se trata de la precisión del subconjunto que es una métrica rigurosa, ya que se requiere para cada muestra que cada conjunto de etiquetas sea predicho correctamente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Muestras de prueba.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples,) o (n_samples, n_outputs)</span></dt><dd><p>Etiquetas True para <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de la muestra.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">flotante</span></dt><dd><p>Precisión media de <code class="docutils literal notranslate"><span class="pre">self.predict(X)</span></code> con respecto a <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.svm.NuSVC.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.svm.NuSVC.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto con estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia de estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-svm-nusvc">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.svm.NuSVC</span></code><a class="headerlink" href="#examples-using-sklearn-svm-nusvc" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Perform binary classification using non-linear SVC with RBF kernel. The target to predict is a ..."><figure class="align-default" id="id5">
+<img alt="Non-linear SVM" src="../../_images/sphx_glr_plot_svm_nonlinear_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/svm/plot_svm_nonlinear.html#sphx-glr-auto-examples-svm-plot-svm-nonlinear-py"><span class="std std-ref">SVM no lineal</span></a></span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.svm.NuSVC.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
