@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>Compara el efecto de los diferentes escaladores en los datos con los atípicos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="plot_discretization_classification.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Discretización de la característica">Prev</a><a href="../index.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Ejemplos">Arriba</a>
+            <a href="../semi_supervised/plot_label_propagation_structure.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Propagación de Etiquetas en el aprendizaje de una estructura compleja">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">Compara el efecto de los diferentes escaladores en los datos con los atípicos</a><ul>
+<li><a class="reference internal" href="#original-data">Datos originales</a></li>
+<li><a class="reference internal" href="#standardscaler">StandardScaler</a></li>
+<li><a class="reference internal" href="#minmaxscaler">MinMaxScaler</a></li>
+<li><a class="reference internal" href="#maxabsscaler">MaxAbsScaler</a></li>
+<li><a class="reference internal" href="#robustscaler">RobustScaler</a></li>
+<li><a class="reference internal" href="#powertransformer">PowerTransformer</a></li>
+<li><a class="reference internal" href="#quantiletransformer-uniform-output">QuantileTransformer (salida uniforme)</a></li>
+<li><a class="reference internal" href="#quantiletransformer-gaussian-output">QuantileTransformer (salida gaussiana)</a></li>
+<li><a class="reference internal" href="#normalizer">Normalizador</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Nota</p>
+<p>Haz clic <a class="reference internal" href="#sphx-glr-download-auto-examples-preprocessing-plot-all-scaling-py"><span class="std std-ref">aquí</span></a> para descargar el código de ejemplo completo o para ejecutar este ejemplo en tu navegador a través de Binder</p>
+</div>
+<section class="sphx-glr-example-title" id="compare-the-effect-of-different-scalers-on-data-with-outliers">
+<span id="sphx-glr-auto-examples-preprocessing-plot-all-scaling-py"></span><h1>Compara el efecto de los diferentes escaladores en los datos con los atípicos<a class="headerlink" href="#compare-the-effect-of-different-scalers-on-data-with-outliers" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La característica 0 (mediana de ingresos en un bloque) y la característica 5 (número de hogares) del conjunto de datos <a class="reference internal" href="../../datasets/real_world.html#california-housing-dataset"><span class="std std-ref">Conjunto de datos California Housing</span></a> tienen escalas muy diferentes y contienen algunos valores atípicos muy grandes. Estas dos características dificultan la visualización de los datos y, lo que es más importante, pueden degradar el rendimiento predictivo de muchos algoritmos de aprendizaje automático. Los datos no escalados también pueden ralentizar o incluso impedir la convergencia de muchos estimadores basados en el gradiente.</p>
+<p>De hecho, muchos estimadores están diseñados con la suposición de que cada característica tiene valores cercanos a cero o más importante que todas las características varían en escalas comparables. En particular, los estimadores basados en métricas y basados en degradados suelen asumir aproximadamente datos estandarizados (características centradas con variantes unitarias). Una excepción notable son los estimadores basados en árboles de decisiones que son robustos a la escala arbitraria de los datos.</p>
+<p>Este ejemplo utiliza diferentes escaladores, transformadores y normalizadores para llevar los datos dentro de un rango predefinido.</p>
+<p>Los escaladores son transformadores lineales (o más precisamente) y difieren unos de otros en la forma en que estiman los parámetros utilizados para cambiar y escalar cada característica.</p>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.QuantileTransformer.html#sklearn.preprocessing.QuantileTransformer" title="sklearn.preprocessing.QuantileTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantileTransformer</span></code></a> proporciona transformaciones no lineales en las que se reducen las distancias entre los valores marginales atípicos y los valores atípicos. <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.PowerTransformer.html#sklearn.preprocessing.PowerTransformer" title="sklearn.preprocessing.PowerTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">PowerTransformer</span></code></a> proporciona transformaciones no lineales en las que los datos se asignan a una distribución normal para estabilizar la varianza y minimizar la asimetría.</p>
+<p>A diferencia de las transformaciones anteriores, la normalización se refiere a una transformación por muestra en lugar de una transformación por característica.</p>
+<p>El siguiente código es un poco verboso, siéntete libre de saltar directamente al análisis de los <a class="reference internal" href="#results">resultados</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author:  Raghav RV &lt;rvraghav93@gmail.com&gt;</span>
+<span class="c1">#          Guillaume Lemaitre &lt;g.lemaitre58@gmail.com&gt;</span>
+<span class="c1">#          Thomas Unterthiner</span>
+<span class="c1"># License: BSD 3 clause</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <a href="https://matplotlib.org/api/cm_api.html#module-matplotlib.cm" title="matplotlib.cm" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">cm</span></a>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">MinMaxScaler</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.minmax_scale.html#sklearn.preprocessing.minmax_scale" title="sklearn.preprocessing.minmax_scale" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-function"><span class="n">minmax_scale</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.MaxAbsScaler.html#sklearn.preprocessing.MaxAbsScaler" title="sklearn.preprocessing.MaxAbsScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">MaxAbsScaler</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RobustScaler</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.Normalizer.html#sklearn.preprocessing.Normalizer" title="sklearn.preprocessing.Normalizer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Normalizer</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.QuantileTransformer.html#sklearn.preprocessing.QuantileTransformer" title="sklearn.preprocessing.QuantileTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QuantileTransformer</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.PowerTransformer.html#sklearn.preprocessing.PowerTransformer" title="sklearn.preprocessing.PowerTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">PowerTransformer</span></a>
+
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_california_housing.html#sklearn.datasets.fetch_california_housing" title="sklearn.datasets.fetch_california_housing" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_california_housing</span></a>
+
+<span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_california_housing.html#sklearn.datasets.fetch_california_housing" title="sklearn.datasets.fetch_california_housing" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_california_housing</span></a><span class="p">()</span>
+<span class="n">X_full</span><span class="p">,</span> <span class="n">y_full</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">target</span>
+
+<span class="c1"># Take only 2 features to make visualization easier</span>
+<span class="c1"># Feature of 0 has a long tail distribution.</span>
+<span class="c1"># Feature 5 has a few but very large outliers.</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">X_full</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+
+<span class="n">distributions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;Unscaled data&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after standard scaling&#39;</span><span class="p">,</span>
+        <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after min-max scaling&#39;</span><span class="p">,</span>
+        <a href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">MinMaxScaler</span></a><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after max-abs scaling&#39;</span><span class="p">,</span>
+        <a href="../../modules/generated/sklearn.preprocessing.MaxAbsScaler.html#sklearn.preprocessing.MaxAbsScaler" title="sklearn.preprocessing.MaxAbsScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">MaxAbsScaler</span></a><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after robust scaling&#39;</span><span class="p">,</span>
+        <a href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RobustScaler</span></a><span class="p">(</span><span class="n">quantile_range</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">75</span><span class="p">))</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after power transformation (Yeo-Johnson)&#39;</span><span class="p">,</span>
+     <a href="../../modules/generated/sklearn.preprocessing.PowerTransformer.html#sklearn.preprocessing.PowerTransformer" title="sklearn.preprocessing.PowerTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">PowerTransformer</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;yeo-johnson&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after power transformation (Box-Cox)&#39;</span><span class="p">,</span>
+     <a href="../../modules/generated/sklearn.preprocessing.PowerTransformer.html#sklearn.preprocessing.PowerTransformer" title="sklearn.preprocessing.PowerTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">PowerTransformer</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;box-cox&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after quantile transformation (uniform pdf)&#39;</span><span class="p">,</span>
+        <a href="../../modules/generated/sklearn.preprocessing.QuantileTransformer.html#sklearn.preprocessing.QuantileTransformer" title="sklearn.preprocessing.QuantileTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QuantileTransformer</span></a><span class="p">(</span><span class="n">output_distribution</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after quantile transformation (gaussian pdf)&#39;</span><span class="p">,</span>
+        <a href="../../modules/generated/sklearn.preprocessing.QuantileTransformer.html#sklearn.preprocessing.QuantileTransformer" title="sklearn.preprocessing.QuantileTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">QuantileTransformer</span></a><span class="p">(</span><span class="n">output_distribution</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;Data after sample-wise L2 normalizing&#39;</span><span class="p">,</span>
+        <a href="../../modules/generated/sklearn.preprocessing.Normalizer.html#sklearn.preprocessing.Normalizer" title="sklearn.preprocessing.Normalizer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Normalizer</span></a><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="c1"># scale the output between 0 and 1 for the colorbar</span>
+<span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.preprocessing.minmax_scale.html#sklearn.preprocessing.minmax_scale" title="sklearn.preprocessing.minmax_scale" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-function"><span class="n">minmax_scale</span></a><span class="p">(</span><span class="n">y_full</span><span class="p">)</span>
+
+<span class="c1"># plasma does not exist in matplotlib &lt; 1.5</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><a href="https://matplotlib.org/api/cm_api.html#module-matplotlib.cm" title="matplotlib.cm" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">cm</span></a><span class="p">,</span> <span class="s1">&#39;plasma_r&#39;</span><span class="p">,</span> <a href="https://matplotlib.org/api/cm_api.html#module-matplotlib.cm" title="matplotlib.cm" class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-module"><span class="n">cm</span></a><span class="o">.</span><span class="n">hot_r</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_axes</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">)):</span>
+    <span class="n">fig</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="c1"># define the axis for the first plot</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.22</span>
+    <span class="n">bottom</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.7</span>
+    <span class="n">bottom_h</span> <span class="o">=</span> <span class="n">height</span> <span class="o">+</span> <span class="mf">0.15</span>
+    <span class="n">left_h</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">width</span> <span class="o">+</span> <span class="mf">0.02</span>
+
+    <span class="n">rect_scatter</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">]</span>
+    <span class="n">rect_histx</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom_h</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+    <span class="n">rect_histy</span> <span class="o">=</span> <span class="p">[</span><span class="n">left_h</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">height</span><span class="p">]</span>
+
+    <span class="n">ax_scatter</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes" title="matplotlib.pyplot.axes" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axes</span></a><span class="p">(</span><span class="n">rect_scatter</span><span class="p">)</span>
+    <span class="n">ax_histx</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes" title="matplotlib.pyplot.axes" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axes</span></a><span class="p">(</span><span class="n">rect_histx</span><span class="p">)</span>
+    <span class="n">ax_histy</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes" title="matplotlib.pyplot.axes" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axes</span></a><span class="p">(</span><span class="n">rect_histy</span><span class="p">)</span>
+
+    <span class="c1"># define the axis for the zoomed-in plot</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">width</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="mf">0.2</span>
+    <span class="n">left_h</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">width</span> <span class="o">+</span> <span class="mf">0.02</span>
+
+    <span class="n">rect_scatter</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">]</span>
+    <span class="n">rect_histx</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom_h</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+    <span class="n">rect_histy</span> <span class="o">=</span> <span class="p">[</span><span class="n">left_h</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">height</span><span class="p">]</span>
+
+    <span class="n">ax_scatter_zoom</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes" title="matplotlib.pyplot.axes" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axes</span></a><span class="p">(</span><span class="n">rect_scatter</span><span class="p">)</span>
+    <span class="n">ax_histx_zoom</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes" title="matplotlib.pyplot.axes" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axes</span></a><span class="p">(</span><span class="n">rect_histx</span><span class="p">)</span>
+    <span class="n">ax_histy_zoom</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes" title="matplotlib.pyplot.axes" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axes</span></a><span class="p">(</span><span class="n">rect_histy</span><span class="p">)</span>
+
+    <span class="c1"># define the axis for the colorbar</span>
+    <span class="n">left</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="mf">0.13</span><span class="p">,</span> <span class="mf">0.01</span>
+
+    <span class="n">rect_colorbar</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">]</span>
+    <span class="n">ax_colorbar</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes" title="matplotlib.pyplot.axes" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axes</span></a><span class="p">(</span><span class="n">rect_colorbar</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">((</span><span class="n">ax_scatter</span><span class="p">,</span> <span class="n">ax_histy</span><span class="p">,</span> <span class="n">ax_histx</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">ax_scatter_zoom</span><span class="p">,</span> <span class="n">ax_histy_zoom</span><span class="p">,</span> <span class="n">ax_histx_zoom</span><span class="p">),</span>
+            <span class="n">ax_colorbar</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_distribution</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">hist_nbins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                      <span class="n">x0_label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">x1_label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">,</span> <span class="n">hist_X1</span><span class="p">,</span> <span class="n">hist_X0</span> <span class="o">=</span> <span class="n">axes</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">x0_label</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">x1_label</span><span class="p">)</span>
+
+    <span class="c1"># The scatter plot</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+
+    <span class="c1"># Removing the top and the right spine for aesthetics</span>
+    <span class="c1"># make nice axis layout</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_left</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s1">&#39;outward&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s1">&#39;outward&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+    <span class="c1"># Histogram for axis X1 (feature 5)</span>
+    <span class="n">hist_X1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">())</span>
+    <span class="n">hist_X1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">hist_nbins</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+    <span class="n">hist_X1</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Histogram for axis X0 (feature 0)</span>
+    <span class="n">hist_X0</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">())</span>
+    <span class="n">hist_X0</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">hist_nbins</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+    <span class="n">hist_X0</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Se mostrarán dos gráficos para cada escalador/normalizador/transformador. La figura de la izquierda mostrará un gráfico de dispersión del conjunto de datos completo, mientras que la figura de la derecha excluirá los valores extremos considerando sólo el 99% del conjunto de datos, excluyendo los valores atípicos marginales. Además, las distribuciones marginales de cada característica se mostrarán a los lados del gráfico de dispersión.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_plot</span><span class="p">(</span><span class="n">item_idx</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">distributions</span><span class="p">[</span><span class="n">item_idx</span><span class="p">]</span>
+    <span class="n">ax_zoom_out</span><span class="p">,</span> <span class="n">ax_zoom_in</span><span class="p">,</span> <span class="n">ax_colorbar</span> <span class="o">=</span> <span class="n">create_axes</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">axarr</span> <span class="o">=</span> <span class="p">(</span><span class="n">ax_zoom_out</span><span class="p">,</span> <span class="n">ax_zoom_in</span><span class="p">)</span>
+    <span class="n">plot_distribution</span><span class="p">(</span><span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">hist_nbins</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                      <span class="n">x0_label</span><span class="o">=</span><span class="s2">&quot;Median Income&quot;</span><span class="p">,</span>
+                      <span class="n">x1_label</span><span class="o">=</span><span class="s2">&quot;Number of households&quot;</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Full data&quot;</span><span class="p">)</span>
+
+    <span class="c1"># zoom-in</span>
+    <span class="n">zoom_in_percentile_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
+    <span class="n">cutoffs_X0</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html#numpy.percentile" title="numpy.percentile" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">percentile</span></a><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">zoom_in_percentile_range</span><span class="p">)</span>
+    <span class="n">cutoffs_X1</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html#numpy.percentile" title="numpy.percentile" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">percentile</span></a><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">zoom_in_percentile_range</span><span class="p">)</span>
+
+    <span class="n">non_outliers_mask</span> <span class="o">=</span> <span class="p">(</span>
+        <a href="https://numpy.org/doc/stable/reference/generated/numpy.all.html#numpy.all" title="numpy.all" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">all</span></a><span class="p">(</span><span class="n">X</span> <span class="o">&gt;</span> <span class="p">[</span><span class="n">cutoffs_X0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cutoffs_X1</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+        <a href="https://numpy.org/doc/stable/reference/generated/numpy.all.html#numpy.all" title="numpy.all" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">all</span></a><span class="p">(</span><span class="n">X</span> <span class="o">&lt;</span> <span class="p">[</span><span class="n">cutoffs_X0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cutoffs_X1</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">plot_distribution</span><span class="p">(</span><span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">non_outliers_mask</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">non_outliers_mask</span><span class="p">],</span>
+                      <span class="n">hist_nbins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                      <span class="n">x0_label</span><span class="o">=</span><span class="s2">&quot;Median Income&quot;</span><span class="p">,</span>
+                      <span class="n">x1_label</span><span class="o">=</span><span class="s2">&quot;Number of households&quot;</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Zoom-in&quot;</span><span class="p">)</span>
+
+    <span class="n">norm</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.colors.Normalize.html#matplotlib.colors.Normalize" title="matplotlib.colors.Normalize" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span></a><span class="p">(</span><span class="n">y_full</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_full</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <a href="https://matplotlib.org/api/colorbar_api.html#matplotlib.colorbar.ColorbarBase" title="matplotlib.colorbar.ColorbarBase" class="sphx-glr-backref-module-matplotlib-colorbar sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mpl</span><span class="o">.</span><span class="n">colorbar</span><span class="o">.</span><span class="n">ColorbarBase</span></a><span class="p">(</span><span class="n">ax_colorbar</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+                              <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span>
+                              <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Color mapping for values of y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="original-data">
+<span id="results"></span><h2>Datos originales<a class="headerlink" href="#original-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cada transformación se traza mostrando dos características transformadas, con el gráfico de la izquierda mostrando el conjunto de datos, y el de la derecha ampliado para mostrar el conjunto de datos sin los valores marginales. La gran mayoría de las muestras están compactadas en un rango específico, [0, 10] para la mediana de ingresos y [0, 6] para el número de hogares. Observa que hay algunos valores atípicos marginales (algunos bloques tienen más de 1.200 hogares). Por lo tanto, un preprocesamiento específico puede ser muy beneficioso dependiendo de la aplicación. A continuación, presentamos algunas ideas y comportamientos de esos métodos de preprocesamiento en presencia de valores atípicos marginales.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Unscaled data, Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_001.png" />
+</section>
+<section id="standardscaler">
+<h2>StandardScaler<a class="headerlink" href="#standardscaler" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> elimina la media y escala los datos a la unidad de varianza. El escalado reduce el rango de los valores de las características como se muestra en la figura de la izquierda. Sin embargo, los valores atípicos influyen en el cálculo de la media empírica y la desviación estándar. Observa, en particular, que debido a que los valores atípicos de cada característica tienen diferentes magnitudes, la dispersión de los datos transformados de cada característica es muy diferente: la mayoría de los datos se encuentran en el intervalo [-2, 4] para la característica transformada de la mediana de los ingresos, mientras que los mismos datos están comprimidos en el intervalo más pequeño [-0,2, 0,2] para la transformación del número de hogares.</p>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> por lo tanto no puede garantizar escalas de características equilibradas en presencia de valores atípicos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Data after standard scaling, Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_002.png" />
+</section>
+<section id="minmaxscaler">
+<h2>MinMaxScaler<a class="headerlink" href="#minmaxscaler" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMaxScaler</span></code></a> reescala el conjunto de datos de forma que todos los valores de las características estén en el rango [0, 1], como se muestra en el panel derecho de abajo. Sin embargo, este escalado comprime todos los valores típicos en el estrecho rango [0, 0,005] para el número transformado de hogares.</p>
+<p>Tanto <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> como <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMaxScaler</span></code></a> son muy sensibles a la presencia de valores atípicos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Data after min-max scaling, Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_003.png" />
+</section>
+<section id="maxabsscaler">
+<h2>MaxAbsScaler<a class="headerlink" href="#maxabsscaler" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MaxAbsScaler.html#sklearn.preprocessing.MaxAbsScaler" title="sklearn.preprocessing.MaxAbsScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxAbsScaler</span></code></a> es similar a <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMaxScaler</span></code></a> excepto que los valores se mapean en el rango [0, 1]. En datos sólo positivos, ambos escaladores se comportan de manera similar. <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MaxAbsScaler.html#sklearn.preprocessing.MaxAbsScaler" title="sklearn.preprocessing.MaxAbsScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaxAbsScaler</span></code></a> por lo tanto también sufre la presencia de grandes valores atípicos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Data after max-abs scaling, Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_004.png" />
+</section>
+<section id="robustscaler">
+<h2>RobustScaler<a class="headerlink" href="#robustscaler" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>A diferencia de los escaladores anteriores, las estadísticas de centrado y escalado de <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a> se basan en percentiles y, por lo tanto, no están influidas por un número reducido de valores atípicos marginales muy grandes. En consecuencia, el rango resultante de los valores de las características transformadas es mayor que el de los escaladores anteriores y, lo que es más importante, son aproximadamente similares: para ambas características la mayoría de los valores transformados se encuentran en un rango de [-2, 3], como se ve en la figura ampliada. Observa que los propios valores atípicos siguen estando presentes en los datos transformados. Si se desea un recorte independiente de los valores atípicos, se requiere una transformación no lineal (ver más adelante).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Data after robust scaling, Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_005.png" />
+</section>
+<section id="powertransformer">
+<h2>PowerTransformer<a class="headerlink" href="#powertransformer" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.PowerTransformer.html#sklearn.preprocessing.PowerTransformer" title="sklearn.preprocessing.PowerTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">PowerTransformer</span></code></a> aplica una transformación de potencia a cada característica para hacer los datos más gaussianos con el fin de estabilizar la varianza y minimizar la asimetría. Actualmente se soportan las transformaciones Yeo-Johnson y Box-Cox, y el factor de escala óptimo se determina mediante una estimación de máxima verosimilitud en ambos métodos. Por defecto, <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.PowerTransformer.html#sklearn.preprocessing.PowerTransformer" title="sklearn.preprocessing.PowerTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">PowerTransformer</span></code></a> aplica una normalización de media cero y varianza unitaria. Ten en cuenta que Box-Cox sólo puede aplicarse a datos estrictamente positivos. Los ingresos y el número de hogares son estrictamente positivos, pero si hay valores negativos se prefiere la transformación de Yeo-Johnson.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">make_plot</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img alt="Data after power transformation (Yeo-Johnson), Full data, Zoom-in" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_all_scaling_006.png" />
+</li>
+<li><img alt="Data after power transformation (Box-Cox), Full data, Zoom-in" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_all_scaling_007.png" />
+</li>
+</ul>
+</section>
+<section id="quantiletransformer-uniform-output">
+<h2>QuantileTransformer (salida uniforme)<a class="headerlink" href="#quantiletransformer-uniform-output" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.QuantileTransformer.html#sklearn.preprocessing.QuantileTransformer" title="sklearn.preprocessing.QuantileTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantileTransformer</span></code></a> aplica una transformación no lineal de tal manera que la función de densidad de probabilidad de cada característica será mapeada a una distribución uniforme o gaussiana. En este caso, todos los datos, incluidos los valores atípicos, se asignarán a una distribución uniforme con el rango [0, 1], haciendo que los valores atípicos sean indistinguibles de los valores típicos.</p>
+<p><a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a> y <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.QuantileTransformer.html#sklearn.preprocessing.QuantileTransformer" title="sklearn.preprocessing.QuantileTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantileTransformer</span></code></a> son robustos a los valores atípicos en el sentido de que añadir o eliminar valores atípicos en el conjunto de entrenamiento producirá aproximadamente la misma transformación. Pero al contrario que <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a>, <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.QuantileTransformer.html#sklearn.preprocessing.QuantileTransformer" title="sklearn.preprocessing.QuantileTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantileTransformer</span></code></a> también colapsará automáticamente cualquier valor atípico ajustándolo a los límites de rango definidos a priori (0 y 1). Esto puede dar lugar a artefactos de saturación para los valores extremos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Data after quantile transformation (uniform pdf), Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_008.png" />
+</section>
+<section id="quantiletransformer-gaussian-output">
+<h2>QuantileTransformer (salida gaussiana)<a class="headerlink" href="#quantiletransformer-gaussian-output" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para mapear a una distribución Gaussian, establezca el parámetro <code class="docutils literal notranslate"><span class="pre">output_distribution='normal'</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Data after quantile transformation (gaussian pdf), Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_009.png" />
+</section>
+<section id="normalizer">
+<h2>Normalizador<a class="headerlink" href="#normalizer" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.Normalizer.html#sklearn.preprocessing.Normalizer" title="sklearn.preprocessing.Normalizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Normalizer</span></code></a> reescala el vector de cada muestra para que tenga norma unitaria, independientemente de la distribución de las muestras. Se puede ver en las dos figuras de abajo donde todas las muestras son mapeadas en el círculo de la unidad. En nuestro ejemplo, las dos características seleccionadas sólo tienen valores positivos, por lo que los datos transformados sólo se encuentran en el cuadrante positivo. Este no sería el caso si algunas características originales tuvieran una mezcla de valores positivos y negativos.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make_plot</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+
+<a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Data after sample-wise L2 normalizing, Full data, Zoom-in" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_all_scaling_010.png" />
+<p class="sphx-glr-timing"><strong>Tiempo total de ejecución del script:</strong> (0 minutos 10.126 segundos)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-preprocessing-plot-all-scaling-py">
+<div class="binder-badge docutils container">
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/0.24.X?urlpath=lab/tree/notebooks/auto_examples/preprocessing/plot_all_scaling.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo25.svg" width="150px" /></a>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/24475810034a0d0d190a9de0f87d72b5/plot_all_scaling.py"><code class="xref download docutils literal notranslate"><span class="pre">Descarga</span> <span class="pre">el</span> <span class="pre">código</span> <span class="pre">fuente</span> <span class="pre">de</span> <span class="pre">Python:</span> <span class="pre">plot_all_scaling.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/e60e99adef360baabc49b925646a39d9/plot_all_scaling.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Descarga</span> <span class="pre">el</span> <span class="pre">cuaderno</span> <span class="pre">Jupyter:</span> <span class="pre">plot_all_scaling.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Galería generada por Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/auto_examples/preprocessing/plot_all_scaling.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
