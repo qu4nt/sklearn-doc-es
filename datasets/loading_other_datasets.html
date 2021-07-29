@@ -1,0 +1,608 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>7.4. Cargando otros conjuntos de datos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/datasets/loading_other_datasets.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../modules/classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sample_generators.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="7.3. Conjuntos de datos generados">Prev</a><a href="../datasets.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="7. Herramientas de carga de conjuntos de datos">Arriba</a>
+            <a href="../computing.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="8. Calculando con scikit-learn">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+            
+              <ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              <li>
+                <a href="../user_guide.html" class="sk-toc-active">Manual de Usuario</a>
+              </li>
+              <ul>
+              
+                <li>
+                  <a href="../supervised_learning.html" class="">1. Aprendizaje supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../unsupervised_learning.html" class="">2. Aprendizaje no supervisado</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../model_selection.html" class="">3. Selección y evaluación del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../inspection.html" class="">4. Inspección</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../visualizations.html" class="">5. Visualizaciones</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../data_transforms.html" class="">6. Transformaciones de conjuntos de datos</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../datasets.html" class="sk-toc-active">7. Herramientas de carga de conjuntos de datos</a>
+                  
+                  <ul>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="toy_dataset.html">7.1. Conjuntos de datos de juguetes</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="real_world.html">7.2. Conjuntos de datos del mundo real</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="sample_generators.html">7.3. Conjuntos de datos generados</a>
+                      </li>
+                    
+                      <li class="sk-toctree-l3">
+                        <a href="">7.4. Cargando otros conjuntos de datos</a>
+                      </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+                <li>
+                  <a href="../computing.html" class="">8. Calculando con scikit-learn</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../modules/model_persistence.html" class="">9. Persistencia del modelo</a>
+                  
+                </li>
+              
+                <li>
+                  <a href="../common_pitfalls.html" class="">10. Fallas comunes y prácticas recomendadas</a>
+                  
+                </li>
+              
+              </ul>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </ul>
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="loading-other-datasets">
+<span id="id1"></span><h1><span class="section-number">7.4. </span>Cargando otros conjuntos de datos<a class="headerlink" href="#loading-other-datasets" title="Enlazar permanentemente con este título">¶</a></h1>
+<section id="sample-images">
+<span id="id2"></span><h2><span class="section-number">7.4.1. </span>Imágenes de ejemplo<a class="headerlink" href="#sample-images" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Scikit-learn también incorpora un par de imágenes JPEG de muestra publicadas bajo licencia Creative Commons por sus autores. Estas imágenes pueden ser útiles para probar los algoritmos y las líneas de producción en datos 2D.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../modules/generated/sklearn.datasets.load_sample_images.html#sklearn.datasets.load_sample_images" title="sklearn.datasets.load_sample_images"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sample_images</span></code></a>()</p></td>
+<td><p>Cargar imágenes de muestra para la manipulación de imágenes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../modules/generated/sklearn.datasets.load_sample_image.html#sklearn.datasets.load_sample_image" title="sklearn.datasets.load_sample_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sample_image</span></code></a>(image_name)</p></td>
+<td><p>Carga el arreglo numpy de una sola imagen de muestra</p></td>
+</tr>
+</tbody>
+</table>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_color_quantization.html"><img alt="../_images/sphx_glr_plot_color_quantization_001.png" class="align-right" src="../_images/sphx_glr_plot_color_quantization_001.png" style="width: 192.0px; height: 144.0px;" /></a>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>La codificación por defecto de las imágenes se basa en el dtype <code class="docutils literal notranslate"><span class="pre">uint8</span></code> para ahorrar memoria. A menudo los algoritmos de aprendizaje automático funcionan mejor si la entrada se convierte primero a una representación de punto flotante. Además, si planeas usar <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplpt.imshow</span></code>, no olvides escalar al rango 0 - 1 como se hace en el siguiente ejemplo.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_color_quantization.html#sphx-glr-auto-examples-cluster-plot-color-quantization-py"><span class="std std-ref">Cuantificación del color utilizando K-Medias</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="datasets-in-svmlight-libsvm-format">
+<span id="libsvm-loader"></span><h2><span class="section-number">7.4.2. </span>Conjuntos de datos en formato svmlight / libsvm<a class="headerlink" href="#datasets-in-svmlight-libsvm-format" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>scikit-learn incluye funciones de utilidad para cargar conjuntos de datos en el formato svmlight / libsvm. En este formato, cada línea tiene la forma <code class="docutils literal notranslate"><span class="pre">&lt;label&gt;</span> <span class="pre">&lt;feature-id&gt;:&lt;feature-value&gt;</span> <span class="pre">&lt;feature-id&gt;:&lt;feature-value&gt;</span> <span class="pre">...</span></code>. Este formato es especialmente adecuado para conjuntos de datos dispersos. En este módulo, se utilizan matrices CSR dispersas de scipy para <code class="docutils literal notranslate"><span class="pre">X</span></code> y arreglos de numpy para <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>Puedes cargar un conjunto de datos como los siguientes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_svmlight_file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">load_svmlight_file</span><span class="p">(</span><span class="s2">&quot;/path/to/train_dataset.txt&quot;</span><span class="p">)</span>
+<span class="gp">... </span>                                                        
+</pre></div>
+</div>
+<p>También puedes cargar dos conjuntos de datos (o más) a la vez:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">load_svmlight_files</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="s2">&quot;/path/to/train_dataset.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;/path/to/test_dataset.txt&quot;</span><span class="p">))</span>
+<span class="gp">... </span>                                                        
+</pre></div>
+</div>
+<p>En este caso, se garantiza que <code class="docutils literal notranslate"><span class="pre">X_train</span></code> y <code class="docutils literal notranslate"><span class="pre">X_test</span></code> tengan el mismo número de características. Otra forma de lograr el mismo resultado es corregir el número de características:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">load_svmlight_file</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;/path/to/test_dataset.txt&quot;</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">... </span>                                                        
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Enlaces relacionados:</p>
+<p><a href="#id1"><span class="problematic" id="id2">_`</span></a>Conjuntos de datos públicos en formato svmlight / libsvm: <a class="reference external" href="https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets">https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets</a></p>
+<p><span class="target" id="implementacion-mas-rapida-compatible-con-api">Implementación más rápida compatible con API</span>: <a class="reference external" href="https://github.com/mblondel/svmlight-loader">https://github.com/mblondel/svmlight-loader</a></p>
+</div>
+</section>
+<section id="downloading-datasets-from-the-openml-org-repository">
+<span id="openml"></span><h2><span class="section-number">7.4.3. </span>Descargando conjuntos de datos desde el repositorio openml.org<a class="headerlink" href="#downloading-datasets-from-the-openml-org-repository" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference external" href="https://openml.org">openml.org</a> es un repositorio público para datos de aprendizaje automático y experimentos, que permite a todos subir conjuntos de datos abiertos.</p>
+<p>El paquete <code class="docutils literal notranslate"><span class="pre">sklearn.datasets</span></code> es capaz de descargar conjuntos de datos del repositorio usando la función <a class="reference internal" href="../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.datasets.fetch_openml</span></code></a>.</p>
+<p>Por ejemplo, para descargar un conjunto de datos de expresiones genéticas en cerebros de ratones:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;miceprotein&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Para especificar completamente un conjunto de datos, debes proporcionar un nombre y una versión, aunque la versión es opcional, ver <a class="reference internal" href="#openml-versions"><span class="std std-ref">Versiones del conjunto de datos</span></a> a continuación. El conjunto de datos contiene un total de 1080 ejemplos pertenecientes a 8 clases diferentes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(1080, 77)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(1080,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">mice</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">array([&#39;c-CS-m&#39;, &#39;c-CS-s&#39;, &#39;c-SC-m&#39;, &#39;c-SC-s&#39;, &#39;t-CS-m&#39;, &#39;t-CS-s&#39;, &#39;t-SC-m&#39;, &#39;t-SC-s&#39;], dtype=object)</span>
+</pre></div>
+</div>
+<p>Puedes obtener más información sobre el conjunto de datos mirando los atributos <code class="docutils literal notranslate"><span class="pre">DESCR</span></code> y <code class="docutils literal notranslate"><span class="pre">details</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">mice</span><span class="o">.</span><span class="n">DESCR</span><span class="p">)</span> 
+<span class="go">**Author**: Clara Higuera, Katheleen J. Gardiner, Krzysztof J. Cios</span>
+<span class="go">**Source**: [UCI](https://archive.ics.uci.edu/ml/datasets/Mice+Protein+Expression) - 2015</span>
+<span class="go">**Please cite**: Higuera C, Gardiner KJ, Cios KJ (2015) Self-Organizing</span>
+<span class="go">Feature Maps Identify Proteins Critical to Learning in a Mouse Model of Down</span>
+<span class="go">Syndrome. PLoS ONE 10(6): e0129126...</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span><span class="o">.</span><span class="n">details</span> 
+<span class="go">{&#39;id&#39;: &#39;40966&#39;, &#39;name&#39;: &#39;MiceProtein&#39;, &#39;version&#39;: &#39;4&#39;, &#39;format&#39;: &#39;ARFF&#39;,</span>
+<span class="go">&#39;upload_date&#39;: &#39;2017-11-08T16:00:15&#39;, &#39;licence&#39;: &#39;Public&#39;,</span>
+<span class="go">&#39;url&#39;: &#39;https://www.openml.org/data/v1/download/17928620/MiceProtein.arff&#39;,</span>
+<span class="go">&#39;file_id&#39;: &#39;17928620&#39;, &#39;default_target_attribute&#39;: &#39;class&#39;,</span>
+<span class="go">&#39;row_id_attribute&#39;: &#39;MouseID&#39;,</span>
+<span class="go">&#39;ignore_attribute&#39;: [&#39;Genotype&#39;, &#39;Treatment&#39;, &#39;Behavior&#39;],</span>
+<span class="go">&#39;tag&#39;: [&#39;OpenML-CC18&#39;, &#39;study_135&#39;, &#39;study_98&#39;, &#39;study_99&#39;],</span>
+<span class="go">&#39;visibility&#39;: &#39;public&#39;, &#39;status&#39;: &#39;active&#39;,</span>
+<span class="go">&#39;md5_checksum&#39;: &#39;3c479a6885bfa0438971388283a1ce32&#39;}</span>
+</pre></div>
+</div>
+<p>El <code class="docutils literal notranslate"><span class="pre">DESCR</span></code> contiene una descripción de texto libre de los datos, mientras que <code class="docutils literal notranslate"><span class="pre">details</span></code> contiene un diccionario de metadatos almacenados por openml, como el id del conjunto de datos. Para más detalles, consulta la documentación de OpenML &lt;<a class="reference external" href="https://docs.openml.org/#data">https://docs.openml.org/#data</a>&gt;`_ El <code class="docutils literal notranslate"><span class="pre">data_id</span></code> del conjunto de datos de proteínas de ratones es 40966, y puede utilizarlo (o el nombre) para obtener más información sobre el conjunto de datos en el sitio web de openml:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span><span class="o">.</span><span class="n">url</span>
+<span class="go">&#39;https://www.openml.org/d/40966&#39;</span>
+</pre></div>
+</div>
+<p>El <code class="docutils literal notranslate"><span class="pre">data_id</span></code> también identifica de forma única un conjunto de datos de OpenML:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">40966</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span><span class="o">.</span><span class="n">details</span> 
+<span class="go">{&#39;id&#39;: &#39;4550&#39;, &#39;name&#39;: &#39;MiceProtein&#39;, &#39;version&#39;: &#39;1&#39;, &#39;format&#39;: &#39;ARFF&#39;,</span>
+<span class="go">&#39;creator&#39;: ...,</span>
+<span class="go">&#39;upload_date&#39;: &#39;2016-02-17T14:32:49&#39;, &#39;licence&#39;: &#39;Public&#39;, &#39;url&#39;:</span>
+<span class="go">&#39;https://www.openml.org/data/v1/download/1804243/MiceProtein.ARFF&#39;, &#39;file_id&#39;:</span>
+<span class="go">&#39;1804243&#39;, &#39;default_target_attribute&#39;: &#39;class&#39;, &#39;citation&#39;: &#39;Higuera C,</span>
+<span class="go">Gardiner KJ, Cios KJ (2015) Self-Organizing Feature Maps Identify Proteins</span>
+<span class="go">Critical to Learning in a Mouse Model of Down Syndrome. PLoS ONE 10(6):</span>
+<span class="go">e0129126. [Web Link] journal.pone.0129126&#39;, &#39;tag&#39;: [&#39;OpenML100&#39;, &#39;study_14&#39;,</span>
+<span class="go">&#39;study_34&#39;], &#39;visibility&#39;: &#39;public&#39;, &#39;status&#39;: &#39;active&#39;, &#39;md5_checksum&#39;:</span>
+<span class="go">&#39;3c479a6885bfa0438971388283a1ce32&#39;}</span>
+</pre></div>
+</div>
+<section id="dataset-versions">
+<span id="openml-versions"></span><h3><span class="section-number">7.4.3.1. </span>Versiones del conjunto de datos<a class="headerlink" href="#dataset-versions" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Un conjunto de datos se especifica de forma exclusiva por su <code class="docutils literal notranslate"><span class="pre">data_id</span></code>, pero no necesariamente por su nombre. Pueden existir varias «versiones» diferentes de un conjunto de datos con el mismo nombre que pueden contener conjuntos de datos totalmente diferentes. Si se descubre que una versión concreta de un conjunto de datos contiene problemas importantes, puede desactivarse. Si se utiliza un nombre para especificar un conjunto de datos, se obtendrá la versión más antigua de un conjunto de datos que aún esté activa. Esto significa que <code class="docutils literal notranslate"><span class="pre">fetch_openml(name=&quot;miceprotein&quot;)</span></code> puede dar diferentes resultados en diferentes momentos si las versiones anteriores se vuelven inactivas. Puedes ver que el conjunto de datos con <code class="docutils literal notranslate"><span class="pre">data_id</span></code> 40966 que hemos obtenido arriba es la primera versión del conjunto de datos «miceprotein»:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mice</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>  
+<span class="go">&#39;1&#39;</span>
+</pre></div>
+</div>
+<p>De hecho, este conjunto de datos sólo tiene una versión. El conjunto de datos iris por otro lado tiene múltiples versiones:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>  
+<span class="go">&#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>  
+<span class="go">&#39;61&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_61</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">61</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_61</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+<span class="go">&#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_61</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="go">&#39;61&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_969</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">969</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_969</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+<span class="go">&#39;3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_969</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="go">&#39;969&#39;</span>
+</pre></div>
+</div>
+<p>Al especificar el conjunto de datos por el nombre «iris» se obtiene la versión más baja, la versión 1, con el <code class="docutils literal notranslate"><span class="pre">data_id</span></code> 61. Para asegurarte de obtener siempre este conjunto de datos exacto, lo más seguro es especificarlo por el conjunto de datos <code class="docutils literal notranslate"><span class="pre">data_id</span></code>. El otro conjunto de datos, con <code class="docutils literal notranslate"><span class="pre">data_id</span></code> 969, es la versión 3 (la versión 2 ha quedado inactiva), y contiene una versión binarizada de los datos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">iris_969</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">array([&#39;N&#39;, &#39;P&#39;], dtype=object)</span>
+</pre></div>
+</div>
+<p>También puedes especificar tanto el nombre como la versión, que también identifica de forma única el conjunto de datos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">iris_version_3</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;iris&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_version_3</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span>
+<span class="go">&#39;3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_version_3</span><span class="o">.</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="go">&#39;969&#39;</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Vanschoren, van Rijn, Bischl and Torgo
+<a class="reference external" href="https://arxiv.org/pdf/1407.7722.pdf">«OpenML: networked science in machine learning»</a>,
+ACM SIGKDD Explorations Newsletter, 15(2), 49-60, 2014.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="loading-from-external-datasets">
+<span id="external-datasets"></span><h2><span class="section-number">7.4.4. </span>Cargando desde conjuntos de datos externos<a class="headerlink" href="#loading-from-external-datasets" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>scikit-learn funciona con cualquier dato numérico almacenado como arreglos numpy o matrices dispersas scipy. Otros tipos que son convertibles a arreglos numéricos como DataFrame de pandas también son aceptables.</p>
+<p>Aquí hay algunas formas recomendadas de cargar datos de columnas estándar en un formato utilizable por scikit-learn:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/io.html">pandas.io</a> proporciona herramientas para leer datos desde formatos comunes como CSV, Excel, JSON y SQL. Los DataFrames también pueden construirse a partir de listas de tuplas o dicts. Pandas maneja datos heterogéneos sin problemas y proporciona herramientas para la manipulación y la conversión en una matriz numérica adecuada para scikit-learn.</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/io.html">scipy.io</a> se especializa en formatos binarios a menudo utilizados en el contexto científico de computación como .mat y .arff</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/routines.io.html">numpy/routines.io</a> para la carga estándar de datos columnares en arreglos numpy</p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">datasets.load_svmlight_file</span></code> de scikit-learn para el formato svmlight o libSVM disperso</p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">datasets.load_files</span></code> de scikit-learn para directorios de archivos de texto donde el nombre de cada directorio es el nombre de cada categoría y cada archivo dentro de cada directorio corresponde a una muestra de esa categoría</p></li>
+</ul>
+<p>Para algunos datos variados como imágenes, vídeos y audio, puedes referirte a:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scikit-image.org/docs/dev/api/skimage.io.html">skimage.io</a> o <a class="reference external" href="https://imageio.readthedocs.io/en/latest/userapi.html">Imageio</a> para cargar imágenes y vídeos en arreglos numéricos</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.io.wavfile.read.html">scipy.io.wavfile.read</a> para leer archivos WAV en un arreglo numpy</p></li>
+</ul>
+<p>Características categóricas (o nominales) almacenadas como cadenas (comunes en DataFrames de pandas) necesitarán convertir a características numéricas usando <a class="reference internal" href="../modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> o <a class="reference internal" href="../modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder" title="sklearn.preprocessing.OrdinalEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code></a> o similar. Ver <a class="reference internal" href="../modules/preprocessing.html#preprocessing"><span class="std std-ref">Preprocesamiento de los datos</span></a>.</p>
+<p>Nota: si administras tus propios datos numéricos se recomienda utilizar un formato de archivo optimizado como HDF5 para reducir los tiempos de carga de datos. Varias bibliotecas como H5Py, PyTables y pandas proporcionan una interfaz Python para leer y escribir datos en ese formato.</p>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/datasets/loading_other_datasets.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
