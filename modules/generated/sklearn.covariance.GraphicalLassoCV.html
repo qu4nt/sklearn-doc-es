@@ -1,0 +1,638 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.covariance.GraphicalLassoCV &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.covariance.GraphicalLassoCV.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.covariance.GraphicalLasso.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.covariance.GraphicalLasso">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.covariance.LedoitWolf.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.covariance.LedoitWolf">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code>.GraphicalLassoCV</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-covariance-graphicallassocv">Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.covariance.GraphicalLassoCV</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-covariance-graphicallassocv">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a>.GraphicalLassoCV<a class="headerlink" href="#sklearn-covariance-graphicallassocv" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.covariance.</span></span><span class="sig-name descname"><span class="pre">GraphicalLassoCV</span></span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Covarianza inversa dispersa con elección de validación cruzada de la penalidad l1.</p>
+<p>Ver entrada de glosario para <a class="reference internal" href="../../glossary.html#term-cross-validation-estimator"><span class="xref std std-term">cross-validation estimator</span></a>.</p>
+<p>Más información en el <a class="reference internal" href="../covariance.html#sparse-inverse-covariance"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión v0.20: </span>GraphLassoCV ha sido renombrado a GraphicalLassoCV</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>alphas</strong><span class="classifier">entero o array-like de la forma (n_alphas,), dtype=float, default=4</span></dt><dd><p>Si un entero es dado, corrige el número de puntos en las rejillas de alfa a ser usadas. Si una lista es dada, devuelve la rejilla a ser usada. Ver las notas en la clase docstring para mas detalles. El rango es (0, inf] cuando recibe floats.</p>
+</dd>
+<dt><strong>n_refinements</strong><span class="classifier">int, default=4</span></dt><dd><p>El número de veces que se refina la rejilla. No usado si se pasan valores explícitos de alfas. El rango es [1, inf).</p>
+</dd>
+<dt><strong>cv</strong><span class="classifier">int, generador de validación cruzada o iterable, default=None</span></dt><dd><p>Determina la estrategia de división de la validación cruzada. Las posibles entradas para cv son:</p>
+<ul class="simple">
+<li><p>None, para usar la validación cruzada de 5 partes por defecto,</p></li>
+<li><p>entero, para especificar el número de pliegues.</p></li>
+<li><p><a class="reference internal" href="../../glossary.html#term-CV-splitter"><span class="xref std std-term">separador de CV</span></a>,</p></li>
+<li><p>Un iterable que produce divisiones (train, test) como arreglos de índices.</p></li>
+</ul>
+<p>Para entradas None/de enteros se usa <code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code>.</p>
+<p>Consulta <a class="reference internal" href="../cross_validation.html#cross-validation"><span class="std std-ref">Manual de usuario</span></a> para las diversas estrategias de validación cruzada que pueden ser utilizadas aquí.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.20: </span><code class="docutils literal notranslate"><span class="pre">cv</span></code> es el valor predeterminado si None cambió de 3 partes a 5 partes.</p>
+</div>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>La tolerancia para declarar la convergencia: si la brecha dual va por debajo de este valor, se detienen las iteraciones. El rango es (0, inf].</p>
+</dd>
+<dt><strong>enet_tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>La tolerancia para el solucionador de red elástica utilizado para calcular la dirección de descenso. Este parámetro controla la precisión de la dirección de búsqueda para una actualización de una columna determinada, no del estimado de parámetro general. Sólo se utiliza para mode=”cd”. El rango es (0, inf].</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=100</span></dt><dd><p>Número máximo de iteraciones.</p>
+</dd>
+<dt><strong>mode</strong><span class="classifier">{“cd”, “lars”}, default=”cd”</span></dt><dd><p>El solucionador Lasso a usar: descenso de coordenadas o LARS. Use LARS para gráficos subyacentes muy dispersos, el número de características es mayor que el número de muestras. De otra forma se prefiere el dc (cd en inglés), que es más estable numéricamente.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>número de trabajos a ejecutar en paralelo. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que esté en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa utilizar todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión v0.20: </span><code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> por defecto cambiado de 1 a Ninguna</p>
+</div>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si verbose es True, la función objetiva y la brecha de dualidad se imprimen en cada iteración.</p>
+</dd>
+<dt><strong>assume_centered</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es True, los datos no son centrados antes del calculó. Útil al trabajar con datos cuya media es casí, pero no igual a cero. Si es False, los datos son centrados antes del cálculo.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>location_</strong><span class="classifier">ndarray de forma (n_features,)</span></dt><dd><p>Ubicación estimada, es decir, la media estimada.</p>
+</dd>
+<dt><strong>covariance_</strong><span class="classifier">ndarray de forma (n_features, n_features)</span></dt><dd><p>Matriz de covarianza estimada.</p>
+</dd>
+<dt><strong>precision_</strong><span class="classifier">ndarray de forma (n_features, n_features)</span></dt><dd><p>Matriz de precisión estimada (covarianza inversa).</p>
+</dd>
+<dt><strong>alpha_</strong><span class="classifier">float</span></dt><dd><p>Parámetro de penalización seleccionado.</p>
+</dd>
+<dt><strong>cv_alphas_</strong><span class="classifier">lista de forma (n_alphas,), dtype=float</span></dt><dd><p>Todos los parámetros de penalización explorados.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Obsoleto desde la versión 0.24: </span>El atributo <code class="docutils literal notranslate"><span class="pre">cv_alphas_</span></code> está obsoleto en la versión 0.24 a favor de <code class="docutils literal notranslate"><span class="pre">cv_results['alphas']</span></code> y será eliminado en la versión 1.1 (renombrado desde 0.26).</p>
+</div>
+</dd>
+<dt><strong>grid_scores_</strong><span class="classifier">ndarray de forma (n_alphas, n_folds)</span></dt><dd><p>Puntaje de log-likelihood en datos excluidos a través de los pliegues.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Obsoleto desde la versión 0.24: </span>El atributo <code class="docutils literal notranslate"><span class="pre">grid_scores_</span></code> está obsoleto en la versión 0.24 a favor de <code class="docutils literal notranslate"><span class="pre">cv_results_</span></code> y será eliminado en la versión 1.1 (renombrado desde 0.26).</p>
+</div>
+</dd>
+<dt><strong>cv_results_</strong><span class="classifier">dict de ndarrays</span></dt><dd><p>Un dict con las claves:</p>
+<dl class="simple">
+<dt>alphas<span class="classifier">ndarray de forma (n_alphas,)</span></dt><dd><p>Todos los parámetros de penalización explorados.</p>
+</dd>
+<dt>split(k)_score<span class="classifier">ndarray de forma (n_alphas,)</span></dt><dd><p>Puntaje de log-likelihood en datos excluidos a través del pliegue (k).</p>
+</dd>
+<dt>mean_score<span class="classifier">ndarray de forma (n_alphas,)</span></dt><dd><p>Media de puntajes sobre los pliegues.</p>
+</dd>
+<dt>std_score<span class="classifier">ndarray de forma (n_alphas,)</span></dt><dd><p>Desviación estándar de los puntajes sobre los pliegues.</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+</dd>
+<dt><strong>n_iter_</strong><span class="classifier">int</span></dt><dd><p>Número de iteraciones ejecutadas para el alfa óptimo.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.covariance.graphical_lasso.html#sklearn.covariance.graphical_lasso" title="sklearn.covariance.graphical_lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graphical_lasso</span></code></a>, <a class="reference internal" href="sklearn.covariance.GraphicalLasso.html#sklearn.covariance.GraphicalLasso" title="sklearn.covariance.GraphicalLasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GraphicalLasso</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>La búsqueda del parámetro de penalización óptimo (alpha) se hace en una rejilla refinada iterativamente: primero los puntajes validados de manera cruzada son calculados, y entonces una nueva rejilla es refinada y centrada alrededor del máximo, y así sucesivamente.</p>
+<p>Uno de los retos a los que se enfrenta aquí es que los solucionadores podrían no converger a un estimado bien condicionado. Los correspondientes valores de alpha entonces son devueltos como valores faltantes, pero el óptimo quizás sea cercano a estos valores faltantes.</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.covariance</span> <span class="kn">import</span> <span class="n">GraphicalLassoCV</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">true_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="gp">... </span>                     <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="gp">... </span>                     <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+<span class="gp">... </span>                     <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>                                  <span class="n">cov</span><span class="o">=</span><span class="n">true_cov</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cov</span> <span class="o">=</span> <span class="n">GraphicalLassoCV</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">cov</span><span class="o">.</span><span class="n">covariance_</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">array([[0.816, 0.051, 0.22 , 0.017],</span>
+<span class="go">       [0.051, 0.364, 0.018, 0.036],</span>
+<span class="go">       [0.22 , 0.018, 0.322, 0.094],</span>
+<span class="go">       [0.017, 0.036, 0.094, 0.69 ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">cov</span><span class="o">.</span><span class="n">location_</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">array([0.073, 0.04 , 0.038, 0.143])</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.covariance.GraphicalLassoCV.error_norm" title="sklearn.covariance.GraphicalLassoCV.error_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">error_norm</span></code></a></p></td>
+<td><p>Calcula el Error Cuadrático Medio entre dos estimadores de covarianza.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.covariance.GraphicalLassoCV.fit" title="sklearn.covariance.GraphicalLassoCV.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ajusta el modelo de covarianza GraphicalLasso a X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.covariance.GraphicalLassoCV.get_params" title="sklearn.covariance.GraphicalLassoCV.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.covariance.GraphicalLassoCV.get_precision" title="sklearn.covariance.GraphicalLassoCV.get_precision"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_precision</span></code></a></p></td>
+<td><p>Colector para la matriz de precisión.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.covariance.GraphicalLassoCV.mahalanobis" title="sklearn.covariance.GraphicalLassoCV.mahalanobis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mahalanobis</span></code></a></p></td>
+<td><p>Calcula las distancias de mahalanobis cuadráticas de las observaciones dadas.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.covariance.GraphicalLassoCV.score" title="sklearn.covariance.GraphicalLassoCV.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Calcula el log-likelihood de un conjunto de datos Gaussiano con <code class="docutils literal notranslate"><span class="pre">self.covariance_</span></code> como un estimador de su matriz de covarianza.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.covariance.GraphicalLassoCV.set_params" title="sklearn.covariance.GraphicalLassoCV.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV.error_norm">
+<span class="sig-name descname"><span class="pre">error_norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV.error_norm" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula el Error Cuadrático Medio entre dos estimadores de covarianza. (En el sentido de la norma Frobenius).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>comp_cov</strong><span class="classifier">array-like de forma (n_features, n_features)</span></dt><dd><p>La covarianza con la cual se compara.</p>
+</dd>
+<dt><strong>norm</strong><span class="classifier">{«frobenius», «spectral»}, default=»frobenius»</span></dt><dd><p>El tipo de norma utilizada para calcular el error. Tipos de error disponibles: - “frobenius” (predeterminado): sqrt(tr(A^t.)) - “spectral”: sqrt(max(eigenvalues(A^t.A)) donde A es el error <code class="docutils literal notranslate"><span class="pre">(comp_cov</span> <span class="pre">-</span> <span class="pre">self.covariance_)</span></code>.</p>
+</dd>
+<dt><strong>scaling</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True (predeterminado), la norma de error cuadrático es dividida por n_features. Si es False, la norma de error cuadrático no es reescalada.</p>
+</dd>
+<dt><strong>squared</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si se calcula la norma de error cuadrático o la norma de error. Si es True (predeterminado) se devuelve la norma de error cuadrático. Si es False, se devuelve la norma de error.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>result</strong><span class="classifier">float</span></dt><dd><p>El Error Cuadrático Medio (en el sentido de la norma Frobenius) entre los estimadores de covarianza <code class="docutils literal notranslate"><span class="pre">self</span></code> y <code class="docutils literal notranslate"><span class="pre">comp_cov</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ajusta el modelo de covarianza GraphicalLasso a X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Datos desde los cuales calcular la estimación de covarianza</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd><p>No se utiliza, está presente para la coherencia de la API por convención.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">objeto</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de parámetros asignados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV.get_precision">
+<span class="sig-name descname"><span class="pre">get_precision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV.get_precision" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Colector para la matriz de precisión.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>precision_</strong><span class="classifier">array-like de forma (n_features, n_features)</span></dt><dd><p>La matriz de precisión asociada al objeto de covariancia actual.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV.mahalanobis">
+<span class="sig-name descname"><span class="pre">mahalanobis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV.mahalanobis" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula las distancias de mahalanobis cuadráticas de las observaciones dadas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Las observaciones, las distancias Mahalanobis de lo que calculamos. Se asume que las observaciones se extraen de la misma distribución que utilizaron los datos en el ajuste.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>dist</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>Distancias de Mahalanobis cuadráticas de las observaciones.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula el log-likelihood de un conjunto de datos Gaussiano con <code class="docutils literal notranslate"><span class="pre">self.covariance_</span></code> como un estimador de su matriz de covarianza.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X_test</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Los datos de prueba de los cuales calculamos la probabilidad, donde n_samples es el número de muestras y n_features es el número de características. Se asume que X_test se extrae de la misma distribución que los datos utilizados (incluyendo el centrado).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd><p>No se utiliza, está presente para la coherencia de la API por convención.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>res</strong><span class="classifier">float</span></dt><dd><p>La probabilidad del conjunto de datos con <code class="docutils literal notranslate"><span class="pre">self.covariance_</span></code> como un estimador de su matriz de covarianza.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.covariance.GraphicalLassoCV.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.covariance.GraphicalLassoCV.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-covariance-graphicallassocv">
+<h2>Ejemplos usando <code class="docutils literal notranslate"><span class="pre">sklearn.covariance.GraphicalLassoCV</span></code><a class="headerlink" href="#examples-using-sklearn-covariance-graphicallassocv" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example employs several unsupervised learning techniques to extract the stock market struc..."><figure class="align-default" id="id1">
+<img alt="Visualizing the stock market structure" src="../../_images/sphx_glr_plot_stock_market_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/applications/plot_stock_market.html#sphx-glr-auto-examples-applications-plot-stock-market-py"><span class="std std-ref">Visualización de la estructura bursátil</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.covariance.GraphicalLassoCV.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
