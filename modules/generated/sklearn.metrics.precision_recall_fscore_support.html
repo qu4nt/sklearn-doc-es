@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.metrics.precision_recall_fscore_support &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.metrics.precision_recall_curve.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.metrics.precision_recall_curve">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.metrics.precision_score.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.metrics.precision_score">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics</span></code>.precision_recall_fscore_support</a></li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-metrics-precision-recall-fscore-support">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.metrics" title="sklearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics</span></code></a>.precision_recall_fscore_support<a class="headerlink" href="#sklearn-metrics-precision-recall-fscore-support" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sklearn.metrics.precision_recall_fscore_support">
+<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">precision_recall_fscore_support</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.metrics.precision_recall_fscore_support" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula precisión, exhaustividad, valor F y el soporte para cada clase.</p>
+<p>La precisión es la relación <code class="docutils literal notranslate"><span class="pre">tp</span> <span class="pre">/</span> <span class="pre">(tp</span> <span class="pre">+</span> <span class="pre">fp)</span></code> donde <code class="docutils literal notranslate"><span class="pre">tp</span></code> es el número de verdaderos positivos y <code class="docutils literal notranslate"><span class="pre">fp</span></code> el número de falsos positivos. La precisión es intuitivamente la capacidad del clasificador de no etiquetar como positiva una muestra que es negativa.</p>
+<p>La exhaustividad es la relación <code class="docutils literal notranslate"><span class="pre">tp</span> <span class="pre">/</span> <span class="pre">(tp</span> <span class="pre">+</span> <span class="pre">fn)</span></code> donde <code class="docutils literal notranslate"><span class="pre">tp</span></code> es el número de verdaderos positivos y <code class="docutils literal notranslate"><span class="pre">fn</span></code> el número de falsos negativos. La exhaustividad es, intuitivamente, la capacidad del clasificador para encontrar todas las muestras positivas.</p>
+<p>El valor F-beta puede interpretarse como una media ponderada armónica de la precisión y exhaustividad, donde un valor F-beta alcanza su mejor valor a 1 y la peor valor a 0.</p>
+<p>El valor F-beta pondera más la exhaustividad que la precisión por un factor de <code class="docutils literal notranslate"><span class="pre">beta</span></code>. <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">==</span> <span class="pre">1,0</span></code> significa que la exhaustividad y la precisión tienen la misma importancia.</p>
+<p>El soporte es el número de ocurrencias de cada clase en <code class="docutils literal notranslate"><span class="pre">y_true</span></code>.</p>
+<p>Si <code class="docutils literal notranslate"><span class="pre">pos_label</span> <span class="pre">es</span> <span class="pre">None</span></code> y en la clasificación binaria, esta función devuelve la precisión promedio, exhaustivodad y valor F si <code class="docutils literal notranslate"><span class="pre">average</span></code> es uno de <code class="docutils literal notranslate"><span class="pre">'micro'</span></code>, <code class="docutils literal notranslate"><span class="pre">'macro'</span></code>, <code class="docutils literal notranslate"><span class="pre">'weighted'</span></code> o <code class="docutils literal notranslate"><span class="pre">'samples'</span></code>.</p>
+<p>Más información en el <a class="reference internal" href="../model_evaluation.html#precision-recall-f-measure-metrics"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>y_true</strong><span class="classifier">array-like 1d o arreglo indicador de etiqueta / matriz dispersa</span></dt><dd><p>Valores objetivo reales (correctos).</p>
+</dd>
+<dt><strong>y_pred</strong><span class="classifier">array-like 1d o arreglo indicador de etiqueta / matriz dispersa</span></dt><dd><p>Objetivos estimados devueltos por un clasificador.</p>
+</dd>
+<dt><strong>beta</strong><span class="classifier">flotante, default=1.0</span></dt><dd><p>La fuerza de la exhaustividad frente a la precisión en el valor F.</p>
+</dd>
+<dt><strong>labels</strong><span class="classifier">array-like, default=None</span></dt><dd><p>El conjunto de etiquetas a incluir cuando <code class="docutils literal notranslate"><span class="pre">average</span> <span class="pre">!=</span> <span class="pre">'binary'</span></code>, y su orden si <code class="docutils literal notranslate"><span class="pre">average</span> <span class="pre">is</span> <span class="pre">None</span></code>. Las etiquetas presentes en los datos pueden ser excluidas, por ejemplo para calcular un promedio de varias clases ignorando una clase negativa mayoritaria, mientras que las etiquetas no presentes en los datos resultarán en 0 componentes en una macro media. Para objetivos multietiqueta, las etiquetas son índices de columnas. Por defecto, todas las etiquetas en <code class="docutils literal notranslate"><span class="pre">y_true</span></code> y <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> se utilizan en orden ordenado.</p>
+</dd>
+<dt><strong>pos_label</strong><span class="classifier">cadena de caracteres o entero, default=1</span></dt><dd><p>La clase a reportar si <code class="docutils literal notranslate"><span class="pre">average='binary'</span></code> y los datos son binarios. Si los datos son multiclase o multietiqueta, esto será ignorado; configurando <code class="docutils literal notranslate"><span class="pre">labels=[pos_label]</span></code> y <code class="docutils literal notranslate"><span class="pre">average</span> <span class="pre">!=</span> <span class="pre">'binary'</span></code> sólo reportará valores para esa etiqueta.</p>
+</dd>
+<dt><strong>average</strong><span class="classifier">{“binary”, “micro”, “macro”, “samples”,”weighted”},             default=None</span></dt><dd><p>Si es <code class="docutils literal notranslate"><span class="pre">None</span></code>, los valores para cada clase son devueltos. De lo contrario, esto determina el tipo de promedio realizado en los datos:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">'binary'</span></code>:</dt><dd><p>Solo reporta resultados para la clase especificada por <code class="docutils literal notranslate"><span class="pre">pos_label</span></code>. Esto es aplicable sólo si los objetivos (<code class="docutils literal notranslate"><span class="pre">y_{true,pred}</span></code>) son binarios.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'micro'</span></code>:</dt><dd><p>Calcula las métricas globalmente contando los verdaderos positivos, falsos negativos y falsos positivos.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'macro'</span></code>:</dt><dd><p>Calcula las métricas para cada etiqueta y encuentra su media no ponderada. Esto no tiene en cuenta el desequilibrio de la etiqueta.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'weighted'</span></code>:</dt><dd><p>Calcula las métricas para cada etiqueta y encuentra su promedio ponderado por soporte (el número de instancias verdaderas para cada etiqueta). Esto altera “macro” para explicar el desequilibrio de la etiqueta; puede dar lugar a un valor F que no esté entre la precisión y la exhaustividad.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'samples'</span></code>:</dt><dd><p>Calcula las métricas para cada caso, y encuentra su promedio (solo tiene sentido para la clasificación multietiqueta donde esto difiere de <a class="reference internal" href="sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">accuracy_score</span></code></a>).</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>warn_for</strong><span class="classifier">tupla o conjunto, para uso interno</span></dt><dd><p>Esto determina qué advertencias se harán en el caso de que esta función se utilice para devolver sólo una de sus métricas.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Ponderaciones de muestra.</p>
+</dd>
+<dt><strong>zero_division</strong><span class="classifier">«warn», 0 o 1, default=»warn»</span></dt><dd><dl class="simple">
+<dt>Establece el valor a devolver cuando hay una división cero:</dt><dd><ul class="simple">
+<li><p>exhaustividad: cuando no hay etiquetas positivas</p></li>
+<li><p>precisión: cuando no hay predicciones positivas</p></li>
+<li><p>valor f: ambos</p></li>
+</ul>
+</dd>
+</dl>
+<p>Si se establece en «warn», esto actúa como 0, pero también se levantan las advertencias.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>precision</strong><span class="classifier">flotante (si el promedio no es None) o arreglo de flotantes, forma =        [n_unique_labels]</span></dt><dd></dd>
+<dt><strong>recall</strong><span class="classifier">flotante (si el promedio no es None) o arreglo de flotantes, forma =        [n_unique_labels]</span></dt><dd></dd>
+<dt><strong>fbeta_score</strong><span class="classifier">flotante (si el promedio no es None) o arreglo de flotantes, forma =        [n_unique_labels]</span></dt><dd></dd>
+<dt>Notes<span class="classifier">None (si el promedio no es None) o arreglo de enteros, forma =        [n_unique_labels]</span></dt><dd><p>El número de ocurrencias de cada etiqueta en <code class="docutils literal notranslate"><span class="pre">y_true</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notas</p>
+<p>Cuando <code class="docutils literal notranslate"><span class="pre">true</span> <span class="pre">positive</span> <span class="pre">+</span> <span class="pre">false</span> <span class="pre">positive</span> <span class="pre">==</span> <span class="pre">0</span></code>, la precisión es indefinida. Cuando <code class="docutils literal notranslate"><span class="pre">true</span> <span class="pre">positive</span> <span class="pre">+</span> <span class="pre">false</span> <span class="pre">negative</span> <span class="pre">==</span> <span class="pre">0</span></code>, la exhaustividad no está definida. En tales casos, por defecto la métrica se establecerá en 0, al igual que valor F, y <code class="docutils literal notranslate"><span class="pre">UndefinedMetricWarning</span></code> se levantará. Este comportamiento puede ser modificado con <code class="docutils literal notranslate"><span class="pre">zero_division</span></code>.</p>
+<p class="rubric">Referencias</p>
+<dl class="citation">
+<dt class="label" id="r623484488881-1"><span class="brackets">1</span></dt>
+<dd><p><a class="reference external" href="https://es.wikipedia.org/wiki/Precisión_y_exhaustividad">Entrada de Wikipedia para la precisión y exhaustividad</a>.</p>
+</dd>
+<dt class="label" id="r623484488881-2"><span class="brackets">2</span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/F1_score">Entrada de Wikipedia para la valor F1</a>.</p>
+</dd>
+<dt class="label" id="r623484488881-3"><span class="brackets">3</span></dt>
+<dd><p><a class="reference external" href="http://www.godbole.net/shantanu/pubs/multilabelsvm-pakdd04.pdf">Discriminative Methods for Multi-labeled Classification Advances
+in Knowledge Discovery and Data Mining (2004), pp. 22-30 by Shantanu
+Godbole, Sunita Sarawagi</a>.</p>
+</dd>
+</dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_recall_fscore_support</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;pig&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;pig&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;pig&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">)</span>
+<span class="go">(0.22..., 0.33..., 0.26..., None)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">)</span>
+<span class="go">(0.33..., 0.33..., 0.33..., None)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="go">(0.22..., 0.33..., 0.26..., None)</span>
+</pre></div>
+</div>
+<p>Es posible calcular precisiones por etiqueta, exhaustividad, valor F1 y soportes en lugar de promedio:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pig&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">])</span>
+<span class="go">(array([0.        , 0.        , 0.66...]),</span>
+<span class="go"> array([0., 0., 1.]), array([0. , 0. , 0.8]),</span>
+<span class="go"> array([2, 2, 2]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="clearer"></div></section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.metrics.precision_recall_fscore_support.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

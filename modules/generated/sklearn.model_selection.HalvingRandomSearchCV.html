@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.model_selection.HalvingRandomSearchCV &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.HalvingRandomSearchCV.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.model_selection.RandomizedSearchCV.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.model_selection.RandomizedSearchCV">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.model_selection.cross_validate.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.model_selection.cross_validate">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code>.HalvingRandomSearchCV</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-model-selection-halvingrandomsearchcv">Ejemplos con <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.HalvingRandomSearchCV</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-model-selection-halvingrandomsearchcv">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.model_selection" title="sklearn.model_selection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.model_selection</span></code></a>.HalvingRandomSearchCV<a class="headerlink" href="#sklearn-model-selection-halvingrandomsearchcv" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.model_selection.</span></span><span class="sig-name descname"><span class="pre">HalvingRandomSearchCV</span></span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Búsqueda aleatoria de hiperparámetros.</p>
+<p>La estrategia de búsqueda comienza a evaluar todos los candidatos con una pequeña cantidad de recursos y selecciona iterativamente los mejores candidatos, utilizando cada vez más recursos.</p>
+<p>Los candidatos se muestrean de forma aleatoria del espacio de parámetros y el número de candidatos muestreados se determina por <code class="docutils literal notranslate"><span class="pre">n_candidates</span></code>.</p>
+<p>Lee más en el <a class="reference internal" href="../grid_search.html#successive-halving-user-guide"><span class="std std-ref">Manual del usuario</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Este estimador es todavía <strong>experimental</strong> por ahora: las predicciones y la API podrían cambiar sin ningún ciclo de obsolescencia. Para utilizarlo, es necesario importar explícitamente <code class="docutils literal notranslate"><span class="pre">enable_halving_search_cv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># explicitly require this experimental feature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_halving_search_cv</span> <span class="c1"># noqa</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># now you can import normally from model_selection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">HalvingRandomSearchCV</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>estimator</strong><span class="classifier">estimator object.</span></dt><dd><p>Se supone que implementa la interfaz del estimador de scikit-learn. O bien el estimador necesita proporcionar una función <code class="docutils literal notranslate"><span class="pre">score</span></code>, o se debe pasar <code class="docutils literal notranslate"><span class="pre">scoring</span></code>.</p>
+</dd>
+<dt><strong>param_distributions</strong><span class="classifier">dict</span></dt><dd><p>Diccionario con nombres de parámetros (cadenas) como claves y distribuciones o listas de parámetros a probar. Las distribuciones deben proporcionar un método <code class="docutils literal notranslate"><span class="pre">rvs</span></code> para el muestreo (como los de scipy.stats.distributions). Si se da una lista, se muestrea uniformemente.</p>
+</dd>
+<dt><strong>n_candidates</strong><span class="classifier">int, default=”exhaust”</span></dt><dd><p>El número de parámetros candidatos a muestrear, en la primera iteración. Si se utiliza “exhaust” se muestrearán suficientes candidatos para que la última iteración utilice tantos recursos como sea posible, basándose en <code class="docutils literal notranslate"><span class="pre">min_resources</span></code>, <code class="docutils literal notranslate"><span class="pre">max_resources</span></code> y <code class="docutils literal notranslate"><span class="pre">factor</span></code>. En este caso, <code class="docutils literal notranslate"><span class="pre">min_resources</span></code> no puede ser “exhaust”.</p>
+</dd>
+<dt><strong>factor</strong><span class="classifier">int o float, default=3</span></dt><dd><p>El parámetro “halving”, que determina la proporción de candidatos que se seleccionan en cada iteración posterior. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">factor=3</span></code> significa que sólo se selecciona un tercio de los candidatos.</p>
+</dd>
+<dt><strong>resource</strong> : <code class="docutils literal notranslate"><span class="pre">'n_samples'</span></code> o str, default=”n_samples”<span class="classifier">“n_samples” o str, default=”n_samples”</span></dt><dd><p>Define el recurso que aumenta con cada iteración. Por defecto, el recurso es el número de muestras. También puede establecerse en cualquier parámetro del estimador base que acepte valores enteros positivos, por ejemplo, “n_iterations” o “n_estimators” para un estimador de potenciación de gradiente. En este caso, <code class="docutils literal notranslate"><span class="pre">max_resources</span></code> no puede ser “auto” y debe establecerse explícitamente.</p>
+</dd>
+<dt><strong>max_resources</strong><span class="classifier">int, default=”auto”</span></dt><dd><p>El número máximo de recursos que se permite utilizar a cualquier candidato para una iteración determinada. Por defecto, se establece en <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> cuando <code class="docutils literal notranslate"><span class="pre">resource='n_samples'</span></code> (por defecto), de lo contrario se produce un error.</p>
+</dd>
+<dt><strong>min_resources</strong><span class="classifier">{“exhaust”, “smallest”} o int, default=”smallest”</span></dt><dd><p>La cantidad mínima de recursos que cualquier candidato puede utilizar en una iteración determinada. Equivalentemente, define la cantidad de recursos <code class="docutils literal notranslate"><span class="pre">r0</span></code> que se asigna a cada candidato en la primera iteración.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>“smallest” es una heurística que establece <code class="docutils literal notranslate"><span class="pre">r0</span></code> en un valor pequeño:</dt><dd><ul>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">n_splits</span> <span class="pre">*</span> <span class="pre">2</span></code> cuando <code class="docutils literal notranslate"><span class="pre">resource='n_samples'</span></code> para una regresión</dt><dd><p>problema</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">n_classes</span> <span class="pre">*</span> <span class="pre">n_splits</span> <span class="pre">*</span> <span class="pre">2</span></code> cuando <code class="docutils literal notranslate"><span class="pre">resource='n_samples'</span></code> para un</dt><dd><p>problema de clasificación</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> cuando <code class="docutils literal notranslate"><span class="pre">resource</span> <span class="pre">!=</span> <span class="pre">'n_samples'</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>“exhaust” establecerá «r0» de forma que la <strong>última</strong> iteración utilice tantos recursos como sea posible. Es decir, la última iteración utilizará el mayor valor menor que <code class="docutils literal notranslate"><span class="pre">max_resources</span></code> que sea múltiplo de <code class="docutils literal notranslate"><span class="pre">min_resources</span></code> y <code class="docutils literal notranslate"><span class="pre">factor</span></code>. En general, el uso de “exhaust” conduce a un estimador más preciso, pero consumpero es ligeramente más lento. El uso de “exhaust” no está disponible cuando <code class="docutils literal notranslate"><span class="pre">n_candidates='exhaust'</span></code>.</p></li>
+</ul>
+<p>Ten en cuenta que la cantidad de recursos utilizados en cada iteración es siempre un múltiplo de <code class="docutils literal notranslate"><span class="pre">min_resources</span></code>.</p>
+</dd>
+<dt><strong>aggressive_elimination</strong><span class="classifier">bool, default=False</span></dt><dd><p>Esto sólo es relevante en los casos en los que no hay suficientes recursos para reducir los candidatos restantes a un máximo de <code class="docutils literal notranslate"><span class="pre">factor</span></code> después de la última iteración. Si es <code class="docutils literal notranslate"><span class="pre">True</span></code>, el proceso de búsqueda “repetirá” la primera iteración durante el tiempo necesario hasta que el número de candidatos sea lo suficientemente pequeño. Por defecto es <code class="docutils literal notranslate"><span class="pre">False</span></code>, lo que significa que la última iteración puede evaluar más candidatos que <code class="docutils literal notranslate"><span class="pre">factor</span></code>. Consulta <a class="reference internal" href="../grid_search.html#aggressive-elimination"><span class="std std-ref">Aggressive elimination of candidates</span></a> para más detalles.</p>
+</dd>
+<dt><strong>cv</strong><span class="classifier">int, generador de validación cruzada o un iterable, default=5</span></dt><dd><p>Determina la estrategia de división de la validación cruzada. Las posibles entradas para cv son:</p>
+<ul class="simple">
+<li><p>entero, para especificar el número de pliegues en un <code class="docutils literal notranslate"><span class="pre">(Stratified)KFold</span></code>,</p></li>
+<li><p><a class="reference internal" href="../../glossary.html#term-CV-splitter"><span class="xref std std-term">separador de CV</span></a>,</p></li>
+<li><p>Un iterable que produce divisiones (train, test) como arreglos de índices.</p></li>
+</ul>
+<p>For integer/None inputs, if the estimator is a classifier and <code class="docutils literal notranslate"><span class="pre">y</span></code> is
+either binary or multiclass, <a class="reference internal" href="sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> is used. In all
+other cases, <a class="reference internal" href="sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> is used. These splitters are instantiated
+with <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> so the splits will be the same across calls.</p>
+<p>Consulta el <a class="reference internal" href="../cross_validation.html#cross-validation"><span class="std std-ref">Manual de usuario</span></a> para las diversas estrategias de validación cruzada que pueden ser utilizadas aquí.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Debido a los detalles de implementación, los pliegues producidos por <code class="docutils literal notranslate"><span class="pre">cv</span></code> deben ser los mismos a través de múltiples invocaciones a <code class="docutils literal notranslate"><span class="pre">cv.split()</span></code>. Para los iteradores incorporados de <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, esto se puede lograr desactivando el mezclado (<code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code>), o estableciendo el parámetro <code class="docutils literal notranslate"><span class="pre">random_state</span></code> de <code class="docutils literal notranslate"><span class="pre">cv</span></code> en un número entero.</p>
+</div>
+</dd>
+<dt><strong>scoring</strong><span class="classifier">string, invocable, o None, default=None</span></dt><dd><p>Una sola cadena (ver <a class="reference internal" href="../model_evaluation.html#scoring-parameter"><span class="std std-ref">El parámetro scoring: definir las reglas de evaluación del modelo</span></a>) o un invocable «callable» (ver <a class="reference internal" href="../model_evaluation.html#scoring"><span class="std std-ref">Definir tu estrategia de puntuación a partir de funciones métricas</span></a>) para evaluar las predicciones en el conjunto de pruebas. Si es None, se utiliza el método score del estimador.</p>
+</dd>
+<dt><strong>refit</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, reajusta un estimador utilizando los mejores parámetros encontrados en todo el conjunto de datos.</p>
+<p>El estimador reajustado está disponible en el atributo <code class="docutils literal notranslate"><span class="pre">best_estimator_</span></code> y permite utilizar <code class="docutils literal notranslate"><span class="pre">predict</span></code> directamente en esta instancia <code class="docutils literal notranslate"><span class="pre">HalvingRandomSearchCV</span></code>.</p>
+</dd>
+<dt><strong>error_score</strong><span class="classifier">“raise” o numeric</span></dt><dd><p>Valor para asignar a la puntuación (score) si se produce un error en el ajuste del estimador. Si se establece en “raise”, se genera un error. Si se da un valor numérico, se genera FitFailedWarning. Este parámetro no afecta al paso de reajuste, que siempre generará el error. Por defecto es <code class="docutils literal notranslate"><span class="pre">np.nan</span></code></p>
+</dd>
+<dt><strong>return_train_score</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si es <code class="docutils literal notranslate"><span class="pre">False</span></code>, el atributo <code class="docutils literal notranslate"><span class="pre">cv_results_</span></code> no incluirá las puntuaciones de entrenamiento. El cálculo de las puntuaciones de entrenamiento se utiliza para obtener información sobre el impacto de los diferentes ajustes de los parámetros en el equilibrio entre sobreajuste/subajuste. Sin embargo, calcular las puntuaciones en el conjunto de entrenamiento puede ser costoso computacionalmente y no es estrictamente necesario para seleccionar los parámetros que producen el mejor rendimiento de generalización.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, RandomState instance o None, default=None</span></dt><dd><p>Estado del generador de números pseudoaleatorios utilizado para el submuestreo del conjunto de datos cuando <code class="docutils literal notranslate"><span class="pre">resources</span> <span class="pre">!=</span> <span class="pre">'n_samples'</span></code>. También se utiliza para el muestreo uniforme aleatorio de las listas de valores posibles en lugar de las distribuciones de scipy.stats. Pasa un número entero (int) para una salida reproducible a través de múltiples invocaiones a la función. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int o None, default=None</span></dt><dd><p>Número de trabajos a ejecutar en paralelo. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que esté en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa utilizar todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int</span></dt><dd><p>Controla la verbosidad: cuanto más alta, más mensajes.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>n_resources_</strong><span class="classifier">list de int</span></dt><dd><p>La cantidad de recursos utilizados en cada iteración.</p>
+</dd>
+<dt><strong>n_candidates_</strong><span class="classifier">list de int</span></dt><dd><p>El número de parámetros candidatos que se evaluaron en cada iteración.</p>
+</dd>
+<dt><strong>n_remaining_candidates_</strong><span class="classifier">int</span></dt><dd><p>El número de parámetros candidatos que quedan después de la última iteración. Corresponde a <code class="docutils literal notranslate"><span class="pre">ceil(n_candidates[-1]</span> <span class="pre">/</span> <span class="pre">factor)</span></code></p>
+</dd>
+<dt><strong>max_resources_</strong><span class="classifier">int</span></dt><dd><p>El número máximo de recursos que cualquier candidato puede utilizar en una iteración determinada. Ten en cuenta que, dado que el número de recursos utilizados en cada iteración debe ser un múltiplo de <code class="docutils literal notranslate"><span class="pre">min_resources_</span></code>, el número real de recursos utilizados en la última iteración puede ser menor que <code class="docutils literal notranslate"><span class="pre">max_resources_</span></code>.</p>
+</dd>
+<dt><strong>min_resources_</strong><span class="classifier">int</span></dt><dd><p>La cantidad de recursos que se asignan a cada candidato en la primera iteración.</p>
+</dd>
+<dt><strong>n_iterations_</strong><span class="classifier">int</span></dt><dd><p>El número real de iteraciones que se ejecutaron. Es igual a <code class="docutils literal notranslate"><span class="pre">n_required_iterations_</span></code> si <code class="docutils literal notranslate"><span class="pre">aggressive_elimination</span></code> es <code class="docutils literal notranslate"><span class="pre">True</span></code>. De lo contrario, es igual a <code class="docutils literal notranslate"><span class="pre">min(n_possible_iterations_,</span> <span class="pre">n_required_iterations_)</span></code>.</p>
+</dd>
+<dt><strong>n_possible_iterations_</strong><span class="classifier">int</span></dt><dd><p>El número de iteraciones que son posibles comenzando con los recursos <code class="docutils literal notranslate"><span class="pre">min_resources_</span></code> y sin superar los recursos <code class="docutils literal notranslate"><span class="pre">max_resources_</span></code>.</p>
+</dd>
+<dt><strong>n_required_iterations_</strong><span class="classifier">int</span></dt><dd><p>El número de iteraciones que se requieren para terminar con menos de <code class="docutils literal notranslate"><span class="pre">factor</span></code> candidatos en la última iteración, comenzando con <code class="docutils literal notranslate"><span class="pre">min_resources_</span></code> recursos. Será menor que <code class="docutils literal notranslate"><span class="pre">n_possible_iterations_</span></code> cuando no haya suficientes recursos.</p>
+</dd>
+<dt><strong>cv_results_</strong><span class="classifier">dict de numpy (masked) ndarrays</span></dt><dd><p>Un diccionario (dict) con claves como cabeceras de columna y valores como columnas, que puede ser importado en un <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> de pandas. Contiene mucha información para analizar los resultados de una búsqueda. Por favor, consulta el <a class="reference internal" href="../grid_search.html#successive-halving-cv-results"><span class="std std-ref">Manual de Usuario</span></a> para más detalles.</p>
+</dd>
+<dt><strong>best_estimator_</strong><span class="classifier">estimator o dict</span></dt><dd><p>Estimador que fue elegido por la búsqueda, es decir, el estimador que dio la puntuación más alta (o la pérdida más pequeña si se especifica) en los datos omitidos. No está disponible si <code class="docutils literal notranslate"><span class="pre">refit</span> <span class="pre">=</span> <span class="pre">False</span></code>”.</p>
+</dd>
+<dt><strong>best_score_</strong><span class="classifier">float</span></dt><dd><p>Puntuación media de la validación cruzada del mejor estimador (best_estimator).</p>
+</dd>
+<dt><strong>best_params_</strong><span class="classifier">dict</span></dt><dd><p>Configuración del parámetro que dio los mejores resultados en los datos retenidos.</p>
+</dd>
+<dt><strong>best_index_</strong><span class="classifier">int</span></dt><dd><p>El índice (de los arreglos <code class="docutils literal notranslate"><span class="pre">cv_results_</span></code>) que corresponde a la mejor configuración del parámetro candidato.</p>
+<p>El diccionario (dict) en <code class="docutils literal notranslate"><span class="pre">search.cv_results_['params'][search.best_index_]</span></code> da la configuración de parámetros para el mejor modelo, que da la puntuación media más alta (<code class="docutils literal notranslate"><span class="pre">search.best_score_</span></code>).</p>
+</dd>
+<dt><strong>scorer_</strong><span class="classifier">function o un dict</span></dt><dd><p>Función de puntuación utilizada en los datos retenidos para elegir los mejores parámetros para el modelo.</p>
+</dd>
+<dt><strong>n_splits_</strong><span class="classifier">int</span></dt><dd><p>El número de divisiones de la validación cruzada (pliegues/iteraciones).</p>
+</dd>
+<dt><strong>refit_time_</strong><span class="classifier">float</span></dt><dd><p>Segundos utilizados para reajustar el mejor modelo en todo el conjunto de datos.</p>
+<p>Esto está presente sólo si <code class="docutils literal notranslate"><span class="pre">refit</span></code> no es False.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.model_selection.HalvingGridSearchCV.html#sklearn.model_selection.HalvingGridSearchCV" title="sklearn.model_selection.HalvingGridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">HalvingGridSearchCV</span></code></a></dt><dd><p>Búsqueda sobre una cuadrícula de parámetros utilizando una división sucesiva a la mitad.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notas</p>
+<p>Los parámetros seleccionados son los que maximizan la puntuación de los datos retenidos, según el parámetro de puntuación.</p>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_halving_search_cv</span>  <span class="c1"># noqa</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">HalvingRandomSearchCV</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">param_distributions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+<span class="gp">... </span>                       <span class="s2">&quot;min_samples_split&quot;</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">search</span> <span class="o">=</span> <span class="n">HalvingRandomSearchCV</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">param_distributions</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">resource</span><span class="o">=</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">max_resources</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="gp">... </span>                               <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="o">.</span><span class="n">best_params_</span>  
+<span class="go">{&#39;max_depth&#39;: None, &#39;min_samples_split&#39;: 10, &#39;n_estimators&#39;: 9}</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.decision_function" title="sklearn.model_selection.HalvingRandomSearchCV.decision_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_function</span></code></a></p></td>
+<td><p>Invoca a decision_function en el estimador con los mejores parámetros encontrados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.fit" title="sklearn.model_selection.HalvingRandomSearchCV.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Ejecuta el ajuste con todos los conjuntos de parámetros.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.get_params" title="sklearn.model_selection.HalvingRandomSearchCV.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.inverse_transform" title="sklearn.model_selection.HalvingRandomSearchCV.inverse_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inverse_transform</span></code></a></p></td>
+<td><p>Invoca a inverse_transform en el estimador con los mejores parámetros encontrados.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.predict" title="sklearn.model_selection.HalvingRandomSearchCV.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Invoca a predict en el estimador con los mejores parámetros encontrados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.predict_log_proba" title="sklearn.model_selection.HalvingRandomSearchCV.predict_log_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_log_proba</span></code></a></p></td>
+<td><p>Invoca a predict_log_proba en el estimador con los mejores parámetros encontrados.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.predict_proba" title="sklearn.model_selection.HalvingRandomSearchCV.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Invoca a predict_proba en el estimador con los mejores parámetros encontrados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.score" title="sklearn.model_selection.HalvingRandomSearchCV.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Devuelve la puntuación en los datos dados, si el estimador ha sido reajustado.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.score_samples" title="sklearn.model_selection.HalvingRandomSearchCV.score_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score_samples</span></code></a></p></td>
+<td><p>Invoca a score_samples en el estimador con los mejores parámetros encontrados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.set_params" title="sklearn.model_selection.HalvingRandomSearchCV.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.model_selection.HalvingRandomSearchCV.transform" title="sklearn.model_selection.HalvingRandomSearchCV.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a></p></td>
+<td><p>Invoca a transform en el estimador con los mejores parámetros encontrados.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.decision_function">
+<span class="sig-name descname"><span class="pre">decision_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.decision_function" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Invoca a decision_function en el estimador con los mejores parámetros encontrados.</p>
+<p>Sólo está disponible si <code class="docutils literal notranslate"><span class="pre">refit=True</span></code> y el estimador subyacente admite <code class="docutils literal notranslate"><span class="pre">decision_function</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">indexable, length n_samples</span></dt><dd><p>Debe cumplir los supuestos de entrada del estimador subyacente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Ejecuta el ajuste con todos los conjuntos de parámetros.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, forma (n_samples, n_features)</span></dt><dd><p>Vector de entrenamiento, donde <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> es el número de muestras y <code class="docutils literal notranslate"><span class="pre">n_features</span></code> es el número de características.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like, forma (n_samples,) o (n_samples, n_output), opcional</span></dt><dd><p>Objetivo relativo a X para la clasificación o la regresión; None para el aprendizaje no supervisado.</p>
+</dd>
+<dt><strong>groups</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Etiquetas de grupo para las muestras utilizadas al dividir el conjunto de datos en conjunto de entrenamiento/prueba. Sólo se utiliza junto con una instancia «Group» de <a class="reference internal" href="../../glossary.html#term-cv"><span class="xref std std-term">cv</span></a> (por ejemplo, <a class="reference internal" href="sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a>).</p>
+</dd>
+<dt><strong>**fit_params</strong><span class="classifier">dict of string -&gt; object</span></dt><dd><p>Parámetros pasados al método <code class="docutils literal notranslate"><span class="pre">fit</span></code> del estimador</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Nombres de los parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.inverse_transform">
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.inverse_transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Invoca a inverse_transform en el estimador con los mejores parámetros encontrados.</p>
+<p>Sólo está disponible si el estimador subyacente implementa <code class="docutils literal notranslate"><span class="pre">inverse_transform</span></code> y <code class="docutils literal notranslate"><span class="pre">refit=True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Xt</strong><span class="classifier">indexable, length n_samples</span></dt><dd><p>Debe cumplir los supuestos de entrada del estimador subyacente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Invoca a predict en el estimador con los mejores parámetros encontrados.</p>
+<p>Sólo está disponible si <code class="docutils literal notranslate"><span class="pre">refit=True</span></code> y el estimador subyacente admite <code class="docutils literal notranslate"><span class="pre">predict</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">indexable, length n_samples</span></dt><dd><p>Debe cumplir los supuestos de entrada del estimador subyacente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.predict_log_proba">
+<span class="sig-name descname"><span class="pre">predict_log_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.predict_log_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Invoca a predict_log_proba en el estimador con los mejores parámetros encontrados.</p>
+<p>Sólo está disponible si <code class="docutils literal notranslate"><span class="pre">refit=True</span></code> y el estimador subyacente admite <code class="docutils literal notranslate"><span class="pre">predict_log_proba</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">indexable, length n_samples</span></dt><dd><p>Debe cumplir los supuestos de entrada del estimador subyacente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Invoca a predict_proba en el estimador con los mejores parámetros encontrados.</p>
+<p>Sólo está disponible si <code class="docutils literal notranslate"><span class="pre">refit=True</span></code> y el estimador subyacente admite <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">indexable, length n_samples</span></dt><dd><p>Debe cumplir los supuestos de entrada del estimador subyacente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Devuelve la puntuación en los datos dados, si el estimador ha sido reajustado.</p>
+<p>Esto utiliza la puntuación definida por <code class="docutils literal notranslate"><span class="pre">scoring</span></code> cuando se proporciona, y el método <code class="docutils literal notranslate"><span class="pre">best_estimator_.score</span></code> en caso contrario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Datos de entrada, donde n_samples es el número de muestras y n_features es el número de características.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like de forma (n_samples, n_output)             o (n_samples,), default=None</span></dt><dd><p>Objetivo relativo a X para la clasificación o la regresión; None para el aprendizaje no supervisado.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>score</strong><span class="classifier">float</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.score_samples">
+<span class="sig-name descname"><span class="pre">score_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.score_samples" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Invoca a score_samples en el estimador con los mejores parámetros encontrados.</p>
+<p>Sólo está disponible si <code class="docutils literal notranslate"><span class="pre">refit=True</span></code> y el estimador subyacente admite <code class="docutils literal notranslate"><span class="pre">score_samples</span></code>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">iterable</span></dt><dd><p>Datos para predecir. Deben cumplir los requisitos de entrada del estimador subyacente.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y_score</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia del estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.model_selection.HalvingRandomSearchCV.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.model_selection.HalvingRandomSearchCV.transform" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Invoca a transform en el estimador con los mejores parámetros encontrados.</p>
+<p>Sólo está disponible si el estimador subyacente admite <code class="docutils literal notranslate"><span class="pre">transform</span></code> y <code class="docutils literal notranslate"><span class="pre">refit=True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">indexable, length n_samples</span></dt><dd><p>Debe cumplir los supuestos de entrada del estimador subyacente.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-model-selection-halvingrandomsearchcv">
+<h2>Ejemplos con <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.HalvingRandomSearchCV</span></code><a class="headerlink" href="#examples-using-sklearn-model-selection-halvingrandomsearchcv" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 0.24! Many bug fixes and improvements we..."><figure class="align-default" id="id1">
+<img alt="Release Highlights for scikit-learn 0.24" src="../../_images/sphx_glr_plot_release_highlights_0_24_0_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/release_highlights/plot_release_highlights_0_24_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-0-24-0-py"><span class="std std-ref">Aspectos Destacados de scikit-learn 0.24</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how a successive halving search (:class:`~sklearn.model_selection.Halv..."><figure class="align-default" id="id2">
+<img alt="Successive Halving Iterations" src="../../_images/sphx_glr_plot_successive_halving_iterations_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/model_selection/plot_successive_halving_iterations.html#sphx-glr-auto-examples-model-selection-plot-successive-halving-iterations-py"><span class="std std-ref">Iteraciones sucesivas a la mitad</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.model_selection.HalvingRandomSearchCV.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

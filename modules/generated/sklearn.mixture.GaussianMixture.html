@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>sklearn.mixture.GaussianMixture &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html" />
+
+  
+  <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../../index.html">
+        <img
+          class="sk-brand-img"
+          src="../../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../../index.html">
+            <img
+              class="sk-brand-img"
+              src="../../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="sklearn.mixture.BayesianGaussianMixture.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.mixture.BayesianGaussianMixture">Prev</a><a href="../classes.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="Referencia del API">Arriba</a>
+            <a href="sklearn.model_selection.GroupKFold.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="sklearn.model_selection.GroupKFold">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.mixture</span></code>.GaussianMixture</a><ul>
+<li><a class="reference internal" href="#examples-using-sklearn-mixture-gaussianmixture">Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.mixture.GaussianMixture</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="sklearn-mixture-gaussianmixture">
+<h1><a class="reference internal" href="../classes.html#module-sklearn.mixture" title="sklearn.mixture"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.mixture</span></code></a>.GaussianMixture<a class="headerlink" href="#sklearn-mixture-gaussianmixture" title="Enlazar permanentemente con este título">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.mixture.</span></span><span class="sig-name descname"><span class="pre">GaussianMixture</span></span><a class="headerlink" href="#sklearn.mixture.GaussianMixture" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Mezcla Gaussiana.</p>
+<p>Representación de una distribución de probabilidad del modelo de mezcla Gaussiana. Esta clase permite estimar los parámetros de una distribución de mezcla Gaussiana.</p>
+<p>Lee más en el <a class="reference internal" href="../mixture.html#gmm"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.18.</span></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_components</strong><span class="classifier">int, default=1</span></dt><dd><p>El número de componentes de la mezcla.</p>
+</dd>
+<dt><strong>covariance_type</strong><span class="classifier">{“full”, “tied”, “diag”, “spherical”}, default=”full”</span></dt><dd><p>Cadena que describe el tipo de parámetros de covarianza a utilizar. Debe ser uno de:</p>
+<dl class="simple">
+<dt>“full”</dt><dd><p>cada componente tiene su propia matriz de covarianzas general</p>
+</dd>
+<dt>“tied”</dt><dd><p>todos los componentes comparten la misma matriz de covarianzas general</p>
+</dd>
+<dt>“diag”</dt><dd><p>cada componente tiene su propia matriz de covarianzas diagonal</p>
+</dd>
+<dt>“spherical”</dt><dd><p>cada componente tiene su propia varianza</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-3</span></dt><dd><p>El umbral de convergencia. Las iteraciones de EM se detendrán cuando la ganancia promedio del límite inferior esté por debajo de este umbral.</p>
+</dd>
+<dt><strong>reg_covar</strong><span class="classifier">float, default=1e-6</span></dt><dd><p>La regularización no negativa añadida a la diagonal de la covarianza. Permite asegurar que las matrices de covarianza son todas positivas.</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, default=100</span></dt><dd><p>El número de iteraciones de EM a realizar.</p>
+</dd>
+<dt><strong>n_init</strong><span class="classifier">int, default=1</span></dt><dd><p>El número de inicializaciones a realizar. Se mantienen los mejores resultados.</p>
+</dd>
+<dt><strong>init_params</strong><span class="classifier">{“kmeans”, “random”}, default=”kmeans”</span></dt><dd><p>El método utilizado para inicializar las ponderaciones, las medias y las precisiones. Debe ser uno de los siguientes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;kmeans&#39;</span> <span class="p">:</span> <span class="n">responsibilities</span> <span class="n">are</span> <span class="n">initialized</span> <span class="n">using</span> <span class="n">kmeans</span><span class="o">.</span>
+<span class="s1">&#39;random&#39;</span> <span class="p">:</span> <span class="n">responsibilities</span> <span class="n">are</span> <span class="n">initialized</span> <span class="n">randomly</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>weights_init</strong><span class="classifier">array-like de forma (n_components, ), default=None</span></dt><dd><p>Las ponderaciones iniciales proporcionadas por el usuario. Si es None, los pesos se inicializan utilizando el método init_params.</p>
+</dd>
+<dt><strong>means_init</strong><span class="classifier">array-like de forma (n_components, n_features), default=None</span></dt><dd><p>Las medias iniciales proporcionadas por el usuario, Si es None, los medias se inicializan utilizando el método init_params.</p>
+</dd>
+<dt><strong>precisions_init</strong><span class="classifier">array-like, default=None</span></dt><dd><p>Las precisiones iniciales proporcionadas por el usuario (inversa de las matrices de covarianza). Si es None, las precisiones se inicializan utilizando el método “init_params”. La forma depende de “covariance_type”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, instancia RandomState o None, default=None</span></dt><dd><p>Controla la semilla aleatoria dada al método elegido para inicializar los parámetros (ver <code class="docutils literal notranslate"><span class="pre">init_params</span></code>). Además, controla la generación de muestras aleatorias de la distribución ajustada (ver el método <code class="docutils literal notranslate"><span class="pre">sample</span></code>). Pasa un número entero (int) para una salida reproducible a través de múltiples invocaciones a la función. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
+</dd>
+<dt><strong>warm_start</strong><span class="classifier">bool, default=False</span></dt><dd><p>Si “warm_start” es True, la solución del último ajuste se utiliza como inicialización para la siguiente invocación a fit(). Esto puede acelerar la convergencia cuando se invoca a fit varias veces en problemas similares. En ese caso, “n_init” se ignora y sólo se produce una única inicialización en la primera invocación. Ver <a class="reference internal" href="../../glossary.html#term-warm_start"><span class="xref std std-term">el Glosario</span></a>.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int, default=0</span></dt><dd><p>Activa la salida verbosa. Si es 1 entonces imprime la inicialización actual y cada paso de iteración. Si es mayor que 1 entonces imprime también la probabilidad logarítmica y el tiempo necesario para cada paso.</p>
+</dd>
+<dt><strong>verbose_interval</strong><span class="classifier">int, default=10</span></dt><dd><p>Número de iteraciones realizadas antes de la siguiente impresión.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Atributos</dt>
+<dd class="field-even"><dl>
+<dt><strong>weights_</strong><span class="classifier">array-like de forma (n_components,)</span></dt><dd><p>Las ponderaciones de cada uno de los componentes de la mezcla.</p>
+</dd>
+<dt><strong>means_</strong><span class="classifier">array-like de forma (n_components, n_features)</span></dt><dd><p>La media de cada componente de la mezcla.</p>
+</dd>
+<dt><strong>covariances_</strong><span class="classifier">array-like</span></dt><dd><p>La covarianza de cada componente de la mezcla. La forma depende de <code class="docutils literal notranslate"><span class="pre">covariance_type</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>precisions_</strong><span class="classifier">array-like</span></dt><dd><p>Las matrices de precisión para cada componente de la mezcla. Una matriz de precisión es la inversa de una matriz de covarianzas. Una matriz de covarianzas es simétrica positiva definida por lo que la mezcla de Gaussianas se puede parametrizar de forma equivalente por las matrices de precisión. Almacenar las matrices de precisión en lugar de las matrices de covarianzas hace que sea más eficiente calcular el log-verosimilitud de las nuevas muestras en el momento de la prueba. La forma depende de <code class="docutils literal notranslate"><span class="pre">covariance_type</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>precisions_cholesky_</strong><span class="classifier">array-like</span></dt><dd><p>La descomposición de Cholesky de las matrices de precisión de cada componente de la mezcla. Una matriz de precisión es la inversa de una matriz de covarianzas. Una matriz de covarianzas es simétrica definida positiva, por lo que la mezcla de Gaussianas puede ser parametrizada de forma equivalente por las matrices de precisión. El almacenamiento de las matrices de precisión en lugar de las matrices de covarianzas hace más eficiente el cálculo del log-verosimilitud de las nuevas muestras en el momento de la prueba. La forma depende de <code class="docutils literal notranslate"><span class="pre">covariance_type</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
+<span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;full&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>converged_</strong><span class="classifier">bool</span></dt><dd><p>True cuando se ha alcanzado la convergencia en fit(), False en caso contrario.</p>
+</dd>
+<dt><strong>n_iter_</strong><span class="classifier">int</span></dt><dd><p>Número de pasos utilizados por el mejor ajuste de EM para alcanzar la convergencia.</p>
+</dd>
+<dt><strong>lower_bound_</strong><span class="classifier">float</span></dt><dd><p>Valor del límite inferior del log-verosimilitud (de los datos de entrenamiento con respecto al modelo) del mejor ajuste de EM.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<dl class="simple">
+<dt><a class="reference internal" href="sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a></dt><dd><p>Ajuste del modelo de mezcla Gaussiana con una inferencia variacional.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gm</span><span class="o">.</span><span class="n">means_</span>
+<span class="go">array([[10.,  2.],</span>
+<span class="go">       [ 1.,  2.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gm</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="go">array([1, 0])</span>
+</pre></div>
+</div>
+<p class="rubric">Métodos</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.aic" title="sklearn.mixture.GaussianMixture.aic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aic</span></code></a></p></td>
+<td><p>Criterio de información de Akaike para el modelo actual en la entrada X.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.bic" title="sklearn.mixture.GaussianMixture.bic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bic</span></code></a></p></td>
+<td><p>Criterio de información Bayesiano para el modelo actual en la entrada X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.fit" title="sklearn.mixture.GaussianMixture.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a></p></td>
+<td><p>Estima los parámetros del modelo con el algoritmo EM.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.fit_predict" title="sklearn.mixture.GaussianMixture.fit_predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_predict</span></code></a></p></td>
+<td><p>Estima los parámetros del modelo utilizando X y predice las etiquetas para X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.get_params" title="sklearn.mixture.GaussianMixture.get_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code></a></p></td>
+<td><p>Obtiene los parámetros para este estimador.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.predict" title="sklearn.mixture.GaussianMixture.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a></p></td>
+<td><p>Predice las etiquetas de las muestras de datos en X utilizando el modelo entrenado.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.predict_proba" title="sklearn.mixture.GaussianMixture.predict_proba"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code></a></p></td>
+<td><p>Predice la probabilidad a posteriori de cada componente dados los datos.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.sample" title="sklearn.mixture.GaussianMixture.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample</span></code></a></p></td>
+<td><p>Genera muestras aleatorias a partir de la distribución Gaussiana ajustada.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.score" title="sklearn.mixture.GaussianMixture.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
+<td><p>Calcula el log-verosimilitud promedio por muestra de los datos X dados.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.score_samples" title="sklearn.mixture.GaussianMixture.score_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score_samples</span></code></a></p></td>
+<td><p>Calcula las probabilidades logarítmicas ponderadas para cada muestra.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.set_params" title="sklearn.mixture.GaussianMixture.set_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code></a></p></td>
+<td><p>Establece los parámetros de este estimador.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.aic">
+<span class="sig-name descname"><span class="pre">aic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.aic" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Criterio de información de Akaike para el modelo actual en la entrada X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array de forma (n_samples, n_dimensions)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>aic</strong><span class="classifier">float</span></dt><dd><p>Cuanto más bajo, mejor.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.bic">
+<span class="sig-name descname"><span class="pre">bic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.bic" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Criterio de información Bayesiano para el modelo actual en la entrada X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array de forma (n_samples, n_dimensions)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>bic</strong><span class="classifier">float</span></dt><dd><p>Cuanto más bajo, mejor.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.fit" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Estima los parámetros del modelo con el algoritmo EM.</p>
+<p>El método ajusta el modelo <code class="docutils literal notranslate"><span class="pre">n_init</span></code> veces y establece los parámetros con los que el modelo tiene la mayor verosimilitud o límite inferior. Dentro de cada ensayo, el método itera entre el paso E y el paso M para <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> veces hasta que el cambio de la verosimilitud o el límite inferior sea menor que <code class="docutils literal notranslate"><span class="pre">tol</span></code>, de lo contrario, una <code class="docutils literal notranslate"><span class="pre">ConvergenceWarning</span></code> se plantea. Si <code class="docutils literal notranslate"><span class="pre">warm_start</span></code> es <code class="docutils literal notranslate"><span class="pre">True</span></code>, entonces <code class="docutils literal notranslate"><span class="pre">n_init</span></code> se ignora y se realiza una única inicialización en la primera invocación. En las invocaciones consecutivas, el entrenamiento comienza donde se dejó.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Lista de puntos de datos n_features-dimesional. Cada fila corresponde a un único punto de datos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt>self</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.fit_predict">
+<span class="sig-name descname"><span class="pre">fit_predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.fit_predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Estima los parámetros del modelo utilizando X y predice las etiquetas para X.</p>
+<p>El método ajusta el modelo n_init veces y establece los parámetros con los que el modelo tiene la mayor verosimilitud o límite inferior. Dentro de cada ensayo, el método itera entre el paso E y el paso M para <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> veces hasta que el cambio de la verosimilitud o el límite inferior es menor que <code class="docutils literal notranslate"><span class="pre">tol</span></code>, de lo contrario, un <a class="reference internal" href="sklearn.exceptions.ConvergenceWarning.html#sklearn.exceptions.ConvergenceWarning" title="sklearn.exceptions.ConvergenceWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConvergenceWarning</span></code></a> se plantea. Después del ajuste, predice la etiqueta más probable para los puntos de datos de entrada.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.20.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Lista de puntos de datos n_features-dimesional. Cada fila corresponde a un único punto de datos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>labels</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Etiquetas de los componentes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.get_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Obtiene los parámetros para este estimador.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>deep</strong><span class="classifier">bool, default=True</span></dt><dd><p>Si es True, devolverá los parámetros para este estimador y los subobjetos contenidos que son estimadores.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>params</strong><span class="classifier">dict</span></dt><dd><p>Los nombres de los parámetros mapeados a sus valores.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.predict" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice las etiquetas de las muestras de datos en X utilizando el modelo entrenado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Lista de puntos de datos n_features-dimesional. Cada fila corresponde a un único punto de datos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>labels</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Etiquetas de los componentes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.predict_proba">
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.predict_proba" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Predice la probabilidad a posteriori de cada componente dados los datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Lista de puntos de datos n_features-dimesional. Cada fila corresponde a un único punto de datos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>resp</strong><span class="classifier">arreglo, forma (n_samples, n_components)</span></dt><dd><p>Devuelve la probabilidad de cada Gaussiana (estado) en el modelo dada cada muestra.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.sample" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Genera muestras aleatorias a partir de la distribución Gaussiana ajustada.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_samples</strong><span class="classifier">int, default=1</span></dt><dd><p>Número de muestras a generar.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">arreglo, forma (n_samples, n_features)</span></dt><dd><p>Muestra generada aleatoriamente</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Etiquetas de los componentes</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula el log-verosimilitud promedio por muestra de los datos X dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_dimensions)</span></dt><dd><p>Lista de puntos de datos n_features-dimesional. Cada fila corresponde a un único punto de datos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>log_likelihood</strong><span class="classifier">float</span></dt><dd><p>Logaritmo de la verosimilitud de la mezcla Gaussiana dada X.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.score_samples">
+<span class="sig-name descname"><span class="pre">score_samples</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.score_samples" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Calcula las probabilidades logarítmicas ponderadas para cada muestra.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like de forma (n_samples, n_features)</span></dt><dd><p>Lista de puntos de datos n_features-dimesional. Cada fila corresponde a un único punto de datos.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>log_prob</strong><span class="classifier">arreglo, forma (n_samples,)</span></dt><dd><p>Probabilidades logarítmicas de cada punto de datos en X.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.set_params">
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.set_params" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Establece los parámetros de este estimador.</p>
+<p>El método funciona tanto en estimadores simples como en objetos anidados (como <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). Estos últimos tienen parámetros de la forma <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> para que sea posible actualizar cada componente de un objeto anidado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>**params</strong><span class="classifier">dict</span></dt><dd><p>Parámetros del estimador.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Devuelve</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">instancia de estimador</span></dt><dd><p>Instancia del estimador.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="examples-using-sklearn-mixture-gaussianmixture">
+<h2>Ejemplos utilizando <code class="docutils literal notranslate"><span class="pre">sklearn.mixture.GaussianMixture</span></code><a class="headerlink" href="#examples-using-sklearn-mixture-gaussianmixture" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Plot the density estimation of a mixture of two Gaussians. Data is generated from two Gaussians..."><figure class="align-default" id="id1">
+<img alt="Density Estimation for a Gaussian mixture" src="../../_images/sphx_glr_plot_gmm_pdf_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mixture/plot_gmm_pdf.html#sphx-glr-auto-examples-mixture-plot-gmm-pdf-py"><span class="std std-ref">Estimación de la Densidad para una Mezcla Gaussiana</span></a></span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plot the confidence ellipsoids of a mixture of two Gaussians obtained with Expectation Maximisa..."><figure class="align-default" id="id2">
+<img alt="Gaussian Mixture Model Ellipsoids" src="../../_images/sphx_glr_plot_gmm_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mixture/plot_gmm.html#sphx-glr-auto-examples-mixture-plot-gmm-py"><span class="std std-ref">Elipsoides del Modelo de Mezcla Gaussiana</span></a></span><a class="headerlink" href="#id2" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows that model selection can be performed with Gaussian Mixture Models using inf..."><figure class="align-default" id="id3">
+<img alt="Gaussian Mixture Model Selection" src="../../_images/sphx_glr_plot_gmm_selection_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mixture/plot_gmm_selection.html#sphx-glr-auto-examples-mixture-plot-gmm-selection-py"><span class="std std-ref">Selección del Modelo de Mezcla Gaussiana</span></a></span><a class="headerlink" href="#id3" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Demonstration of several covariances types for Gaussian mixture models."><figure class="align-default" id="id4">
+<img alt="GMM covariances" src="../../_images/sphx_glr_plot_gmm_covariances_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mixture/plot_gmm_covariances.html#sphx-glr-auto-examples-mixture-plot-gmm-covariances-py"><span class="std std-ref">Covarianzas GMM</span></a></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the behavior of Gaussian mixture models fit on data that was not samp..."><figure class="align-default" id="id5">
+<img alt="Gaussian Mixture Model Sine Curve" src="../../_images/sphx_glr_plot_gmm_sin_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../auto_examples/mixture/plot_gmm_sin.html#sphx-glr-auto-examples-mixture-plot-gmm-sin-py"><span class="std std-ref">Modelo de Mezcla Gaussiana Curva Sinusoidal</span></a></span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="clearer"></div></section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../../_sources/modules/generated/sklearn.mixture.GaussianMixture.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
