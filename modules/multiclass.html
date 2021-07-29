@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.12. Algoritmos multiclase y multisalida &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/multiclass.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="ensemble.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.11. Métodos combinados">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="feature_selection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.13. Selección de características">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.12. Algoritmos multiclase y multisalida</a><ul>
+<li><a class="reference internal" href="#multiclass-classification">1.12.1. Clasificación multiclase</a><ul>
+<li><a class="reference internal" href="#target-format">1.12.1.1. Formato del objetivo</a></li>
+<li><a class="reference internal" href="#onevsrestclassifier">1.12.1.2. Clasificador One Vs Rest</a></li>
+<li><a class="reference internal" href="#onevsoneclassifier">1.12.1.3. Clasificador OneVsOne</a></li>
+<li><a class="reference internal" href="#outputcodeclassifier">1.12.1.4. Clasificador de Código de salida</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multilabel-classification">1.12.2. Clasificación multietiqueta</a><ul>
+<li><a class="reference internal" href="#id5">1.12.2.1. Formato del objetivo</a></li>
+<li><a class="reference internal" href="#multioutputclassifier">1.12.2.2. Clasificador de salidas múltiples</a></li>
+<li><a class="reference internal" href="#classifierchain">1.12.2.3. Cadena clasificadora</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multiclass-multioutput-classification">1.12.3. Clasificación multiclase y multisalida</a><ul>
+<li><a class="reference internal" href="#id8">1.12.3.1. Formato del objetivo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multioutput-regression">1.12.4. Regresión de salida múltiple</a><ul>
+<li><a class="reference internal" href="#id10">1.12.4.1. Formato del objetivo</a></li>
+<li><a class="reference internal" href="#multioutputregressor">1.12.4.2. Regresor de salida múltiples</a></li>
+<li><a class="reference internal" href="#regressorchain">1.12.4.3. Cadena de Regresor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="multiclass-and-multioutput-algorithms">
+<span id="multiclass"></span><h1><span class="section-number">1.12. </span>Algoritmos multiclase y multisalida<a class="headerlink" href="#multiclass-and-multioutput-algorithms" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Esta sección de la guía del usuario cubre la funcionalidad relacionada con los problemas de aprendizaje múltiple, incluyendo <a class="reference internal" href="../glossary.html#term-multiclass"><span class="xref std std-term">multiclase</span></a>, <a class="reference internal" href="../glossary.html#term-multilabel"><span class="xref std std-term">multilabel</span></a>, y <a class="reference internal" href="../glossary.html#term-multioutput"><span class="xref std std-term">multioutput</span></a> clasificación y regresión.</p>
+<p>Los módulos de esta sección implementan <a class="reference internal" href="../glossary.html#term-meta-estimators"><span class="xref std std-term">meta-estimators</span></a>, que requieren que se proporcione un estimador base en su constructor. Los meta-estimadores extienden la funcionalidad del estimador base para soportar problemas de aprendizaje múltiple, lo que se consigue transformando el problema de aprendizaje múltiple en un conjunto de problemas más simples, y luego ajustando un estimador por problema.</p>
+<p>Esta sección cubre dos módulos: <a class="reference internal" href="classes.html#module-sklearn.multiclass" title="sklearn.multiclass"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.multiclass</span></code></a> y <a class="reference internal" href="classes.html#module-sklearn.multioutput" title="sklearn.multioutput"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.multioutput</span></code></a>. El siguiente gráfico muestra los tipos de problemas de los que se encarga cada módulo y los correspondientes meta-estimadores que proporciona cada módulo.</p>
+<img alt="../_images/multi_org_chart.png" class="align-center" src="../_images/multi_org_chart.png" />
+<p>La siguiente tabla proporciona una referencia rápida sobre las diferencias entre los tipos de problemas. Se pueden encontrar explicaciones más detalladas en las secciones posteriores de esta guía.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 18%" />
+<col style="width: 20%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Número de objetivos</p></th>
+<th class="head"><p>Cardinalidad del objetivo</p></th>
+<th class="head"><p>Valid
+<a class="reference internal" href="generated/sklearn.utils.multiclass.type_of_target.html#sklearn.utils.multiclass.type_of_target" title="sklearn.utils.multiclass.type_of_target"><code class="xref py py-func docutils literal notranslate"><span class="pre">type_of_target</span></code></a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Clasificación multiclase</p></td>
+<td><p>1</p></td>
+<td><p>&gt;2</p></td>
+<td><p>“multiclase”</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clasificación multietiqueta</p></td>
+<td><p>&gt;1</p></td>
+<td><p>2 (0 o 1)</p></td>
+<td><p>“multilabel-indicator”</p></td>
+</tr>
+<tr class="row-even"><td><p>Clasificación multiclase y multisalida</p></td>
+<td><p>&gt;1</p></td>
+<td><p>&gt;2</p></td>
+<td><p>“multiclase de salida múltiple”</p></td>
+</tr>
+<tr class="row-odd"><td><p>Regresión de salida múltiple</p></td>
+<td><p>&gt;1</p></td>
+<td><p>Continuo</p></td>
+<td><p>“Salida múltiple continua”</p></td>
+</tr>
+</tbody>
+</table>
+<p>A continuación se muestra un resumen de los estimadores de scikit-learn que tienen soporte de aprendizaje múltiple incorporado, agrupados por estrategia. No necesitas los meta-estimadores proporcionados por esta sección si estas utilizando uno de estos estimadores. Sin embargo, los meta-estimadores pueden proporcionar estrategias adicionales más allá de lo que está incorporado:</p>
+<ul class="simple">
+<li><p><strong>Intrínsecamente multiclase:</strong></p>
+<ul>
+<li><p><a class="reference internal" href="generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB" title="sklearn.naive_bayes.BernoulliNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">naive_bayes.BernoulliNB</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree.DecisionTreeClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.tree.ExtraTreeClassifier.html#sklearn.tree.ExtraTreeClassifier" title="sklearn.tree.ExtraTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree.ExtraTreeClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.ensemble.ExtraTreesClassifier.html#sklearn.ensemble.ExtraTreesClassifier" title="sklearn.ensemble.ExtraTreesClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.ExtraTreesClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">naive_bayes.GaussianNB</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.KNeighborsClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.semi_supervised.LabelPropagation.html#sklearn.semi_supervised.LabelPropagation" title="sklearn.semi_supervised.LabelPropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">semi_supervised.LabelPropagation</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.semi_supervised.LabelSpreading.html#sklearn.semi_supervised.LabelSpreading" title="sklearn.semi_supervised.LabelSpreading"><code class="xref py py-class docutils literal notranslate"><span class="pre">semi_supervised.LabelSpreading</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">discriminant_analysis.LinearDiscriminantAnalysis</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.LinearSVC</span></code></a> (ajustando multi_class=»crammer_singer»)</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.LogisticRegression</span></code></a> (ajustando multi_class=»multinomial»)</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.LogisticRegressionCV.html#sklearn.linear_model.LogisticRegressionCV" title="sklearn.linear_model.LogisticRegressionCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.LogisticRegressionCV</span></code></a> (ajustando multi_class=»multinomial»)</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neural_network.MLPClassifier.html#sklearn.neural_network.MLPClassifier" title="sklearn.neural_network.MLPClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neural_network.MLPClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neighbors.NearestCentroid.html#sklearn.neighbors.NearestCentroid" title="sklearn.neighbors.NearestCentroid"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.NearestCentroid</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">discriminant_analysis.QuadraticDiscriminantAnalysis</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neighbors.RadiusNeighborsClassifier.html#sklearn.neighbors.RadiusNeighborsClassifier" title="sklearn.neighbors.RadiusNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.RadiusNeighborsClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.RandomForestClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.RidgeClassifier.html#sklearn.linear_model.RidgeClassifier" title="sklearn.linear_model.RidgeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.RidgeClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.RidgeClassifierCV.html#sklearn.linear_model.RidgeClassifierCV" title="sklearn.linear_model.RidgeClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.RidgeClassifierCV</span></code></a></p></li>
+</ul>
+</li>
+<li><p><strong>Multiclase como One-Vs-One:</strong></p>
+<ul>
+<li><p><a class="reference internal" href="generated/sklearn.svm.NuSVC.html#sklearn.svm.NuSVC" title="sklearn.svm.NuSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.NuSVC</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.SVC</span></code></a>.</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.gaussian_process.GaussianProcessClassifier.html#sklearn.gaussian_process.GaussianProcessClassifier" title="sklearn.gaussian_process.GaussianProcessClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">gaussian_process.GaussianProcessClassifier</span></code></a> (ajustando multi_class = «one_vs_one»)</p></li>
+</ul>
+</li>
+<li><p><strong>Multiclase como One-Vs-The-Rest:</strong></p>
+<ul>
+<li><p><a class="reference internal" href="generated/sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier" title="sklearn.ensemble.GradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.GradientBoostingClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.gaussian_process.GaussianProcessClassifier.html#sklearn.gaussian_process.GaussianProcessClassifier" title="sklearn.gaussian_process.GaussianProcessClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">gaussian_process.GaussianProcessClassifier</span></code></a> (ajustando multi_class = «one_vs_rest»)</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.LinearSVC</span></code></a> (ajustando multi_class=»ovr»)</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.LogisticRegression</span></code></a> (ajustando multi_class=»ovr»)</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.LogisticRegressionCV.html#sklearn.linear_model.LogisticRegressionCV" title="sklearn.linear_model.LogisticRegressionCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.LogisticRegressionCV</span></code></a> (ajustando multi_class=»ovr»)</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.SGDClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.Perceptron.html#sklearn.linear_model.Perceptron" title="sklearn.linear_model.Perceptron"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.Perceptron</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.PassiveAggressiveClassifier.html#sklearn.linear_model.PassiveAggressiveClassifier" title="sklearn.linear_model.PassiveAggressiveClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.PassiveAggressiveClassifier</span></code></a></p></li>
+</ul>
+</li>
+<li><p><strong>Soporte de multietiqueta:</strong></p>
+<ul>
+<li><p><a class="reference internal" href="generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree.DecisionTreeClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.tree.ExtraTreeClassifier.html#sklearn.tree.ExtraTreeClassifier" title="sklearn.tree.ExtraTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree.ExtraTreeClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.ensemble.ExtraTreesClassifier.html#sklearn.ensemble.ExtraTreesClassifier" title="sklearn.ensemble.ExtraTreesClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.ExtraTreesClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.KNeighborsClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neural_network.MLPClassifier.html#sklearn.neural_network.MLPClassifier" title="sklearn.neural_network.MLPClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neural_network.MLPClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neighbors.RadiusNeighborsClassifier.html#sklearn.neighbors.RadiusNeighborsClassifier" title="sklearn.neighbors.RadiusNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.RadiusNeighborsClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.RandomForestClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.RidgeClassifierCV.html#sklearn.linear_model.RidgeClassifierCV" title="sklearn.linear_model.RidgeClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">linear_model.RidgeClassifierCV</span></code></a></p></li>
+</ul>
+</li>
+<li><p><strong>Soporte de multi-clase de salida múltiple:</strong></p>
+<ul>
+<li><p><a class="reference internal" href="generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree.DecisionTreeClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.tree.ExtraTreeClassifier.html#sklearn.tree.ExtraTreeClassifier" title="sklearn.tree.ExtraTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree.ExtraTreeClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.ensemble.ExtraTreesClassifier.html#sklearn.ensemble.ExtraTreesClassifier" title="sklearn.ensemble.ExtraTreesClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.ExtraTreesClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.KNeighborsClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.neighbors.RadiusNeighborsClassifier.html#sklearn.neighbors.RadiusNeighborsClassifier" title="sklearn.neighbors.RadiusNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.RadiusNeighborsClassifier</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.RandomForestClassifier</span></code></a></p></li>
+</ul>
+</li>
+</ul>
+<section id="multiclass-classification">
+<span id="id1"></span><h2><span class="section-number">1.12.1. </span>Clasificación multiclase<a class="headerlink" href="#multiclass-classification" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Todos los clasificadores en scikit-learn hacen la clasificación multiclase inmediata. No es necesario utilizar el módulo <a class="reference internal" href="classes.html#module-sklearn.multiclass" title="sklearn.multiclass"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.multiclass</span></code></a> a menos que quieras experimentar con diferentes estrategias multiclase.</p>
+</div>
+<p><strong>La clasificación multiclase</strong> es una tarea de clasificación con más de dos clases. Cada muestra sólo puede ser etiquetada como una clase.</p>
+<p>Por ejemplo, la clasificación mediante características extraídas de un conjunto de imágenes de fruta, donde cada imagen puede ser de una naranja, una manzana o una pera. Cada imagen es una muestra y se etiqueta como una de las 3 clases posibles. La clasificación multiclase parte de la base de que cada muestra se asigna a una sola etiqueta: una muestra no puede ser, por ejemplo, una pera y una manzana.</p>
+<p>Aunque todos los clasificadores de scikit-learn son capaces de realizar una clasificación multiclase, los meta-estimadores ofrecidos por <a class="reference internal" href="classes.html#module-sklearn.multiclass" title="sklearn.multiclass"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.multiclass</span></code></a> permiten cambiar la forma en que manejan más de dos clases porque esto puede tener un efecto en el rendimiento del clasificador (ya sea en términos de error de generalización o de recursos computacionales requeridos).</p>
+<section id="target-format">
+<h3><span class="section-number">1.12.1.1. </span>Formato del objetivo<a class="headerlink" href="#target-format" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Representaciones válidas de <a class="reference internal" href="../glossary.html#term-multiclass"><span class="xref std std-term">multiclase</span></a> para <a class="reference internal" href="generated/sklearn.utils.multiclass.type_of_target.html#sklearn.utils.multiclass.type_of_target" title="sklearn.utils.multiclass.type_of_target"><code class="xref py py-func docutils literal notranslate"><span class="pre">type_of_target</span></code></a> (<code class="docutils literal notranslate"><span class="pre">y</span></code>) son:</p>
+<blockquote>
+<div><ul>
+<li><p>Vector de 1d o columna que contiene más de dos valores discretos. Un ejemplo de vector <code class="docutils literal notranslate"><span class="pre">y</span></code> para 4 muestras:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;pear&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">[&#39;apple&#39; &#39;pear&#39; &#39;apple&#39; &#39;orange&#39;]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Matriz <a class="reference internal" href="../glossary.html#term-binary"><span class="xref std std-term">binary</span></a> densa o dispersa de forma <code class="docutils literal notranslate"><span class="pre">(n_muestras,</span> <span class="pre">n_clases)</span></code> con una sola muestra por fila, donde cada columna representa una clase. Un ejemplo de matriz <a class="reference internal" href="../glossary.html#term-binary"><span class="xref std std-term">binary</span></a> densa y dispersa para 4 muestras, donde las columnas, en orden, son manzana, naranja y pera:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelBinarizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;pear&#39;</span><span class="p">,</span> <span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_dense</span> <span class="o">=</span> <span class="n">LabelBinarizer</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y_dense</span><span class="p">)</span>
+<span class="go">  [[1 0 0]</span>
+<span class="go">   [0 0 1]</span>
+<span class="go">   [1 0 0]</span>
+<span class="go">   [0 1 0]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_sparse</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">y_dense</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y_sparse</span><span class="p">)</span>
+<span class="go">    (0, 0)        1</span>
+<span class="go">    (1, 2)        1</span>
+<span class="go">    (2, 0)        1</span>
+<span class="go">    (3, 1)        1</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<p>Para más información sobre <a class="reference internal" href="generated/sklearn.preprocessing.LabelBinarizer.html#sklearn.preprocessing.LabelBinarizer" title="sklearn.preprocessing.LabelBinarizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelBinarizer</span></code></a>, consulta <a class="reference internal" href="preprocessing_targets.html#preprocessing-targets"><span class="std std-ref">Transformación del objetivo de predicción (y)</span></a>.</p>
+</section>
+<section id="onevsrestclassifier">
+<span id="ovr-classification"></span><h3><span class="section-number">1.12.1.2. </span>Clasificador One Vs Rest<a class="headerlink" href="#onevsrestclassifier" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La estrategia <strong>one-vs-rest</strong>, también conocida como <strong>uno-vs-todo</strong>, se implementa en <a class="reference internal" href="generated/sklearn.multiclass.OneVsRestClassifier.html#sklearn.multiclass.OneVsRestClassifier" title="sklearn.multiclass.OneVsRestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneVsRestClassifier</span></code></a>.  La estrategia consiste en ajustar un clasificador por clase. Para cada clasificador, la clase se ajusta contra todas las demás clases. Además de su eficiencia computacional (sólo se necesitan clasificadores <code class="docutils literal notranslate"><span class="pre">n_clases</span></code>), una ventaja de este enfoque es su interpretabilidad. Dado que cada clase está representada por uno y sólo un clasificador, es posible obtener conocimientos sobre la clase inspeccionando su clasificador correspondiente. Esta es la estrategia más comúnmente utilizada y es una elección justa por defecto.</p>
+<p>A continuación hay un ejemplo de aprendizaje multiclase usando OvR:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.multiclass</span> <span class="kn">import</span> <span class="n">OneVsRestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">OneVsRestClassifier</span><span class="p">(</span><span class="n">LinearSVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,</span>
+<span class="go">       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2,</span>
+<span class="go">       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="generated/sklearn.multiclass.OneVsRestClassifier.html#sklearn.multiclass.OneVsRestClassifier" title="sklearn.multiclass.OneVsRestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneVsRestClassifier</span></code></a> también soporta clasificación multietiqueta. Para utilizar esta función, alimentar el clasificador una matriz indicadora, en la que la célula [i, j] indica la presencia de la etiqueta j en la muestra i.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/miscellaneous/plot_multilabel.html"><img alt="../_images/sphx_glr_plot_multilabel_001.png" src="../_images/sphx_glr_plot_multilabel_001.png" style="width: 600.0px; height: 450.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/miscellaneous/plot_multilabel.html#sphx-glr-auto-examples-miscellaneous-plot-multilabel-py"><span class="std std-ref">Clasificación multietiqueta</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="onevsoneclassifier">
+<span id="ovo-classification"></span><h3><span class="section-number">1.12.1.3. </span>Clasificador OneVsOne<a class="headerlink" href="#onevsoneclassifier" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.multiclass.OneVsOneClassifier.html#sklearn.multiclass.OneVsOneClassifier" title="sklearn.multiclass.OneVsOneClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneVsOneClassifier</span></code></a> construye un clasificador por cada par de clases. En el momento de la predicción, se selecciona la clase que ha recibido más votos. En caso de empate (entre dos clases con el mismo número de votos), selecciona la clase con la mayor confianza de clasificación agregada mediante la suma de los niveles de confianza de clasificación por pares calculados por los clasificadores binarios subyacentes.</p>
+<p>Dado que requiere ajustar los clasificadores <code class="docutils literal notranslate"><span class="pre">n_clases</span> <span class="pre">*</span> <span class="pre">(n_clases</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">2</span></code>, este método suele ser más lento que el de one-vs-the-rest, debido a su complejidad O(n_clases^2). Sin embargo, este método puede ser ventajoso para algoritmos como los algoritmos núcleo que no escalan bien con <code class="docutils literal notranslate"><span class="pre">n_muestras</span></code>. Esto se debe a que cada problema de aprendizaje individual sólo implica un pequeño subconjunto de los datos, mientras que, con one-vs-the-rest, el conjunto de datos completo se utiliza <code class="docutils literal notranslate"><span class="pre">n_clases</span></code> veces. La función de decisión es el resultado de una transformación monótona de la clasificación uno contra uno.</p>
+<p>A continuación hay un ejemplo de aprendizaje multiclase usando OvO:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.multiclass</span> <span class="kn">import</span> <span class="n">OneVsOneClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">OneVsOneClassifier</span><span class="p">(</span><span class="n">LinearSVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,</span>
+<span class="go">       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,</span>
+<span class="go">       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>«Pattern Recognition and Machine Learning. Springer»,
+Christopher M. Bishop, page 183, (First Edition)</p></li>
+</ul>
+</div>
+</section>
+<section id="outputcodeclassifier">
+<span id="ecoc"></span><h3><span class="section-number">1.12.1.4. </span>Clasificador de Código de salida<a class="headerlink" href="#outputcodeclassifier" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Las estrategias basadas en códigos de salida con corrección de errores son bastante diferentes a las de one-vs-the-rest y one-vs-one. Con estas estrategias, cada clase se representa en un espacio euclidiano, donde cada dimensión sólo puede ser 0 o 1. Otra forma de decirlo es que cada clase está representada por un código binario (un arreglo de 0 y 1). La matriz que lleva la cuenta de la ubicación/código de cada clase se llama libro de códigos. El tamaño del código es la dimensionalidad del espacio mencionado. Intuitivamente, cada clase debería estar representada por un código lo más único posible y un buen libro de códigos debería estar diseñado para optimizar la precisión de la clasificación. En esta implementación, simplemente utilizamos un libro de códigos generado aleatoriamente como se recomienda en <a class="footnote-reference brackets" href="#id3" id="id2">3</a> aunque se pueden añadir métodos más elaborados en el futuro.</p>
+<p>En el momento del ajuste, se ajusta un clasificador binario por cada bit del libro de códigos. En el momento de la predicción, los clasificadores se utilizan para proyectar nuevos puntos en el espacio de clases y se elige la clase más cercana a los puntos.</p>
+<p>En <a class="reference internal" href="generated/sklearn.multiclass.OutputCodeClassifier.html#sklearn.multiclass.OutputCodeClassifier" title="sklearn.multiclass.OutputCodeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">OutputCodeClassifier</span></code></a>, el atributo <code class="docutils literal notranslate"><span class="pre">code_size</span></code> permite al usuario controlar el número de clasificadores que se utilizarán. Es un porcentaje del número total de clases.</p>
+<p>Un número entre 0 y 1 requerirá menos clasificadores que one-vs-the-rest. En teoría, <code class="docutils literal notranslate"><span class="pre">log2(n_clases)</span> <span class="pre">/</span> <span class="pre">n_clases</span></code> es suficiente para representar cada clase de forma inequívoca. Sin embargo, en la práctica, puede que no se consiga una buena precisión, ya que <code class="docutils literal notranslate"><span class="pre">log2(n_clases)</span></code> es mucho menor que n_clases.</p>
+<p>Un número superior a 1 requerirá más clasificadores que one-vs-the-rest. En este caso, algunos clasificadores corregirán en teoría los errores cometidos por otros clasificadores, de ahí el nombre de «corrección de errores». En la práctica, sin embargo, esto puede no ocurrir, ya que los errores de los clasificadores suelen estar correlacionados. Los códigos de salida con corrección de errores tienen un efecto similar al del empaquetado.</p>
+<p>A continuación hay un ejemplo de aprendizaje multiclase utilizando Codigos de Salida:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.multiclass</span> <span class="kn">import</span> <span class="n">OutputCodeClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">OutputCodeClassifier</span><span class="p">(</span><span class="n">LinearSVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="gp">... </span>                           <span class="n">code_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</span>
+<span class="go">       0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1,</span>
+<span class="go">       1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1,</span>
+<span class="go">       1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,</span>
+<span class="go">       2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2,</span>
+<span class="go">       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>«Solving multiclass learning problems via error-correcting output codes»,
+Dietterich T., Bakiri G.,
+Journal of Artificial Intelligence Research 2,
+1995.</p></li>
+</ul>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id2">3</a></span></dt>
+<dd><p>«The error coding method and PICTs»,
+James G., Hastie T.,
+Journal of Computational and Graphical statistics 7,
+1998.</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>«The Elements of Statistical Learning»,
+Hastie T., Tibshirani R., Friedman J., page 606 (second-edition)
+2008.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="multilabel-classification">
+<span id="id4"></span><h2><span class="section-number">1.12.2. </span>Clasificación multietiqueta<a class="headerlink" href="#multilabel-classification" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><strong>La clasificación multietiqueta</strong> (estrechamente relacionada con la clasificación de salidas múltiples**) es una tarea de clasificación que etiqueta cada muestra con «m» etiquetas de «n_classes» clases posibles, donde «m» puede ser de 0 a «n_classes» inclusive. Esto puede considerarse como la predicción de propiedades de una muestra que no son mutuamente excluyentes. Formalmente, se asigna una salida binaria a cada clase, para cada muestra. Las clases positivas se indican con 1 y las negativas con 0 o -1. Por lo tanto, es comparable a la ejecución de tareas de clasificación binaria <code class="docutils literal notranslate"><span class="pre">n_classes</span></code>, por ejemplo con <a class="reference internal" href="generated/sklearn.multioutput.MultiOutputClassifier.html#sklearn.multioutput.MultiOutputClassifier" title="sklearn.multioutput.MultiOutputClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputClassifier</span></code></a>. Este enfoque trata cada etiqueta de forma independiente, mientras que los clasificadores multietiqueta <em>pueden</em> tratar las múltiples clases simultáneamente, teniendo en cuenta el comportamiento correlacionado entre ellas.</p>
+<p>Por ejemplo, la predicción de los temas relevantes para un documento de texto o un vídeo. El documento o el vídeo puede tratar de una de las clases de temas «religión», «política», «finanzas» o «educación», de varias de las clases de temas o de todas las clases de temas.</p>
+<section id="id5">
+<h3><span class="section-number">1.12.2.1. </span>Formato del objetivo<a class="headerlink" href="#id5" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una representación válida de <a class="reference internal" href="../glossary.html#term-multilabel"><span class="xref std std-term">multilabel</span></a> <code class="docutils literal notranslate"><span class="pre">y</span></code> es una matriz <a class="reference internal" href="../glossary.html#term-binary"><span class="xref std std-term">binary</span></a> densa o dispersa de la forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_classes)</span></code>. Cada columna representa una clase. Los <code class="docutils literal notranslate"><span class="pre">1</span></code> de cada fila denotan las clases positivas con las que se ha etiquetado una muestra. Un ejemplo de matriz densa <code class="docutils literal notranslate"><span class="pre">y</span></code> para 3 muestras:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">[[1 0 0 1]</span>
+<span class="go"> [0 0 1 1]</span>
+<span class="go"> [0 0 0 0]]</span>
+</pre></div>
+</div>
+<p>También se pueden crear matrices binarias densas usando <a class="reference internal" href="generated/sklearn.preprocessing.MultiLabelBinarizer.html#sklearn.preprocessing.MultiLabelBinarizer" title="sklearn.preprocessing.MultiLabelBinarizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiLabelBinarizer</span></code></a>. Para obtener más información, consulta <a class="reference internal" href="preprocessing_targets.html#preprocessing-targets"><span class="std std-ref">Transformación del objetivo de predicción (y)</span></a>.</p>
+<p>Un ejemplo del mismo <code class="docutils literal notranslate"><span class="pre">y</span></code> en forma de matriz dispersa:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_sparse</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y_sparse</span><span class="p">)</span>
+<span class="go">  (0, 0)      1</span>
+<span class="go">  (0, 3)      1</span>
+<span class="go">  (1, 2)      1</span>
+<span class="go">  (1, 3)      1</span>
+</pre></div>
+</div>
+</section>
+<section id="multioutputclassifier">
+<span id="multioutputclassfier"></span><h3><span class="section-number">1.12.2.2. </span>Clasificador de salidas múltiples<a class="headerlink" href="#multioutputclassifier" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Se puede añadir soporte de clasificación multietiqueta a cualquier clasificador con <a class="reference internal" href="generated/sklearn.multioutput.MultiOutputClassifier.html#sklearn.multioutput.MultiOutputClassifier" title="sklearn.multioutput.MultiOutputClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputClassifier</span></code></a>. Esta estrategia consiste en ajustar un clasificador por objetivo.  Esto permite múltiples clasificaciones de variables objetivo. El propósito de esta clase es extender los estimadores para poder estimar una serie de funciones objetivo (f1,f2,f3…,fn) que se entrenan en una única matriz de predicción X para predecir una serie de respuestas (y1,y2,y3…,yn).</p>
+<p>A continuación se muestra un ejemplo de clasificación multietiqueta:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.multioutput</span> <span class="kn">import</span> <span class="n">MultiOutputClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">shuffle</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y2</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y3</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 10,100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_outputs</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_classes</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">forest</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multi_target_forest</span> <span class="o">=</span> <span class="n">MultiOutputClassifier</span><span class="p">(</span><span class="n">forest</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multi_target_forest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[2, 2, 0],</span>
+<span class="go">       [1, 2, 1],</span>
+<span class="go">       [2, 1, 0],</span>
+<span class="go">       [0, 0, 2],</span>
+<span class="go">       [0, 2, 1],</span>
+<span class="go">       [0, 0, 2],</span>
+<span class="go">       [1, 1, 0],</span>
+<span class="go">       [1, 1, 1],</span>
+<span class="go">       [0, 0, 2],</span>
+<span class="go">       [2, 0, 0]])</span>
+</pre></div>
+</div>
+</section>
+<section id="classifierchain">
+<span id="id6"></span><h3><span class="section-number">1.12.2.3. </span>Cadena clasificadora<a class="headerlink" href="#classifierchain" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Las cadenas de clasificadores (ver <a class="reference internal" href="generated/sklearn.multioutput.ClassifierChain.html#sklearn.multioutput.ClassifierChain" title="sklearn.multioutput.ClassifierChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassifierChain</span></code></a>) son una forma de combinar varios clasificadores binarios en un único modelo multietiqueta que es capaz de explotar las correlaciones entre objetivos.</p>
+<p>Para un problema de clasificación multietiqueta con N clases, a N clasificadores binarios se les asigna un número entero entre 0 y N-1. Estos enteros definen el orden de los modelos en la cadena. A continuación, cada clasificador se ajusta a los datos de entrenamiento disponibles más las etiquetas verdaderas de las clases a cuyos modelos se les asignó un número inferior.</p>
+<p>Cuando se predice, las etiquetas verdaderas no estarán disponibles. En su lugar, las predicciones de cada modelo se transmiten a los modelos posteriores de la cadena que se usarán como características.</p>
+<p>Es evidente que el orden de la cadena es importante. El primer modelo de la cadena no tiene información sobre las otras etiquetas, mientras que el último modelo de la cadena tiene características que indican la presencia de todas las demás etiquetas. En general, uno no sabe el orden óptimo de los modelos de la cadena, por lo que típicamente muchas cadenas ordenadas aleatoriamente son ajustadas y sus predicciones son promedio juntos.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="simple">
+<dt>Jesse Read, Bernhard Pfahringer, Geoff Holmes, Eibe Frank,</dt><dd><p>«Classifier Chains for Multi-label Classification», 2009.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="multiclass-multioutput-classification">
+<span id="id7"></span><h2><span class="section-number">1.12.3. </span>Clasificación multiclase y multisalida<a class="headerlink" href="#multiclass-multioutput-classification" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La <strong>clasificación multiclase de salida múltiple</strong> (también conocida como <strong>clasificación multitarea</strong>) es una tarea de clasificación que etiqueta cada muestra con un conjunto de propiedades <strong>no binarias</strong>. Tanto el número de propiedades como el número de clases por propiedad es superior a 2. Así, un único estimador se encarga de varias tareas de clasificación conjuntas. Se trata tanto de una generalización de la tarea de clasificación de múltiples <em>etiquetas</em>, que sólo considera atributos binarios, como de una generalización de la tarea de clasificación de múltiples <em>clases</em>, en la que sólo se considera una propiedad.</p>
+<p>Por ejemplo, la clasificación de las propiedades «tipo de fruta» y «color» para un conjunto de imágenes de frutas. La propiedad «tipo de fruta» tiene las clases posibles «manzana», «pera» y «naranja». La propiedad «color» tiene las clases posibles: «verde», «rojo», «amarillo» y «naranja». Cada muestra es una imagen de una fruta, se emite una etiqueta para ambas propiedades y cada etiqueta es una de las posibles clases de la propiedad correspondiente.</p>
+<p>Observa que todos los clasificadores que manejan tareas multiclase de salidos múltiples (también conocidas como clasificación multitarea), admiten la tarea de clasificación multietiqueta como un caso especial. La clasificación multitarea es similar a la tarea de clasificación de salidas múltiples con diferentes formulaciones del modelo. Para más información, consulta la documentación del estimador correspondiente.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Actualmente, ninguna métrica en <a class="reference internal" href="classes.html#module-sklearn.metrics" title="sklearn.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics</span></code></a> soporta la tarea de clasificación multiclase de salida múltiple.</p>
+</div>
+<section id="id8">
+<h3><span class="section-number">1.12.3.1. </span>Formato del objetivo<a class="headerlink" href="#id8" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una representación válida de <a class="reference internal" href="../glossary.html#term-multioutput"><span class="xref std std-term">multioutput</span></a> <code class="docutils literal notranslate"><span class="pre">y</span></code> es una matriz densa de forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_classes)</span></code> de etiquetas de clase. Es una concatenación por columnas de 1d variables de <a class="reference internal" href="../glossary.html#term-multiclass"><span class="xref std std-term">multiclass</span></a>. Un ejemplo de <code class="docutils literal notranslate"><span class="pre">y</span></code> para 3 muestras:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;pear&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">[[&#39;apple&#39; &#39;green&#39;]</span>
+<span class="go"> [&#39;orange&#39; &#39;orange&#39;]</span>
+<span class="go"> [&#39;pear&#39; &#39;green&#39;]]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="multioutput-regression">
+<span id="id9"></span><h2><span class="section-number">1.12.4. </span>Regresión de salida múltiple<a class="headerlink" href="#multioutput-regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La ** Rgresión de salida múltiple** predice múltiples propiedades numéricas para cada muestra. Cada propiedad es una variable numérica y el número de propiedades a predecir para cada muestra es mayor o igual a 2. Algunos estimadores que soportan la regresión de salida múltiple son más rápidos que la simple ejecución de estimadores <code class="docutils literal notranslate"><span class="pre">n_output</span></code>.</p>
+<p>Por ejemplo, predicción tanto de la velocidad del viento como de la dirección del viento, en grados, utilizando datos obtenidos en una determinada ubicación. Cada muestra sería información obtenida en una ubicación y tanto la velocidad del viento como la dirección serían salida para cada muestra.</p>
+<section id="id10">
+<h3><span class="section-number">1.12.4.1. </span>Formato del objetivo<a class="headerlink" href="#id10" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una representación válida de <a class="reference internal" href="../glossary.html#term-multioutput"><span class="xref std std-term">multioutput</span></a> <code class="docutils literal notranslate"><span class="pre">y</span></code> es una matriz densa de la forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_classes)</span></code> de floats. Una concatenación sabia de columna de variables <a class="reference internal" href="../glossary.html#term-continuous"><span class="xref std std-term">continuous</span></a>. Un ejemplo de <code class="docutils literal notranslate"><span class="pre">y</span></code> para 3 muestras:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">31.4</span><span class="p">,</span> <span class="mi">94</span><span class="p">],</span> <span class="p">[</span><span class="mf">40.5</span><span class="p">,</span> <span class="mi">109</span><span class="p">],</span> <span class="p">[</span><span class="mf">25.0</span><span class="p">,</span> <span class="mi">30</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">[[ 31.4  94. ]</span>
+<span class="go"> [ 40.5 109. ]</span>
+<span class="go"> [ 25.   30. ]]</span>
+</pre></div>
+</div>
+</section>
+<section id="multioutputregressor">
+<span id="id11"></span><h3><span class="section-number">1.12.4.2. </span>Regresor de salida múltiples<a class="headerlink" href="#multioutputregressor" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El soporte de regresión de salidas múltplies puede añadirse a cualquier regresor con <a class="reference internal" href="generated/sklearn.multioutput.MultiOutputRegressor.html#sklearn.multioutput.MultiOutputRegressor" title="sklearn.multioutput.MultiOutputRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputRegressor</span></code></a>. Esta estrategia consiste en ajustar un regresor por objetivo. Dado que cada objetivo está representado exactamente por un regresor, es posible conocer el objetivo inspeccionando su regresor correspondiente. Como <a class="reference internal" href="generated/sklearn.multioutput.MultiOutputRegressor.html#sklearn.multioutput.MultiOutputRegressor" title="sklearn.multioutput.MultiOutputRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiOutputRegressor</span></code></a> se ajusta a un regresor por objetivo que no puede aprovechar las correlaciones entre objetivos.</p>
+<p>A continuación hay un ejemplo de regresión de salidas múltiples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.multioutput</span> <span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_targets</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MultiOutputRegressor</span><span class="p">(</span><span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[-154.75474165, -147.03498585,  -50.03812219],</span>
+<span class="go">       [   7.12165031,    5.12914884,  -81.46081961],</span>
+<span class="go">       [-187.8948621 , -100.44373091,   13.88978285],</span>
+<span class="go">       [-141.62745778,   95.02891072, -191.48204257],</span>
+<span class="go">       [  97.03260883,  165.34867495,  139.52003279],</span>
+<span class="go">       [ 123.92529176,   21.25719016,   -7.84253   ],</span>
+<span class="go">       [-122.25193977,  -85.16443186, -107.12274212],</span>
+<span class="go">       [ -30.170388  ,  -94.80956739,   12.16979946],</span>
+<span class="go">       [ 140.72667194,  176.50941682,  -17.50447799],</span>
+<span class="go">       [ 149.37967282,  -81.15699552,   -5.72850319]])</span>
+</pre></div>
+</div>
+</section>
+<section id="regressorchain">
+<span id="id12"></span><h3><span class="section-number">1.12.4.3. </span>Cadena de Regresor<a class="headerlink" href="#regressorchain" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Las cadenas de regresores (ver <a class="reference internal" href="generated/sklearn.multioutput.RegressorChain.html#sklearn.multioutput.RegressorChain" title="sklearn.multioutput.RegressorChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">RegressorChain</span></code></a>) son análogas a <a class="reference internal" href="generated/sklearn.multioutput.ClassifierChain.html#sklearn.multioutput.ClassifierChain" title="sklearn.multioutput.ClassifierChain"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassifierChain</span></code></a> como forma de combinar una serie de regresiones en un único modelo multiobjetivo que es capaz de explotar las correlaciones entre los objetivos.</p>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/multiclass.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

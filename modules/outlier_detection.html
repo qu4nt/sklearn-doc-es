@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2.7. Detección de novedades y valores atípicos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/outlier_detection.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="covariance.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.6. Estimación de covarianza">Prev</a><a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Arriba</a>
+            <a href="density.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.8. Estimación de densidad">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">2.7. Detección de novedades y valores atípicos</a><ul>
+<li><a class="reference internal" href="#overview-of-outlier-detection-methods">2.7.1. Resumen de los métodos de detección de valores atípicos</a></li>
+<li><a class="reference internal" href="#novelty-detection">2.7.2. Detección de novedades</a></li>
+<li><a class="reference internal" href="#id1">2.7.3. Detección de valores atípicos</a><ul>
+<li><a class="reference internal" href="#fitting-an-elliptic-envelope">2.7.3.1. Ajuste de una envolvente elíptica</a></li>
+<li><a class="reference internal" href="#isolation-forest">2.7.3.2. Bosque de aislamiento</a></li>
+<li><a class="reference internal" href="#local-outlier-factor">2.7.3.3. Local Outlier Factor</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#novelty-detection-with-local-outlier-factor">2.7.4. Detección de novedades con Local Outlier Factor</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="novelty-and-outlier-detection">
+<span id="outlier-detection"></span><h1><span class="section-number">2.7. </span>Detección de novedades y valores atípicos<a class="headerlink" href="#novelty-and-outlier-detection" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Muchas aplicaciones requieren poder decidir si una nueva observación pertenece a la misma distribución que las observaciones existentes (es un <em>valor típico</em>), o debe considerarse como diferente (es un <em>valor atípico</em>). A menudo, esta capacidad se utiliza para limpiar conjuntos de datos reales. Hay que hacer dos distinciones importantes:</p>
+<dl class="field-list simple">
+<dt class="field-odd">detección de valores atípicos</dt>
+<dd class="field-odd"><p>Los datos de entrenamiento contienen valores atípicos que se definen como observaciones que se alejan de las demás. Por tanto, los estimadores de detección de valores atípicos intentan ajustarse a las regiones donde los datos de entrenamiento están más concentrados, ignorando las observaciones desviadas.</p>
+</dd>
+<dt class="field-even">detección de novedades</dt>
+<dd class="field-even"><p>Los datos de entrenamiento no están contaminados por valores atípicos y nos interesa detectar si una <strong>nueva</strong> observación es un valor atípico. En este contexto, un valor atípico también se denomina novedades.</p>
+</dd>
+</dl>
+<p>Tanto la detección de valores atípicos como la detección de novedades se utilizan para la detección de anomalías, cuando uno está interesado en detectar observaciones anormales o inusuales. La detección de valores atípicos también se conoce como detección de anomalías no supervisada y la detección de novedades como detección de anomalías semisupervisada. En el contexto de la detección de valores atípicos, los valores atípicos/anomalías no pueden formar un grupo denso, ya que los estimadores disponibles suponen que los valores atípicos/anomalías se encuentran en regiones de baja densidad. Por el contrario, en el contexto de la detección de novedades, las novedades/anomalías pueden formar un conglomerado denso siempre que se encuentren en una región de baja densidad de los datos de entrenamiento, considerada como normal en este contexto.</p>
+<p>El proyecto scikit-learn proporciona un conjunto de herramientas de aprendizaje automático que pueden ser utilizadas tanto para la detección de novedades como para la detección de valores atípicos. Esta estrategia se implementa con el aprendizaje de objetos de una manera no supervisada de los datos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>las observaciones nuevas pueden ser ordenadas como valores típicos y atípicos con un <code class="docutils literal notranslate"><span class="pre">predict</span></code> método:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Los valores típicos se etiquetan con 1, mientras que los valores atípicos se etiquetan con -1. El método de predicción utiliza un umbral en la función de puntuación bruta calculada por el estimador. Esta función de puntuación es accesible a través del método <code class="docutils literal notranslate"><span class="pre">score_samples</span></code>, mientras que el umbral puede ser controlado por el parámetro <code class="docutils literal notranslate"><span class="pre">contamination</span></code>.</p>
+<p>El método <a href="#id1"><span class="problematic" id="id2">``</span></a>decision_function”” también se define a partir de la función de puntuación, de manera que los valores negativos son valores atípicos y los no negativos son valores atípicos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ten en cuenta que <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> no admite los métodos <code class="docutils literal notranslate"><span class="pre">predict</span></code>, <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> y <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> por defecto, sino sólo un método <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>, ya que este estimador fue concebido originalmente para ser aplicado para la detección de valores atípicos. Las puntuaciones de anormalidad de las muestras de entrenamiento son accesibles a través del atributo <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>.</p>
+<p>Si realmente deseas utilizar <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> para la detección de novedades, es decir, predecir etiquetas o calcular la puntuación de anormalidad de nuevos datos no vistos, puede instanciar el estimador con el parámetro <code class="docutils literal notranslate"><span class="pre">novelty</span></code> establecido en <code class="docutils literal notranslate"><span class="pre">True</span></code> antes de ajustar el estimador. En este caso, <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> no está disponible.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p><strong>Detección de novedades con Local Outlier Factor</strong></p>
+<p>Cuando <code class="docutils literal notranslate"><span class="pre">novelty</span></code> se establece en <code class="docutils literal notranslate"><span class="pre">True</span></code> hay que tener en cuenta que sólo debe utilizar <code class="docutils literal notranslate"><span class="pre">predict</span></code>, <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> y <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> en los nuevos datos no vistos y no en las muestras de entrenamiento ya que esto llevaría a resultados erróneos. Las puntuaciones de anormalidad de las muestras de entrenamiento son siempre accesibles a través del atributo <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>.</p>
+</div>
+<p>El comportamiento de <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> se resume en la siguiente tabla.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 43%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Outlier detection</p></th>
+<th class="head"><p>Novelty detection</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fit_predict</span></code></p></td>
+<td><p>OK</p></td>
+<td><p>Not available</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">predict</span></code></p></td>
+<td><p>Not available</p></td>
+<td><p>Use only on new data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">decision_function</span></code></p></td>
+<td><p>Not available</p></td>
+<td><p>Use only on new data</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">score_samples</span></code></p></td>
+<td><p>Use <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code></p></td>
+<td><p>Use only on new data</p></td>
+</tr>
+</tbody>
+</table>
+<section id="overview-of-outlier-detection-methods">
+<h2><span class="section-number">2.7.1. </span>Resumen de los métodos de detección de valores atípicos<a class="headerlink" href="#overview-of-outlier-detection-methods" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una comparación de los algoritmos de detección de valores atípicos en scikit-learn. Local Outlier Factor (LOF) no muestra un límite de decisión en negro ya que no tiene un método de predicción que se aplique a los nuevos datos cuando se utiliza para la detección de valores atípicos.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/miscellaneous/plot_anomaly_comparison.html"><img alt="../_images/sphx_glr_plot_anomaly_comparison_001.png" src="../_images/sphx_glr_plot_anomaly_comparison_001.png" style="width: 550.0px; height: 625.0px;" /></a>
+</figure>
+<p><a class="reference internal" href="generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.IsolationForest</span></code></a> y <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> funcionan razonablemente bien en los conjuntos de datos considerados aquí. Se sabe que el <a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.OneClassSVM</span></code></a> es sensible a los valores atípicos y, por tanto, no funciona muy bien para la detección de valores atípicos. Dicho esto, la detección de valores atípicos en alta dimensión, o sin ningún tipo de suposición sobre la distribución de los datos subyacentes, es un gran reto. <a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.OneClassSVM</span></code></a> aún puede utilizarse con la detección de valores atípicos, pero requiere un ajuste fino de su hiperparámetro <code class="docutils literal notranslate"><span class="pre">nu</span></code> para manejar los valores atípicos y evitar el sobreajuste. Por último, <a class="reference internal" href="generated/sklearn.covariance.EllipticEnvelope.html#sklearn.covariance.EllipticEnvelope" title="sklearn.covariance.EllipticEnvelope"><code class="xref py py-class docutils literal notranslate"><span class="pre">covariance.EllipticEnvelope</span></code></a> asume que los datos son gaussianos y aprende una elipse. Para más detalles sobre los diferentes estimadores, consulta el ejemplo <a class="reference internal" href="../auto_examples/miscellaneous/plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">Comparación de algoritmos de detección de valores atípicos en conjuntos de datos de juguete</span></a> y las secciones siguientes.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Ver <a class="reference internal" href="../auto_examples/miscellaneous/plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">Comparación de algoritmos de detección de valores atípicos en conjuntos de datos de juguete</span></a> para una comparación del <a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.OneClassSVM</span></code></a>, el <a class="reference internal" href="generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.IsolationForest</span></code></a>, el <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> y <a class="reference internal" href="generated/sklearn.covariance.EllipticEnvelope.html#sklearn.covariance.EllipticEnvelope" title="sklearn.covariance.EllipticEnvelope"><code class="xref py py-class docutils literal notranslate"><span class="pre">covariance.EllipticEnvelope</span></code></a>.</p></li>
+</ul>
+</div>
+</section>
+<section id="novelty-detection">
+<h2><span class="section-number">2.7.2. </span>Detección de novedades<a class="headerlink" href="#novelty-detection" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Considere un conjunto de datos de <span class="math notranslate nohighlight">\(n\)</span> observaciones de la misma distribución descrita por las características <span class="math notranslate nohighlight">\(p\)</span>.  Considere ahora que añadimos una observación más a ese conjunto de datos. ¿Es la nueva observación tan diferente de las demás que podemos dudar de que sea regular? (es decir, ¿procede de la misma distribución?) O, por el contrario, ¿es tan parecida a las demás que no podemos distinguirla de las observaciones originales? Esta es la cuestión que abordan las herramientas y métodos de detección de novedades.</p>
+<p>En general, se trata de aprender una frontera aproximada y cercana que delimita el contorno de la distribución de las observaciones iniciales, graficada en el espacio <span class="math notranslate nohighlight">\(p\)</span>-dimensional. Entonces, si las observaciones posteriores se encuentran dentro del subespacio delimitado por la frontera, se considera que proceden de la misma población que las observaciones iniciales. En caso contrario, si se encuentran fuera de la frontera, podemos decir que son anormales con una confianza determinada en nuestra valoración.</p>
+<p>La SVM de una clase ha sido introducida por Schölkopf et al. con este fin y se ha implementado en el módulo <a class="reference internal" href="svm.html#svm"><span class="std std-ref">Máquinas de Vectores de Soporte</span></a> en el objeto <a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.OneClassSVM</span></code></a>. Requiere la elección de un kernel y un parámetro escalar para definir una frontera.  Normalmente se elige el kernel RBF aunque no existe una fórmula o algoritmo exacto para establecer su parámetro de ancho de banda. Este es el valor por defecto en la implementación de scikit-learn. El parámetro <code class="docutils literal notranslate"><span class="pre">nu</span></code>, también conocido como el margen de la SVM de una clase, corresponde a la probabilidad de encontrar una nueva, pero regular, observación fuera de la frontera.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.recognition.mccme.ru/pub/papers/SVM/sch99estimating.pdf">Estimating the support of a high-dimensional distribution</a>
+Schölkopf, Bernhard, et al. Neural computation 13.7 (2001): 1443-1471.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Consulta <a class="reference internal" href="../auto_examples/svm/plot_oneclass.html#sphx-glr-auto-examples-svm-plot-oneclass-py"><span class="std std-ref">SVM de una clase con núcleo no lineal (RBF)</span></a> para visualizar la frontera aprendida alrededor de unos datos por un objeto <a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.OneClassSVM</span></code></a>.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/applications/plot_species_distribution_modeling.html#sphx-glr-auto-examples-applications-plot-species-distribution-modeling-py"><span class="std std-ref">Modelización de la distribución de las especies</span></a></p></li>
+</ul>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/svm/plot_oneclass.html"><img alt="../_images/sphx_glr_plot_oneclass_001.png" src="../_images/sphx_glr_plot_oneclass_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+</section>
+<section id="id1">
+<h2><span class="section-number">2.7.3. </span>Detección de valores atípicos<a class="headerlink" href="#id1" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La detección de valores atípicos es similar a la detección de novedades en el sentido de que el objetivo es separar un núcleo de observaciones regulares de otras contaminantes, denominadas <em>valores atípicos</em>. Sin embargo, en el caso de la detección de valores atípicos, no disponemos de un conjunto de datos limpio que represente la población de observaciones regulares que pueda utilizarse para entrenar cualquier herramienta.</p>
+<section id="fitting-an-elliptic-envelope">
+<h3><span class="section-number">2.7.3.1. </span>Ajuste de una envolvente elíptica<a class="headerlink" href="#fitting-an-elliptic-envelope" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una forma habitual de realizar la detección de valores atípicos es suponer que los datos regulares proceden de una distribución conocida (por ejemplo, los datos tienen una distribución gaussiana). A partir de esta suposición, generalmente se intenta definir la «forma» de los datos, y se pueden definir las observaciones atípicas como observaciones que se alejan lo suficiente de la forma ajustada.</p>
+<p>El scikit-learn proporciona un objeto <a class="reference internal" href="generated/sklearn.covariance.EllipticEnvelope.html#sklearn.covariance.EllipticEnvelope" title="sklearn.covariance.EllipticEnvelope"><code class="xref py py-class docutils literal notranslate"><span class="pre">covariance.EllipticEnvelope</span></code></a> que ajusta una estimación robusta de la covarianza a los datos, y por tanto ajusta una elipse a los puntos centrales de los datos, ignorando los puntos fuera del modo central.</p>
+<p>Por ejemplo, suponiendo que los datos de los inlays se distribuyen de forma gaussiana, estimará la ubicación de los inlays y la covarianza de forma robusta (es decir, sin que se vean influidos por los inlays). Las distancias de Mahalanobis obtenidas a partir de esta estimación se utilizan para obtener una medida de los valores atípicos. Esta estrategia se ilustra a continuación.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/covariance/plot_mahalanobis_distances.html"><img alt="../_images/sphx_glr_plot_mahalanobis_distances_001.png" src="../_images/sphx_glr_plot_mahalanobis_distances_001.png" style="width: 750.0px; height: 375.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Consulta <a class="reference internal" href="../auto_examples/covariance/plot_mahalanobis_distances.html#sphx-glr-auto-examples-covariance-plot-mahalanobis-distances-py"><span class="std std-ref">Estimación robusta de la covarianza y relevancia de las distancias de Mahalanobis</span></a> para ver una ilustración de la diferencia entre utilizar una estimación estándar (<a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">covariance.EmpiricalCovariance</span></code></a>) o una estimación robusta (<a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">covariance.MinCovDet</span></code></a>) de la localización y la covarianza para evaluar el grado de perificidad de una observación.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Rousseeuw, P.J., Van Driessen, K. «A fast algorithm for the minimum
+covariance determinant estimator» Technometrics 41(3), 212 (1999)</p></li>
+</ul>
+</div>
+</section>
+<section id="isolation-forest">
+<span id="id2"></span><h3><span class="section-number">2.7.3.2. </span>Bosque de aislamiento<a class="headerlink" href="#isolation-forest" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una forma eficiente de realizar la detección de valores atípicos en conjuntos de datos de alta dimensión es utilizar bosques aleatorios. La <a class="reference internal" href="generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.IsolationForest</span></code></a> “aísla” las observaciones seleccionando aleatoriamente una característica y, a continuación, seleccionando aleatoriamente un valor de división entre los valores máximo y mínimo de la característica seleccionada.</p>
+<p>Dado que la partición recursiva puede representarse mediante una estructura de árbol, el número de particiones necesarias para aislar una muestra es equivalente a la longitud del camino desde el nodo raíz hasta el nodo final.</p>
+<p>Esta longitud del recorrido, promediada sobre un bosque de tales árboles aleatorios, es una medida de normalidad y nuestra función de decisión.</p>
+<p>La partición aleatoria produce trayectorias notablemente más cortas para las anomalías. Por lo tanto, cuando un bosque de árboles aleatorios produce colectivamente trayectorias más cortas para determinadas muestras, es muy probable que se trate de anomalías.</p>
+<p>La implementación de <a class="reference internal" href="generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.IsolationForest</span></code></a> se basa en un conjunto de <a class="reference internal" href="generated/sklearn.tree.ExtraTreeRegressor.html#sklearn.tree.ExtraTreeRegressor" title="sklearn.tree.ExtraTreeRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">tree.ExtraTreeRegressor</span></code></a>. Siguiendo el documento original de Isolation Forest, la profundidad máxima de cada árbol se establece en <span class="math notranslate nohighlight">\(\lceil \log_2(n) \rceil\)</span> donde <span class="math notranslate nohighlight">\(n\)</span> es el número de muestras utilizadas para construir el árbol (ver en (Liu et al., 2008) para más detalles).</p>
+<p>Este algoritmo se ilustra a continuación.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/ensemble/plot_isolation_forest.html"><img alt="../_images/sphx_glr_plot_isolation_forest_001.png" src="../_images/sphx_glr_plot_isolation_forest_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+<p id="iforest-warm-start">La <a class="reference internal" href="generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.IsolationForest</span></code></a> soporta <code class="docutils literal notranslate"><span class="pre">warm_start=True</span></code> que permite añadir más árboles a un modelo ya ajustado:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">IsolationForest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">IsolationForest</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># fit 10 trees  </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># add 10 more trees  </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># fit the added trees  </span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Consultar <a class="reference internal" href="../auto_examples/ensemble/plot_isolation_forest.html#sphx-glr-auto-examples-ensemble-plot-isolation-forest-py"><span class="std std-ref">Ejemplo de IsolationForest</span></a> para una ilustración del uso de IsolationForest.</p></li>
+<li><p>Consulta <a class="reference internal" href="../auto_examples/miscellaneous/plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">Comparación de algoritmos de detección de valores atípicos en conjuntos de datos de juguete</span></a> para ver una comparación de <a class="reference internal" href="generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">ensemble.IsolationForest</span></code></a> con <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a>, <a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.OneClassSVM</span></code></a> (ajustado para funcionar como un método de detección de valores atípicos) y una detección de valores atípicos basada en la covarianza con <a class="reference internal" href="generated/sklearn.covariance.EllipticEnvelope.html#sklearn.covariance.EllipticEnvelope" title="sklearn.covariance.EllipticEnvelope"><code class="xref py py-class docutils literal notranslate"><span class="pre">covariance.EllipticEnvelope</span></code></a>.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Liu, Fei Tony, Ting, Kai Ming and Zhou, Zhi-Hua. «Isolation forest.»
+Data Mining, 2008. ICDM’08. Eighth IEEE International Conference on.</p></li>
+</ul>
+</div>
+</section>
+<section id="local-outlier-factor">
+<h3><span class="section-number">2.7.3.3. </span>Local Outlier Factor<a class="headerlink" href="#local-outlier-factor" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Otra forma eficaz de realizar la detección de valores atípicos en conjuntos de datos moderadamente dimensionales es utilizar el algoritmo del factor local de valores atípicos (LOF).</p>
+<p>El algoritmo <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> (LOF) calcula una puntuación (denominada factor local de valores atípicos) que refleja el grado de anormalidad de las observaciones. Mide la desviación de la densidad local de un punto de datos dado con respecto a sus vecinos. La idea es detectar las muestras que tienen una densidad sustancialmente inferior a la de sus vecinos.</p>
+<p>En la práctica, la densidad local se obtiene a partir de los k vecinos más cercanos. La puntuación LOF de una observación es igual a la relación entre la densidad local media de sus k vecinos más cercanos y su propia densidad local: se espera que una instancia normal tenga una densidad local similar a la de sus vecinos, mientras que se espera que los datos anormales tengan una densidad local mucho menor.</p>
+<p>El número k de vecinos considerado, (parámetro alias n_neighbors) suele elegirse 1) mayor que el número mínimo de objetos que debe contener un clúster, para que otros objetos puedan ser valores atípicos locales en relación con este conglomerado, y 2) menor que el número máximo de objetos cercanos que pueden ser potencialmente atípicos locales. En la práctica, esta información no suele estar disponible, y tomar n_neighbors=20 parece funcionar bien en general. Cuando la proporción de valores atípicos es alta (es decir, superior al 10 %, como en el ejemplo siguiente), n_neighbors debe ser mayor (n_neighbors=35 en el ejemplo siguiente).</p>
+<p>El punto fuerte del algoritmo LOF es que tiene en cuenta tanto las propiedades locales como las globales de los conjuntos de datos: puede funcionar bien incluso en conjuntos de datos en los que las muestras anómalas tienen diferentes densidades subyacentes. La cuestión no es cuán aislada está la muestra, sino cuán aislada está con respecto al vecindario circundante.</p>
+<p>Cuando se aplica LOF para la detección de valores atípicos, no existen los métodos <code class="docutils literal notranslate"><span class="pre">predict</span></code>, <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> y <code class="docutils literal notranslate"><span class="pre">score_samples</span></code>, sino sólo un método <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>. Las puntuaciones de anormalidad de las muestras de entrenamiento son accesibles a través del atributo <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>. Tenga en cuenta que <code class="docutils literal notranslate"><span class="pre">predict</span></code>, <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> y <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> pueden utilizarse en nuevos datos no vistos cuando se aplica LOF para la detección de novedades, es decir, cuando el parámetro <code class="docutils literal notranslate"><span class="pre">novelty</span></code> se establece en <code class="docutils literal notranslate"><span class="pre">True</span></code>. Ver en <a class="reference internal" href="#novelty-with-lof"><span class="std std-ref">Detección de novedades con Local Outlier Factor</span></a>.</p>
+<p>Esta estrategia se ilustra a continuación.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/neighbors/sphx_glr_plot_lof_outlier_detection.html"><img alt="../_images/sphx_glr_plot_lof_outlier_detection_001.png" src="../_images/sphx_glr_plot_lof_outlier_detection_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Consulta <a class="reference internal" href="../auto_examples/neighbors/plot_lof_outlier_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-outlier-detection-py"><span class="std std-ref">Detección de valores atípicos con Local Outlier Factor (LOF)</span></a> para ver una ilustración del uso de <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a>.</p></li>
+<li><p>Consulta <a class="reference internal" href="../auto_examples/miscellaneous/plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">Comparación de algoritmos de detección de valores atípicos en conjuntos de datos de juguete</span></a> para una comparación con otros métodos de detección de anomalías.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Breunig, Kriegel, Ng, and Sander (2000)
+<a class="reference external" href="http://www.dbs.ifi.lmu.de/Publikationen/Papers/LOF.pdf">LOF: identifying density-based local outliers.</a>
+Proc. ACM SIGMOD</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="novelty-detection-with-local-outlier-factor">
+<span id="novelty-with-lof"></span><h2><span class="section-number">2.7.4. </span>Detección de novedades con Local Outlier Factor<a class="headerlink" href="#novelty-detection-with-local-outlier-factor" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para utilizar <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> para la detección de novedades, es decir, para predecir etiquetas o calcular la puntuación de anormalidad de nuevos datos no vistos, es necesario instanciar el estimador con el parámetro <code class="docutils literal notranslate"><span class="pre">novelty</span></code> establecido en <code class="docutils literal notranslate"><span class="pre">True</span></code> antes de ajustar el estimador:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">novelty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">lof</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Toma en cuenta que <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> no está disponible en este caso.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p><strong>Detección de novedades con Local Outlier Factor`</strong></p>
+<p>Cuando <code class="docutils literal notranslate"><span class="pre">novelty</span></code> se establece en <code class="docutils literal notranslate"><span class="pre">True</span></code> hay que tener en cuenta que sólo debe utilizar <code class="docutils literal notranslate"><span class="pre">predict</span></code>, <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> y <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> en los nuevos datos no vistos y no en las muestras de entrenamiento ya que esto llevaría a resultados erróneos. Las puntuaciones de anormalidad de las muestras de entrenamiento son siempre accesibles a través del atributo <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>.</p>
+</div>
+<p>A continuación, se ilustra la detección de novedades con Local Outlier Factor.</p>
+<blockquote>
+<div><figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/neighbors/sphx_glr_plot_lof_novelty_detection.html"><img alt="../_images/sphx_glr_plot_lof_novelty_detection_001.png" src="../_images/sphx_glr_plot_lof_novelty_detection_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+</div></blockquote>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/outlier_detection.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

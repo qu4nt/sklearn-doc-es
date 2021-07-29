@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2.1. Modelos de mezclas gaussianas &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/mixture.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Prev</a><a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Arriba</a>
+            <a href="manifold.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.2. Aprendizaje múltiple">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">2.1. Modelos de mezclas gaussianas</a><ul>
+<li><a class="reference internal" href="#gaussian-mixture">2.1.1. Mezcla Gaussiana</a><ul>
+<li><a class="reference internal" href="#pros-and-cons-of-class-gaussianmixture">2.1.1.1. Pros y contras de la clase <code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a><ul>
+<li><a class="reference internal" href="#pros">2.1.1.1.1. Pros</a></li>
+<li><a class="reference internal" href="#cons">2.1.1.1.2. Contras</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#selecting-the-number-of-components-in-a-classical-gaussian-mixture-model">2.1.1.2. Seleccionando el número de componentes en un modelo clásico de mezcla de Gaussianos</a></li>
+<li><a class="reference internal" href="#estimation-algorithm-expectation-maximization">2.1.1.3. Algoritmo de estimación Esperanza-maximización</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#variational-bayesian-gaussian-mixture">2.1.2. Mezcla Gaussiana Bayesiana Variante</a><ul>
+<li><a class="reference internal" href="#estimation-algorithm-variational-inference">2.1.2.1. Algoritmo de estimación: inferencia variacional</a></li>
+<li><a class="reference internal" href="#pros-and-cons-of-variational-inference-with-bayesiangaussianmixture">2.1.2.2. Pros y contras de la inferencia variacional con <code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a><ul>
+<li><a class="reference internal" href="#id2">2.1.2.2.1. Pros</a></li>
+<li><a class="reference internal" href="#id3">2.1.2.2.2. Contras</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-dirichlet-process">2.1.2.3. El proceso de Dirichlet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="gaussian-mixture-models">
+<span id="gmm"></span><span id="mixture"></span><h1><span class="section-number">2.1. </span>Modelos de mezclas gaussianas<a class="headerlink" href="#gaussian-mixture-models" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">sklearn.mixture</span></code> es un paquete que permite aprender Modelos de Mezcla Gaussiana (matrices diagonales, esféricas, enlazadas y de completa covarianza soportadas), su muestreo, y estimarlos desde los datos. También se proporcionan facultades para ayudar a determinar el número apropiado de componentes.</p>
+<blockquote>
+<div><figure class="align-center" id="id4">
+<a class="reference external image-reference" href="../auto_examples/mixture/plot_gmm_pdf.html"><img alt="../_images/sphx_glr_plot_gmm_pdf_001.png" src="../_images/sphx_glr_plot_gmm_pdf_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>Modelo de mezcla Gaussiana de dos componentes:</strong> <em>puntos de datos, y superficies de probabilidad equiparables al modelo.</em></span><a class="headerlink" href="#id4" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+</div></blockquote>
+<p>Un modelo de mezcla Gaussiana es un modelo probabilista que asume que todos los puntos de datos son generados de una mezcla de un número finito de distribuciones Gaussianas con parámetros desconocidos. Uno puede pensar en los modelos de mezcla como la generalización de agrupamiento k-medias para incorporar información acerca de tanto la estructura de covarianza de los datos como los centros de los Gaussianes latentes.</p>
+<p>Scikit-learn implementa diferentes clases para estimar modelos de mezcla Gaussiana, que corresponden a diferentes estrategias de estimación, detalladas a continuación.</p>
+<section id="gaussian-mixture">
+<h2><span class="section-number">2.1.1. </span>Mezcla Gaussiana<a class="headerlink" href="#gaussian-mixture" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El objeto <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture" title="sklearn.mixture.GaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a> implementa el algoritmo <a class="reference internal" href="#expectation-maximization"><span class="std std-ref">expectation-maximization</span></a> (EM) para el encaje de modelos mezcla-de-Gaussianos. Puede también dibujar elipsoides de confidencia para modelos multivariante, y calcular el Criterio de Información Bayesiano para estimar el número de clústers en los datos. Se proporciona un método <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture.fit" title="sklearn.mixture.GaussianMixture.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GaussianMixture.fit</span></code></a> que aprende un modelo de mezcla Gaussiana de los datos de entrenamiento. Dados ciertos datos de prueba, se puede asignar a cada muestra el Gaussiano al que probablemente pertenezca usando el método <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture.predict" title="sklearn.mixture.GaussianMixture.predict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GaussianMixture.predict</span></code></a>.</p>
+<p>La <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture" title="sklearn.mixture.GaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a> viene con diferentes opciones para restringir la covarianza de las clases de diferencia estimadas: esférico, diagonal, empatado o covarianza completa.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/mixture/plot_gmm_covariances.html"><img alt="../_images/sphx_glr_plot_gmm_covariances_001.png" src="../_images/sphx_glr_plot_gmm_covariances_001.png" style="width: 450.0px; height: 450.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Vea <a class="reference internal" href="../auto_examples/mixture/plot_gmm_covariances.html#sphx-glr-auto-examples-mixture-plot-gmm-covariances-py"><span class="std std-ref">Covarianzas GMM</span></a> para un ejemplo del uso de la mezcla Gaussiana como agrupamiento en el conjunto de datos iris.</p></li>
+<li><p>Ver <a class="reference internal" href="../auto_examples/mixture/plot_gmm_pdf.html#sphx-glr-auto-examples-mixture-plot-gmm-pdf-py"><span class="std std-ref">Estimación de la Densidad para una Mezcla Gaussiana</span></a> para un ejemplo sobre graficar la estimación de densidad.</p></li>
+</ul>
+</div>
+<section id="pros-and-cons-of-class-gaussianmixture">
+<h3><span class="section-number">2.1.1.1. </span>Pros y contras de la clase <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture" title="sklearn.mixture.GaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a><a class="headerlink" href="#pros-and-cons-of-class-gaussianmixture" title="Enlazar permanentemente con este título">¶</a></h3>
+<section id="pros">
+<h4><span class="section-number">2.1.1.1.1. </span>Pros<a class="headerlink" href="#pros" title="Enlazar permanentemente con este título">¶</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">Velocidad</dt>
+<dd class="field-odd"><p>Es el algoritmo más rápido para aprender modelos de mezcla</p>
+</dd>
+<dt class="field-even">Agnóstico</dt>
+<dd class="field-even"><p>Ya que este algoritmo solo maximiza la probabilidad, no sesgará los medios hacia cero, ni sesgará los tamaños de clúster para tener estructuras especificas que podrían o no aplicar.</p>
+</dd>
+</dl>
+</section>
+<section id="cons">
+<h4><span class="section-number">2.1.1.1.2. </span>Contras<a class="headerlink" href="#cons" title="Enlazar permanentemente con este título">¶</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">Singularidades</dt>
+<dd class="field-odd"><p>Cuando uno tiene insuficientes puntos por mezcla, estimar las matrices de covarianza se vuelve difícil, y se sabe que el algoritmo diverge y encuentra soluciones con probabilidades infinitas a menos que uno regularice las covarianzas artificialmente.</p>
+</dd>
+<dt class="field-even">Número de componentes</dt>
+<dd class="field-even"><p>Este algoritmo siempre utilizará todos los componentes a los que tiene acceso, necesitando criterios teóricos de apartado de datos o información para decidir cuantos componentes usar en la ausencia de señas externas.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="selecting-the-number-of-components-in-a-classical-gaussian-mixture-model">
+<h3><span class="section-number">2.1.1.2. </span>Seleccionando el número de componentes en un modelo clásico de mezcla de Gaussianos<a class="headerlink" href="#selecting-the-number-of-components-in-a-classical-gaussian-mixture-model" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El criterio de BIC puede ser utilizado para seleccionar el número de componentes en una mezcla Gaussiana de una manera eficiente. En teoría, recupera el verdadero número de componentes solo en el régimen asíntota (es decir, si muchos datos son disponibles y suponiendo que los datos fueron generados i.i.d. desde una mezcla de distribución Gaussiana). Ten en cuenta que utilizar una <a class="reference internal" href="#bgmm"><span class="std std-ref">Variational Bayesian Gaussian mixture</span></a> evita la especificación del número de componentes para un modelo de mezcla Gaussiana.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/mixture/plot_gmm_selection.html"><img alt="../_images/sphx_glr_plot_gmm_selection_001.png" src="../_images/sphx_glr_plot_gmm_selection_001.png" style="width: 400.0px; height: 300.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Ver <a class="reference internal" href="../auto_examples/mixture/plot_gmm_selection.html#sphx-glr-auto-examples-mixture-plot-gmm-selection-py"><span class="std std-ref">Selección del Modelo de Mezcla Gaussiana</span></a> para un ejemplo de selección de modelo realizado con la mezcla Gaussiana clásica.</p></li>
+</ul>
+</div>
+</section>
+<section id="estimation-algorithm-expectation-maximization">
+<span id="expectation-maximization"></span><h3><span class="section-number">2.1.1.3. </span>Algoritmo de estimación Esperanza-maximización<a class="headerlink" href="#estimation-algorithm-expectation-maximization" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La dificultad principal en aprende modelos de mezcla Gaussiana desde datos sin etiquetar se trata de que es uno quien usualmente no sabe cuales puntos vinieron de que componente latente (si uno tiene acceso a esta información se vuelve muy facil encajar una distribución Gaussiana separada a cada conjunto de puntos). <a class="reference external" href="https://es.wikipedia.org/wiki/Algoritmo_esperanza-maximizaci%C3%B3n">Esperanza-maximización</a> es un algoritmo estadístico bien fundamentado para evitar este problema mediante un proceso iterativo. Primero uno asume que componentes aleatorios (centrados aleatoriamente en puntos de datos, aprendidos de k-medias, o inclusive solo distribuidos normalmente alrededor del origen) y calcula por cada punto una probabilidad de ser generado por cada componente del modelo. Y entonces, uno ajusta los parámetros para maximizar la probabilidad de los datos dadas esas asignaciones. La repetición este proceso está garantizada a siempre converger a un óptimo local.</p>
+</section>
+</section>
+<section id="variational-bayesian-gaussian-mixture">
+<span id="bgmm"></span><h2><span class="section-number">2.1.2. </span>Mezcla Gaussiana Bayesiana Variante<a class="headerlink" href="#variational-bayesian-gaussian-mixture" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El objeto <a class="reference internal" href="generated/sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a> implementa una variante del modelo de mezcla Gaussiana con algoritmos de inferencia variacionales. La API es similar a la definida por <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture" title="sklearn.mixture.GaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a>.</p>
+<section id="estimation-algorithm-variational-inference">
+<span id="variational-inference"></span><h3><span class="section-number">2.1.2.1. </span>Algoritmo de estimación: inferencia variacional<a class="headerlink" href="#estimation-algorithm-variational-inference" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La inferencia variacional es una extensión de la esperanza-maximización que maximiza un limite inferior en la evidencia del modelo (incluyendo los priores) en lugar de la probabilidad de datos. El principio detrás de los métodos variacionales es el mismo que en la esperanza-maximización (es decir, ambos son algoitmos iterativos que alternan entre encontrar las probabilidades de cada punto a ser generadas por cada mezcla y encajar la mezcla a estos puntos asignados), pero los métodos variacionales añaden regularización mediante la integración de información desde distribuciones priores. Esto evita las singularidades comúnmente encontradas en soluciones de esperanza-maximización pero introduce algunos sesgos sutiles al modelo. La inferencia suele ser notablemente mas lenta, pero no tanto como para que su uso sea impractico.</p>
+<p>Debido a su naturaleza bayesiana, el algoritmo necesita mas hiperparámetros que la esperanza-maximización, el mas importante de estos siendo el parámetro de concentración <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior</span></code>. Especificar un valor bajo para la concentración previa hará que el modelo ponga la mayor parte del ponderado en pocos componentes y que establezca el ponderado del resto de los componentes muy cerca de 0. Si se usan valores altos para la concentración previa, se permitirá que un número más grande de componentes sea activo en la mezcla.</p>
+<p>La implementación de parámetros de la clase <a class="reference internal" href="generated/sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a> propone dos tipos de previos para la distribución de ponderados: un modelo de mezcla finita con distribución Dirichlet y un modelo de mezcla infinita con el proceso Dirichlet. En la práctica, el algoritmo de inferencia del Proceso Dirichlet es aproximado y utiliza una distribución truncada con un número máximo de componentes fijo (llamada la representación rompe-palos). El número de componentes realmente utilizados casi siempre depende de los datos.</p>
+<p>La siguiente figura compara los resultados obtenidos para distintos tipos del previo de ponderado de concentración (el parámetro <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior_type</span></code>) para distintos valores de <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior</span></code>. Aquí podemos observar que el valor de parámetro <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior</span></code> tiene un fuerte impacto en el número efectivo de componentes activos obtenido. Podemos también notar que valores grandes para el ponderado de concentración llevan a ponderados mas uniformes cuando el tipo de previo es “dirichlet_distribution” mientras que esto no es necesariamente el caso para el tipo “dirichlet_process” (usado por defecto).</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/mixture/plot_concentration_prior.html"><img alt="plot_bgmm" src="../_images/sphx_glr_plot_concentration_prior_001.png" style="width: 676.8px; height: 384.0px;" /></a> <a class="reference external" href="../auto_examples/mixture/plot_concentration_prior.html"><img alt="plot_dpgmm" src="../_images/sphx_glr_plot_concentration_prior_002.png" style="width: 676.8px; height: 384.0px;" /></a></strong></p><p>Los ejemplos a continuación comparan los modelos de mezcla Gaussiana con un número fijo de componentes, a los modelos de mezcla Gaussiana variacional con un proceso Dirichlet previo. Aquí, una mezcla Gaussiana clasica es encajada con 5 componentes en un conjunto de datos compuesto de 2 clústers. Podemos ver que la mezcla variacional Gaussiana con un proceso Dirichlet previo es capaz de limitarse a si misma a solo 2 componentes, mientras que la mezcla Gaussiana ajusta los datos con un número fijo de componentes que tiene que ser establecido a priori por el usuario: En este caso el usuario ha seleccionado <code class="docutils literal notranslate"><span class="pre">n_componentes=5</span></code> lo cual no corresponde a la distribución generativa real de este conjunto de datos de juguete. Ten en cuenta que con muy pocas observaciones, los modelos de mezcla Gaussiana variacional con un proceso Dirichlet previo puede tomar una postura conservadora, y encajar solo un componente.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/mixture/plot_gmm.html"><img alt="../_images/sphx_glr_plot_gmm_001.png" src="../_images/sphx_glr_plot_gmm_001.png" style="width: 448.0px; height: 336.0px;" /></a>
+</figure>
+<p>En la siguiente figura estamos encajando un conjuntos de datos que no está bien representado por una mezcla gaussiana. Ajustando el parámetro <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior</span></code> del <a class="reference internal" href="generated/sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a> controlamos el número de componentes usados para ajustar estos datos. También presentamos en las ultimas dos gráficas un muestreo aleatorio generado de las dos mezclas resultantes.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/mixture/plot_gmm_sin.html"><img alt="../_images/sphx_glr_plot_gmm_sin_001.png" src="../_images/sphx_glr_plot_gmm_sin_001.png" style="width: 650.0px; height: 650.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Ver <a class="reference internal" href="../auto_examples/mixture/plot_gmm.html#sphx-glr-auto-examples-mixture-plot-gmm-py"><span class="std std-ref">Elipsoides del Modelo de Mezcla Gaussiana</span></a> para un ejemplo de gráfica de elipsoides de confianza para <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture" title="sklearn.mixture.GaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a> y <a class="reference internal" href="generated/sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a>.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/mixture/plot_gmm_sin.html#sphx-glr-auto-examples-mixture-plot-gmm-sin-py"><span class="std std-ref">Modelo de Mezcla Gaussiana Curva Sinusoidal</span></a> muestra el uso de <a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture" title="sklearn.mixture.GaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a> y <a class="reference internal" href="generated/sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a> para ajustar una onda seno.</p></li>
+<li><p>Ver <a class="reference internal" href="../auto_examples/mixture/plot_concentration_prior.html#sphx-glr-auto-examples-mixture-plot-concentration-prior-py"><span class="std std-ref">Análisis del Tipo de Concentración a priori de la Variación de Mezcla Gaussiana Bayesiana</span></a> para un ejemplo de grafica de los elipsoides de confianza para la <a class="reference internal" href="generated/sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a> con diferentes <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior_type</span></code> para diferentes valores del parámetro <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior</span></code>.</p></li>
+</ul>
+</div>
+</section>
+<section id="pros-and-cons-of-variational-inference-with-bayesiangaussianmixture">
+<h3><span class="section-number">2.1.2.2. </span>Pros y contras de la inferencia variacional con <a class="reference internal" href="generated/sklearn.mixture.BayesianGaussianMixture.html#sklearn.mixture.BayesianGaussianMixture" title="sklearn.mixture.BayesianGaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianGaussianMixture</span></code></a><a class="headerlink" href="#pros-and-cons-of-variational-inference-with-bayesiangaussianmixture" title="Enlazar permanentemente con este título">¶</a></h3>
+<section id="id2">
+<h4><span class="section-number">2.1.2.2.1. </span>Pros<a class="headerlink" href="#id2" title="Enlazar permanentemente con este título">¶</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">Selección automática</dt>
+<dd class="field-odd"><p>cuando <code class="docutils literal notranslate"><span class="pre">weight_concentration_prior</span></code> es lo suficientemente pequeño y <code class="docutils literal notranslate"><span class="pre">n_components</span></code> es mas grande que lo que el modelo considera necesario, el modelo de mezcla Bayesiana variacional tiene una tendencia natural a establecer algunos valores de ponderados de mezcla cerca de cero. Esto hace posible dejar que el modelo escoja un número adecuado de componentes efectivos automáticamente. Solo se necesita proporcionar un limite superior de este número. Sin embargo, tome en cuenta que el número «ideal» de componentes activos depende mucho de la aplicación y suele estar mal definido en una configuración de exploración de datos.</p>
+</dd>
+<dt class="field-even">Menor sensibilidad al número de parámetros</dt>
+<dd class="field-even"><p>a diferencia de los modelos finitos, que casi siempre usarán tantos componentes como puedan, y, por lo tanto, producirán soluciones incontroladamente diferentes para diferentes números de componentes, la inferencia variacional con un proceso Dirichlet previo (<code class="docutils literal notranslate"><span class="pre">weight_concentration_prior_type='dirichlet_process'</span></code>) no cambiará mucho con los cambios en los parámetros, lo que llevará a mayor estabilidad y menos ajustamiento.</p>
+</dd>
+<dt class="field-odd">Regularización</dt>
+<dd class="field-odd"><p>debido a la incorporación de información previa, las soluciones variacionales presentan menos casos especiales patológicos que las soluciones de esperanza-maximización.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h4><span class="section-number">2.1.2.2.2. </span>Contras<a class="headerlink" href="#id3" title="Enlazar permanentemente con este título">¶</a></h4>
+<dl class="field-list simple">
+<dt class="field-odd">Velocidad</dt>
+<dd class="field-odd"><p>la parametrización adicional necesaria para la inferencia variacional hace que la inferencia sea más lenta, aunque no mucho.</p>
+</dd>
+<dt class="field-even">Hiperparámetros</dt>
+<dd class="field-even"><p>este algoritmo necesita un hiperparámetro adicional que quizás necesite ajustes experimentales mediante una validación cruzada.</p>
+</dd>
+<dt class="field-odd">Sesgo</dt>
+<dd class="field-odd"><p>hay muchos sesgos impícitos en los algoritmos de inferencia (y también en el proceso de Dirichlet si se utiliza), y cada vez que hay un desajuste entre estos sesgos y los datos quizás sea posible encajar mejores modelos utilizando una mezcla finita.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="the-dirichlet-process">
+<span id="dirichlet-process"></span><h3><span class="section-number">2.1.2.3. </span>El proceso de Dirichlet<a class="headerlink" href="#the-dirichlet-process" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Aquí describimos los algoritmos de inferencia variacional en una mezcla de procesos de Dirichlet. El proceso de Dirichlet es una distribución de probabilidad previa en <em>agrupaciones con un número infinito, sin limite alguno, de particiones</em>. Las técnicas variacionales nos deja incorporar esta estructura previa en modelos de mezcla Gaussiana sin casi ningun costo en tiempo de inferencia, comparado a un modelo de mezcla Gaussiana finita.</p>
+<p>Una pregunta importante es como el proceso de Dirichlet puede usar un número infinito y sin límites de agrupaciones e igualmente ser consistente. Mientras que una explicación completa no encaja dentro de este manual, uno puede pensar en la analogía de su <a class="reference external" href="https://en.wikipedia.org/wiki/Dirichlet_process#The_stick-breaking_process">proceso rompe-palos</a> para ayudar a entenderlo. El proceso rompe-palos es una historia generativa para el proceso de Dirichlet. Empezamos con un palo de longitud unitaria y en cada paso partimos una porción del palo restante, asociando la longitud de la porción del palo a la proporción de puntos que cae dentro de un grupo de la mezcla. Al final, para representar la mezcla infinita, asociamos la ultima porción restante del palo a la proporción de puntos que no caen en todos los demás grupos. La longitud de cada pieza es una variable aleatoria con una probabilidad proporcional al parámetro de concentración. Un valor mas pequeño de la concentración dividira la longitud unitaria en porciones más grandes del palo (definiendo una distribución mas concentrada). Valores de concentración mas grandes crearan pedazos mas pequeños del palo (incrementando el número de componentes con ponderados que no sean cero).</p>
+<p>Las técnicas de inferencia variacional para el proceso de Dirichlet todavía funcionan con una aproximación finita a este modelo de mezcla infinita, pero en lugar de tener que especificar a priori cuantos componentes uno desea usar, uno solo especifica el parámetro de concentración y un límite superior en el número de componentes de mezcla (este límite superior, asumiendo que queda mas alto que el «verdadero» número de componentes, afecta solo la complejidad algorítmica, no el número real de componentes usados).</p>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/mixture.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

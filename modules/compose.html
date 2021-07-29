@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>6.1. Pipelines y estimadores compuestos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/compose.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="../data_transforms.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6. Transformaciones de conjuntos de datos">Prev</a><a href="../data_transforms.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6. Transformaciones de conjuntos de datos">Arriba</a>
+            <a href="feature_extraction.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.2. Extracción de características">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">6.1. Pipelines y estimadores compuestos</a><ul>
+<li><a class="reference internal" href="#pipeline-chaining-estimators">6.1.1. Pipeline: estimadores encadenados</a><ul>
+<li><a class="reference internal" href="#usage">6.1.1.1. Uso</a><ul>
+<li><a class="reference internal" href="#construction">6.1.1.1.1. Construcción</a></li>
+<li><a class="reference internal" href="#accessing-steps">6.1.1.1.2. Acceso a los steps (pasos)</a></li>
+<li><a class="reference internal" href="#nested-parameters">6.1.1.1.3. Parámetros anidados</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notes">6.1.1.2. Notas</a></li>
+<li><a class="reference internal" href="#caching-transformers-avoid-repeated-computation">6.1.1.3. Transformadores de caché: evitar cálculos repetidos</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#transforming-target-in-regression">6.1.2. Transformación del objetivo en regresión</a></li>
+<li><a class="reference internal" href="#featureunion-composite-feature-spaces">6.1.3. FeatureUnion: espacios de características compuestas</a><ul>
+<li><a class="reference internal" href="#id1">6.1.3.1. Uso</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#columntransformer-for-heterogeneous-data">6.1.4. ColumnTransformer para datos heterogéneos</a></li>
+<li><a class="reference internal" href="#visualizing-composite-estimators">6.1.5. Visualización de estimadores compuestos</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="pipelines-and-composite-estimators">
+<span id="combining-estimators"></span><h1><span class="section-number">6.1. </span>Pipelines y estimadores compuestos<a class="headerlink" href="#pipelines-and-composite-estimators" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Los transformadores generalmente se combinan con clasificadores, regresores u otros estimadores para construir un estimador compuesto. La herramienta más común es un <a class="reference internal" href="#pipeline"><span class="std std-ref">Pipeline</span></a>. El pipeline se utiliza a menudo en combinación con <a class="reference internal" href="#feature-union"><span class="std std-ref">FeatureUnion</span></a> que concatena la salida de los transformadores en un espacio compuesto de características.  <a class="reference internal" href="#transformed-target-regressor"><span class="std std-ref">TransformedTargetRegressor</span></a> trata de transformar el <a class="reference internal" href="../glossary.html#term-target"><span class="xref std std-term">target</span></a> (i.e. log-transform <a class="reference internal" href="../glossary.html#term-y"><span class="xref std std-term">y</span></a>). En contraste, los pipelines sólo transforman los datos observados (<a class="reference internal" href="../glossary.html#term-X"><span class="xref std std-term">X</span></a>).</p>
+<section id="pipeline-chaining-estimators">
+<span id="pipeline"></span><h2><span class="section-number">6.1.1. </span>Pipeline: estimadores encadenados<a class="headerlink" href="#pipeline-chaining-estimators" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> puede ser usado para encadenar múltiples estimadores en uno. Esto es útil ya que a menudo hay una secuencia fija de pasos en el procesamiento de los datos, por ejemplo selección de características, normalización y clasificación. <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> sirve varios propósitos aquí:</p>
+<dl class="simple">
+<dt>Conveniencia y encapsulación</dt><dd><p>Solo tienes que llamar a <a class="reference internal" href="../glossary.html#term-fit"><span class="xref std std-term">fit</span></a> y <a class="reference internal" href="../glossary.html#term-predict"><span class="xref std std-term">predict</span></a> una vez en tus datos para ajustar toda una secuencia de estimadores.</p>
+</dd>
+<dt>Selección conjunta de parámetros</dt><dd><p>Puedes utilizar <a class="reference internal" href="grid_search.html#grid-search"><span class="std std-ref">búsqueda en cuadrícula</span></a> sobre los parámetros de todos los estimadores en el pipeline a la vez.</p>
+</dd>
+<dt>Seguridad</dt><dd><p>Los pipelines ayudan a evitar la fuga de estadísticas de los datos de prueba en el modelo entrenado en la validación cruzada, asegurando que se utilizan las mismas muestras para entrenar los transformadores y los predictores.</p>
+</dd>
+</dl>
+<p>Todos los estimadores en un pipeline, excepto el último, deben ser transformadores (es decir, debe tener un método <a class="reference internal" href="../glossary.html#term-transform"><span class="xref std std-term">transform</span></a>). El último estimador puede ser cualquier tipo (transformador, clasificador, etc.).</p>
+<section id="usage">
+<h3><span class="section-number">6.1.1.1. </span>Uso<a class="headerlink" href="#usage" title="Enlazar permanentemente con este título">¶</a></h3>
+<section id="construction">
+<h4><span class="section-number">6.1.1.1.1. </span>Construcción<a class="headerlink" href="#construction" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>El <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> está construido usando una lista de pares <code class="docutils literal notranslate"><span class="pre">(key,</span> <span class="pre">value)</span></code>, donde la <code class="docutils literal notranslate"><span class="pre">key</span></code> es una cadena que contiene el nombre que quieres dar este paso y <code class="docutils literal notranslate"><span class="pre">value</span></code> es un objeto de estimación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">())]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">estimators</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC())])</span>
+</pre></div>
+</div>
+<p>La función de utilidad <a class="reference internal" href="generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_pipeline</span></code></a> es un atajo para construir pipelines; toma un número variable de estimadores y devuelve un pipeline, rellenando los nombres automáticamente:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Binarizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">Binarizer</span><span class="p">(),</span> <span class="n">MultinomialNB</span><span class="p">())</span>
+<span class="go">Pipeline(steps=[(&#39;binarizer&#39;, Binarizer()), (&#39;multinomialnb&#39;, MultinomialNB())])</span>
+</pre></div>
+</div>
+</section>
+<section id="accessing-steps">
+<h4><span class="section-number">6.1.1.1.2. </span>Acceso a los steps (pasos)<a class="headerlink" href="#accessing-steps" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Los estimadores de un pipeline se almacenan como una lista en el atributo <code class="docutils literal notranslate"><span class="pre">steps</span></code> (pasos), pero se puede acceder por índice o nombre indexando (con <code class="docutils literal notranslate"><span class="pre">[idx]</span></code>) el Pipeline:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">(&#39;reduce_dim&#39;, PCA())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">PCA()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">]</span>
+<span class="go">PCA()</span>
+</pre></div>
+</div>
+<p>El atributo <code class="docutils literal notranslate"><span class="pre">named_steps</span></code> del pipeline permite acceder a los pasos por su nombre con una autocompletado con tabulación en entornos interactivos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">named_steps</span><span class="o">.</span><span class="n">reduce_dim</span> <span class="ow">is</span> <span class="n">pipe</span><span class="p">[</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>También se puede extraer una sub-línea utilizando la notación de corte comúnmente utilizada para secuencias de Python como listas o cadenas (aunque sólo se permite un paso de 1). Esto es conveniente para realizar sólo algunas de las transformaciones (o su inversa):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+<span class="go">Pipeline(steps=[(&#39;clf&#39;, SVC())])</span>
+</pre></div>
+</div>
+</section>
+<section id="nested-parameters">
+<span id="pipeline-nested-parameters"></span><h4><span class="section-number">6.1.1.1.3. </span>Parámetros anidados<a class="headerlink" href="#nested-parameters" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Puedes acceder a los parámetros de los estimadores en el pipeline usando la sintaxis <code class="docutils literal notranslate"><span class="pre">&lt;estimator&gt;__&lt;parameter&gt;`</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">clf__C</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC(C=10))])</span>
+</pre></div>
+</div>
+<p>Esto es particularmente importante para realizar búsquedas en cuadrículas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">param_grid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">reduce_dim__n_components</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="n">clf__C</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Los pasos individuales también pueden ser reemplazados como parámetros, y los pasos no finales pueden ser ignorados estableciéndolos a <code class="docutils literal notranslate"><span class="pre">'passthrough'</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">param_grid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">reduce_dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;passthrough&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">10</span><span class="p">)],</span>
+<span class="gp">... </span>                  <span class="n">clf</span><span class="o">=</span><span class="p">[</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">()],</span>
+<span class="gp">... </span>                  <span class="n">clf__C</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Los estimadores del pipeline pueden ser recuperados por el índice:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">PCA()</span>
+</pre></div>
+</div>
+<p>o por el nombre:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">]</span>
+<span class="go">PCA()</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/feature_selection/plot_feature_selection_pipeline.html#sphx-glr-auto-examples-feature-selection-plot-feature-selection-pipeline-py"><span class="std std-ref">Pipeline Anova SVM</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/model_selection/grid_search_text_feature_extraction.html#sphx-glr-auto-examples-model-selection-grid-search-text-feature-extraction-py"><span class="std std-ref">Ejemplo de pipeline para la extracción y evaluación de características de texto</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/compose/plot_digits_pipe.html#sphx-glr-auto-examples-compose-plot-digits-pipe-py"><span class="std std-ref">Pipelining: encadenamiento de un PCA y una regresión logística</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/miscellaneous/plot_kernel_approximation.html#sphx-glr-auto-examples-miscellaneous-plot-kernel-approximation-py"><span class="std std-ref">Aproximación explícita del mapeo de características para los núcleos RBF</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_svm_anova.html#sphx-glr-auto-examples-svm-plot-svm-anova-py"><span class="std std-ref">SVM-Anova: SVM con selección de características univariantes</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/compose/plot_compare_reduction.html#sphx-glr-auto-examples-compose-plot-compare-reduction-py"><span class="std std-ref">Selección de la reducción de la dimensionalidad con Pipeline y GridSearchCV</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">See Also:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="grid_search.html#composite-grid-search"><span class="std std-ref">Composite estimators and parameter spaces</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="notes">
+<h3><span class="section-number">6.1.1.2. </span>Notas<a class="headerlink" href="#notes" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> en el pipeline es lo mismo que llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> en cada estimador a su vez, <code class="docutils literal notranslate"><span class="pre">transform</span></code> la entrada y pasarla al siguiente paso. El pipeline tiene todos los métodos que tiene el último estimador del pipeline, es decir, si el último estimador es un clasificador, el <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> puede ser utilizado como un clasificador. Si el último estimador es un transformador, también lo es la tubería.</p>
+</section>
+<section id="caching-transformers-avoid-repeated-computation">
+<span id="pipeline-cache"></span><h3><span class="section-number">6.1.1.3. </span>Transformadores de caché: evitar cálculos repetidos<a class="headerlink" href="#caching-transformers-avoid-repeated-computation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El ajuste de los transformadores puede ser costoso desde el punto de vista computacional. Con su parámetro <code class="docutils literal notranslate"><span class="pre">memory</span></code> ya establecido, <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> almacenará en caché cada transformador después de llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Esta característica se utiliza para evitar el cálculo de los transformadores de ajuste dentro de un pipeline si los parámetros y los datos de entrada son idénticos. Un ejemplo típico es el caso de una búsqueda en cuadrícula en la que los transformadores pueden ajustarse sólo una vez y reutilizarse para cada configuración.</p>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">memory</span></code> es necesario para almacenar en caché los transformadores. <code class="docutils literal notranslate"><span class="pre">memory</span></code> puede ser una cadena que contiene el directorio donde guardar los transformadores en caché o un <a class="reference external" href="https://pythonhosted.org/joblib/memory.html">joblib.Memory</a> objeto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">mkdtemp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">rmtree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">())]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cachedir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">estimators</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="n">cachedir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span>
+<span class="go">Pipeline(memory=...,</span>
+<span class="go">         steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Clear the cache directory when you don&#39;t need it anymore</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmtree</span><span class="p">(</span><span class="n">cachedir</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p><strong>Efecto colateral de los transformadores de caché</strong></p>
+<p>Usando un <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> sin caché activado, es posible inspeccionar la instancia original como en:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca1</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm1</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">pca1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">svm1</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The pca instance can be inspected directly</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pca1</span><span class="o">.</span><span class="n">components_</span><span class="p">)</span>
+<span class="go">    [[-1.77484909e-19  ... 4.07058917e-18]]</span>
+</pre></div>
+</div>
+<p>La activación del almacenamiento en caché desencadena un clon de los transformadores antes del ajuste. Por lo tanto, la instancia del transformador del pipeline no puede ser inspeccionada directamente. En el siguiente ejemplo, el acceso a la instancia de <code class="xref py py-class docutils literal notranslate"><span class="pre">PCA</span></code> <code class="docutils literal notranslate"><span class="pre">pca2</span></code> generará un <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> ya que <code class="docutils literal notranslate"><span class="pre">pca2</span></code> será un transformador no ajustado. En su lugar, utiliza el atributo <code class="docutils literal notranslate"><span class="pre">named_steps</span></code> para inspeccionar los estimadores dentro del pipeline:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cachedir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca2</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm2</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cached_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">pca2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">svm2</span><span class="p">)],</span>
+<span class="gp">... </span>                       <span class="n">memory</span><span class="o">=</span><span class="n">cachedir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cached_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span><span class="p">)</span>
+<span class="go">Pipeline(memory=...,</span>
+<span class="go">        steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cached_pipe</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">components_</span><span class="p">)</span>
+<span class="go">    [[-1.77484909e-19  ... 4.07058917e-18]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Remove the cache directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmtree</span><span class="p">(</span><span class="n">cachedir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/compose/plot_compare_reduction.html#sphx-glr-auto-examples-compose-plot-compare-reduction-py"><span class="std std-ref">Selección de la reducción de la dimensionalidad con Pipeline y GridSearchCV</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="transforming-target-in-regression">
+<span id="transformed-target-regressor"></span><h2><span class="section-number">6.1.2. </span>Transformación del objetivo en regresión<a class="headerlink" href="#transforming-target-in-regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.compose.TransformedTargetRegressor.html#sklearn.compose.TransformedTargetRegressor" title="sklearn.compose.TransformedTargetRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformedTargetRegressor</span></code></a> transforma los objetivos <code class="docutils literal notranslate"><span class="pre">y</span></code> antes de ajustar un modelo de regresión. Las predicciones se devuelven al espacio original mediante una transformación inversa. Toma como argumento el regresor que se utilizará para la predicción, y el transformador que se aplicará a la variable objetivo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_california_housing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">TransformedTargetRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">QuantileTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">2000</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">2000</span><span class="p">]</span>  <span class="c1"># select a subset of data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">QuantileTransformer</span><span class="p">(</span><span class="n">output_distribution</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regressor</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span> <span class="o">=</span> <span class="n">TransformedTargetRegressor</span><span class="p">(</span><span class="n">regressor</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">transformer</span><span class="o">=</span><span class="n">transformer</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">TransformedTargetRegressor(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: 0.61</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw_target_regr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw_target_regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: 0.59</span>
+</pre></div>
+</div>
+<p>Para transformaciones simples, en lugar de un objeto Transformador, puedes pasar un par de funciones, para definir la transformación y su mapeo inverso:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">inverse_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Posteriormente, el objeto es creado como:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span> <span class="o">=</span> <span class="n">TransformedTargetRegressor</span><span class="p">(</span><span class="n">regressor</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">inverse_func</span><span class="o">=</span><span class="n">inverse_func</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">TransformedTargetRegressor(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: 0.51</span>
+</pre></div>
+</div>
+<p>Por defecto, las funciones proporcionadas se comprueban en cada ajuste para ser la inversa de cada una. Sin embargo, es posible evitar esta comprobación estableciendo <code class="docutils literal notranslate"><span class="pre">check_inverse</span></code> a <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">inverse_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span> <span class="o">=</span> <span class="n">TransformedTargetRegressor</span><span class="p">(</span><span class="n">regressor</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">inverse_func</span><span class="o">=</span><span class="n">inverse_func</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">check_inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">TransformedTargetRegressor(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: -1.57</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La transformación puede ser activada estableciendo <code class="docutils literal notranslate"><span class="pre">transformer</span></code> o el par de funciones <code class="docutils literal notranslate"><span class="pre">func</span></code> y <code class="docutils literal notranslate"><span class="pre">inverse_func</span></code>. Sin embargo, ambas opciones provocarán un error.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/compose/plot_transformed_target.html#sphx-glr-auto-examples-compose-plot-transformed-target-py"><span class="std std-ref">Efecto de la transformación de los objetivos en el modelo de regresión</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="featureunion-composite-feature-spaces">
+<span id="feature-union"></span><h2><span class="section-number">6.1.3. </span>FeatureUnion: espacios de características compuestas<a class="headerlink" href="#featureunion-composite-feature-spaces" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> combina varios objetos transformadores en un nuevo transformador que combina su salida. Una <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> toma una lista de objetos transformadores. Durante el ajuste, cada uno de ellos se ajusta a los datos de forma independiente. Los transformadores se aplican en paralelo, y las matrices de características que producen se concatenan una al lado de la otra en una matriz mayor.</p>
+<p>Cuando quieras aplicar diferentes transformaciones a cada campo de los datos, consulta la clase relacionada <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> (ver <a class="reference internal" href="#column-transformer"><span class="std std-ref">guía de usuario</span></a>).</p>
+<p><a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> tiene los mismos propósitos que <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> - conveniencia y estimación y validación de parámetros conjuntos.</p>
+<p><a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> y <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> pueden ser combinados para crear modelos complejos.</p>
+<p>(Un <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> no tiene forma de comprobar si dos transformadores pueden producir características idénticas. Sólo produce una unión cuando los conjuntos de características son disjuntos, y asegurarse de que lo son es responsabilidad de quien invoca dicha clase.)</p>
+<section id="id1">
+<h3><span class="section-number">6.1.3.1. </span>Uso<a class="headerlink" href="#id1" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> se construye utilizando una lista de pares <code class="docutils literal notranslate"><span class="pre">(key,</span> <span class="pre">value)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">key</span></code> es el nombre que se quiere dar a una determinada transformación (es una cadena arbitraria; sólo sirve como identificador) y <code class="docutils literal notranslate"><span class="pre">valor</span></code> es un objeto estimador:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">FeatureUnion</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">KernelPCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;linear_pca&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;kernel_pca&#39;</span><span class="p">,</span> <span class="n">KernelPCA</span><span class="p">())]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">combined</span> <span class="o">=</span> <span class="n">FeatureUnion</span><span class="p">(</span><span class="n">estimators</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">combined</span>
+<span class="go">FeatureUnion(transformer_list=[(&#39;linear_pca&#39;, PCA()),</span>
+<span class="go">                               (&#39;kernel_pca&#39;, KernelPCA())])</span>
+</pre></div>
+</div>
+<p>Al igual que las pipelines, las uniones de características tienen un constructor abreviado llamado <a class="reference internal" href="generated/sklearn.pipeline.make_union.html#sklearn.pipeline.make_union" title="sklearn.pipeline.make_union"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_union</span></code></a> que no requiere nombrar explícitamente los componentes.</p>
+<p>Como <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>, los pasos individuales pueden ser reemplazados usando <code class="docutils literal notranslate"><span class="pre">set_params</span></code>, e ignorados con la configuración de <code class="docutils literal notranslate"><span class="pre">'drop'</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">combined</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">kernel_pca</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+<span class="go">FeatureUnion(transformer_list=[(&#39;linear_pca&#39;, PCA()),</span>
+<span class="go">                               (&#39;kernel_pca&#39;, &#39;drop&#39;)])</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/compose/plot_feature_union.html#sphx-glr-auto-examples-compose-plot-feature-union-py"><span class="std std-ref">Concatenación de múltiples métodos de extracción de características</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="columntransformer-for-heterogeneous-data">
+<span id="column-transformer"></span><h2><span class="section-number">6.1.4. </span>ColumnTransformer para datos heterogéneos<a class="headerlink" href="#columntransformer-for-heterogeneous-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Muchos conjuntos de datos contienen características de diferentes tipos, por ejemplo, texto, flotantes y fechas, donde cada tipo de característica requiere pasos separados de preprocesamiento o extracción de características.  A menudo es más fácil preprocesar los datos antes de aplicar los métodos de scikit-learn, por ejemplo, utilizando <a class="reference external" href="https://pandas.pydata.org/">pandas</a>. Procesar los datos antes de pasarlos a scikit-learn podría resultar problemático por alguna de las siguientes razones:</p>
+<ol class="arabic simple">
+<li><p>La incorporación de las estadísticas de los datos de prueba en los preprocesadores hace que las puntuaciones de la validación cruzada no sean fiables (lo que se conoce como <em>fuga de datos</em>), por ejemplo en el caso de los escaladores o de la imputación de valores perdidos.</p></li>
+<li><p>Es posible que desees incluir los parámetros de los preprocesadores en una <a class="reference internal" href="grid_search.html#grid-search"><span class="std std-ref">búsqueda de parámetros</span></a>.</p></li>
+</ol>
+<p>El <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> ayuda a realizar diferentes transformaciones para diferentes columnas de los datos, dentro de un <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> que está a salvo de fugas de datos y que puede ser parametrizado. <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> trabaja en arreglos, matrices dispersas y <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">pandas DataFrames</a>.</p>
+<p>Para cada columna, se puede aplicar una transformación diferente, como el preprocesamiento o un método de extracción de características específicas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris&#39;</span><span class="p">,</span> <span class="s1">&#39;Sallisaw&#39;</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;His Last Bow&quot;</span><span class="p">,</span> <span class="s2">&quot;How Watson Learned the Trick&quot;</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="s2">&quot;A Moveable Feast&quot;</span><span class="p">,</span> <span class="s2">&quot;The Grapes of Wrath&quot;</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="s1">&#39;expert_rating&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="s1">&#39;user_rating&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>Para estos datos, podríamos querer codificar la columna <code class="docutils literal notranslate"><span class="pre">ciudad</span></code> como una variable categórica utilizando <a class="reference internal" href="generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> pero aplicar un <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> a la columna <code class="docutils literal notranslate"><span class="pre">título</span></code>. Como podemos utilizar varios métodos de extracción de características en la misma columna, damos a cada transformador un nombre único, por ejemplo <code class="docutils literal notranslate"><span class="pre">city_category</span></code> y <code class="docutils literal notranslate"><span class="pre">title_bow</span></code>. Por defecto, el resto de columnas de valoración se ignoran (<code class="docutils literal notranslate"><span class="pre">remainder='drop'</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="s1">&#39;city_category&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">),[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="s1">&#39;title_bow&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">ColumnTransformer(transformers=[(&#39;city_category&#39;, OneHotEncoder(dtype=&#39;int&#39;),</span>
+<span class="go">                                 [&#39;city&#39;]),</span>
+<span class="go">                                (&#39;title_bow&#39;, CountVectorizer(), &#39;title&#39;)])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+<span class="go">[&#39;city_category__x0_London&#39;, &#39;city_category__x0_Paris&#39;, &#39;city_category__x0_Sallisaw&#39;,</span>
+<span class="go">&#39;title_bow__bow&#39;, &#39;title_bow__feast&#39;, &#39;title_bow__grapes&#39;, &#39;title_bow__his&#39;,</span>
+<span class="go">&#39;title_bow__how&#39;, &#39;title_bow__last&#39;, &#39;title_bow__learned&#39;, &#39;title_bow__moveable&#39;,</span>
+<span class="go">&#39;title_bow__of&#39;, &#39;title_bow__the&#39;, &#39;title_bow__trick&#39;, &#39;title_bow__watson&#39;,</span>
+<span class="go">&#39;title_bow__wrath&#39;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],</span>
+<span class="go">       [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0],</span>
+<span class="go">       [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],</span>
+<span class="go">       [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1]]...)</span>
+</pre></div>
+</div>
+<p>En el ejemplo anterior, el transformador <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> espera un arreglo 1D como entrada y por lo tanto las columnas fueron especificadas como una cadena (<code class="docutils literal notranslate"><span class="pre">'title</span></code>). Sin embargo, <a class="reference internal" href="generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>, como la mayoría de los otros transformadores, espera datos 2D, por lo que en ese caso hay que especificar la columna como una lista de cadenas (<code class="docutils literal notranslate"><span class="pre">['city']</span></code>).</p>
+<p>Aparte de un escalar o una lista de un solo elemento, la selección de columnas puede especificarse como una lista de múltiples elementos, un arreglo de enteros, un intervalo, una máscara booleana, o con un <a class="reference internal" href="generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_selector</span></code></a>. El <a class="reference internal" href="generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_selector</span></code></a> se utiliza para seleccionar columnas basándose en el tipo de datos o en el nombre de la columna:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_selector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ct</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([</span>
+<span class="gp">... </span>      <span class="p">(</span><span class="s1">&#39;scale&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span>
+<span class="gp">... </span>      <span class="n">make_column_selector</span><span class="p">(</span><span class="n">dtype_include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)),</span>
+<span class="gp">... </span>      <span class="p">(</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">OneHotEncoder</span><span class="p">(),</span>
+<span class="gp">... </span>      <span class="n">make_column_selector</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="n">dtype_include</span><span class="o">=</span><span class="nb">object</span><span class="p">))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ct</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[ 0.904...,  0.      ,  1. ,  0. ,  0. ],</span>
+<span class="go">       [-1.507...,  1.414...,  1. ,  0. ,  0. ],</span>
+<span class="go">       [-0.301...,  0.      ,  0. ,  1. ,  0. ],</span>
+<span class="go">       [ 0.904..., -1.414...,  0. ,  0. ,  1. ]])</span>
+</pre></div>
+</div>
+<p>Las cadenas pueden referenciar columnas si la entrada es de tipo DataFrame, los enteros siempre se interpretan como las columnas posicionales.</p>
+<p>Podemos mantener las columnas de valoración restantes estableciendo <code class="docutils literal notranslate"><span class="pre">remainder='passthrough'</span></code>. Los valores se añaden al final de la transformación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="s1">&#39;city_category&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">),[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="s1">&#39;title_bow&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;passthrough&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 5, 4],</span>
+<span class="go">       [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 3, 5],</span>
+<span class="go">       [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 4, 4],</span>
+<span class="go">       [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 5, 3]]...)</span>
+</pre></div>
+</div>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">remainder</span></code> puede establecerse en un estimador para transformar las columnas de valoración restantes. Los valores transformados se añaden al final de la transformación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="s1">&#39;city_category&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="s1">&#39;title_bow&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="n">MinMaxScaler</span><span class="p">())</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+<span class="go">array([[1. , 0.5],</span>
+<span class="go">       [0. , 1. ],</span>
+<span class="go">       [0.5, 0.5],</span>
+<span class="go">       [1. , 0. ]])</span>
+</pre></div>
+</div>
+<p id="make-column-transformer">La función <a class="reference internal" href="generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="sklearn.compose.make_column_transformer"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_transformer</span></code></a> está disponible para crear más fácilmente un objeto de tipo <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>. Específicamente, los nombres serán generados automáticamente. El equivalente para el ejemplo anterior sería:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_transformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">make_column_transformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">OneHotEncoder</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="n">MinMaxScaler</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span>
+<span class="go">ColumnTransformer(remainder=MinMaxScaler(),</span>
+<span class="go">                  transformers=[(&#39;onehotencoder&#39;, OneHotEncoder(), [&#39;city&#39;]),</span>
+<span class="go">                                (&#39;countvectorizer&#39;, CountVectorizer(),</span>
+<span class="go">                                 &#39;title&#39;)])</span>
+</pre></div>
+</div>
+</section>
+<section id="visualizing-composite-estimators">
+<span id="id2"></span><h2><span class="section-number">6.1.5. </span>Visualización de estimadores compuestos<a class="headerlink" href="#visualizing-composite-estimators" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los estimadores pueden ser mostrados con una representación HTML cuando se muestran en un cuaderno de Jupyter. Esto puede ser útil para diagnosticar o visualizar un pipeline con muchos estimadores. Esta visualización se activa estableciendo la opción <code class="docutils literal notranslate"><span class="pre">display</span></code> en <a class="reference internal" href="generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_config</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">set_config</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">set_config</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s1">&#39;diagram&#39;</span><span class="p">)</span>   
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># diplays HTML representation in a jupyter context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span>  
+</pre></div>
+</div>
+<p>Un ejemplo de la salida HTML puede verse en la sección <strong>Representación HTML del pipeline</strong> de <a class="reference internal" href="../auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">Transformador de columna con tipos mixtos</span></a>. Como alternativa, el HTML se puede escribir en un archivo utilizando <a class="reference internal" href="generated/sklearn.utils.estimator_html_repr.html#sklearn.utils.estimator_html_repr" title="sklearn.utils.estimator_html_repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">estimator_html_repr</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">estimator_html_repr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;my_estimator.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  
+<span class="gp">... </span>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">estimator_html_repr</span><span class="p">(</span><span class="n">clf</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/compose/plot_column_transformer.html#sphx-glr-auto-examples-compose-plot-column-transformer-py"><span class="std std-ref">Transformador de columnas con fuentes de datos heterogéneas</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">Transformador de columna con tipos mixtos</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/compose.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

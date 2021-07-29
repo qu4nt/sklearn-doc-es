@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.14. Aprendizaje semi supervisado &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/semi_supervised.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="feature_selection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.13. Selección de características">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="isotonic.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.15. Regresión isotónica">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.14. Aprendizaje semi supervisado</a><ul>
+<li><a class="reference internal" href="#self-training">1.14.1. Auto entrenamiento</a></li>
+<li><a class="reference internal" href="#label-propagation">1.14.2. Propagación de etiquetas</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="semi-supervised-learning">
+<span id="semi-supervised"></span><h1><span class="section-number">1.14. </span>Aprendizaje semi supervisado<a class="headerlink" href="#semi-supervised-learning" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Semi-supervised_learning">El aprendizaje semi supervisado</a> es una situación en la que en los datos de entrenamiento algunas de las muestras no están etiquetadas. Los estimadores semi supervisados en <a class="reference internal" href="classes.html#module-sklearn.semi_supervised" title="sklearn.semi_supervised"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.semi_supervised</span></code></a> son capaces de hacer uso de estos datos adicionales no etiquetados para capturar mejor la forma de la distribución de datos subyacente y generalizar mejor a las nuevas muestras. Estos algoritmos pueden funcionar bien cuando tenemos una cantidad muy pequeña de puntos etiquetados y una gran cantidad de puntos no etiquetados.</p>
+<div class="topic">
+<p class="topic-title">Entradas sin etiquetar en <code class="docutils literal notranslate"><span class="pre">y</span></code></p>
+<p>Es importante asignar un identificador a los puntos no etiquetados junto con los datos etiquetados cuando se entrena el modelo con el método <code class="docutils literal notranslate"><span class="pre">fit</span></code>. El identificador que utiliza esta implementación es el valor entero <span class="math notranslate nohighlight">\(-1\)</span>. Ten en cuenta que para las etiquetas de cadena, el dtype de <code class="docutils literal notranslate"><span class="pre">y</span></code> debe ser object para que pueda contener tanto cadenas como enteros.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Los algoritmos semi supervisados necesitan hacer suposiciones sobre la distribución del conjunto de datos para lograr ganancias de rendimiento. Véase <a class="reference external" href="https://en.wikipedia.org/wiki/Semi-supervised_learning#Assumptions_used">aquí</a> para más detalles.</p>
+</div>
+<section id="self-training">
+<span id="id2"></span><h2><span class="section-number">1.14.1. </span>Auto entrenamiento<a class="headerlink" href="#self-training" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Esta implementación de auto entrenamiento se basa en el algoritmo de Yarowsky <a class="footnote-reference brackets" href="#id4" id="id3">1</a>. Usando este algoritmo, un determinado clasificador supervisado puede funcionar como un clasificador semi supervisado, permitiéndole aprender de datos no etiquetados.</p>
+<p><a class="reference internal" href="generated/sklearn.semi_supervised.SelfTrainingClassifier.html#sklearn.semi_supervised.SelfTrainingClassifier" title="sklearn.semi_supervised.SelfTrainingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelfTrainingClassifier</span></code></a> puede ser llamado con cualquier clasificador que implemente <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>, pasado como parámetro <code class="docutils literal notranslate"><span class="pre">base_classifier</span></code>. En cada iteración, el <code class="docutils literal notranslate"><span class="pre">base_classifier</span></code> predice etiquetas para las muestras no etiquetadas y añade un subconjunto de estas etiquetas al conjunto de datos etiquetados.</p>
+<p>La elección de este subconjunto está determinada por el criterio de selección. Esta selección se puede hacer utilizando un <code class="docutils literal notranslate"><span class="pre">threshold</span></code> en las probabilidades de predicción, o eligiendo las <code class="docutils literal notranslate"><span class="pre">k_best</span></code> muestras de acuerdo con las probabilidades de predicción.</p>
+<p>Las etiquetas utilizadas para el ajuste final, así como la iteración en la que cada muestra fue etiquetada están disponibles como atributos. El parámetro opcional <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> especifica cuántas veces se ejecuta el bucle como máximo.</p>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> puede establecerse en <code class="docutils literal notranslate"><span class="pre">None</span></code>, haciendo iterar el algoritmo hasta que todas las muestras tengan etiquetas o no se seleccionen nuevas muestras en esa iteración.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Cuando se utiliza el clasificador de auto entrenamiento, la <a class="reference internal" href="calibration.html#calibration"><span class="std std-ref">calibración</span></a> del clasificador es importante.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Examples</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/semi_supervised/plot_self_training_varying_threshold.html#sphx-glr-auto-examples-semi-supervised-plot-self-training-varying-threshold-py"><span class="std std-ref">Efecto de la variación del umbral de autoentrenamiento</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/semi_supervised/plot_semi_supervised_versus_svm_iris.html#sphx-glr-auto-examples-semi-supervised-plot-semi-supervised-versus-svm-iris-py"><span class="std std-ref">Frontera de decisión de los clasificadores semisupervisados en comparación a SVM en el conjunto de datos Iris</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>David Yarowsky. 1995. Unsupervised word sense disambiguation rivaling
+supervised methods. In Proceedings of the 33rd annual meeting on
+Association for Computational Linguistics (ACL “95). Association for
+Computational Linguistics, Stroudsburg, PA, USA, 189-196. DOI:
+<a class="reference external" href="https://doi.org/10.3115/981658.981684">https://doi.org/10.3115/981658.981684</a></p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="label-propagation">
+<span id="id5"></span><h2><span class="section-number">1.14.2. </span>Propagación de etiquetas<a class="headerlink" href="#label-propagation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La propagación de etiquetas denota algunas variaciones de los algoritmos de inferencia de grafos semi supervisados.</p>
+<dl class="simple">
+<dt>Algunas características disponibles en este modelo:</dt><dd><ul class="simple">
+<li><p>Utilizado para tareas de clasificación</p></li>
+<li><p>Métodos Kernel para proyectar datos en espacios dimensionales alternativos</p></li>
+</ul>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> proporciona dos modelos de propagación de etiquetas: <a class="reference internal" href="generated/sklearn.semi_supervised.LabelPropagation.html#sklearn.semi_supervised.LabelPropagation" title="sklearn.semi_supervised.LabelPropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelPropagation</span></code></a> y <a class="reference internal" href="generated/sklearn.semi_supervised.LabelSpreading.html#sklearn.semi_supervised.LabelSpreading" title="sklearn.semi_supervised.LabelSpreading"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSpreading</span></code></a>. Ambos trabajan construyendo una gráfica de similitud sobre todos los elementos en el conjunto de datos de entrada.</p>
+<figure class="align-center" id="id6">
+<a class="reference external image-reference" href="../auto_examples/semi_supervised/plot_label_propagation_structure.html"><img alt="../_images/sphx_glr_plot_label_propagation_structure_001.png" src="../_images/sphx_glr_plot_label_propagation_structure_001.png" style="width: 510.0px; height: 240.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><strong>Una ilustración de la propagación de etiquetas:</strong> <em>la estructura de observaciones sin etiquetar es coherente con la estructura de la clase, y por lo tanto la etiqueta de la clase puede propagarse a las observaciones sin etiquetar del conjunto de entrenamiento.</em></span><a class="headerlink" href="#id6" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="generated/sklearn.semi_supervised.LabelPropagation.html#sklearn.semi_supervised.LabelPropagation" title="sklearn.semi_supervised.LabelPropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelPropagation</span></code></a> y <a class="reference internal" href="generated/sklearn.semi_supervised.LabelSpreading.html#sklearn.semi_supervised.LabelSpreading" title="sklearn.semi_supervised.LabelSpreading"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSpreading</span></code></a> difieren en las modificaciones de la matriz de similitud que grafican y como restringen la distribución de las etiquetas». La restricción permite que el algoritmo cambie el peso de los datos etiquetados reales en cierto grado. El algoritmo <a class="reference internal" href="generated/sklearn.semi_supervised.LabelPropagation.html#sklearn.semi_supervised.LabelPropagation" title="sklearn.semi_supervised.LabelPropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelPropagation</span></code></a> realiza una restricción dura de las etiquetas de entrada, lo que significa <span class="math notranslate nohighlight">\(\alpha=0\)</span>. Este factor de restricción puede ser relajado, por ejemplo <span class="math notranslate nohighlight">\(\alpha=0.2\)</span>, lo que significa que siempre mantendremos el 80 por ciento de nuestra distribución de etiquetas original, pero el algoritmo puede cambiar su confianza en la distribución dentro del 20 por ciento.</p>
+<p><a class="reference internal" href="generated/sklearn.semi_supervised.LabelPropagation.html#sklearn.semi_supervised.LabelPropagation" title="sklearn.semi_supervised.LabelPropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelPropagation</span></code></a> utiliza la matriz de similitud en bruto construida a partir de los datos sin modificaciones. En cambio, <a class="reference internal" href="generated/sklearn.semi_supervised.LabelSpreading.html#sklearn.semi_supervised.LabelSpreading" title="sklearn.semi_supervised.LabelSpreading"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelSpreading</span></code></a> minimiza una función de pérdida que tiene propiedades de regularización, por lo que a menudo es más robusto al ruido. El algoritmo itera sobre una versión modificada del gráfico original y normaliza los pesos de las aristas calculando la matriz Laplaciana normalizada del gráfico. Este procedimiento también se utiliza en <a class="reference internal" href="clustering.html#spectral-clustering"><span class="std std-ref">Análisis espectral de conglomerados</span></a>.</p>
+<p>Los modelos de propagación de etiquetas tienen dos métodos de núcleo integrados. La elección del núcleo afecta tanto la escalabilidad como el rendimiento de los algoritmos. Están disponibles los siguientes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>rbf (<span class="math notranslate nohighlight">\(\exp(-\gamma |x-y|^2), \gamma &gt; 0\)</span>). <span class="math notranslate nohighlight">\(\gamma\)</span> se especifica con la palabra clave gamma.</p></li>
+<li><p>knn (<span class="math notranslate nohighlight">\(1[x' \in kNN(x)]\)</span>). <span class="math notranslate nohighlight">\(k\)</span> se especifica con la palabra clave n_neighbors.</p></li>
+</ul>
+</div></blockquote>
+<p>El núcleo RBF producirá un gráfico completamente conectado que está representado en memoria por una matriz densa. Esta matriz puede ser muy grande y, combinada con el costo de realizar un cálculo completo de multiplicación de la matriz para cada iteración del algoritmo, puede llevar a tiempos de ejecución prohibitivamente largos. Por otro lado, el núcleo KNN producirá una matriz dispersa mucho más amigable con la memoria que puede reducir drásticamente los tiempos de ejecución.</p>
+<div class="topic">
+<p class="topic-title">Examples</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/semi_supervised/plot_semi_supervised_versus_svm_iris.html#sphx-glr-auto-examples-semi-supervised-plot-semi-supervised-versus-svm-iris-py"><span class="std std-ref">Frontera de decisión de los clasificadores semisupervisados en comparación a SVM en el conjunto de datos Iris</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/semi_supervised/plot_label_propagation_structure.html#sphx-glr-auto-examples-semi-supervised-plot-label-propagation-structure-py"><span class="std std-ref">Propagación de Etiquetas en el aprendizaje de una estructura compleja</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/semi_supervised/plot_label_propagation_digits.html#sphx-glr-auto-examples-semi-supervised-plot-label-propagation-digits-py"><span class="std std-ref">Dígitos de Propagación de Etiquetas: Demostración del rendimiento</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/semi_supervised/plot_label_propagation_digits_active_learning.html#sphx-glr-auto-examples-semi-supervised-plot-label-propagation-digits-active-learning-py"><span class="std std-ref">El aprendizaje activo de los dígitos de Propagación de Etiquetas</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">Referencias</p>
+<p>[2] Yoshua Bengio, Olivier Delalleau, Nicolas Le Roux. In Semi-Supervised
+Learning (2006), pp. 193-216</p>
+<p>[3] Olivier Delalleau, Yoshua Bengio, Nicolas Le Roux. Efficient
+Non-Parametric Function Induction in Semi-Supervised Learning. AISTAT 2005
+<a class="reference external" href="https://research.microsoft.com/en-us/people/nicolasl/efficient_ssl.pdf">https://research.microsoft.com/en-us/people/nicolasl/efficient_ssl.pdf</a></p>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/semi_supervised.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

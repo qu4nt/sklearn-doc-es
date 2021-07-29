@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>6.8. Métricas por pares, afinidades y núcleos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/metrics.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="kernel_approximation.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.7. Aproximación de núcleo">Prev</a><a href="../data_transforms.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6. Transformaciones de conjuntos de datos">Arriba</a>
+            <a href="preprocessing_targets.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.9. Transformación del objetivo de predicción (y)">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">6.8. Métricas por pares, afinidades y núcleos</a><ul>
+<li><a class="reference internal" href="#cosine-similarity">6.8.1. Similitud del coseno</a></li>
+<li><a class="reference internal" href="#linear-kernel">6.8.2. Núcleo lineal</a></li>
+<li><a class="reference internal" href="#polynomial-kernel">6.8.3. Núcleo polinomial</a></li>
+<li><a class="reference internal" href="#sigmoid-kernel">6.8.4. Núcleo sigmoidal</a></li>
+<li><a class="reference internal" href="#rbf-kernel">6.8.5. Núcleo RBF</a></li>
+<li><a class="reference internal" href="#laplacian-kernel">6.8.6. Núcleo Laplaciano</a></li>
+<li><a class="reference internal" href="#chi-squared-kernel">6.8.7. Núcleo chi-cuadrado</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="pairwise-metrics-affinities-and-kernels">
+<span id="metrics"></span><h1><span class="section-number">6.8. </span>Métricas por pares, afinidades y núcleos<a class="headerlink" href="#pairwise-metrics-affinities-and-kernels" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El submódulo <a class="reference internal" href="classes.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise</span></code></a> implementa utilidades para evaluar las distancias por pares o la afinidad de conjuntos de muestras.</p>
+<p>Este módulo contiene métricas de distancia y núcleos. Aquí se presenta un breve resumen de ambos.</p>
+<p>Las métricas de distancia son funciones <code class="docutils literal notranslate"><span class="pre">d(a,</span> <span class="pre">b)</span></code> tales que <code class="docutils literal notranslate"><span class="pre">d(a,</span> <span class="pre">b)</span> <span class="pre">&lt;</span> <span class="pre">d(a,</span> <span class="pre">c)</span></code> si los objetos <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">b</span></code> se consideran «más similares» que los objetos <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">c</span></code>. Dos objetos exactamente iguales tendrían una distancia de cero. Uno de los ejemplos más populares es la distancia Euclidiana. Para ser una «verdadera» métrica, debe obedecer las siguientes cuatro condiciones:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">a</span> <span class="ow">and</span> <span class="n">b</span>
+<span class="mf">2.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="k">if</span> <span class="ow">and</span> <span class="n">only</span> <span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">positive</span> <span class="n">definiteness</span>
+<span class="mf">3.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">d</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="n">symmetry</span>
+<span class="mf">4.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">d</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">),</span> <span class="n">the</span> <span class="n">triangle</span> <span class="n">inequality</span>
+</pre></div>
+</div>
+<p>Los núcleos son medidas de similitud, es decir, <code class="docutils literal notranslate"><span class="pre">s(a,</span> <span class="pre">b)</span> <span class="pre">&gt;</span> <span class="pre">s(a,</span> <span class="pre">c)</span></code> si los objetos <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">b</span></code> son considerados «más similares» que los objetos <code class="docutils literal notranslate"><span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">c</span></code>. Un núcleo también debe ser semi-definido positivo.</p>
+<p>Hay varias formas de convertir entre una métrica de distancia y una medida de similitud, como un núcleo. Sea <code class="docutils literal notranslate"><span class="pre">D</span></code> la distancia y <code class="docutils literal notranslate"><span class="pre">S</span></code> el núcleo:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">np.exp(-D</span> <span class="pre">*</span> <span class="pre">gamma)</span></code>, donde una heurística para elegir <code class="docutils literal notranslate"><span class="pre">gamma</span></code> es <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">num_features</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">1.</span> <span class="pre">/</span> <span class="pre">(D</span> <span class="pre">/</span> <span class="pre">np.max(D))</span></code></p></li>
+</ol>
+</div></blockquote>
+<p>Las distancias entre los vectores fila de <code class="docutils literal notranslate"><span class="pre">X</span></code> y los vectores fila de <code class="docutils literal notranslate"><span class="pre">Y</span></code> pueden evaluarse utilizando <a class="reference internal" href="generated/sklearn.metrics.pairwise_distances.html#sklearn.metrics.pairwise_distances" title="sklearn.metrics.pairwise_distances"><code class="xref py py-func docutils literal notranslate"><span class="pre">pairwise_distances</span></code></a>. Si se omite <code class="docutils literal notranslate"><span class="pre">Y</span></code> se calculan las distancias por pares de los vectores fila de <code class="docutils literal notranslate"><span class="pre">X</span></code>. Del mismo modo, <a class="reference internal" href="generated/sklearn.metrics.pairwise.pairwise_kernels.html#sklearn.metrics.pairwise.pairwise_kernels" title="sklearn.metrics.pairwise.pairwise_kernels"><code class="xref py py-func docutils literal notranslate"><span class="pre">pairwise.pairwise_kernels</span></code></a> puede utilizarse para calcular el núcleo entre <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">Y</span></code> utilizando diferentes funciones de núcleo. Consulte la referencia de la API para obtener más detalles.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">pairwise_kernels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;manhattan&#39;</span><span class="p">)</span>
+<span class="go">array([[ 4.,  2.],</span>
+<span class="go">       [ 7.,  5.],</span>
+<span class="go">       [12., 10.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;manhattan&#39;</span><span class="p">)</span>
+<span class="go">array([[0., 3., 8.],</span>
+<span class="go">       [3., 0., 5.],</span>
+<span class="go">       [8., 5., 0.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+<span class="go">array([[ 2.,  7.],</span>
+<span class="go">       [ 3., 11.],</span>
+<span class="go">       [ 5., 18.]])</span>
+</pre></div>
+</div>
+<section id="cosine-similarity">
+<span id="id1"></span><h2><span class="section-number">6.8.1. </span>Similitud del coseno<a class="headerlink" href="#cosine-similarity" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity" title="sklearn.metrics.pairwise.cosine_similarity"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a> calcula el producto punto normalizado L2 de los vectores. Es decir, si <span class="math notranslate nohighlight">\(x\)</span> y <span class="math notranslate nohighlight">\(y\)</span> son vectores de fila, su similitud coseno <span class="math notranslate nohighlight">\(k\)</span> se define como:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \frac{x y^\top}{\|x\| \|y\|}\]</div>
+<p>Esto se llama similitud del coseno, porque la normalización euclidiana (L2) proyecta los vectores sobre la esfera unitaria, y su producto de puntos es entonces el coseno del ángulo entre los puntos denotados por los vectores.</p>
+<p>Este núcleo es una opción popular para calcular la similitud de documentos representados como vectores tf-idf. <a class="reference internal" href="generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity" title="sklearn.metrics.pairwise.cosine_similarity"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a> acepta matrices <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code>. (Ten en cuenta que la funcionalidad tf-idf en <code class="docutils literal notranslate"><span class="pre">sklearn.feature_extraction.text</span></code> puede producir vectores normalizados, en cuyo caso <a class="reference internal" href="generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity" title="sklearn.metrics.pairwise.cosine_similarity"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a> es equivalente a <a class="reference internal" href="generated/sklearn.metrics.pairwise.linear_kernel.html#sklearn.metrics.pairwise.linear_kernel" title="sklearn.metrics.pairwise.linear_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">linear_kernel</span></code></a>, sólo que más lento.)</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
+Information Retrieval. Cambridge University Press.
+<a class="reference external" href="https://nlp.stanford.edu/IR-book/html/htmledition/the-vector-space-model-for-scoring-1.html">https://nlp.stanford.edu/IR-book/html/htmledition/the-vector-space-model-for-scoring-1.html</a></p></li>
+</ul>
+</div>
+</section>
+<section id="linear-kernel">
+<span id="id2"></span><h2><span class="section-number">6.8.2. </span>Núcleo lineal<a class="headerlink" href="#linear-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La función <a class="reference internal" href="generated/sklearn.metrics.pairwise.linear_kernel.html#sklearn.metrics.pairwise.linear_kernel" title="sklearn.metrics.pairwise.linear_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">linear_kernel</span></code></a> calcula el núcleo lineal, es decir, un caso especial de <a class="reference internal" href="generated/sklearn.metrics.pairwise.polynomial_kernel.html#sklearn.metrics.pairwise.polynomial_kernel" title="sklearn.metrics.pairwise.polynomial_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">polynomial_kernel</span></code></a> con <code class="docutils literal notranslate"><span class="pre">degree=1</span></code> y <code class="docutils literal notranslate"><span class="pre">coef0=0</span></code> (homogéneo). Si <code class="docutils literal notranslate"><span class="pre">x</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> son vectores columna, su núcleo lineal es:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = x^\top y\]</div>
+</section>
+<section id="polynomial-kernel">
+<span id="id3"></span><h2><span class="section-number">6.8.3. </span>Núcleo polinomial<a class="headerlink" href="#polynomial-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La función <a class="reference internal" href="generated/sklearn.metrics.pairwise.polynomial_kernel.html#sklearn.metrics.pairwise.polynomial_kernel" title="sklearn.metrics.pairwise.polynomial_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">polynomial_kernel</span></code></a> calcula el núcleo polinomial de grado-d entre dos vectores. El núcleo polinomial representa la similitud entre dos vectores. Conceptualmente, el núcleo polinomial considera no sólo la similitud entre vectores bajo la misma dimensión, sino también entre dimensiones. Cuando se utiliza en algoritmos de aprendizaje automático, esto permite tener en cuenta la interacción de las características.</p>
+<p>El núcleo polinomial se define como:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = (\gamma x^\top y +c_0)^d\]</div>
+<p>donde:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> son los vectores de entrada</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code> es el grado del núcleo</p></li>
+</ul>
+</div></blockquote>
+<p>Si <span class="math notranslate nohighlight">\(c_0 = 0\)</span> se dice que el núcleo es homogéneo.</p>
+</section>
+<section id="sigmoid-kernel">
+<span id="id4"></span><h2><span class="section-number">6.8.4. </span>Núcleo sigmoidal<a class="headerlink" href="#sigmoid-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La función <a class="reference internal" href="generated/sklearn.metrics.pairwise.sigmoid_kernel.html#sklearn.metrics.pairwise.sigmoid_kernel" title="sklearn.metrics.pairwise.sigmoid_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigmoid_kernel</span></code></a> calcula el núcleo sigmoidal entre dos vectores. El núcleo sigmoidal también se conoce como tangente hiperbólica, o Perceptrón Multicapa (porque, en el campo de las redes neuronales, se utiliza a menudo como función de activación de las neuronas). Se define como:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \tanh( \gamma x^\top y + c_0)\]</div>
+<p>donde:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> son los vectores de entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma\)</span> es conocido como pendiente</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_0\)</span> es conocido como intersección</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="rbf-kernel">
+<span id="id5"></span><h2><span class="section-number">6.8.5. </span>Núcleo RBF<a class="headerlink" href="#rbf-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La función <a class="reference internal" href="generated/sklearn.metrics.pairwise.rbf_kernel.html#sklearn.metrics.pairwise.rbf_kernel" title="sklearn.metrics.pairwise.rbf_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">rbf_kernel</span></code></a> calcula el núcleo de la función de base radial (RBF) entre dos vectores. Este núcleo se define como:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \exp( -\gamma \| x-y \|^2)\]</div>
+<p>donde <code class="docutils literal notranslate"><span class="pre">x</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> son los vectores de entrada. Si <span class="math notranslate nohighlight">\(\gamma = \sigma^{-2}\)</span> el núcleo es conocido como el núcleo Gaussiano de varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+</section>
+<section id="laplacian-kernel">
+<span id="id6"></span><h2><span class="section-number">6.8.6. </span>Núcleo Laplaciano<a class="headerlink" href="#laplacian-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La función <a class="reference internal" href="generated/sklearn.metrics.pairwise.laplacian_kernel.html#sklearn.metrics.pairwise.laplacian_kernel" title="sklearn.metrics.pairwise.laplacian_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">laplacian_kernel</span></code></a> es una variante en el núcleo de la función radial definida como:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \exp( -\gamma \| x-y \|_1)\]</div>
+<p>donde <code class="docutils literal notranslate"><span class="pre">x</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> son los vectores de entrada y <span class="math notranslate nohighlight">\(\|x-y\|_1\)</span> es la distancia de Manhattan entre los vectores de entrada.</p>
+<p>Se ha demostrado su utilidad en el aprendizaje automático aplicado a datos sin ruido. Ver, por ejemplo, <a class="reference external" href="https://onlinelibrary.wiley.com/doi/10.1002/qua.24954/abstract/">Machine learning for quantum mechanics in a nutshell</a>.</p>
+</section>
+<section id="chi-squared-kernel">
+<span id="chi2-kernel"></span><h2><span class="section-number">6.8.7. </span>Núcleo chi-cuadrado<a class="headerlink" href="#chi-squared-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El núcleo chi-cuadrado es una opción muy popular para entrenar SVMs no lineales en aplicaciones de visión por computadora. Se puede calcular utilizando <a class="reference internal" href="generated/sklearn.metrics.pairwise.chi2_kernel.html#sklearn.metrics.pairwise.chi2_kernel" title="sklearn.metrics.pairwise.chi2_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">chi2_kernel</span></code></a> y luego pasar a una <a class="reference internal" href="generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">SVC</span></code></a> con <code class="docutils literal notranslate"><span class="pre">kernel=&quot;precomputed&quot;</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">chi2_kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.8</span><span class="p">],</span> <span class="p">[</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.3</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">chi2_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span>
+<span class="go">array([[1.        , 0.36787944, 0.89483932, 0.58364548],</span>
+<span class="go">       [0.36787944, 1.        , 0.51341712, 0.83822343],</span>
+<span class="go">       [0.89483932, 0.51341712, 1.        , 0.7768366 ],</span>
+<span class="go">       [0.58364548, 0.83822343, 0.7768366 , 1.        ]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="go">array([0, 1, 0, 1])</span>
+</pre></div>
+</div>
+<p>También puede ser utilizado directamente como el argumento <code class="docutils literal notranslate"><span class="pre">núcleo</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">chi2_kernel</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([0, 1, 0, 1])</span>
+</pre></div>
+</div>
+<p>El núcleo chi cuadrado es dado por</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \exp \left (-\gamma \sum_i \frac{(x[i] - y[i]) ^ 2}{x[i] + y[i]} \right )\]</div>
+<p>Se supone que los datos son no negativos, y a menudo se normalizan para que tengan una norma L1 de uno. La normalización se racionaliza con la conexión a la distancia chi cuadrada, que es una distancia entre distribuciones de probabilidad discretas.</p>
+<p>El núcleo chi cuadrado es el más utilizado en los histogramas (bolsas) de palabras visuales.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Zhang, J. and Marszalek, M. and Lazebnik, S. and Schmid, C.
+Local features and kernels for classification of texture and object
+categories: A comprehensive study
+International Journal of Computer Vision 2007
+<a class="reference external" href="https://research.microsoft.com/en-us/um/people/manik/projects/trade-off/papers/ZhangIJCV06.pdf">https://research.microsoft.com/en-us/um/people/manik/projects/trade-off/papers/ZhangIJCV06.pdf</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/metrics.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

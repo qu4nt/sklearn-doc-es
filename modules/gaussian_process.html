@@ -1,0 +1,598 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.7. Procesos Gaussianos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/gaussian_process.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="neighbors.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.6. Vecino más cercano">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="cross_decomposition.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.8. Descomposición cruzada">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.7. Procesos Gaussianos</a><ul>
+<li><a class="reference internal" href="#gaussian-process-regression-gpr">1.7.1. Regresión de Procesos Gaussianos (GPR)</a></li>
+<li><a class="reference internal" href="#gpr-examples">1.7.2. Ejemplos de GPR</a><ul>
+<li><a class="reference internal" href="#gpr-with-noise-level-estimation">1.7.2.1. GPR con estimación de nivel de ruido</a></li>
+<li><a class="reference internal" href="#comparison-of-gpr-and-kernel-ridge-regression">1.7.2.2. Comparación de la GPR y la regresión de kernel de Ridge</a></li>
+<li><a class="reference internal" href="#gpr-on-mauna-loa-co2-data">1.7.2.3. GPR en datos de CO2 de Mauna Loa</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gaussian-process-classification-gpc">1.7.3. Clasificación de Procesos Gaussianos (GPC)</a></li>
+<li><a class="reference internal" href="#gpc-examples">1.7.4. Ejemplos de GPC</a><ul>
+<li><a class="reference internal" href="#probabilistic-predictions-with-gpc">1.7.4.1. Predicciones probabilísticas con GPC</a></li>
+<li><a class="reference internal" href="#illustration-of-gpc-on-the-xor-dataset">1.7.4.2. Ejemplo de GPC en el conjunto de datos XOR</a></li>
+<li><a class="reference internal" href="#gaussian-process-classification-gpc-on-iris-dataset">1.7.4.3. Clasificación de procesos gaussianos (GPC) en el conjunto de datos iris</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#kernels-for-gaussian-processes">1.7.5. Núcleos para procesos gaussianos</a><ul>
+<li><a class="reference internal" href="#gaussian-process-kernel-api">1.7.5.1. API del núcleo de proceso gaussiano</a></li>
+<li><a class="reference internal" href="#basic-kernels">1.7.5.2. Núcleos (kernels) básicos</a></li>
+<li><a class="reference internal" href="#kernel-operators">1.7.5.3. Operadores de núcleo</a></li>
+<li><a class="reference internal" href="#radial-basis-function-rbf-kernel">1.7.5.4. Núcleo de la Función de Base Radial (RBF)</a></li>
+<li><a class="reference internal" href="#matern-kernel">1.7.5.5. Núcleo Matérn</a></li>
+<li><a class="reference internal" href="#rational-quadratic-kernel">1.7.5.6. Núcleo cuadrático racional</a></li>
+<li><a class="reference internal" href="#exp-sine-squared-kernel">1.7.5.7. Núcleo exponencial sinusoidal cuadrático</a></li>
+<li><a class="reference internal" href="#dot-product-kernel">1.7.5.8. Núcleo de producto punto</a></li>
+<li><a class="reference internal" href="#references">1.7.5.9. Referencias</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="gaussian-processes">
+<span id="gaussian-process"></span><h1><span class="section-number">1.7. </span>Procesos Gaussianos<a class="headerlink" href="#gaussian-processes" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Los <strong>procesos Gaussianos (GP)</strong> son un método genérico de aprendizaje supervisado diseñado para resolver problemas de <em>regresión</em> y <em>clasificación probabilística</em>.</p>
+<p>Las ventajas de los procesos Gaussianos son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>La predicción interpola las observaciones (al menos para los núcleos regulares).</p></li>
+<li><p>La predicción es probabilística (gaussiana), por lo que se pueden calcular intervalos de confianza empíricos y decidir, en base a ellos, si se debe reajustar (ajuste en línea, ajuste adaptativo) la predicción en alguna región de interés.</p></li>
+<li><p>Versátil: se pueden especificar diferentes <a class="reference internal" href="#gp-kernels"><span class="std std-ref">núcleos</span></a>. Se proporcionan núcleos comunes, pero también es posible especificar núcleos personalizados.</p></li>
+</ul>
+</div></blockquote>
+<p>Las desventajas de los procesos Gaussianos incluyen:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>No son dispersos, es decir, utilizan toda la información de las muestras para realizar la predicción.</p></li>
+<li><p>Pierden eficacia en espacios de alta dimensión, es decir, cuando el número de características supera algunas decenas.</p></li>
+</ul>
+</div></blockquote>
+<section id="gaussian-process-regression-gpr">
+<span id="gpr"></span><h2><span class="section-number">1.7.1. </span>Regresión de Procesos Gaussianos (GPR)<a class="headerlink" href="#gaussian-process-regression-gpr" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La <a class="reference internal" href="generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianProcessRegressor</span></code></a> implementa procesos Gaussianos (GP) con fines de regresión. Para ello, es necesario especificar la prioridad del GP. La media a priori se supone constante y cero (para <code class="docutils literal notranslate"><span class="pre">normalize_y=False</span></code>) o la media de los datos de entrenamiento (para <code class="docutils literal notranslate"><span class="pre">normalize_y=True</span></code>). La covarianza de la prioridad se especifica pasando un objeto <a class="reference internal" href="#gp-kernels"><span class="std std-ref">kernel</span></a>. Los hiperparámetros del núcleo se optimizan durante el ajuste de GaussianProcessRegressor maximizando la verosimilitud marginal logarítmica (log-marginal-likelihood, o LML) basado en el <code class="docutils literal notranslate"><span class="pre">optimizador</span></code> que se le pasa. Como el LML puede tener múltiples óptimos locales, el optimizador puede iniciarse repetidamente especificando <code class="docutils literal notranslate"><span class="pre">n_restarts_optimizer</span></code>. La primera ejecución se realiza siempre a partir de los valores iniciales de los hiperparámetros del núcleo; las ejecuciones posteriores se realizan a partir de los valores de los hiperparámetros que se han elegido aleatoriamente del rango de valores permitidos. Si los hiperparámetros iniciales deben mantenerse fijos, se puede pasar <code class="docutils literal notranslate"><span class="pre">None</span></code> como optimizador.</p>
+<p>El nivel de ruido en los objetivos puede especificarse pasándolo a través del parámetro <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, ya sea globalmente como escalar o por punto de datos. Ten en cuenta que un nivel de ruido moderado también puede ser útil para tratar los problemas numéricos durante el ajuste, ya que se implementa efectivamente como regularización de Tikhonov, es decir, añadiéndolo a la diagonal de la matriz del núcleo. Una alternativa para la especificación explícita del nivel de ruido es incluir un componente WhiteKernel en el núcleo, que puede estimar el nivel de ruido global a partir de los datos (véase el ejemplo siguiente).</p>
+<p>La implementación se basa en el algoritmo 2.1 de <a class="reference internal" href="#rw2006" id="id1"><span>[RW2006]</span></a>. Además de la API de los estimadores estándar de scikit-learn, GaussianProcessRegressor:</p>
+<ul class="simple">
+<li><p>permite la predicción sin ajuste previo (basado en el previo GP)</p></li>
+<li><p>proporciona un método adicional <code class="docutils literal notranslate"><span class="pre">sample_y(X)</span></code>, que evalúa las muestras extraídas del GPR (a priori o a posteriori) en entradas específicas</p></li>
+<li><p>expone un método <code class="docutils literal notranslate"><span class="pre">log_marginal_likelihood(theta)</span></code>, que puede ser usado externamente para otras maneras de seleccionar hiperparámetros, por ejemplo, a través de la cadena de Markov Monte Carlo.</p></li>
+</ul>
+</section>
+<section id="gpr-examples">
+<h2><span class="section-number">1.7.2. </span>Ejemplos de GPR<a class="headerlink" href="#gpr-examples" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="gpr-with-noise-level-estimation">
+<h3><span class="section-number">1.7.2.1. </span>GPR con estimación de nivel de ruido<a class="headerlink" href="#gpr-with-noise-level-estimation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Este ejemplo ilustra que la GPR con un núcleo de suma que incluye un WhiteKernel puede estimar el nivel de ruido de los datos. Una descripción de la verosimilitud marginal logarítmica (LML) muestra que existen dos máximos locales de LML.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_noisy.html"><img alt="../_images/sphx_glr_plot_gpr_noisy_001.png" src="../_images/sphx_glr_plot_gpr_noisy_001.png" /></a>
+</figure>
+<p>El primero corresponde a un modelo con un alto nivel de ruido y una gran escala de longitud, que explica todas las variaciones de los datos debidas al ruido.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_noisy.html"><img alt="../_images/sphx_glr_plot_gpr_noisy_002.png" src="../_images/sphx_glr_plot_gpr_noisy_002.png" /></a>
+</figure>
+<p>El segundo tiene un nivel de ruido menor y una escala de longitud más corta, lo que explica la mayor parte de la variación por la relación funcional sin ruido. El segundo modelo tiene una mayor verosimilitud; sin embargo, dependiendo del valor inicial de los hiperparámetros, la optimización basada en el gradiente también podría converger a la solución de alto ruido. Por lo tanto, es importante repetir la optimización varias veces para diferentes inicializaciones.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_noisy.html"><img alt="../_images/sphx_glr_plot_gpr_noisy_003.png" src="../_images/sphx_glr_plot_gpr_noisy_003.png" /></a>
+</figure>
+</section>
+<section id="comparison-of-gpr-and-kernel-ridge-regression">
+<h3><span class="section-number">1.7.2.2. </span>Comparación de la GPR y la regresión de kernel de Ridge<a class="headerlink" href="#comparison-of-gpr-and-kernel-ridge-regression" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Tanto la regresión cresta de núcleo (cuyas siglas en inglés son KRR) como la GPR aprenden una función objetivo empleando internamente el «truco del núcleo». KRR aprende una función lineal en el espacio inducido por el núcleo respectivo que corresponde a una función no lineal en el espacio original. La función lineal en el espacio del núcleo se elige en función de la pérdida de error cuadrático medio con regularización de cresta. La GPR utiliza el núcleo para definir la covarianza de una distribución a priori sobre las funciones objetivo y utiliza los datos de entrenamiento observados para definir una función de verosimilitud. Basándose en el teorema de Bayes, se define una distribución posterior (gaussiana) sobre las funciones objetivo, cuya media se utiliza para la predicción.</p>
+<p>Una de las principales diferencias es que GPR puede elegir los hiperparámetros del núcleo basándose en el gradiente-ascenso de la función de verosimilitud marginal, mientras que KRR tiene que realizar una búsqueda de cuadrícula en una función de pérdida validada de forma cruzada (pérdida de error cuadrático medio). Otra distinción es que GPR aprende un modelo generativo y probabilístico de la función objetivo y, por tanto, puede proporcionar intervalos de confianza significativos y muestras posteriores junto con las predicciones, mientras que KRR sólo proporciona predicciones.</p>
+<p>La siguiente figura ilustra ambos métodos en un conjunto de datos artificial, que consiste en una función objetivo sinusoidal y un fuerte ruido. La figura compara el modelo aprendido de KRR y GPR basado en un núcleo ExpSineSquared, que es adecuado para el aprendizaje de funciones periódicas. Los hiperparámetros del núcleo controlan la suavidad (length_scale) y la periodicidad del núcleo (periodicity). Además, el nivel de ruido de los datos es aprendido explícitamente por GPR mediante un componente adicional WhiteKernel en el núcleo y por el parámetro de regularización alfa de KRR.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_compare_gpr_krr.html"><img alt="../_images/sphx_glr_plot_compare_gpr_krr_001.png" src="../_images/sphx_glr_plot_compare_gpr_krr_001.png" /></a>
+</figure>
+<p>La figura muestra que ambos métodos aprenden modelos razonables de la función objetivo. GPR identifica correctamente que la periodicidad de la función es aproximadamente <span class="math notranslate nohighlight">\(2*\pi\)</span> (6.28), mientras que KRR elige la periodicidad duplicada <span class="math notranslate nohighlight">\(4*\pi\)</span> . Además, GPR proporciona límites de confianza razonables en la predicción que no están disponibles para KRR. Una diferencia importante entre los dos métodos es el tiempo necesario para el ajuste y la predicción: mientras que el ajuste de KRR es rápido en principio, la búsqueda de cuadrícula para la optimización de los hiperparámetros escala exponencialmente con el número de hiperparámetros («maldición de la dimensionalidad»). La optimización de los parámetros basada en el gradiente en GPR no sufre este escalamiento exponencial y, por tanto, es considerablemente más rápida en este ejemplo con un espacio de hiperparámetros tridimensional. El tiempo de predicción es similar; sin embargo, generar la varianza de la distribución de predicción de GPR lleva bastante más tiempo que sólo predecir la media.</p>
+</section>
+<section id="gpr-on-mauna-loa-co2-data">
+<h3><span class="section-number">1.7.2.3. </span>GPR en datos de CO2 de Mauna Loa<a class="headerlink" href="#gpr-on-mauna-loa-co2-data" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Este ejemplo se basa en la Sección 5.4.3 de <a class="reference internal" href="#rw2006" id="id2"><span>[RW2006]</span></a>. Ilustra un ejemplo de ingeniería de núcleos complejos y optimización de hiperparámetros utilizando el ascenso de gradiente en la verosimilitud marginal logarítmica. Los datos consisten en las concentraciones medias mensuales de CO2 atmosférico (en partes por millón en volumen (ppmv)) recogidas en el Observatorio de Mauna Loa en Hawai, entre 1958 y 1997. El objetivo es modelar la concentración de CO2 como función del tiempo t.</p>
+<p>El núcleo se compone de varios términos que son responsables de explicar diferentes propiedades de la señal:</p>
+<ul class="simple">
+<li><p>una tendencia suave y ascendente a largo plazo debe ser explicada por un núcleo RBF. El núcleo RBF con una gran escala de longitud obliga a que este componente sea suavizado; no se exige que la tendencia sea ascendente, lo que deja esta elección a la GP. La escala de longitud específica y la amplitud son hiperparámetros libres.</p></li>
+<li><p>un componente estacional, que debe ser explicado por el núcleo periódico ExpSineSquared con una periodicidad fija de 1 año. La escala de longitud de este componente periódico, que controla su suavizado (smoothness), es un parámetro libre. Para permitir el decaimiento de la periodicidad exacta, se toma el producto con un núcleo RBF. La escala de longitud de este componente RBF controla el tiempo de deterioro y es otro parámetro libre.</p></li>
+<li><p>las irregularidades a corto y a mediano plazo deben explicarse mediante un componente del núcleo RationalQuadratic, cuya escala de longitud y parámetro alfa, que determina la difusividad de las escalas de longitud, deben determinarse. Según <a class="reference internal" href="#rw2006" id="id3"><span>[RW2006]</span></a>, estas irregularidades se pueden explicar mejor con un componente de núcleo RationalQuadratic que con uno RBF, probablemente porque puede acomodar varias escalas de longitud.</p></li>
+<li><p>un término de «ruido», que consiste en una contribución del núcleo RBF, que explicará los componentes de ruido correlacionados, como los fenómenos meteorológicos locales, y una contribución del WhiteKernel para el ruido blanco. Las amplitudes relativas y la escala de longitud del RBF son otros parámetros libres.</p></li>
+</ul>
+<p>Al maximizar la verosimilitud marginal logarítmica después de restar la media del objetivo, se obtiene el siguiente núcleo con un LML de -83,214:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">34.4</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">41.8</span><span class="p">)</span>
+<span class="o">+</span> <span class="mf">3.27</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="n">ExpSineSquared</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.44</span><span class="p">,</span>
+                                                   <span class="n">periodicity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">+</span> <span class="mf">0.446</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RationalQuadratic</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">17.7</span><span class="p">,</span> <span class="n">length_scale</span><span class="o">=</span><span class="mf">0.957</span><span class="p">)</span>
+<span class="o">+</span> <span class="mf">0.197</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">0.138</span><span class="p">)</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="n">noise_level</span><span class="o">=</span><span class="mf">0.0336</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Así, la mayor parte de la señal objetivo (34,4 partes por millón) se explica por una tendencia ascendente a largo plazo (escala de longitud de 41,8 años). El componente periódico tiene una amplitud de 3,27 ppm, un tiempo de decaimiento de 180 años y una escala de longitud de 1,44. El largo tiempo de deterioro indica que tenemos una componente estacional localmente muy cercana a la periódica. El ruido correlacionado tiene una amplitud de 0,197ppm con una escala de longitud de 0,138 años y una contribución de ruido blanco de 0,197 ppm. Por tanto, el nivel de ruido global es muy pequeño, lo que indica que los datos pueden ser explicados muy bien por el modelo. La figura muestra también que el modelo hace predicciones muy seguras hasta el año 2015 aproximadamente</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_co2.html"><img alt="../_images/sphx_glr_plot_gpr_co2_001.png" src="../_images/sphx_glr_plot_gpr_co2_001.png" /></a>
+</figure>
+</section>
+</section>
+<section id="gaussian-process-classification-gpc">
+<span id="gpc"></span><h2><span class="section-number">1.7.3. </span>Clasificación de Procesos Gaussianos (GPC)<a class="headerlink" href="#gaussian-process-classification-gpc" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="generated/sklearn.gaussian_process.GaussianProcessClassifier.html#sklearn.gaussian_process.GaussianProcessClassifier" title="sklearn.gaussian_process.GaussianProcessClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianProcessClassifier</span></code></a> implementa procesos Gaussianos (GP en inglés) con fines de clasificación, más específicamente para la clasificación probabilística, donde las predicciones de prueba toman la forma de probabilidades de clase. GaussianProcessClassifier coloca un GP previo en una función latente <span class="math notranslate nohighlight">\(f\)</span>, que luego se comprime a través de una función de enlace para obtener la clasificación probabilística. La función latente <span class="math notranslate nohighlight">\(f\)</span> es una función denominada incómoda (nuisance function), cuyos valores no se observan y no son relevantes por sí mismos. Su propósito es permitir una formulación conveniente del modelo, y <span class="math notranslate nohighlight">\(f\)</span> se elimina (se integra) durante la predicción. GaussianProcessClassifier implementa la función de enlace logístico, para la cual la integral no puede ser calculada analíticamente pero es fácilmente aproximada en el caso binario.</p>
+<p>En contraste con la situación de la regresión, la posterior de la función latente <span class="math notranslate nohighlight">\(f\)</span> no es gaussiana incluso para un GP previo, ya que una verosimilitud gaussiana es inapropiada para las etiquetas de clase discretas. En su lugar, se utiliza una probabilidad no gaussiana correspondiente a la función de enlace logístico (logit). GaussianProcessClassifier aproxima la posterior no gaussiana con una gaussiana basada en la aproximación de Laplace. Se pueden encontrar más detalles en el capítulo 3 de <a class="reference internal" href="#rw2006" id="id4"><span>[RW2006]</span></a>.</p>
+<p>Se asume que la media de la prioridad GP es cero. La covarianza de la prioridad se especifica pasando un objeto <a class="reference internal" href="#gp-kernels"><span class="std std-ref">kernel</span></a>. Los hiperparámetros del kernel se optimizan durante el ajuste de GaussianProcessRegressor maximizando la verosimilitud marginal logarítmica (LML) basado en el <code class="docutils literal notranslate"><span class="pre">optimizer</span></code> que se le pasa. Como el LML puede tener múltiples óptimos locales, el optimizador puede iniciarse repetidamente especificando <code class="docutils literal notranslate"><span class="pre">n_restarts_optimizer</span></code>. La primera ejecución se realiza siempre a partir de los valores iniciales de los hiperparámetros del núcleo; las ejecuciones posteriores se realizan a partir de los valores de los hiperparámetros que se han elegido aleatoriamente del rango de valores permitidos. Si los hiperparámetros iniciales deben mantenerse fijos, se puede pasar <code class="docutils literal notranslate"><span class="pre">None</span></code> como optimizador.</p>
+<p><a class="reference internal" href="generated/sklearn.gaussian_process.GaussianProcessClassifier.html#sklearn.gaussian_process.GaussianProcessClassifier" title="sklearn.gaussian_process.GaussianProcessClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianProcessClassifier</span></code></a> admite la clasificación multiclase mediante el entrenamiento y la predicción basados en uno-contra-el-resto o uno-contra-uno.  En uno-contra-resto, se ajusta un clasificador de proceso gaussiano binario para cada clase, que se entrena para separar esta clase del resto. En «one_vs_one», se ajusta un clasificador de proceso gaussiano binario para cada par de clases, que se entrena para separar estas dos clases. Las predicciones de estos predictores binarios se combinan en predicciones multiclase. Consulte la sección de <a class="reference internal" href="multiclass.html#multiclass"><span class="std std-ref">clasificación multiclase</span></a> para obtener más detalles.</p>
+<p>En el caso de la clasificación del proceso gaussiano, «one_vs_one» podría ser computacionalmente más económico, ya que tiene que resolver muchos problemas que implican sólo un subconjunto del conjunto de entrenamiento, en lugar de menos problemas en todo el conjunto de datos. Dado que la clasificación del proceso gaussiano se escala cúbicamente con el tamaño del conjunto de datos, esto podría ser considerablemente más rápido. Sin embargo, ten en cuenta que «one_vs_one» no admite la predicción de estimaciones de probabilidad, sino sólo predicciones directas. Además, ten en cuenta que <a class="reference internal" href="generated/sklearn.gaussian_process.GaussianProcessClassifier.html#sklearn.gaussian_process.GaussianProcessClassifier" title="sklearn.gaussian_process.GaussianProcessClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianProcessClassifier</span></code></a> no implementa (todavía) una verdadera aproximación de Laplace multiclase internamente, sino que, como se ha comentado anteriormente, se basa en la resolución de varias tareas de clasificación binaria internamente, que se combinan utilizando uno-versus-el-resto o uno-versus-uno.</p>
+</section>
+<section id="gpc-examples">
+<h2><span class="section-number">1.7.4. </span>Ejemplos de GPC<a class="headerlink" href="#gpc-examples" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="probabilistic-predictions-with-gpc">
+<h3><span class="section-number">1.7.4.1. </span>Predicciones probabilísticas con GPC<a class="headerlink" href="#probabilistic-predictions-with-gpc" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Este ejemplo ilustra la probabilidad pronosticada de GPC para un núcleo RBF con diferentes elecciones de los hiperparámetros. La primera figura muestra la probabilidad predicha de GPC con hiperparámetros elegidos arbitrariamente y con los hiperparámetros correspondientes a la máxima verosimilitud marginal logarítmica (LML).</p>
+<p>Aunque los hiperparámetros elegidos mediante la optimización de LML tienen un LML considerablemente mayor, su rendimiento es ligeramente inferior de acuerdo con la pérdida logarítmica en los datos de prueba. La figura muestra que esto se debe a que exhiben un cambio pronunciado de las probabilidades de clase en los límites de la clase (lo cual es bueno) pero tienen probabilidades predichas cercanas a 0,5 lejos de los límites de la clase (lo cual es malo) Este efecto indeseable es causado por la aproximación de Laplace utilizada internamente por GPC.</p>
+<p>La segunda figura muestra la verosimilitud marginal logarítmica para diferentes opciones de los hiperparámetros del núcleo, destacando las dos opciones de los hiperparámetros utilizados en la primera figura mediante puntos negros.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpc.html"><img alt="../_images/sphx_glr_plot_gpc_001.png" src="../_images/sphx_glr_plot_gpc_001.png" /></a>
+</figure>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpc.html"><img alt="../_images/sphx_glr_plot_gpc_002.png" src="../_images/sphx_glr_plot_gpc_002.png" /></a>
+</figure>
+</section>
+<section id="illustration-of-gpc-on-the-xor-dataset">
+<h3><span class="section-number">1.7.4.2. </span>Ejemplo de GPC en el conjunto de datos XOR<a class="headerlink" href="#illustration-of-gpc-on-the-xor-dataset" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Este ejemplo ilustra la GPC en datos XOR. Se comparan un núcleo estacionario e isotrópico (<a class="reference internal" href="generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBF</span></code></a>) y un núcleo no estacionario (<a class="reference internal" href="generated/sklearn.gaussian_process.kernels.DotProduct.html#sklearn.gaussian_process.kernels.DotProduct" title="sklearn.gaussian_process.kernels.DotProduct"><code class="xref py py-class docutils literal notranslate"><span class="pre">DotProduct</span></code></a>). En este conjunto de datos concreto, el núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.DotProduct.html#sklearn.gaussian_process.kernels.DotProduct" title="sklearn.gaussian_process.kernels.DotProduct"><code class="xref py py-class docutils literal notranslate"><span class="pre">DotProduct</span></code></a> obtiene resultados considerablemente mejores porque los límites de la clase son lineales y coinciden con los ejes de coordenadas. En la práctica, sin embargo, los núcleos estacionarios como <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBF</span></code></a> suelen obtener mejores resultados.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpc_xor.html"><img alt="../_images/sphx_glr_plot_gpc_xor_001.png" src="../_images/sphx_glr_plot_gpc_xor_001.png" /></a>
+</figure>
+</section>
+<section id="gaussian-process-classification-gpc-on-iris-dataset">
+<h3><span class="section-number">1.7.4.3. </span>Clasificación de procesos gaussianos (GPC) en el conjunto de datos iris<a class="headerlink" href="#gaussian-process-classification-gpc-on-iris-dataset" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Este ejemplo muestra la probabilidad predicha de GPC para un núcleo RBF isotrópico y anisotrópico en una versión bidimensional para el conjunto de datos del iris. Esto muestra la aplicabilidad de la GPC a la clasificación no binaria. El núcleo RBF anisotrópico obtiene una verosimilitud marginal logarítmica (log-marginal-likelihood) ligeramente superior al asignar diferentes escalas de longitud a las dos dimensiones de características.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpc_iris.html"><img alt="../_images/sphx_glr_plot_gpc_iris_001.png" src="../_images/sphx_glr_plot_gpc_iris_001.png" /></a>
+</figure>
+</section>
+</section>
+<section id="kernels-for-gaussian-processes">
+<span id="gp-kernels"></span><h2><span class="section-number">1.7.5. </span>Núcleos para procesos gaussianos<a class="headerlink" href="#kernels-for-gaussian-processes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los núcleos (también llamados «funciones de covarianza» en el contexto de las GP) son un ingrediente crucial de las GP que determinan la forma de la probabilidad a priori (prior) y a posteriori (posterior) de la GP. Codifican las suposiciones sobre la función que se aprende definiendo la «similitud» de dos puntos de datos combinada con la suposición de que los puntos de datos similares deberían tener valores objetivo similares. Se pueden distinguir dos categorías de núcleos: los núcleos estacionarios dependen sólo de la distancia de dos puntos de datos y no de sus valores absolutos <span class="math notranslate nohighlight">\(k(x_i, x_j)= k(d(x_i, x_j))\)</span> y, por tanto, son invariables a las traslaciones en el espacio de entrada, mientras que los núcleos no estacionarios dependen también de los valores específicos de los puntos de datos. Los núcleos estacionarios pueden subdividirse en núcleos isotrópicos y anisotrópicos, donde los núcleos isotrópicos también son invariantes a las rotaciones en el espacio de entrada. Para más detalles, nos remitimos al capítulo 4 de <a class="reference internal" href="#rw2006" id="id5"><span>[RW2006]</span></a>. Para obtener orientación sobre la mejor manera de combinar diferentes núcleos, nos remitimos a <a class="reference internal" href="#duv2014" id="id6"><span>[Duv2014]</span></a>.</p>
+<section id="gaussian-process-kernel-api">
+<h3><span class="section-number">1.7.5.1. </span>API del núcleo de proceso gaussiano<a class="headerlink" href="#gaussian-process-kernel-api" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El uso principal de un <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Kernel.html#sklearn.gaussian_process.kernels.Kernel" title="sklearn.gaussian_process.kernels.Kernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kernel</span></code></a> es calcular la covarianza de la GP entre puntos de datos. Para ello, se puede llamar al método <code class="docutils literal notranslate"><span class="pre">__call__</span></code> del núcleo. Este método puede utilizarse para calcular la «autocovarianza» de todos los pares de puntos de datos de un arreglo 2D X, o la «covarianza cruzada» de todas las combinaciones de puntos de datos de un arreglo 2D X con puntos de datos de una matriz 2D Y. La siguiente identidad es válida para todos los núcleos k (excepto para el <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">WhiteKernel</span></code></a>): <code class="docutils literal notranslate"><span class="pre">k(X)</span> <span class="pre">==</span> <span class="pre">K(X,</span> <span class="pre">Y=X)</span></code></p>
+<p>Si sólo se utiliza la diagonal de la autocovarianza, se puede llamar al método <code class="docutils literal notranslate"><span class="pre">diag()</span></code> de un núcleo, que es más eficiente computacionalmente que la llamada equivalente a <code class="docutils literal notranslate"><span class="pre">__call__</span></code>: <code class="docutils literal notranslate"><span class="pre">np.diag(k(X,</span> <span class="pre">X))</span> <span class="pre">==</span> <span class="pre">k.diag(X)</span></code></p>
+<p>Los núcleos están parametrizados por un vector <span class="math notranslate nohighlight">\(\theta\)</span> de hiperparámetros. Estos hiperparámetros pueden, por ejemplo, controlar las escalas de longitud o la periodicidad de un núcleo (véase más adelante). Todos los núcleos soportan el cálculo de gradientes analíticos de la autocovarianza del núcleo con respecto a <span class="math notranslate nohighlight">\(log(\theta)\)</span> mediante la configuración de <code class="docutils literal notranslate"><span class="pre">eval_gradient=True</span></code> en el método <code class="docutils literal notranslate"><span class="pre">__call__</span></code>. Es decir, se devuelve una matriz <code class="docutils literal notranslate"><span class="pre">(len(X),</span> <span class="pre">len(X),</span> <span class="pre">len(theta))</span></code> donde la entrada <code class="docutils literal notranslate"><span class="pre">[i,</span> <span class="pre">j,</span> <span class="pre">l]</span></code> contiene <span class="math notranslate nohighlight">\(\frac{parcial k_\theta(x_i, x_j)}{\parcial log(\theta_l)}\)</span>. Este gradiente es utilizado por el proceso gaussiano (tanto el regresor como el clasificador) en el cálculo del gradiente de la verosimilitud marginal logarítmica (log-marginal-likelihood), que a su vez se utiliza para determinar el valor de <span class="math notranslate nohighlight">\(\theta\)</span>, que maximiza el logaritmo de probabilidad marginal, a través del ascenso del gradiente. Para cada hiperparámetro, es necesario especificar el valor inicial y los límites al crear una instancia del núcleo. El valor actual de <span class="math notranslate nohighlight">\(\theta\)</span> puede obtenerse y establecerse mediante la propiedad <code class="docutils literal notranslate"><span class="pre">theta</span></code> del objeto Kernel. Además, se puede acceder a los límites de los hiperparámetros mediante la propiedad <code class="docutils literal notranslate"><span class="pre">bounds</span></code> del núcleo. Observa que ambas propiedades (theta y bounds) devuelven valores transformados logarítmicamente de los valores utilizados internamente, ya que suelen ser más susceptibles de una optimización basada en el gradiente. La especificación de cada hiperparámetro se almacena en forma de una instancia de <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Hyperparameter.html#sklearn.gaussian_process.kernels.Hyperparameter" title="sklearn.gaussian_process.kernels.Hyperparameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hyperparameter</span></code></a> en el núcleo respectivo. Ten en cuenta que un núcleo que utiliza un hiperparámetro con nombre «x» debe tener los atributos self.x y self.x_bounds.</p>
+<p>La clase base abstracta para todos los núcleos es <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Kernel.html#sklearn.gaussian_process.kernels.Kernel" title="sklearn.gaussian_process.kernels.Kernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kernel</span></code></a>. El núcleo implementa una interfaz similar a la de <code class="xref py py-class docutils literal notranslate"><span class="pre">Estimator</span></code>, proporcionando los métodos <code class="docutils literal notranslate"><span class="pre">get_params()</span></code>, <code class="docutils literal notranslate"><span class="pre">set_params()</span></code>, y <code class="docutils literal notranslate"><span class="pre">clone()</span></code>. Esto permite establecer los valores del núcleo también a través de metaestimadores como <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code> o <code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearch</span></code>. Ten en cuenta que, debido a la estructura anidada de los núcleos (al aplicar operadores del núcleo, como podrás ver más adelante), los nombres de los parámetros del núcleo pueden resultar relativamente complicados. En general, para un operador de núcleo binario, los parámetros del operando izquierdo llevan el prefijo <code class="docutils literal notranslate"><span class="pre">k1__</span></code> y los parámetros del operando derecho el prefijo <code class="docutils literal notranslate"><span class="pre">k2__</span></code>. Un método adicional de utilidad es <code class="docutils literal notranslate"><span class="pre">clone_with_theta(theta)</span></code>, que devuelve una versión clonada del núcleo pero con los hiperparámetros ajustados a <code class="docutils literal notranslate"><span class="pre">theta</span></code>. Un ejemplo de ello:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">ConstantKernel</span><span class="p">,</span> <span class="n">RBF</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kernel</span> <span class="o">=</span> <span class="n">ConstantKernel</span><span class="p">(</span><span class="n">constant_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">constant_value_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">length_scale_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span> <span class="o">+</span> <span class="n">RBF</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">length_scale_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hyperparameter</span> <span class="ow">in</span> <span class="n">kernel</span><span class="o">.</span><span class="n">hyperparameters</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">hyperparameter</span><span class="p">)</span>
+<span class="go">Hyperparameter(name=&#39;k1__k1__constant_value&#39;, value_type=&#39;numeric&#39;, bounds=array([[ 0., 10.]]), n_elements=1, fixed=False)</span>
+<span class="go">Hyperparameter(name=&#39;k1__k2__length_scale&#39;, value_type=&#39;numeric&#39;, bounds=array([[ 0., 10.]]), n_elements=1, fixed=False)</span>
+<span class="go">Hyperparameter(name=&#39;k2__length_scale&#39;, value_type=&#39;numeric&#39;, bounds=array([[ 0., 10.]]), n_elements=1, fixed=False)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">params</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+<span class="go">k1 : 1**2 * RBF(length_scale=0.5)</span>
+<span class="go">k1__k1 : 1**2</span>
+<span class="go">k1__k1__constant_value : 1.0</span>
+<span class="go">k1__k1__constant_value_bounds : (0.0, 10.0)</span>
+<span class="go">k1__k2 : RBF(length_scale=0.5)</span>
+<span class="go">k1__k2__length_scale : 0.5</span>
+<span class="go">k1__k2__length_scale_bounds : (0.0, 10.0)</span>
+<span class="go">k2 : RBF(length_scale=2)</span>
+<span class="go">k2__length_scale : 2.0</span>
+<span class="go">k2__length_scale_bounds : (0.0, 10.0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">theta</span><span class="p">)</span>  <span class="c1"># Note: log-transformed</span>
+<span class="go">[ 0.         -0.69314718  0.69314718]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>  <span class="c1"># Note: log-transformed</span>
+<span class="go">[[      -inf 2.30258509]</span>
+<span class="go"> [      -inf 2.30258509]</span>
+<span class="go"> [      -inf 2.30258509]]</span>
+</pre></div>
+</div>
+<p>Todos los núcleos de procesos gaussianos son interoperables con <a class="reference internal" href="classes.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise</span></code></a> y viceversa: las instancias de las subclases de <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Kernel.html#sklearn.gaussian_process.kernels.Kernel" title="sklearn.gaussian_process.kernels.Kernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kernel</span></code></a> pueden pasarse como <code class="docutils literal notranslate"><span class="pre">metric</span></code> a <code class="docutils literal notranslate"><span class="pre">pairwise_kernels</span></code> de <a class="reference internal" href="classes.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise</span></code></a>. Además, las funciones del núcleo de pares (pairwise) pueden utilizarse como núcleos de GP utilizando la clase envolvente <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.PairwiseKernel.html#sklearn.gaussian_process.kernels.PairwiseKernel" title="sklearn.gaussian_process.kernels.PairwiseKernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">PairwiseKernel</span></code></a>. La única advertencia es que el gradiente de los hiperparámetros no es analítico, sino numérico, y todos esos núcleos sólo admiten distancias isotrópicas. El parámetro <code class="docutils literal notranslate"><span class="pre">gamma</span></code> se considera un hiperparámetro y puede ser optimizado. Los demás parámetros del núcleo se establecen directamente en la inicialización y se mantienen fijos.</p>
+</section>
+<section id="basic-kernels">
+<h3><span class="section-number">1.7.5.2. </span>Núcleos (kernels) básicos<a class="headerlink" href="#basic-kernels" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.ConstantKernel.html#sklearn.gaussian_process.kernels.ConstantKernel" title="sklearn.gaussian_process.kernels.ConstantKernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConstantKernel</span></code></a> puede utilizarse como parte de un núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Product.html#sklearn.gaussian_process.kernels.Product" title="sklearn.gaussian_process.kernels.Product"><code class="xref py py-class docutils literal notranslate"><span class="pre">Product</span></code></a> en el que se escala la magnitud del otro factor (núcleo) o como parte de un núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Sum.html#sklearn.gaussian_process.kernels.Sum" title="sklearn.gaussian_process.kernels.Sum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sum</span></code></a>, en el que se modifica la media del proceso gaussiano. Depende de un parámetro <span class="math notranslate nohighlight">\(constant\_value\)</span>. Se define como:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = constant\_value \;\forall\; x_1, x_2\]</div>
+<p>El principal caso de uso del núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">WhiteKernel</span></code></a> es como parte de un núcleo de suma en el que explica el componente de ruido de la señal. El ajuste de su parámetro <span class="math notranslate nohighlight">\(noise\_level\)</span> corresponde a la estimación del nivel de ruido. Se define como:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = noise\_level \text{ if } x_i == x_j \text{ else } 0\]</div>
+</section>
+<section id="kernel-operators">
+<h3><span class="section-number">1.7.5.3. </span>Operadores de núcleo<a class="headerlink" href="#kernel-operators" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los operadores de núcleo toman uno o dos núcleos base y los combinan en un nuevo núcleo. El núcleo <code class="xref py py-class docutils literal notranslate"><span class="pre">Suma</span></code> toma dos núcleos <span class="math notranslate nohighlight">\(k_1\)</span> y <span class="math notranslate nohighlight">\(k_2\)</span> y los combina mediante <span class="math notranslate nohighlight">\(k_{sum}(X, Y) = k_1(X, Y) + k_2(X, Y)\)</span>. El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Product.html#sklearn.gaussian_process.kernels.Product" title="sklearn.gaussian_process.kernels.Product"><code class="xref py py-class docutils literal notranslate"><span class="pre">Product</span></code></a> toma dos núcleos <span class="math notranslate nohighlight">\(k_1\)</span> y <span class="math notranslate nohighlight">\(k_2\)</span> y los combina mediante <span class="math notranslate nohighlight">\(k_{product}(X, Y) = k_1(X, Y) * k_2(X, Y)\)</span>. El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Exponentiation.html#sklearn.gaussian_process.kernels.Exponentiation" title="sklearn.gaussian_process.kernels.Exponentiation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exponentiation</span></code></a> toma un núcleo base y un parámetro escalar <span class="math notranslate nohighlight">\(p\)</span> y los combina mediante <span class="math notranslate nohighlight">\(k_{exp}(X, Y) = k(X, Y)^p\)</span>. Tenga en cuenta que los métodos mágicos <code class="docutils literal notranslate"><span class="pre">__add__</span></code>, <code class="docutils literal notranslate"><span class="pre">__mul___</span></code> y <code class="docutils literal notranslate"><span class="pre">__pow__</span></code> se anulan en los objetos Kernel, por lo que se puede utilizar, por ejemplo, <code class="docutils literal notranslate"><span class="pre">RBF()</span> <span class="pre">+</span> <span class="pre">RBF()</span></code> como un atajo para <code class="docutils literal notranslate"><span class="pre">Sum(RBF(),</span> <span class="pre">RBF())</span></code>.</p>
+</section>
+<section id="radial-basis-function-rbf-kernel">
+<h3><span class="section-number">1.7.5.4. </span>Núcleo de la Función de Base Radial (RBF)<a class="headerlink" href="#radial-basis-function-rbf-kernel" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBF</span></code></a> es un núcleo estacionario. También se conoce como núcleo «exponencial cuadrado». Está parametrizado por un parámetro de escala de longitud <span class="math notranslate nohighlight">\(l&gt;0\)</span>, que puede ser un escalar (variante isotrópica del núcleo) o un vector con el mismo número de dimensiones que las entradas <span class="math notranslate nohighlight">\(x\)</span> (variante anisotrópica del núcleo). El núcleo viene dado por:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = \text{exp}\left(- \frac{d(x_i, x_j)^2}{2l^2} \right)\]</div>
+<p>donde <span class="math notranslate nohighlight">\(d(\cdot, \cdot)\)</span> es la distancia euclidiana. Este núcleo es infinitamente diferenciable, lo que implica que las GP con este núcleo como función de covarianza tienen derivadas cuadráticas medias de todos los órdenes, y por tanto resultan muy suavizadas (smooth). En la siguiente figura se muestran los valores a priori y a posteriori de una GP resultante de un núcleo RBF:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_prior_posterior.html"><img alt="../_images/sphx_glr_plot_gpr_prior_posterior_001.png" src="../_images/sphx_glr_plot_gpr_prior_posterior_001.png" /></a>
+</figure>
+</section>
+<section id="matern-kernel">
+<h3><span class="section-number">1.7.5.5. </span>Núcleo Matérn<a class="headerlink" href="#matern-kernel" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.Matern.html#sklearn.gaussian_process.kernels.Matern" title="sklearn.gaussian_process.kernels.Matern"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matern</span></code></a> es un núcleo estacionario y una generalización del núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBF</span></code></a>. Tiene un parámetro adicional <span class="math notranslate nohighlight">\(\nu\)</span> que controla la suavidad de la función resultante. Está parametrizado por un parámetro de escala de longitud <span class="math notranslate nohighlight">\(l&gt;0\)</span>, que puede ser un escalar (variante isotrópica del núcleo) o un vector con el mismo número de dimensiones que las entradas <span class="math notranslate nohighlight">\(x\)</span> (variante anisotrópica del núcleo). El núcleo viene dado por:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = \frac{1}{\Gamma(\nu)2^{\nu-1}}\Bigg(\frac{\sqrt{2\nu}}{l} d(x_i , x_j )\Bigg)^\nu K_\nu\Bigg(\frac{\sqrt{2\nu}}{l} d(x_i , x_j )\Bigg),\]</div>
+<p>donde <span class="math notranslate nohighlight">\(d(\cdot,\cdot)\)</span> es la distancia euclidiana, <span class="math notranslate nohighlight">\(K_\nu(\cdot)\)</span> es una función de Bessel modificada y <span class="math notranslate nohighlight">\(\Gamma(\cdot)\)</span> es la función gamma. Como <span class="math notranslate nohighlight">\(\nu\rightarrow\infty\)</span>, el núcleo Matérn converge al núcleo RBF. Cuando <span class="math notranslate nohighlight">\(\nu = 1/2\)</span>, el núcleo de Matérn se vuelve idéntico al núcleo exponencial absoluto, es decir</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = \exp \Bigg(- \frac{1}{l} d(x_i , x_j ) \Bigg) \quad \quad \nu= \tfrac{1}{2}\]</div>
+<p>En particular, <span class="math notranslate nohighlight">\(\nu = 3/2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) =  \Bigg(1 + \frac{\sqrt{3}}{l} d(x_i , x_j )\Bigg) \exp \Bigg(-\frac{\sqrt{3}}{l} d(x_i , x_j ) \Bigg) \quad \quad \nu= \tfrac{3}{2}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\nu = 5/2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = \Bigg(1 + \frac{\sqrt{5}}{l} d(x_i , x_j ) +\frac{5}{3l} d(x_i , x_j )^2 \Bigg) \exp \Bigg(-\frac{\sqrt{5}}{l} d(x_i , x_j ) \Bigg) \quad \quad \nu= \tfrac{5}{2}\]</div>
+<p>son opciones populares para funciones de aprendizaje que no son infinitamente diferenciables (como asume el núcleo RBF), pero al menos una vez (<span class="math notranslate nohighlight">\(\nu = 3/2\)</span>) o dos veces diferenciables (<span class="math notranslate nohighlight">\(\nu = 5/2\)</span>).</p>
+<p>La flexibilidad de controlar la suavidad de la función aprendida a través de <span class="math notranslate nohighlight">\(\nu\)</span> permite adaptarse a las propiedades de la verdadera relación funcional subyacente. En la siguiente figura se muestran los valores a priori y a posteriori de una GP resultante de un núcleo de Matérn:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_prior_posterior.html"><img alt="../_images/sphx_glr_plot_gpr_prior_posterior_005.png" src="../_images/sphx_glr_plot_gpr_prior_posterior_005.png" /></a>
+</figure>
+<p>Ver <a class="reference internal" href="#rw2006" id="id7"><span>[RW2006]</span></a>, pp84 para más detalles sobre las diferentes variantes del núcleo de Matérn.</p>
+</section>
+<section id="rational-quadratic-kernel">
+<h3><span class="section-number">1.7.5.6. </span>Núcleo cuadrático racional<a class="headerlink" href="#rational-quadratic-kernel" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic"><code class="xref py py-class docutils literal notranslate"><span class="pre">RationalQuadratic</span></code></a> puede verse como una mezcla de escalas (una suma infinita) de núcleos <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBF</span></code></a> con diferentes escalas de longitud características. Está parametrizado por un parámetro de escala de longitud <span class="math notranslate nohighlight">\(l&gt;0\)</span> y un parámetro de mezcla de escalas <span class="math notranslate nohighlight">\(alpha&gt;0\)</span> Por el momento sólo se admite la variante isotrópica en la que <span class="math notranslate nohighlight">\(l\)</span> es un escalar. El núcleo viene dado por:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = \left(1 + \frac{d(x_i, x_j)^2}{2\alpha l^2}\right)^{-\alpha}\]</div>
+<p>En la siguiente figura se muestran los valores a priori y a posteriori de una GP resultante de un núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic"><code class="xref py py-class docutils literal notranslate"><span class="pre">RationalQuadratic</span></code></a>:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_prior_posterior.html"><img alt="../_images/sphx_glr_plot_gpr_prior_posterior_002.png" src="../_images/sphx_glr_plot_gpr_prior_posterior_002.png" /></a>
+</figure>
+</section>
+<section id="exp-sine-squared-kernel">
+<h3><span class="section-number">1.7.5.7. </span>Núcleo exponencial sinusoidal cuadrático<a class="headerlink" href="#exp-sine-squared-kernel" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpSineSquared</span></code></a> permite modelar funciones periódicas. Está parametrizado por un parámetro de escala de longitud <span class="math notranslate nohighlight">\(l&gt;0\)</span> y un parámetro de periodicidad <span class="math notranslate nohighlight">\(p&gt;0\)</span>. Sólo la variante isotrópica donde <span class="math notranslate nohighlight">\(l\)</span> es un escalar es soportada por el momento. El núcleo viene dado por:</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = \text{exp}\left(- \frac{ 2\sin^2(\pi d(x_i, x_j) / p) }{ l^ 2} \right)\]</div>
+<p>Los valores a priori y a posteriori de una GP resultante de un núcleo ExpSineSquared se muestran en la siguiente figura:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_prior_posterior.html"><img alt="../_images/sphx_glr_plot_gpr_prior_posterior_003.png" src="../_images/sphx_glr_plot_gpr_prior_posterior_003.png" /></a>
+</figure>
+</section>
+<section id="dot-product-kernel">
+<h3><span class="section-number">1.7.5.8. </span>Núcleo de producto punto<a class="headerlink" href="#dot-product-kernel" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.DotProduct.html#sklearn.gaussian_process.kernels.DotProduct" title="sklearn.gaussian_process.kernels.DotProduct"><code class="xref py py-class docutils literal notranslate"><span class="pre">DotProduct</span></code></a> no es estacionario y puede obtenerse a partir de la regresión lineal poniendo los a priori (priors) de <span class="math notranslate nohighlight">\(N(0, 1)\)</span> en los coeficientes de <span class="math notranslate nohighlight">\(x_d (d = 1, . . , D)\)</span> y un a priori de <span class="math notranslate nohighlight">\(N(0, \sigma_0^2)\)</span> en el sesgo. El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.DotProduct.html#sklearn.gaussian_process.kernels.DotProduct" title="sklearn.gaussian_process.kernels.DotProduct"><code class="xref py py-class docutils literal notranslate"><span class="pre">DotProduct</span></code></a> es invariante a una rotación de las coordenadas sobre el origen, pero no a las traslaciones. Está parametrizado por un parámetro <span class="math notranslate nohighlight">\(\sigma_0^2\)</span>. Para <span class="math notranslate nohighlight">\(\sigma_0^2 = 0\)</span>, el núcleo se denomina núcleo lineal homogéneo, en caso contrario es no homogéneo. El núcleo viene dado por</p>
+<div class="math notranslate nohighlight">
+\[k(x_i, x_j) = \sigma_0 ^ 2 + x_i \cdot x_j\]</div>
+<p>El núcleo <a class="reference internal" href="generated/sklearn.gaussian_process.kernels.DotProduct.html#sklearn.gaussian_process.kernels.DotProduct" title="sklearn.gaussian_process.kernels.DotProduct"><code class="xref py py-class docutils literal notranslate"><span class="pre">DotProduct</span></code></a> se combina habitualmente con la exponenciación. Un ejemplo con exponente 2 se muestra en la siguiente figura:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/gaussian_process/plot_gpr_prior_posterior.html"><img alt="../_images/sphx_glr_plot_gpr_prior_posterior_004.png" src="../_images/sphx_glr_plot_gpr_prior_posterior_004.png" /></a>
+</figure>
+</section>
+<section id="references">
+<h3><span class="section-number">1.7.5.9. </span>Referencias<a class="headerlink" href="#references" title="Enlazar permanentemente con este título">¶</a></h3>
+<dl class="citation">
+<dt class="label" id="rw2006"><span class="brackets">RW2006</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id4">4</a>,<a href="#id5">5</a>,<a href="#id7">6</a>)</span></dt>
+<dd><p>Carl Eduard Rasmussen y Christopher K.I. Williams, «Gaussian Processes for Machine Learning», MIT Press 2006, Vínculo al PDF completo y versión oficial del libro <a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW.pdf">aquí</a> .</p>
+</dd>
+<dt class="label" id="duv2014"><span class="brackets"><a class="fn-backref" href="#id6">Duv2014</a></span></dt>
+<dd><p>David Duvenaud, «The Kernel Cookbook: Advice on Covariance functions», 2014, <a class="reference external" href="https://www.cs.toronto.edu/~duvenaud/cookbook/">Link</a> .</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/gaussian_process.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

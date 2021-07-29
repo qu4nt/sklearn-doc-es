@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.9. Bayesiano ingenuo &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/naive_bayes.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="cross_decomposition.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.8. Descomposición cruzada">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="tree.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.10. Árboles de decisión">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.9. Bayesiano ingenuo</a><ul>
+<li><a class="reference internal" href="#gaussian-naive-bayes">1.9.1. Bayesiano ingenuo Gaussiano</a></li>
+<li><a class="reference internal" href="#multinomial-naive-bayes">1.9.2. Bayesiano ingenuo multinomial</a></li>
+<li><a class="reference internal" href="#complement-naive-bayes">1.9.3. Complemento de Bayesiano ingenuo</a></li>
+<li><a class="reference internal" href="#bernoulli-naive-bayes">1.9.4. Bayesiano ingenuo de Bernoulli</a></li>
+<li><a class="reference internal" href="#categorical-naive-bayes">1.9.5. Bayesiano ingenuo categórico</a></li>
+<li><a class="reference internal" href="#out-of-core-naive-bayes-model-fitting">1.9.6. Ajuste del modelo de Bayesiano ingenuo fuera del núcleo</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="naive-bayes">
+<span id="id1"></span><h1><span class="section-number">1.9. </span>Bayesiano ingenuo<a class="headerlink" href="#naive-bayes" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Los métodos de Bayesiano ingenuo son un conjunto de algoritmos de aprendizaje supervisados basados en la aplicación del teorema de Bayes con la suposición «ingenua» de independencia condicional entre cada par de características dado el valor de la variable de clase. El teorema de Bayes indica la siguiente relación, variable de clase dada <span class="math notranslate nohighlight">\(y\)</span> y vector de característica dependiente <span class="math notranslate nohighlight">\(x_1\)</span> a través de <span class="math notranslate nohighlight">\(x_n\)</span>, :</p>
+<div class="math notranslate nohighlight">
+\[P(y \mid x_1, \dots, x_n) = \frac{P(y) P(x_1, \dots, x_n \mid y)}
+                                 {P(x_1, \dots, x_n)}\]</div>
+<p>Utilizando el ingenuo supuesto de independencia condicional de ese</p>
+<div class="math notranslate nohighlight">
+\[P(x_i | y, x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_n) = P(x_i | y),\]</div>
+<p>para todos los <span class="math notranslate nohighlight">\(i\)</span>, esta relación se simplifica a</p>
+<div class="math notranslate nohighlight">
+\[P(y \mid x_1, \dots, x_n) = \frac{P(y) \prod_{i=1}^{n} P(x_i \mid y)}
+                                 {P(x_1, \dots, x_n)}\]</div>
+<p>Como <span class="math notranslate nohighlight">\(P(x_1, \dots, x_n)\)</span> es constante dada la entrada, podemos usar la siguiente regla de clasificación:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}P(y \mid x_1, \dots, x_n) \propto P(y) \prod_{i=1}^{n} P(x_i \mid y)\\\Downarrow\\\hat{y} = \arg\max_y P(y) \prod_{i=1}^{n} P(x_i \mid y),\end{aligned}\end{align} \]</div>
+<p>y podemos usar la estimación máxima A Posteriori (MAP) para estimar <span class="math notranslate nohighlight">\(P(y)\)</span> y <span class="math notranslate nohighlight">\(P(x_i \mid y)\)</span>; el primero es entonces la frecuencia relativa de la clase <span class="math notranslate nohighlight">\(y\)</span> en el conjunto de entrenamiento.</p>
+<p>Los diferentes clasificadores Bayesianos ingenuos difieren principalmente por los supuestos que hacen con respecto a la distribución de <span class="math notranslate nohighlight">\(P(x_i \mid y)\)</span>.</p>
+<p>A pesar de sus supuestos aparentemente demasiado simplificados, los clasificadores Bayesianos ingenuos han funcionado bastante bien en muchas situaciones del mundo real, como la clasificación de documentos y el filtrado de spam. Requieren una pequeña cantidad de datos de entrenamiento para estimar los parámetros necesarios. (Para conocer las razones teóricas por las que el Bayesiano ingenuo funciona bien, y sobre qué tipos de datos lo hace, ver las referencias más abajo.)</p>
+<p>Los aprendices y clasificadores de Bayesiano ingenuo pueden ser extremadamente rápidos en comparación con métodos más sofisticados. La disociación de las distribuciones de características condicionales de la clase significa que cada distribución puede estimarse independientemente como una distribución unidimensional. Esto, a su vez, ayuda a aliviar los problemas derivados de la maldición de la dimensionalidad.</p>
+<p>Por otro lado, aunque el Bayesiano ingenuo es conocido como un clasificador decente, se sabe que es un mal estimador, por lo que las salidas de probabilidad de <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> no deben tomarse demasiado en serio.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>H. Zhang (2004). <a class="reference external" href="https://www.cs.unb.ca/~hzhang/publications/FLAIRS04ZhangH.pdf">The optimality of Naive Bayes.</a>
+Proc. FLAIRS.</p></li>
+</ul>
+</div>
+<section id="gaussian-naive-bayes">
+<span id="id2"></span><h2><span class="section-number">1.9.1. </span>Bayesiano ingenuo Gaussiano<a class="headerlink" href="#gaussian-naive-bayes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> implementa el algoritmo Bayesiano ingenuo Gaussiano para la clasificación. Se supone que la probabilidad de las características es gaussiana:</p>
+<div class="math notranslate nohighlight">
+\[P(x_i \mid y) = \frac{1}{\sqrt{2\pi\sigma^2_y}} \exp\left(-\frac{(x_i - \mu_y)^2}{2\sigma^2_y}\right)\]</div>
+<p>Los parámetros <span class="math notranslate nohighlight">\(sigma_y\)</span> y <span class="math notranslate nohighlight">\(mu_y\)</span> se estiman por máxima verosimilitud.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of mislabeled points out of a total </span><span class="si">%d</span><span class="s2"> points : </span><span class="si">%d</span><span class="s2">&quot;</span>
+<span class="gp">... </span>      <span class="o">%</span> <span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">y_test</span> <span class="o">!=</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="go">Number of mislabeled points out of a total 75 points : 4</span>
+</pre></div>
+</div>
+</section>
+<section id="multinomial-naive-bayes">
+<span id="id3"></span><h2><span class="section-number">1.9.2. </span>Bayesiano ingenuo multinomial<a class="headerlink" href="#multinomial-naive-bayes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.MultinomialNB.html#sklearn.naive_bayes.MultinomialNB" title="sklearn.naive_bayes.MultinomialNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultinomialNB</span></code></a> implementa el algoritmo Bayesiano ingenuo para datos distribuidos multinomialmente, y es una de las dos variantes clásicas de Bayesiano ingenuo utilizadas en la clasificación de textos (donde los datos se representan típicamente como recuentos de vectores de palabras, aunque también se sabe que los vectores tf-idf funcionan bien en la práctica). La distribución está parametrizada por vectores <span class="math notranslate nohighlight">\(theta_y = (\theta_{y1},\ldots,\theta_{yn})\)</span> para cada clase <span class="math notranslate nohighlight">\(y\)</span>, donde :math: <code class="docutils literal notranslate"><span class="pre">n</span></code> es el número de características (en la clasificación de textos, el tamaño del vocabulario) y <span class="math notranslate nohighlight">\(theta_{yi}\)</span> es la probabilidad <span class="math notranslate nohighlight">\(P(x_i \mid y)\)</span> de que la característica <span class="math notranslate nohighlight">\(i\)</span> aparezca en una muestra perteneciente a la clase <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<p>Los parámetros <span class="math notranslate nohighlight">\(\theta_y\)</span> se estiman por una versión suavizada de la verosimilitud máxima, es decir, conteo de frecuencia relativa:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta}_{yi} = \frac{ N_{yi} + \alpha}{N_y + \alpha n}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(N_{yi} = \sum_{x \in T} x_i\)</span> es el número de veces que la característica <span class="math notranslate nohighlight">\(i\)</span> aparece en una muestra de la clase <span class="math notranslate nohighlight">\(y\)</span> en el set de entrenamiento <span class="math notranslate nohighlight">\(T\)</span>, y <span class="math notranslate nohighlight">\(N_{y} = \sum_{i=1}^{n} N_{yi}\)</span> es el recuento total de todas las características para la clase <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<p>El suavizado anterior <span class="math notranslate nohighlight">\(\alpha \ge 0\)</span> cuenta con características no presentes en las muestras de aprendizaje y previene cero probabilidades en futuros cálculos. Establecer <span class="math notranslate nohighlight">\(\alpha = 1\)</span> se llama Suavizado Laplace, mientras que <span class="math notranslate nohighlight">\(\alpha &lt; 1\)</span> se llama Suavizado Lidstone.</p>
+</section>
+<section id="complement-naive-bayes">
+<span id="id4"></span><h2><span class="section-number">1.9.3. </span>Complemento de Bayesiano ingenuo<a class="headerlink" href="#complement-naive-bayes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.ComplementNB.html#sklearn.naive_bayes.ComplementNB" title="sklearn.naive_bayes.ComplementNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComplementNB</span></code></a> implementa el algoritmo Bayesiano ingenuo complementario (CNB). CNB es una adaptación del algoritmo estándar de Bayesiano ingenuo multinomial (MNB) que es especialmente adecuado para conjuntos de datos desequilibrados. En concreto, el CNB utiliza las estadísticas del <em>complemento</em> de cada clase para calcular las ponderaciones del modelo. Los inventores de CNB demuestran empíricamente que las estimaciones de los parámetros de CNB son más estables que las de MNB. Además, CNB supera regularmente a MNB (a menudo por un margen considerable) en tareas de clasificación de textos. El procedimiento para calcular las ponderaciones es el siguiente:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\hat{\theta}_{ci} = \frac{\alpha_i + \sum_{j:y_j \neq c} d_{ij}}
+                         {\alpha + \sum_{j:y_j \neq c} \sum_{k} d_{kj}}\\w_{ci} = \log \hat{\theta}_{ci}\\w_{ci} = \frac{w_{ci}}{\sum_{j} |w_{cj}|}\end{aligned}\end{align} \]</div>
+<p>donde las sumatorias son sobre todos los documentos <span class="math notranslate nohighlight">\(j\)</span> que no están en la clase <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(d_{ij}\)</span> es el recuento o el valor tf-idf del término <span class="math notranslate nohighlight">\(i\)</span> en el documento <span class="math notranslate nohighlight">\(j\)</span>, <span class="math notranslate nohighlight">\(alpha_i\)</span> es un hiperparámetro de suavización como el que se encuentra en MNB, y <span class="math notranslate nohighlight">\(alpha = \sum_{i} \alpha_i\)</span>. alpha_i`. La segunda normalización aborda la tendencia de los documentos más largos a dominar las estimaciones de los parámetros en MNB. La regla de clasificación es:</p>
+<div class="math notranslate nohighlight">
+\[\hat{c} = \arg\min_c \sum_{i} t_i w_{ci}\]</div>
+<p>es decir, se asigna un documento a la clase que es la <em>más pobre</em> coincidencia de complementos.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Rennie, J. D., Shih, L., Teevan, J., &amp; Karger, D. R. (2003).
+<a class="reference external" href="https://people.csail.mit.edu/jrennie/papers/icml03-nb.pdf">Tackling the poor assumptions of naive bayes text classifiers.</a>
+In ICML (Vol. 3, pp. 616-623).</p></li>
+</ul>
+</div>
+</section>
+<section id="bernoulli-naive-bayes">
+<span id="id5"></span><h2><span class="section-number">1.9.4. </span>Bayesiano ingenuo de Bernoulli<a class="headerlink" href="#bernoulli-naive-bayes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB" title="sklearn.naive_bayes.BernoulliNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">BernoulliNB</span></code></a> implementa los algoritmos de entrenamiento y clasificación de Bayesiano ingenuo para los datos que se distribuyen de acuerdo con las distribuciones Bernoulli multivariadas; es decir, puede haber múltiples características pero se asume que cada una es una variable de valor binario (Bernoulli, booleano). Por lo tanto, esta clase requiere que las muestras se representen como vectores de características de valor binario; si se entrega cualquier otro tipo de datos, una instancia de <code class="docutils literal notranslate"><span class="pre">BernoulliNB</span></code> puede binarizar su entrada (dependiendo del parámetro <code class="docutils literal notranslate"><span class="pre">binarize</span></code>).</p>
+<p>La regla de decisión para los Bayesianos ingenuos de Bernoulli se basa en</p>
+<div class="math notranslate nohighlight">
+\[P(x_i \mid y) = P(i \mid y) x_i + (1 - P(i \mid y)) (1 - x_i)\]</div>
+<p>que difiere de la regla de Bayesiano ingenuo multinomial en que penaliza explícitamente la no ocurrencia de una característica <span class="math notranslate nohighlight">\(i\)</span> que es un indicador de la clase <span class="math notranslate nohighlight">\(y\)</span>, mientras que la variante multinomial simplemente ignoraría una característica no ocurrente.</p>
+<p>En el caso de la clasificación de textos, se pueden utilizar vectores de ocurrencia de palabras (en lugar de vectores de recuento de palabras) para entrenar y utilizar este clasificador. <code class="docutils literal notranslate"><span class="pre">BernoulliNB</span></code> podría tener un mejor rendimiento en algunos conjuntos de datos, especialmente en aquellos con documentos más cortos. Es aconsejable evaluar ambos modelos, si el tiempo lo permite.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
+Information Retrieval. Cambridge University Press, pp. 234-265.</p></li>
+<li><p>A. McCallum and K. Nigam (1998).
+<a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.46.1529">A comparison of event models for Naive Bayes text classification.</a>
+Proc. AAAI/ICML-98 Workshop on Learning for Text Categorization, pp. 41-48.</p></li>
+<li><p>V. Metsis, I. Androutsopoulos and G. Paliouras (2006).
+<a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.61.5542">Spam filtering with Naive Bayes – Which Naive Bayes?</a>
+3rd Conf. on Email and Anti-Spam (CEAS).</p></li>
+</ul>
+</div>
+</section>
+<section id="categorical-naive-bayes">
+<span id="id6"></span><h2><span class="section-number">1.9.5. </span>Bayesiano ingenuo categórico<a class="headerlink" href="#categorical-naive-bayes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB" title="sklearn.naive_bayes.CategoricalNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalNB</span></code></a> implementa el algoritmo de Bayesiano ingenuo categórico para datos distribuidos categóricamente. Supone que cada característica, descrita por el índice <span class="math notranslate nohighlight">\(i\)</span>, tiene su propia distribución categórica.</p>
+<p>Para cada característica <span class="math notranslate nohighlight">\(i\)</span> del conjunto de entrenamiento <span class="math notranslate nohighlight">\(X\)</span>, <a class="reference internal" href="generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB" title="sklearn.naive_bayes.CategoricalNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalNB</span></code></a> estima una distribución categórica para cada característica i de X condicionada a la clase y. El conjunto de índices de las muestras se define como <span class="math notranslate nohighlight">\(J = \{ 1, \dots, m \}\)</span>, siendo <span class="math notranslate nohighlight">\(m\)</span> el número de muestras.</p>
+<p>Se estima la probabilidad de la categoría <span class="math notranslate nohighlight">\(t\)</span> en la característica <span class="math notranslate nohighlight">\(i\)</span> dada clase <span class="math notranslate nohighlight">\(c\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[P(x_i = t \mid y = c \: ;\, \alpha) = \frac{ N_{tic} + \alpha}{N_{c} +
+                                       \alpha n_i},\]</div>
+<p>donde <span class="math notranslate nohighlight">\(N_{tic} = |\{j \in J \mid x_{ij} = t, y_j = c\}|\)</span> es el número de veces que aparece la categoría <span class="math notranslate nohighlight">\(t\)</span> en las muestras <span class="math notranslate nohighlight">\(x_{i}\)</span>, que pertenecen a la clase <span class="math notranslate nohighlight">\(c\)</span>, <span class="math notranslate nohighlight">\(N_{c} = |\{ j \in J\mid y_j = c\}|\)</span> es el número de muestras con la clase c, <span class="math notranslate nohighlight">\(\alpha\)</span> es un parámetro suavizado y <span class="math notranslate nohighlight">\(n_i\)</span> es el número de categorías disponibles de la función <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB" title="sklearn.naive_bayes.CategoricalNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalNB</span></code></a> asume que la matriz de muestra <span class="math notranslate nohighlight">\(X\)</span> está codificada (por ejemplo con la ayuda de <code class="xref py py-class docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code>) de forma que todas las categorías de cada característica <span class="math notranslate nohighlight">\(i\)</span> están representadas con números <span class="math notranslate nohighlight">\(0, ..., n_i - 1\)</span> donde <span class="math notranslate nohighlight">\(n_i\)</span> es el número de categorías disponibles de la característica <span class="math notranslate nohighlight">\(i\)</span>.</p>
+</section>
+<section id="out-of-core-naive-bayes-model-fitting">
+<h2><span class="section-number">1.9.6. </span>Ajuste del modelo de Bayesiano ingenuo fuera del núcleo<a class="headerlink" href="#out-of-core-naive-bayes-model-fitting" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los modelos Bayesianoa ingenuos pueden utilizarse para abordar problemas de clasificación a gran escala para los que el conjunto de entrenamiento completo podría no caber en la memoria. Para manejar este caso, <a class="reference internal" href="generated/sklearn.naive_bayes.MultinomialNB.html#sklearn.naive_bayes.MultinomialNB" title="sklearn.naive_bayes.MultinomialNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultinomialNB</span></code></a>, <a class="reference internal" href="generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB" title="sklearn.naive_bayes.BernoulliNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">BernoulliNB</span></code></a>, y <a class="reference internal" href="generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> exponen un método <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> que puede ser utilizado de forma incremental como se hace con otros clasificadores como se demuestra en <a class="reference internal" href="../auto_examples/applications/plot_out_of_core_classification.html#sphx-glr-auto-examples-applications-plot-out-of-core-classification-py"><span class="std std-ref">Clasificación de documentos de texto fuera del núcleo</span></a>. Todos los clasificadores Bayesianos ingenuos admiten la ponderación de las muestras.</p>
+<p>Contrario al método <code class="docutils literal notranslate"><span class="pre">fit</span></code>, la primera llamada a <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> necesita ser pasada la lista de todas las etiquetas de clase esperadas.</p>
+<p>Para una visión general de las estrategias disponibles en scikit-learn, ver también la documentación <a class="reference internal" href="../computing/scaling_strategies.html#scaling-strategies"><span class="std std-ref">aprendiendo fuera del núcleo</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La llamada al método <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> de los modelos Bayesianos ingenuos introduce cierta sobrecarga computacional. Se recomienda utilizar tamaños de trozos de datos lo más grandes posible, es decir, lo que permita la memoria RAM disponible.</p>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/naive_bayes.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

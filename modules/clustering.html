@@ -1,0 +1,1563 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2.3. Análisis de conglomerados (Agrupamiento) &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/clustering.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="manifold.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.2. Aprendizaje múltiple">Prev</a><a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Arriba</a>
+            <a href="biclustering.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.4. Biclustering">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">2.3. Análisis de conglomerados (Agrupamiento)</a><ul>
+<li><a class="reference internal" href="#overview-of-clustering-methods">2.3.1. Resumen de los métodos de análisis de conglomerados</a></li>
+<li><a class="reference internal" href="#k-means">2.3.2. K-medias</a><ul>
+<li><a class="reference internal" href="#low-level-parallelism">2.3.2.1. Paralelismo de bajo nivel</a></li>
+<li><a class="reference internal" href="#mini-batch-k-means">2.3.2.2. K-medias de mini lotes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#affinity-propagation">2.3.3. Propagación de la afinidad</a></li>
+<li><a class="reference internal" href="#mean-shift">2.3.4. Media desplazada</a></li>
+<li><a class="reference internal" href="#spectral-clustering">2.3.5. Análisis espectral de conglomerados</a><ul>
+<li><a class="reference internal" href="#different-label-assignment-strategies">2.3.5.1. Diferentes estrategias de asignación de etiquetas</a></li>
+<li><a class="reference internal" href="#spectral-clustering-graphs">2.3.5.2. Grafos de Análisis Espectral de conglomerados</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hierarchical-clustering">2.3.6. Análisis de conglomerados jerárquicos</a><ul>
+<li><a class="reference internal" href="#different-linkage-type-ward-complete-average-and-single-linkage">2.3.6.1. Diferentes tipos de enlazamientos: Ward, completo, promedio y enlazamiento simple</a></li>
+<li><a class="reference internal" href="#visualization-of-cluster-hierarchy">2.3.6.2. Visualización de la jerarquía de conglomerados</a></li>
+<li><a class="reference internal" href="#adding-connectivity-constraints">2.3.6.3. Añadir restricciones de conectividad</a></li>
+<li><a class="reference internal" href="#varying-the-metric">2.3.6.4. Variación de la métrica</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dbscan">2.3.7. DBSCAN</a></li>
+<li><a class="reference internal" href="#optics">2.3.8. OPTICS</a></li>
+<li><a class="reference internal" href="#birch">2.3.9. Birch</a></li>
+<li><a class="reference internal" href="#clustering-performance-evaluation">2.3.10. Evaluación del rendimiento del análisis de conglomerados (agrupamiento)</a><ul>
+<li><a class="reference internal" href="#rand-index">2.3.10.1. Índice de Rand</a><ul>
+<li><a class="reference internal" href="#advantages">2.3.10.1.1. Ventajas</a></li>
+<li><a class="reference internal" href="#drawbacks">2.3.10.1.2. Inconvenientes</a></li>
+<li><a class="reference internal" href="#mathematical-formulation">2.3.10.1.3. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mutual-information-based-scores">2.3.10.2. Puntuaciones basadas en información mutua</a><ul>
+<li><a class="reference internal" href="#id10">2.3.10.2.1. Ventajas</a></li>
+<li><a class="reference internal" href="#id11">2.3.10.2.2. Inconvenientes</a></li>
+<li><a class="reference internal" href="#id12">2.3.10.2.3. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#homogeneity-completeness-and-v-measure">2.3.10.3. Homogeneidad, completitud y medida V</a><ul>
+<li><a class="reference internal" href="#id17">2.3.10.3.1. Ventajas</a></li>
+<li><a class="reference internal" href="#id18">2.3.10.3.2. Inconvenientes</a></li>
+<li><a class="reference internal" href="#id19">2.3.10.3.3. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fowlkes-mallows-scores">2.3.10.4. Puntuaciones de Fowlkes-Mallow</a><ul>
+<li><a class="reference internal" href="#id21">2.3.10.4.1. Ventajas</a></li>
+<li><a class="reference internal" href="#id22">2.3.10.4.2. Inconvenientes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#silhouette-coefficient">2.3.10.5. Coeficiente de Silueta</a><ul>
+<li><a class="reference internal" href="#id24">2.3.10.5.1. Ventajas</a></li>
+<li><a class="reference internal" href="#id25">2.3.10.5.2. Inconvenientes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#calinski-harabasz-index">2.3.10.6. Índice de Calinski-Harabasz</a><ul>
+<li><a class="reference internal" href="#id27">2.3.10.6.1. Ventajas</a></li>
+<li><a class="reference internal" href="#id28">2.3.10.6.2. Inconvenientes</a></li>
+<li><a class="reference internal" href="#id29">2.3.10.6.3. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#davies-bouldin-index">2.3.10.7. Índice de Davies-Bouldin</a><ul>
+<li><a class="reference internal" href="#id31">2.3.10.7.1. Ventajas</a></li>
+<li><a class="reference internal" href="#id32">2.3.10.7.2. Inconvenientes</a></li>
+<li><a class="reference internal" href="#id33">2.3.10.7.3. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contingency-matrix">2.3.10.8. Matriz de contingencia</a><ul>
+<li><a class="reference internal" href="#id35">2.3.10.8.1. Ventajas</a></li>
+<li><a class="reference internal" href="#id36">2.3.10.8.2. Inconvenientes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pair-confusion-matrix">2.3.10.9. Matriz de confusión por pares</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="clustering">
+<span id="id1"></span><h1><span class="section-number">2.3. </span>Análisis de conglomerados (Agrupamiento)<a class="headerlink" href="#clustering" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Cluster_analysis">El análisis de conglomerados</a> de datos no etiquetados puede realizarse con el módulo <a class="reference internal" href="classes.html#module-sklearn.cluster" title="sklearn.cluster"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.cluster</span></code></a>.</p>
+<p>Cada algoritmo de análisis de conglomerados viene en dos variantes: una clase, que implementa el método <code class="docutils literal notranslate"><span class="pre">fit</span></code> para aprender los conglomerados en los datos de entrenamiento, y una función, que, dados los datos de entrenamiento, devuelve un arreglo de etiquetas de enteros correspondientes a los diferentes conglomerados. Para la clase, las etiquetas sobre los datos de entrenamiento se pueden encontrar en el atributo <code class="docutils literal notranslate"><span class="pre">labels_</span></code>.</p>
+<div class="topic">
+<p class="topic-title">Datos de entrada</p>
+<p>Una cosa importante a tener en cuenta es que los algoritmos implementados en este módulo pueden tomar diferentes tipos de matriz como entrada. Todos los métodos aceptan matrices de datos estándar con la forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_features)</span></code>. Estos pueden obtenerse de las clases en el módulo <code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.</span> <span class="pre">módulo</span> <span class="pre">eature_extraction</span></code>. Para <a class="reference internal" href="generated/sklearn.cluster.AffinityPropagation.html#sklearn.cluster.AffinityPropagation" title="sklearn.cluster.AffinityPropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffinityPropagation</span></code></a>, <a class="reference internal" href="generated/sklearn.cluster.SpectralClustering.html#sklearn.cluster.SpectralClustering" title="sklearn.cluster.SpectralClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralClustering</span></code></a> y <a class="reference internal" href="generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBSCAN</span></code></a> también se pueden introducir matrices de similitud de la forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_muestras)</span></code>. Estos se pueden obtener de las funciones en el módulo <a class="reference internal" href="classes.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise</span></code></a>.</p>
+</div>
+<section id="overview-of-clustering-methods">
+<h2><span class="section-number">2.3.1. </span>Resumen de los métodos de análisis de conglomerados<a class="headerlink" href="#overview-of-clustering-methods" title="Enlazar permanentemente con este título">¶</a></h2>
+<figure class="align-center" id="id38">
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_cluster_comparison.html"><img alt="../_images/sphx_glr_plot_cluster_comparison_001.png" src="../_images/sphx_glr_plot_cluster_comparison_001.png" style="width: 1050.0px; height: 625.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Una comparación de los algoritmos de análisis de conglomerados en scikit-learn</span><a class="headerlink" href="#id38" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 27%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Nombre del método</p></th>
+<th class="head"><p>Parámetros</p></th>
+<th class="head"><p>Escalabilidad</p></th>
+<th class="head"><p>Casos de uso</p></th>
+<th class="head"><p>Geometría (métrica utilizada)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#k-means"><span class="std std-ref">K-Medias</span></a></p></td>
+<td><p>número de conglomerados</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_samples</span></code> muy grande, <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> mediano con <a class="reference internal" href="#mini-batch-kmeans"><span class="std std-ref">Código del mini lote</span></a></p></td>
+<td><p>Uso general, tamaño uniforme de los conglomerados, geometría plana, no demasiados conglomerados</p></td>
+<td><p>Distancias entre puntos</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#affinity-propagation"><span class="std std-ref">Propagación por afinidad</span></a></p></td>
+<td><p>amortiguación, preferencia de muestra</p></td>
+<td><p>No escalable con <code class="docutils literal notranslate"><span class="pre">n_samples</span></code></p></td>
+<td><p>Muchos conglomerados, tamaño desigual de los conglomerados, geometría no plana</p></td>
+<td><p>Distancia gráfica (por ejemplo, el gráfico vecino más cercano)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mean-shift"><span class="std std-ref">Media desplazada</span></a></p></td>
+<td><p>bandwidth</p></td>
+<td><p>No escalable con <code class="docutils literal notranslate"><span class="pre">n_samples</span></code></p></td>
+<td><p>Muchos conglomerados, tamaño desigual de los conglomerados, geometría no plana</p></td>
+<td><p>Distancias entre puntos</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spectral-clustering"><span class="std std-ref">Análisis espectral de conglomerados</span></a></p></td>
+<td><p>número de conglomerados</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_samples</span></code> mediano, <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> pequeño</p></td>
+<td><p>Pocos conglomerados, tamaño uniforme de los conglomerados, geometría no plana</p></td>
+<td><p>Distancia gráfica (por ejemplo, el gráfico vecino más cercano)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hierarchical-clustering"><span class="std std-ref">Análisis de conglomerados jerárquicos de Ward</span></a></p></td>
+<td><p>número de conglomerados o umbral de distancia</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_samples</span></code> y <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> grandes</p></td>
+<td><p>Muchos conglomerados, posiblemente con limitaciones de conectividad</p></td>
+<td><p>Distancias entre puntos</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hierarchical-clustering"><span class="std std-ref">Análisis de conglomerados aglomerativos</span></a></p></td>
+<td><p>número de conglomerados o umbral de distancia, tipo de vinculación, distancia</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_samples</span></code> y <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> grandes</p></td>
+<td><p>Muchos conglomerados, posibles restricciones de conectividad, distancias no euclidianas</p></td>
+<td><p>Cualquier distancia entre pares</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dbscan"><span class="std std-ref">DBSCAN</span></a></p></td>
+<td><p>tamaño del vecindario</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_samples</span></code> muy grande, <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> mediano</p></td>
+<td><p>Geometría no plana, tamaños desiguales de los conglomerados</p></td>
+<td><p>Distancias entre los puntos más cercanos</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#optics"><span class="std std-ref">OPTICS</span></a></p></td>
+<td><p>número mínimo de miembros del conglomerado</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_samples</span></code> muy grande, <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> grande</p></td>
+<td><p>Geometría no plana, tamaños desiguales de los conglomerados, densidad variable de los conglomerados</p></td>
+<td><p>Distancias entre puntos</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mixture.html#mixture"><span class="std std-ref">Mezclas Gaussianas</span></a></p></td>
+<td><p>muchos</p></td>
+<td><p>No escalable</p></td>
+<td><p>Geometría plana, buena para la estimación de la densidad</p></td>
+<td><p>Distancias de Mahalanobis para los centros</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#birch"><span class="std std-ref">Birch</span></a></p></td>
+<td><p>factor de ramificación, umbral, agrupador global opcional.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> y <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> grandes</p></td>
+<td><p>Conjunto de datos grande, eliminación de valores atípicos, reducción de datos.</p></td>
+<td><p>Distancia euclidiana entre puntos</p></td>
+</tr>
+</tbody>
+</table>
+<p>El análisis de conglomerados de geometría no plana es útil cuando los conglomerados tienen una forma específica, es decir, una variedad no plana, y la distancia euclidiana estándar no es la métrica adecuada. Este caso se da en las dos filas superiores de la figura anterior.</p>
+<p>Los modelos de mezclas Gaussianas, útiles para el análisis de conglomerados, se describen en <a class="reference internal" href="mixture.html#mixture"><span class="std std-ref">otro capítulo de la documentación</span></a> dedicado a modelos de mezclas. KMedias puede ser visto como un caso especial del modelo de mezcla Gaussiana con igual covarianza por componente.</p>
+</section>
+<section id="k-means">
+<span id="id2"></span><h2><span class="section-number">2.3.2. </span>K-medias<a class="headerlink" href="#k-means" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El algoritmo <a class="reference internal" href="generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a> agrupa los datos tratando de separar muestras en n grupos de igual varianza, minimizando un criterio conocido como la <em>inercia</em> o la suma de cuadrados dentro del conglomerado (ver abajo). Este algoritmo requiere que se especifique el número de conglomerados. Se ajusta bien a un gran número de muestras y se ha utilizado en una una gran variedad de áreas de aplicación en muchos campos diferentes.</p>
+<p>El algoritmo k-medias divide un conjunto <span class="math notranslate nohighlight">\(N\)</span> de <span class="math notranslate nohighlight">\(X\)</span> muestras en <span class="math notranslate nohighlight">\(K\)</span> conglomerados disjuntos <span class="math notranslate nohighlight">\(C\)</span>, cada uno descrito por la media <span class="math notranslate nohighlight">\(mu_j\)</span> de las muestras en el conglomerado. Los medias se denominan comúnmente los «centroides» del conglomerado; nótese que no son, en general, puntos de <span class="math notranslate nohighlight">\(X\)</span>, aunque viven en el mismo espacio.</p>
+<p>El algoritmo K-medias tiene como objetivo elegir los centroides que minimicen la <strong>inercia</strong>, o el <strong>criterio de la suma de cuadrados dentro del conglomerado</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=0}^{n}\min_{\mu_j \in C}(||x_i - \mu_j||^2)\]</div>
+<p>La inercia puede reconocerse como una medida de la coherencia interna de los conglomerados. Sufre varios inconvenientes:</p>
+<ul class="simple">
+<li><p>La inercia supone que los conglomerados son convexos e isotrópicos, lo que no siempre es el caso. Responde mal a los conglomerados alargados o a las variedades con formas irregulares.</p></li>
+<li><p>La inercia no es una métrica normalizada: sólo sabemos que los valores más bajos son mejores y cero es óptimo. Pero en espacios de muy alta dimensión, las distancias Euclidianas tienden a inflarse (este es un ejemplo de la llamada «maldición de la dimensión»). Ejecutar un algoritmo de reducción de dimensionalidad como <a class="reference internal" href="decomposition.html#pca"><span class="std std-ref">Análisis de componentes principales (PCA)</span></a> antes de un análisis de conglomerados mediante k-medias puede minimizar este problema y acelerar los cálculos.</p></li>
+</ul>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_kmeans_assumptions.html"><img alt="../_images/sphx_glr_plot_kmeans_assumptions_001.png" class="align-center" src="../_images/sphx_glr_plot_kmeans_assumptions_001.png" style="width: 600.0px; height: 600.0px;" /></a>
+<p>K-medias se conoce a menudo como el algoritmo de Lloyd. En términos básicos, el algoritmo tiene tres pasos. El primer paso elige los centroides iniciales, siendo el método más básico elegir <span class="math notranslate nohighlight">\(k\)</span> muestras del conjunto de datos <span class="math notranslate nohighlight">\(X\)</span>. Después de la inicialización, K-medias consiste en un bucle entre los otros dos pasos. El primer paso asigna cada muestra a su centroide más cercano. El segundo paso crea nuevos centroides tomando el valor medio de todas las muestras asignadas a cada centroide anterior. Se calcula la diferencia entre los centroides antiguos y los nuevos y el algoritmo repite estos dos últimos pasos hasta que este valor sea menor que un umbral. En otras palabras, se repite hasta que los centroides no se muevan de forma significativa.</p>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_kmeans_digits.html"><img alt="../_images/sphx_glr_plot_kmeans_digits_001.png" class="align-right" src="../_images/sphx_glr_plot_kmeans_digits_001.png" style="width: 224.0px; height: 168.0px;" /></a>
+<p>K-medias es equivalente al algoritmo de maximización de la esperanza con una matriz de covarianzas pequeña, toda igual y diagonal.</p>
+<p>El algoritmo también puede entenderse a través del concepto de Voronoi diagrams &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/Voronoi_diagram">https://en.wikipedia.org/wiki/Voronoi_diagram</a>&gt;`_. En primer lugar, se calcula el diagrama de Voronoi de los puntos utilizando los centroides actuales. Cada segmento del diagrama de Voronoi se convierte en un conglomerado separado. En segundo lugar, los centroides se actualizan a la media de cada segmento. El algoritmo repite esto hasta que se cumpla un criterio de parada. Normalmente, el algoritmo se detiene cuando la disminución relativa de la función objetiva entre iteraciones es menor que el valor de tolerancia dado. Este no es el caso en esta implementación: la iteración se detiene cuando los centroides se mueven por debajo de la tolerancia.</p>
+<p>Con suficiente tiempo, K-medias siempre convergerá sin embargo, esto puede ser a un mínimo local. Esto depende en gran medida de la inicialización de los centroides. Como resultado, el cálculo se realiza a menudo varias veces, con diferentes inicializaciones de los centroides. Un método que ayuda a resolver este problema es el esquema de inicialización de k-medias++, que se ha implementado en scikit-learn (utilice el parámetro <code class="docutils literal notranslate"><span class="pre">init='k-means++'</span></code>). Esto inicializa los centroides para que sean (generalmente) distantes entre sí, conduciendo a resultados probadamente mejores que la inicialización aleatoria, como se muestra en la referencia.</p>
+<p>K-medias++ también puede ser llamado independientemente para seleccionar semillas para otros algoritmos de análisis de conglomerados ver <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.cluster.kmeans_plus</span></code> para detalles y ejemplos de uso.</p>
+<p>El algoritmo admite pesos de las muestras, que pueden ser dados por un parámetro <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code>. Esto permite asignar más peso a algunas muestras cuando se calculan los centros de los conglomerados y los valores de inercia. Por ejemplo, asignar un peso de 2 a una muestra equivale a añadir un duplicado de esa muestra al conjunto de datos <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<p>K-medias puede utilizarse para la cuantificación de vectores. Esto se consigue utilizando el método de transformación de un modelo entrenado de <a class="reference internal" href="generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a>.</p>
+<section id="low-level-parallelism">
+<h3><span class="section-number">2.3.2.1. </span>Paralelismo de bajo nivel<a class="headerlink" href="#low-level-parallelism" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a> se beneficia del paralelismo basado en OpenMP a través de Cython. Pequeñas porciones de datos (256 muestras) se procesan en paralelo, lo que, además, supone un bajo consumo de memoria. Para más detalles sobre cómo controlar el número de hilos, por favor consulta nuestras notas de <a class="reference internal" href="../computing/parallelism.html#parallelism"><span class="std std-ref">Paralelismo</span></a>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_kmeans_assumptions.html#sphx-glr-auto-examples-cluster-plot-kmeans-assumptions-py"><span class="std std-ref">Demostración de los supuestos de k-medias</span></a>: Demostración de cuándo k-medias funciona intuitivamente y cuándo no</p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_kmeans_digits.html#sphx-glr-auto-examples-cluster-plot-kmeans-digits-py"><span class="std std-ref">Demostración (demo) del agrupamiento por K-Medias en los datos de dígitos escritos a mano</span></a>: Análisis de conglomerados de dígitos manuscritos</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf">«k-means++: The advantages of careful seeding»</a>
+Arthur, David, and Sergei Vassilvitskii,
+<em>Proceedings of the eighteenth annual ACM-SIAM symposium on Discrete
+algorithms</em>, Society for Industrial and Applied Mathematics (2007)</p></li>
+</ul>
+</div>
+</section>
+<section id="mini-batch-k-means">
+<span id="mini-batch-kmeans"></span><h3><span class="section-number">2.3.2.2. </span>K-medias de mini lotes<a class="headerlink" href="#mini-batch-k-means" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El <a class="reference internal" href="generated/sklearn.cluster.MiniBatchKMeans.html#sklearn.cluster.MiniBatchKMeans" title="sklearn.cluster.MiniBatchKMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">MiniBatchKMeans</span></code></a> es una variante del algoritmo <a class="reference internal" href="generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a> que usa mini lotes para reducir el tiempo de cálculo, mientras se intenta optimizar la misma función objetivo. Los mini lotes son subconjuntos de los datos de entrada, muestreados aleatoriamente en cada iteración de entrenamiento. Estos mini lotes reducen drásticamente la cantidad de cálculo necesaria para converger a una solución local. En contraste con otros algoritmos que reducen el tiempo de convergencia de k-medias, k-medias en mini lotes produce resultados que generalmente son ligeramente peores que el algoritmo estándar.</p>
+<p>El algoritmo itera entre dos pasos principales, similares a las k-medias vanilla. En el primer paso, las <span class="math notranslate nohighlight">\(b\)</span> muestras se extraen aleatoriamente del conjunto de datos, para formar un mini lote. Estos se asignan al centroide más cercano. En el segundo paso, se actualizan los centroides. En contraste con las k-medias, esto se hace sobre una base por muestra. Para cada muestra en el mini lote, el centroide asignado se actualiza tomando la media de transmisión de la muestra y todas las muestras anteriores asignadas a ese centroide. Esto tiene el efecto de disminuir la tasa de cambio de un centroide en el tiempo. Estos pasos se realizan hasta que se alcanza la convergencia o un número predeterminado de iteraciones.</p>
+<p><a class="reference internal" href="generated/sklearn.cluster.MiniBatchKMeans.html#sklearn.cluster.MiniBatchKMeans" title="sklearn.cluster.MiniBatchKMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">MiniBatchKMeans</span></code></a> converge más rápido que <a class="reference internal" href="generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a>, pero la calidad de los resultados se reduce. En la práctica, esta diferencia de calidad puede ser bastante pequeña, como se muestra en el ejemplo y referencia citada.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_mini_batch_kmeans.html"><img alt="../_images/sphx_glr_plot_mini_batch_kmeans_001.png" src="../_images/sphx_glr_plot_mini_batch_kmeans_001.png" style="width: 800.0px; height: 300.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_mini_batch_kmeans.html#sphx-glr-auto-examples-cluster-plot-mini-batch-kmeans-py"><span class="std std-ref">Comparación de los algoritmos de agrupamiento K-Means (K-Medias) y MiniBatchKMeans</span></a>: Comparación de las KMedias y K-Medias de mini lotes</p></li>
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py"><span class="std std-ref">Análisis de conglomerados en documentos de texto utilizando k-medias(k-means)</span></a>: Análisis de conglomerados de documentos utilizando K-medias de mini lotes dispersos</p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_dict_face_patches.html#sphx-glr-auto-examples-cluster-plot-dict-face-patches-py"><span class="std std-ref">Aprendizaje en línea de un diccionario de partes de caras</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf">«Web Scale K-Means clustering»</a>
+D. Sculley, <em>Proceedings of the 19th international conference on World
+wide web</em> (2010)</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="affinity-propagation">
+<span id="id3"></span><h2><span class="section-number">2.3.3. </span>Propagación de la afinidad<a class="headerlink" href="#affinity-propagation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.cluster.AffinityPropagation.html#sklearn.cluster.AffinityPropagation" title="sklearn.cluster.AffinityPropagation"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffinityPropagation</span></code></a> crea conglomerados enviando mensajes entre pares de muestras hasta la convergencia. A continuación, se describe un conjunto de datos utilizando un pequeño número de ejemplares, que se identifican como los más representativos de otras muestras. Los mensajes enviados entre pares representan la idoneidad de una muestra para ser el ejemplar de la otra, que se actualiza en respuesta a los valores de otros pares. Esta actualización ocurre iterativamente hasta la convergencia, momento en el que se eligen los ejemplos finales, y por lo tanto se da el análisis de conglomerados final.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_affinity_propagation.html"><img alt="../_images/sphx_glr_plot_affinity_propagation_001.png" src="../_images/sphx_glr_plot_affinity_propagation_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p>La Propagación de la Afinidad puede ser interesante ya que elige el número de conglomerados basado en los datos proporcionados. Para este propósito, los dos parámetros importantes son la <em>preferencia</em>, que controla cuántos ejemplares se utilizan, y el <em>factor de amortiguación</em> que reduce la responsabilidad y la disponibilidad de los mensajes para evitar oscilaciones numéricas al actualizar estos mensajes.</p>
+<p>El principal inconveniente de la Propagación de la Afinidad es su complejidad. El algoritmo tiene una complejidad temporal del orden <span class="math notranslate nohighlight">\(O(N^2 T)\)</span>, donde <span class="math notranslate nohighlight">\(N\)</span> es el número de muestras y <span class="math notranslate nohighlight">\(T\)</span> es el número de iteraciones hasta la convergencia. Además, la complejidad de la memoria es del orden <span class="math notranslate nohighlight">\(O(N^2)\)</span> si se utiliza una matriz de similitud densa, pero reducible si se utiliza una matriz de similitud dispersa. Esto hace que la Propagación de la Afinidad sea la más apropiada para los conjuntos de datos de tamaño pequeño o mediano.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_affinity_propagation.html#sphx-glr-auto-examples-cluster-plot-affinity-propagation-py"><span class="std std-ref">Demostración (demo) del algoritmo de agrupamiento por propagación de afinidad</span></a>: Propagación de la Afinidad en un conjunto de datos sintéticos 2D con 3 clases.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/applications/plot_stock_market.html#sphx-glr-auto-examples-applications-plot-stock-market-py"><span class="std std-ref">Visualización de la estructura bursátil</span></a> Propagación de afinidad en series temporales financieras para encontrar grupos de empresas</p></li>
+</ul>
+</div>
+<p><strong>Descripción del algoritmo:</strong> Los mensajes enviados entre puntos pertenecen a una de las dos categorías. La primera es la responsabilidad <span class="math notranslate nohighlight">\(r(i, k)\)</span>, que es la evidencia acumulada de que la muestra <span class="math notranslate nohighlight">\(k\)</span> debe ser el ejemplar para la muestra <span class="math notranslate nohighlight">\(i\)</span>. La segunda es la disponibilidad <span class="math notranslate nohighlight">\(a(i, k)\)</span> que es la evidencia acumulada de que la muestra <span class="math notranslate nohighlight">\(i\)</span> debe elegir la muestra <span class="math notranslate nohighlight">\(k\)</span> para ser su ejemplar, y considera los valores para todas las demás muestras que <span class="math notranslate nohighlight">\(k\)</span> debe ser un ejemplar. De este modo, los ejemplares son elegidos por las muestras si son (1) lo suficientemente similares a muchas muestras y (2) elegidos por muchas muestras para ser representativos de sí mismos.</p>
+<p>Más formalmente, la responsabilidad de una muestra <span class="math notranslate nohighlight">\(k\)</span> de ser el ejemplar de la muestra <span class="math notranslate nohighlight">\(i\)</span> viene dada por:</p>
+<div class="math notranslate nohighlight">
+\[r(i, k) \leftarrow s(i, k) - max [ a(i, k') + s(i, k') \forall k' \neq k ]\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(s(i, k)\)</span> es la similitud entre las muestras <span class="math notranslate nohighlight">\(i\)</span> y <span class="math notranslate nohighlight">\(k\)</span>. La disponibilidad de la muestra <span class="math notranslate nohighlight">\(k\)</span> para ser el ejemplar de la muestra <span class="math notranslate nohighlight">\(i\)</span> viene dada por:</p>
+<div class="math notranslate nohighlight">
+\[a(i, k) \leftarrow min [0, r(k, k) + \sum_{i'~s.t.~i' \notin \{i, k\}}{r(i', k)}]\]</div>
+<p>Para empezar, todos los valores de <span class="math notranslate nohighlight">\(r\)</span> y <span class="math notranslate nohighlight">\(a\)</span> se establecen en cero, y el cálculo de cada uno itera hasta la convergencia. Como se ha comentado anteriormente, para evitar las oscilaciones numéricas al actualizar los mensajes, se introduce el factor de amortiguación <span class="math notranslate nohighlight">\(\lambda\)</span> en el proceso de iteración:</p>
+<div class="math notranslate nohighlight">
+\[r_{t+1}(i, k) = \lambda\cdot r_{t}(i, k) + (1-\lambda)\cdot r_{t+1}(i, k)\]</div>
+<div class="math notranslate nohighlight">
+\[a_{t+1}(i, k) = \lambda\cdot a_{t}(i, k) + (1-\lambda)\cdot a_{t+1}(i, k)\]</div>
+<p>donde <span class="math notranslate nohighlight">\(t\)</span> indica los tiempos de iteración.</p>
+</section>
+<section id="mean-shift">
+<span id="id4"></span><h2><span class="section-number">2.3.4. </span>Media desplazada<a class="headerlink" href="#mean-shift" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El análisis de conglomerados por <a class="reference internal" href="generated/sklearn.cluster.MeanShift.html#sklearn.cluster.MeanShift" title="sklearn.cluster.MeanShift"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeanShift</span></code></a> tiene como objetivo descubrir <em>manchas</em> en una densidad suave de muestras. Se trata de un algoritmo basado en el centroide, que funciona actualizando los candidatos a centroides para que sean la media de los puntos dentro de una región determinada. Estos candidatos se filtran en una etapa de post-procesamiento para eliminar los duplicados cercanos y formar el conjunto final de centroides.</p>
+<p>Dado un centroide candidato <span class="math notranslate nohighlight">\(x_i\)</span> para la iteración <span class="math notranslate nohighlight">\(t\)</span>, el candidato se actualiza según la siguiente ecuación:</p>
+<div class="math notranslate nohighlight">
+\[x_i^{t+1} = m(x_i^t)\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(N(x_i)\)</span> es el vecindario de muestras dentro de una distancia determinada alrededor de <span class="math notranslate nohighlight">\(x_i\)</span> y <span class="math notranslate nohighlight">\(m\)</span> es el vector de <em>medias desplazadas</em> que se calcula para cada centroide que apunta hacia una región de máximo aumento de la densidad de puntos. Esto se calcula utilizando la siguiente ecuación, actualizando efectivamente un centroide para que sea la media de las muestras dentro de su vecindario:</p>
+<div class="math notranslate nohighlight">
+\[m(x_i) = \frac{\sum_{x_j \in N(x_i)}K(x_j - x_i)x_j}{\sum_{x_j \in N(x_i)}K(x_j - x_i)}\]</div>
+<p>El algoritmo establece automáticamente el número de conglomerados, en lugar de depender de un parámetro <code class="docutils literal notranslate"><span class="pre">bandwidth</span></code>, que dicta el tamaño de la región a buscar. Este parámetro se puede definir manualmente, pero se puede estimar usando la función proporcionada <code class="docutils literal notranslate"><span class="pre">estimate_bandwidth</span></code>, que se llama si el bandwidth no está establecido.</p>
+<p>El algoritmo no es altamente escalable, ya que requiere múltiples búsquedas del vecino más cercano durante la ejecución del algoritmo. El algoritmo está garantizado para converger, sin embargo, el algoritmo dejará de iterar cuando el cambio en los centroides sea pequeño.</p>
+<p>El etiquetado de una nueva muestra se realiza buscando el centroide más cercano para una muestra determinada.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_mean_shift.html"><img alt="../_images/sphx_glr_plot_mean_shift_001.png" src="../_images/sphx_glr_plot_mean_shift_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_mean_shift.html#sphx-glr-auto-examples-cluster-plot-mean-shift-py"><span class="std std-ref">Una demostración (demo) del algoritmo de agrupamiento por media desplazada</span></a>: El análisis de conglomerados por media desplazada en un conjunto de datos 2D sintéticos con 3 clases.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.76.8968&amp;rep=rep1&amp;type=pdf">«Mean shift: A robust approach toward feature space analysis.»</a>
+D. Comaniciu and P. Meer, <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em> (2002)</p></li>
+</ul>
+</div>
+</section>
+<section id="spectral-clustering">
+<span id="id5"></span><h2><span class="section-number">2.3.5. </span>Análisis espectral de conglomerados<a class="headerlink" href="#spectral-clustering" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.cluster.SpectralClustering.html#sklearn.cluster.SpectralClustering" title="sklearn.cluster.SpectralClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralClustering</span></code></a> realiza una incrustación (embedding) de baja dimensión de la matriz de afinidad entre las muestras, seguida del agrupamiento, por ejemplo, mediante KMedias, de los componentes de los autovectores en el espacio de baja dimensión. Es especialmente eficiente desde el punto de vista computacional si la matriz de afinidad es dispersa y se utiliza el solucionador <code class="docutils literal notranslate"><span class="pre">amg</span></code> para el problema de autovalores (Nota, el solucionador <code class="docutils literal notranslate"><span class="pre">amg</span></code> requiere que el módulo <a class="reference external" href="https://github.com/pyamg/pyamg">pyamg</a> esté instalado.)</p>
+<p>La versión actual de SpectralClustering requiere que se especifique de antemano el número de conglomerados. Funciona bien para un número pequeño de conglomerados, pero no se aconseja para muchos conglomerados.</p>
+<p>Para dos conglomerados, SpectralClustering resuelve una relajación convexa del problema de los <a class="reference external" href="https://people.eecs.berkeley.edu/~malik/papers/SM-ncut.pdf">cortes normalizados</a> en el grafo de similitud: cortar el grafo en dos para que el peso de las aristas cortadas sea pequeño comparado con los pesos de las aristas dentro de cada conglomerado. Este criterio es especialmente interesante cuando se trabaja con imágenes, en las que los vértices del grafo son píxeles, y los pesos de las aristas del grafo de similitud se calculan utilizando una función del gradiente de la imagen.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/cluster/plot_segmentation_toy.html"><img alt="noisy_img" src="../_images/sphx_glr_plot_segmentation_toy_001.png" style="width: 240.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/cluster/plot_segmentation_toy.html"><img alt="segmented_img" src="../_images/sphx_glr_plot_segmentation_toy_002.png" style="width: 240.0px; height: 240.0px;" /></a></strong></p><div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Transformación de la distancia en similitudes bien avenidas</p>
+<p>Ten en cuenta que si los valores de tu matriz de similitud no están bien distribuidos, por ejemplo, con valores negativos o con una matriz de distancias en lugar de similitud, el problema espectral será singular y el problema no se podrá resolver. En ese caso, se aconseja aplicar una transformación a las entradas de la matriz. Por ejemplo, en el caso de una matriz de distancias es común aplicar un kernel de calor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">similarity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span> <span class="o">*</span> <span class="n">distance</span> <span class="o">/</span> <span class="n">distance</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Vea los ejemplos para una aplicación de este tipo.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_segmentation_toy.html#sphx-glr-auto-examples-cluster-plot-segmentation-toy-py"><span class="std std-ref">Agrupamiento espectral para la segmentación de imágenes</span></a>: Segmentación de objetos de un contexto ruidoso utilizando análisis espectral de conglomerados.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_coin_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-segmentation-py"><span class="std std-ref">Segmentación de la imagen de las monedas griegas en regiones</span></a>: Análisis Espectral de Conglomerados para dividir la imagen de las monedas en regiones.</p></li>
+</ul>
+</div>
+<section id="different-label-assignment-strategies">
+<h3><span class="section-number">2.3.5.1. </span>Diferentes estrategias de asignación de etiquetas<a class="headerlink" href="#different-label-assignment-strategies" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Se pueden utilizar diferentes estrategias de asignación de etiquetas, correspondientes al parámetro <code class="docutils literal notranslate"><span class="pre">assign_labels</span></code> de <a class="reference internal" href="generated/sklearn.cluster.SpectralClustering.html#sklearn.cluster.SpectralClustering" title="sklearn.cluster.SpectralClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralClustering</span></code></a>. La estrategia <code class="docutils literal notranslate"><span class="pre">&quot;kmeans&quot;</span></code> puede coincidir con detalles más precisos, pero puede ser inestable. En particular, a menos que controle el <code class="docutils literal notranslate"><span class="pre">random_state</span></code>, puede no ser reproducible de una ejecución a otra, ya que depende de una inicialización aleatoria. La estrategia alternativa <code class="docutils literal notranslate"><span class="pre">&quot;discretize&quot;</span></code> es 100% reproducible, pero tiende a crear parcelas de forma bastante uniforme y geométrica.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">assign_labels=&quot;kmeans&quot;</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">assign_labels=&quot;discretize&quot;</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="../auto_examples/cluster/plot_coin_segmentation.html"><img alt="coin_kmeans" src="../_images/sphx_glr_plot_coin_segmentation_001.png" style="width: 325.0px; height: 325.0px;" /></a></p></td>
+<td><p><a class="reference external" href="../auto_examples/cluster/plot_coin_segmentation.html"><img alt="coin_discretize" src="../_images/sphx_glr_plot_coin_segmentation_002.png" style="width: 325.0px; height: 325.0px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="spectral-clustering-graphs">
+<h3><span class="section-number">2.3.5.2. </span>Grafos de Análisis Espectral de conglomerados<a class="headerlink" href="#spectral-clustering-graphs" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El Análisis Espectral de Conglomerados también puede utilizarse para dividir los grafos a través de sus incrustaciones espectrales.  En este caso, la matriz de afinidad es la matriz de adyacencia del grafo, y SpectralClustering se inicializa con <code class="docutils literal notranslate"><span class="pre">affinity='precomputed'</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">SpectralClustering</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">SpectralClustering</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">affinity</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">assign_labels</span><span class="o">=</span><span class="s1">&#39;discretize&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">adjacency_matrix</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.165.9323">«A Tutorial on Spectral Clustering»</a>
+Ulrike von Luxburg, 2007</p></li>
+<li><p><a class="reference external" href="http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.160.2324">«Normalized cuts and image segmentation»</a>
+Jianbo Shi, Jitendra Malik, 2000</p></li>
+<li><p><a class="reference external" href="http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.33.1501">«A Random Walks View of Spectral Segmentation»</a>
+Marina Meila, Jianbo Shi, 2001</p></li>
+<li><p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.19.8100">«On Spectral Clustering: Analysis and an algorithm»</a>
+Andrew Y. Ng, Michael I. Jordan, Yair Weiss, 2001</p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1708.07481">«Preconditioned Spectral Clustering for Stochastic
+Block Partition Streaming Graph Challenge»</a>
+David Zhuzhunashvili, Andrew Knyazev</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="hierarchical-clustering">
+<span id="id6"></span><h2><span class="section-number">2.3.6. </span>Análisis de conglomerados jerárquicos<a class="headerlink" href="#hierarchical-clustering" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El análisis de conglomerados jerárquicos es una familia general de los algoritmos de agrupamiento que construyen conglomerados anidados fusionándolos o dividiéndolos sucesivamente. Esta jerarquía de conglomerados se representa como un árbol (o dendrograma). La raíz del árbol es el conglomerado único que reúne todas las muestras, siendo las hojas los conglomerados con una sola muestra. Véase la página de la <a class="reference external" href="https://en.wikipedia.org/wiki/Hierarchical_clustering">Wikipedia</a> para más detalles.</p>
+<p>El objeto <a class="reference internal" href="generated/sklearn.cluster.AgglomerativeClustering.html#sklearn.cluster.AgglomerativeClustering" title="sklearn.cluster.AgglomerativeClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgglomerativeClustering</span></code></a> realiza un análisis de conglomerados jerárquicos utilizando un enfoque ascendente: cada observación comienza en su propio conglomerado y los conglomerados se fusionan sucesivamente. El criterio de enlace determina la métrica utilizada para la estrategia de fusión:</p>
+<ul class="simple">
+<li><p><strong>Ward</strong> minimiza la suma de las diferencias al cuadrado dentro de todos los conglomerados. Se trata de un enfoque de minimización de la varianza y, en este sentido, es similar a la función objetivo de k-medias pero abordada con un enfoque jerárquico aglomerativo.</p></li>
+<li><p><strong>Máximo</strong> o <strong>enlazamiento completo</strong> minimiza la distancia máxima entre las observaciones de pares de conglomerados.</p></li>
+<li><p><strong>Enlazamiento promedio</strong> minimiza el promedio de las distancias entre todas las observaciones de pares de conglomerados.</p></li>
+<li><p>El <strong>enlazamiento simple</strong> minimiza la distancia entre las observaciones más cercanas de los pares de conglomerados.</p></li>
+</ul>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">AglomerativeClustering</span></code> también puede escalar a un gran número de muestras cuando se utiliza conjuntamente con una matriz de conectividad, pero es computacionalmente costoso cuando no se añaden restricciones de conectividad entre las muestras: considera en cada paso todas las fusiones posibles.</p>
+<div class="topic">
+<p class="topic-title"><a class="reference internal" href="generated/sklearn.cluster.FeatureAgglomeration.html#sklearn.cluster.FeatureAgglomeration" title="sklearn.cluster.FeatureAgglomeration"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAgglomeration</span></code></a></p>
+<p><a class="reference internal" href="generated/sklearn.cluster.FeatureAgglomeration.html#sklearn.cluster.FeatureAgglomeration" title="sklearn.cluster.FeatureAgglomeration"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureAgglomeration</span></code></a> utiliza el agrupamiento aglomerativo para agrupar características muy similares, disminuyendo así el número de características. Es una herramienta de reducción de la dimensionalidad, véase <a class="reference internal" href="unsupervised_reduction.html#data-reduction"><span class="std std-ref">Reducción de dimensionalidad no supervisada</span></a>.</p>
+</div>
+<section id="different-linkage-type-ward-complete-average-and-single-linkage">
+<h3><span class="section-number">2.3.6.1. </span>Diferentes tipos de enlazamientos: Ward, completo, promedio y enlazamiento simple<a class="headerlink" href="#different-linkage-type-ward-complete-average-and-single-linkage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.cluster.AgglomerativeClustering.html#sklearn.cluster.AgglomerativeClustering" title="sklearn.cluster.AgglomerativeClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgglomerativeClustering</span></code></a> admite las estrategias de enlazamientos Ward, simple, promedio, y completos.</p>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_linkage_comparison.html"><img alt="../_images/sphx_glr_plot_linkage_comparison_001.png" src="../_images/sphx_glr_plot_linkage_comparison_001.png" style="width: 589.1px; height: 623.5px;" /></a>
+<p>El conglomerado aglomerativo tiene un comportamiento de «los ricos se hacen más ricos» que conduce a tamaños de conglomerado desiguales. En este sentido, el enlazamiento simple es la peor estrategia, y Ward da los tamaños más regulares. Sin embargo, la afinidad (o distancia utilizada en la conglomeración) no puede variarse con Ward, por lo que para las métricas no Euclidianas, el enlazamiento promedio es una buena alternativa. El enlazamiento simple, aunque no es robusto frente a los datos ruidosos, puede calcularse de forma muy eficiente y, por tanto, puede ser útil para proporcionar un análisis de conglomerados jerárquicos de conjuntos de datos más grandes. El enlazamiento simple también puede funcionar bien con datos no globulares.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_digits_linkage.html#sphx-glr-auto-examples-cluster-plot-digits-linkage-py"><span class="std std-ref">Diferentes agrupamientos aglomerativos en una incrustación 2D de dígitos</span></a>: exploración de las diferentes estrategias de enlazamientos en un conjunto de datos real.</p></li>
+</ul>
+</div>
+</section>
+<section id="visualization-of-cluster-hierarchy">
+<h3><span class="section-number">2.3.6.2. </span>Visualización de la jerarquía de conglomerados<a class="headerlink" href="#visualization-of-cluster-hierarchy" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Es posible visualizar el árbol que representa la fusión jerárquica de conglomerados como un dendrograma. La inspección visual a menudo puede ser a menudo útil para comprender la estructura de los datos, aunque más en el caso de tamaños de muestra pequeños.</p>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_dendrogram.html"><img alt="../_images/sphx_glr_plot_agglomerative_dendrogram_001.png" src="../_images/sphx_glr_plot_agglomerative_dendrogram_001.png" style="width: 268.8px; height: 201.6px;" /></a>
+</section>
+<section id="adding-connectivity-constraints">
+<h3><span class="section-number">2.3.6.3. </span>Añadir restricciones de conectividad<a class="headerlink" href="#adding-connectivity-constraints" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Un aspecto interesante de <a class="reference internal" href="generated/sklearn.cluster.AgglomerativeClustering.html#sklearn.cluster.AgglomerativeClustering" title="sklearn.cluster.AgglomerativeClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgglomerativeClustering</span></code></a> es que a este algoritmo se le pueden añadir restricciones de conectividad (sólo se pueden fusionar conglomerados adyacentes), a través de una matriz de conectividad que define para cada muestra las muestras vecinas siguiendo una estructura determinada de los datos. Por ejemplo, en el ejemplo de brazo de gitano que aparece a continuación, las restricciones de conectividad prohíben la fusión de puntos que no sean adyacentes en el brazo gitano, y evitar así la formación de conglomerados que se extiendan a través de partes o pliegues superpuestos del rollo.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/cluster/plot_ward_structured_vs_unstructured.html"><img alt="unstructured" src="../_images/sphx_glr_plot_ward_structured_vs_unstructured_001.png" style="width: 313.6px; height: 235.2px;" /></a> <a class="reference external" href="../auto_examples/cluster/plot_ward_structured_vs_unstructured.html"><img alt="structured" src="../_images/sphx_glr_plot_ward_structured_vs_unstructured_002.png" style="width: 313.6px; height: 235.2px;" /></a></strong></p><p>Estas restricciones son útiles para imponer una cierta estructura local, pero también hacen que el algoritmo sea más rápido, especialmente cuando el número de muestras es alto.</p>
+<p>Las restricciones de conectividad se imponen a través de una matriz de conectividad: una matriz dispersa de scipy que tiene elementos sólo en la intersección de una fila y una columna con índices del conjunto de datos que deben ser conectados. Esta matriz puede construirse a partir de la información de a-priori: por ejemplo, puedes querer conglomerar páginas web mediante la fusión de páginas con un enlace que apunte de una a otra. También se puede aprender de los datos, por ejemplo usando <a class="reference internal" href="generated/sklearn.neighbors.kneighbors_graph.html#sklearn.neighbors.kneighbors_graph" title="sklearn.neighbors.kneighbors_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.neighbors.kneighbors_graph</span></code></a> para restringir la fusión a los vecinos más cercanos como en <a class="reference internal" href="../auto_examples/cluster/plot_agglomerative_clustering.html#sphx-glr-auto-examples-cluster-plot-agglomerative-clustering-py"><span class="std std-ref">este ejemplo</span></a>, o utilizando <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.</span> <span class="pre">eature_extraction.image.grid_to_graph</span></code> para permitir sólo la fusión de píxeles vecinos en una imagen, como en el ejemplo de la <a class="reference internal" href="../auto_examples/cluster/plot_coin_ward_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-ward-segmentation-py"><span class="std std-ref">moneda</span></a>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_coin_ward_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-ward-segmentation-py"><span class="std std-ref">Una demostración (demo) del agrupamiento jerárquico de Ward estructurado en una imagen de monedas</span></a>: Análisis de conglomerados Ward para dividir la imagen de las monedas en regiones.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_ward_structured_vs_unstructured.html#sphx-glr-auto-examples-cluster-plot-ward-structured-vs-unstructured-py"><span class="std std-ref">Agrupamiento jerárquico: sala estructurada o no estructurada</span></a>: Ejemplo del algoritmo Ward en un brazo de gitano, comparación de enfoques estructurados frente a enfoques no estructurados.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_feature_agglomeration_vs_univariate_selection.html#sphx-glr-auto-examples-cluster-plot-feature-agglomeration-vs-univariate-selection-py"><span class="std std-ref">Agrupamiento de características vs. selección univariante</span></a>: Ejemplo de reducción de la dimensionalidad con aglomeración de características basado en el análisis de conglomerados jerárquicos de Ward.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_agglomerative_clustering.html#sphx-glr-auto-examples-cluster-plot-agglomerative-clustering-py"><span class="std std-ref">Agrupamiento aglomerativo con y sin estructura</span></a></p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p><strong>Restricciones de conectividad con enlazamiento simple, promedio y completo</strong></p>
+<p>Las restricciones de conectividad y el enlazamiento simple, completo o promedio pueden mejorar el aspecto del análisis de conglomerados aglomerativos «ricos cada vez más ricos». particularmente si se construyen con <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.</span> <span class="pre">eighbors.kneighbors_graph</span></code>. En el límite de un pequeño número de conglomerados, tienden a dar unos pocos conglomerados ocupados macroscópicamente y unos casi vacíos. (vea la discusión en <a class="reference internal" href="../auto_examples/cluster/plot_agglomerative_clustering.html#sphx-glr-auto-examples-cluster-plot-agglomerative-clustering-py"><span class="std std-ref">Agrupamiento aglomerativo con y sin estructura</span></a>). El enlazamiento simple es la opción de enlazamiento más frágil con respecto a este problema.</p>
+</div>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_clustering.html"><img alt="../_images/sphx_glr_plot_agglomerative_clustering_001.png" src="../_images/sphx_glr_plot_agglomerative_clustering_001.png" style="width: 380.0px; height: 152.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_clustering.html"><img alt="../_images/sphx_glr_plot_agglomerative_clustering_002.png" src="../_images/sphx_glr_plot_agglomerative_clustering_002.png" style="width: 380.0px; height: 152.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_clustering.html"><img alt="../_images/sphx_glr_plot_agglomerative_clustering_003.png" src="../_images/sphx_glr_plot_agglomerative_clustering_003.png" style="width: 380.0px; height: 152.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_clustering.html"><img alt="../_images/sphx_glr_plot_agglomerative_clustering_004.png" src="../_images/sphx_glr_plot_agglomerative_clustering_004.png" style="width: 380.0px; height: 152.0px;" /></a>
+</section>
+<section id="varying-the-metric">
+<h3><span class="section-number">2.3.6.4. </span>Variación de la métrica<a class="headerlink" href="#varying-the-metric" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los enlazamientos simple, promedio y completo pueden utilizarse con una variedad de distancias (o afinidades), en particular la distancia Euclidiana (<em>l2</em>), la distancia Manhattan (o Cityblock, o <em>l1</em>), la distancia coseno, o cualquier matriz de afinidad precalculada.</p>
+<ul class="simple">
+<li><p>La distancia <em>l1</em> suele ser buena para las características dispersas, o para el ruido disperso: es decir, muchas de las características son cero, como en la minería de texto que utiliza las ocurrencias de palabras raras.</p></li>
+<li><p>La distancia del <em>coseno</em> es interesante porque es invariante a las escalas globales de la señal.</p></li>
+</ul>
+<p>La pauta para elegir una métrica es utilizar una que maximice la distancia entre las muestras las distintas clases y minimice la distancia dentro de cada clase.</p>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_clustering_metrics.html"><img alt="../_images/sphx_glr_plot_agglomerative_clustering_metrics_005.png" src="../_images/sphx_glr_plot_agglomerative_clustering_metrics_005.png" style="width: 204.8px; height: 153.6px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_clustering_metrics.html"><img alt="../_images/sphx_glr_plot_agglomerative_clustering_metrics_006.png" src="../_images/sphx_glr_plot_agglomerative_clustering_metrics_006.png" style="width: 204.8px; height: 153.6px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_agglomerative_clustering_metrics.html"><img alt="../_images/sphx_glr_plot_agglomerative_clustering_metrics_007.png" src="../_images/sphx_glr_plot_agglomerative_clustering_metrics_007.png" style="width: 204.8px; height: 153.6px;" /></a>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_agglomerative_clustering_metrics.html#sphx-glr-auto-examples-cluster-plot-agglomerative-clustering-metrics-py"><span class="std std-ref">Agrupamiento aglomerativo con diferentes métricas</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="dbscan">
+<span id="id7"></span><h2><span class="section-number">2.3.7. </span>DBSCAN<a class="headerlink" href="#dbscan" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El algoritmo <a class="reference internal" href="generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBSCAN</span></code></a> considera los conglomerados como áreas de alta densidad separadas por áreas de baja densidad. Debido a esta visión bastante genérica, los conglomerados encontrados por DBSCAN pueden tener cualquier forma, a diferencia de k-medias, que asume que los conglomerados tienen forma convexa. El componente central del DBSCAN es el concepto de <em>muestras principales</em>, que son muestras que se encuentran en zonas de alta densidad. Un conglomerado es, por tanto, un conjunto de muestras principales, cada una de ellas cercana a la otra (medida por alguna distancia) y un conjunto de muestras no principales que están cerca de una muestra principal (pero que no son ellas mismas muestras principales). El algoritmo tiene dos parámetros, <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> y <code class="docutils literal notranslate"><span class="pre">eps</span></code>, que definen formalmente lo que queremos decir cuando hablamos de <em>densidad</em>. Un <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> más alto o un <code class="docutils literal notranslate"><span class="pre">eps</span></code> más bajo indican una mayor densidad necesaria para formar un conglomerado.</p>
+<p>Más formalmente, definimos una muestra principal como una muestra en el conjunto de datos de forma tal que existen <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> otras muestras dentro de una distancia de <code class="docutils literal notranslate"><span class="pre">eps</span></code>, que se definen como <em>vecinos</em> de la muestra principal. Esto nos dice que la muestra principal se encuentra en un área densa del espacio vectorial. Un conglomerado es un conjunto de muestras principales que puede construirse tomando recursivamente una muestra principal, encontrando a todos <em>sus</em> vecinos que son muestras principales, y así sucesivamente. Un conglomerado también tiene un conjunto de muestras no principales, que son muestras vecinas de una muestra principal en el conglomerado pero no son en sí mismas muestras principales. Intuitivamente, estas muestras están en los márgenes de un conglomerado.</p>
+<p>Cualquier muestra principal forma parte de un conglomerado, por definición. Cualquier muestra que no es una muestra principal, y que esté al menos <code class="docutils literal notranslate"><span class="pre">eps</span></code> de distancia de cualquier muestra principal, es considerado un valor atípico por el algoritmo.</p>
+<p>Mientras que el parámetro <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> controla principalmente la tolerancia del algoritmo al ruido (en conjuntos de datos ruidosos y grandes puede ser deseable aumentar este parámetro), el parámetro <code class="docutils literal notranslate"><span class="pre">eps</span></code> es <em>crucial para elegir adecuadamente</em> para el conjunto de datos y la función de distancia y normalmente no puede dejarse en el valor por defecto. Controla el vecindario local de los puntos. Cuando se elige demasiado pequeño, la mayoría de los datos no serán conglomerados en absoluto (y serán etiquetados como <code class="docutils literal notranslate"><span class="pre">-1</span></code> para el «ruido»). Cuando se elige demasiado grande, hace que los conglomerados cercanos se fusionen en un conglomerado, y finalmente, todo el conjunto de datos será devuelto como un solo conglomerado. Algunas heurísticas para elegir este parámetro han sido discutidas en la literatura, por ejemplo, basándose en una curvatura en el gráfico de distancias del vecino más cercano (como se discute en las referencias más abajo).</p>
+<p>En la figura de abajo, el color indica la pertenencia a un conglomerado, los círculos grandes indican las muestras principales encontradas por el algoritmo. Los círculos más pequeños son muestras no principales que siguen formando parte del conglomerado. Además, los valores atípicos se indican con puntos negros abajo.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/cluster/plot_dbscan.html"><img alt="dbscan_results" src="../_images/sphx_glr_plot_dbscan_001.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_dbscan.html#sphx-glr-auto-examples-cluster-plot-dbscan-py"><span class="std std-ref">Demostración (demo) del algoritmo de agrupamiento DBSCAN</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">Implementación</p>
+<p>El algoritmo DBSCAN es determinístico, siempre genera los mismos conglomerados cuando se le dan los mismos datos en el mismo orden. Sin embargo, los resultados pueden diferir cuando los datos se proporcionan en un orden diferente. En primer lugar, aunque las muestras principales siempre serán asignadas a los mismos conglomerados, las etiquetas de esos conglomerados dependerán del orden en que se encuentren esas muestras en los datos. En segundo lugar y más importante, los conglomerados a los que se asignan muestras no principales pueden diferir dependiendo del orden de los datos. Esto ocurriría cuando una muestra no principal tiene una distancia inferior a <code class="docutils literal notranslate"><span class="pre">eps</span></code> a dos muestras principales en conglomerados diferentes. Por la desigualdad triangular, esas dos muestras principales deben estar a una distancia mayor que <code class="docutils literal notranslate"><span class="pre">eps</span></code> entre sí, o estarían en el mismo conglomerado. La muestra no principal se asigna al conglomerado que se genere primero en una pasada a través de los datos, y por lo tanto los resultados dependerán del orden de los datos.</p>
+<p>La implementación actual utiliza árboles de bolas y árbol kd para determinar el vecindario de los puntos, que evita calcular la matriz a distancia completa (como se hacía en las versiones de scikit-learn anteriores a la 0.14). Se mantiene la posibilidad de utilizar métricas personalizadas; para más detalles, véase <code class="xref py py-class docutils literal notranslate"><span class="pre">NearestNeighbors</span></code>.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Memory consumption for large sample sizes</p>
+<p>Por defecto, esta implementación no es eficiente en cuanto a memoria porque construye una matriz de similitud por pares completa en el caso de que no se puedan utilizar los árboles kd o los árboles de bolas (por ejemplo, con matrices dispersas). Esta matriz consumirá <span class="math notranslate nohighlight">\(n^2\)</span> floats (números de punto flotante). Un par de mecanismos para evitar esto son:</p>
+<ul class="simple">
+<li><p>Utilice el análisis de conglomerados <a class="reference internal" href="#optics"><span class="std std-ref">OPTICS</span></a> junto con el método <code class="docutils literal notranslate"><span class="pre">extract_dbscan</span></code>. El análisis de conglomerados OPTICS también calcula la matriz completa por pares, pero sólo mantiene una fila en memoria a la vez (complejidad de memoria n).</p></li>
+<li><p>Un grafo de vecindad de radio disperso (donde se presumen entradas faltantes para estar fuera de eps) puede precalcularse de una manera eficiente en cuanto a memoria y dbscan puede funcionar sobre esto con <code class="docutils literal notranslate"><span class="pre">metric='precomputed'</span></code>. Vea <a class="reference internal" href="generated/sklearn.neighbors.NearestNeighbors.html#sklearn.neighbors.NearestNeighbors.radius_neighbors_graph" title="sklearn.neighbors.NearestNeighbors.radius_neighbors_graph"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sklearn.neighbors.NearestNeighbors.radius_neighbors_graph</span></code></a>.</p></li>
+<li><p>El conjunto de datos se puede comprimir, ya sea eliminando los duplicados exactos si aparecen en los datos, o utilizando BIRCH. De este modo, sólo tendrá un número relativamente pequeño de representantes para un gran número de puntos. A continuación, puede proporcionar un <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> al ajustar DBSCAN.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>«A Density-Based Algorithm for Discovering Clglomerados in Large Spatial Databases with Noise» Ester, M., H. P. Kriegel, J. Sander, and X. Xu, In Proceedings of the 2nd International Conference on Knowledge Discovery and Data Mining, Portland, OR, AAAI Press, páginas 226-231. 1996</p></li>
+<li><p>«DBSCAN revisited, revisited: why and how you should (still) use DBSCAN.
+Schubert, E., Sander, J., Ester, M., Kriegel, H. P., &amp; Xu, X. (2017).
+In ACM Transactions on Database Systems (TODS), 42(3), 19.</p></li>
+</ul>
+</div>
+</section>
+<section id="optics">
+<span id="id8"></span><h2><span class="section-number">2.3.8. </span>OPTICS<a class="headerlink" href="#optics" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El algoritmo <a class="reference internal" href="generated/sklearn.cluster.OPTICS.html#sklearn.cluster.OPTICS" title="sklearn.cluster.OPTICS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OPTICS</span></code></a> comparte muchas similitudes con el algoritmo <a class="reference internal" href="generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBSCAN</span></code></a>, y puede considerarse una generalización de DBSCAN que relaja el requerimiento de <code class="docutils literal notranslate"><span class="pre">eps</span></code> de un valor único a un rango de valores. La diferencia clave entre DBSCAN y OPTICS es que el algoritmo OPTICS construye un grafo de <em>accesibilidad</em>, que asigna a cada muestra tanto una distancia <code class="docutils literal notranslate"><span class="pre">reachability_</span></code>, como un punto dentro del atributo <code class="docutils literal notranslate"><span class="pre">ordering_</span></code> del conglomerado ; estos dos atributos se asignan cuando se ajusta el modelo, y se utilizan para determinar la pertenencia a un conglomerado. Si OPTICS se ejecuta con el valor predeterminado de <em>inf</em> establecido para <code class="docutils literal notranslate"><span class="pre">max_eps</span></code>, entonces la extracción de conglomerados al estilo DBSCAN puede realizarse repetidamente en tiempo lineal para cualquier valor dado de <code class="docutils literal notranslate"><span class="pre">eps</span></code> utilizando el método <code class="docutils literal notranslate"><span class="pre">cluster_optics_dbscan</span></code>. Establecer <code class="docutils literal notranslate"><span class="pre">max_eps</span></code> a un valor más bajo resultará en tiempos de ejecución más cortos, y puede ser considerado como el radio máximo de vecindad de cada punto para encontrar otros puntos potenciales alcanzables.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/cluster/plot_optics.html"><img alt="optics_results" src="../_images/sphx_glr_plot_optics_001.png" style="width: 500.0px; height: 350.0px;" /></a></strong></p><p>Las distancias de <em>accesibilidad</em> generadas por OPTICS permiten la extracción de densidad variable de los conglomerados dentro de un mismo conjunto de datos. Como se muestra en la gráfica anterior, la combinación de distancias de <em>accesibilidad</em> y el <code class="docutils literal notranslate"><span class="pre">ordering_</span></code> del conjunto de datos produce un <em>gráfico de accesibilidad</em>, en el que la densidad de los puntos se representa en el eje Y, y los puntos se ordenan de tal manera que los puntos cercanos sean adyacentes. Al “Cortar” el gráfico de accesibilidad en un solo valor produce resultados similares a los de DBSCAN; todos los puntos por encima del “corte” se clasifican como ruido, y cada vez que hay una interrupción al leer de izquierda a derecha significa un nuevo conglomerado. La extracción de conglomerados por defecto con OPTICS mira las pendientes pronunciadas dentro del grafo para encontrar conglomerados, y el usuario puede definir lo que cuenta como una pendiente pronunciada usando el parámetro <code class="docutils literal notranslate"><span class="pre">xi</span></code>. También existen otras posibilidades de análisis sobre el propio grafo, como generar representaciones jerárquicas de los datos a través de dendrogramas de accesibilidad, y se puede acceder a la jerarquía de conglomerados detectada por el algoritmo a través del parámetro <code class="docutils literal notranslate"><span class="pre">cluster_hierarchy_</span></code>. El gráfico anterior ha sido codificado por colores de modo que los colores de los conglomerados en el espacio plano coinciden con los conglomerados de segmentos lineales del gráfico de accesibilidad. Tenga en cuenta que los conglomerados azules y rojos están adyacentes en el gráfico de accesibilidad, y pueden representarse jerárquicamente como hijos de un conglomerado padre más grande.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_optics.html#sphx-glr-auto-examples-cluster-plot-optics-py"><span class="std std-ref">Demostración (demo) del algoritmo de agrupamiento OPTICS</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">Comparación con DBSCAN</p>
+<p>Los resultados del método OPTICS <code class="docutils literal notranslate"><span class="pre">cluster_optics_dbscan</span></code> y de DBSCAN son muy similares, pero no siempre idénticos; específicamente, el etiquetado de los puntos de periferia y de ruido. Esto se debe, en parte, a que las primeras muestras de cada área densa procesada por OPTICS tienen un gran valor de accesibilidad estando cerca de otros puntos en su área, y por lo tanto, a veces se marcarán como ruido, en lugar de periferia. Esto afecta a los puntos adyacentes cuando se consideran candidatos para ser marcados como periferia o ruido.</p>
+<p>Tenga en cuenta que para cualquier valor único de <code class="docutils literal notranslate"><span class="pre">eps</span></code>, DBSCAN tenderá a tener un tiempo de ejecución más corto que OPTICS; sin embargo, para ejecuciones repetidas con valores variantes de <code class="docutils literal notranslate"><span class="pre">eps</span></code>, una sola ejecución de OPTICS puede requerir menos tiempo de ejecución acumulado que DBSCAN. También es importante tener en cuenta que la salida de OPTICS se acerca a la de DBSCAN, sólo si <code class="docutils literal notranslate"><span class="pre">eps</span></code> y <code class="docutils literal notranslate"><span class="pre">max_eps</span></code> están cerca.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Complejidad computacional</p>
+<p>Los árboles de indexación espacial se utilizan para evitar el cálculo de la matriz de distancias completa, y permiten un uso eficiente de la memoria en grandes conjuntos de muestras. Diferentes métricas de distancia pueden ser suministradas a través de la palabra clave <code class="docutils literal notranslate"><span class="pre">metric</span></code>.</p>
+<p>Para grandes conjuntos de datos, se pueden obtener resultados similares (pero no idénticos) mediante <a class="reference external" href="https://hdbscan.readthedocs.io">HDBSCAN</a>. La implementación de HDBSCAN es multihilo, y tiene una mejor complejidad algorítmica en tiempo de ejecución que OPTICS, a costa de un peor escalado de memoria. Para los conjuntos de datos extremadamente grandes que agotan la memoria del sistema utilizando HDBSCAN, OPTICS mantendrá el escalado de memoria <span class="math notranslate nohighlight">\(n\)</span> (en lugar de <span class="math notranslate nohighlight">\(n^2\)</span>) ; sin embargo, es probable que sea necesario ajustar el parámetro <code class="docutils literal notranslate"><span class="pre">max_eps</span></code> para obtener una solución en una cantidad razonable de tiempo real.</p>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>«OPTICS: ordering points to identify the clustering structure.»
+Ankerst, Mihael, Markus M. Breunig, Hans-Peter Kriegel, and Jörg Sander.
+In ACM Sigmod Record, vol. 28, no. 2, pp. 49-60. ACM, 1999.</p></li>
+</ul>
+</div>
+</section>
+<section id="birch">
+<span id="id9"></span><h2><span class="section-number">2.3.9. </span>Birch<a class="headerlink" href="#birch" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="generated/sklearn.cluster.Birch.html#sklearn.cluster.Birch" title="sklearn.cluster.Birch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Birch</span></code></a> construye un árbol llamado el Árbol de Características de Conglomerados (CFT) para los datos dados. Los datos se comprimen esencialmente con pérdidas en un conjunto de nodos de característica de conglomeración (Nodos CF). Los Nodos CF tienen un número de subconglomerados llamados «Subconglomerados de Características de Conglomeración (Subconglomerados CF) y estos subconglomerados CF ubicados en los Nodos CF no terminales pueden tener Nodos CF como hijos.</p>
+<p>Los Subconglomerados CF contienen la información necesaria para el análisis de conglomerados, lo que evita la necesidad de mantener todos los datos de entrada en la memoria. Esta información incluye:</p>
+<ul class="simple">
+<li><p>Número de muestras en un subconglomerado.</p></li>
+<li><p>Suma lineal - Un vector n-dimensional que contiene la suma de todas las muestras</p></li>
+<li><p>Suma cuadrado - Suma de la norma L2 al cuadrado de todas las muestras.</p></li>
+<li><p>Centroides - Para evitar recálculos de suma lineal / n_muestras.</p></li>
+<li><p>Norma al cuadrado de los centroides.</p></li>
+</ul>
+<p>El algoritmo Birch tiene dos parámetros, el umbral y el factor de ramificación. El factor de ramificación limita el número de subconglomerados en un nodo y el umbral limita la distancia entre la muestra que entra y los subconglomerados existentes.</p>
+<p>Este algoritmo puede considerarse como una instancia o un método de reducción de datos, ya que reduce los datos de entrada a un conjunto de subconglomerados que se obtienen directamente de las hojas del CFT. Estos datos reducidos pueden ser procesados posteriormente alimentando un agrupador global. Este agrupador global puede establecerse mediante <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code>. Si <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> se establece como None, los subconglomerados de las hojas se leen directamente, de lo contrario en un paso del análisis de conglomerados globales etiqueta estos subconglomerados globales (etiquetas) y las muestras se asignan a la etiqueta global del subconglomerado más cercano.</p>
+<p><strong>Descripción del algoritmo:</strong></p>
+<ul class="simple">
+<li><p>Una nueva muestra se inserta en la raíz del árbol CF que es un nodo CF. Luego se fusiona con el subconglomerado de la raíz, que tenga el radio más pequeño después de la fusión, restringido por el umbral y las condiciones del factor de ramificación. Si el subconglomerado tiene algún nodo hijo, entonces se repite la operación hasta que alcanza una hoja. Después de encontrar el subconglomerado más cercano en la hoja, las propiedades de este subconglomerado y los subconglomerados padre se actualizan recursivamente.</p></li>
+<li><p>Si el radio del subconglomerado obtenido al fuisionar la nueva muestra y el subconglomerado más cercano es mayor que el cuadrado del umbral y si el número de subconglomerados es mayor que el factor de ramificación, entonces se asigna temporalmente un espacio a esta nueva muestra. Se toman los dos subconglomerados más alejados y se dividen los subconglomerados en dos grupos en función de la distancia entre estos subconglomerados.</p></li>
+<li><p>Si este nodo dividido tiene un subconglomerado padre y hay espacio para un nuevo subconglomerado, entonces el padre se divide en dos. Si no hay espacio, entonces este nodo se divide de nuevo en dos y el proceso se continúa recursivamente, hasta que llega a la raíz.</p></li>
+</ul>
+<p><strong>¿Birch o MiniBatchKMeans?</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Birch no se adapta muy bien a los datos de alta dimensión. Como regla general, si <code class="docutils literal notranslate"><span class="pre">n_features</span></code> es mayor que veinte, suele ser mejor utilizar MiniBatchKMeans.</p></li>
+<li><p>Si es necesario reducir el número de instancias de datos, o si se desea un gran número de subconglomerados, ya sea como paso previo al procesamiento o de otro modo, Birch es más útil que MiniBatchKMeans.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>¿Cómo utilizar partial_fit?</strong></p>
+<p>Para evitar el cálculo del agrupamiento global, para cada llamado de <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> se aconseja al usuario</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Para establecer <code class="docutils literal notranslate"><span class="pre">n_clusters=None</span></code> inicialmente</p></li>
+<li><p>Entrena todos los datos mediante múltiples llamados a partial_fit.</p></li>
+<li><p>Establezca <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> a un valor requerido usando <code class="docutils literal notranslate"><span class="pre">brc.set_params(n_clusters=n_clusters)</span></code>.</p></li>
+<li><p>Llama finalmente a <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> sin argumentos, es decir, <code class="docutils literal notranslate"><span class="pre">brc.partial_fit()</span></code> que realiza el agrupamiento global.</p></li>
+</ol>
+</div></blockquote>
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_birch_vs_minibatchkmeans.html"><img alt="../_images/sphx_glr_plot_birch_vs_minibatchkmeans_001.png" src="../_images/sphx_glr_plot_birch_vs_minibatchkmeans_001.png" /></a>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Tian Zhang, Raghu Ramakrishnan, Maron Livny
+BIRCH: An efficient data clustering method for large databases.
+<a class="reference external" href="https://www.cs.sfu.ca/CourseCentral/459/han/papers/zhang96.pdf">https://www.cs.sfu.ca/CourseCentral/459/han/papers/zhang96.pdf</a></p></li>
+<li><p>Roberto Perdisci
+JBirch - Java implementation of BIRCH clustering algorithm
+<a class="reference external" href="https://code.google.com/archive/p/jbirch">https://code.google.com/archive/p/jbirch</a></p></li>
+</ul>
+</div>
+</section>
+<section id="clustering-performance-evaluation">
+<span id="clustering-evaluation"></span><h2><span class="section-number">2.3.10. </span>Evaluación del rendimiento del análisis de conglomerados (agrupamiento)<a class="headerlink" href="#clustering-performance-evaluation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Evaluar el rendimiento de un algoritmo de análisis de conglomerados no es tan trivial como contar el número de errores o la precisión y exhaustividad de un algoritmo de clasificación supervisada. En particular, cualquier métrica de evaluación no debería tener en cuenta los valores absolutos de las etiquetas de los conglomerados, sino más bien si este agrupamiento define separaciones de los datos similares a algún conjunto de clases de la verdad básica o satisface alguna suposición como que los miembros que pertenecen a la misma clase son más similares que los miembros de clases diferentes según alguna métrica de similitud.</p>
+<section id="rand-index">
+<span id="adjusted-rand-score"></span><span id="rand-score"></span><h3><span class="section-number">2.3.10.1. </span>Índice de Rand<a class="headerlink" href="#rand-index" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Dado el conocimiento de las asignaciones de clase de la verdad sobre el terreno <code class="docutils literal notranslate"><span class="pre">labels_true</span></code> y las asignaciones de nuestro algoritmo de agrupación de las mismas muestras <code class="docutils literal notranslate"><span class="pre">labels_pred</span></code>, el <strong>índice de Rand (ajustado o no ajustado)</strong> es una función que mide la <strong>similitud</strong> de las dos asignaciones, ignorando las permutaciones:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.66...</span>
+</pre></div>
+</div>
+<p>El índice de Rand no garantiza obtener un valor cercano a 0.0 para un etiquetado aleatorio. El índice de Rand ajustado <strong>corrige por casualidad</strong> y dará esa línea de base.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.24...</span>
+</pre></div>
+</div>
+<p>Como con todas las métricas del análisis de conglomerados, se puede permutar 0 y 1 en las etiquetas predichas, renombrar 2 a 3 y obtener la misma puntuación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.66...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.24...</span>
+</pre></div>
+</div>
+<p>Además, <a class="reference internal" href="generated/sklearn.metrics.rand_score.html#sklearn.metrics.rand_score" title="sklearn.metrics.rand_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">rand_score</span></code></a> y <a class="reference internal" href="generated/sklearn.metrics.adjusted_rand_score.html#sklearn.metrics.adjusted_rand_score" title="sklearn.metrics.adjusted_rand_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">adjusted_rand_score</span></code></a> son <strong>simétricos</strong>: intercambiar el argumento no cambia las puntuaciones. Por tanto, pueden utilizarse como <strong>medidas de consenso</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_pred</span><span class="p">,</span> <span class="n">labels_true</span><span class="p">)</span>
+<span class="go">0.66...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_pred</span><span class="p">,</span> <span class="n">labels_true</span><span class="p">)</span>
+<span class="go">0.24...</span>
+</pre></div>
+</div>
+<p>El etiquetado perfecto tiene una puntuación de 1,0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="n">labels_true</span><span class="p">[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<p>Las etiquetas con poca concordancia (por ejemplo, etiquetas independientes) tienen puntuaciones más bajas, y para el índice de Rand ajustado la puntuación será negativa o cercana a cero. Sin embargo, para el índice de Rand no ajustado la puntuación, aunque sea más baja, no será necesariamente cercana a cero.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.39...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">-0.07...</span>
+</pre></div>
+</div>
+<section id="advantages">
+<h4><span class="section-number">2.3.10.1.1. </span>Ventajas<a class="headerlink" href="#advantages" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Interpretabilidad</strong>: El índice de Rand no ajustado es proporcional al número de pares de muestras cuyas etiquetas son iguales tanto en <code class="docutils literal notranslate"><span class="pre">labels_pred</span></code> como en <code class="docutils literal notranslate"><span class="pre">labels_true</span></code>, o son diferentes en ambas.</p></li>
+<li><p><strong>Las asignaciones de etiquetas aleatorias (uniformes) tienen una puntuación del índice de Rand ajustado cercana a 0,0</strong> para cualquier valor de <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> y <code class="docutils literal notranslate"><span class="pre">n_muestras</span></code> (lo que no ocurre con el índice de Rand no ajustado o la medida V, por ejemplo).</p></li>
+<li><p><strong>Rango limitado</strong>: Los valores más bajos indican diferentes etiquetados, las agrupaciones similares tienen un índice de Rand alto (ajustado o no ajustado), 1,0 es la puntuación de coincidencia perfecta. El rango de puntuación es [0, 1] para el índice de Rand no ajustado y [-1, 1] para el índice de Rand ajustado.</p></li>
+<li><p><strong>No se hace ninguna suposición sobre la estructura del conglomerado</strong>: El índice de Rand (ajustado o no ajustado) puede utilizarse para comparar todos los tipos de algoritmos de análisis de conglomerados, y puede utilizarse para comparar algoritmos de agrupamiento tales como k-medias que asume formas de manchas isotrópicas con resultados de algoritmos de agrupamiento espectral que pueden encontrar conglomerados con formas «plegadas».</p></li>
+</ul>
+</section>
+<section id="drawbacks">
+<h4><span class="section-number">2.3.10.1.2. </span>Inconvenientes<a class="headerlink" href="#drawbacks" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul>
+<li><p>Al contrario de lo que ocurre con la inercia, el <strong>índice de Rand (ajustado o sin ajustar) requiere el conocimiento de las clases verdaderas</strong>, que casi nunca están disponibles en la práctica o requieren la asignación manual por parte de anotadores humanos (como en el entorno del aprendizaje supervisado).</p>
+<p>Sin embargo, el índice de Rand (ajustado o no ajustado) también puede ser útil en un entorno puramente no supervisado como bloque de construcción para un Índice de Consenso que puede ser utilizado para la selección de modelos de análisis de conglomerados (TODO).</p>
+</li>
+<li><p>El <strong>índice de Rand no ajustado suele ser cercano a 1,0</strong> incluso si los conglomerados difieren significativamente. Esto se puede entender cuando se interpreta el índice de Rand como la exactitud del etiquetado de los pares de elementos resultantes de los agrupamientos: En la práctica, a menudo hay una mayoría de pares de elementos a los que se le asigna la etiqueta <code class="docutils literal notranslate"><span class="pre">different</span></code> tanto en el conglomerado predicho como en el agrupamiento verdadero sobre el terreno, lo que da lugar a una alta proporción de etiquetas de par que coinciden, lo que conduce posteriormente a una alta puntuación.</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_adjusted_for_chance_measures.html#sphx-glr-auto-examples-cluster-plot-adjusted-for-chance-measures-py"><span class="std std-ref">Ajuste al azar en la evaluación del rendimiento del agrupamiento</span></a>: Análisis del impacto del tamaño del conjunto de datos en el valor de las medidas del agrupamiento para las asignaciones aleatorias.</p></li>
+</ul>
+</div>
+</section>
+<section id="mathematical-formulation">
+<h4><span class="section-number">2.3.10.1.3. </span>Formulación matemática<a class="headerlink" href="#mathematical-formulation" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Si C es una asignación de la clase basada en la evidencia y K el agrupamiento, definamos <span class="math notranslate nohighlight">\(a\)</span> y <span class="math notranslate nohighlight">\(b\)</span> como:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a\)</span>, el número de pares de elementos que están en el mismo conjunto en C y en el mismo conjunto en K</p></li>
+<li><p><span class="math notranslate nohighlight">\(b\)</span>, el número de pares de elementos que están en conjuntos diferentes en C y en conjuntos diferentes en K</p></li>
+</ul>
+<p>El índice de Rand no ajustado viene dado entonces por:</p>
+<div class="math notranslate nohighlight">
+\[\text{RI} = \frac{a + b}{C_2^{n_{samples}}}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(C_2^{n_{samples}}\)</span> es el número total de pares posibles en el conjunto de datos. No importa si el cálculo se realiza sobre pares ordenados o pares no ordenados siempre y cuando el cálculo se realice de forma coherente.</p>
+<p>Sin embargo, el índice de Rand no garantiza que las asignaciones aleatorias de etiquetas obtengan un valor cercano a cero (especialmente si el número de conglomerado es del mismo orden de magnitud que el número de muestras).</p>
+<p>Para contrarrestar este efecto podemos descontar el RI esperado <span class="math notranslate nohighlight">\(E[\text{RI}]\)</span> de las etiquetas aleatorias definiendo el índice de Rand ajustado de la siguiente manera:</p>
+<div class="math notranslate nohighlight">
+\[\text{ARI} = \frac{\text{RI} - E[\text{RI}]}{\max(\text{RI}) - E[\text{RI}]}\]</div>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://link.springer.com/article/10.1007%2FBF01908075">Comparing Partitions</a>
+L. Hubert and P. Arabie, Journal of Classification 1985</p></li>
+<li><p><a class="reference external" href="https://psycnet.apa.org/record/2004-17801-007">Properties of the Hubert-Arabie adjusted Rand index</a>
+D. Steinley, Psychological Methods 2004</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Rand_index">Wikipedia entry for the Rand index</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Rand_index#Adjusted_Rand_index">Wikipedia entry for the adjusted Rand index</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="mutual-information-based-scores">
+<span id="mutual-info-score"></span><h3><span class="section-number">2.3.10.2. </span>Puntuaciones basadas en información mutua<a class="headerlink" href="#mutual-information-based-scores" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Dado el conocimiento de las asignaciones de clase basadas en la evidencia <code class="docutils literal notranslate"><span class="pre">labels_true</span></code> y nuestras asignaciones del algoritmo de agrupación de las mismas muestras <code class="docutils literal notranslate"><span class="pre">labels_pred</span></code>, la <strong>Información Mutua</strong> es una función que mide el <strong>acuerdo</strong> de las dos asignaciones, ignorando las permutaciones. Dos versiones normalizadas de esta medida están disponibles, la <strong>Información Mutua Normalizada (Normalized Mutual Information, NMI)</strong> y la <strong>Información Mutua Ajustada (Adjusted Mutual Information, AMI)</strong>. La NMI se utiliza a menudo en la literatura, mientras que la AMI fue propuesto más recientemente y se <strong>normaliza contra el azar</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>  
+<span class="go">0.22504...</span>
+</pre></div>
+</div>
+<p>Se puede permutar el 0 y 1 en las etiquetas predichas, renombrar el 2 al 3 y obtener la misma puntuación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>  
+<span class="go">0.22504...</span>
+</pre></div>
+</div>
+<p>Todas, <a class="reference internal" href="generated/sklearn.metrics.mutual_info_score.html#sklearn.metrics.mutual_info_score" title="sklearn.metrics.mutual_info_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">mutual_info_score</span></code></a>, <a class="reference internal" href="generated/sklearn.metrics.adjusted_mutual_info_score.html#sklearn.metrics.adjusted_mutual_info_score" title="sklearn.metrics.adjusted_mutual_info_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">adjusted_mutual_info_score</span></code></a> y <a class="reference internal" href="generated/sklearn.metrics.normalized_mutual_info_score.html#sklearn.metrics.normalized_mutual_info_score" title="sklearn.metrics.normalized_mutual_info_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">normalized_mutual_info_score</span></code></a> son simétricos: intercambiar el argumento no cambia la puntuación. Por lo tanto, pueden utilizarse como una <strong>medida de consenso</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">labels_pred</span><span class="p">,</span> <span class="n">labels_true</span><span class="p">)</span>  
+<span class="go">0.22504...</span>
+</pre></div>
+</div>
+<p>El etiquetado perfecto tiene una puntuación de 1,0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="n">labels_true</span><span class="p">[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>  
+<span class="go">1.0</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">normalized_mutual_info_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>  
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<p>Esto no es cierto para <code class="docutils literal notranslate"><span class="pre">mutual_info_score</span></code>, que por lo tanto es más difícil de juzgar:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">mutual_info_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>  
+<span class="go">0.69...</span>
+</pre></div>
+</div>
+<p>Los malos (por ejemplo, los etiquetados independientes) tienen puntuaciones no positivas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">adjusted_mutual_info_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>  
+<span class="go">-0.10526...</span>
+</pre></div>
+</div>
+<section id="id10">
+<h4><span class="section-number">2.3.10.2.1. </span>Ventajas<a class="headerlink" href="#id10" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Las asignaciones de etiquetas aleatorias (uniformes) tienen una puntuación AMI cercana a 0,0</strong> para cualquier valor de <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> y <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> (lo que no ocurre con la Información Mutua bruta o la medida V, por ejemplo).</p></li>
+<li><p><strong>Límite superior de 1</strong>:  Los valores cercanos a cero indican dos asignaciones de etiquetas que son en gran medida independientes, mientras que los valores cercanos a uno indican un acuerdo significativo. Además, una AMI de exactamente 1 indica que las dos asignaciones de etiquetas son iguales (con o sin permutación).</p></li>
+</ul>
+</section>
+<section id="id11">
+<h4><span class="section-number">2.3.10.2.2. </span>Inconvenientes<a class="headerlink" href="#id11" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul>
+<li><p>Al contrario de lo que ocurre con la inercia, <strong>las medidas basadas en el IM requieren el conocimiento de las clases verdaderas</strong>, mientras que casi nunca están disponibles en la práctica o requieren la asignación manual por parte de anotadores humanos (como en el entorno del aprendizaje supervisado).</p>
+<p>Sin embargo, las medidas basadas en el IM también pueden ser útiles en un entorno puramente no supervisado como componente básico para un Índice de Consenso que puede utilizarse para la selección de modelos de agrupamiento.</p>
+</li>
+<li><p>La NMI y la MI no están ajustadas al azar.</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_adjusted_for_chance_measures.html#sphx-glr-auto-examples-cluster-plot-adjusted-for-chance-measures-py"><span class="std std-ref">Ajuste al azar en la evaluación del rendimiento del agrupamiento</span></a>: Análisis del impacto del tamaño del conjunto de datos en el valor de las medidas de agrupamiento para las asignaciones aleatorias. Este ejemplo también incluye el índice de Rand ajustado.</p></li>
+</ul>
+</div>
+</section>
+<section id="id12">
+<h4><span class="section-number">2.3.10.2.3. </span>Formulación matemática<a class="headerlink" href="#id12" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Supongamos dos asignaciones de etiquetas (de los mismos N objetos), <span class="math notranslate nohighlight">\(U\)</span> y <span class="math notranslate nohighlight">\(V\)</span>. Su entropía es la cantidad de incertidumbre para un conjunto particionado, definida por:</p>
+<div class="math notranslate nohighlight">
+\[H(U) = - \sum_{i=1}^{|U|}P(i)\log(P(i))\]</div>
+<p>donde <span class="math notranslate nohighlight">\(P(i) = |U_i| / N\)</span> es la probabilidad de que un objeto elegido al azar de <span class="math notranslate nohighlight">\(U\)</span> pertenezca a la clase <span class="math notranslate nohighlight">\(U_i\)</span>. Lo mismo ocurre con <span class="math notranslate nohighlight">\(V\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[H(V) = - \sum_{j=1}^{|V|}P'(j)\log(P'(j))\]</div>
+<p>Con <span class="math notranslate nohighlight">\(P'(j) = |V_j| / N\)</span>. La información mutua (Mutual Information, MI) entre <span class="math notranslate nohighlight">\(U\)</span> y <span class="math notranslate nohighlight">\(V\)</span> se calcula mediante:</p>
+<div class="math notranslate nohighlight">
+\[\text{MI}(U, V) = \sum_{i=1}^{|U|}\sum_{j=1}^{|V|}P(i, j)\log\left(\frac{P(i,j)}{P(i)P'(j)}\right)\]</div>
+<p>donde <span class="math notranslate nohighlight">\(P(i, j) = |U_i \cap V_j| / N\)</span> es la probabilidad de que un objeto elegido al azar caiga en ambas clases <span class="math notranslate nohighlight">\(U_i\)</span> y <span class="math notranslate nohighlight">\(V_j\)</span>.</p>
+<p>También puede expresarse en la formulación de la cardinalidad del conjunto:</p>
+<div class="math notranslate nohighlight">
+\[\text{MI}(U, V) = \sum_{i=1}^{|U|} \sum_{j=1}^{|V|} \frac{|U_i \cap V_j|}{N}\log\left(\frac{N|U_i \cap V_j|}{|U_i||V_j|}\right)\]</div>
+<p>La información mutua normalizada se define como</p>
+<div class="math notranslate nohighlight">
+\[\text{NMI}(U, V) = \frac{\text{MI}(U, V)}{\text{mean}(H(U), H(V))}\]</div>
+<p>Este valor de la información mutua y también la variante normalizada no está ajustada al azar y tenderá a aumentar a medida que aumente el número de etiquetas diferentes (conglomerados), sin importar la cantidad real de «información mutua» entre las asignaciones de etiquetas.</p>
+<p>El valor esperado de la información mutua puede calcularse mediante la siguiente ecuación <a class="reference internal" href="#veb2009" id="id13"><span>[VEB2009]</span></a>. En esta ecuación, <span class="math notranslate nohighlight">\(a_i = |U_i|\)</span> (el número de elementos en <span class="math notranslate nohighlight">\(U_i\)</span>) y <span class="math notranslate nohighlight">\(b_j = |V_j|\)</span> (el número de elementos en <span class="math notranslate nohighlight">\(V_j\)</span>).</p>
+<div class="math notranslate nohighlight">
+\[E[\text{MI}(U,V)]=\sum_{i=1}^{|U|} \sum_{j=1}^{|V|} \sum_{n_{ij}=(a_i+b_j-N)^+
+}^{\min(a_i, b_j)} \frac{n_{ij}}{N}\log \left( \frac{ N.n_{ij}}{a_i b_j}\right)
+\frac{a_i!b_j!(N-a_i)!(N-b_j)!}{N!n_{ij}!(a_i-n_{ij})!(b_j-n_{ij})!
+(N-a_i-b_j+n_{ij})!}\]</div>
+<p>A partir del valor esperado, la información mutua ajustada puede calcularse de forma similar a la del índice de Rand ajustado:</p>
+<div class="math notranslate nohighlight">
+\[\text{AMI} = \frac{\text{MI} - E[\text{MI}]}{\text{mean}(H(U), H(V)) - E[\text{MI}]}\]</div>
+<p>Para la información mutua normalizada y la información mutua ajustada, el valor normalizador suele ser alguna media <em>generalizada</em> de las entropías de cada conglomerado. Existen varias medias generalizadas, y no hay reglas firmes para preferir una sobre las otras.  La decisión es en gran medida un campo por campo; por ejemplo, en la detección de comunidades, la media aritmética es la más común. Cada método de normalización proporciona «comportamientos cualitativamente similares» <a class="reference internal" href="#yat2016" id="id14"><span>[YAT2016]</span></a>. En nuestra implementación, esto se controla con el parámetro <code class="docutils literal notranslate"><span class="pre">average_method</span></code>.</p>
+<p>Vinh et al. (2010) nombraron variantes de la NMI y la AMI por su método de promediación <a class="reference internal" href="#veb2010" id="id15"><span>[VEB2010]</span></a>. Sus promedios “sqrt” y “sum” son las medias geométrica y aritmética; nosotros utilizamos estos nombres más comunes.</p>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>Strehl, Alexander, and Joydeep Ghosh (2002). «Cluster ensembles – a
+knowledge reuse framework for combining multiple partitions». Journal of
+Machine Learning Research 3: 583–617.
+<a class="reference external" href="http://strehl.com/download/strehl-jmlr02.pdf">doi:10.1162/153244303321897735</a>.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Mutual_Information">Wikipedia entry for the (normalized) Mutual Information</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Adjusted_Mutual_Information">Wikipedia entry for the Adjusted Mutual Information</a></p></li>
+</ul>
+<dl class="citation">
+<dt class="label" id="veb2009"><span class="brackets"><a class="fn-backref" href="#id13">VEB2009</a></span></dt>
+<dd><p>Vinh, Epps, and Bailey, (2009). «Information theoretic measures
+for clusterings comparison». Proceedings of the 26th Annual International
+Conference on Machine Learning - ICML “09.
+<a class="reference external" href="https://dl.acm.org/citation.cfm?doid=1553374.1553511">doi:10.1145/1553374.1553511</a>.
+ISBN 9781605585161.</p>
+</dd>
+<dt class="label" id="veb2010"><span class="brackets"><a class="fn-backref" href="#id15">VEB2010</a></span></dt>
+<dd><p>Vinh, Epps, and Bailey, (2010). «Information Theoretic Measures for
+Clusterings Comparison: Variants, Properties, Normalization and
+Correction for Chance». JMLR
+&lt;<a class="reference external" href="http://jmlr.csail.mit.edu/papers/volume11/vinh10a/vinh10a.pdf">http://jmlr.csail.mit.edu/papers/volume11/vinh10a/vinh10a.pdf</a>&gt;</p>
+</dd>
+<dt class="label" id="yat2016"><span class="brackets"><a class="fn-backref" href="#id14">YAT2016</a></span></dt>
+<dd><p>Yang, Algesheimer, and Tessone, (2016). «A comparative analysis of
+community
+detection algorithms on artificial networks». Scientific Reports 6: 30750.
+<a class="reference external" href="https://www.nature.com/articles/srep30750">doi:10.1038/srep30750</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="homogeneity-completeness-and-v-measure">
+<span id="homogeneity-completeness"></span><h3><span class="section-number">2.3.10.3. </span>Homogeneidad, completitud y medida V<a class="headerlink" href="#homogeneity-completeness-and-v-measure" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Dado el conocimiento de las asignaciones de clase de las muestras basadas en la evidencia, es posible definir alguna métrica intuitiva utilizando el análisis de entropía condicional.</p>
+<p>En particular, Rosenberg y Hirschberg (2007) definen los siguientes dos objetivos deseables para cualquier asignación de conglomerados:</p>
+<ul class="simple">
+<li><p><strong>homogeneidad</strong>: cada conglomerado contiene sólo miembros de una sola clase.</p></li>
+<li><p><strong>completitud</strong>: todos los miembros de una clase determinada están asignados al mismo conglomerado.</p></li>
+</ul>
+<p>Podemos convertir estos conceptos en puntuaciones <a class="reference internal" href="generated/sklearn.metrics.homogeneity_score.html#sklearn.metrics.homogeneity_score" title="sklearn.metrics.homogeneity_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">homogeneity_score</span></code></a> y <a class="reference internal" href="generated/sklearn.metrics.completeness_score.html#sklearn.metrics.completeness_score" title="sklearn.metrics.completeness_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">completeness_score</span></code></a>. Ambas están delimitadas por debajo de 0,0 y por encima de 1,0 (cuanto más alto, mejor):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">homogeneity_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.66...</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">completeness_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.42...</span>
+</pre></div>
+</div>
+<p>Su media armónica llamada <strong>medidad V</strong> se calcula con <a class="reference internal" href="generated/sklearn.metrics.v_measure_score.html#sklearn.metrics.v_measure_score" title="sklearn.metrics.v_measure_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">v_measure_score</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">v_measure_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.51...</span>
+</pre></div>
+</div>
+<p>La fórmula de esta función es la siguiente:</p>
+<div class="math notranslate nohighlight">
+\[v = \frac{(1 + \beta) \times \text{homogeneity} \times \text{completeness}}{(\beta \times \text{homogeneity} + \text{completeness})}\]</div>
+<p>El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">beta</span></code> es 1,0, pero para utilizar un valor menor que 1 para beta:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">v_measure_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="go">0.54...</span>
+</pre></div>
+</div>
+<p>se atribuirá más peso a la homogeneidad, y utilizando un valor mayor que 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">v_measure_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+<span class="go">0.48...</span>
+</pre></div>
+</div>
+<p>se atribuirá más peso a la completitud.</p>
+<p>La medida V es, en realidad equivalente a la información mutua (NMI) comentada anteriormente, siendo la función de agregación la media aritmética <a class="reference internal" href="#b2011" id="id16"><span>[B2011]</span></a>.</p>
+<p>La homogeneidad, la completitud y la medida V pueden calcularse a la vez utilizando <a class="reference internal" href="generated/sklearn.metrics.homogeneity_completeness_v_measure.html#sklearn.metrics.homogeneity_completeness_v_measure" title="sklearn.metrics.homogeneity_completeness_v_measure"><code class="xref py py-func docutils literal notranslate"><span class="pre">homogeneity_completeness_v_measure</span></code></a> de la siguiente manera:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">homogeneity_completeness_v_measure</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">(0.66..., 0.42..., 0.51...)</span>
+</pre></div>
+</div>
+<p>La siguiente asignación de agrupamiento es ligeramente mejor, ya que es homogénea pero no completa:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">homogeneity_completeness_v_measure</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">(1.0, 0.68..., 0.81...)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><a class="reference internal" href="generated/sklearn.metrics.v_measure_score.html#sklearn.metrics.v_measure_score" title="sklearn.metrics.v_measure_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">v_measure_score</span></code></a> es <strong>simétrica</strong>: puede utilizarse para evaluar el <strong>acuerdo</strong> de dos asignaciones independientes en el mismo conjunto de datos.</p>
+<p>Este no es el caso de <a class="reference internal" href="generated/sklearn.metrics.completeness_score.html#sklearn.metrics.completeness_score" title="sklearn.metrics.completeness_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">completeness_score</span></code></a> y <a class="reference internal" href="generated/sklearn.metrics.homogeneity_score.html#sklearn.metrics.homogeneity_score" title="sklearn.metrics.homogeneity_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">homogeneity_score</span></code></a>: ambos están vinculados por la relación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">homogeneity_score</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">completeness_score</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="id17">
+<h4><span class="section-number">2.3.10.3.1. </span>Ventajas<a class="headerlink" href="#id17" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Puntuaciones limitadas</strong>: 0,0 es lo peor que puede ser, 1,0 es una puntuación perfecta.</p></li>
+<li><p>Interpretación intuitiva: el agrupamiento con mala medida V se puede <strong>analizar cualitativamente en términos de homogeneidad y completitud</strong> para sentir mejor qué “tipo” de errores se hace mediante la asignación.</p></li>
+<li><p><strong>No se hace ninguna suposición sobre la estructura del conglomerado</strong>: puede utilizarse para comparar todos los tipos de algoritmos de agrupamiento, y puede utilizarse para comparar algoritmos de agrupamiento tales como k-medias que asume formas de manchas isotrópicas con resultados de los algoritmos de agrupamiento espectral, que pueden encontrar conglomerados con formas «plegadas».</p></li>
+</ul>
+</section>
+<section id="id18">
+<h4><span class="section-number">2.3.10.3.2. </span>Inconvenientes<a class="headerlink" href="#id18" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul>
+<li><p>Las métricas introducidas anteriormente <strong>no están normalizadas con respecto al etiquetado aleatorio</strong>: esto significa que, dependiendo del número de muestras, conglomerados y clases basadas en la evidencia, un etiquetado completamente aleatorio no siempre produce los mismos valores de homogeneidad, completitud y, por tanto, la medida v. En particular, <strong>el etiquetado aleatorio no producirá puntuaciones iguales a cero, especialmente cuando el número de conglomerados sea grande</strong>.</p>
+<p>Este problema puede ignorarse con seguridad cuando el número de muestras es superior a mil y el número de conglomerados es menor que 10. <strong>Para tamaños de muestra más pequeños o mayor número de conglomerados, es más seguro utilizar un índice ajustado como el Índice de Rand Ajustado (Adjusted Rand Index ARI)</strong>.</p>
+</li>
+</ul>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_adjusted_for_chance_measures.html"><img alt="../_images/sphx_glr_plot_adjusted_for_chance_measures_001.png" src="../_images/sphx_glr_plot_adjusted_for_chance_measures_001.png" style="width: 640.0px; height: 480.0px;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Estas métricas <strong>requieren el conocimiento de las clases basadas en la evidencia</strong>, mientras que casi nunca están disponibles en la práctica o requieren la asignación manual por parte de anotadores humanos (como en el entorno del aprendizaje supervisado).</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_adjusted_for_chance_measures.html#sphx-glr-auto-examples-cluster-plot-adjusted-for-chance-measures-py"><span class="std std-ref">Ajuste al azar en la evaluación del rendimiento del agrupamiento</span></a>: Análisis del impacto del tamaño del conjunto de datos en el valor de las medidas del agrupamiento para las asignaciones aleatorias.</p></li>
+</ul>
+</div>
+</section>
+<section id="id19">
+<h4><span class="section-number">2.3.10.3.3. </span>Formulación matemática<a class="headerlink" href="#id19" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Las puntuaciones de homogeneidad y completitud vienen dadas formalmente por:</p>
+<div class="math notranslate nohighlight">
+\[h = 1 - \frac{H(C|K)}{H(C)}\]</div>
+<div class="math notranslate nohighlight">
+\[c = 1 - \frac{H(K|C)}{H(K)}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(H(C|K)\)</span> es la <strong>entropía condicional de las clases dadas las asignaciones de los conglomerados</strong> y viene dada por:</p>
+<div class="math notranslate nohighlight">
+\[H(C|K) = - \sum_{c=1}^{|C|} \sum_{k=1}^{|K|} \frac{n_{c,k}}{n}
+\cdot \log\left(\frac{n_{c,k}}{n_k}\right)\]</div>
+<p>y <span class="math notranslate nohighlight">\(H(C)\)</span> es la <strong>entropía de las clases</strong> y viene dada por:</p>
+<div class="math notranslate nohighlight">
+\[H(C) = - \sum_{c=1}^{|C|} \frac{n_c}{n} \cdot \log\left(\frac{n_c}{n}\right)\]</div>
+<p>con <span class="math notranslate nohighlight">\(n\)</span> el número total de muestras, <span class="math notranslate nohighlight">\(n_c\)</span> y <span class="math notranslate nohighlight">\(n_k\)</span> el número de muestras que pertenecen respectivamente a la clase <span class="math notranslate nohighlight">\(c\)</span> y al conglomerado <span class="math notranslate nohighlight">\(k\)</span>, y finalmente <span class="math notranslate nohighlight">\(n_{c,k}\)</span> el número de muestras de la clase <span class="math notranslate nohighlight">\(c\)</span> asignadas al conglomerado <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>La <strong>entropía condicional de los conglomerados dada la clase</strong> <span class="math notranslate nohighlight">\(H(K|C)\)</span> y la <strong>entropía de los conglomerados</strong> <span class="math notranslate nohighlight">\(H(K)\)</span> se definen de forma simétrica.</p>
+<p>Rosenberg y Hirschberg definen además la <strong>medida V</strong> como la <strong>media armónica de la homogeneidad y la completitud</strong>:</p>
+<div class="math notranslate nohighlight">
+\[v = 2 \cdot \frac{h \cdot c}{h + c}\]</div>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://aclweb.org/anthology/D/D07/D07-1043.pdf">V-Measure: A conditional entropy-based external cluster evaluation
+measure</a>
+Andrew Rosenberg and Julia Hirschberg, 2007</p></li>
+</ul>
+<dl class="citation">
+<dt class="label" id="b2011"><span class="brackets"><a class="fn-backref" href="#id16">B2011</a></span></dt>
+<dd><p><a class="reference external" href="http://www.cs.columbia.edu/~hila/hila-thesis-distributed.pdf">Identication and Characterization of Events in Social Media</a>, Hila Becker, Tesis doctoral.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="fowlkes-mallows-scores">
+<span id="id20"></span><h3><span class="section-number">2.3.10.4. </span>Puntuaciones de Fowlkes-Mallow<a class="headerlink" href="#fowlkes-mallows-scores" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El índice de Fowlkes-Mallows (<a class="reference internal" href="generated/sklearn.metrics.fowlkes_mallows_score.html#sklearn.metrics.fowlkes_mallows_score" title="sklearn.metrics.fowlkes_mallows_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.fowlkes_mallows_score</span></code></a>) puede utilizarse cuando se conoce la asignación de la clase de las muestras basadas en la evidencia. La puntuación de Fowlkes-Mallows FMI se define como la media geométrica de la precisión y exhaustividad por pares:</p>
+<div class="math notranslate nohighlight">
+\[\text{FMI} = \frac{\text{TP}}{\sqrt{(\text{TP} + \text{FP}) (\text{TP} + \text{FN})}}\]</div>
+<p>Donde <code class="docutils literal notranslate"><span class="pre">TP</span></code> es el número de <strong>Verdaderos Positivos</strong> (es decir, el número de pares de puntos que pertenecen a los mismos conglomerados tanto en las etiquetas verdaderas como en las etiquetas predichas), <code class="docutils literal notranslate"><span class="pre">FP</span></code> es el número de <strong>Falsos Positivos</strong> (es decir, el número de pares de puntos que pertenecen a los mismos conglomerados en las etiquetas verdaderas y no en las etiquetas predichas) y <code class="docutils literal notranslate"><span class="pre">FN</span></code> es el número de <strong>Falsos Negativos</strong> (es decir, el número de puntos que pertenecen a los mismos conglomerados en las etiquetas predichas y no en las etiquetas verdaderas).</p>
+<p>La puntuación oscila entre 0 y 1. Un valor alto indica una buena similitud entre dos conglomerados.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">fowlkes_mallows_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.47140...</span>
+</pre></div>
+</div>
+<p>Se puede permutar el 0 y 1 en las etiquetas predichas, renombrar el 2 al 3 y obtener la misma puntuación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">fowlkes_mallows_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.47140...</span>
+</pre></div>
+</div>
+<p>El etiquetado perfecto tiene una puntuación de 1,0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="n">labels_true</span><span class="p">[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">fowlkes_mallows_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<p>Los malos (por ejemplo, los etiquetados independientes) tienen puntuación cero:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">fowlkes_mallows_score</span><span class="p">(</span><span class="n">labels_true</span><span class="p">,</span> <span class="n">labels_pred</span><span class="p">)</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<section id="id21">
+<h4><span class="section-number">2.3.10.4.1. </span>Ventajas<a class="headerlink" href="#id21" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Las asignaciones de etiquetas aleatorias (uniformes) tienen una puntuación FMI cercana a 0,0</strong> para cualquier valor de <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> y <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> (lo que no ocurre con la Información Mutua en bruto o la medida V, por ejemplo).</p></li>
+<li><p><strong>El límite superior es 1</strong>:  Los valores cercanos a cero indican dos asignaciones de etiquetas que son en gran medida independientes, mientras que los valores cercanos a uno indican un acuerdo significativo. Además, los valores de exactamente 0 indican asignaciones de etiquetas <strong>puramente</strong> independientes y un FMI de exactamente 1 indica que las dos asignaciones de etiquetas son iguales (con o sin permutación).</p></li>
+<li><p><strong>No se hace ninguna suposición sobre la estructura del conglomerado</strong>: puede utilizarse para comparar todos los tipos de algoritmos de agrupamiento, y puede utilizarse para comparar algoritmos de agrupamiento tales como k-medias que asume formas de manchas isotrópicas con resultados de los algoritmos de agrupamiento espectral, que pueden encontrar conglomerados con formas «plegadas».</p></li>
+</ul>
+</section>
+<section id="id22">
+<h4><span class="section-number">2.3.10.4.2. </span>Inconvenientes<a class="headerlink" href="#id22" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>Al contrario de lo que ocurre con la inercia, <strong>las medidas basadas en el FMI requieren el conocimiento de las clases basadas en la evidencia</strong>, mientras que casi nunca están disponibles en la práctica o requieren la asignación manual por parte de anotadores humanos (como en el entorno del aprendizaje supervisado).</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>E. B. Fowkles and C. L. Mallows, 1983. «A method for comparing two
+hierarchical clusterings». Journal of the American Statistical Association.
+<a class="reference external" href="http://wildfire.stat.ucla.edu/pdflibrary/fowlkes.pdf">http://wildfire.stat.ucla.edu/pdflibrary/fowlkes.pdf</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Fowlkes-Mallows_index">Wikipedia entry for the Fowlkes-Mallows Index</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="silhouette-coefficient">
+<span id="id23"></span><h3><span class="section-number">2.3.10.5. </span>Coeficiente de Silueta<a class="headerlink" href="#silhouette-coefficient" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si no se conocen las etiquetas basadas en la evidencia, la evaluación debe realizarse utilizando el propio modelo. El Coeficiente de Silueta (<a class="reference internal" href="generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score" title="sklearn.metrics.silhouette_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.silhouette_score</span></code></a>) es un ejemplo de este tipo de evaluación, donde una mayor puntuación del Coeficiente de Silueta se relaciona con un modelo con conglomerados mejor definidos. El coeficiente de silueta se define para cada muestra y se compone de dos puntuaciones:</p>
+<ul class="simple">
+<li><p><strong>a</strong>: La distancia media entre una muestra y todos los demás puntos de la misma clase.</p></li>
+<li><p><strong>b</strong>: La distancia media entre una muestra y todos los demás puntos en el <em>conglomerado más cercano</em>.</p></li>
+</ul>
+<p>El Coeficiente de Silueta <em>s</em> para una sola muestra se da entonces como:</p>
+<div class="math notranslate nohighlight">
+\[s = \frac{b - a}{max(a, b)}\]</div>
+<p>El Coeficiente de Silueta para un conjunto de muestras se da como la media del Coeficiente de Silueta para cada muestra.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>En el uso normal, el Coeficiente de Silueta se aplica a los resultados de un análisis de conglomerados.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans_model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans_model</span><span class="o">.</span><span class="n">labels_</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+<span class="go">0.55...</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>Peter J. Rousseeuw (1987). «Silhouettes: a Graphical Aid to the
+Interpretation and Validation of Cluster Analysis». Computational
+and Applied Mathematics 20: 53–65.
+<a class="reference external" href="https://doi.org/10.1016/0377-0427(87)90125-7">doi:10.1016/0377-0427(87)90125-7</a>.</p></li>
+</ul>
+</div>
+<section id="id24">
+<h4><span class="section-number">2.3.10.5.1. </span>Ventajas<a class="headerlink" href="#id24" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>La puntuación está limitada entre -1 para un agrupamiento incorrecto y +1 para un conglomerado altamente denso. Las puntuaciones alrededor de cero indican agrupamiento superpuestos.</p></li>
+<li><p>La puntuación es mayor cuando los conglomerados son densos y están bien separados, lo cual se relaciona con el concepto estándar de un conglomerado.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h4><span class="section-number">2.3.10.5.2. </span>Inconvenientes<a class="headerlink" href="#id25" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>El Coeficiente de Silueta es generalmente más alto para los conglomerados convexos que para otros conceptos de conglomerados, como los conglomerados basados en la densidad como los obtenidos a través de DBSCAN.</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_kmeans_silhouette_analysis.html#sphx-glr-auto-examples-cluster-plot-kmeans-silhouette-analysis-py"><span class="std std-ref">Selección del número de conglomerados con el análisis de silueta en el agrupamiento KMedias (KMeans)</span></a> : En este ejemplo se utiliza el análisis de siluetas para elegir un valor óptimo para n_clusters.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="calinski-harabasz-index">
+<span id="id26"></span><h3><span class="section-number">2.3.10.6. </span>Índice de Calinski-Harabasz<a class="headerlink" href="#calinski-harabasz-index" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si no se conocen las etiquetas basadas en la evidencia, se puede utilizar el índice de Calinski-Harabasz (<a class="reference internal" href="generated/sklearn.metrics.calinski_harabasz_score.html#sklearn.metrics.calinski_harabasz_score" title="sklearn.metrics.calinski_harabasz_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.calinski_harabasz_score</span></code></a>) -también conocido como Criterio de Razón de la Varianza- para evaluar el modelo, donde una puntuación Calinski-Harabasz más alta se relaciona con un modelo con conglomerados mejor definidos.</p>
+<p>El índice es la razón de la suma de la dispersión entre conglomerados y de la dispersión dentro del conglomerado para todos los conglomerados (donde la dispersión se define como la suma de las distancias al cuadrado):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>En el uso normal, el índice de Calinski-Harabasz se aplica a los resultados de un análisis de conglomerados:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans_model</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans_model</span><span class="o">.</span><span class="n">labels_</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span><span class="o">.</span><span class="n">calinski_harabasz_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="go">561.62...</span>
+</pre></div>
+</div>
+<section id="id27">
+<h4><span class="section-number">2.3.10.6.1. </span>Ventajas<a class="headerlink" href="#id27" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>La puntuación es mayor cuando los conglomerados son densos y están bien separados, lo cual se relaciona con el concepto estándar de un conglomerado.</p></li>
+<li><p>La puntuación es rápida de calcular.</p></li>
+</ul>
+</section>
+<section id="id28">
+<h4><span class="section-number">2.3.10.6.2. </span>Inconvenientes<a class="headerlink" href="#id28" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>El índice de Calinski-Harabasz suele ser mayor para los conglomerados convexos que para otros conceptos de conglomerados, entre ellos los conglomerados basados en la densidad como los obtenidos a través de DBSCAN.</p></li>
+</ul>
+</section>
+<section id="id29">
+<h4><span class="section-number">2.3.10.6.3. </span>Formulación matemática<a class="headerlink" href="#id29" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Para un conjunto de datos <span class="math notranslate nohighlight">\(E\)</span> de tamaño <span class="math notranslate nohighlight">\(n_E\)</span> que ha sido agrupado en <span class="math notranslate nohighlight">\(k\)</span> conglomerados, la puntuación de Calinski-Harabasz <span class="math notranslate nohighlight">\(s\)</span> se define como la razón de la dispersión media entre los conglomerados y la dispersión dentro de los conglomerados:</p>
+<div class="math notranslate nohighlight">
+\[s = \frac{\mathrm{tr}(B_k)}{\mathrm{tr}(W_k)} \times \frac{n_E - k}{k - 1}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\mathrm{tr}(B_k)\)</span> es la traza de la matriz de la dispersión entre grupos y <span class="math notranslate nohighlight">\(mathrm{tr}(W_k)\)</span> es la traza de la matriz de la dispersión dentro del conglomerado definida por:</p>
+<div class="math notranslate nohighlight">
+\[W_k = \sum_{q=1}^k \sum_{x \in C_q} (x - c_q) (x - c_q)^T\]</div>
+<div class="math notranslate nohighlight">
+\[B_k = \sum_{q=1}^k n_q (c_q - c_E) (c_q - c_E)^T\]</div>
+<p>con <span class="math notranslate nohighlight">\(C_q\)</span> el conjunto de puntos en el conglomerado <span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(c_q\)</span> el centro del conglomerado <span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(c_E\)</span> el centro de <span class="math notranslate nohighlight">\(E\)</span>, y <span class="math notranslate nohighlight">\(n_q\)</span> el número de puntos del conglomerado <span class="math notranslate nohighlight">\(q\)</span>.</p>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>Caliński, T., &amp; Harabasz, J. (1974).
+<a class="reference external" href="https://www.researchgate.net/publication/233096619_A_Dendrite_Method_for_Cluster_Analysis">«A Dendrite Method for Cluster Analysis»</a>.
+Communications in Statistics-theory and Methods 3: 1-27.
+<a class="reference external" href="https://doi.org/10.1080/03610927408827101">doi:10.1080/03610927408827101</a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="davies-bouldin-index">
+<span id="id30"></span><h3><span class="section-number">2.3.10.7. </span>Índice de Davies-Bouldin<a class="headerlink" href="#davies-bouldin-index" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si no se conocen las etiquetas basadas en la evidencia, se puede utilizar el índice de Davies-Bouldin (<a class="reference internal" href="generated/sklearn.metrics.davies_bouldin_score.html#sklearn.metrics.davies_bouldin_score" title="sklearn.metrics.davies_bouldin_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.davies_bouldin_score</span></code></a>) para evaluar el modelo, donde un índice de Davies-Bouldin más bajo se relaciona con un modelo con mejor separación entre los conglomerados.</p>
+<p>Este índice significa la «similitud» promedio entre conglomerados, donde la similitud es una medida que compara la distancia entre conglomerados con el tamaño de los propios conglomerados.</p>
+<p>El cero es la puntuación más baja posible. Los valores más cercanos a cero indican una mejor partición.</p>
+<p>En el uso normal, el índice de Davies-Bouldin se aplica a los resultados de un análisis de conglomerados de la siguiente manera:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">davies_bouldin_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">davies_bouldin_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="go">0.6619...</span>
+</pre></div>
+</div>
+<section id="id31">
+<h4><span class="section-number">2.3.10.7.1. </span>Ventajas<a class="headerlink" href="#id31" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>El cálculo de Davies-Bouldin es más sencillo que el de las puntuaciones de Silueta.</p></li>
+<li><p>El índice sólo calcula las cantidades y características inherentes al conjunto de datos.</p></li>
+</ul>
+</section>
+<section id="id32">
+<h4><span class="section-number">2.3.10.7.2. </span>Inconvenientes<a class="headerlink" href="#id32" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>El índice de Davies-Boulding suele ser mayor para los conglomerados convexos que para otros conceptos de conglomerados, como los basados en la densidad, como los obtenidos con DBSCAN.</p></li>
+<li><p>El uso de la distancia centroide limita la métrica de la distancia al espacio Euclideano.</p></li>
+</ul>
+</section>
+<section id="id33">
+<h4><span class="section-number">2.3.10.7.3. </span>Formulación matemática<a class="headerlink" href="#id33" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>El índice se define como la similitud promedio entre cada conglomerado <span class="math notranslate nohighlight">\(C_i\)</span> para <span class="math notranslate nohighlight">\(i=1, ..., k\)</span> y su más similar <span class="math notranslate nohighlight">\(C_j\)</span>. En el contexto de este índice, la similitud se define como una medida <span class="math notranslate nohighlight">\(R_{ij}\)</span> que compensa:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s_i\)</span> la distancia promedio entre cada punto del conglomerado <span class="math notranslate nohighlight">\(i\)</span> y el centroide de ese conglomerado – también conocido como diámetro del conglomerado.</p></li>
+<li><p><span class="math notranslate nohighlight">\(d_{ij}\)</span>, la distancia entre los centroides de los conglomerados <span class="math notranslate nohighlight">\(i\)</span> y <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+</ul>
+<p>Una opción sencilla para construir <span class="math notranslate nohighlight">\(R_{ij}\)</span> de manera que sea no negativa y simétrica es:</p>
+<div class="math notranslate nohighlight">
+\[R_{ij} = \frac{s_i + s_j}{d_{ij}}\]</div>
+<p>Entonces el índice de Davies-Bouldin se define como:</p>
+<div class="math notranslate nohighlight">
+\[DB = \frac{1}{k} \sum_{i=1}^k \max_{i \neq j} R_{ij}\]</div>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>Davies, David L.; Bouldin, Donald W. (1979).
+«A Cluster Separation Measure»
+IEEE Transactions on Pattern Analysis and Machine Intelligence.
+PAMI-1 (2): 224-227.
+<a class="reference external" href="https://doi.org/10.1109/TPAMI.1979.4766909">doi:10.1109/TPAMI.1979.4766909</a>.</p></li>
+<li><p>Halkidi, Maria; Batistakis, Yannis; Vazirgiannis, Michalis (2001).
+«On Clustering Validation Techniques»
+Journal of Intelligent Information Systems, 17(2-3), 107-145.
+<a class="reference external" href="https://doi.org/10.1023/A:1012801612483">doi:10.1023/A:1012801612483</a>.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Davies–Bouldin_index">Wikipedia entry for Davies-Bouldin index</a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="contingency-matrix">
+<span id="id34"></span><h3><span class="section-number">2.3.10.8. </span>Matriz de contingencia<a class="headerlink" href="#contingency-matrix" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La matriz de contingencia (<a class="reference internal" href="generated/sklearn.metrics.cluster.contingency_matrix.html#sklearn.metrics.cluster.contingency_matrix" title="sklearn.metrics.cluster.contingency_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.cluster.contingency_matrix</span></code></a>) informa de la cardinalidad de la intersección para cada par de conglomerados verdadero/predicho. La matriz de contingencia proporciona estadísticos suficientes para todas las métricas de agrupamiento (análisis de conglomerados) en las que las muestras son independientes e idénticamente distribuidas y no es necesario tener en cuenta que algunas instancias no están conglomeradas.</p>
+<p>Aquí hay un ejemplo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">contingency_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contingency_matrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([[2, 1, 0],</span>
+<span class="go">       [0, 1, 2]])</span>
+</pre></div>
+</div>
+<p>La primera fila del arreglo de salida indica que hay tres muestras cuyo verdadero conglomerado es «a». De ellas, dos están en el conglomerado predicho 0, una en el 1 y ninguna en el 2. Y la segunda fila indica que hay tres muestras cuyo verdadero conglomerado es «b». De ellas, ninguna está en el conglomerado previsto 0, una está en el 1 y dos en el 2.</p>
+<p>Una <a class="reference internal" href="model_evaluation.html#confusion-matrix"><span class="std std-ref">matriz de confusión</span></a> para la clasificación es una matriz de contingencia cuadrada donde el orden de filas y columnas corresponden a una lista de clases.</p>
+<section id="id35">
+<h4><span class="section-number">2.3.10.8.1. </span>Ventajas<a class="headerlink" href="#id35" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>Permite examinar la propagación de cada conglomerado verdadero a través de conglomerados predichos, y viceversa.</p></li>
+<li><p>La tabla de contingencia calculada suele utilizarse en el cálculo de un estadístico de similitud (como los demás que figuran en este documento) entre los dos agrupamientos.</p></li>
+</ul>
+</section>
+<section id="id36">
+<h4><span class="section-number">2.3.10.8.2. </span>Inconvenientes<a class="headerlink" href="#id36" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li><p>La matriz de contingencia es fácil de interpretar para un pequeño número de conglomerados, pero se vuelve muy difícil de interpretar para un gran número de conglomerados.</p></li>
+<li><p>No da una sola métrica para usar como objetivo para la optimización del agrupamiento.</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Contingency_table">Wikipedia entry for contingency matrix</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="pair-confusion-matrix">
+<span id="id37"></span><h3><span class="section-number">2.3.10.9. </span>Matriz de confusión por pares<a class="headerlink" href="#pair-confusion-matrix" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La matriz de confusión por pares (<a class="reference internal" href="generated/sklearn.metrics.cluster.pair_confusion_matrix.html#sklearn.metrics.cluster.pair_confusion_matrix" title="sklearn.metrics.cluster.pair_confusion_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.cluster.pair_confusion_matrix</span></code></a>) es una matriz de similitud de 2x2</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C = \left[\begin{matrix}
+C_{00} &amp; C_{01} \\
+C_{10} &amp; C_{11}
+\end{matrix}\right]\end{split}\]</div>
+<p>entre dos agrupamientos calculados considerando todos los pares de muestras y contando los pares que se asignan en el mismo o en diferentes conglomerados bajo los agrupamientos verdaderos y predichos.</p>
+<p>Tiene las siguientes entradas:</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(C_{00}\)</span> : número de pares con ambos agrupamientos que tienen las muestras no conglomeradas</p>
+<p><span class="math notranslate nohighlight">\(C_{10}\)</span> : número de pares con el agrupamiento de etiqueta verdadera que tiene las muestras conglomeradas pero el otro agrupamiento no tiene las muestras conglomeradas</p>
+<p><span class="math notranslate nohighlight">\(C_{01}\)</span> : número de pares con el agrupamiento de la etiqueta verdadera que no tiene las muestras conglomeradas pero el otro agrupamiento tiene las muestras conglomeradas</p>
+<p><span class="math notranslate nohighlight">\(C_{11}\)</span> : número de pares con ambos agrupamientos que tienen las muestras conglomeradas</p>
+</div></blockquote>
+<p>Considerando un par de muestras que están conglomeradas como un par positivo, entonces como en la clasificación binaria el conteo de verdaderos negativos es <span class="math notranslate nohighlight">\(C_{00}\)</span>, falsos negativos <span class="math notranslate nohighlight">\(C_{10}\)</span>, verdaderos positivos <span class="math notranslate nohighlight">\(C_{11}\)</span> y falsos positivos <span class="math notranslate nohighlight">\(C_{01}\)</span>.</p>
+<p>Las etiquetas que corresponden perfectamente tienen todas las entradas no nulas o iguales a cero en la diagonal, independientemente de los valores reales de las etiquetas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">pair_confusion_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pair_confusion_matrix</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">array([[8, 0],</span>
+<span class="go">       [0, 4]])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pair_confusion_matrix</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">array([[8, 0],</span>
+<span class="go">       [0, 4]])</span>
+</pre></div>
+</div>
+<p>Las etiquetas que asignan a todos los miembros de las clases a los mismos conglomerados son completos, pero pueden no ser siempre puros, por lo que están penalizados, y tienen algunas entradas no nulas fuera de la diagonal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pair_confusion_matrix</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">array([[8, 2],</span>
+<span class="go">       [0, 2]])</span>
+</pre></div>
+</div>
+<p>La matriz no es simétrica:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pair_confusion_matrix</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="go">array([[8, 0],</span>
+<span class="go">       [2, 2]])</span>
+</pre></div>
+</div>
+<p>Si los miembros de las clases están completamente divididos en diferentes conglomerados, la asignación es totalmente incompleta, por lo que la matriz tiene todas las entradas diagonales cero:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pair_confusion_matrix</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">array([[ 0,  0],</span>
+<span class="go">       [12,  0]])</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>L. Hubert and P. Arabie, Comparing Partitions, Journal of
+Classification 1985
+&lt;<a class="reference external" href="https://link.springer.com/article/10.1007%2FBF01908075">https://link.springer.com/article/10.1007%2FBF01908075</a>&gt;_</p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/clustering.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

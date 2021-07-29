@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.2. Análisis Discriminante Lineal y Cuadrático &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/lda_qda.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="linear_model.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.1. Modelos lineales">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="kernel_ridge.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.3. Regresión de cresta de núcleo">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.2. Análisis Discriminante Lineal y Cuadrático</a><ul>
+<li><a class="reference internal" href="#dimensionality-reduction-using-linear-discriminant-analysis">1.2.1. Reducción de dimensionalidad usando el Análisis Discriminante Lineal</a></li>
+<li><a class="reference internal" href="#mathematical-formulation-of-the-lda-and-qda-classifiers">1.2.2. Formulación matemática de los clasificadores ADL y ADQ</a><ul>
+<li><a class="reference internal" href="#qda">1.2.2.1. ADQ</a></li>
+<li><a class="reference internal" href="#lda">1.2.2.2. ADL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mathematical-formulation-of-lda-dimensionality-reduction">1.2.3. Formulación matemática de la reducción de dimensionalidad del ADL</a></li>
+<li><a class="reference internal" href="#shrinkage-and-covariance-estimator">1.2.4. Estimador de Reducción y Covarianza</a></li>
+<li><a class="reference internal" href="#estimation-algorithms">1.2.5. Algoritmos de estimación</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="linear-and-quadratic-discriminant-analysis">
+<span id="lda-qda"></span><h1><span class="section-number">1.2. </span>Análisis Discriminante Lineal y Cuadrático<a class="headerlink" href="#linear-and-quadratic-discriminant-analysis" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El análisis lineal de discriminantes (<a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a>) y el análisis discriminante cuadrático (<a class="reference internal" href="generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuadraticDiscriminantAnalysis</span></code></a>) son dos clasificadores clásicos que tienen, como su nombre lo indica, una superficie de decisión lineal y cuadrática, respectivamente.</p>
+<p>Estos clasificadores son atractivos porque tienen soluciones de forma cerrada que pueden ser calculadas fácilmente, son inherentemente multiclase, se ha demostrado que funcionan bien en la practica, y no tienen hiperparámetros que ajustar.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/classification/plot_lda_qda.html"><img alt="ldaqda" src="../_images/sphx_glr_plot_lda_qda_001.png" style="width: 800.0px; height: 640.0px;" /></a></strong></p><p>El gráfico muestra los límites de decisión para el Análisis Discriminante Lineal y el Análisis Discriminante Cuadrático. La fila de abajo demuestra que el Análisis Discriminante Lineal solo puede aprender límites lineales, mientras que el Análisis Discriminante Cuadrático puede aprender límites cuadráticos y es por lo tanto mas flexible.</p>
+<div class="topic">
+<p class="topic-title">Ejemplos:</p>
+<p><a class="reference internal" href="../auto_examples/classification/plot_lda_qda.html#sphx-glr-auto-examples-classification-plot-lda-qda-py"><span class="std std-ref">Análisis discriminante lineal y cuadrático con elipsoide de covarianza</span></a>: Comparación de ADL y ADQ en datos sintéticos.</p>
+</div>
+<section id="dimensionality-reduction-using-linear-discriminant-analysis">
+<h2><span class="section-number">1.2.1. </span>Reducción de dimensionalidad usando el Análisis Discriminante Lineal<a class="headerlink" href="#dimensionality-reduction-using-linear-discriminant-analysis" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a> puede ser utilizado para realizar una reducción de dimensionalidad supervisada, mediante la proyección de los datos de entrada a un subespacio lineal consistiendo de las direcciones que maximizen la separación entre las clases (en un sentido preciso discutido en la sección de matemáticas abajo). La dimensión de la salida es necesariamente menor que el número de las clases, por lo que esto es en general una reducción de dimensionalidad bastante fuerte, y solo tiene sentido en un ajustamiento multiclase.</p>
+<p>Esto está implementado en el método <code class="docutils literal notranslate"><span class="pre">transform</span></code>. La dimensionalidad deseada puede establecerse usando el parámetro <code class="docutils literal notranslate"><span class="pre">n_components</span></code>. Este parámetro no tiene influencia en los métodos <code class="docutils literal notranslate"><span class="pre">fit</span></code> y <code class="docutils literal notranslate"><span class="pre">predict</span></code>.</p>
+<div class="topic">
+<p class="topic-title">Ejemplos:</p>
+<p><a class="reference internal" href="../auto_examples/decomposition/plot_pca_vs_lda.html#sphx-glr-auto-examples-decomposition-plot-pca-vs-lda-py"><span class="std std-ref">Comparación de la proyección arreglo 2D de LDA y PCA del conjunto de datos de Iris</span></a>: Comparación de ADL y PCA para la reducción de dimensionalidad del conjunto de datos Iris</p>
+</div>
+</section>
+<section id="mathematical-formulation-of-the-lda-and-qda-classifiers">
+<span id="lda-qda-math"></span><h2><span class="section-number">1.2.2. </span>Formulación matemática de los clasificadores ADL y ADQ<a class="headerlink" href="#mathematical-formulation-of-the-lda-and-qda-classifiers" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Tanto ADL como ADQ pueden ser derivados de modelos probabilisticos sencillos que modelan la distribución condicionada por la clase de los datos <span class="math notranslate nohighlight">\(P(X|y=k)\)</span> por cada clase <span class="math notranslate nohighlight">\(k\)</span>. Las predicciones pueden entonces ser obtenidas usando la regla de Bayes, para cada muestra de entrenamiento <span class="math notranslate nohighlight">\(x \in \mathcal{R}^d\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[P(y=k | x) = \frac{P(x | y=k) P(y=k)}{P(x)} = \frac{P(x | y=k) P(y = k)}{ \sum_{l} P(x | y=l) \cdot P(y=l)}\]</div>
+<p>y seleccionamos la clase <span class="math notranslate nohighlight">\(k\)</span> que maximiza esta probabilidad posterior.</p>
+<p>Más específicamente, para el análisis discriminante lineal y cuadrático, <span class="math notranslate nohighlight">\(P(x|y)\)</span> está modelado como una distribución Gaussiana multivariante con densidad:</p>
+<div class="math notranslate nohighlight">
+\[P(x | y=k) = \frac{1}{(2\pi)^{d/2} |\Sigma_k|^{1/2}}\exp\left(-\frac{1}{2} (x-\mu_k)^t \Sigma_k^{-1} (x-\mu_k)\right)\]</div>
+<p>donde <span class="math notranslate nohighlight">\(d\)</span> es el número de características.</p>
+<section id="qda">
+<h3><span class="section-number">1.2.2.1. </span>ADQ<a class="headerlink" href="#qda" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>De acuerdo con el modelo anterior, el log del posterior es:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\log P(y=k | x) &amp;= \log P(x | y=k) + \log P(y = k) + Cst \\
+&amp;= -\frac{1}{2} \log |\Sigma_k| -\frac{1}{2} (x-\mu_k)^t \Sigma_k^{-1} (x-\mu_k) + \log P(y = k) + Cst,\end{split}\]</div>
+<p>donde el termino constante <span class="math notranslate nohighlight">\(Cst\)</span> corresponde al denominador <span class="math notranslate nohighlight">\(P(x)\)</span>, junto a los otros terminos constantes del Gaussiano. La clase predicha es aquella que maximiza este log-posterior.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Relación con Bayes ingenuo Gaussiano</strong></p>
+<p>Si en el modelo ADQ uno asumo que las matrices de covarianza son diagonales, entonces se asume que las entradas son condicionalmente independientes en cada clase, y que el clasificador resultante es equivalente al clasificador Bayesiano Ingenuo Gaussiano <a class="reference internal" href="generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">naive_bayes.GaussianNB</span></code></a>.</p>
+</div>
+</section>
+<section id="lda">
+<h3><span class="section-number">1.2.2.2. </span>ADL<a class="headerlink" href="#lda" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El ADL es un caso especial de ADQ, donde se asume que los Gaussianos de cada clase comparten la misma matriz de covarianza: <span class="math notranslate nohighlight">\(\Sigma_k = \Sigma\)</span> para todo <span class="math notranslate nohighlight">\(k\)</span>. Esto reduce el log posterior a:</p>
+<div class="math notranslate nohighlight">
+\[\log P(y=k | x) = -\frac{1}{2} (x-\mu_k)^t \Sigma^{-1} (x-\mu_k) + \log P(y = k) + Cst.\]</div>
+<p>El termino <span class="math notranslate nohighlight">\((x-\mu_k)^t \Sigma^{-1} (x-\mu_k)\)</span> corresponde a la Distancia de Mahalanobis &lt;<a class="reference external" href="https://es.wikipedia.org/wiki/Distancia_de_Mahalanobis">https://es.wikipedia.org/wiki/Distancia_de_Mahalanobis</a>&gt;`_ desde la muestra <span class="math notranslate nohighlight">\(x\)</span> y la media <span class="math notranslate nohighlight">\(\mu_k\)</span>. La distancia de Mahalanobis nos dice que tan cerca esta <span class="math notranslate nohighlight">\(x\)</span> desde <span class="math notranslate nohighlight">\(\mu_k\)</span>, mientras que se toma en cuenta la varianza de cada característica. Podemos entonces interpretar al ADL como asignar <span class="math notranslate nohighlight">\(x\)</span> a aquella clase cuya media es la mas cercana en terminos de distancia de Mahalanobis, mientras también se contabilizan las probabilidades previas de la clase.</p>
+<p>El log-posterior de ADL también se puede escribir <a class="footnote-reference brackets" href="#id7" id="id1">3</a> como:</p>
+<div class="math notranslate nohighlight">
+\[\log P(y=k | x) = \omega_k^t x + \omega_{k0} + Cst.\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\omega_k = \Sigma^{-1} \mu_k\)</span> y <span class="math notranslate nohighlight">\(\omega_{k0} = -\frac{1}{2} \mu_k^t\Sigma^{-1}\mu_k + \log P (y = k)\)</span>. Estas cantidades corresponden a los atributos <code class="docutils literal notranslate"><span class="pre">coef_</span></code> y <code class="docutils literal notranslate"><span class="pre">intercept_</span></code>, respectivamente.</p>
+<p>De la fórmula anterior, está claro que el ADL tiene una superficie de decisión lineal. En el caso del ADQ, no hay suposiciones sobre las matrices de covarianza <span class="math notranslate nohighlight">\(\Sigma_k\)</span> de los gaussianos, lo que lleva a superficies cuadráticas de decisión. Ver <a class="footnote-reference brackets" href="#id5" id="id2">1</a> para más detalles.</p>
+</section>
+</section>
+<section id="mathematical-formulation-of-lda-dimensionality-reduction">
+<h2><span class="section-number">1.2.3. </span>Formulación matemática de la reducción de dimensionalidad del ADL<a class="headerlink" href="#mathematical-formulation-of-lda-dimensionality-reduction" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Primero note que la K significa que <span class="math notranslate nohighlight">\(\mu_k\)</span> son vectores en <span class="math notranslate nohighlight">\(\mathcal{R}^d\)</span>, y que se encuentran en un subespacio afino <span class="math notranslate nohighlight">\(H\)</span> de dimensión al menos <span class="math notranslate nohighlight">\(K - 1\)</span> (2 puntos yacen en una linea, 3 points en un plano, etc).</p>
+<p>Como se mencionó anteriormente, podemos interpretar ADL como asignar <span class="math notranslate nohighlight">\(x\)</span> a la clase cuya media <span class="math notranslate nohighlight">\(\mu_k\)</span> es la mas cercana en terminos de distancia de Mahalanobis, también contabilizando por las probabilidades previas de la clase. Alternativamente, LDA es equivalente a primero <em>esferificar</em> los datos para que la matriz de covarianza sea la identidad, luego asignando <span class="math notranslate nohighlight">\(x\)</span> a la media mas cercana en terminos de distancia Euclidiana (igualmente tomando en cuenta las previas clases).</p>
+<p>Calcular distancias Euclídeas en este espacio d-dimensional es equivalente a primero proyectar los puntos de datos en <span class="math notranslate nohighlight">\(H\)</span>, y calcular las distancias ahí (ya que las otras dimensiones van a contribuir de manera igual a cada clase en termínos de distancia). En otras palabras, si <span class="math notranslate nohighlight">\(k\)</span> es el mas cercano a <span class="math notranslate nohighlight">\(\mu_k\)</span> en el espacio original, también sera el caso en <span class="math notranslate nohighlight">\(H\)</span>. Esto nos muestra que hay una reducción de dimensionalidad por proyección lineal hacía un espacio de <span class="math notranslate nohighlight">\(K-1\)</span> dimensiones implícita en el clasificador ADL.</p>
+<p>Podemos reducir la dimensión aún mas, a un <span class="math notranslate nohighlight">\(L\)</span> elegido, si proyectamos hacia el subespacio lineal <span class="math notranslate nohighlight">\(H_L\)</span> que maximiza la varianza de <span class="math notranslate nohighlight">\(\mu^*_k\)</span> después de la proyección (en efecto, estamos haciendo una forma de PCA para las medias de clase transformadas <span class="math notranslate nohighlight">\(\mu^*_k\)</span>). Este <span class="math notranslate nohighlight">\(L\)</span> corresponde al parámetro <code class="docutils literal notranslate"><span class="pre">n_components</span></code> usado en el método <a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis.transform" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis.transform"><code class="xref py py-func docutils literal notranslate"><span class="pre">transform</span></code></a>. Ver <a class="footnote-reference brackets" href="#id5" id="id3">1</a> para más detalles.</p>
+</section>
+<section id="shrinkage-and-covariance-estimator">
+<h2><span class="section-number">1.2.4. </span>Estimador de Reducción y Covarianza<a class="headerlink" href="#shrinkage-and-covariance-estimator" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La reducción es una forma de regularización usada para mejorar la estimación de matrices de covarianza en situaciones donde el número de muestras de entrenamiento es pequeño comparado al número de características. En este escenario, la covarianza de muestras empírica es un estimador pobre, y la reducción ayuda a mejorar el rendimiento de generalización del clasificador. El ADL de reducción se puede utilizar estableciendo el parámetro <code class="docutils literal notranslate"><span class="pre">shrinkage</span></code> de la clase <a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a> como “auto”. Esto automáticamente determina que el parámetro óptimo de reducción siguiendo el lemma introducido por Ledoit y Wolf <a class="footnote-reference brackets" href="#id6" id="id4">2</a>. Note que por el momento la reducción solo funciona cuando el parámetro <code class="docutils literal notranslate"><span class="pre">solver</span></code> esta configurado como “lsqr” o “eigen”.</p>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">shrinkage</span></code> también puede establecerse manualmente entre 0 y 1. En particular, un valor de 0 corresponde a ninguna reducción (lo cual significa que la matriz de covarianza empírica sera utilizada), y un valor de 1 corresponde a reducción total (lo cual significa que la matriz diagonal de varianzas sera utilizada como un estimado para la matriz de covarianza). Si se pasa un valor entre estos dos extremos a este parámetro, se estimara una versión reducida del matriz de covarianza.</p>
+<p>El estimador de covarianza Ledoit y Wolf reducido quizás no sea siempre la mejor opción. Por ejemplo, si la distribución de lo datos esta normalmente distribuida, el estimador Oracle Shrinkage Approximating <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.covariance.OAS</span></code></a> da un menor error cuadrático medio que el dado por la formula de Ledoit y Wolf usada con shrinkage=»auto». En ADL, los datos se presumen que son condicionalmente gaussianos a la clase. Si estos supuestos se cumplen, usar ADL con el estimador de covarianza OAS dará una mejor precisión de clasificación que si se usan los estimadores Lediot y Wolf o de covarianza empírica.</p>
+<p>El estimador de covarianza se puede escoger utilizando el parámetro <code class="docutils literal notranslate"><span class="pre">covariance_estimator</span></code> de la clase <a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">discriminant_analysis.LinearDiscriminantAnalysis</span></code></a>. Un estimador de covarianza debería tener un método <a class="reference internal" href="../glossary.html#term-fit"><span class="xref std std-term">fit</span></a> y un atributo <code class="docutils literal notranslate"><span class="pre">covariance_</span></code> como todos los estimadores de covarianza en el módulo <a class="reference internal" href="classes.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a>.</p>
+<p class="centered">
+<strong>reducción</strong></p><div class="topic">
+<p class="topic-title">Ejemplos:</p>
+<p><a class="reference internal" href="../auto_examples/classification/plot_lda.html#sphx-glr-auto-examples-classification-plot-lda-py"><span class="std std-ref">Análisis discriminante lineal normal, Ledoit-Wolf y OAS para la clasificación</span></a>: Comparación de los clasificadores ADL con los estimadores de covarianza Empíricos, Ledoit Wolf y OAS.</p>
+</div>
+</section>
+<section id="estimation-algorithms">
+<h2><span class="section-number">1.2.5. </span>Algoritmos de estimación<a class="headerlink" href="#estimation-algorithms" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Usar ADL y ADQ requiere calcular el log-posterior que depende en los antecedentes de clase <span class="math notranslate nohighlight">\(P(y=k)\)</span>, los medios de clase <span class="math notranslate nohighlight">\(\mu_k\)</span> y las matrices de covarianza.</p>
+<p>El solucionador “svd” es el solucionador por defecto utilizado por <a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a>, y es el único solucionador disponible para <a class="reference internal" href="generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuadraticDiscriminantAnalysis</span></code></a>. Puede realizar tanto clasificación como transformación (para ADL). Ya que no se basa en el calculo de la matriz de covarianza, el solucionador “svd” podría ser preferible en situaciones donde el número de características es grande. El solucionador “svd” no puede ser utilizado con reducción. Para el ADQ, el uso del solucionador SVD se sostiene en el hecho de que la matriz de covarianza <span class="math notranslate nohighlight">\(\Sigma_k\)</span> es, por definición, igual a <span class="math notranslate nohighlight">\(\frac{1}{n - 1} X_k^tX_k = V S^2 V^t\)</span>, donde <span class="math notranslate nohighlight">\(V\)</span> viene del SVD de la matriz (centrada): <span class="math notranslate nohighlight">\(X_k = U S V^t\)</span>. Resulta que podemos calcular el log-posterior anterior sin necesitar calcular explícitamente <span class="math notranslate nohighlight">\(\Sigma\)</span>: calcular <span class="math notranslate nohighlight">\(S\)</span> y <span class="math notranslate nohighlight">\(V\)</span> mediante el SVD de <span class="math notranslate nohighlight">\(X\)</span> es suficiente. Para el ADL, se calculan dos SVD: el SVD de la matríz de entrada centrada <span class="math notranslate nohighlight">\(X\)</span> y el SVD de los vectores medios por clase.</p>
+<p>El solucionador “lsqr” es un algoritmo eficiente que sólo funciona para la clasificación. Necesita calcular explicitamente la covarianza de matriz <span class="math notranslate nohighlight">\(\Sigma\)</span>, y soporta estimadores de reducción y covarianza personalizada. Este solucionador calcula los coeficientes <span class="math notranslate nohighlight">\(\omega_k = \Sigma^{-1}\mu_k\)</span> resolviendo <span class="math notranslate nohighlight">\(\Sigma \omega = \mu_k\)</span>, así evitando el calculo explicito de la inversa <span class="math notranslate nohighlight">\(\Sigma^{-1}\)</span>.</p>
+<p>El solucionador “eigen” esta basado en la optimización de la razón entre la dispersión entre clases y la dispersión dentro de clases. Puede ser utilizada tanto para clasificación como transformación, y soporta la reducción. Sin embargo, el solucionador “eigen” necesita calcular la matriz de covarianza, así que quizás no sea adecuado para situaciones con un gran número de características.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets">1</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>«The Elements of Statistical Learning», Hastie T., Tibshirani R.,
+Friedman J., Section 4.3, p.106-119, 2008.</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p>Ledoit O, Wolf M. Honey, I Shrunk the Sample Covariance Matrix.
+The Journal of Portfolio Management 30(4), 110-119, 2004.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id1">3</a></span></dt>
+<dd><p>R. O. Duda, P. E. Hart, D. G. Stork. Pattern Classification
+(Second Edition), section 2.6.2.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/lda_qda.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

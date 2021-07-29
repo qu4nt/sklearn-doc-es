@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2.4. Biclustering &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/biclustering.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="clustering.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.3. Análisis de conglomerados (Agrupamiento)">Prev</a><a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Arriba</a>
+            <a href="decomposition.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.5. Descomposición de señales en componentes (problemas de factorización de matrices)">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">2.4. Biclustering</a><ul>
+<li><a class="reference internal" href="#spectral-co-clustering">2.4.1. Co-Clustering espectral</a><ul>
+<li><a class="reference internal" href="#mathematical-formulation">2.4.1.1. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spectral-biclustering">2.4.2. Biclustering espectral</a><ul>
+<li><a class="reference internal" href="#id3">2.4.2.1. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#biclustering-evaluation">2.4.3. Evaluación de Biclustering</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="biclustering">
+<span id="id1"></span><h1><span class="section-number">2.4. </span>Biclustering<a class="headerlink" href="#biclustering" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El biclustering puede realizarse con el módulo <code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.cluster.bicluster</span></code>. Los algoritmos de biclustering agrupan simultáneamente filas y columnas de una matriz de datos. Estos clusters de filas y columnas se conocen como biclusters. Cada uno determina una submatriz de la matriz de datos original con algunas propiedades deseadas.</p>
+<p>Por ejemplo, dada una matriz de forma <code class="docutils literal notranslate"><span class="pre">(10,</span> <span class="pre">10)</span></code>, un bicluster posible con tres filas y dos columnas induce un submatriz de la forma <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">2)</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">]</span>
+<span class="go">array([[ 1,  2],</span>
+<span class="go">       [21, 22],</span>
+<span class="go">       [31, 32]])</span>
+</pre></div>
+</div>
+<p>Para fines de visualización, dado un bicluster, las filas y columnas de la matriz de datos pueden ser reorganizadas para hacer el bicluster contiguo.</p>
+<p>Los algoritmos difieren en cómo se definen los biclusters. Algunos de los tipos comunes incluyen:</p>
+<ul class="simple">
+<li><p>valores constantes, filas constantes o columnas constantes</p></li>
+<li><p>valores inusualmente altos o bajos</p></li>
+<li><p>submatrices con baja varianza</p></li>
+<li><p>filas o columnas correlacionadas</p></li>
+</ul>
+<p>Los algoritmos también difieren en la forma de asignar filas y columnas a los biclusters, lo que da lugar a diferentes estructuras de bicluster. Las estructuras de bloque diagonal o de tablero de ajedrez se producen cuando las filas y las columnas se dividen en particiones.</p>
+<p>Si cada fila y cada columna pertenecen exactamente a un biclúster, el reordenamiento de las filas y columnas de la matriz de datos revela los biclústeres en la diagonal. He aquí un ejemplo de esta estructura en la que los biclusters tienen valores medios más altos que las demás filas y columnas:</p>
+<figure class="align-center" id="id5">
+<a class="reference external image-reference" href="../auto_examples/bicluster/images/sphx_glr_plot_spectral_coclustering_003.png"><img alt="../_images/sphx_glr_plot_spectral_coclustering_003.png" src="../_images/sphx_glr_plot_spectral_coclustering_003.png" style="width: 240.0px; height: 240.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Un ejemplo de biclusters formado por particionado de filas y columnas.</span><a class="headerlink" href="#id5" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<p>En el caso del tablero de ajedrez, cada fila pertenece a todos los grupos de columnas y cada columna pertenece a todos los grupos de filas. He aquí un ejemplo de esta estructura en la que la varianza de los valores dentro de cada bicluster es pequeña:</p>
+<figure class="align-center" id="id6">
+<a class="reference external image-reference" href="../auto_examples/bicluster/images/sphx_glr_plot_spectral_biclustering_003.png"><img alt="../_images/sphx_glr_plot_spectral_biclustering_003.png" src="../_images/sphx_glr_plot_spectral_biclustering_003.png" style="width: 240.0px; height: 240.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Un ejemplo de biclusters de tablero de ajedrez.</span><a class="headerlink" href="#id6" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<p>Después de ajustar un modelo, la pertenencia a los clusters de filas y columnas se puede encontrar en los atributos <code class="docutils literal notranslate"><span class="pre">rows_</span></code> y <code class="docutils literal notranslate"><span class="pre">columns_</span></code>. El atributo <code class="docutils literal notranslate"><span class="pre">rows_[i]</span></code> es un vector binario con entradas no nulas que corresponden a las filas que pertenecen al bicluster <code class="docutils literal notranslate"><span class="pre">i</span></code>. Del mismo modo, <code class="docutils literal notranslate"><span class="pre">columns_[i]</span></code> indica qué columnas pertenecen al bicluster <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
+<p>Algunos modelos también tienen atributos <code class="docutils literal notranslate"><span class="pre">row_labels_</span></code> y <code class="docutils literal notranslate"><span class="pre">column_labels_</span></code>. Estos modelos particionan las filas y columnas, como en las estructuras de bicluster del bloque diagonal y del tablero de ajedrez.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El biclustering tiene muchos otros nombres en diferentes campos, como co-clustering, clustering de dos modos, clustering de dos vías, clustering de bloques, clustering de dos vías acoplado, etc. Los nombres de algunos algoritmos, como el algoritmo de Co-Clustering Espectral, reflejan estos nombres alternativos.</p>
+</div>
+<section id="spectral-co-clustering">
+<span id="spectral-coclustering"></span><h2><span class="section-number">2.4.1. </span>Co-Clustering espectral<a class="headerlink" href="#spectral-co-clustering" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El algoritmo <code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralCoclustering</span></code> encuentra biclusters con valores más altos que los de las otras filas y columnas correspondientes. Cada fila y cada columna pertenecen exactamente a un biclúster, por lo que la reorganización de las filas y columnas para que las particiones sean contiguas revela estos valores altos a lo largo de la diagonal:</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El algoritmo trata la matriz de datos de entrada como un grafo bipartito: las filas y columnas de la matriz corresponden a los dos conjuntos de vértices, y cada entrada corresponde a una arista entre una fila y una columna. El algoritmo aproxima el corte normalizado de este grafo para encontrar subgrafos pesados.</p>
+</div>
+<section id="mathematical-formulation">
+<h3><span class="section-number">2.4.1.1. </span>Formulación matemática<a class="headerlink" href="#mathematical-formulation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una solución aproximada al corte óptimo normalizado puede encontrarse a través de la descomposición generalizada de valores propios del laplaciano del grafo. Normalmente, esto significaría trabajar directamente con la matriz laplaciana. Si la matriz de datos original <span class="math notranslate nohighlight">\(A\)</span> tiene forma <span class="math notranslate nohighlight">\(m \times n\)</span>, la matriz laplaciana del grafo bipartito correspondiente tiene forma <span class="math notranslate nohighlight">\((m + n) \times (m + n)\)</span>. Sin embargo, en este caso es posible trabajar directamente con <span class="math notranslate nohighlight">\(A\)</span>, que es más pequeña y eficiente.</p>
+<p>La matriz de entrada <span class="math notranslate nohighlight">\(A\)</span> está preprocesada como sigue:</p>
+<div class="math notranslate nohighlight">
+\[A_n = R^{-1/2} A C^{-1/2}\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(R\)</span> es la matriz diagonal con la entrada <span class="math notranslate nohighlight">\(i\)</span> igual a <span class="math notranslate nohighlight">\(\sum_{j} A_{ij}\)</span> y <span class="math notranslate nohighlight">\(C\)</span> es la matriz diagonal con la entrada <span class="math notranslate nohighlight">\(j\)</span> igual a <span class="math notranslate nohighlight">\(\sum_{i} A_{ij}\)</span>.</p>
+<p>La descomposición del valor singular, <span class="math notranslate nohighlight">\(A_n = U \Sigma V^\top\)</span>, proporciona las particiones de las filas y columnas de <span class="math notranslate nohighlight">\(A\)</span>. Un subconjunto de los vectores singulares de la izquierda da las particiones de las filas, y un subconjunto de los vectores singulares de la derecha da las particiones de las columnas.</p>
+<p>Los vectores singulares <span class="math notranslate nohighlight">\(\ell = \lceil \log_2 k \rceil\)</span>, empezando por el segundo, proporcionan la información de partición deseada. Se utilizan para formar la matriz <span class="math notranslate nohighlight">\(Z\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z = \begin{bmatrix} R^{-1/2} U \\\\
+                    C^{-1/2} V
+      \end{bmatrix}\end{split}\]</div>
+<p>donde las columnas de <span class="math notranslate nohighlight">\(U\)</span> son <span class="math notranslate nohighlight">\(u_2, \dots, u_{\ell + 1}\)</span>, y similarmente para <span class="math notranslate nohighlight">\(V\)</span>.</p>
+<p>A continuación, las filas de <span class="math notranslate nohighlight">\(Z\)</span> se agrupan utilizando <a class="reference internal" href="clustering.html#k-means"><span class="std std-ref">k-means</span></a>. Las primeras etiquetas <code class="docutils literal notranslate"><span class="pre">n_rows</span></code> proporcionan la partición de las filas, y las restantes etiquetas <code class="docutils literal notranslate"><span class="pre">n_columns</span></code> proporcionan la partición de las columnas.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/bicluster/plot_spectral_coclustering.html#sphx-glr-auto-examples-bicluster-plot-spectral-coclustering-py"><span class="std std-ref">Una demostración del algoritmo de Co-Clustering Espectral</span></a>: Un ejemplo simple que muestra cómo generar una matriz de datos con biclusters y aplicar este método a ella.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/bicluster/plot_bicluster_newsgroups.html#sphx-glr-auto-examples-bicluster-plot-bicluster-newsgroups-py"><span class="std std-ref">Biclustering de documentos con el algoritmo Co-clustering Espectral</span></a>: Un ejemplo de búsqueda de biclusters en el conjunto de datos de veinte grupos de comunicación.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Dhillon, Inderjit S, 2001. <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.140.3011">Co-clustering documents and words using
+bipartite spectral graph partitioning</a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="spectral-biclustering">
+<span id="id2"></span><h2><span class="section-number">2.4.2. </span>Biclustering espectral<a class="headerlink" href="#spectral-biclustering" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El algoritmo <code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralBiclustering</span></code> supone que la matriz de datos de entrada tiene una estructura de tablero de ajedrez oculto. Las filas y las columnas de una matriz con esta estructura pueden dividirse de forma que las entradas de cualquier bicluster en el producto cartesiano de los clusters de filas y los clusters de columnas sean aproximadamente constantes. Por ejemplo, si hay dos particiones de filas y tres de columnas, cada fila pertenecerá a tres biclústeres y cada columna pertenecerá a dos biclústeres.</p>
+<p>El algoritmo divide las filas y las columnas de una matriz de modo que la correspondiente matriz en forma de tablero de ajedrez con constantes de bloque proporciona una buena aproximación a la matriz original.</p>
+<section id="id3">
+<h3><span class="section-number">2.4.2.1. </span>Formulación matemática<a class="headerlink" href="#id3" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La matriz de entrada <span class="math notranslate nohighlight">\(A\)</span> se normaliza primero para que el patrón de tablero de ajedrez sea más evidente. Hay tres métodos posibles:</p>
+<ol class="arabic simple">
+<li><p><em>Normalización independiente de filas y columnas</em>, como en el Co-Clustering Espectral. Este método hace que las filas sumen una constante y las columnas sumen una constante diferente.</p></li>
+<li><p><strong>Bistocastizacion</strong>: normalización repetida de filas y columnas hasta la convergencia. Este método hace que tanto las filas como las columnas sumen la misma constante.</p></li>
+<li><p><strong>Normalización logarítmica</strong>: se calcula el logaritmo de la matriz de datos: <span class="math notranslate nohighlight">\(L = \log A\)</span>. A continuación, se calcula la media de las columnas <span class="math notranslate nohighlight">\(overline{L_{i \cdot}}, la media de las filas :math:\)</span>overline{L_{cdot j}}, y la media global <span class="math notranslate nohighlight">\(\overline{L_{cdot \cdot}} de :math:\)</span>. La matriz final se calcula según la fórmula</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[K_{ij} = L_{ij} - \overline{L_{i \cdot}} - \overline{L_{\cdot
+j}} + \overline{L_{\cdot \cdot}}\]</div>
+<p>Después de la normalización, se calculan los primeros vectores singulares, al igual que en el algoritmo de coagrupación espectral.</p>
+<p>Si se utilizó la normalización logarítmica, todos los vectores singulares son significativos. Sin embargo, si se utilizó la normalización independiente o la bistocastizacion, los primeros vectores singulares, <span class="math notranslate nohighlight">\(u_1\)</span> y <span class="math notranslate nohighlight">\(v_1\)</span>. se descartan. A partir de ahora, los «primeros» vectores singulares se refieren a <span class="math notranslate nohighlight">\(u_2 \dots u_{p+1}\)</span> y <span class="math notranslate nohighlight">\(v_2 \dots v_{p+1}\)</span> excepto en el caso de la normalización logarítmica.</p>
+<p>Dados estos vectores singulares, se clasifican en función de cuál de ellos puede ser mejor aproximado por un vector a trozos. Las aproximaciones de cada vector se encuentran utilizando k-means unidimensional y se califican utilizando la distancia euclidiana. Se selecciona un subconjunto del mejor vector singular izquierdo y derecho. A continuación, los datos se proyectan a este mejor subconjunto de vectores singulares y se agrupan.</p>
+<p>Por ejemplo, si se calcularon los vectores singulares <span class="math notranslate nohighlight">\(p\)</span>, se encuentran los mejores <span class="math notranslate nohighlight">\(q\)</span> como se ha descrito, donde <span class="math notranslate nohighlight">\(q&lt;p\)</span>. Sea <span class="math notranslate nohighlight">\(U\)</span> la matriz con las columnas de los vectores singulares <span class="math notranslate nohighlight">\(q\)</span> mejores de la izquierda, y de forma similar <span class="math notranslate nohighlight">\(V\)</span> para la derecha. Para dividir las filas, las filas de <span class="math notranslate nohighlight">\(A\)</span> se proyectan a un espacio dimensional <span class="math notranslate nohighlight">\(q\)</span>: <span class="math notranslate nohighlight">\(A * V\)</span>. Tratando las filas <span class="math notranslate nohighlight">\(m\)</span> de esta matriz <span class="math notranslate nohighlight">\(m \times q\)</span> como muestras y agrupando mediante k-means se obtienen las etiquetas de las filas. Del mismo modo, la proyección de las columnas a <span class="math notranslate nohighlight">\(A^{\top} * U\)</span> y la agrupación de esta matriz <span class="math notranslate nohighlight">\(n \times q\)</span> produce las etiquetas de las columnas.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/bicluster/plot_spectral_biclustering.html#sphx-glr-auto-examples-bicluster-plot-spectral-biclustering-py"><span class="std std-ref">Una demostración del algoritmo Biclustering Espectral</span></a>: un ejemplo simple que muestra cómo generar una matriz de tablero de ajedrez y bicluster.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Kluger, Yuval, et. al., 2003. <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.135.1608">Spectral biclustering of microarray
+data: coclustering genes and conditions</a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="biclustering-evaluation">
+<span id="id4"></span><h2><span class="section-number">2.4.3. </span>Evaluación de Biclustering<a class="headerlink" href="#biclustering-evaluation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Hay dos formas de evaluar un resultado de biclustering: interna y externa. Las medidas internas, como la estabilidad de los clusters, se basan únicamente en los datos y en el propio resultado. Actualmente no hay medidas internas de bicluster en scikit-learn. Las medidas externas se refieren a una fuente de información externa, como la solución verdadera. Cuando se trabaja con datos reales, la solución verdadera suele ser desconocida, pero el biclustering de datos artificiales puede ser útil para evaluar algoritmos precisamente porque la solución verdadera es conocida.</p>
+<p>Para comparar un conjunto de biclusters encontrados con el conjunto de biclusters verdaderos, se necesitan dos medidas de similitud: una medida de similitud para los biclusters individuales, y una forma de combinar estas similitudes individuales en una puntuación global.</p>
+<p>Para comparar biclusters individuales, se han utilizado varias medidas. Por ahora, sólo se aplica el índice de Jaccard:</p>
+<div class="math notranslate nohighlight">
+\[J(A, B) = \frac{|A \cap B|}{|A| + |B| - |A \cap B|}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(A\)</span> y <span class="math notranslate nohighlight">\(B\)</span> son biclusters, <span class="math notranslate nohighlight">\(|A \cap B|\)</span> es el número de elementos en su intersección. El índice de la tarjeta de crédito alcanza su mínimo de 0 cuando los biclusters para no solaparse en absoluto y su máximo de 1 cuando son idénticos.</p>
+<p>Se han desarrollado varios métodos para comparar dos conjuntos de biclusters. Por ahora, solo <a class="reference internal" href="generated/sklearn.metrics.consensus_score.html#sklearn.metrics.consensus_score" title="sklearn.metrics.consensus_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">consensus_score</span></code></a> (Hochreiter et. al., 2010) está disponible:</p>
+<ol class="arabic simple">
+<li><p>Calcula las similitudes de bicluster para pares de biclusters, una en cada conjunto, utilizando el índice de Jaccard o una medida similar.</p></li>
+<li><p>Asigna biclusters de un conjunto a otro de una manera una-a otra para maximizar la suma de sus similitudes. Este paso se realiza utilizando el algoritmo húngaro.</p></li>
+<li><p>La suma final de similitudes se divide por el tamaño del conjunto más grande.</p></li>
+</ol>
+<p>La puntuación mínima de consenso, 0, se produce cuando todos los pares de biclusters son totalmente disímiles. La puntuación máxima, 1, se produce cuando ambos conjuntos son idénticos.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Hochreiter, Bodenhofer, et. al., 2010. <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2881408/">FABIA: factor analysis
+for bicluster acquisition</a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/biclustering.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

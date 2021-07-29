@@ -1,0 +1,973 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>6.2. Extracción de características &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/feature_extraction.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="compose.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.1. Pipelines y estimadores compuestos">Prev</a><a href="../data_transforms.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6. Transformaciones de conjuntos de datos">Arriba</a>
+            <a href="preprocessing.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.3. Preprocesamiento de los datos">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">6.2. Extracción de características</a><ul>
+<li><a class="reference internal" href="#loading-features-from-dicts">6.2.1. Cargando características desde diccionarios</a></li>
+<li><a class="reference internal" href="#feature-hashing">6.2.2. Hashing de características</a><ul>
+<li><a class="reference internal" href="#implementation-details">6.2.2.1. Detalles de implementación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#text-feature-extraction">6.2.3. Extracción de característica de texto</a><ul>
+<li><a class="reference internal" href="#the-bag-of-words-representation">6.2.3.1. La representación Bolsa de Palabras</a></li>
+<li><a class="reference internal" href="#sparsity">6.2.3.2. Dispersión</a></li>
+<li><a class="reference internal" href="#common-vectorizer-usage">6.2.3.3. Uso común del Vectorizador</a><ul>
+<li><a class="reference internal" href="#using-stop-words">6.2.3.3.1. Usando palabras funcionales (stop words)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tfidf-term-weighting">6.2.3.4. Ponderación de términos Tf-idf</a></li>
+<li><a class="reference internal" href="#decoding-text-files">6.2.3.5. Decodificación de archivos de texto</a></li>
+<li><a class="reference internal" href="#applications-and-examples">6.2.3.6. Aplicaciones y ejemplos</a></li>
+<li><a class="reference internal" href="#limitations-of-the-bag-of-words-representation">6.2.3.7. Limitaciones de la representación Bolsa de palabras</a></li>
+<li><a class="reference internal" href="#vectorizing-a-large-text-corpus-with-the-hashing-trick">6.2.3.8. Vectorizando un corpus de texto grande con el truco de hashing</a></li>
+<li><a class="reference internal" href="#performing-out-of-core-scaling-with-hashingvectorizer">6.2.3.9. Realizando escalado fuera del núcleo con HashingVectorizer</a></li>
+<li><a class="reference internal" href="#customizing-the-vectorizer-classes">6.2.3.10. Personalización de las clases del vectorizador</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#image-feature-extraction">6.2.4. Extracción de características de imagen</a><ul>
+<li><a class="reference internal" href="#patch-extraction">6.2.4.1. Extracción de parches</a></li>
+<li><a class="reference internal" href="#connectivity-graph-of-an-image">6.2.4.2. Grafo de conectividad de una imagen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="feature-extraction">
+<span id="id1"></span><h1><span class="section-number">6.2. </span>Extracción de características<a class="headerlink" href="#feature-extraction" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El módulo <a class="reference internal" href="classes.html#module-sklearn.feature_extraction" title="sklearn.feature_extraction"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.feature_extraction</span></code></a> puede utilizarse para extraer características en un formato soportado por algoritmos de aprendizaje automático a partir de conjuntos de datos que consisten en formatos como texto e imagen.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La extracción de características es muy diferente de la <a class="reference internal" href="feature_selection.html#feature-selection"><span class="std std-ref">Selección de características</span></a>: la primera consiste en transformar datos arbitrarios, como texto o imágenes, en características numéricas que se pueden utilizar para el aprendizaje automático. La segunda es una técnica de aprendizaje automático aplicada a estas características.</p>
+</div>
+<section id="loading-features-from-dicts">
+<span id="dict-feature-extraction"></span><h2><span class="section-number">6.2.1. </span>Cargando características desde diccionarios<a class="headerlink" href="#loading-features-from-dicts" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> puede utilizarse para convertir arreglos de características representadas como listas de objetos estándar de Python <code class="docutils literal notranslate"><span class="pre">dict</span></code> a la representación NumPy/SciPy utilizada por los estimadores de scikit-learn.</p>
+<p>Si bien no es particularmente rápido de procesar, el <code class="docutils literal notranslate"><span class="pre">dict</span></code> de Python tiene las ventajas de ser cómodo de usar, ser escaso (las características ausentes no necesitan ser almacenadas) y almacenar los nombres de las características además de los valores.</p>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> implementa lo que se denomina codificación «one-of-K» o «one-hot» para características categóricas (también conocidas como nominales, discretas). Las características categóricas son pares «atributo-valor» donde el valor está restringido a una lista de posibilidades discretas sin ordenar (por ejemplo, identificadores de temas, tipos de objetos, etiquetas, nombres…).</p>
+<p>En lo siguiente, «city» es un atributo categórico mientras que «temperature» es una característica numérica tradicional:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">measurements</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Dubai&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="mf">33.</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="mf">12.</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;San Francisco&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="mf">18.</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">DictVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span> <span class="o">=</span> <span class="n">DictVectorizer</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[ 1.,  0.,  0., 33.],</span>
+<span class="go">       [ 0.,  1.,  0., 12.],</span>
+<span class="go">       [ 0.,  0.,  1., 18.]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+<span class="go">[&#39;city=Dubai&#39;, &#39;city=London&#39;, &#39;city=San Francisco&#39;, &#39;temperature&#39;]</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> acepta múltiples valores de cadena para una característica, como, por ejemplo, múltiples categorías para una película.</p>
+<p>Suponte que una base de datos clasifica cada película usando algunas categorías (no obligatorias) y su año de estreno.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">movie_entry</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;thriller&#39;</span><span class="p">,</span> <span class="s1">&#39;drama&#39;</span><span class="p">],</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2003</span><span class="p">},</span>
+<span class="gp">... </span>               <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;animation&#39;</span><span class="p">,</span> <span class="s1">&#39;family&#39;</span><span class="p">],</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2011</span><span class="p">},</span>
+<span class="gp">... </span>               <span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1974</span><span class="p">}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">movie_entry</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0.000e+00, 1.000e+00, 0.000e+00, 1.000e+00, 2.003e+03],</span>
+<span class="go">       [1.000e+00, 0.000e+00, 1.000e+00, 0.000e+00, 2.011e+03],</span>
+<span class="go">       [0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00, 1.974e+03]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;category=animation&#39;</span><span class="p">,</span> <span class="s1">&#39;category=drama&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="s1">&#39;category=family&#39;</span><span class="p">,</span> <span class="s1">&#39;category=thriller&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="s1">&#39;year&#39;</span><span class="p">]</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">transform</span><span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;thriller&#39;</span><span class="p">],</span>
+<span class="gp">... </span>               <span class="s1">&#39;unseen_feature&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0., 0., 0., 1., 0.]])</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> también es una transformación de representación útil para el entrenamiento de clasificadores de secuencias en modelos de Procesamiento de Lenguaje Natural que normalmente trabajan extrayendo ventanas de características alrededor de una palabra de interés particular.</p>
+<p>Por ejemplo, supongamos que tenemos un primer algoritmo que extrae las etiquetas de la categoría gramatical (Part of Speech, PoS, en inglés) que queremos usar como etiquetas complementarias para entrenar un clasificador de secuencias (p. ej., un chunker). El siguiente diccionario podría ser una ventana de características extraídas alrededor de la palabra «sat» en la frase “The cat sat on the mat.”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pos_window</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s1">&#39;word-2&#39;</span><span class="p">:</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;pos-2&#39;</span><span class="p">:</span> <span class="s1">&#39;DT&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;word-1&#39;</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;pos-1&#39;</span><span class="p">:</span> <span class="s1">&#39;NN&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;word+1&#39;</span><span class="p">:</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;pos+1&#39;</span><span class="p">:</span> <span class="s1">&#39;PP&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">},</span>
+<span class="gp">... </span>    <span class="c1"># in a real application one would extract many such dictionaries</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Esta descripción puede ser vectorizada en una matriz bidimensional dispersa adecuada para alimentar a un clasificador (tal vez después de ser canalizada en un <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> para su normalización):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span> <span class="o">=</span> <span class="n">DictVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos_vectorized</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">pos_window</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos_vectorized</span>
+<span class="go">&lt;1x6 sparse matrix of type &#39;&lt;... &#39;numpy.float64&#39;&gt;&#39;</span>
+<span class="go">    with 6 stored elements in Compressed Sparse ... format&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos_vectorized</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1., 1., 1., 1., 1., 1.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+<span class="go">[&#39;pos+1=PP&#39;, &#39;pos-1=NN&#39;, &#39;pos-2=DT&#39;, &#39;word+1=on&#39;, &#39;word-1=cat&#39;, &#39;word-2=the&#39;]</span>
+</pre></div>
+</div>
+<p>Como puedes imaginar, si se extrae un contexto de este tipo alrededor de cada palabra individual de un corpus de documentos, la matriz resultante será muy amplia (muchas características one-hot) y la mayoría de ellas con valor cero la mayor parte del tiempo. Para que la estructura de datos resultante pueda encajar en la memoria, la clase <code class="docutils literal notranslate"><span class="pre">DictVectorizer</span></code> utiliza por defecto una matriz <code class="docutils literal notranslate"><span class="pre">scipy.</span> <span class="pre">parse</span></code> en lugar de una <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+</section>
+<section id="feature-hashing">
+<span id="id2"></span><h2><span class="section-number">6.2.2. </span>Hashing de características<a class="headerlink" href="#feature-hashing" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> es un vectorizador de alta velocidad y baja memoria que utiliza una técnica conocida como <a class="reference external" href="https://en.wikipedia.org/wiki/Feature_hashing">hashing de características</a>, o el «truco de hashing. En lugar de construir una tabla hash de las características encontradas en el entrenamiento, como hacen los vectorizadores, las instancias de <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> aplican una función hash a las características para determinar su índice de columna en las matrices de muestra directamente. El resultado es una mayor velocidad y un menor uso de la memoria, a expensas de la inspeccionabilidad; el hasher no recuerda el aspecto de las características de entrada y no tiene un método <code class="docutils literal notranslate"><span class="pre">inverse_transform</span></code>.</p>
+<p>Dado que la función hash puede causar colisiones entre características (no relacionadas), se utiliza una función hash con signo y el signo del valor hash determina el signo del valor almacenado en la matriz de salida para una característica. De esta manera, es probable que las colisiones se cancelen en lugar de acumular errores, y que la media esperada del valor de cualquier característica de salida es cero. Este mecanismo está activado por defecto con <code class="docutils literal notranslate"><span class="pre">alternate_sign=True</span></code> y es particularmente útil para tamaños de tabla hash pequeños (<code class="docutils literal notranslate"><span class="pre">n_features</span> <span class="pre">&lt;</span> <span class="pre">10000</span></code>). Para tamaños de tabla hash grandes, se puede desactivar, para permitir que la salida se pase a estimadores como <a class="reference internal" href="generated/sklearn.naive_bayes.MultinomialNB.html#sklearn.naive_bayes.MultinomialNB" title="sklearn.naive_bayes.MultinomialNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultinomialNB</span></code></a> o <a class="reference internal" href="generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2" title="sklearn.feature_selection.chi2"><code class="xref py py-class docutils literal notranslate"><span class="pre">chi2</span></code></a> selectores de características que esperan entradas no negativas.</p>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> acepta cualquier mapeo (como el <code class="docutils literal notranslate"><span class="pre">dict</span></code> de Python y sus variantes en el módulo <code class="docutils literal notranslate"><span class="pre">collections</span></code>), pares <code class="docutils literal notranslate"><span class="pre">(feature,</span> <span class="pre">value)</span></code>, o cadenas, dependiendo del parámetro constructor <code class="docutils literal notranslate"><span class="pre">input_type</span></code>. El mapeo se trata como listas de pares <code class="docutils literal notranslate"><span class="pre">(feature,</span> <span class="pre">value)</span></code>, mientras que las cadenas simples tienen un valor implícito de 1, por lo que <code class="docutils literal notranslate"><span class="pre">['feat1',</span> <span class="pre">'feat2',</span> <span class="pre">'feat3']</span></code> se interpreta como <code class="docutils literal notranslate"><span class="pre">[('feat1',</span> <span class="pre">1),</span> <span class="pre">('feat2',</span> <span class="pre">1),</span> <span class="pre">('feat3',</span> <span class="pre">1)]</span></code>. Si una misma característica aparece varias veces en una muestra, los valores asociados serán sumados (así <code class="docutils literal notranslate"><span class="pre">('feat',</span> <span class="pre">2)</span></code> y <code class="docutils literal notranslate"><span class="pre">('feat',</span> <span class="pre">3.5</span> <span class="pre">)</span></code> se convierten en <code class="docutils literal notranslate"><span class="pre">('feat',</span> <span class="pre">5.5)</span></code>). La salida de <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> es siempre una matriz <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> en el formato CSR.</p>
+<p>El hashing de características puede emplearse en la clasificación de documentos, pero a diferencia de <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>, <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> no hace la división de palabras ni ningún otro preprocesamiento excepto la codificación Unicode-to-UTF-8; ver <a class="reference internal" href="#hashing-vectorizer"><span class="std std-ref">Vectorizando un corpus de texto grande con el truco de hashing</span></a>, más abajo, para un tokenizador/hasher combinado.</p>
+<p>Como ejemplo, considera una tarea de procesamiento de lenguaje natural a nivel de palabras que necesite características extraídas de pares <code class="docutils literal notranslate"><span class="pre">(token,</span> <span class="pre">part_of_speech</span> <span class="pre">)</span></code>. Se podría utilizar una función generadora de Python para extraer características:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">token_features</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">part_of_speech</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="s2">&quot;numeric&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="s2">&quot;token=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="k">yield</span> <span class="s2">&quot;token,pos=</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">part_of_speech</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isupper</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="s2">&quot;uppercase_initial&quot;</span>
+    <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">isupper</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="s2">&quot;all_uppercase&quot;</span>
+    <span class="k">yield</span> <span class="s2">&quot;pos=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part_of_speech</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Entonces, el <code class="docutils literal notranslate"><span class="pre">raw_X</span></code> para ser suministrado a <code class="docutils literal notranslate"><span class="pre">FeatureHasher.transform</span></code> puede ser construido usando:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw_X</span> <span class="o">=</span> <span class="p">(</span><span class="n">token_features</span><span class="p">(</span><span class="n">tok</span><span class="p">,</span> <span class="n">pos_tagger</span><span class="p">(</span><span class="n">tok</span><span class="p">))</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>y suministrado a un hasher con:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hasher</span> <span class="o">=</span> <span class="n">FeatureHasher</span><span class="p">(</span><span class="n">input_type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">hasher</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">raw_X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>para obtener una matriz <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<p>Nota que el uso de una comprensión generadora, introduce la holgura en la extracción de características: los tokens sólo se procesan bajo demanda del hasher.</p>
+<section id="implementation-details">
+<h3><span class="section-number">6.2.2.1. </span>Detalles de implementación<a class="headerlink" href="#implementation-details" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> utiliza la variante de 32 bits con signo de MurmurHash3. Como resultado (y debido a las limitaciones en <code class="docutils literal notranslate"><span class="pre">scipy.</span> <span class="pre">parse</span></code>), el número máximo de características soportadas es actualmente <span class="math notranslate nohighlight">\(2^{31} - 1\)</span>.</p>
+<p>La formulación original del truco de hashing de Weinberger et al. usó dos funciones hash separadas <span class="math notranslate nohighlight">\(h\)</span> y <span class="math notranslate nohighlight">\(\xi\)</span> para determinar el índice de columna y el signo de una característica, respectivamente. La implementación actual funciona bajo el supuesto de que el bit de signo de MurmurHash3 es independiente de sus otros bits.</p>
+<p>Dado que se utiliza un modulo simple para transformar la función hash en un índice de columnas, es recomendable utilizar una potencia de dos como el parámetro <code class="docutils literal notranslate"><span class="pre">n_features</span></code>; de lo contrario, las características no serán asignadas uniformemente a las columnas.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Kilian Weinberger, Anirban Dasgupta, John Langford, Alex Smola and
+Josh Attenberg (2009). <a class="reference external" href="https://alex.smola.org/papers/2009/Weinbergeretal09.pdf">Feature hashing for large scale multitask learning</a>. Proc. ICML.</p></li>
+<li><p><a class="reference external" href="https://github.com/aappleby/smhasher">MurmurHash3</a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="text-feature-extraction">
+<span id="id4"></span><h2><span class="section-number">6.2.3. </span>Extracción de característica de texto<a class="headerlink" href="#text-feature-extraction" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="the-bag-of-words-representation">
+<h3><span class="section-number">6.2.3.1. </span>La representación Bolsa de Palabras<a class="headerlink" href="#the-bag-of-words-representation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El análisis de textos es uno de los principales campos de aplicación de los algoritmos de aprendizaje automático. Sin embargo, los datos en bruto, una secuencia de símbolos no puede ser suministrada directamente a los propios algoritmos, ya que la mayoría de ellos esperan vectores de características numéricas con un tamaño fijo en lugar de los documentos de texto sin formato con longitud variable.</p>
+<p>Para abordar esto, scikit-learn proporciona utilidades para las formas más comunes de extraer características numéricas del contenido del texto, a saber:</p>
+<ul class="simple">
+<li><p><strong>tokenizar</strong> las cadenas y dar un identificador entero para cada token posible, por ejemplo, usando espacios en blanco y signos de puntuación como separadores de token.</p></li>
+<li><p><strong>conteo</strong> de las ocurrencias de tokens en cada documento.</p></li>
+<li><p><strong>normalizar</strong> y ponderar con importancia decreciente los tokens que aparecen en la mayoría de las muestras / documentos.</p></li>
+</ul>
+<p>En este esquema, las características y muestras se definen de la siguiente manera:</p>
+<ul class="simple">
+<li><p>cada ** frecuencia de ocurrencia de token individual ** (normalizada o no) se trata como una ** característica <a href="#id1"><span class="problematic" id="id2">**</span></a>.</p></li>
+<li><p>el vector de todas las frecuencias de tokens para un <strong>documento</strong> dado se considera una <strong>muestra</strong> multivariante.</p></li>
+</ul>
+<p>Por lo tanto, un corpus de documentos puede representarse mediante una matriz con una fila por documento y una columna por token (por ejemplo, palabra) que aparezca en el corpus.</p>
+<p>Llamamos <strong>vectorización</strong> al proceso general de convertir una colección de documentos de texto en vectores de características numéricas. Esta estrategia específica (tokenization, conteo y normalización) se denomina representación <strong>Bolsa de palabras</strong> o «Bolsa de n-gramas». Los documentos se describen por las ocurrencias de las palabras, ignorando por completo la información sobre la posición relativa de las palabras en el documento.</p>
+</section>
+<section id="sparsity">
+<h3><span class="section-number">6.2.3.2. </span>Dispersión<a class="headerlink" href="#sparsity" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Como la mayoría de los documentos suelen utilizar un subconjunto muy pequeño de las palabras utilizadas en el corpus, la matriz resultante tendrá muchos valores de características que son ceros (normalmente más del 99% de ellos).</p>
+<p>Por ejemplo, una colección de 10.000 documentos de texto cortos (como correos electrónicos) utilizará un vocabulario con un tamaño del orden de 100.000 palabras únicas en total, mientras que cada documento utilizará entre 100 y 1000 palabras únicas individualmente.</p>
+<p>Para poder almacenar una matriz de este tipo en la memoria, pero también para acelerar las operaciones algebraicas matriz / vector, las implementaciones suelen utilizar una representación dispersa, como las implementaciones disponibles en el paquete <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code>.</p>
+</section>
+<section id="common-vectorizer-usage">
+<h3><span class="section-number">6.2.3.3. </span>Uso común del Vectorizador<a class="headerlink" href="#common-vectorizer-usage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> implementa tanto la tokenización como el conteo de ocurrencias en una sola clase:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+</pre></div>
+</div>
+<p>Este modelo tiene muchos parámetros, sin embargo los valores por defecto son bastante razonables (por favor consulta la <a class="reference internal" href="classes.html#text-feature-extraction-ref"><span class="std std-ref">documentación de referencia</span></a> para los detalles):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span>
+<span class="go">CountVectorizer()</span>
+</pre></div>
+</div>
+<p>Vamos a utilizarlo para tokenizar y contar las ocurrencias de palabras de un corpus minimalista de documentos de texto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="s1">&#39;This is the first document.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;This is the second second document.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;And the third one.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;Is this the first document?&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">&lt;4x9 sparse matrix of type &#39;&lt;... &#39;numpy.int64&#39;&gt;&#39;</span>
+<span class="go">    with 19 stored elements in Compressed Sparse ... format&gt;</span>
+</pre></div>
+</div>
+<p>La configuración por defecto tokeniza la cadena extrayendo palabras de al menos 2 letras. La función específica que realiza este paso puede solicitarse explícitamente:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span><span class="p">(</span><span class="s2">&quot;This is a text document to analyze.&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="s1">&#39;analyze&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>A cada término encontrado por el analizador durante el ajuste se le asigna un índice entero único correspondiente a una columna en la matriz resultante. Esta interpretación de las columnas se puede recuperar de la siguiente manera:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;third&#39;</span><span class="p">,</span> <span class="s1">&#39;this&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0, 1, 1, 1, 0, 0, 1, 0, 1],</span>
+<span class="go">       [0, 1, 0, 1, 0, 2, 1, 0, 1],</span>
+<span class="go">       [1, 0, 0, 0, 1, 0, 1, 1, 0],</span>
+<span class="go">       [0, 1, 1, 1, 0, 0, 1, 0, 1]]...)</span>
+</pre></div>
+</div>
+<p>El mapeo de conversión del nombre de característica al índice de columna se almacena en el atributo <code class="docutils literal notranslate"><span class="pre">vocabulary_</span></code> del vectorizador:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">vocabulary_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;document&#39;</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Por lo tanto, las palabras que no se hayan visto en el corpus de entrenamiento se ignorarán por completo en futuras llamadas al método de transformación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="s1">&#39;Something completely new.&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0, 0, 0, 0, 0, 0, 0, 0, 0]]...)</span>
+</pre></div>
+</div>
+<p>Tenga en cuenta que en el corpus anterior, el primer y el último documento tienen exactamente las mismas palabras, por lo tanto, están codificados en vectores iguales. En particular, perdemos la información de que el último documento es una forma interrogativa. Para preservar parte de la información de pedido local, podemos extraer bigramas de palabras además de unigramas (palabras individuales):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bigram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>                                    <span class="n">token_pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;\b\w+\b&#39;</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span> <span class="o">=</span> <span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span><span class="p">(</span><span class="s1">&#39;Bi-grams are cool!&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;bi&#39;</span><span class="p">,</span> <span class="s1">&#39;grams&#39;</span><span class="p">,</span> <span class="s1">&#39;are&#39;</span><span class="p">,</span> <span class="s1">&#39;cool&#39;</span><span class="p">,</span> <span class="s1">&#39;bi grams&#39;</span><span class="p">,</span> <span class="s1">&#39;grams are&#39;</span><span class="p">,</span> <span class="s1">&#39;are cool&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>El vocabulario extraído por este vectorizador es, por lo tanto, mucho más grande y ahora puede resolver las ambigüedades codificadas en patrones de posicionamiento local:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_2</span> <span class="o">=</span> <span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_2</span>
+<span class="go">array([[0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0],</span>
+<span class="go">       [0, 0, 1, 0, 0, 1, 1, 0, 0, 2, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0],</span>
+<span class="go">       [1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0],</span>
+<span class="go">       [0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1]]...)</span>
+</pre></div>
+</div>
+<p>En particular, la forma interrogativa «Is this» sólo está presente en el último documento:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">feature_index</span> <span class="o">=</span> <span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">vocabulary_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is this&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_2</span><span class="p">[:,</span> <span class="n">feature_index</span><span class="p">]</span>
+<span class="go">array([0, 0, 0, 1]...)</span>
+</pre></div>
+</div>
+<section id="using-stop-words">
+<span id="stop-words"></span><h4><span class="section-number">6.2.3.3.1. </span>Usando palabras funcionales (stop words)<a class="headerlink" href="#using-stop-words" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Las palabras funcionales son palabras como «y», «el», «él»,  que se suponen poco informativas para representar el contenido de un texto, y que pueden eliminarse para evitar que sean interpretadas como señal para la predicción. Sin embargo, a veces palabras similares son útiles para la predicción, como en la clasificación del estilo de escritura o la personalidad.</p>
+<p>Hay varios problemas conocidos en nuestra lista de palabras funcionales “inglés” proporcionada. No tiene como objetivo ser una solución general, de «talla única», ya que algunas tareas pueden requerir una solución más personalizada. Consulta <a class="reference internal" href="#nqy18" id="id5"><span>[NQY18]</span></a> para más detalles.</p>
+<p>Por favor, ten cuidado al elegir una lista de palabras funcionales. Las listas populares de palabras funcionales pueden incluir palabras que son altamente informativas para algunas tareas, como <em>computadora</em>.</p>
+<p>También asegúrate de que a la lista de palabras funcionales se le ha aplicado el mismo preprocesamiento y tokenización que el utilizado en el vectorizador. La palabra <em>we’ve</em> está dividida en <em>we</em> y <em>ve</em> por el tokenizador por defecto CountVectorizer, así que si <em>we’ve</em> está en <code class="docutils literal notranslate"><span class="pre">stop_words</span></code>, pero <em>ve</em> no lo está, <em>ve</em> será retenido de <em>we’ve</em> en el texto transformado. Nuestros vectorizadores tratarán de identificar y advertir sobre algunos tipos de inconsistencias.</p>
+<div class="topic">
+<p class="topic-title">References</p>
+<dl class="citation">
+<dt class="label" id="nqy18"><span class="brackets"><a class="fn-backref" href="#id5">NQY18</a></span></dt>
+<dd><p>J. Nothman, H. Qin and R. Yurchak (2018).
+<a class="reference external" href="https://aclweb.org/anthology/W18-2502">«Stop Word Lists in Free Open-source Software Packages»</a>.
+In <em>Proc. Workshop for NLP Open Source Software</em>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="tfidf-term-weighting">
+<span id="tfidf"></span><h3><span class="section-number">6.2.3.4. </span>Ponderación de términos Tf-idf<a class="headerlink" href="#tfidf-term-weighting" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En un corpus de texto extenso, algunas palabras estarán muy presentes (por ejemplo, «the», «a», «is» en inglés), por lo que contienen muy poca información significativa sobre el contenido real del documento. Si tuviéramos que suministrar los datos de recuento directo inmediatamente a un clasificador, esos términos muy frecuentes ensombrecerían las frecuencias de términos más raros pero más interesantes.</p>
+<p>Para reponderar las características de conteo en valores de punto flotante adecuados para su uso por un clasificador, es muy común utilizar la transformación tf-idf.</p>
+<p>Tf significa <strong>frecuencia de términos</strong> mientras que tf-idf significa frecuencia de términos por <strong>frecuencia inversa de documentos</strong>: <span class="math notranslate nohighlight">\(\text{tf-idf(t,d)}=\text{tf(t,d)} \times \text{idf(t)}\)</span>.</p>
+<p>Utilizando la configuración por defecto del <code class="docutils literal notranslate"><span class="pre">TfidfTransformer</span></code>, <code class="docutils literal notranslate"><span class="pre">TfidfTransformer(norm='l2',</span> <span class="pre">use_idf=True,</span> <span class="pre">smooth_idf=True,</span> <span class="pre">sublinear_tf=False)</span></code> la frecuencia de términos, el número de veces que un término aparece en un documento determinado, se multiplica por el componente idf, que se calcula como</p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{1 + n}{1+\text{df}(t)}} + 1\)</span>,</p>
+<p>donde <span class="math notranslate nohighlight">\(n\)</span> es el número total de documentos en el conjunto de documentos, y <span class="math notranslate nohighlight">\(\text{df}(t)\)</span> es el número de documentos en el conjunto de documentos que contienen el término <span class="math notranslate nohighlight">\(t\)</span>. Los vectores tf-idf resultantes son normalizados por la norma Euclideana:</p>
+<p><span class="math notranslate nohighlight">\(v_{norm} = \frac{v}{||v||_2} = \frac{v}{\sqrt{v{_1}^2 +
+v{_2}^2 + \dots + v{_n}^2}}\)</span>.</p>
+<p>Originalmente se trataba de un esquema de ponderación de términos desarrollado para la recuperación de la información (como una función de clasificación para los resultados de los motores de búsqueda) que también ha encontrado un buen uso en la clasificación y conglomeración de documentos.</p>
+<p>Las siguientes secciones contienen más explicaciones y ejemplos que ilustran cómo se calculan exactamente los tf-idfs y cómo los tf-idfs calculados en scikit-learn <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> y <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a> difieren ligeramente de la notación estándar de los libros de texto que definen el idf como</p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{n}{1+\text{df}(t)}}.\)</span></p>
+<p>En <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> y el <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a> con <code class="docutils literal notranslate"><span class="pre">smooth_idf=False</span></code>, el conteo «1» se añade al idf en lugar del denominador del idf:</p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{n}{\text{df}(t)}} + 1\)</span></p>
+<p>Esta normalización es implementada por la clase <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">TfidfTransformer</span><span class="p">(</span><span class="n">smooth_idf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span>
+<span class="go">TfidfTransformer(smooth_idf=False)</span>
+</pre></div>
+</div>
+<p>De nuevo, por favor consulta la <a class="reference internal" href="classes.html#text-feature-extraction-ref"><span class="std std-ref">documentación de referencia</span></a> para los detalles de todos los parámetros.</p>
+<p>Tomemos un ejemplo con los siguientes conteos. El primer término está presente el 100% de las veces, por lo tanto, no es muy interesante. Las otras dos características sólo en menos del 50% de las ocasiones, por lo que probablemente sean más representativas del contenido de los documentos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span>
+<span class="go">&lt;6x3 sparse matrix of type &#39;&lt;... &#39;numpy.float64&#39;&gt;&#39;</span>
+<span class="go">    with 9 stored elements in Compressed Sparse ... format&gt;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0.81940995, 0.        , 0.57320793],</span>
+<span class="go">       [1.        , 0.        , 0.        ],</span>
+<span class="go">       [1.        , 0.        , 0.        ],</span>
+<span class="go">       [1.        , 0.        , 0.        ],</span>
+<span class="go">       [0.47330339, 0.88089948, 0.        ],</span>
+<span class="go">       [0.58149261, 0.        , 0.81355169]])</span>
+</pre></div>
+</div>
+<p>Cada fila está normalizada para tener una norma Euclideana unitaria:</p>
+<p><span class="math notranslate nohighlight">\(v_{norm} = \frac{v}{||v||_2} = \frac{v}{\sqrt{v{_1}^2 +
+v{_2}^2 + \dots + v{_n}^2}}\)</span></p>
+<p>Por ejemplo, podemos calcular el tf-idf del primer término del primer documento en el arreglo <code class="docutils literal notranslate"><span class="pre">counts</span></code> de la siguiente manera:</p>
+<p><span class="math notranslate nohighlight">\(n = 6\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{df}(t)_{\text{term1}} = 6\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t)_{\text{term1}} =
+\log \frac{n}{\text{df}(t)} + 1 = \log(1)+1 = 1\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term1}} = \text{tf} \times \text{idf} = 3 \times 1 = 3\)</span></p>
+<p>Ahora, si repetimos este cálculo para los 2 términos restantes en el documento, obtenemos</p>
+<p><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term2}} = 0 \times (\log(6/1)+1) = 0\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term3}} = 1 \times (\log(6/2)+1) \approx 2.0986\)</span></p>
+<p>y el vector de tf-idfs en bruto:</p>
+<p><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{raw}} = [3, 0, 2.0986].\)</span></p>
+<p>Luego, aplicando la norma Euclideana (L2) obtenemos los siguientes tf-idfs para el documento 1:</p>
+<p><span class="math notranslate nohighlight">\(\frac{[3, 0, 2.0986]}{\sqrt{\big(3^2 + 0^2 + 2.0986^2\big)}}
+= [ 0.819,  0,  0.573].\)</span></p>
+<p>Además, el parámetro por defecto <code class="docutils literal notranslate"><span class="pre">smooth_idf=True</span></code> añade «1» al numerador y al denominador como si se viera un documento extra que contiene cada término de la colección exactamente una vez, lo que evita las divisiones cero:</p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{1 + n}{1+\text{df}(t)}} + 1\)</span></p>
+<p>Usando esta modificación, el tf-idf del tercer término del documento 1 cambia a 1.8473:</p>
+<p><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term3}} = 1 \times \log(7/3)+1 \approx 1.8473\)</span></p>
+<p>Y el tf-idf L2-normalizado cambia a</p>
+<p><span class="math notranslate nohighlight">\(\frac{[3, 0, 1.8473]}{\sqrt{\big(3^2 + 0^2 + 1.8473^2\big)}}
+= [0.8515, 0, 0.5243]\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">TfidfTransformer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0.85151335, 0.        , 0.52433293],</span>
+<span class="go">       [1.        , 0.        , 0.        ],</span>
+<span class="go">       [1.        , 0.        , 0.        ],</span>
+<span class="go">       [1.        , 0.        , 0.        ],</span>
+<span class="go">       [0.55422893, 0.83236428, 0.        ],</span>
+<span class="go">       [0.63035731, 0.        , 0.77630514]])</span>
+</pre></div>
+</div>
+<p>Los pesos de cada característica calculados por la llamada al método <code class="docutils literal notranslate"><span class="pre">fit</span></code> se almacenan en un atributo del modelo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span><span class="o">.</span><span class="n">idf_</span>
+<span class="go">array([1. ..., 2.25..., 1.84...])</span>
+</pre></div>
+</div>
+<p>Como tf-idf se utiliza muy a menudo para las características de texto, también hay otra clase llamada <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a> que combina todas las opciones de <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> y <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> en un solo modelo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="go">&lt;4x9 sparse matrix of type &#39;&lt;... &#39;numpy.float64&#39;&gt;&#39;</span>
+<span class="go">    with 19 stored elements in Compressed Sparse ... format&gt;</span>
+</pre></div>
+</div>
+<p>Aunque la normalización tf-idf suele ser muy útil, puede haber casos en los que los marcadores de ocurrencia binarios podrían ofrecer mejores características. Esto se puede lograr usando el parámetro <code class="docutils literal notranslate"><span class="pre">binary</span></code> de <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>. En particular, algunos estimadores como <a class="reference internal" href="naive_bayes.html#bernoulli-naive-bayes"><span class="std std-ref">Bayesiano ingenuo de Bernoulli</span></a> modelan explícitamente variables aleatorias booleanas discretas. Además, es probable que los textos muy cortos tengan valores tf-idf ruidosos, mientras que la información de la ocurrencia binaria es más estable.</p>
+<p>Como es habitual, la mejor manera de ajustar los parámetros de extracción de características es utilizar una búsqueda de cuadrícula con validación cruzada, por ejemplo, canalizando el extractor de características con un clasificador:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/model_selection/grid_search_text_feature_extraction.html#sphx-glr-auto-examples-model-selection-grid-search-text-feature-extraction-py"><span class="std std-ref">Ejemplo de pipeline para la extracción y evaluación de características de texto</span></a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="decoding-text-files">
+<h3><span class="section-number">6.2.3.5. </span>Decodificación de archivos de texto<a class="headerlink" href="#decoding-text-files" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El texto está hecho de caracteres, pero los archivos están hechos de bytes. Estos bytes representan caracteres de acuerdo a alguna <em>codificación</em>. Para trabajar con archivos de texto en Python, sus bytes deben ser <em>decodificados</em> a un conjunto de caracteres llamado Unicode. Las codificaciones comunes son ASCII, Latin-1 (Europa Occidental), KOI8-R (Ruso) y las codificaciones universales UTF-8 y UTF-16. Existen muchas otras.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Una codificación también puede llamarse “conjunto de caracteres”, pero este término es menos preciso: pueden existir varias codificaciones para un mismo conjunto de caracteres.</p>
+</div>
+<p>Los extractores de características de texto en scikit-learn saben cómo decodificar archivos de texto, pero sólo si se les dice en qué codificación están los archivos. El <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> toma un parámetro <code class="docutils literal notranslate"><span class="pre">encoding</span></code> para este propósito. Para archivos de texto modernos, la codificación correcta es probablemente UTF-8, que es por lo tanto el valor por defecto (<code class="docutils literal notranslate"><span class="pre">encoding=&quot;utf-8&quot;</span></code>).</p>
+<p>Sin embargo, si el texto que estás cargando no está codificado con UTF-8, obtendrás un <code class="docutils literal notranslate"><span class="pre">UnicodeDecodeError</span></code>. Se puede indicar a los vectorizadores que guarden silencio sobre los errores de decodificación estableciendo el parámetro <code class="docutils literal notranslate"><span class="pre">decode_error</span></code> como <code class="docutils literal notranslate"><span class="pre">&quot;ignore&quot;</span></code> o <code class="docutils literal notranslate"><span class="pre">&quot;replace&quot;</span></code>. Consulta la documentación de la función de Python <code class="docutils literal notranslate"><span class="pre">bytes.decode</span></code> para más detalles (escribe <code class="docutils literal notranslate"><span class="pre">help(bytes.decode)</span></code> en la consola de Python).</p>
+<p>Si estás teniendo problemas para decodificar texto, aquí tienes algunas cosas para probar:</p>
+<ul class="simple">
+<li><p>Averigua cuál es la codificación real del texto. El archivo puede venir con un encabezado o README que te diga la codificación, o puede haber alguna codificación estándar que puedas asumir basándote en la procedencia del texto.</p></li>
+<li><p>Puedes averiguar qué tipo de codificación es en general usando el comando UNIX <code class="docutils literal notranslate"><span class="pre">file</span></code>. El módulo <code class="docutils literal notranslate"><span class="pre">chardet</span></code> de Python viene con un script llamado <code class="docutils literal notranslate"><span class="pre">chardetect.py</span></code> que adivinará la codificación específica, aunque no puedes confiar en que su conjetura sea correcta.</p></li>
+<li><p>Puedes intentar con UTF-8 e ignorar los errores. Puedes decodificar cadenas de bytes con <code class="docutils literal notranslate"><span class="pre">bytes.decode(errors='replace')</span></code> para reemplazar todos los errores de decodificación con un carácter sin sentido, o establecer <code class="docutils literal notranslate"><span class="pre">decode_error='replace'</span></code> en el vectorizador. Esto puede dañar la utilidad de tus características.</p></li>
+<li><p>El texto real puede provenir de una variedad de fuentes que pueden haber utilizado diferentes codificaciones, o incluso ser decodificado de forma descuidada en una codificación diferente a la que fue codificado. Esto es común en textos recuperados de la web. El paquete de Python <a class="reference external" href="https://github.com/LuminosoInsight/python-ftfy">ftfy</a> puede ordenar automáticamente algunas clases de errores de decodificación, así que puedes intentar decodificar el texto desconocido como <code class="docutils literal notranslate"><span class="pre">latin-1</span></code> y luego usar <code class="docutils literal notranslate"><span class="pre">ftfy</span></code> para corregir errores.</p></li>
+<li><p>Si el texto se encuentra en una mezcla de codificaciones que es simplemente demasiado difícil de ordenar (como es el caso del conjunto de datos 20 Newsgroups), puede recurrir a una codificación simple de un solo byte como <code class="docutils literal notranslate"><span class="pre">latin-1</span></code>. Algún texto puede mostrarse incorrectamente, pero al menos la misma secuencia de bytes siempre representará la misma característica.</p></li>
+</ul>
+<p>Por ejemplo, el siguiente fragmento de código utiliza <code class="docutils literal notranslate"><span class="pre">chardet</span></code> (no se incluye con scikit-learn, debe ser instalado por separado) para determinar la codificación de tres textos. Luego vectoriza los textos e imprime el vocabulario aprendido. La salida no se muestra aquí.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">chardet</span>    
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text1</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Sei mir gegr</span><span class="se">\xc3\xbc\xc3\x9f</span><span class="s2">t mein Sauerkraut&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text2</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;holdselig sind deine Ger</span><span class="se">\xfc</span><span class="s2">che&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text3</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xff\xfe</span><span class="s2">A</span><span class="se">\x00</span><span class="s2">u</span><span class="se">\x00</span><span class="s2">f</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">F</span><span class="se">\x00</span><span class="s2">l</span><span class="se">\x00\xfc\x00</span><span class="s2">g</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">l</span><span class="se">\x00</span><span class="s2">n</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">d</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">s</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">G</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">s</span><span class="se">\x00</span><span class="s2">a</span><span class="se">\x00</span><span class="s2">n</span><span class="se">\x00</span><span class="s2">g</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">s</span><span class="se">\x00</span><span class="s2">,</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">H</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">r</span><span class="se">\x00</span><span class="s2">z</span><span class="se">\x00</span><span class="s2">l</span><span class="se">\x00</span><span class="s2">i</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">b</span><span class="se">\x00</span><span class="s2">c</span><span class="se">\x00</span><span class="s2">h</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">n</span><span class="se">\x00</span><span class="s2">,</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">t</span><span class="se">\x00</span><span class="s2">r</span><span class="se">\x00</span><span class="s2">a</span><span class="se">\x00</span><span class="s2">g</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">i</span><span class="se">\x00</span><span class="s2">c</span><span class="se">\x00</span><span class="s2">h</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">d</span><span class="se">\x00</span><span class="s2">i</span><span class="se">\x00</span><span class="s2">c</span><span class="se">\x00</span><span class="s2">h</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">f</span><span class="se">\x00</span><span class="s2">o</span><span class="se">\x00</span><span class="s2">r</span><span class="se">\x00</span><span class="s2">t</span><span class="se">\x00</span><span class="s2">&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">chardet</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="s1">&#39;encoding&#39;</span><span class="p">])</span>
+<span class="gp">... </span>           <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">,</span> <span class="n">text3</span><span class="p">)]</span>        
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span><span class="o">.</span><span class="n">vocabulary_</span>    
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>                           
+</pre></div>
+</div>
+<p>(Dependiendo de la versión de <code class="docutils literal notranslate"><span class="pre">chardet</span></code>, puede que se equivoque en la primera.)</p>
+<p>Para una introducción a Unicode y las codificaciones de caracteres en general, consulta Joel Spolsky <a class="reference external" href="https://www.joelonsoftware.com/articles/Unicode.html">Absolute Minimum Every Software Developer Must Know About Unicode</a>.</p>
+</section>
+<section id="applications-and-examples">
+<h3><span class="section-number">6.2.3.6. </span>Aplicaciones y ejemplos<a class="headerlink" href="#applications-and-examples" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La representación bolsa de palabras es bastante simplista pero sorprendentemente útil en la práctica.</p>
+<p>En particular en una <strong>situación de clasificación supervisada</strong> puede combinarse con éxito con modelos lineales rápidos y escalables para entrenar <strong>clasificadores de documentos</strong>, por ejemplo:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Clasificación de documentos de texto utilizando características dispersas</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>En una <a href="#id1"><span class="problematic" id="id2">**</span></a>situación de clasificación no supervisada* se puede utilizar para agrupar documentos similares aplicando algoritmos de análisis de conglomerados como <a class="reference internal" href="clustering.html#k-means"><span class="std std-ref">K-medias</span></a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py"><span class="std std-ref">Análisis de conglomerados en documentos de texto utilizando k-medias(k-means)</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>Finalmente, es posible descubrir los temas principales de un corpus relajando la restricción de asignación estricta del análisis de conglomerados, por ejemplo, usando: <a class="reference internal" href="decomposition.html#nmf"><span class="std std-ref">Factorización matricial no negativa (NMF o NNMF)</span></a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/applications/plot_topics_extraction_with_nmf_lda.html#sphx-glr-auto-examples-applications-plot-topics-extraction-with-nmf-lda-py"><span class="std std-ref">Extracción de temas con Factorización Matricial No Negativa y Asignación de Dirichlet Latente</span></a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="limitations-of-the-bag-of-words-representation">
+<h3><span class="section-number">6.2.3.7. </span>Limitaciones de la representación Bolsa de palabras<a class="headerlink" href="#limitations-of-the-bag-of-words-representation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una colección de unigramas (lo que es la bolsa de palabras) no puede capturar frases y expresiones de varias palabras, ignorando efectivamente cualquier dependencia del orden de las palabras. Además, el modelo de bolsa de palabras no tiene en cuenta posibles errores ortográficos ni las derivaciones de las palabras.</p>
+<p>¡N-gramas al rescate! En lugar de construir una simple colección de unigramas (n=1), se puede preferir una colección de bigramas (n=2), donde se cuentan las ocurrencias de pares de palabras consecutivas.</p>
+<p>Se puede considerar alternativamente una colección de n-gramas de caracteres, una representación resistente a errores ortográficos y derivaciones.</p>
+<p>Por ejemplo, digamos que estamos tratando con un corpus de dos documentos: <code class="docutils literal notranslate"><span class="pre">['words',</span> <span class="pre">'wprds']</span></code>. El segundo documento contiene una falta de ortografía de la palabra “words”. Una simple representación Bolsa de palabras consideraría estos dos como documentos muy distintos, que difieren en las dos características posibles. Una representación de bigramas de caracteres, sin embargo, encontraría los documentos que coincidan en 4 de las 8 características, lo que puede ayudar al clasificador preferido a decidir mejor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char_wb&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s1">&#39;words&#39;</span><span class="p">,</span> <span class="s1">&#39;wprds&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39; w&#39;</span><span class="p">,</span> <span class="s1">&#39;ds&#39;</span><span class="p">,</span> <span class="s1">&#39;or&#39;</span><span class="p">,</span> <span class="s1">&#39;pr&#39;</span><span class="p">,</span> <span class="s1">&#39;rd&#39;</span><span class="p">,</span> <span class="s1">&#39;s &#39;</span><span class="p">,</span> <span class="s1">&#39;wo&#39;</span><span class="p">,</span> <span class="s1">&#39;wp&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="go">array([[1, 1, 1, 0, 1, 1, 1, 0],</span>
+<span class="go">       [1, 1, 0, 1, 1, 1, 0, 1]])</span>
+</pre></div>
+</div>
+<p>En el ejemplo anterior, se utiliza el analizador <code class="docutils literal notranslate"><span class="pre">char_wb</span></code>, que crea n-gramas sólo a partir de caracteres dentro de los límites de las palabras (rellenados con espacio a cada lado). El analizador <code class="docutils literal notranslate"><span class="pre">char`</span></code>, alternativamente, crea n-gramas que se extienden a través de palabras:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char_wb&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s1">&#39;jumpy fox&#39;</span><span class="p">])</span>
+<span class="go">&lt;1x4 sparse matrix of type &#39;&lt;... &#39;numpy.int64&#39;&gt;&#39;</span>
+<span class="go">   with 4 stored elements in Compressed Sparse ... format&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39; fox &#39;</span><span class="p">,</span> <span class="s1">&#39; jump&#39;</span><span class="p">,</span> <span class="s1">&#39;jumpy&#39;</span><span class="p">,</span> <span class="s1">&#39;umpy &#39;</span><span class="p">])</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s1">&#39;jumpy fox&#39;</span><span class="p">])</span>
+<span class="go">&lt;1x5 sparse matrix of type &#39;&lt;... &#39;numpy.int64&#39;&gt;&#39;</span>
+<span class="go">    with 5 stored elements in Compressed Sparse ... format&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;jumpy&#39;</span><span class="p">,</span> <span class="s1">&#39;mpy f&#39;</span><span class="p">,</span> <span class="s1">&#39;py fo&#39;</span><span class="p">,</span> <span class="s1">&#39;umpy &#39;</span><span class="p">,</span> <span class="s1">&#39;y fox&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>La variante <code class="docutils literal notranslate"><span class="pre">char_wb</span></code> que conoce los límites de las palabras es especialmente interesante para los idiomas que usan espacios en blanco para la separación de palabras, ya que en ese caso genera características mucho menos ruidosas que la variante <code class="docutils literal notranslate"><span class="pre">char</span></code> en bruto. Para estos idiomas, puede aumentar tanto la precisión predictiva como la velocidad de convergencia de los clasificadores entrenados con estas características, al tiempo que mantiene la robustez con respecto a errores ortográficos y derivaciones de palabras.</p>
+<p>Mientras que la información de posicionamiento local se puede preservar extrayendo n-gramas en lugar de palabras individuales, la bolsa de palabras y la bolsa de n-gramas destruyen la mayor parte de la estructura interna del documento y, por tanto, la mayor parte del significado que conlleva esa estructura interna.</p>
+<p>Con el fin de abordar la tarea más amplia de la comprensión del lenguaje natural, debe tenerse en cuenta la estructura local de frases y párrafos. Muchos de estos modelos serán, por lo tanto, considerados como problemas de «salida estructurada» que actualmente están fuera del alcance de scikit-learn.</p>
+</section>
+<section id="vectorizing-a-large-text-corpus-with-the-hashing-trick">
+<span id="hashing-vectorizer"></span><h3><span class="section-number">6.2.3.8. </span>Vectorizando un corpus de texto grande con el truco de hashing<a class="headerlink" href="#vectorizing-a-large-text-corpus-with-the-hashing-trick" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El esquema de vectorización anterior es simple, pero el hecho de que contenga <strong>un mapeo de memoria de los tokens de cadena a los índices de características enteras</strong> (el atributo <a href="#id1"><span class="problematic" id="id2">``</span></a>vocabulary_`) causa varios <strong>problemas al tratar con conjuntos de datos grandes</strong>:</p>
+<ul class="simple">
+<li><p>cuanto más grande sea el corpus, mayor será el vocabulario y, por tanto, también el uso de memoria,</p></li>
+<li><p>el ajuste requiere la asignación de estructuras de datos intermedias de tamaño proporcional al del conjunto de datos original.</p></li>
+<li><p>la construcción del mapeo de palabras requiere un pase completo sobre el conjunto de datos, por lo que no es posible ajustar los clasificadores de texto de una manera estrictamente en línea.</p></li>
+<li><p>pickling y un-pickling vectorizadores con un <code class="docutils literal notranslate"><span class="pre">vocabulary_</span></code> extenso puede llegar a ser muy lento (típicamente mucho más lento que el pickling / un-pickling de estructuras de datos planas como un arreglo de NumPy del mismo tamaño),</p></li>
+<li><p>no es posible dividir fácilmente el trabajo de vectorización en subtareas simultáneas, ya que el atributo <code class="docutils literal notranslate"><span class="pre">vocabulary_</span></code> tendría que ser un estado compartido con una barrera de sincronización de granularidad fina: el mapeo de la cadena del token al índice de características depende del orden de la primera ocurrencia de cada token, por lo que tendría que ser compartido, perjudicando potencialmente el rendimiento simultáneo de los trabajadores hasta el punto de hacerlos más lentos que la variante secuencial.</p></li>
+</ul>
+<p>Es posible superar esas limitaciones combinando el «truco de hashing» (<a class="reference internal" href="#feature-hashing"><span class="std std-ref">Hashing de características</span></a>) implementado por la clase <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> y el preprocesamiento de texto y tokenización de características de <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.</p>
+<p>Esta combinación está implementada en <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>, una clase transformadora que es mayormente compatible con la API de <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>. <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a> no tiene estado, lo que significa que no hay que llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code> en ella:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="go">&lt;4x10 sparse matrix of type &#39;&lt;... &#39;numpy.float64&#39;&gt;&#39;</span>
+<span class="go">    with 16 stored elements in Compressed Sparse ... format&gt;</span>
+</pre></div>
+</div>
+<p>Puedes ver que se extrajeron 16 tokens de características no nulas en el vector de salida: esto es menor que los 19 no ceros extraídos previamente por <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> en el mismo corpus de juego. La discrepancia proviene de las colisiones de la función hash debido al bajo valor del parámetro <code class="docutils literal notranslate"><span class="pre">n_features</span></code>.</p>
+<p>En un entorno del mundo real, el parámetro `` n_features “” se puede dejar en su valor predeterminado de `` 2 ** 20 “” (aproximadamente un millón de características posibles). Si la memoria o el tamaño de los modelos posteriores es un problema, seleccionar un valor inferior como `` 2 ** 18 “” podría ayudar sin introducir demasiadas colisiones adicionales en las tareas típicas de clasificación de texto.</p>
+<p>Ten en cuenta que la dimensionalidad no afecta al tiempo de entrenamiento de la CPU de algoritmos que operan con matrices CSR (<code class="docutils literal notranslate"><span class="pre">LinearSVC(dual=True)</span></code>, <code class="docutils literal notranslate"><span class="pre">Perceptron</span></code>, <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code>, <code class="docutils literal notranslate"><span class="pre">PassiveAggressive</span></code>), pero sí lo hace para algoritmos que trabajan con matrices CSC (<code class="docutils literal notranslate"><span class="pre">LinearSVC(dual=False)</span></code>, <code class="docutils literal notranslate"><span class="pre">Lasso()</span></code>, etc).</p>
+<p>Intentemos de nuevo con la configuración por defecto:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="go">&lt;4x1048576 sparse matrix of type &#39;&lt;... &#39;numpy.float64&#39;&gt;&#39;</span>
+<span class="go">    with 19 stored elements in Compressed Sparse ... format&gt;</span>
+</pre></div>
+</div>
+<p>Ya no tenemos las colisiones, pero esto se produce a costa de una dimensionalidad mucho mayor del espacio de salida. Por supuesto, otros términos distintos de los 19 utilizados aquí podrían seguir colisionando entre sí.</p>
+<p>El <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a> también viene con las siguientes limitaciones:</p>
+<ul class="simple">
+<li><p>no es posible invertir el modelo (no hay método <code class="docutils literal notranslate"><span class="pre">inverse_transform</span></code>), ni acceder a la representación original de cadenas de las características, debido a la naturaleza unidireccional de la función hash que realiza el mapeo.</p></li>
+<li><p>no proporciona ponderación de IDF, ya que esto introduciría la condición de admitir diferentes estados en el modelo. Un <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> puede ser anexado a él en un pipeline si es necesario.</p></li>
+</ul>
+</section>
+<section id="performing-out-of-core-scaling-with-hashingvectorizer">
+<h3><span class="section-number">6.2.3.9. </span>Realizando escalado fuera del núcleo con HashingVectorizer<a class="headerlink" href="#performing-out-of-core-scaling-with-hashingvectorizer" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Un desarrollo interesante de usar un <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a> es la capacidad de realizar un escalado <a class="reference external" href="https://en.wikipedia.org/wiki/Out-of-core_algorithm">out-of-core</a>. Esto significa que podemos aprender de datos que no encajan en la memoria principal del computador.</p>
+<p>Una estrategia para implementar el escalado fuera del núcleo es enviar los datos al estimador en mini lotes. Cada mini lote es vectorizado usando <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a> para garantizar que el espacio de entrada del estimador tenga siempre la misma dimensionalidad. La cantidad de memoria utilizada en cualquier momento está así limitada por el tamaño de un mini lote. Aunque no hay límite para la cantidad de datos que se pueden ingerir utilizando este enfoque, desde un punto de vista práctico el tiempo de aprendizaje a menudo está limitado por el tiempo de CPU que se quiera dedicar a la tarea.</p>
+<p>Para un ejemplo completo de escalado fuera del núcleo en una tarea de clasificación de texto, consulta <a class="reference internal" href="../auto_examples/applications/plot_out_of_core_classification.html#sphx-glr-auto-examples-applications-plot-out-of-core-classification-py"><span class="std std-ref">Clasificación de documentos de texto fuera del núcleo</span></a>.</p>
+</section>
+<section id="customizing-the-vectorizer-classes">
+<h3><span class="section-number">6.2.3.10. </span>Personalización de las clases del vectorizador<a class="headerlink" href="#customizing-the-vectorizer-classes" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Es posible personalizar el comportamiento pasando una llamada al constructor del vectorizador:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">my_tokenizer</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">my_tokenizer</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()(</span><span class="sa">u</span><span class="s2">&quot;Some... punctuation!&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;some...&#39;</span><span class="p">,</span> <span class="s1">&#39;punctuation!&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>En particular, nombramos:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocessor</span></code>: una llamada que toma un documento entero como entrada (como una sola cadena), y devuelve una versión posiblemente transformada del documento, todavía como una cadena completa. Esto se puede utilizar para eliminar etiquetas HTML, poner en minúsculas todo el documento, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tokenizer</span></code>: una llamada que toma la salida del preprocesador y la divide en tokens, luego devuelve una lista de estos.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">analyzer</span></code>: una llamada que reemplaza al preprocesador y al tokenizador. Todos los analizadores por defecto llaman al preprocesador y al tokenizador, pero los analizadores personalizados se saltarán esto. La extracción de N-gramas y el filtrado de palabras funcionales tienen lugar en el nivel del analizador, por lo que un analizador personalizado puede tener que reproducir estos pasos.</p></li>
+</ul>
+</div></blockquote>
+<p>(Los usuarios de Lucene pueden reconocer estos nombres, pero ten en cuenta que los conceptos de scikit-learn pueden no coincidir uno a uno con los conceptos de Lucene.)</p>
+<p>Para que el preprocesador, el tokenizador y los analizadores sean conscientes de los parámetros del modelo es posible derivar de la clase y anular los métodos de fábrica <code class="docutils literal notranslate"><span class="pre">build_preprocessor</span></code>, <code class="docutils literal notranslate"><span class="pre">build_tokenizer</span></code> y <code class="docutils literal notranslate"><span class="pre">build_analyzer</span></code> en lugar de pasar funciones personalizadas.</p>
+<p>Algunos consejos y trucos:</p>
+<blockquote>
+<div><ul>
+<li><p>Si los documentos están pre-tokenizados por un paquete externo, entonces almacénalos en archivos (o cadenas) con los tokens separados por espacios en blanco y pasa <code class="docutils literal notranslate"><span class="pre">analyzer=str.split</span></code></p></li>
+<li><p>El análisis sofisticado a nivel de tokens, como el stemming, la lematización, la división compuesta, el filtrado basado en etiquetas part-of-speech, etc., no se incluyen en la base de código de scikit-learn, pero puede añadirse personalizando el tokenizador o el analizador. Aquí hay un <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> con un tokenizador y lematizador usando <a class="reference external" href="https://www.nltk.org/">NLTK</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">word_tokenize</span>          
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">LemmaTokenizer</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">wnl</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">wnl</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">doc</span><span class="p">)]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vect</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">LemmaTokenizer</span><span class="p">())</span>  
+</pre></div>
+</div>
+<p>(Nota que esto no filtrará los signos de puntuación.)</p>
+<p>El siguiente ejemplo transformará, por ejemplo, algunas ortografías Británicas en ortografías Americanas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">re</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">to_british</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(...)our$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1or&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([bt])re$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1er&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([iy])s(e$|ing|ation)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1z\2&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;ogue$&quot;</span><span class="p">,</span> <span class="s2">&quot;og&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">yield</span> <span class="n">t</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">CustomVectorizer</span><span class="p">(</span><span class="n">CountVectorizer</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">build_tokenizer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">tokenize</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_tokenizer</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="k">lambda</span> <span class="n">doc</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">to_british</span><span class="p">(</span><span class="n">tokenize</span><span class="p">(</span><span class="n">doc</span><span class="p">)))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">CustomVectorizer</span><span class="p">()</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()(</span><span class="sa">u</span><span class="s2">&quot;color colour&quot;</span><span class="p">))</span>
+<span class="go">[...&#39;color&#39;, ...&#39;color&#39;]</span>
+</pre></div>
+</div>
+<p>para otros estilos de preprocesamiento; los ejemplos incluyen stemming, lematización o normalización de tokens numéricos, con estos últimos ilustrados en:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/bicluster/plot_bicluster_newsgroups.html#sphx-glr-auto-examples-bicluster-plot-bicluster-newsgroups-py"><span class="std std-ref">Biclustering de documentos con el algoritmo Co-clustering Espectral</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>La personalización del vectorizador también puede ser útil cuando se manejan idiomas asiáticos que no utilizan un separador de palabras explícito, como los espacios en blanco.</p>
+</section>
+</section>
+<section id="image-feature-extraction">
+<span id="id6"></span><h2><span class="section-number">6.2.4. </span>Extracción de características de imagen<a class="headerlink" href="#image-feature-extraction" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="patch-extraction">
+<h3><span class="section-number">6.2.4.1. </span>Extracción de parches<a class="headerlink" href="#patch-extraction" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La función <a class="reference internal" href="generated/sklearn.feature_extraction.image.extract_patches_2d.html#sklearn.feature_extraction.image.extract_patches_2d" title="sklearn.feature_extraction.image.extract_patches_2d"><code class="xref py py-func docutils literal notranslate"><span class="pre">extract_patches_2d</span></code></a> extrae fragmentos de una imagen almacenada como un arreglo bidimensional o tridimensional con información de color a lo largo del tercer eje. Para reconstruir una imagen a partir de todos sus fragmentos, utiliza <a class="reference internal" href="generated/sklearn.feature_extraction.image.reconstruct_from_patches_2d.html#sklearn.feature_extraction.image.reconstruct_from_patches_2d" title="sklearn.feature_extraction.image.reconstruct_from_patches_2d"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_from_patches_2d</span></code></a>. Por ejemplo, generemos una imagen de 4x4 píxeles con 3 canales de color (por ejemplo, en formato RGB):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">image</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">one_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">one_image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># R channel of a fake RGB picture</span>
+<span class="go">array([[ 0,  3,  6,  9],</span>
+<span class="go">       [12, 15, 18, 21],</span>
+<span class="go">       [24, 27, 30, 33],</span>
+<span class="go">       [36, 39, 42, 45]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">extract_patches_2d</span><span class="p">(</span><span class="n">one_image</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">max_patches</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2, 2, 2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[[ 0,  3],</span>
+<span class="go">        [12, 15]],</span>
+
+<span class="go">       [[15, 18],</span>
+<span class="go">        [27, 30]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">extract_patches_2d</span><span class="p">(</span><span class="n">one_image</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(9, 2, 2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[15, 18],</span>
+<span class="go">       [27, 30]])</span>
+</pre></div>
+</div>
+<p>Intentemos ahora reconstruir la imagen original a partir de los parches promediando en áreas superpuestas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reconstructed</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">reconstruct_from_patches_2d</span><span class="p">(</span><span class="n">patches</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span><span class="p">(</span><span class="n">one_image</span><span class="p">,</span> <span class="n">reconstructed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>La clase <a class="reference internal" href="generated/sklearn.feature_extraction.image.PatchExtractor.html#sklearn.feature_extraction.image.PatchExtractor" title="sklearn.feature_extraction.image.PatchExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatchExtractor</span></code></a> funciona de la misma manera que <a class="reference internal" href="generated/sklearn.feature_extraction.image.extract_patches_2d.html#sklearn.feature_extraction.image.extract_patches_2d" title="sklearn.feature_extraction.image.extract_patches_2d"><code class="xref py py-func docutils literal notranslate"><span class="pre">extract_patches_2d</span></code></a>, sólo que soporta múltiples imágenes como entrada. Se implementa como un estimador, así que puede ser utilizado en pipelines. Ver</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">five_images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">PatchExtractor</span><span class="p">(</span><span class="n">patch_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">five_images</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(45, 2, 2, 3)</span>
+</pre></div>
+</div>
+</section>
+<section id="connectivity-graph-of-an-image">
+<h3><span class="section-number">6.2.4.2. </span>Grafo de conectividad de una imagen<a class="headerlink" href="#connectivity-graph-of-an-image" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Varios estimadores de scikit-learn pueden utilizar la información de conectividad entre características o muestras. Por ejemplo, el agrupamiento de Ward (<a class="reference internal" href="clustering.html#hierarchical-clustering"><span class="std std-ref">Análisis de conglomerados jerárquicos</span></a>) puede agrupar sólo los píxeles vecinos de una imagen, formando así parches contiguos:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_coin_ward_segmentation.html"><img alt="../_images/sphx_glr_plot_coin_ward_segmentation_001.png" src="../_images/sphx_glr_plot_coin_ward_segmentation_001.png" style="width: 200.0px; height: 200.0px;" /></a>
+</figure>
+<p>Para ello, los estimadores utilizan una matriz «conectividad», que indica las muestras que están conectadas.</p>
+<p>La función <a class="reference internal" href="generated/sklearn.feature_extraction.image.img_to_graph.html#sklearn.feature_extraction.image.img_to_graph" title="sklearn.feature_extraction.image.img_to_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">img_to_graph</span></code></a> devuelve una matriz de este tipo a partir de una imagen 2D o 3D. Del mismo modo, <a class="reference internal" href="generated/sklearn.feature_extraction.image.grid_to_graph.html#sklearn.feature_extraction.image.grid_to_graph" title="sklearn.feature_extraction.image.grid_to_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_to_graph</span></code></a> construye una matriz de conectividad para imágenes dada la forma de estas.</p>
+<p>Estas matrices pueden utilizarse para imponer conectividad en estimadores que utilizan información de conectividad, tales como el agrupamiento de Ward (<a class="reference internal" href="clustering.html#hierarchical-clustering"><span class="std std-ref">Análisis de conglomerados jerárquicos</span></a>), pero también para construir kernels precalculados, o matrices de similaridad.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Ejemplos</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_coin_ward_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-ward-segmentation-py"><span class="std std-ref">Una demostración (demo) del agrupamiento jerárquico de Ward estructurado en una imagen de monedas</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_segmentation_toy.html#sphx-glr-auto-examples-cluster-plot-segmentation-toy-py"><span class="std std-ref">Agrupamiento espectral para la segmentación de imágenes</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_feature_agglomeration_vs_univariate_selection.html#sphx-glr-auto-examples-cluster-plot-feature-agglomeration-vs-univariate-selection-py"><span class="std std-ref">Agrupamiento de características vs. selección univariante</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/feature_extraction.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

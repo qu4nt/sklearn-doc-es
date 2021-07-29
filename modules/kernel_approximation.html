@@ -1,0 +1,466 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>6.7. Aproximación de núcleo &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/kernel_approximation.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="random_projection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.6. Proyección aleatoria">Prev</a><a href="../data_transforms.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6. Transformaciones de conjuntos de datos">Arriba</a>
+            <a href="metrics.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.8. Métricas por pares, afinidades y núcleos">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">6.7. Aproximación de núcleo</a><ul>
+<li><a class="reference internal" href="#nystroem-method-for-kernel-approximation">6.7.1. Método Nystroem para la aproximación de núcleos</a></li>
+<li><a class="reference internal" href="#radial-basis-function-kernel">6.7.2. Núcleo de la función de base radial</a></li>
+<li><a class="reference internal" href="#additive-chi-squared-kernel">6.7.3. Núcleo aditivo de chi cuadrado</a></li>
+<li><a class="reference internal" href="#skewed-chi-squared-kernel">6.7.4. Núcleo de chi cuadrado sesgado</a></li>
+<li><a class="reference internal" href="#polynomial-kernel-approximation-via-tensor-sketch">6.7.5. Aproximación de núcleos polinómicos a través de Tensor Sketch</a></li>
+<li><a class="reference internal" href="#mathematical-details">6.7.6. Detalles matemáticos</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="kernel-approximation">
+<span id="id1"></span><h1><span class="section-number">6.7. </span>Aproximación de núcleo<a class="headerlink" href="#kernel-approximation" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Este submódulo contiene funciones que aproximan los mapeos de características que corresponden a ciertos núcleos (kernels), tal y como se utilizan, por ejemplo, en las máquinas de vectores de soporte (véase <a class="reference internal" href="svm.html#svm"><span class="std std-ref">Máquinas de Vectores de Soporte</span></a>). Las siguientes funciones de características realizan transformaciones no lineales de la entrada, que pueden servir de base para la clasificación lineal u otros algoritmos.</p>
+<p>La ventaja de utilizar mapas de características explícitas (explicit feature maps) aproximados en comparación con el truco del núcleo <a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_trick">kernel trick</a>, que hace uso de los mapas de características de forma implícita, es que los mapeos explícitos pueden ser más adecuados para el aprendizaje en línea (online learning) y pueden reducir significativamente el coste del aprendizaje con conjuntos de datos muy grandes. Las SVM de núcleo estándar no se escalan bien en grandes conjuntos de datos, pero utilizando un mapa de núcleo aproximado es posible utilizar SVM lineales mucho más eficientes. En particular, la combinación de aproximaciones del mapa del núcleo con <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> puede hacer posible el aprendizaje no lineal en grandes conjuntos de datos.</p>
+<p>Dado que no se han realizado muchos trabajos empíricos utilizando embeddings aproximados, es aconsejable comparar los resultados con los métodos de núcleos exactos cuando sea posible.</p>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<p><a class="reference internal" href="linear_model.html#polynomial-regression"><span class="std std-ref">Regresión polinómica: ampliación de los modelos lineales con funciones de base</span></a> para una transformación polinómica exacta.</p>
+</div>
+<section id="nystroem-method-for-kernel-approximation">
+<span id="nystroem-kernel-approx"></span><h2><span class="section-number">6.7.1. </span>Método Nystroem para la aproximación de núcleos<a class="headerlink" href="#nystroem-method-for-kernel-approximation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El método Nystroem, tal y como se implementa en <a class="reference internal" href="generated/sklearn.kernel_approximation.Nystroem.html#sklearn.kernel_approximation.Nystroem" title="sklearn.kernel_approximation.Nystroem"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nystroem</span></code></a> es un método general para aproximaciones de bajo nivel de los núcleos. Lo consigue esencialmente mediante el submuestreo de los datos sobre los que se evalúa el núcleo. Por defecto, <a class="reference internal" href="generated/sklearn.kernel_approximation.Nystroem.html#sklearn.kernel_approximation.Nystroem" title="sklearn.kernel_approximation.Nystroem"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nystroem</span></code></a> utiliza el kernel <code class="docutils literal notranslate"><span class="pre">rbf</span></code>, pero puede utilizar cualquier función del kernel o una matriz del kernel precalculada. El número de muestras utilizadas - que es también la dimensionalidad de las características calculadas - viene dado por el parámetro <code class="docutils literal notranslate"><span class="pre">n_components</span></code>.</p>
+</section>
+<section id="radial-basis-function-kernel">
+<span id="rbf-kernel-approx"></span><h2><span class="section-number">6.7.2. </span>Núcleo de la función de base radial<a class="headerlink" href="#radial-basis-function-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La <a class="reference internal" href="generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="sklearn.kernel_approximation.RBFSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a> construye un mapeo aproximado para el núcleo de la función de base radial (radial basis function kernel, RBF), también conocido como <em>Random Kitchen Sinks</em> <a class="reference internal" href="#rr2007" id="id2"><span>[RR2007]</span></a>. Esta transformación puede utilizarse para modelar explícitamente un mapa de núcleo, antes de aplicar un algoritmo lineal, por ejemplo una SVM lineal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.kernel_approximation</span> <span class="kn">import</span> <span class="n">RBFSampler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rbf_feature</span> <span class="o">=</span> <span class="n">RBFSampler</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_features</span> <span class="o">=</span> <span class="n">rbf_feature</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_features</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">SGDClassifier(max_iter=5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_features</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<p>El mapeo se basa en una aproximación de Monte Carlo a los valores del núcleo. La función <code class="docutils literal notranslate"><span class="pre">fit</span></code> realiza el muestreo de Monte Carlo, mientras que el método <code class="docutils literal notranslate"><span class="pre">transform</span></code> realiza el mapeo de los datos.  Debido a la aleatoriedad inherente al proceso, los resultados pueden variar entre diferentes llamadas a la función <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+<p>La función <code class="docutils literal notranslate"><span class="pre">fit</span></code> toma dos argumentos: <code class="docutils literal notranslate"><span class="pre">n_components</span></code>, que es la dimensionalidad objetivo de la transformación de características, y <code class="docutils literal notranslate"><span class="pre">gamma</span></code>, el parámetro del núcleo RBF.  Un <code class="docutils literal notranslate"><span class="pre">n_components</span></code> más alto dará lugar a una mejor aproximación del núcleo y producirá resultados más similares a los producidos por un núcleo SVM. Ten en cuenta que el «ajuste» de la función característica no depende realmente de los datos dados a la función <code class="docutils literal notranslate"><span class="pre">fit</span></code>. Sólo se utiliza la dimensionalidad de los datos. Los detalles del método se pueden encontrar en <a class="reference internal" href="#rr2007" id="id3"><span>[RR2007]</span></a>.</p>
+<p>Para un valor determinado de <code class="docutils literal notranslate"><span class="pre">n_components</span></code> <a class="reference internal" href="generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="sklearn.kernel_approximation.RBFSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a> suele ser menos preciso que <a class="reference internal" href="generated/sklearn.kernel_approximation.Nystroem.html#sklearn.kernel_approximation.Nystroem" title="sklearn.kernel_approximation.Nystroem"><code class="xref py py-class docutils literal notranslate"><span class="pre">Nystroem</span></code></a>. Sin embargo, <a class="reference internal" href="generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="sklearn.kernel_approximation.RBFSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a> es menos costoso de calcular, lo que hace más eficiente el uso de espacios de características más grandes.</p>
+<figure class="align-center" id="id11">
+<a class="reference external image-reference" href="../auto_examples/miscellaneous/plot_kernel_approximation.html"><img alt="../_images/sphx_glr_plot_kernel_approximation_002.png" src="../_images/sphx_glr_plot_kernel_approximation_002.png" style="width: 900.0px; height: 375.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Comparación de un núcleo RBF exacto (izquierda) con la aproximación (derecha)</span><a class="headerlink" href="#id11" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/miscellaneous/plot_kernel_approximation.html#sphx-glr-auto-examples-miscellaneous-plot-kernel-approximation-py"><span class="std std-ref">Aproximación explícita del mapeo de características para los núcleos RBF</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="additive-chi-squared-kernel">
+<span id="additive-chi-kernel-approx"></span><h2><span class="section-number">6.7.3. </span>Núcleo aditivo de chi cuadrado<a class="headerlink" href="#additive-chi-squared-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El núcleo chi cuadrado aditivo es un núcleo basado en histogramas que se utiliza a menudo en la visión por computadora.</p>
+<p>El núcleo aditivo de chi-cuadrado utilizado aquí viene dado por</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \sum_i \frac{2x_iy_i}{x_i+y_i}\]</div>
+<p>Esto no es exactamente lo mismo que <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.additive_chi2_kernel</span></code>. Los autores de <a class="reference internal" href="#vz2010" id="id4"><span>[VZ2010]</span></a> prefieren la versión anterior ya que siempre es definida positiva. Como el núcleo es aditivo, es posible tratar todos los componentes <span class="math notranslate nohighlight">\(x_i\)</span> por separado para la incrustación (embedding). Esto hace posible muestrear la transformada de Fourier en intervalos regulares, en lugar de aproximar utilizando el muestreo de Monte Carlo.</p>
+<p>La clase <a class="reference internal" href="generated/sklearn.kernel_approximation.AdditiveChi2Sampler.html#sklearn.kernel_approximation.AdditiveChi2Sampler" title="sklearn.kernel_approximation.AdditiveChi2Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdditiveChi2Sampler</span></code></a> implementa este muestreo determinista por componentes. Cada componente se muestrea <span class="math notranslate nohighlight">\(n\)</span> veces, dando lugar a <span class="math notranslate nohighlight">\(2n+1\)</span> dimensiones por dimensión de entrada (el múltiplo de dos proviene de la parte real y compleja de la transformada de Fourier). En la bibliografía, <span class="math notranslate nohighlight">\(n\)</span> suele elegirse como 1 o 2, lo que transforma el conjunto de datos en un tamaño de <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">*</span> <span class="pre">5</span> <span class="pre">*</span> <span class="pre">n_features</span></code> (en el caso de <span class="math notranslate nohighlight">\(n=2\)</span>).</p>
+<p>El mapa de características aproximado proporcionado por <a class="reference internal" href="generated/sklearn.kernel_approximation.AdditiveChi2Sampler.html#sklearn.kernel_approximation.AdditiveChi2Sampler" title="sklearn.kernel_approximation.AdditiveChi2Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdditiveChi2Sampler</span></code></a> puede combinarse con el mapa de características aproximado proporcionado por <a class="reference internal" href="generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="sklearn.kernel_approximation.RBFSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a> para obtener un mapa de características aproximado para el núcleo de chi cuadrado exponenciado. Ver el documento <a class="reference internal" href="#vz2010" id="id5"><span>[VZ2010]</span></a> para más detalles y <a class="reference internal" href="#vvz2010" id="id6"><span>[VVZ2010]</span></a> para la combinación con la <a class="reference internal" href="generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="sklearn.kernel_approximation.RBFSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a>.</p>
+</section>
+<section id="skewed-chi-squared-kernel">
+<span id="skewed-chi-kernel-approx"></span><h2><span class="section-number">6.7.4. </span>Núcleo de chi cuadrado sesgado<a class="headerlink" href="#skewed-chi-squared-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El núcleo de chi cuadrado sesgado viene dado por:</p>
+<div class="math notranslate nohighlight">
+\[k(x,y) = \prod_i \frac{2\sqrt{x_i+c}\sqrt{y_i+c}}{x_i + y_i + 2c}\]</div>
+<p>Tiene propiedades similares al núcleo de chi cuadrado exponenciado que se utiliza a menudo en la visión por computadora, pero permite una aproximación simple de Monte Carlo del mapa de características.</p>
+<p>El uso del <a class="reference internal" href="generated/sklearn.kernel_approximation.SkewedChi2Sampler.html#sklearn.kernel_approximation.SkewedChi2Sampler" title="sklearn.kernel_approximation.SkewedChi2Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SkewedChi2Sampler</span></code></a> es el mismo que el descrito anteriormente para el <a class="reference internal" href="generated/sklearn.kernel_approximation.RBFSampler.html#sklearn.kernel_approximation.RBFSampler" title="sklearn.kernel_approximation.RBFSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RBFSampler</span></code></a>. La única diferencia está en el parámetro independiente, que se llama <span class="math notranslate nohighlight">\(c\)</span>. Para conocer la motivación de este mapeo y los detalles matemáticos, ver <a class="reference internal" href="#ls2010" id="id7"><span>[LS2010]</span></a>.</p>
+</section>
+<section id="polynomial-kernel-approximation-via-tensor-sketch">
+<span id="polynomial-kernel-approx"></span><h2><span class="section-number">6.7.5. </span>Aproximación de núcleos polinómicos a través de Tensor Sketch<a class="headerlink" href="#polynomial-kernel-approximation-via-tensor-sketch" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="metrics.html#polynomial-kernel"><span class="std std-ref">núcleo polinómico</span></a> es un tipo popular de función de núcleo dada por:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = (\gamma x^\top y +c_0)^d\]</div>
+<p>donde:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> son los vectores de entrada</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code> es el grado (degree) del núcleo</p></li>
+</ul>
+</div></blockquote>
+<p>Intuitivamente, el espacio de características del núcleo polinómico de grado <code class="docutils literal notranslate"><span class="pre">d</span></code> consiste en todos los posibles productos de grado <code class="docutils literal notranslate"><span class="pre">d</span></code> entre las características de entrada, lo que permite a los algoritmos de aprendizaje que utilizan este núcleo tener en cuenta las interacciones entre las características.</p>
+<p>El método TensorSketch <a class="reference internal" href="#pp2013" id="id8"><span>[PP2013]</span></a>, implementado en <a class="reference internal" href="generated/sklearn.kernel_approximation.PolynomialCountSketch.html#sklearn.kernel_approximation.PolynomialCountSketch" title="sklearn.kernel_approximation.PolynomialCountSketch"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolynomialCountSketch</span></code></a>, es un método escalable e independiente de los datos de entrada para la aproximación de núcleos polinómicos. Se basa en el concepto de Count Sketch <a class="reference internal" href="#wikics" id="id9"><span>[WIKICS]</span></a> <a class="reference internal" href="#ccf2002" id="id10"><span>[CCF2002]</span></a> , una técnica de reducción de la dimensionalidad similar al feature hashing, que en cambio utiliza varias funciones hash independientes. TensorSketch obtiene un Count Sketch del producto exterior (outer product) de dos vectores (o de un vector consigo mismo), que puede utilizarse como una aproximación del espacio de características del núcleo polinómico. En concreto, en lugar de calcular explícitamente el producto exterior, TensorSketch calcula el Count Sketch de los vectores y luego utiliza la multiplicación polinómica a través de la Transformada Rápida de Fourier para calcular el Count Sketch de su producto exterior.</p>
+<p>Convenientemente, la fase de entrenamiento de TensorSketch consiste simplemente en inicializar algunas variables aleatorias. Por tanto, es independiente de los datos de entrada, es decir, sólo depende del número de características de entrada, pero no de los valores de los datos. Además, este método puede transformar muestras en tiempo <span class="math notranslate nohighlight">\(\mathcal{O}(n_{\text{samples}}(n_{\text{features}} + n_{\text{components}} \log(n_{\text{components}})))\)</span>, donde <span class="math notranslate nohighlight">\(n_{\text{components}}\)</span> es la dimensión de salida deseada, determinada por <code class="docutils literal notranslate"><span class="pre">n_components</span></code>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/kernel_approximation/plot_scalable_poly_kernels.html#sphx-glr-auto-examples-kernel-approximation-plot-scalable-poly-kernels-py"><span class="std std-ref">Aprendizaje escalable con aproximación del núcleo polinomial</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="mathematical-details">
+<span id="tensor-sketch-kernel-approx"></span><h2><span class="section-number">6.7.6. </span>Detalles matemáticos<a class="headerlink" href="#mathematical-details" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los métodos de núcleo, como las máquinas de vectores soporte o el PCA «kernelizado», se basan en una propiedad de reproducción de los espacios de Hilbert del núcleo. Para cualquier función de núcleo definida positiva <span class="math notranslate nohighlight">\(k\)</span> (también llamada núcleo de Mercer), se garantiza que existe un mapeo <span class="math notranslate nohighlight">\(\phi\)</span> en un espacio de Hilbert <span class="math notranslate nohighlight">\(\mathcal{H}\)</span>, tal que</p>
+<div class="math notranslate nohighlight">
+\[k(x,y) = \langle \phi(x), \phi(y) \rangle\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(\langle \cdot, \cdot \rangle\)</span> indica el producto interno en el espacio Hilbert.</p>
+<p>Si un algoritmo, tal como una máquina de vectores de soporte lineal o PCA, se basa sólo en el producto escalar de los puntos de datos <span class="math notranslate nohighlight">\(x_i\)</span>, se puede utilizar el valor de <span class="math notranslate nohighlight">\(k(x_i, x_j)\)</span>, que corresponde a la aplicación del algoritmo a los puntos de datos mapeados <span class="math notranslate nohighlight">\(\phi(x_i)\)</span>. La ventaja de utilizar <span class="math notranslate nohighlight">\(k\)</span> es que el mapeo <span class="math notranslate nohighlight">\(\phi\)</span> nunca tiene que ser calculado explícitamente, lo que permite características de tamaño arbitrario (incluso infinito).</p>
+<p>Una desventaja de los métodos de núcleo es que puede ser necesario almacenar muchos valores de núcleo <span class="math notranslate nohighlight">\(k(x_i, x_j)\)</span> durante la optimización. Si un clasificador «kernelizado» se aplica a nuevos datos <span class="math notranslate nohighlight">\(y_j\)</span>, es necesario calcular <span class="math notranslate nohighlight">\(k(x_i, y_j)\)</span> para hacer predicciones, posiblemente para muchos <span class="math notranslate nohighlight">\(x_i\)</span> diferentes en el conjunto de entrenamiento.</p>
+<p>Las clases de este submódulo permiten aproximar el embedding <span class="math notranslate nohighlight">\(\phi\)</span>, trabajando así explícitamente con las representaciones <span class="math notranslate nohighlight">\(\phi(x_i)\)</span>, lo que evita la necesidad de aplicar el núcleo o almacenar ejemplos de entrenamiento.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="citation">
+<dt class="label" id="rr2007"><span class="brackets">RR2007</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://www.robots.ox.ac.uk/~vgg/rg/papers/randomfeatures.pdf">«Random features for large-scale kernel machines»</a>
+Rahimi, A. and Recht, B. - Advances in neural information processing 2007,</p>
+</dd>
+<dt class="label" id="ls2010"><span class="brackets"><a class="fn-backref" href="#id7">LS2010</a></span></dt>
+<dd><p><a class="reference external" href="http://www.maths.lth.se/matematiklth/personal/sminchis/papers/lis_dagm10.pdf">«Random Fourier approximations for skewed multiplicative histogram kernels»</a>
+Random Fourier approximations for skewed multiplicative histogram kernels
+- Lecture Notes for Computer Sciencd (DAGM)</p>
+</dd>
+<dt class="label" id="vz2010"><span class="brackets">VZ2010</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://www.robots.ox.ac.uk/~vgg/publications/2011/Vedaldi11/vedaldi11.pdf">«Efficient additive kernels via explicit feature maps»</a>
+Vedaldi, A. and Zisserman, A. - Computer Vision and Pattern Recognition 2010</p>
+</dd>
+<dt class="label" id="vvz2010"><span class="brackets"><a class="fn-backref" href="#id6">VVZ2010</a></span></dt>
+<dd><p><a class="reference external" href="https://www.robots.ox.ac.uk/~vgg/publications/2010/Sreekanth10/sreekanth10.pdf">«Generalized RBF feature maps for Efficient Detection»</a>
+Vempati, S. and Vedaldi, A. and Zisserman, A. and Jawahar, CV - 2010</p>
+</dd>
+<dt class="label" id="pp2013"><span class="brackets"><a class="fn-backref" href="#id8">PP2013</a></span></dt>
+<dd><p><a class="reference external" href="https://doi.org/10.1145/2487575.2487591">«Fast and scalable polynomial kernels via explicit feature maps»</a>
+Pham, N., &amp; Pagh, R. - 2013</p>
+</dd>
+<dt class="label" id="ccf2002"><span class="brackets"><a class="fn-backref" href="#id10">CCF2002</a></span></dt>
+<dd><p><a class="reference external" href="http://www.cs.princeton.edu/courses/archive/spring04/cos598B/bib/CharikarCF.pdf">«Finding frequent items in data streams»</a>
+Charikar, M., Chen, K., &amp; Farach-Colton - 2002</p>
+</dd>
+<dt class="label" id="wikics"><span class="brackets"><a class="fn-backref" href="#id9">WIKICS</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Count_sketch">«Wikipedia: Count sketch»</a></p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/kernel_approximation.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2.6. Estimación de covarianza &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/covariance.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="decomposition.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.5. Descomposición de señales en componentes (problemas de factorización de matrices)">Prev</a><a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Arriba</a>
+            <a href="outlier_detection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.7. Detección de novedades y valores atípicos">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">2.6. Estimación de covarianza</a><ul>
+<li><a class="reference internal" href="#empirical-covariance">2.6.1. Covarianza empírica</a></li>
+<li><a class="reference internal" href="#shrunk-covariance">2.6.2. Covarianza Reducida</a><ul>
+<li><a class="reference internal" href="#basic-shrinkage">2.6.2.1. Reducción básica</a></li>
+<li><a class="reference internal" href="#ledoit-wolf-shrinkage">2.6.2.2. Reducción de Ledoit-Wolf</a></li>
+<li><a class="reference internal" href="#oracle-approximating-shrinkage">2.6.2.3. Reducción Aproximante de Oracle</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sparse-inverse-covariance">2.6.3. Covarianza inversa dispersa</a></li>
+<li><a class="reference internal" href="#robust-covariance-estimation">2.6.4. Estimación de Covarianza Robusta</a><ul>
+<li><a class="reference internal" href="#minimum-covariance-determinant">2.6.4.1. Determinante Mínimo de la Covarianza</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="covariance-estimation">
+<span id="covariance"></span><h1><span class="section-number">2.6. </span>Estimación de covarianza<a class="headerlink" href="#covariance-estimation" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Muchos problemas estadísticos requieren la estimación de la matriz de covarianza de una población, que puede considerarse como una estimación de la forma del diagrama de dispersión del conjunto de datos. La mayoría de las veces, esta estimación debe realizarse sobre una muestra cuyas propiedades (tamaño, estructura, homogeneidad) tienen una gran influencia en la calidad de la estimación. El paquete <a class="reference internal" href="classes.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a> proporciona herramientas para la estimación precisa de la matriz de covarianza de una población de acuerdo con varias condiciones.</p>
+<p>Asumimos que las observaciones son independientes e idénticamente distribuidas (i.i.d.).</p>
+<section id="empirical-covariance">
+<h2><span class="section-number">2.6.1. </span>Covarianza empírica<a class="headerlink" href="#empirical-covariance" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Se sabe que la matriz de covarianza de un conjunto de datos está bien aproximada por el clásico <em>estimador de máxima verosimilitud</em> (o «covarianza empírica»), siempre que el número de observaciones sea lo suficientemente grande en comparación con el número de características (las variables que describen las observaciones). Más concretamente, el estimador de máxima verosimilitud de una muestra es un estimador asintóticamente no sesgado de la matriz de covarianza de la población correspondiente.</p>
+<p>La matriz de covarianza empírica de una muestra puede calcularse utilizando la función <a class="reference internal" href="generated/sklearn.covariance.empirical_covariance.html#sklearn.covariance.empirical_covariance" title="sklearn.covariance.empirical_covariance"><code class="xref py py-func docutils literal notranslate"><span class="pre">empirical_covariance</span></code></a> del paquete, o ajustando un objeto <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> a la muestra de datos con el método <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance.fit" title="sklearn.covariance.EmpiricalCovariance.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">EmpiricalCovariance.fit</span></code></a>. Hay que tener en cuenta que los resultados dependen de si los datos están centrados, por lo que es conveniente utilizar el parámetro <code class="docutils literal notranslate"><span class="pre">assume_centered</span></code> con precisión. Más concretamente, si <code class="docutils literal notranslate"><span class="pre">assume_centered=False</span></code>, se supone que el conjunto de prueba tiene el mismo vector medio que el conjunto de entrenamiento. Si no es así, ambos deben ser centrados por el usuario, y se debe utilizar <code class="docutils literal notranslate"><span class="pre">assume_centered=True</span></code>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto de <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> a los datos.</p></li>
+</ul>
+</div>
+</section>
+<section id="shrunk-covariance">
+<span id="id1"></span><h2><span class="section-number">2.6.2. </span>Covarianza Reducida<a class="headerlink" href="#shrunk-covariance" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="basic-shrinkage">
+<h3><span class="section-number">2.6.2.1. </span>Reducción básica<a class="headerlink" href="#basic-shrinkage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A pesar de ser un estimador asintóticamente no sesgado de la matriz de covarianza, el Estimador de Máxima Verosimilitud no es un buen estimador de los valores propios de la matriz de covarianza, por lo que la matriz de precisión obtenida de su inversión no es exacta. A veces, incluso ocurre que la matriz de covarianza empírica no puede invertirse por razones numéricas. Para evitar este problema de inversión, se ha introducido una transformación de la matriz de covarianza empírica: la <code class="docutils literal notranslate"><span class="pre">reducción</span></code> (shrinkage).</p>
+<p>En scikit-learn, esta transformación (con un coeficiente de contracción definido por el usuario) se puede aplicar directamente a una covarianza precalculada con el método <a class="reference internal" href="generated/sklearn.covariance.shrunk_covariance.html#sklearn.covariance.shrunk_covariance" title="sklearn.covariance.shrunk_covariance"><code class="xref py py-func docutils literal notranslate"><span class="pre">shrunk_covariance</span></code></a>. Además, un estimador reducido de la covarianza puede ajustarse a los datos con un objeto <a class="reference internal" href="generated/sklearn.covariance.ShrunkCovariance.html#sklearn.covariance.ShrunkCovariance" title="sklearn.covariance.ShrunkCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShrunkCovariance</span></code></a> y su método <a class="reference internal" href="generated/sklearn.covariance.ShrunkCovariance.html#sklearn.covariance.ShrunkCovariance.fit" title="sklearn.covariance.ShrunkCovariance.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShrunkCovariance.fit</span></code></a>. Una vez más, los resultados dependen de si los datos están centrados, por lo que uno puede querer utilizar el parámetro <code class="docutils literal notranslate"><span class="pre">assume_centered</span></code> con precisión.</p>
+<p>Matemáticamente, esta reducción consiste en disminuir la relación entre los valores propios más pequeños y los más grandes de la matriz de covarianza empírica. Puede hacerse simplemente desplazando cada autovalor según un desplazamiento dado, lo que equivale a encontrar el Estimador de Máxima Verosimilitud l2-penalizado de la matriz de covarianza. En la práctica, la reducción se reduce a una simple transformación convexa: <span class="math notranslate nohighlight">\(\Sigma_{\rm shrunk} = (1-\alpha)\hat{\Sigma} + \alpha\frac{\rm Tr}{hat{\Sigma}{p}\rm Id\)</span>.</p>
+<p>La elección de la cantidad de reducción, <span class="math notranslate nohighlight">\(\alpha\)</span> equivale a establecer un compromiso de sesgo/varianza, que se discute a continuación.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto de <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> a los datos.</p></li>
+</ul>
+</div>
+</section>
+<section id="ledoit-wolf-shrinkage">
+<h3><span class="section-number">2.6.2.2. </span>Reducción de Ledoit-Wolf<a class="headerlink" href="#ledoit-wolf-shrinkage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En su artículo de 2004 <a class="footnote-reference brackets" href="#id3" id="id2">1</a>, O. Ledoit y M. Wolf proponen una fórmula para calcular el coeficiente de reducción óptimo <span class="math notranslate nohighlight">\(\alpha\)</span> que minimiza el error cuadrático medio entre la matriz estimada y la matriz de covarianza real.</p>
+<p>El estimador Ledoit-Wolf de la matriz de covarianza puede calcularse sobre una muestra con la función <a class="reference internal" href="generated/sklearn.covariance.ledoit_wolf.html#sklearn.covariance.ledoit_wolf" title="sklearn.covariance.ledoit_wolf"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ledoit_wolf</span></code></a> del paquete <a class="reference internal" href="classes.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a>, o puede obtenerse de otro modo ajustando un objeto <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> a la misma muestra.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Caso cuando la matriz de covarianza de población es isotrópica</strong></p>
+<p>Es importante señalar que cuando el número de muestras es mucho mayor que el número de características, cabría esperar que no fuera necesaria ninguna reducción. La intuición detrás de esto es que si la covarianza de la población es de rango completo, cuando el número de muestras crece, la covarianza de la muestra también se convertirá en positiva definida. Por lo tanto, no sería necesaria ninguna reducción y el método debería hacerlo automáticamente.</p>
+<p>Sin embargo, esto no ocurre en el procedimiento de Ledoit-Wolf cuando la covarianza de la población resulta ser un múltiplo de la matriz de identidad. En este caso, la estimación de la reducción de Ledoit-Wolf se aproxima a 1 a medida que aumenta el número de muestras. Esto indica que la estimación óptima de la matriz de covarianza en el sentido de Ledoit-Wolf es múltiplo de la identidad. Dado que la covarianza de la población ya es un múltiplo de la matriz de identidad, la solución de Ledoit-Wolf es efectivamente una estimación razonable.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> a los datos y para visualizar la eficiencia del estimador Ledoit-Wolf en términos de verosimilitud.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>O. Ledoit and M. Wolf, «A Well-Conditioned Estimator for Large-Dimensional
+Covariance Matrices», Journal of Multivariate Analysis, Volume 88, Issue 2,
+February 2004, pages 365-411.</p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="oracle-approximating-shrinkage">
+<span id="id4"></span><h3><span class="section-number">2.6.2.3. </span>Reducción Aproximante de Oracle<a class="headerlink" href="#oracle-approximating-shrinkage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Bajo el supuesto de que los datos tienen una distribución gaussiana, Chen et al. <a class="footnote-reference brackets" href="#id6" id="id5">2</a> derivaron una fórmula destinada a elegir un coeficiente de reducción que produzca un error cuadrático medio menor que el dado por la fórmula de Ledoit y Wolf. El estimador resultante se conoce como estimador de la reducción aproximante de Oracle (OAS) de la covarianza.</p>
+<p>El estimador OAS de la matriz de covarianza puede calcularse sobre una muestra con la función <a class="reference internal" href="generated/oas-function.html#sklearn.covariance.oas" title="sklearn.covariance.oas"><code class="xref py py-meth docutils literal notranslate"><span class="pre">oas</span></code></a> del paquete <a class="reference internal" href="classes.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a>, o puede obtenerse de otro modo ajustando un objeto <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> a la misma muestra.</p>
+<figure class="align-center" id="id13">
+<a class="reference external image-reference" href="../auto_examples/covariance/plot_covariance_estimation.html"><img alt="../_images/sphx_glr_plot_covariance_estimation_001.png" src="../_images/sphx_glr_plot_covariance_estimation_001.png" style="width: 416.0px; height: 312.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Compensación entre el sesgo y la varianza al fijar la reducción: comparación de las opciones de los estimadores Ledoit-Wolf y OAS</span><a class="headerlink" href="#id13" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
+<dd><p>Chen et al., «Shrinkage Algorithms for MMSE Covariance Estimation», IEEE Trans. on Sign. Proc., Volume 58, Issue 10, Octubre 2010.</p>
+</dd>
+</dl>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Vea <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto de <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> a los datos.</p></li>
+<li><p>Véase <a class="reference internal" href="../auto_examples/covariance/plot_lw_vs_oas.html#sphx-glr-auto-examples-covariance-plot-lw-vs-oas-py"><span class="std std-ref">Estimación de Ledoit-Wolf contra OAS</span></a> para visualizar la diferencia del error cuadrático medio entre un estimador <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> y un estimador <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> de la covarianza.</p></li>
+</ul>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/covariance/plot_lw_vs_oas.html"><img alt="../_images/sphx_glr_plot_lw_vs_oas_001.png" src="../_images/sphx_glr_plot_lw_vs_oas_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+</section>
+</section>
+<section id="sparse-inverse-covariance">
+<span id="id7"></span><h2><span class="section-number">2.6.3. </span>Covarianza inversa dispersa<a class="headerlink" href="#sparse-inverse-covariance" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La matriz inversa de la matriz de covarianza, a menudo llamada matriz de precisión, es proporcional a la matriz de correlación parcial. Proporciona la relación de independencia parcial. En otras palabras, si dos características son independientes condicionalmente de las otras, el coeficiente correspondiente en la matriz de precisión será cero. Por eso tiene sentido estimar una matriz de precisión dispersa: la estimación de la matriz de covarianza está mejor condicionada por el reconocimiento de las relaciones de independencia a partir de los datos. Esto se conoce como <em>selección de covarianza</em>.</p>
+<p>En la situación de muestras pequeñas, en la que <code class="docutils literal notranslate"><span class="pre">n_muestras</span></code> es del orden de <code class="docutils literal notranslate"><span class="pre">n_caracteres</span></code> o menor, los estimadores de covarianza inversa dispersa tienden a funcionar mejor que los estimadores de covarianza reducida. Sin embargo, en la situación contraria, o para datos muy correlacionados, pueden ser numéricamente inestables. Además, a diferencia de los estimadores de reducción, los estimadores dispersos son capaces de recuperar la estructura no diagonal.</p>
+<p>El estimador <a class="reference internal" href="generated/sklearn.covariance.GraphicalLasso.html#sklearn.covariance.GraphicalLasso" title="sklearn.covariance.GraphicalLasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLasso</span></code></a> utiliza una penalización l1 para imponer la dispersión en la matriz de precisión: cuanto mayor sea su parámetro <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, más dispersa será la matriz de precisión. El objeto <a class="reference internal" href="generated/sklearn.covariance.GraphicalLassoCV.html#sklearn.covariance.GraphicalLassoCV" title="sklearn.covariance.GraphicalLassoCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLassoCV</span></code></a> correspondiente utiliza la validación cruzada para establecer automáticamente el parámetro <code class="docutils literal notranslate"><span class="pre">alpha</span></code>.</p>
+<figure class="align-center" id="id14">
+<a class="reference external image-reference" href="../auto_examples/covariance/plot_sparse_cov.html"><img alt="../_images/sphx_glr_plot_sparse_cov_001.png" src="../_images/sphx_glr_plot_sparse_cov_001.png" style="width: 600.0px; height: 360.0px;" /></a>
+<figcaption>
+<p><span class="caption-text"><em>Una comparación de las estimaciones de máxima verosimilitud, reducción y dispersión de la matriz de covarianza y precisión en las modalidades de muestras muy pequeñas.</em></span><a class="headerlink" href="#id14" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Recuperación de la estructura</strong></p>
+<p>Recuperar una estructura gráfica de las correlaciones en los datos es un desafío. Si estás interesado en tal recuperación, ten en cuenta que:</p>
+<ul class="simple">
+<li><p>La recuperación es más fácil a partir de una matriz de correlaciones que de una matriz de covarianza: estandariza tus observaciones antes de ejecutar <a class="reference internal" href="generated/sklearn.covariance.GraphicalLasso.html#sklearn.covariance.GraphicalLasso" title="sklearn.covariance.GraphicalLasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLasso</span></code></a></p></li>
+<li><p>Si el gráfico subyacente tiene nodos con muchas más conexiones que el nodo promedio, el algoritmo perderá algunas de estas conexiones.</p></li>
+<li><p>Si tu número de observaciones no es elevado en comparación con el número de aristas de tu gráfico subyacente, no lo recuperarás.</p></li>
+<li><p>Incluso en condiciones favorables de recuperación, el parámetro alfa elegido por la validación cruzada (por ejemplo, utilizando el objeto <a class="reference internal" href="generated/sklearn.covariance.GraphicalLassoCV.html#sklearn.covariance.GraphicalLassoCV" title="sklearn.covariance.GraphicalLassoCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLassoCV</span></code></a>) conducirá a seleccionar demasiadas aristas. Sin embargo, las aristas relevantes tendrán pesos más elevados que las irrelevantes.</p></li>
+</ul>
+</div>
+<p>La formulación matemática es la siguiente:</p>
+<div class="math notranslate nohighlight">
+\[\hat{K} = \mathrm{argmin}_K \big(
+            \mathrm{tr} S K - \mathrm{log} \mathrm{det} K
+            + \alpha \|K\|_1
+            \big)\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(K\)</span> es la matriz de precisión a estimar, y <span class="math notranslate nohighlight">\(S\)</span> es la matriz de covarianza de la muestra. <span class="math notranslate nohighlight">\(\|K\_1\)</span> es la suma de los valores absolutos de los coeficientes fuera de diagonal de <span class="math notranslate nohighlight">\(K\)</span>. El algoritmo empleado para resolver este problema es el algoritmo GLasso, del trabajo de Friedman 2008 en Biostatistics. Es el mismo algoritmo que aparece en el paquete <code class="docutils literal notranslate"><span class="pre">glasso</span></code> de R.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/covariance/plot_sparse_cov.html#sphx-glr-auto-examples-covariance-plot-sparse-cov-py"><span class="std std-ref">Estimación de la covarianza inversa dispersa</span></a>: ejemplo de datos sintéticos que muestran alguna recuperación de una estructura, y compara con otros estimadores de covariancia.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/applications/plot_stock_market.html#sphx-glr-auto-examples-applications-plot-stock-market-py"><span class="std std-ref">Visualización de la estructura bursátil</span></a>: ejemplo en datos reales del mercado de valores, encontrando qué símbolos están más relacionados.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Friedman et al, <a class="reference external" href="https://biostatistics.oxfordjournals.org/content/9/3/432.short">«Sparse inverse covariance estimation with the
+graphical lasso»</a>,
+Biostatistics 9, pp 432, 2008</p></li>
+</ul>
+</div>
+</section>
+<section id="robust-covariance-estimation">
+<span id="robust-covariance"></span><h2><span class="section-number">2.6.4. </span>Estimación de Covarianza Robusta<a class="headerlink" href="#robust-covariance-estimation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los conjuntos de datos reales suelen estar sujetos a errores de medición o de registro. También pueden aparecer observaciones regulares pero poco comunes por diversas razones. Las observaciones que son muy poco comunes se denominan valores atípicos. El estimador de la covarianza empírica y los estimadores de la covarianza reducida presentados anteriormente son muy sensibles a la presencia de valores atípicos en los datos. Por lo tanto, hay que utilizar estimadores de covarianza robustos para estimar la covarianza de sus conjuntos de datos reales. Por otra parte, los estimadores de covarianza robustos pueden utilizarse para realizar la detección de valores atípicos y descartar/reducir la ponderación de algunas observaciones de acuerdo con el procesamiento posterior de los datos.</p>
+<p>El paquete <code class="docutils literal notranslate"><span class="pre">sklearn.covariance</span></code> implementa un estimador robusto de la covarianza, el Determinante Mínimo de la Covarianza <a class="footnote-reference brackets" href="#id11" id="id8">3</a>.</p>
+<section id="minimum-covariance-determinant">
+<h3><span class="section-number">2.6.4.1. </span>Determinante Mínimo de la Covarianza<a class="headerlink" href="#minimum-covariance-determinant" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El Estimador del Determinante Mínimo de la Covarianza es un estimador robusto de la covarianza de un conjunto de datos introducido por P.J. Rousseeuw en <a class="footnote-reference brackets" href="#id11" id="id9">3</a>.  La idea es encontrar una determinada proporción (h) de observaciones «buenas» que no sean valores atípicos y calcular su matriz de covarianza empírica.  Esta matriz de covarianza empírica se reescala para compensar la selección de observaciones realizada («paso de consistencia»).  Una vez calculado el Estimador del Determinante Mínimo de la Covarianza, se pueden asignar pesos a las observaciones en función de su distancia de Mahalanobis, lo que conduce a una estimación reponderada de la matriz de covarianza del conjunto de datos («paso de reponderación»).</p>
+<p>Rousseeuw y Van Driessen <a class="footnote-reference brackets" href="#id12" id="id10">4</a> desarrollaron el algoritmo FastMCD para calcular el Determinante de Covarianza Mínimo. Este algoritmo se utiliza en scikit-learn cuando se ajusta un objeto MCD a los datos. El algoritmo FastMCD también calcula una estimación robusta de la ubicación del conjunto de datos al mismo tiempo.</p>
+<p>Se puede acceder a las estimaciones en bruto como atributos <code class="docutils literal notranslate"><span class="pre">raw_location_</span></code> y <code class="docutils literal notranslate"><span class="pre">raw_covariance_</span></code> de un objeto estimador de covarianza robusta <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a>.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id11"><span class="brackets">3</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id9">2</a>)</span></dt>
+<dd><p>P. J. Rousseeuw. Least median of squares regression.
+J. Am Stat Ass, 79:871, 1984.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id10">4</a></span></dt>
+<dd><p>A Fast Algorithm for the Minimum Covariance Determinant Estimator,
+1999, American Statistical Association and the American Society
+for Quality, TECHNOMETRICS.</p>
+</dd>
+</dl>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Puedes consultar <a class="reference internal" href="../auto_examples/covariance/plot_robust_vs_empirical_covariance.html#sphx-glr-auto-examples-covariance-plot-robust-vs-empirical-covariance-py"><span class="std std-ref">Estimación de la covarianza robusta frente a la empírica</span></a> para ver un ejemplo sobre cómo ajustar un objeto <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a> a los datos y ver cómo la estimación sigue siendo precisa a pesar de la presencia de valores atípicos.</p></li>
+<li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_mahalanobis_distances.html#sphx-glr-auto-examples-covariance-plot-mahalanobis-distances-py"><span class="std std-ref">Estimación robusta de la covarianza y relevancia de las distancias de Mahalanobis</span></a> para visualizar la diferencia entre los estimadores de covarianza <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> y <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a> en términos de la distancia de Mahalanobis (así obtenemos también una mejor estimación de la matriz de precisión).</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Influencia de los valores atípicos en las estimaciones de localización y covarianza</p></th>
+<th class="head"><p>Separar valores típicos de atípicos utilizando una distancia de Mahalanobis</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="../auto_examples/covariance/plot_robust_vs_empirical_covariance.html"><img alt="robust_vs_emp" src="../_images/sphx_glr_plot_robust_vs_empirical_covariance_001.png" style="width: 313.6px; height: 235.2px;" /></a></p></td>
+<td><p><a class="reference external" href="../auto_examples/covariance/plot_mahalanobis_distances.html"><img alt="mahalanobis" src="../_images/sphx_glr_plot_mahalanobis_distances_001.png" style="width: 490.0px; height: 245.0px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/covariance.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.16. Calibración de probabilidad &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/calibration.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="isotonic.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.15. Regresión isotónica">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="neural_networks_supervised.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.17. Modelos de redes neuronales (supervisadas)">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.16. Calibración de probabilidad</a><ul>
+<li><a class="reference internal" href="#calibration-curves">1.16.1. Curvas de calibración</a></li>
+<li><a class="reference internal" href="#calibrating-a-classifier">1.16.2. Calibrar un clasificador</a></li>
+<li><a class="reference internal" href="#usage">1.16.3. Uso</a><ul>
+<li><a class="reference internal" href="#sigmoid">1.16.3.1. Sigmoide</a></li>
+<li><a class="reference internal" href="#isotonic">1.16.3.2. Isotónico</a></li>
+<li><a class="reference internal" href="#multiclass-support">1.16.3.3. Soporte multiclase</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="probability-calibration">
+<span id="calibration"></span><h1><span class="section-number">1.16. </span>Calibración de probabilidad<a class="headerlink" href="#probability-calibration" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Al realizar la clasificación, a menudo se desea no sólo predecir la etiqueta de la clase, sino también obtener una probabilidad de la etiqueta respectiva. Esta probabilidad le da algún tipo de confianza en la predicción. Algunos modelos pueden dar estimaciones débiles de las probabilidades de clase y algunos incluso no soportan la predicción de probabilidad (por ejemplo, algunas instancias de <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a>). El módulo de calibración le permite calibrar mejor las probabilidades de un modelo dado, o añadir soporte para la predicción de probabilidades.</p>
+<p>Los clasificadores bien calibrados son clasificadores probabilísticos para los que la salida del método <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> puede interpretarse directamente como un nivel de confianza. Por ejemplo, un clasificador (binario) bien calibrado debería clasificar las muestras de tal manera que entre las muestras a las que dio un valor de <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> cercano a 0,8 aproximadamente el 80% pertenecen realmente a la clase positiva.</p>
+<section id="calibration-curves">
+<span id="calibration-curve"></span><h2><span class="section-number">1.16.1. </span>Curvas de calibración<a class="headerlink" href="#calibration-curves" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El siguiente gráfico compara qué tan bien se calibran las predicciones probabilísticas de diferentes clasificadores, utilizando <a class="reference internal" href="generated/sklearn.calibration.calibration_curve.html#sklearn.calibration.calibration_curve" title="sklearn.calibration.calibration_curve"><code class="xref py py-func docutils literal notranslate"><span class="pre">calibration_curve</span></code></a>. El eje x representa la probabilidad promedio predicha en cada intervalo. El eje y es la <em>fracción de positivos</em>, es decir, la proporción de muestras cuya clase es la positiva (para cada intervalo).</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/calibration/plot_compare_calibration.html"><img alt="../_images/sphx_glr_plot_compare_calibration_001.png" src="../_images/sphx_glr_plot_compare_calibration_001.png" /></a>
+</figure>
+<p><a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> devuelve predicciones bien calibradas por defecto ya que optimiza directamente <a class="reference internal" href="model_evaluation.html#log-loss"><span class="std std-ref">Pérdida logística</span></a>. En cambio, los otros métodos devuelven probabilidades sesgadas; con diferentes sesgos por método:</p>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> tiende a llevar las probabilidades a 0 o 1 (observa los recuentos en los histogramas). Esto se debe principalmente a que asume que las características son condicionalmente independientes dada la clase, lo que no es el caso en este conjunto de datos que contiene 2 características redundantes.</p>
+<p><a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a> muestra el comportamiento opuesto: los histogramas muestran picos con una probabilidad aproximada de 0,2 y 0,9, mientras que las probabilidades cercanas a 0 o 1 son muy poco frecuentes. Niculescu-Mizil y Caruana <a class="footnote-reference brackets" href="#id10" id="id1">1</a> dan una explicación a esto «Los métodos como el empaquetado (bagging) y los bosques aleatorios que promedian las predicciones de un conjunto de modelos base pueden tener dificultades para hacer predicciones cercanas a 0 y 1 porque la varianza en los modelos base subyacentes sesgará las predicciones que deberían estar cerca de 0 o 1 alejándolos de estos valores. Dado que las predicciones están restringidas al intervalo [0,1], los errores causados por la varianza tienden a ser unilaterales cerca de cero y uno. Por ejemplo, si un modelo debe predecir p = 0 para un caso, la única forma de conseguirlo es que todos los árboles empaquetados predigan cero. Si añadimos ruido a los árboles sobre los que el empaquetado está promediando, este ruido hará que algunos árboles predigan valores mayores que 0 para este caso, alejando así la predicción media del conjunto empaquetado de 0. Observamos este efecto con más fuerza con los bosques aleatorios porque los árboles de nivel base entrenados con bosques aleatorios tienen una varianza relativamente alta debido al subconjunto de características». Como resultado, la curva de calibración, también conocida como diagrama de fiabilidad (Wilks 1995 <a class="footnote-reference brackets" href="#id11" id="id2">2</a>), muestra una forma sigmoidea característica, indicando que el clasificador podría confiar más en su «intuición» y devolver probabilidades más cercanas a 0 o 1 típicamente.</p>
+<p>La clasificación lineal de vectores de soporte (<a class="reference internal" href="generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code></a>) muestra una curva aún más sigmoidea que <a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a>, que es típica de los métodos de margen máximo (compárese con Niculescu-Mizil y Caruana <a class="footnote-reference brackets" href="#id10" id="id3">1</a>), que se centran en las muestras difíciles de clasificar que están cerca de la frontera de decisión (los vectores de soporte).</p>
+</section>
+<section id="calibrating-a-classifier">
+<h2><span class="section-number">1.16.2. </span>Calibrar un clasificador<a class="headerlink" href="#calibrating-a-classifier" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Calibrar un clasificador consiste en ajustar un regresor (llamado <em>calibrador</em>) que mapea la salida del clasificador (dada por <a class="reference internal" href="../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a> o <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a>) a una probabilidad calibrada en [0, 1]. Al denotar la salida del clasificador para una muestra dada por <span class="math notranslate nohighlight">\(f_i\)</span>, el calibrador intenta predecir <span class="math notranslate nohighlight">\(p(y_i = 1 | f_i)\)</span>.</p>
+<p>Las muestras que se utilizan para ajustar el calibrador no deben ser las mismas que se utilizan para ajustar el clasificador, ya que esto introduciría un sesgo. Esto se debe a que el rendimiento del clasificador en sus datos de entrenamiento sería mejor que en los datos nuevos. Utilizar la salida del clasificador de los datos de entrenamiento para ajustar el calibrador daría como resultado un calibrador sesgado que asigna probabilidades más cercanas a 0 y 1 de lo que debería.</p>
+</section>
+<section id="usage">
+<h2><span class="section-number">1.16.3. </span>Uso<a class="headerlink" href="#usage" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> es utilizada para calibrar un clasificador.</p>
+<p><a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> utiliza un enfoque de validación cruzada para asegurar que siempre se utilizan datos no sesgados para ajustar el calibrador. Los datos se dividen en k parejas <code class="docutils literal notranslate"><span class="pre">(train_set,</span> <span class="pre">test_set)</span></code> (determinadas por <code class="docutils literal notranslate"><span class="pre">cv</span></code>). Cuando <code class="docutils literal notranslate"><span class="pre">ensemble=True</span></code> (por defecto), el siguiente procedimiento se repite independientemente para cada división de validación cruzada: un clon de <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> se entrena primero en el subconjunto de entrenamiento. A continuación, sus predicciones en el subconjunto de prueba se utilizan para ajustar un calibrador (un regresor sigmoide o isotónico). Esto da lugar a un conjunto de k parejas <code class="docutils literal notranslate"><span class="pre">(clasificador,</span> <span class="pre">calibrador)</span></code> donde cada calibrador asigna la salida de su clasificador correspondiente en [0, 1]. Cada pareja se presenta en el atributo <code class="docutils literal notranslate"><span class="pre">calibrated_classifiers_</span></code>, donde cada entrada es un clasificador calibrado con un método <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> que produce probabilidades calibradas. La salida de <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> para la instancia principal de <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> corresponde a la media de las probabilidades predichas de los <code class="docutils literal notranslate"><span class="pre">k</span></code> estimadores de la lista <code class="docutils literal notranslate"><span class="pre">calibrated_classifiers_</span></code>. La salida de <a class="reference internal" href="../glossary.html#term-predict"><span class="xref std std-term">predict</span></a> es la clase que tiene la mayor probabilidad.</p>
+<p>Cuando <code class="docutils literal notranslate"><span class="pre">ensemble=False</span></code>, se utiliza la validación cruzada para obtener predicciones «insesgadas» para todos los datos, mediante <a class="reference internal" href="generated/sklearn.model_selection.cross_val_predict.html#sklearn.model_selection.cross_val_predict" title="sklearn.model_selection.cross_val_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_predict</span></code></a>. Estas predicciones insesgadas se utilizan para entrenar el calibrador. El atributo <code class="docutils literal notranslate"><span class="pre">calibrated_classifiers_</span></code> consiste en una sola pareja <code class="docutils literal notranslate"><span class="pre">(classifier,</span> <span class="pre">calibrator)</span></code> donde el clasificador es el <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> entrenado en todos los datos. En este caso, la salida de <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> para <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> son las probabilidades predichas obtenidas de la única pareja <code class="docutils literal notranslate"><span class="pre">(classifier,</span> <span class="pre">calibrator)</span></code>.</p>
+<p>La principal ventaja de <code class="docutils literal notranslate"><span class="pre">ensemble=True</span></code> es beneficiarse del efecto tradicional de ensamblaje (similar al de <a class="reference internal" href="ensemble.html#bagging"><span class="std std-ref">Meta estimador de bagging</span></a>). El conjunto resultante debería estar tanto bien calibrado como ser ligeramente más preciso que con <code class="docutils literal notranslate"><span class="pre">ensemble=False</span></code>. La principal ventaja de utilizar <code class="docutils literal notranslate"><span class="pre">ensemble=False</span></code> es computacional: reduce el tiempo total de ajuste al entrenar sólo un clasificador base y un par calibrador, disminuye el tamaño del modelo final y aumenta la velocidad de predicción.</p>
+<p>Alternativamente, se puede calibrar un clasificador ya ajustado estableciendo <code class="docutils literal notranslate"><span class="pre">cv=&quot;prefit&quot;</span></code>. En este caso, los datos no se dividen y se utilizan todos para ajustar el regresor. Es responsabilidad del usuario asegurarse de que los datos utilizados para ajustar el clasificador son disjuntos de los datos utilizados para ajustar el regresor.</p>
+<p><a class="reference internal" href="generated/sklearn.metrics.brier_score_loss.html#sklearn.metrics.brier_score_loss" title="sklearn.metrics.brier_score_loss"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.brier_score_loss</span></code></a> puede utilizarse para evaluar lo bien que está calibrado un clasificador. Sin embargo, esta métrica debe usarse con cuidado porque una puntuación Brier más baja no siempre significa un modelo mejor calibrado. Esto se debe a que la métrica de la puntuación Brier es una combinación de la pérdida de calibración y la pérdida de refinamiento. La pérdida de calibración se define como la desviación media al cuadrado de las probabilidades empíricas derivadas de la pendiente de los segmentos ROC. La pérdida de refinamiento puede definirse como la pérdida óptima esperada, medida por el área bajo la curva de coste óptimo. Como la pérdida por refinamiento puede cambiar independientemente de la pérdida por calibración, una puntuación Brier más baja no significa necesariamente un modelo mejor calibrado.</p>
+<p><a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> admite el uso de dos regresores de “calibración”: “sigmoide” e “isotónico”.</p>
+<section id="sigmoid">
+<h3><span class="section-number">1.16.3.1. </span>Sigmoide<a class="headerlink" href="#sigmoid" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El regresor sigmoide se basa en el modelo logístico de Platt <a class="footnote-reference brackets" href="#id12" id="id4">3</a>:</p>
+<div class="math notranslate nohighlight">
+\[p(y_i = 1 | f_i) = \frac{1}{1 + \exp(A f_i + B)}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(y_i\)</span> es la etiqueta verdadera de la muestra <span class="math notranslate nohighlight">\(i\)</span> y <span class="math notranslate nohighlight">\(f_i\)</span> es la salida del clasificador no calibrado para la muestra <span class="math notranslate nohighlight">\(i\)</span>. <span class="math notranslate nohighlight">\(A\)</span> y <span class="math notranslate nohighlight">\(B\)</span> son números reales que se determinan al ajustar el regresor por máxima verosimilitud.</p>
+<p>El método sigmoide asume que la <a class="reference internal" href="#calibration-curve"><span class="std std-ref">curva de calibración</span></a> puede corregirse aplicando una función sigmoide a las predicciones brutas. Esta suposición se ha justificado empíricamente en el caso de <a class="reference internal" href="svm.html#svm"><span class="std std-ref">Máquinas de Vectores de Soporte</span></a> con funciones de núcleo (kernel) comunes en varios conjuntos de datos de referencia en la sección 2.1 de Platt 1999 <a class="footnote-reference brackets" href="#id12" id="id5">3</a> pero no se cumple necesariamente en general. Además, el modelo logístico funciona mejor si el error de calibración es simétrico, lo que significa que la salida del clasificador para cada clase binaria se distribuye normalmente con la misma varianza <a class="footnote-reference brackets" href="#id15" id="id6">6</a>. Esto puede ser un problema para problemas de clasificación muy desequilibrados, en los que los resultados no tienen la misma varianza.</p>
+<p>En general, este método es más eficaz cuando el modelo no calibrado está infravalorado (under-confident) y tiene errores de calibración similares tanto para las salidas altas como para las bajas.</p>
+</section>
+<section id="isotonic">
+<h3><span class="section-number">1.16.3.2. </span>Isotónico<a class="headerlink" href="#isotonic" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El método “isotónico” ajusta un regresor isotónico no paramétrico, que produce una función escalonada no decreciente (véase <a class="reference internal" href="classes.html#module-sklearn.isotonic" title="sklearn.isotonic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.isotonic</span></code></a>). Este método minimiza:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=1}^{n} (y_i - \hat{f}_i)^2\]</div>
+<p>sujeto a <span class="math notranslate nohighlight">\(\hat{f}_i &gt;= \hat{f}_j\)</span> siempre que <span class="math notranslate nohighlight">\(f_i &gt;= f_j\)</span>. <span class="math notranslate nohighlight">\(y_i\)</span> sea la etiqueta verdadera de la muestra <span class="math notranslate nohighlight">\(i\)</span> y <span class="math notranslate nohighlight">\(\hat{f}_i\)</span> sea la salida del clasificador calibrado para la muestra <span class="math notranslate nohighlight">\(i\)</span> (es decir, la probabilidad calibrada). Este método es más general en comparación con el “sigmoide”, ya que la única restricción es que la función de mapeo sea monotónicamente creciente. Por tanto, es más potente, ya que puede corregir cualquier distorsión monótona del modelo no calibrado. Sin embargo, es más propenso al sobreajuste, especialmente en conjuntos de datos pequeños <a class="footnote-reference brackets" href="#id14" id="id7">5</a>.</p>
+<p>En general, “isotónico” funcionará tan bien o mejor que “sigmoide” cuando haya suficientes datos (más de ~ 1000 muestras) para evitar el sobreajuste <a class="footnote-reference brackets" href="#id10" id="id8">1</a>.</p>
+</section>
+<section id="multiclass-support">
+<h3><span class="section-number">1.16.3.3. </span>Soporte multiclase<a class="headerlink" href="#multiclass-support" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Tanto los regresores isotónicos como los sigmoides sólo admiten datos unidimensionales (por ejemplo, la salida de una clasificación binaria), pero se amplían para la clasificación multiclase si el <code class="docutils literal notranslate"><span class="pre">estimador</span> <span class="pre">base</span></code> admite predicciones multiclase. Para las predicciones multiclase, <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> calibra para cada clase por separado de forma <a class="reference internal" href="multiclass.html#ovr-classification"><span class="std std-ref">Clasificador One Vs Rest</span></a> <a class="footnote-reference brackets" href="#id13" id="id9">4</a>. Al predecir las probabilidades, las probabilidades calibradas para cada clase se predicen por separado. Como esas probabilidades no suman necesariamente uno, se realiza un postprocesamiento para normalizarlas.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/calibration/plot_calibration_curve.html#sphx-glr-auto-examples-calibration-plot-calibration-curve-py"><span class="std std-ref">Curvas de probabilidad de calibración</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/calibration/plot_calibration_multiclass.html#sphx-glr-auto-examples-calibration-plot-calibration-multiclass-py"><span class="std std-ref">Calibración de probabilidades para la clasificación de 3 clases</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/calibration/plot_calibration.html#sphx-glr-auto-examples-calibration-plot-calibration-py"><span class="std std-ref">Calibración de probabilidad de clasificadores</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/calibration/plot_compare_calibration.html#sphx-glr-auto-examples-calibration-plot-compare-calibration-py"><span class="std std-ref">Comparación de la calibración de los clasificadores</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id10"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>,<a href="#id8">3</a>)</span></dt>
+<dd><p><a class="reference external" href="https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf">Predicting Good Probabilities with Supervised Learning</a>,
+A. Niculescu-Mizil &amp; R. Caruana, ICML 2005</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="https://journals.ametsoc.org/waf/article/5/4/640/40179">On the combination of forecast probabilities for
+consecutive precipitation periods.</a>
+Wea. Forecasting, 5, 640–650., Wilks, D. S., 1990a</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets">3</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id5">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://www.cs.colorado.edu/~mozer/Teaching/syllabi/6622/papers/Platt1999.pdf">Probabilistic Outputs for Support Vector Machines and Comparisons
+to Regularized Likelihood Methods.</a>
+J. Platt, (1999)</p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id9">4</a></span></dt>
+<dd><p><a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/775047.775151">Transforming Classifier Scores into Accurate Multiclass
+Probability Estimates.</a>
+B. Zadrozny &amp; C. Elkan, (KDD 2002)</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id7">5</a></span></dt>
+<dd><p><a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4180410/">Predicting accurate probabilities with a ranking loss.</a>
+Menon AK, Jiang XJ, Vembu S, Elkan C, Ohno-Machado L.
+Proc Int Conf Mach Learn. 2012;2012:703-710</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p><a class="reference external" href="https://projecteuclid.org/euclid.ejs/1513306867">Beyond sigmoids: How to obtain well-calibrated probabilities from
+binary classifiers with beta calibration</a>
+Kull, M., Silva Filho, T. M., &amp; Flach, P. (2017).</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/calibration.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

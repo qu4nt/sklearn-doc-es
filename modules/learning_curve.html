@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>3.4. Curvas de validación: dibujar las puntuaciones para evaluar los modelos &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/learning_curve.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="model_evaluation.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="3.3. Métricas y puntuación: cuantificar la calidad de las predicciones">Prev</a><a href="../model_selection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="3. Selección y evaluación del modelo">Arriba</a>
+            <a href="../inspection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="4. Inspección">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">3.4. Curvas de validación: dibujar las puntuaciones para evaluar los modelos</a><ul>
+<li><a class="reference internal" href="#validation-curve">3.4.1. Curva de validación</a></li>
+<li><a class="reference internal" href="#learning-curve">3.4.2. Curva de aprendizaje</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="validation-curves-plotting-scores-to-evaluate-models">
+<span id="learning-curves"></span><h1><span class="section-number">3.4. </span>Curvas de validación: dibujar las puntuaciones para evaluar los modelos<a class="headerlink" href="#validation-curves-plotting-scores-to-evaluate-models" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Cada estimador tiene sus ventajas e inconvenientes. Su error de generalización puede descomponerse en términos de sesgo, varianza y ruido. El <strong>sesgo</strong> de un estimador es su error medio para diferentes conjuntos de entrenamiento. La <strong>varianza</strong> de un estimador indica su sensibilidad a la variación de los conjuntos de entrenamiento. El ruido es una propiedad de los datos.</p>
+<p>En el siguiente gráfico, vemos una función <span class="math notranslate nohighlight">\(f(x) = \cos (\frac{3}{2} \pi x)\)</span> y algunas muestras ruidosas de esa función. Utilizamos tres estimadores diferentes para ajustar la función: regresión lineal con características polinómicas de grado 1, 4 y 15. Vemos que el primer estimador sólo puede proporcionar, en el mejor de los casos, un ajuste pobre a las muestras y a la función verdadera porque es demasiado simple (alto sesgo), el segundo estimador se aproxima casi perfectamente y el último estimador se aproxima perfectamente a los datos de entrenamiento pero no se ajusta muy bien a la función verdadera, es decir, es muy sensible a la variación de los datos de entrenamiento (alta varianza).</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_underfitting_overfitting.html"><img alt="../_images/sphx_glr_plot_underfitting_overfitting_001.png" src="../_images/sphx_glr_plot_underfitting_overfitting_001.png" style="width: 700.0px; height: 250.0px;" /></a>
+</figure>
+<p>El sesgo y la varianza son propiedades inherentes a los estimadores y, por lo general, tenemos que seleccionar los algoritmos de aprendizaje y los hiperparámetros para que tanto el sesgo como la varianza sean lo más bajos posible (ver el dilema <a class="reference external" href="https://en.wikipedia.org/wiki/Bias-variance_dilemma">Bias-varianza</a>). Otra forma de reducir la varianza de un modelo es utilizar más datos de entrenamiento. Sin embargo, sólo debería recoger más datos de entrenamiento si la función verdadera es demasiado compleja para ser aproximada por un estimador con una varianza menor.</p>
+<p>En el problema unidimensional sencillo que hemos visto en el ejemplo es fácil ver si el estimador sufre de sesgo o varianza. Sin embargo, en espacios de alta dimensión, los modelos pueden resultar muy difíciles de visualizar. Por este motivo, suele ser útil utilizar las herramientas que se describen a continuación.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/model_selection/plot_underfitting_overfitting.html#sphx-glr-auto-examples-model-selection-plot-underfitting-overfitting-py"><span class="std std-ref">Sobreajuste vs Subajuste</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/model_selection/plot_validation_curve.html#sphx-glr-auto-examples-model-selection-plot-validation-curve-py"><span class="std std-ref">Graficando curvas de validación</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py"><span class="std std-ref">Graficando curvas de aprendizaje</span></a></p></li>
+</ul>
+</div>
+<section id="validation-curve">
+<span id="id1"></span><h2><span class="section-number">3.4.1. </span>Curva de validación<a class="headerlink" href="#validation-curve" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para validar un modelo necesitamos una función de puntuación (ver <a class="reference internal" href="model_evaluation.html#model-evaluation"><span class="std std-ref">Métricas y puntuación: cuantificar la calidad de las predicciones</span></a>), por ejemplo la precisión de los clasificadores. La forma adecuada de elegir múltiples hiperparámetros de un estimador es, por supuesto, la búsqueda en cuadrícula o métodos similares (ver <a class="reference internal" href="grid_search.html#grid-search"><span class="std std-ref">Ajustar los hiperparámetros de un estimador</span></a>) que seleccionan el hiperparámetro con la máxima puntuación en un conjunto de validación o en múltiples conjuntos de validación. Ten en cuenta que si optimizamos los hiperparámetros basándonos en una puntuación de validación, la puntuación de validación está sesgada y ya no es una buena estimación de la generalización. Para obtener una estimación adecuada de la generalización tenemos que calcular la puntuación en otro conjunto de pruebas.</p>
+<p>Sin embargo, a veces es útil dibujar la influencia de un solo hiperparámetro en la puntuación de entrenamiento y en la puntuación de validación para averiguar si el estimador está sobreajustado o infraajustado para algunos valores del hiperparámetro.</p>
+<p>La función <a class="reference internal" href="generated/sklearn.model_selection.validation_curve.html#sklearn.model_selection.validation_curve" title="sklearn.model_selection.validation_curve"><code class="xref py py-func docutils literal notranslate"><span class="pre">validation_curve</span></code></a> puede ayudar en este caso:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">validation_curve</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_scores</span><span class="p">,</span> <span class="n">valid_scores</span> <span class="o">=</span> <span class="n">validation_curve</span><span class="p">(</span><span class="n">Ridge</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                              <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>                                              <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_scores</span>
+<span class="go">array([[0.93..., 0.94..., 0.92..., 0.91..., 0.92...],</span>
+<span class="go">       [0.93..., 0.94..., 0.92..., 0.91..., 0.92...],</span>
+<span class="go">       [0.51..., 0.52..., 0.49..., 0.47..., 0.49...]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">valid_scores</span>
+<span class="go">array([[0.90..., 0.84..., 0.94..., 0.96..., 0.93...],</span>
+<span class="go">       [0.90..., 0.84..., 0.94..., 0.96..., 0.93...],</span>
+<span class="go">       [0.46..., 0.25..., 0.50..., 0.49..., 0.52...]])</span>
+</pre></div>
+</div>
+<p>Si la puntuación de entrenamiento y la de validación son bajas, el estimador estará infra ajustado. Si la puntuación de entrenamiento es alta y la de validación es baja, el estimador está sobre ajustado y, por el contrario, funciona muy bien. Una puntuación de entrenamiento baja y una puntuación de validación alta no suelen ser posibles. La infra adaptación, la sobre adaptación y un modelo que funciona se muestran en el gráfico siguiente, en el que variamos el parámetro <span class="math notranslate nohighlight">\(\gamma\)</span> de una SVM en el conjunto de datos de dígitos.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_validation_curve.html"><img alt="../_images/sphx_glr_plot_validation_curve_001.png" src="../_images/sphx_glr_plot_validation_curve_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+</section>
+<section id="learning-curve">
+<span id="id2"></span><h2><span class="section-number">3.4.2. </span>Curva de aprendizaje<a class="headerlink" href="#learning-curve" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una curva de aprendizaje muestra la puntuación de validación y entrenamiento de un estimador para un número variable de muestras de entrenamiento. Es una herramienta para averiguar cuánto nos beneficiamos al añadir más datos de entrenamiento y si el estimador sufre más un error de varianza o un error de sesgo. Consideremos el siguiente ejemplo, en el que trazamos la curva de aprendizaje de un clasificador bayesiano ingenuo y un SVM.</p>
+<p>Para el bayesiano ingenuo, tanto la puntuación de validación como la de entrenamiento convergen a un valor que es bastante bajo con el aumento del tamaño del conjunto de entrenamiento. Por lo tanto, es probable que no nos beneficiemos mucho de más datos de entrenamiento.</p>
+<p>En cambio, para pequeñas cantidades de datos, la puntuación de entrenamiento de la SVM es mucho mayor que la de validación. Si se añaden más muestras de entrenamiento, lo más probable es que aumente la generalización.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_learning_curve.html"><img alt="../_images/sphx_glr_plot_learning_curve_001.png" src="../_images/sphx_glr_plot_learning_curve_001.png" style="width: 500.0px; height: 750.0px;" /></a>
+</figure>
+<p>Podemos utilizar la función <a class="reference internal" href="generated/sklearn.model_selection.learning_curve.html#sklearn.model_selection.learning_curve" title="sklearn.model_selection.learning_curve"><code class="xref py py-func docutils literal notranslate"><span class="pre">learning_curve</span></code></a> para generar los valores necesarios para dibujar dicha curva de aprendizaje (número de muestras que se han utilizado, las puntuaciones medias en los conjuntos de entrenamiento y las puntuaciones medias en los conjuntos de validación):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">valid_scores</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">110</span><span class="p">],</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_sizes</span>
+<span class="go">array([ 50, 80, 110])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_scores</span>
+<span class="go">array([[0.98..., 0.98 , 0.98..., 0.98..., 0.98...],</span>
+<span class="go">       [0.98..., 1.   , 0.98..., 0.98..., 0.98...],</span>
+<span class="go">       [0.98..., 1.   , 0.98..., 0.98..., 0.99...]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">valid_scores</span>
+<span class="go">array([[1. ,  0.93...,  1. ,  1. ,  0.96...],</span>
+<span class="go">       [1. ,  0.96...,  1. ,  1. ,  0.96...],</span>
+<span class="go">       [1. ,  0.96...,  1. ,  1. ,  0.96...]])</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/learning_curve.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

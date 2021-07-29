@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>4.1. Gráficos de Dependencia Parcial y de Expectativa Condicional Individual &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/partial_dependence.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="../inspection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="4. Inspección">Prev</a><a href="../inspection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="4. Inspección">Arriba</a>
+            <a href="permutation_importance.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="4.2. Importancia de la característica de permutación">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">4.1. Gráficos de Dependencia Parcial y de Expectativa Condicional Individual</a><ul>
+<li><a class="reference internal" href="#partial-dependence-plots">4.1.1. Gráficos de dependencia parcial</a></li>
+<li><a class="reference internal" href="#individual-conditional-expectation-ice-plot">4.1.2. Gráfico de expectativas condicionales individuales (Individual conditional expectation, ICE)</a></li>
+<li><a class="reference internal" href="#mathematical-definition">4.1.3. Definición Matemática</a></li>
+<li><a class="reference internal" href="#computation-methods">4.1.4. Métodos de cálculo</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="partial-dependence-and-individual-conditional-expectation-plots">
+<span id="partial-dependence"></span><h1><span class="section-number">4.1. </span>Gráficos de Dependencia Parcial y de Expectativa Condicional Individual<a class="headerlink" href="#partial-dependence-and-individual-conditional-expectation-plots" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Los gráficos de dependencia parcial (Partial dependence plots, PDP) y los gráficos de expectativas condicionales individuales (individual conditional expectation, ICE) pueden utilizarse para visualizar y analizar la interacción entre la respuesta objetivo <a class="footnote-reference brackets" href="#id2" id="id1">1</a> y un conjunto de características de entrada de interés.</p>
+<p>Tanto los PDP como las ICE suponen que las características de entrada de interés son independientes de las características del complemento, y esta suposición a menudo se viola en la práctica. Así, en los casos de características correlacionadas, crearemos puntos de datos absurdos para calcular PDP/ICE.</p>
+<section id="partial-dependence-plots">
+<h2><span class="section-number">4.1.1. </span>Gráficos de dependencia parcial<a class="headerlink" href="#partial-dependence-plots" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los gráficos de dependencia parcial (PDP) muestran la dependencia entre la respuesta objetivo y un conjunto de características de entrada de interés, marginando los valores de todas las demás características de entrada (las características “complementarias”). Intuitivamente, podemos interpretar la dependencia parcial como la respuesta objetivo esperada en función de las características de entrada de interés.</p>
+<p>Debido a los límites de la percepción humana, el tamaño del conjunto de características de entrada de interés debe ser pequeño (normalmente, uno o dos), por lo que las características de entrada de interés suelen elegirse entre las más importantes.</p>
+<p>La siguiente figura muestra dos gráficos de dependencia parcial unidireccionales y uno bidireccional para el conjunto de datos de viviendas de California, con un <a class="reference internal" href="generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code></a>:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/inspection/plot_partial_dependence.html"><img alt="../_images/sphx_glr_plot_partial_dependence_003.png" src="../_images/sphx_glr_plot_partial_dependence_003.png" style="width: 630.0px; height: 280.0px;" /></a>
+</figure>
+<p>Los PDP unidireccionales nos informan de la interacción entre la respuesta objetivo y una característica de entrada de interés (por ejemplo, lineal, no lineal). El gráfico de la izquierda de la figura anterior muestra el efecto de la ocupación promedio sobre la mediana del precio de la vivienda; podemos ver claramente una relación lineal entre ellos cuando la ocupación promedio es inferior a 3 personas. Del mismo modo, podríamos analizar el efecto de la edad de la vivienda sobre la mediana del precio de la misma (gráfico central). Así pues, estas interpretaciones son marginales, considerando una característica a la vez.</p>
+<p>Los PDP con dos características de entrada de interés muestran las interacciones entre las dos características. Por ejemplo, los PDP con dos variables en la figura anterior muestra la dependencia de la mediana del precio de la vivienda de los valores conjuntos de la edad de la vivienda y de los ocupantes promedio por hogar. Podemos ver claramente una interacción entre las dos características: para una ocupación promedio mayor que dos, el precio de la vivienda es casi independiente de la edad de la casa, mientras que para los valores menores que 2 hay una fuerte dependencia de la edad.</p>
+<p>El módulo <a class="reference internal" href="classes.html#module-sklearn.inspection" title="sklearn.inspection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.inspection</span></code></a> proporciona una función de conveniencia <a class="reference internal" href="generated/sklearn.inspection.plot_partial_dependence.html#sklearn.inspection.plot_partial_dependence" title="sklearn.inspection.plot_partial_dependence"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_partial_dependence</span></code></a> para crear gráficos de dependencia parcial unidireccional y bidireccional. En el siguiente ejemplo se muestra cómo crear una cuadrícula de gráficos de dependencia parcial: dos PDP unidereccional para las características <code class="docutils literal notranslate"><span class="pre">0</span></code> y <code class="docutils literal notranslate"><span class="pre">1</span></code> y un PDP bidireccionales entre las dos características:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_hastie_10_2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">plot_partial_dependence</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_hastie_10_2</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>Puedes acceder a los objetos figura y Ejes recién creados utilizando <code class="docutils literal notranslate"><span class="pre">plt.gcf()</span></code> y <code class="docutils literal notranslate"><span class="pre">plt.gca()</span></code>.</p>
+<p>Para la clasificación multiclase, es necesario establecer la etiqueta de clase para la que deben crearse los PDF mediante el argumento <code class="docutils literal notranslate"><span class="pre">target</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc_clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">mc_clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>El mismo parámetro <code class="docutils literal notranslate"><span class="pre">target</span></code> se utiliza para especificar el objetivo en las configuraciones de la regresión de salida múltiple.</p>
+<p>Si necesitas los valores en bruto de la función de dependencia parcial en lugar de los gráficos, puedes utilizar la función <a class="reference internal" href="generated/sklearn.inspection.partial_dependence.html#sklearn.inspection.partial_dependence" title="sklearn.inspection.partial_dependence"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.inspection.partial_dependence</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">partial_dependence</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pdp</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">partial_dependence</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pdp</span>
+<span class="go">array([[ 2.466...,  2.466..., ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span>
+<span class="go">[array([-1.624..., -1.592..., ...</span>
+</pre></div>
+</div>
+<p>Los valores en los que debe evaluarse la dependencia parcial se generan directamente a partir de <code class="docutils literal notranslate"><span class="pre">X</span></code>. Para la dependencia parcial bidireccional, se genera una cuadrícula 2D de valores. El campo <code class="docutils literal notranslate"><span class="pre">values</span></code> devuelto por <code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.inspection.</span> <span class="pre">artial_dependence</span></code> da los valores reales utilizados en la cuadrícula para cada característica de entrada de interés. También corresponden al eje de los gráficos.</p>
+</section>
+<section id="individual-conditional-expectation-ice-plot">
+<span id="individual-conditional"></span><h2><span class="section-number">4.1.2. </span>Gráfico de expectativas condicionales individuales (Individual conditional expectation, ICE)<a class="headerlink" href="#individual-conditional-expectation-ice-plot" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>De forma similar a los PDP, un gráfico de expectativas condicionales individuales (ICE) muestra la dependencia entre la función objetivo y una característica de entrada de interés. Sin embargo, a diferencia de un PDP, que muestra el efecto promedio de la característica de entrada, un gráfico ICE visualiza la dependencia de la predicción de una característica para cada muestra por separado con una línea por muestra. Debido a los límites de la percepción humana, sólo se admite una característica de entrada de interés para los gráficos de ICE.</p>
+<p>Las siguientes figuras muestran cuatro gráficos de ICE para el conjunto de datos de viviendas de California, con un <a class="reference internal" href="generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code></a>. La segunda figura muestra la línea PD correspondiente a las líneas de ICE.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/inspection/plot_partial_dependence.html"><img alt="../_images/sphx_glr_plot_partial_dependence_002.png" src="../_images/sphx_glr_plot_partial_dependence_002.png" style="width: 448.0px; height: 336.0px;" /></a>
+</figure>
+<p>Mientras que los PDP son buenos para mostrar el efecto promedio de las características objetivo, pueden ocultar una relación heterogénea creada por las interacciones. Cuando las interacciones están presentes, el gráfico de ICE proporcionará muchas más perspectivas. Por ejemplo, podríamos observar una relación lineal entre la renta media y el precio de la vivienda en la línea PD. Sin embargo, las líneas ICE muestran que hay algunas excepciones, en las que el precio de la vivienda permanece constante en algunos rangos de la mediana del ingreso.</p>
+<p>La función de conveniencia <a class="reference internal" href="generated/sklearn.inspection.plot_partial_dependence.html#sklearn.inspection.plot_partial_dependence" title="sklearn.inspection.plot_partial_dependence"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_partial_dependence</span></code></a> del módulo <a class="reference internal" href="classes.html#module-sklearn.inspection" title="sklearn.inspection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.inspection</span></code></a> puede utilizarse para crear gráficos de ICE estableciendo <code class="docutils literal notranslate"><span class="pre">kind='individual'</span></code>. En el siguiente ejemplo, te mostramos cómo crear una cuadrícula de gráficos de ICE:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_hastie_10_2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">plot_partial_dependence</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_hastie_10_2</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;individual&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>En los gráficos de ICE tal vez no sea fácil ver el efecto promedio de la característica de entrada de interés. Por lo tanto, se recomienda utilizar los gráficos ICE junto con los PDP. Pueden trazarse juntos con <code class="docutils literal notranslate"><span class="pre">kind='both'</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot_partial_dependence</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+</section>
+<section id="mathematical-definition">
+<h2><span class="section-number">4.1.3. </span>Definición Matemática<a class="headerlink" href="#mathematical-definition" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Sea <span class="math notranslate nohighlight">\(X_S\)</span> el conjunto de características de entradas de interés (es decir, el parámetro <code class="docutils literal notranslate"><span class="pre">features</span></code>) y sea <span class="math notranslate nohighlight">\(X_C\)</span> su complemento.</p>
+<p>La dependencia parcial de la respuesta <span class="math notranslate nohighlight">\(f\)</span> en un punto <span class="math notranslate nohighlight">\(x_S\)</span> se define como:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}pd_{X_S}(x_S) &amp;\overset{def}{=} \mathbb{E}_{X_C}\left[ f(x_S, X_C) \right]\\
+              &amp;= \int f(x_S, x_C) p(x_C) dx_C,\end{split}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(f(x_S, x_C)\)</span> es la función de respuesta (<a class="reference internal" href="../glossary.html#term-predict"><span class="xref std std-term">predict</span></a>, <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> o <a class="reference internal" href="../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a>) para una muestra dada cuyos valores están definidos por <span class="math notranslate nohighlight">\(x_S\)</span> para las características en <span class="math notranslate nohighlight">\(X_S\)</span>, y por <span class="math notranslate nohighlight">\(x_C\)</span> para las características en <span class="math notranslate nohighlight">\(X_C\)</span>. Ten en cuenta que <span class="math notranslate nohighlight">\(x_S\)</span> y <span class="math notranslate nohighlight">\(x_C\)</span> pueden ser tuplas.</p>
+<p>El cálculo de esta integral para varios valores de <span class="math notranslate nohighlight">\(x_S\)</span> produce un gráfico PDP como el de arriba. Una línea ICE se define como un solo <span class="math notranslate nohighlight">\(f(x_{S}, x_{C}^{(i)})\)</span> evaluado en <span class="math notranslate nohighlight">\(x_{S}\)</span>.</p>
+</section>
+<section id="computation-methods">
+<h2><span class="section-number">4.1.4. </span>Métodos de cálculo<a class="headerlink" href="#computation-methods" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Hay dos métodos principales para aproximar la integral anterior, a saber, los métodos “brute” y “recursión”. El parámetro <code class="docutils literal notranslate"><span class="pre">method</span></code> controla el método a utilizar.</p>
+<p>El método “brute” es un método genérico que funciona con cualquier estimador. Ten en cuenta que el cálculo de los gráficos ICE sólo es posible con el método “brute”. Aproxima la integral anterior calculando un promedio sobre los datos <code class="docutils literal notranslate"><span class="pre">X</span></code>:</p>
+<div class="math notranslate nohighlight">
+\[pd_{X_S}(x_S) \approx \frac{1}{n_\text{samples}} \sum_{i=1}^n f(x_S, x_C^{(i)}),\]</div>
+<p>donde <span class="math notranslate nohighlight">\(x_C^{(i)}\)</span> es valor de la i-ésima muestra para las características en <span class="math notranslate nohighlight">\(X_C\)</span>. Para cada valor de <span class="math notranslate nohighlight">\(x_S\)</span>, este método requiere una pasada completa por el conjunto de datos <code class="docutils literal notranslate"><span class="pre">X</span></code> lo cual es intensivo computacionalmente.</p>
+<p>Cada uno de las <span class="math notranslate nohighlight">\(f(x_{S}, x_{C}^{(i)})\)</span> corresponde a una línea ICE evaluada en <span class="math notranslate nohighlight">\(x_{S}\)</span>. Calculando esto para múltiples valores de <span class="math notranslate nohighlight">\(x_{S}\)</span>, se obtiene una línea ICE completa. Como se puede ver, el promedio de las líneas ICE corresponde a la línea de dependencia parcial.</p>
+<p>El método “recursion” es más rápido que el método “brute”, pero sólo admite para los gráficos PDP mediante algunos estimadores basados en árboles. Se calcula como sigue. Para un punto dado <span class="math notranslate nohighlight">\(x_S\)</span>, se realiza un recorrido a un árbol ponderado: si un nodo dividido involucra una característica de entrada de interés, se sigue la rama izquierda o derecha correspondiente; de lo contrario, se siguen ambas ramas, cada rama siendo ponderada por la fracción de muestras de entrenamiento que entraron en esa rama. Por último, la dependencia parcial viene dada por un promedio ponderado de todos los valores de las hojas visitadas.</p>
+<p>Con el método “brute”, el parámetro <code class="docutils literal notranslate"><span class="pre">X</span></code> se utiliza tanto para generar la cuadrícula de valores <span class="math notranslate nohighlight">\(x_S\)</span> como los valores de características del complemento <span class="math notranslate nohighlight">\(x_C\)</span>. Sin embargo, con el método “recursion”, <code class="docutils literal notranslate"><span class="pre">X</span></code> sólo se utiliza para los valores de la cuadrícula: implícitamente, los valores <span class="math notranslate nohighlight">\(x_C\)</span> son los de los datos de entrenamiento.</p>
+<p>Por defecto, el método “recursion” es utilizado para graficar los PDP en los estimadores basados en un árbol que lo admiten, y “brute” se utiliza para el resto.</p>
+<div class="admonition note" id="pdp-method-differences">
+<p class="admonition-title">Nota</p>
+<p>Aunque ambos métodos deberían ser parecidos en general, podrían diferir en algunos ajustes específicos. El método “brute” asume la existencia de los puntos de datos <span class="math notranslate nohighlight">\((x_S, x_C^{(i)})\)</span>. Cuando las características están correlacionadas, estas muestras artificiales pueden tener una masa de probabilidad muy baja. Los métodos “brute” y “recursion” probablemente no estén de acuerdo con el valor de la dependencia parcial, porque tratarán estas poco probables muestras de forma diferente. Recuerda, sin embargo, que la suposición principal para interpretar los PDP es que las características deben ser independientes.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/inspection/plot_partial_dependence.html#sphx-glr-auto-examples-inspection-plot-partial-dependence-py"><span class="std std-ref">Gráficos de Dependencia Parcial y de Expectativa Condicional Individual</span></a></p></li>
+</ul>
+</div>
+<p class="rubric">Notas al pie de página</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Para la clasificación, la respuesta objetivo puede ser la probabilidad de una clase (la clase positiva para la clasificación binaria), o la función de decisión.</p>
+</dd>
+</dl>
+<div class="topic">
+<p class="topic-title">Referencias</p>
+<p>T. Hastie, R. Tibshirani and J. Friedman, <a class="reference external" href="https://web.stanford.edu/~hastie/ElemStatLearn//">The Elements of
+Statistical Learning</a>,
+Second Edition, Section 10.13.2, Springer, 2009.</p>
+<p>C. Molnar, <a class="reference external" href="https://christophm.github.io/interpretable-ml-book/">Interpretable Machine Learning</a>, Section 5.1, 2019.</p>
+<p>A. Goldstein, A. Kapelner, J. Bleich, and E. Pitkin, <a class="reference external" href="https://arxiv.org/abs/1309.6392">Peeking Inside the
+Black Box: Visualizing Statistical Learning With Plots of Individual
+Conditional Expectation</a>,
+Journal of Computational and Graphical Statistics, 24(1): 44-65, Springer,
+2015.</p>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/partial_dependence.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

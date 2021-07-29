@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2.2. Aprendizaje múltiple &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/manifold.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="mixture.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.1. Modelos de mezclas gaussianas">Prev</a><a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Arriba</a>
+            <a href="clustering.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.3. Análisis de conglomerados (Agrupamiento)">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">2.2. Aprendizaje múltiple</a><ul>
+<li><a class="reference internal" href="#introduction">2.2.1. Introducción</a></li>
+<li><a class="reference internal" href="#isomap">2.2.2. Isomap</a><ul>
+<li><a class="reference internal" href="#complexity">2.2.2.1. Complejidad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#locally-linear-embedding">2.2.3. Embedding localmente lineal</a><ul>
+<li><a class="reference internal" href="#id3">2.2.3.1. Complejidad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modified-locally-linear-embedding">2.2.4. Embedding modificado localmente lineal</a><ul>
+<li><a class="reference internal" href="#id4">2.2.4.1. Complejidad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hessian-eigenmapping">2.2.5. Eigenmapeo Hessiano</a><ul>
+<li><a class="reference internal" href="#id5">2.2.5.1. Complejidad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spectral-embedding">2.2.6. Embedding Espectral</a><ul>
+<li><a class="reference internal" href="#id7">2.2.6.1. Complejidad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#local-tangent-space-alignment">2.2.7. Alineación del Espacio Tangente Local</a><ul>
+<li><a class="reference internal" href="#id8">2.2.7.1. Complejidad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multi-dimensional-scaling-mds">2.2.8. Escalamiento Multidimensional (EMD)</a><ul>
+<li><a class="reference internal" href="#metric-mds">2.2.8.1. EMD Métrico</a></li>
+<li><a class="reference internal" href="#nonmetric-mds">2.2.8.2. EMD No métrico</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#t-distributed-stochastic-neighbor-embedding-t-sne">2.2.9. Embedding Estocástico de Vecinos distribuido en t (t-EEV, o t-SNE en inglés)</a><ul>
+<li><a class="reference internal" href="#optimizing-t-sne">2.2.9.1. Optimizando t-EEV</a></li>
+<li><a class="reference internal" href="#barnes-hut-t-sne">2.2.9.2. t-EEV Barnes-Hut</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tips-on-practical-use">2.2.10. Consejos sobre el uso práctico</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="manifold-learning">
+<span id="manifold"></span><h1><span class="section-number">2.2. </span>Aprendizaje múltiple<a class="headerlink" href="#manifold-learning" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="quote line-block">
+<div class="line">Busca lo más vital, no más</div>
+<div class="line">Lo que es necesidad no más</div>
+<div class="line">Y olvídate de la preocupación</div>
+<div class="line">Tan sólo, lo muy esencial</div>
+<div class="line">Para vivir sin batallar</div>
+<div class="line">Y la naturaleza te lo da</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">– Canción de Baloo [El Libro de la Selva]</div>
+</div>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="../_images/sphx_glr_plot_compare_methods_001.png" src="../_images/sphx_glr_plot_compare_methods_001.png" style="width: 900.0px; height: 480.0px;" /></a>
+</figure>
+<p>El aprendizaje múltiple es un acercamiento a la reducción de dimensionalidad no lineal. Los algoritmos para esta tarea se basan en la idea de que la dimensionalidad de muchos conjuntos de datos es sólo alta artificialmente.</p>
+<section id="introduction">
+<h2><span class="section-number">2.2.1. </span>Introducción<a class="headerlink" href="#introduction" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los conjuntos de datos de alta dimensión pueden ser muy difíciles de visualizar. Mientras que los datos en dos o tres dimensiones se pueden graficar para mostrar la estructura inherente de los datos, los graficos equivalentes de alta dimensión son mucho menos intuitivos. Para ayudar a la visualización de la estructura de un conjunto de datos, la dimensión debe ser reducida de alguna forma.</p>
+<p>La forma mas sencilla de lograr esta reducción de dimensionalidad es tomando una proyección aleatoria de los datos. Aunque esto permite cierto grado de visualización de la estructura de datos, la aleatoridad de la elección deja mucho que ser deseado. En una proyección aleatoria, es probable que las estructuras mas interesantes dentro de los datos se pierdan.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="digits_img" src="../_images/sphx_glr_plot_lle_digits_001.png" style="width: 320.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="projected_img" src="../_images/sphx_glr_plot_lle_digits_002.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>Para abordar esta inquietud, un número de frameworks de reducción de dimensionalidad lineal supervisada y no supervisada han sido diseñados, como el Análisis Principal de Componentes (APC, o PCA en ingles), Análisis Independiente de Componentes, Análisis Discriminante Lineal, y otros. Estos algoritmos definen rubricas especificas para escoger una proyección lineal «interesante» de los datos. Estos métodos pueden ser poderosos, pero frecuentemente pierden estructuras importantes no lineales en los datos.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="PCA_img" src="../_images/sphx_glr_plot_lle_digits_003.png" style="width: 320.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="LDA_img" src="../_images/sphx_glr_plot_lle_digits_004.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>El aprendizaje múltiple puede ser considerado como un intento de generalizar frameworks lineales como el APC para ser sensibles a estructuras no lineales en los datos. Aunque existen variantes supervisadas, el problema típico de aprendizaje múltiple es sin supervisión, aprende la estructura de alta-dimensionalidad de los datos dentro de los propios datos, sin el uso de clasificaciones predeterminadas.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p>Vea <a class="reference internal" href="../auto_examples/manifold/plot_lle_digits.html#sphx-glr-auto-examples-manifold-plot-lle-digits-py"><span class="std std-ref">Aprendizaje múltiple sobre dígitos manuscritos: Incrustación local lineal, Isomap…</span></a> para un ejemplo de reducción de dimensionalidad en dígitos escritos a mano.</p></li>
+<li><p>Vea <a class="reference internal" href="../auto_examples/manifold/plot_compare_methods.html#sphx-glr-auto-examples-manifold-plot-compare-methods-py"><span class="std std-ref">Comparación de los métodos de Aprendizaje Múltiple</span></a> para un ejemplo de reducción de dimensionalidad en un conjunto de datos «S-curve» de juguete.</p></li>
+</ul>
+</div>
+<p>Las implementaciones del aprendizaje múltiple disponibles en scikit-learn se resumen a continuación</p>
+</section>
+<section id="isomap">
+<span id="id1"></span><h2><span class="section-number">2.2.2. </span>Isomap<a class="headerlink" href="#isomap" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Uno de los acercamientos más antiguos al aprendizaje múltiple es el algoritmo Isomap, abreviatura de Mapeo Isometrico. Isomap puede ser visto como una extensión del Escalado Multi-dimensional (EMD, o MDS en inglés) o APC núcleo. Isomap busca un embedding de dimensionalidad mas baja que mantiene distancias geodésicas entre todos los puntos. Se puede utilizar Isomap con el objeto <a class="reference internal" href="generated/sklearn.manifold.Isomap.html#sklearn.manifold.Isomap" title="sklearn.manifold.Isomap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Isomap</span></code></a>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_005.png" src="../_images/sphx_glr_plot_lle_digits_005.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="complexity">
+<h3><span class="section-number">2.2.2.1. </span>Complejidad<a class="headerlink" href="#complexity" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El algoritmo Isomap comprende tres etapas:</p>
+<ol class="arabic simple">
+<li><p><strong>Búsqueda de vecino más cercana.</strong> Isomap utiliza <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> para una búsqueda eficiente de vecinos. El costo es de aproximadamente <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)]\)</span>, para <span class="math notranslate nohighlight">\(k\)</span> vecinos más cercanos de <span class="math notranslate nohighlight">\(N\)</span> en <span class="math notranslate nohighlight">\(D\)</span> dimensiones.</p></li>
+<li><p><strong>Búsqueda en el gráfico del camino más corto.</strong> Los algoritmos conocidos más eficientes para esto son el <em>Algoritmo de Dijkstra</em>, el cual es aproximadamente <span class="math notranslate nohighlight">\(O[N^2(k + \log(N))]\)</span>, o el <em>Algoritmo Floyd-Warshall</em>, que es <span class="math notranslate nohighlight">\(O[N^3]\)</span>. El algoritmo puede ser seleccionado por el usuario con la palabra clave <code class="docutils literal notranslate"><span class="pre">path_method</span></code> de <code class="docutils literal notranslate"><span class="pre">Isomap</span></code>. Si se deja sin especificar, el código intenta escoger el mejor algoritmo para los dato de entrada.</p></li>
+<li><p><strong>Descomposición parcial del autovalor.</strong> El embedding está codificado en los autovectores correspondiendo a los autovalores más altos <span class="math notranslate nohighlight">\(d\)</span> del núcleo isomap <span class="math notranslate nohighlight">\(N \times N\)</span>. Para un solucionador denso, el costo es aproximadamente <span class="math notranslate nohighlight">\(O[d N^2]\)</span>. Este costo puede frecuentemente ser mejorado utilizando el solucionador <code class="docutils literal notranslate"><span class="pre">ARPACK</span></code>. El autosolucionador puede ser especificado por el usuario con la palabra clave <code class="docutils literal notranslate"><span class="pre">eigen_solver</span></code> de <code class="docutils literal notranslate"><span class="pre">Isomap</span></code>. Si se deja sin especificar, el código intenta escoger el mejor algoritmo para los datos de entrada.</p></li>
+</ol>
+<p>La complejidad general de Isomap es <span class="math notranslate nohighlight">\(O[D \\log(k) N \\log(N)] + O[N^2(k + \\log(N))] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> : número de puntos de datos de entrenamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(D\)</span>: dimensión de entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span> : número de vecinos más cercanos</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span>: dimensión de salida</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://science.sciencemag.org/content/290/5500/2319.full">«A global geometric framework for nonlinear dimensionality reduction»</a>
+Tenenbaum, J.B.; De Silva, V.; &amp; Langford, J.C.  Science 290 (5500)</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="locally-linear-embedding">
+<span id="id2"></span><h2><span class="section-number">2.2.3. </span>Embedding localmente lineal<a class="headerlink" href="#locally-linear-embedding" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El embedding localmente lineal (ELL, o LLE en inglés) busca una proyección de menor dimensionalidad de los datos que preserva distancias dentro de los vecindarios locales. Puede ser pensado como una serie de Análisis Principales de Componentes, los cuales son comparados globalmente para encontrar la mejor incrustación no lineal.</p>
+<p>El embedding localmente lineal puede ser realizado con la función <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> o su contraparte orientada a objetos <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_006.png" src="../_images/sphx_glr_plot_lle_digits_006.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="id3">
+<h3><span class="section-number">2.2.3.1. </span>Complejidad<a class="headerlink" href="#id3" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El algoritmo ELL estándar comprende tres etapas:</p>
+<ol class="arabic simple">
+<li><p><strong>Búsqueda de vecinos más cercanos</strong>. Ver la discusión bajo Isomap más arriba.</p></li>
+<li><p><strong>Construcción de la matriz de ponderados</strong>. <span class="math notranslate nohighlight">\(O[D N k^3]\)</span>. La construcción de la matriz de ponderados ELL involucra la solución de una ecuación lineal <span class="math notranslate nohighlight">\(k \times k\)</span> para cada uno de los <span class="math notranslate nohighlight">\(N\)</span> vecindarios locales</p></li>
+<li><p><strong>Decomposición de Autovalores Parcial</strong>. Ver la discusión bajo Isomap más arriba.</p></li>
+</ol>
+<p>La complejidad general del ELL estándar es <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> : número de puntos de datos de entrenamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(D\)</span>: dimensión de entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span> : número de vecinos más cercanos</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span>: dimensión de salida</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.sciencemag.org/content/290/5500/2323.full">«Nonlinear dimensionality reduction by locally linear embedding»</a>
+Roweis, S. &amp; Saul, L.  Science 290:2323 (2000)</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="modified-locally-linear-embedding">
+<h2><span class="section-number">2.2.4. </span>Embedding modificado localmente lineal<a class="headerlink" href="#modified-locally-linear-embedding" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Un problema bastante bien conocida con ELL es el problema de regularización. Cuando el número de vecinos es mayor que el número de dimensiones de entrada, la matriz definiendo cada vecindario local es deficiente de rango. Para abordar esto, el ELL estándar aplica un parámetro de regularización arbitraria <span class="math notranslate nohighlight">\(r\)</span>, que se escoge en función del trazo de la matriz de ponderados local. Aunque puede comprobarse formalmente que cuando <span class="math notranslate nohighlight">\(r \to 0\)</span>, la solución converge al embedding buscado, no hay garantía de que la solución óptima se encontrara para  <span class="math notranslate nohighlight">\(r &gt; 0\)</span>. Este problema se manifiesta en embeddings que distorsionan la geometría subyacente del colector.</p>
+<p>Un método para abordar el problema de regularización es usar multiples ponderados de vectores en cada vecindario. Esta es la esencia del <em>embedding modíficado localmente lineal</em> (EMLL). El EMLL puede ser utilizado con la función <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a>, y también su contraparte orientada a objetos <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>, con la palabra clave <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'modified'</span></code>. Requiere que <code class="docutils literal notranslate"><span class="pre">n_neighbors</span> <span class="pre">&gt;</span> <span class="pre">n_components</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_007.png" src="../_images/sphx_glr_plot_lle_digits_007.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="id4">
+<h3><span class="section-number">2.2.4.1. </span>Complejidad<a class="headerlink" href="#id4" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El algoritmo EMLL comprende tres etapas:</p>
+<ol class="arabic simple">
+<li><p><strong>Búsqueda de vecinos más cercanos</strong>. Igual que el ELL estándar</p></li>
+<li><p><strong>Construcción de matríz de ponderados</strong>. Aproximadamente <span class="math notranslate nohighlight">\(O[D N k^3] + O[N (k-D) k^2]\)</span>. El primer termino es exactamente equivalente a aquél del ELL estándar. El segundo termino tiene que ver con la construcción de la matriz de ponderados desde multiples ponderados. En la practica, el costo añadido de construir la matriz de ponderados EMLL es relativamente pequeña comparada al costo de las etapas 1 y 3.</p></li>
+<li><p><strong>Decomposición de Autovalores Parcial</strong>. Igual que el ELL estándar</p></li>
+</ol>
+<p>La complejidad general del EMLL es <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[N (k-D) k^2] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> : número de puntos de datos de entrenamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(D\)</span>: dimensión de entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span> : número de vecinos más cercanos</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span>: dimensión de salida</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.70.382">«MLLE: Modified Locally Linear Embedding Using Multiple Weights»</a>
+Zhang, Z. &amp; Wang, J.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="hessian-eigenmapping">
+<h2><span class="section-number">2.2.5. </span>Eigenmapeo Hessiano<a class="headerlink" href="#hessian-eigenmapping" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El Eigenmapeo Hessiano (también conocido como ELL basado en Hessians: ELLH) es otro método para resolver el problema de regularización del ELL. Revuelve alrededor de una forma cuadrática basada en hessianos en cada vecindad que es usada para recuperar la estructura localmente lineal. Aunque otras implementaciones señalan su mal escalamiento con el tamaño de los datos, <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> implementa algunas mejoras algorítmicas que hacen que su costo sea comparable a aquel de otras variantes ELL para dimensiones de salida pequeñas. Se puede realizar el ELLH con la función <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> o su contraparte orientada a objetos <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>, con la palabra clave <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'hessian'</span></code>. Requiere que <code class="docutils literal notranslate"><span class="pre">n_neighbors</span> <span class="pre">&gt;</span> <span class="pre">n_components</span> <span class="pre">*</span> <span class="pre">(n_components</span> <span class="pre">+</span> <span class="pre">3)</span> <span class="pre">/</span> <span class="pre">2</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_008.png" src="../_images/sphx_glr_plot_lle_digits_008.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="id5">
+<h3><span class="section-number">2.2.5.1. </span>Complejidad<a class="headerlink" href="#id5" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El algoritmo ELLH comprende tres etapas:</p>
+<ol class="arabic simple">
+<li><p><strong>Búsqueda de vecinos más cercanos</strong>. Igual que el ELL estándar</p></li>
+<li><p><strong>Construcción de la Matriz de Ponderado</strong>.  Aproximadamente <span class="math notranslate nohighlight">\(O[D N k^3] + O[N d^6]\)</span>. El primer término refleja un costo similar a aquel del ELL estándar. El segundo término viene de una descomposición QR del estimador local de hessianos.</p></li>
+<li><p><strong>Decomposición de Autovalores Parcial</strong>. Igual que el ELL estándar</p></li>
+</ol>
+<p>La complejidad general del ELLH estándar es <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[N d^6] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> : número de puntos de datos de entrenamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(D\)</span>: dimensión de entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span> : número de vecinos más cercanos</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span>: dimensión de salida</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.pnas.org/content/100/10/5591">«Hessian Eigenmaps: Locally linear embedding techniques for
+high-dimensional data»</a>
+Donoho, D. &amp; Grimes, C. Proc Natl Acad Sci USA. 100:5591 (2003)</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="spectral-embedding">
+<span id="id6"></span><h2><span class="section-number">2.2.6. </span>Embedding Espectral<a class="headerlink" href="#spectral-embedding" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El Embedding Espectral es un acercamiento al calculo de un embedding no lineal. Scikit-learn implementa Eigenmaps Laplacianos, los cuales encuentran una representación de baja dimensión de los datos usando una descomposición espectral del Laplaciano del gráfico. El gráfico generado puede considerarse una aproximación discreta del colector de baja dimensión en el espacio de alta dimensión. La minimización de una función de costo basada en el gráfico asegura que los puntos cercanos en el colector son mapeados cerca uno de los otros en el espacio de baja dimensión, preservando distancias locales. El Embedding Espectral puede realizarse con la función <a class="reference internal" href="generated/sklearn.manifold.spectral_embedding.html#sklearn.manifold.spectral_embedding" title="sklearn.manifold.spectral_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">spectral_embedding</span></code></a> o con su contraparte orientada a objetos <a class="reference internal" href="generated/sklearn.manifold.SpectralEmbedding.html#sklearn.manifold.SpectralEmbedding" title="sklearn.manifold.SpectralEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralEmbedding</span></code></a>.</p>
+<section id="id7">
+<h3><span class="section-number">2.2.6.1. </span>Complejidad<a class="headerlink" href="#id7" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El algoritmo de Embedding Espectral (Eigenmaps Laplacianos) comprende tres etapas:</p>
+<ol class="arabic simple">
+<li><p><strong>Construcción de gráfico ponderado</strong>. Transforma los datos de entrada en bruto en una representación gráfica usando una representación de matriz por afinidad (adyacencia).</p></li>
+<li><p><strong>Construcción del Grafo Laplaciano</strong>. El grafo Laplaciano sin normalizar se construye como <span class="math notranslate nohighlight">\(L = D - A\)</span> y el normalizado se construye como <span class="math notranslate nohighlight">\(L = D^{-\frac{1}{2}} (D - A) D^{-\frac{1}{2}}\)</span>.</p></li>
+<li><p><strong>Decomposición parcial de Autovalor</strong>. La descomposición del autovalor se realiza en el grafo Laplaciano</p></li>
+</ol>
+<p>La complejidad general del embedding espectral es <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> : número de puntos de datos de entrenamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(D\)</span>: dimensión de entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span> : número de vecinos más cercanos</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span>: dimensión de salida</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://web.cse.ohio-state.edu/~mbelkin/papers/LEM_NC_03.pdf">«Laplacian Eigenmaps for Dimensionality Reduction
+and Data Representation»</a>
+M. Belkin, P. Niyogi, Neural Computation, June 2003; 15 (6):1373-1396</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="local-tangent-space-alignment">
+<h2><span class="section-number">2.2.7. </span>Alineación del Espacio Tangente Local<a class="headerlink" href="#local-tangent-space-alignment" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Aunque técnicamente no sea una variante del ELL, el alineamiento del espacio tangente local (AETL, o LTSA en inglés) es lo suficientemente similar algoritmicamente al ELL que se puede poner en esta categoría. En lugar de enfocarse en preservar distancias de vecindad como en el ELL, el AETL busca caracterizar la geometría local en cada vecindad mediante su espacio tangente, y realiza una optimización global para alinear estos espacios locales tangentes y así  aprender el embedding. El AETL puede realizarse con la función <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> o su contraparte orientada a objetos <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>, con la palabra clave <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'ltsa'</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_009.png" src="../_images/sphx_glr_plot_lle_digits_009.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="id8">
+<h3><span class="section-number">2.2.7.1. </span>Complejidad<a class="headerlink" href="#id8" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El algoritmo AETL comprende tres etapas:</p>
+<ol class="arabic simple">
+<li><p><strong>Búsqueda de vecinos más cercanos</strong>. Igual que el ELL estándar</p></li>
+<li><p><strong>Construcción de la matriz de ponderado</strong>. Aproximadamente <span class="math notranslate nohighlight">\(O[D N k^3] + O[k^2 d]\)</span>. El primer termino refleja un costo similar al del ELL estándar.</p></li>
+<li><p><strong>Decomposición de Autovalores Parcial</strong>. Igual que el ELL estándar</p></li>
+</ol>
+<p>La complejidad general del AETL estándar es <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[k^2 d] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N\)</span> : número de puntos de datos de entrenamiento</p></li>
+<li><p><span class="math notranslate nohighlight">\(D\)</span>: dimensión de entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span> : número de vecinos más cercanos</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span>: dimensión de salida</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.3693">«Principal manifolds and nonlinear dimensionality reduction via
+tangent space alignment»</a>
+Zhang, Z. &amp; Zha, H. Journal of Shanghai Univ. 8:406 (2004)</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="multi-dimensional-scaling-mds">
+<span id="multidimensional-scaling"></span><h2><span class="section-number">2.2.8. </span>Escalamiento Multidimensional (EMD)<a class="headerlink" href="#multi-dimensional-scaling-mds" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference external" href="https://es.wikipedia.org/wiki/Escalamiento_multidimensional">Escalamiento multidimensional</a> (<a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a>) busca una representación de dimensión baja de los datos en los cuales las distancias respetan bien las distancias en el espacio altodimensional original.</p>
+<p>En general, <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> es una técnica utilizada para analizar datos de similitud o disimilitud. Intenta modelar la similitud o disimilitud de los datos como distancias en espacios geométricos. Los datos pueden ser calificaciones de similitud entre objetos, frecuencias de interacción de moléculas, o índices de comercio entre países.</p>
+<p>Existen dos tipos del algoritmo EMD: métrico y no métrico. En scikit-learn, la clase <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> implementa ambos. En el EMD métrico, la matriz de similitud de entrada viene de una métrica (y por lo tanto respeta la desigualdad triangular), las distancias entre dos puntos de salida son entonces establecidas para ser tan cercanas como es posible a los datos de similitud o disimilitud. En la versión no métrica, los algoritmos intentaran preservar el orden de las distancias, y entonces buscaran una relación monotonica entre las distancias en el espacio con embedding y las similitudes/disimilitudes.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_010.png" src="../_images/sphx_glr_plot_lle_digits_010.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p>Sea <span class="math notranslate nohighlight">\(S\)</span> la matriz de similitud, y <span class="math notranslate nohighlight">\(X\)</span> las coordenadas de los <span class="math notranslate nohighlight">\(n\)</span> puntos de entrada. La disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> son transformaciones de las similitudes escogidas en ciertas maneras óptimas. El objetivo, llamado el estrés, entonces es definido por <span class="math notranslate nohighlight">\(\sum_{i &lt; j} d_{ij}(X) - \hat{d}_{ij}(X)\)</span></p>
+<section id="metric-mds">
+<h3><span class="section-number">2.2.8.1. </span>EMD Métrico<a class="headerlink" href="#metric-mds" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En el modelo <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> métrico mas simple, llamado <em>EMD absoluto</em>, las disparidades son definidas por <span class="math notranslate nohighlight">\(\hat{d}_{ij} = S_{ij}\)</span>. Con el EMD absoluto, el valor <span class="math notranslate nohighlight">\(S_{ij}\)</span> debería entonces corresponder exactamente a la distancia entre el punto <span class="math notranslate nohighlight">\(i\)</span> y <span class="math notranslate nohighlight">\(j\)</span> en el punto de embedding.</p>
+<p>Mas comúnmente, las disparidades están configuradas como <span class="math notranslate nohighlight">\(\hat{d}_{ij} = b S_{ij}\)</span>.</p>
+</section>
+<section id="nonmetric-mds">
+<h3><span class="section-number">2.2.8.2. </span>EMD No métrico<a class="headerlink" href="#nonmetric-mds" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> no métrico se enfoca en la ordenación de los datos. Si <span class="math notranslate nohighlight">\(S_{ij} &lt; S_{jk}\)</span>, entonces el embedding debería imponer <span class="math notranslate nohighlight">\(d_{ij} &lt; d_{jk}\)</span>. Un algoritmo simple para imponerlo es el uso de una regresión monotónica de <span class="math notranslate nohighlight">\(d_{ij}\)</span> en <span class="math notranslate nohighlight">\(S_{ij}\)</span>, dando las disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> en el mismo orden que <span class="math notranslate nohighlight">\(S_{ij}\)</span>.</p>
+<p>Una solución trivial a este problema es fijar todos los puntos en el origen. Para evitar eso, las disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> son normalizadas.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_mds.html"><img alt="../_images/sphx_glr_plot_mds_001.png" src="../_images/sphx_glr_plot_mds_001.png" style="width: 384.0px; height: 288.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.springer.com/fr/book/9780387251509">«Modern Multidimensional Scaling - Theory and Applications»</a>
+Borg, I.; Groenen P. Springer Series in Statistics (1997)</p></li>
+<li><p><a class="reference external" href="https://link.springer.com/article/10.1007%2FBF02289694">«Nonmetric multidimensional scaling: a numerical method»</a>
+Kruskal, J. Psychometrika, 29 (1964)</p></li>
+<li><p><a class="reference external" href="https://link.springer.com/article/10.1007%2FBF02289565">«Multidimensional scaling by optimizing goodness of fit to a nonmetric hypothesis»</a>
+Kruskal, J. Psychometrika, 29, (1964)</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="t-distributed-stochastic-neighbor-embedding-t-sne">
+<span id="t-sne"></span><h2><span class="section-number">2.2.9. </span>Embedding Estocástico de Vecinos distribuido en t (t-EEV, o t-SNE en inglés)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>t-EEV (<a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a>) convierte las afinidades de puntos de datos a probabilidades. Las afinidades en el espacio original están representadas por probabilidades conjuntas Gaussianas y las afinidades en el espacio con embedding son representadas por las distribuciones en t del estudiante. Esto permite al t-EEV ser particularmente sensible a la estructura local y tiene algunas otras ventajas sobre técnicas existentes:</p>
+<ul class="simple">
+<li><p>Revelar la estructura en muchas escalas en un solo mapa</p></li>
+<li><p>Revelar datos que yacen en múltiples, distintos colectores o clústers</p></li>
+<li><p>Reducir la tendencia a la acumular puntos juntos en el centro</p></li>
+</ul>
+<p>Mientras que Isomap, ELL y sus variantes son más adecuadas para desplegar un solo colector continuo de dimensionalidad baja, el t-EEV se enfocara en la estructura local de los datos y va a tender a extraer grupos locales de muestras conglomerados como se resalta en el ejemplo de la curva en S. Esta habilidad de agrupas muestras basadas en la estructura local quizás sea beneficiosa para desenredar un conjunto de datos visualmente que compromete múltiples colectores al mismo tiempo como es el caso en el conjunto de datos digits.</p>
+<p>La divergencia Kullback-Leibler (KL) de las probabilidades conjuntas en el espacio original y en el espacio con embedding sera minimizada por descenso por gradiente. Note que la divergencia KL no es convexa, es decir, multiples reinicios con inicializaciones distintas van a terminar en los mínimos locales de la divergencia KL. Por lo tanto, a veces es útil utilizar diferentes semillas y seleccionar el embedding con la menor divergencia KL.</p>
+<p>Las desventajas de usar t-EEV son aproximadamente:</p>
+<ul class="simple">
+<li><p>el t-EEV es computacionalmente costoso, y puede tomar varias horas en conjuntos de datos con millones de muestras, donde el APC terminaría en segundos o minutos</p></li>
+<li><p>El método t-EEV Barnes-Hut está limitado a embeddings de dos o tres dimensiones.</p></li>
+<li><p>El algoritmo es estocástico y varios reinicios con diferentes semillas pueden producir embeddings distintos. Sin embargo, es perfectamente legítimo elegir el embedding con el menor error.</p></li>
+<li><p>La estructura global no se preserva explícitamente, Este problema se puede mitigar inicializando puntos con APC (utilizando <code class="docutils literal notranslate"><span class="pre">init='pca'</span></code>).</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_013.png" src="../_images/sphx_glr_plot_lle_digits_013.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="optimizing-t-sne">
+<h3><span class="section-number">2.2.9.1. </span>Optimizando t-EEV<a class="headerlink" href="#optimizing-t-sne" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El principal objetivo del t-EEV es la visualización de datos de alta dimensión. Por lo tanto, funciona mejor cuando los datos serán integrados en dos o tres dimensiones.</p>
+<p>Optimizar la divergencia KL puede ser un poco complicado a veces. Hay 5 parámetros que controlan la optimización del t-EEV y entonces posiblemente la calidad del embedding resultante:</p>
+<ul class="simple">
+<li><p>perplejidad</p></li>
+<li><p>factor de exageración temprana</p></li>
+<li><p>tasa de aprendizaje</p></li>
+<li><p>número máximo de iteraciones</p></li>
+<li><p>ángulo (no usado en el método exacto)</p></li>
+</ul>
+<p>La perplejidad esta definida como <span class="math notranslate nohighlight">\(k=2^{(S)}\)</span> donde <span class="math notranslate nohighlight">\(S\)</span> es la entropía de Shannon de la distribución de probabilidad condicional. La perplejidad de un dado de <span class="math notranslate nohighlight">\(k\)</span> lados es <span class="math notranslate nohighlight">\(k\)</span>, por lo que <span class="math notranslate nohighlight">\(k\)</span> es efectivamente el número de vecinos mas cercanos que considera t-EEV cuando genera las probabilidades condicionales. Las perplejidades mas grandes llevan a mas vecinos cercanos y menor sensibilidad a estructuras pequeñas. Por el contrario, una perplejidad menor considera un número pequeño de vecinos, y por lo tanto ignora mas información global a favor de la vecindad local. Mientras los conjuntos de datos se vuelven mas grandes, mas puntos serán requeridos para obtener una muestra razonable de la vecindad local, y por lo tanto quizás sean requeridas perplejidades mas grandes. Similarmente, conjuntos de datos con mas ruido van a requerir valores de perplejidad mas grandes para abarcar suficientes vecinos locales para ver mas allá del ruido de fondo.</p>
+<p>El número maximo de iteraciones suele ser lo suficientemente alto y no requiere ningún ajuste. La optimización consiste en dos fases: la fase de exageración temprana y la última optimización. Durante la exageración temprana las probabilidades de conjunto en el espacio original serán incrementadas artificialmente mediante la multiplicación con un factor dado. Los factores mas grandes resultan en brechas mas grandes entre clusters naturales en los datos. Si el factor es demasiado grande, la divergencia KL podría incrementar en esta fase. Normalmente no requiere ser ajustado. Un parámetro crítico es la tasa de aprendizaje. Si es demasiado alta, la divergencia KL incrementara durante la optimización. Mas tips pueden ser encontrados en el FAQ de Laurens van der Maaten (ver referencias). El último parámetro, el ángulo, es un intercambio entre precisión y rendimiento. Ángulos mas grandes implican que podemos aproximar regiones mas grandes por un punto único, llevando a una mejor velocidad pero resultados menos precisos.</p>
+<p><a class="reference external" href="https://distill.pub/2016/misread-tsne/">«Cómo usar t-EEV efectivamente»</a> proporciona una buena discusión de los efectos de los diferentes parámetros, así como gráficos interactivos para explorar los efectos de diferentes parámetros.</p>
+</section>
+<section id="barnes-hut-t-sne">
+<h3><span class="section-number">2.2.9.2. </span>t-EEV Barnes-Hut<a class="headerlink" href="#barnes-hut-t-sne" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El t-EEV Barnes-Hut que se ha implementado aquí es normalmente mucho más lento que otros algoritmos de aprendizaje de colectores. La optimización es bastante difícil y la computación del gradiente es <span class="math notranslate nohighlight">\(O[d N log(N)]\)</span>, donde <span class="math notranslate nohighlight">\(d\)</span> es el número de dimensiones de salida y <span class="math notranslate nohighlight">\(N\)</span> es el número de muestras. El método Barnes-Hut mejora en el método exacto donde la complejidad t-EEV es <span class="math notranslate nohighlight">\(O[d N^2]\)</span>, pero tiene otras diferencias notables:</p>
+<ul class="simple">
+<li><p>La implementación Barnes-Hut sólo funciona cuando la dimensionalidad objetivo es 3 o menos. El caso 2D es típico cuando se construyen visualizaciones.</p></li>
+<li><p>Barnes-Hut solo funciona con datos de entrada densos. A las matrices de datos dispersas solo se les puede realizar embedding con el método exacto o pueden ser aproximadas por una proyección de bajo rango densa, por ejemplo usando <a class="reference internal" href="generated/sklearn.decomposition.TruncatedSVD.html#sklearn.decomposition.TruncatedSVD" title="sklearn.decomposition.TruncatedSVD"><code class="xref py py-class docutils literal notranslate"><span class="pre">TruncatedSVD</span></code></a></p></li>
+<li><p>Barnes-Hut es una aproximación del método exacto. La aproximación se parametriza con el parámetro del ángulo, por lo tanto el parámetro angle no se utiliza cuando method=»exact»</p></li>
+<li><p>Barnes-Hut es significativamente más escalable. Barnes-Hut puede ser usado para realizar embedding en cientos de miles de puntos de datos, mientras que el método exacto solo puede manejar miles de muestras antes de volverse inmanejable computacionalmente</p></li>
+</ul>
+<p>Para fines de visualización (el cual es el principal uso del t-EEV) se recomienda encarecidamente utilizar el método Barnes-Hut. El método exacto t-EEV es útil para comprobar las propiedades teóricas del embedding, posiblemente en espacio de alta dimensionalidad pero limitado a conjuntos de datos pequeños debido a restricciones computacionales.</p>
+<p>También ten en cuenta que las etiquetas de los digitos mas o menos corresponden al agrupamiento natural encontrado por t-EEV mientras que la proyección 2D lineal del modelo APC da una representación donde gran parte de las regiones de etiqueta se solapan. Esta es una pista importante de que estos datos pueden ser bien separados por métodos no lineales que se enfocan en la estructural local (por ejemplo, un SVM con un núcleo RBF Gaussiana). Sin embargo, no visualizar grupos bien separados etiquetados de forma homogénea con t-EEV en 2D no implica necesariamente que los datos no pueden ser clasificados correctamente por un modelo supervisado. Quizás sea el caso que 2 dimensiones no son lo suficientemente bajas como para representar de manera precisa la estructura interna de los datos.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://jmlr.org/papers/v9/vandermaaten08a.html">«Visualizing High-Dimensional Data Using t-SNE»</a>
+van der Maaten, L.J.P.; Hinton, G. Journal of Machine Learning Research
+(2008)</p></li>
+<li><p><a class="reference external" href="https://lvdmaaten.github.io/tsne/">«t-Distributed Stochastic Neighbor Embedding»</a>
+van der Maaten, L.J.P.</p></li>
+<li><p><a class="reference external" href="https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf">«Accelerating t-SNE using Tree-Based Algorithms.»</a>
+L.J.P. van der Maaten.  Journal of Machine Learning Research 15(Oct):3221-3245, 2014.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="tips-on-practical-use">
+<h2><span class="section-number">2.2.10. </span>Consejos sobre el uso práctico<a class="headerlink" href="#tips-on-practical-use" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul class="simple">
+<li><p>Asegúrate que la misma escala se usa en toda las características, Debido a que los métodos de aprendizaje de colector están basados en una búsqueda de vecino más cercano. el algoritmo podría tener un rendimiento deficiente si no es así. Ver <a class="reference internal" href="preprocessing.html#preprocessing-scaler"><span class="std std-ref">StandardScaler</span></a> para formas convenientes de escalar datos heterogéneos.</p></li>
+<li><p>El error de reconstrucción calculado por cada rutina se puede utilizar para escoger la dimensión de salida óptima. Para un colector <span class="math notranslate nohighlight">\(d\)</span>-dimensional incrustado en un espacio de parámetro <span class="math notranslate nohighlight">\(D\)</span>-dimensional, el error de reconstrucción disminuirá a medida que <code class="docutils literal notranslate"><span class="pre">n_componentes</span></code> se incremente hasta que <code class="docutils literal notranslate"><span class="pre">n_components</span> <span class="pre">==</span> <span class="pre">d</span></code>.</p></li>
+<li><p>Tenga en cuenta que los datos ruidosos pueden hacerle un «cortocircuito» al colector, en esencia actuando como un puente entre partes del colector que de otro modo estarían bien separadas. El aprendizaje del colector en datos incompletos o ruidosos es una área activa de investigación.</p></li>
+<li><p>Ciertas configuraciones de entrada pueden llevar a matrices de ponderado singulares, por ejemplo cuando mas de dos puntos en el conjunto de datos son idénticos, o cuando los datos son divididos en grupos disociados. En este caso, <code class="docutils literal notranslate"><span class="pre">solver='arpack'</span></code> no logrará encontrar el espacio nulo. La forma mas sencilla de abordar esto es usar <code class="docutils literal notranslate"><span class="pre">solver='dense'</span></code>, lo cual funcionara en una matriz singular, aunque quizás sea muy lento dependiendo del número de puntos de entrada. Alternativamente, uno puede intentar entender la fuente de la singularidad: si es debido a conjuntos disjuntos, incrementar <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> quizás ayude. Si es debido a puntos idénticos en el conjunto de datos, quitar estos puntos quizás ayude.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">Ver también</p>
+<p><a class="reference internal" href="ensemble.html#random-trees-embedding"><span class="std std-ref">Incrustación de Arboles Totalmente Aleatorios</span></a> también puede ser útil para derivar representaciones no lineales del espacio de característica, y no realiza una reducción de dimensionalidad.</p>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/manifold.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

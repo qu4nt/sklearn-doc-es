@@ -1,0 +1,528 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.13. Selección de características &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/feature_selection.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="multiclass.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.12. Algoritmos multiclase y multisalida">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="semi_supervised.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.14. Aprendizaje semi supervisado">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.13. Selección de características</a><ul>
+<li><a class="reference internal" href="#removing-features-with-low-variance">1.13.1. Remover características con varianza baja</a></li>
+<li><a class="reference internal" href="#univariate-feature-selection">1.13.2. Selección de características univariantes</a></li>
+<li><a class="reference internal" href="#recursive-feature-elimination">1.13.3. Eliminación recursiva de características</a></li>
+<li><a class="reference internal" href="#feature-selection-using-selectfrommodel">1.13.4. Selección de características mediante SelectFromModel</a><ul>
+<li><a class="reference internal" href="#l1-based-feature-selection">1.13.4.1. Selección de características basada en L1</a></li>
+<li><a class="reference internal" href="#tree-based-feature-selection">1.13.4.2. Selección de características basada en árboles</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sequential-feature-selection">1.13.5. Selección secuencial de características</a></li>
+<li><a class="reference internal" href="#feature-selection-as-part-of-a-pipeline">1.13.6. Selección de rasgos como parte de un pipeline</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="feature-selection">
+<span id="id1"></span><h1><span class="section-number">1.13. </span>Selección de características<a class="headerlink" href="#feature-selection" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Las clases del módulo <a class="reference internal" href="classes.html#module-sklearn.feature_selection" title="sklearn.feature_selection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.feature_selection</span></code></a> pueden utilizarse para la selección de características / reducción de la dimensionalidad en conjuntos de muestras, ya sea para mejorar las puntuaciones de exactitud de los estimadores o para aumentar su eficiencia en conjuntos de datos de muy alta dimensión.</p>
+<section id="removing-features-with-low-variance">
+<span id="variance-threshold"></span><h2><span class="section-number">1.13.1. </span>Remover características con varianza baja<a class="headerlink" href="#removing-features-with-low-variance" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.feature_selection.VarianceThreshold.html#sklearn.feature_selection.VarianceThreshold" title="sklearn.feature_selection.VarianceThreshold"><code class="xref py py-class docutils literal notranslate"><span class="pre">VarianceThreshold</span></code></a> es una aproximación simple a la selección de características. Elimina todas las características cuya varianza no alcanza un determinado umbral. Por defecto, elimina todas las características de varianza cero, es decir, las características que tienen el mismo valor en todas las muestras.</p>
+<p>Por ejemplo, supongamos que tenemos un conjunto de datos con características booleanas y queremos eliminar todas las características que sean uno o cero (activadas o desactivadas) en más del 80% de las muestras. Las características booleanas son variables aleatorias de Bernoulli, y la varianza de dichas variables viene dada por</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{Var}[X] = p(1 - p)\]</div>
+<p>de manera que podamos seleccionar utilizando el umbral <code class="docutils literal notranslate"><span class="pre">.8</span> <span class="pre">*</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">.8)</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">VarianceThreshold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel</span> <span class="o">=</span> <span class="n">VarianceThreshold</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="p">(</span><span class="mf">.8</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">.8</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sel</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[0, 1],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [0, 0],</span>
+<span class="go">       [1, 1],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [1, 1]])</span>
+</pre></div>
+</div>
+<p>Como se esperaba, <code class="docutils literal notranslate"><span class="pre">VarianceThreshold</span></code> ha eliminado la primera columna, que tiene una probabilidad de <span class="math notranslate nohighlight">\(p = 5/6 &gt; .8\)</span> de contener un cero.</p>
+</section>
+<section id="univariate-feature-selection">
+<span id="id2"></span><h2><span class="section-number">1.13.2. </span>Selección de características univariantes<a class="headerlink" href="#univariate-feature-selection" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La selección de características univariantes funciona mediante la selección de las mejores características basadas en pruebas estadísticas univariantes. Puede verse como un paso de preprocesamiento de un estimador. Scikit-learn expone las rutinas de selección de características como objetos que implementan el método <code class="docutils literal notranslate"><span class="pre">transform</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="generated/sklearn.feature_selection.SelectKBest.html#sklearn.feature_selection.SelectKBest" title="sklearn.feature_selection.SelectKBest"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectKBest</span></code></a> elimina todas las características excepto las de mayor puntuación de :math:<a href="#id1"><span class="problematic" id="id2">`</span></a>k</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.feature_selection.SelectPercentile.html#sklearn.feature_selection.SelectPercentile" title="sklearn.feature_selection.SelectPercentile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectPercentile</span></code></a> elimina todas las características excepto las del porcentaje de puntuación más alto especificado por el usuario</p></li>
+<li><p>aplicando pruebas estadísticas univariantes comunes para cada característica: tasa de falsos positivos <a class="reference internal" href="generated/sklearn.feature_selection.SelectFpr.html#sklearn.feature_selection.SelectFpr" title="sklearn.feature_selection.SelectFpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFpr</span></code></a>, tasa de falsos descubrimientos <a class="reference internal" href="generated/sklearn.feature_selection.SelectFdr.html#sklearn.feature_selection.SelectFdr" title="sklearn.feature_selection.SelectFdr"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFdr</span></code></a>, o error por familia <a class="reference internal" href="generated/sklearn.feature_selection.SelectFwe.html#sklearn.feature_selection.SelectFwe" title="sklearn.feature_selection.SelectFwe"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFwe</span></code></a>.</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.feature_selection.GenericUnivariateSelect.html#sklearn.feature_selection.GenericUnivariateSelect" title="sklearn.feature_selection.GenericUnivariateSelect"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericUnivariateSelect</span></code></a> permite realizar la selección de características univariantes con una estrategia configurable. Permite seleccionar la mejor estrategia de selección univariante con el estimador de búsqueda de hiperparámetros.</p></li>
+</ul>
+</div></blockquote>
+<p>Por ejemplo, podemos realizar una prueba <span class="math notranslate nohighlight">\(\chi^2\)</span> a las muestras para recuperar sólo las dos mejores características de la siguiente manera:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">chi2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(150, 4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(150, 2)</span>
+</pre></div>
+</div>
+<p>Estos objetos toman como entrada una función de puntuación que devuelve puntuaciones univariantes (univariate scores) y valores p (o sólo puntuaciones para <a class="reference internal" href="generated/sklearn.feature_selection.SelectKBest.html#sklearn.feature_selection.SelectKBest" title="sklearn.feature_selection.SelectKBest"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectKBest</span></code></a> y <a class="reference internal" href="generated/sklearn.feature_selection.SelectPercentile.html#sklearn.feature_selection.SelectPercentile" title="sklearn.feature_selection.SelectPercentile"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectPercentile</span></code></a>):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Para regresión: <a class="reference internal" href="generated/sklearn.feature_selection.f_regression.html#sklearn.feature_selection.f_regression" title="sklearn.feature_selection.f_regression"><code class="xref py py-func docutils literal notranslate"><span class="pre">f_regression</span></code></a>, <a class="reference internal" href="generated/sklearn.feature_selection.mutual_info_regression.html#sklearn.feature_selection.mutual_info_regression" title="sklearn.feature_selection.mutual_info_regression"><code class="xref py py-func docutils literal notranslate"><span class="pre">mutual_info_regression</span></code></a></p></li>
+<li><p>Para clasificación: <a class="reference internal" href="generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2" title="sklearn.feature_selection.chi2"><code class="xref py py-func docutils literal notranslate"><span class="pre">chi2</span></code></a>, <a class="reference internal" href="generated/sklearn.feature_selection.f_classif.html#sklearn.feature_selection.f_classif" title="sklearn.feature_selection.f_classif"><code class="xref py py-func docutils literal notranslate"><span class="pre">f_classif</span></code></a>, <a class="reference internal" href="generated/sklearn.feature_selection.mutual_info_classif.html#sklearn.feature_selection.mutual_info_classif" title="sklearn.feature_selection.mutual_info_classif"><code class="xref py py-func docutils literal notranslate"><span class="pre">mutual_info_classif</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>Los métodos basados en la prueba F estiman el grado de dependencia lineal entre dos variables aleatorias. Por otro lado, los métodos de información mutua pueden capturar cualquier tipo de dependencia estadística, pero al no ser paramétricos, requieren más muestras para una estimación precisa.</p>
+<div class="topic">
+<p class="topic-title">Selección de características con datos dispersos</p>
+<p>Si utiliza datos dispersos (es decir, datos representados como matrices dispersas), <a class="reference internal" href="generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2" title="sklearn.feature_selection.chi2"><code class="xref py py-func docutils literal notranslate"><span class="pre">chi2</span></code></a>, <a class="reference internal" href="generated/sklearn.feature_selection.mutual_info_regression.html#sklearn.feature_selection.mutual_info_regression" title="sklearn.feature_selection.mutual_info_regression"><code class="xref py py-func docutils literal notranslate"><span class="pre">mutual_info_regression</span></code></a>, <a class="reference internal" href="generated/sklearn.feature_selection.mutual_info_classif.html#sklearn.feature_selection.mutual_info_classif" title="sklearn.feature_selection.mutual_info_classif"><code class="xref py py-func docutils literal notranslate"><span class="pre">mutual_info_classif</span></code></a> se ocuparán de los datos sin hacerlos densos.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Ten cuidado de no utilizar una función de puntuación de regresión con un problema de clasificación, ya que obtendrás resultados inservibles.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/feature_selection/plot_feature_selection.html#sphx-glr-auto-examples-feature-selection-plot-feature-selection-py"><span class="std std-ref">Selección de características univariantes</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/feature_selection/plot_f_test_vs_mi.html#sphx-glr-auto-examples-feature-selection-plot-f-test-vs-mi-py"><span class="std std-ref">Comparación de pruebas F e información mutua</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="recursive-feature-elimination">
+<span id="rfe"></span><h2><span class="section-number">1.13.3. </span>Eliminación recursiva de características<a class="headerlink" href="#recursive-feature-elimination" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Dado un estimador externo que asigna pesos a las características (por ejemplo, los coeficientes de un modelo lineal), el objetivo de la eliminación recursiva de características (<a class="reference internal" href="generated/sklearn.feature_selection.RFE.html#sklearn.feature_selection.RFE" title="sklearn.feature_selection.RFE"><code class="xref py py-class docutils literal notranslate"><span class="pre">RFE</span></code></a>) es seleccionar características considerando recursivamente conjuntos cada vez más pequeños de características. En primer lugar, el estimador se entrena con el conjunto inicial de características y la importancia de cada una de ellas se obtiene a través de algún atributo específico (como <code class="docutils literal notranslate"><span class="pre">coef_</span></code>, <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code>) u otro invocable. A continuación, las características menos importantes se eliminan del conjunto actual de características. Este procedimiento se repite recursivamente en el conjunto reducido (<em>pruned</em>) hasta que se alcanza el número deseado de características a seleccionar.</p>
+<p><a class="reference internal" href="generated/sklearn.feature_selection.RFECV.html#sklearn.feature_selection.RFECV" title="sklearn.feature_selection.RFECV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RFECV</span></code></a> realiza la RFE en un bucle de validación cruzada para encontrar el número óptimo de características.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/feature_selection/plot_rfe_digits.html#sphx-glr-auto-examples-feature-selection-plot-rfe-digits-py"><span class="std std-ref">Eliminación recursiva de características</span></a>: Un ejemplo de eliminación recursiva de características que muestra la relevancia de los píxeles en una tarea de clasificación de dígitos.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/feature_selection/plot_rfe_with_cross_validation.html#sphx-glr-auto-examples-feature-selection-plot-rfe-with-cross-validation-py"><span class="std std-ref">Eliminación recursiva de características con validación cruzada</span></a>: Un ejemplo de eliminación recursiva de características con ajuste automático del número de características seleccionadas con validación cruzada.</p></li>
+</ul>
+</div>
+</section>
+<section id="feature-selection-using-selectfrommodel">
+<span id="select-from-model"></span><h2><span class="section-number">1.13.4. </span>Selección de características mediante SelectFromModel<a class="headerlink" href="#feature-selection-using-selectfrommodel" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.feature_selection.SelectFromModel.html#sklearn.feature_selection.SelectFromModel" title="sklearn.feature_selection.SelectFromModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFromModel</span></code></a> es un metatransformador que puede utilizarse junto con cualquier estimador de la importancia de cada característica a través de un atributo específico (tales como <code class="docutils literal notranslate"><span class="pre">coef_</span></code>, <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code>) o invocable después del ajuste. Las características se consideran poco importantes y se eliminan si la importancia correspondiente de los valores de las características está por debajo del parámetro <code class="docutils literal notranslate"><span class="pre">threshold</span></code> proporcionado. Aparte de especificar el umbral numéricamente, hay heurísticas integradas que permiten encontrar un umbral utilizando un argumento de cadena. Las heurísticas disponibles son «mean», «median» y múltiplos flotantes de éstas como «0.1*mean». En combinación con el criterio <code class="docutils literal notranslate"><span class="pre">threshold</span></code>, se puede utilizar el parámetro <code class="docutils literal notranslate"><span class="pre">max_features</span></code> para establecer un límite en el número de características a seleccionar.</p>
+<p>Para ver ejemplos de cómo se debe utilizar, consulta las secciones que siguen.</p>
+<div class="topic">
+<p class="topic-title">Examples</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/feature_selection/plot_select_from_model_diabetes.html#sphx-glr-auto-examples-feature-selection-plot-select-from-model-diabetes-py"><span class="std std-ref">Selección de características basadas en modelos y secuenciales</span></a></p></li>
+</ul>
+</div>
+<section id="l1-based-feature-selection">
+<span id="l1-feature-selection"></span><h3><span class="section-number">1.13.4.1. </span>Selección de características basada en L1<a class="headerlink" href="#l1-based-feature-selection" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="linear_model.html#linear-model"><span class="std std-ref">Linear models</span></a> penalizados con la norma L1 tienen soluciones dispersas: muchos de sus coeficientes estimados son cero. Cuando el objetivo es reducir la dimensionalidad de los datos para utilizarlos con otro clasificador, pueden utilizarse junto con <a class="reference internal" href="generated/sklearn.feature_selection.SelectFromModel.html#sklearn.feature_selection.SelectFromModel" title="sklearn.feature_selection.SelectFromModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFromModel</span></code></a> para seleccionar los coeficientes no nulos. En particular, los estimadores dispersos útiles para este propósito son los <a class="reference internal" href="generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a> para la regresión, y de <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> y <a class="reference internal" href="generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code></a> para la clasificación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectFromModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(150, 4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lsvc</span> <span class="o">=</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span> <span class="n">dual</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">SelectFromModel</span><span class="p">(</span><span class="n">lsvc</span><span class="p">,</span> <span class="n">prefit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(150, 3)</span>
+</pre></div>
+</div>
+<p>Con las SVM y la regresión logística, el parámetro C controla la dispersión: cuanto menor sea C, menos características serán seleccionadas. Con Lasso, cuanto mayor sea el parámetro alfa, menos características se seleccionarán.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Clasificación de documentos de texto utilizando características dispersas</span></a>: Comparación de diferentes algoritmos para la clasificación de documentos, incluida la selección de características basada en L1.</p></li>
+</ul>
+</div>
+<div class="topic" id="compressive-sensing">
+<p class="topic-title"><strong>Recuperación del L1 y muestreo con compresión (compressive sensing)</strong></p>
+<p>Para una buena elección de alfa, el <a class="reference internal" href="linear_model.html#lasso"><span class="std std-ref">Lasso</span></a> puede recuperar completamente el conjunto exacto de variables no nulas utilizando sólo unas pocas observaciones, siempre que se cumplan ciertas condiciones específicas. En particular, el número de muestras debe ser «suficientemente grande», o los modelos L1 se comportarán de forma aleatoria, en donde » suficientemente grande» depende del número de coeficientes no nulos, del logaritmo del número de características, de la cantidad de ruido, del menor valor absoluto de los coeficientes no nulos y de la estructura de la matriz de diseño X. Además, la matriz de diseño debe mostrar ciertas propiedades específicas, como no estar demasiado correlacionada.</p>
+<p>No hay una regla general para seleccionar un parámetro alfa para la recuperación de coeficientes distintos de cero. Puede establecerse mediante validación cruzada (<code class="xref py py-class docutils literal notranslate"><span class="pre">LassoCV</span></code> o <code class="xref py py-class docutils literal notranslate"><span class="pre">LassoLarsCV</span></code>), aunque esto puede conducir a modelos insuficientemente penalizados: la inclusión de un pequeño número de variables no relevantes no es perjudicial para la puntuación de la predicción. BIC (<code class="xref py py-class docutils literal notranslate"><span class="pre">LassoLarsIC</span></code>) tiende, por el contrario, a establecer valores altos de alfa.</p>
+<p><strong>Referencia</strong> Richard G. Baraniuk «Compressive Sensing», IEEE Signal Processing Magazine [120] July 2007 <a class="reference external" href="http://users.isr.ist.utl.pt/~aguiar/CS_notes.pdf">http://users.isr.ist.utl.pt/~aguiar/CS_notes.pdf</a></p>
+</div>
+</section>
+<section id="tree-based-feature-selection">
+<h3><span class="section-number">1.13.4.2. </span>Selección de características basada en árboles<a class="headerlink" href="#tree-based-feature-selection" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Los estimadores basados en árboles (véase el módulo <a class="reference internal" href="classes.html#module-sklearn.tree" title="sklearn.tree"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.tree</span></code></a> y el bosque de árboles en el módulo <a class="reference internal" href="classes.html#module-sklearn.ensemble" title="sklearn.ensemble"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.ensemble</span></code></a>) pueden utilizarse para calcular la importancia de características basadas en impurezas, que a su vez pueden utilizarse para descartar características irrelevantes (cuando se combinan con el metatransformador <a class="reference internal" href="generated/sklearn.feature_selection.SelectFromModel.html#sklearn.feature_selection.SelectFromModel" title="sklearn.feature_selection.SelectFromModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFromModel</span></code></a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectFromModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(150, 4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span>  
+<span class="go">array([ 0.04...,  0.05...,  0.4...,  0.4...])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">SelectFromModel</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">prefit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span><span class="o">.</span><span class="n">shape</span>               
+<span class="go">(150, 2)</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/ensemble/plot_forest_importances.html#sphx-glr-auto-examples-ensemble-plot-forest-importances-py"><span class="std std-ref">Importancia de las características con los bosques de árboles</span></a>: ejemplo sobre datos sintéticos que muestran la recuperación de las características efectivamente significativas.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/ensemble/plot_forest_importances_faces.html#sphx-glr-auto-examples-ensemble-plot-forest-importances-faces-py"><span class="std std-ref">Importancia de los píxeles con un bosque paralelo de árboles</span></a>: ejemplo de datos de reconocimiento facial.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="sequential-feature-selection">
+<span id="id3"></span><h2><span class="section-number">1.13.5. </span>Selección secuencial de características<a class="headerlink" href="#sequential-feature-selection" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La selección secuencial de características <a class="reference internal" href="#sfs" id="id4"><span>[sfs]</span></a> (SFS) está disponible en el transformador <a class="reference internal" href="generated/sklearn.feature_selection.SequentialFeatureSelector.html#sklearn.feature_selection.SequentialFeatureSelector" title="sklearn.feature_selection.SequentialFeatureSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">SequentialFeatureSelector</span></code></a>. SFS puede funcionar hacia adelante (forward) o hacia atrás (backward):</p>
+<p>Forward-SFS es un procedimiento ambicioso (<em>greedy</em>) que encuentra de forma iterativa la mejor característica nueva para añadir al conjunto de características seleccionadas. Concretamente, empezamos con cero características y encontramos la que maximiza una puntuación validada de forma cruzada cuando se entrena un estimador con esta única característica. Una vez seleccionada esa primera característica, repetimos el procedimiento añadiendo una nueva característica al conjunto de características seleccionadas. El procedimiento se detiene cuando se alcanza el número deseado de características seleccionadas, determinado por el parámetro <code class="docutils literal notranslate"><span class="pre">n_features_to_select</span></code>.</p>
+<p>Backward-SFS sigue la misma idea, pero funciona en la dirección opuesta: en lugar de empezar sin ninguna característica y añadirla codiciosamente, empezamos con <em>todas</em> las características y <em>eliminamos</em> codiciosamente las características del conjunto. El parámetro <code class="docutils literal notranslate"><span class="pre">direction</span></code> controla si se utiliza el SFS hacia adelante o hacia atrás.</p>
+<p>En general, la selección hacia adelante (forward) y la selección hacia atrás (backward) no dan resultados equivalentes. Además, una puede ser mucho más rápida que la otra dependiendo del número de características seleccionadas que se soliciten: si tenemos 10 características y queremos que se seleccionen 7, la selección hacia delante necesitaría realizar 7 iteraciones mientras que la selección hacia atrás sólo necesitaría llevar a cabo 3.</p>
+<p>SFS difiere de <a class="reference internal" href="generated/sklearn.feature_selection.RFE.html#sklearn.feature_selection.RFE" title="sklearn.feature_selection.RFE"><code class="xref py py-class docutils literal notranslate"><span class="pre">RFE</span></code></a> y <a class="reference internal" href="generated/sklearn.feature_selection.SelectFromModel.html#sklearn.feature_selection.SelectFromModel" title="sklearn.feature_selection.SelectFromModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFromModel</span></code></a> en que no requiere que el modelo subyacente exponga un atributo <code class="docutils literal notranslate"><span class="pre">coef_</span></code> o <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code>. Sin embargo, puede ser más lento, en comparación con los otros enfoques, ya que es necesario evaluar más modelos. Por ejemplo, en la selección hacia atrás, la iteración que va de <code class="docutils literal notranslate"><span class="pre">m</span></code> características a <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">-</span> <span class="pre">1</span></code> características utilizando la validación cruzada de <em>k</em> partes requiere el ajuste de <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">k</span></code> modelos, mientras que <a class="reference internal" href="generated/sklearn.feature_selection.RFE.html#sklearn.feature_selection.RFE" title="sklearn.feature_selection.RFE"><code class="xref py py-class docutils literal notranslate"><span class="pre">RFE</span></code></a> sólo requeriría un único ajuste, y <a class="reference internal" href="generated/sklearn.feature_selection.SelectFromModel.html#sklearn.feature_selection.SelectFromModel" title="sklearn.feature_selection.SelectFromModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFromModel</span></code></a> siempre hace un único ajuste y no requiere iteraciones.</p>
+<div class="topic">
+<p class="topic-title">Examples</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/feature_selection/plot_select_from_model_diabetes.html#sphx-glr-auto-examples-feature-selection-plot-select-from-model-diabetes-py"><span class="std std-ref">Selección de características basadas en modelos y secuenciales</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="citation">
+<dt class="label" id="sfs"><span class="brackets"><a class="fn-backref" href="#id4">sfs</a></span></dt>
+<dd><p>Ferri et al, <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.24.4369&amp;rep=rep1&amp;type=pdf">Comparative study of techniques for
+large-scale feature selection</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="feature-selection-as-part-of-a-pipeline">
+<h2><span class="section-number">1.13.6. </span>Selección de rasgos como parte de un pipeline<a class="headerlink" href="#feature-selection-as-part-of-a-pipeline" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La selección de características se utiliza generalmente como un paso de preprocesamiento antes de realizar el aprendizaje propiamente dicho. La forma recomendada de hacer esto en scikit-learn es utilizar un <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+  <span class="p">(</span><span class="s1">&#39;feature_selection&#39;</span><span class="p">,</span> <span class="n">SelectFromModel</span><span class="p">(</span><span class="n">LinearSVC</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">))),</span>
+  <span class="p">(</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">())</span>
+<span class="p">])</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>En este fragmento utilizamos un <a class="reference internal" href="generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code></a> junto con <a class="reference internal" href="generated/sklearn.feature_selection.SelectFromModel.html#sklearn.feature_selection.SelectFromModel" title="sklearn.feature_selection.SelectFromModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectFromModel</span></code></a> para evaluar la importancia de las características y seleccionar las más relevantes. A continuación, se entrena un <a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a> en la salida transformada, es decir, utilizando sólo las características relevantes. Puedes realizar operaciones similares con los otros métodos de selección de características y también con clasificadores que proporcionan una forma de evaluar la importancia de las características, por supuesto. Puedes consultar los ejemplos de <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> para más detalles.</p>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/feature_selection.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

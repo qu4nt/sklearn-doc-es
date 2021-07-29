@@ -1,0 +1,1403 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.1. Modelos lineales &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/linear_model.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="lda_qda.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.2. Análisis Discriminante Lineal y Cuadrático">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.1. Modelos lineales</a><ul>
+<li><a class="reference internal" href="#ordinary-least-squares">1.1.1. Mínimos Cuadrados Ordinarios</a><ul>
+<li><a class="reference internal" href="#non-negative-least-squares">1.1.1.1. Mínimos Cuadrados No-Negativos</a></li>
+<li><a class="reference internal" href="#ordinary-least-squares-complexity">1.1.1.2. Complejidad de Mínimos Cuadrados Ordinarios</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ridge-regression-and-classification">1.1.2. Regresión de cresta y clasificación</a><ul>
+<li><a class="reference internal" href="#regression">1.1.2.1. Regresión</a></li>
+<li><a class="reference internal" href="#classification">1.1.2.2. Clasificación</a></li>
+<li><a class="reference internal" href="#ridge-complexity">1.1.2.3. Complejidad cresta</a></li>
+<li><a class="reference internal" href="#setting-the-regularization-parameter-leave-one-out-cross-validation">1.1.2.4. Ajuste del parámetro de regularización: Validación cruzada con exclusión (leave-one-out)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lasso">1.1.3. Lasso</a><ul>
+<li><a class="reference internal" href="#setting-regularization-parameter">1.1.3.1. Ajuste del parámetro de regularización</a><ul>
+<li><a class="reference internal" href="#using-cross-validation">1.1.3.1.1. Utilizando validación cruzada</a></li>
+<li><a class="reference internal" href="#information-criteria-based-model-selection">1.1.3.1.2. Selección de modelos basada en criterios de información</a></li>
+<li><a class="reference internal" href="#comparison-with-the-regularization-parameter-of-svm">1.1.3.1.3. Comparación con el parámetro de regularización de SVM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multi-task-lasso">1.1.4. Lasso multitarea</a></li>
+<li><a class="reference internal" href="#elastic-net">1.1.5. Elastic-Net</a></li>
+<li><a class="reference internal" href="#multi-task-elastic-net">1.1.6. Elastic-Net multitarea</a></li>
+<li><a class="reference internal" href="#least-angle-regression">1.1.7. Regresión de ángulo mínimo</a></li>
+<li><a class="reference internal" href="#lars-lasso">1.1.8. LARS Lasso</a><ul>
+<li><a class="reference internal" href="#mathematical-formulation">1.1.8.1. Formulación matemática</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#orthogonal-matching-pursuit-omp">1.1.9. Búsqueda de coincidencias ortogonales (OMP)</a></li>
+<li><a class="reference internal" href="#bayesian-regression">1.1.10. Regresión bayesiana</a><ul>
+<li><a class="reference internal" href="#bayesian-ridge-regression">1.1.10.1. Regresión Bayesiana de Cresta</a></li>
+<li><a class="reference internal" href="#automatic-relevance-determination-ard">1.1.10.2. Determinación automática de la relevancia - ARD</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#logistic-regression">1.1.11. Regresión logística</a></li>
+<li><a class="reference internal" href="#generalized-linear-regression">1.1.12. Regresión lineal generalizada</a><ul>
+<li><a class="reference internal" href="#usage">1.1.12.1. Uso</a></li>
+<li><a class="reference internal" href="#practical-considerations">1.1.12.2. Consideraciones prácticas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stochastic-gradient-descent-sgd">1.1.13. Descenso de gradiente estocástico - SGD</a></li>
+<li><a class="reference internal" href="#perceptron">1.1.14. Perceptrón</a></li>
+<li><a class="reference internal" href="#passive-aggressive-algorithms">1.1.15. Algoritmos pasivo-agresivos</a></li>
+<li><a class="reference internal" href="#robustness-regression-outliers-and-modeling-errors">1.1.16. Regresión robusta: valores atípicos y errores de modelización,</a><ul>
+<li><a class="reference internal" href="#different-scenario-and-useful-concepts">1.1.16.1. Diferentes escenarios y conceptos útiles</a></li>
+<li><a class="reference internal" href="#ransac-random-sample-consensus">1.1.16.2. RANSAC: Consenso RANdom SAmple</a><ul>
+<li><a class="reference internal" href="#details-of-the-algorithm">1.1.16.2.1. Detalles del algoritmo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#theil-sen-estimator-generalized-median-based-estimator">1.1.16.3. Estimador Theil-Sen: estimador basado en la mediana generalizada</a><ul>
+<li><a class="reference internal" href="#theoretical-considerations">1.1.16.3.1. Consideraciones teóricas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#huber-regression">1.1.16.4. Regresión Huber</a></li>
+<li><a class="reference internal" href="#notes">1.1.16.5. Notas</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#polynomial-regression-extending-linear-models-with-basis-functions">1.1.17. Regresión polinómica: ampliación de los modelos lineales con funciones de base</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="linear-models">
+<span id="linear-model"></span><h1><span class="section-number">1.1. </span>Modelos lineales<a class="headerlink" href="#linear-models" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Los siguientes son un conjunto de métodos destinados a la regresión en el que se espera que el valor objetivo sea una combinación lineal de las características. En notación matemática, si <span class="math notranslate nohighlight">\(\hat{y}\)</span> es el valor predicho.</p>
+<div class="math notranslate nohighlight">
+\[\hat{y}(w, x) = w_0 + w_1 x_1 + ... + w_p x_p\]</div>
+<p>En el módulo, designamos el vector <span class="math notranslate nohighlight">\(w = (w_1, ..., w_p)\)</span> como <code class="docutils literal notranslate"><span class="pre">coef_</span></code> y <span class="math notranslate nohighlight">\(w_0\)</span> como <code class="docutils literal notranslate"><span class="pre">intercept_</span></code>.</p>
+<p>Para realizar la clasificación con modelos lineales generalizados, ver <a class="reference internal" href="#logistic-regression"><span class="std std-ref">Regresión logística</span></a>.</p>
+<section id="ordinary-least-squares">
+<span id="id1"></span><h2><span class="section-number">1.1.1. </span>Mínimos Cuadrados Ordinarios<a class="headerlink" href="#ordinary-least-squares" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression" title="sklearn.linear_model.LinearRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearRegression</span></code></a> se ajusta a un modelo lineal con coeficientes <span class="math notranslate nohighlight">\(w = (w_1, ... w_p)\)</span> para minimizar la suma residual de cuadrados entre los objetivos observados en el conjunto de datos, y los objetivos predichos por la aproximación lineal. Matemáticamente resuelve un problema de la forma:</p>
+<div class="math notranslate nohighlight">
+\[\min_{w} || X w - y||_2^2\]</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_ols.html"><img alt="../_images/sphx_glr_plot_ols_001.png" src="../_images/sphx_glr_plot_ols_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p><a class="reference internal" href="generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression" title="sklearn.linear_model.LinearRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearRegression</span></code></a> tomará en su método <code class="docutils literal notranslate"><span class="pre">fit</span></code> las matrices X, y y almacenará los coeficientes <span class="math notranslate nohighlight">\(w\)</span> del modelo lineal en su miembro <code class="docutils literal notranslate"><span class="pre">coef_</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span> <span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="go">LinearRegression()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="go">LinearRegression()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([0.5, 0.5])</span>
+</pre></div>
+</div>
+<p>Las estimaciones de los coeficientes de los Mínimos Cuadrados Ordinarios se basan en la independencia de las características. Cuando las características están correlacionadas y las columnas de la matriz de diseño <span class="math notranslate nohighlight">\(X\)</span> tienen una dependencia lineal aproximada, la matriz de diseño se vuelve casi singular y, como resultado, la estimación por mínimos cuadrados se vuelve muy sensible a los errores aleatorios en el objetivo observado, produciendo una gran varianza. Esta situación de <em>colinealidad múltiple</em> puede surgir, por ejemplo, cuando los datos se recogen sin un diseño experimental.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_ols.html#sphx-glr-auto-examples-linear-model-plot-ols-py"><span class="std std-ref">Ejemplo de regresión lineal</span></a></p></li>
+</ul>
+</div>
+<section id="non-negative-least-squares">
+<h3><span class="section-number">1.1.1.1. </span>Mínimos Cuadrados No-Negativos<a class="headerlink" href="#non-negative-least-squares" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Es posible restringir todos los coeficientes para que sean no negativos, lo que puede ser útil cuando representan algunas cantidades físicas o naturalmente no negativas (por ejemplo, recuentos de frecuencia o precios de bienes). <a class="reference internal" href="generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression" title="sklearn.linear_model.LinearRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearRegression</span></code></a> acepta un parámetro booleano <code class="docutils literal notranslate"><span class="pre">positive</span></code>: cuando se establece en <code class="docutils literal notranslate"><span class="pre">True</span></code> se aplican entonces los <a class="reference external" href="https://en.wikipedia.org/wiki/Non-negative_least_squares">Mínimos Cuadrados No Negativos</a>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_nnls.html#sphx-glr-auto-examples-linear-model-plot-nnls-py"><span class="std std-ref">Mínimos cuadrados no negativos</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="ordinary-least-squares-complexity">
+<h3><span class="section-number">1.1.1.2. </span>Complejidad de Mínimos Cuadrados Ordinarios<a class="headerlink" href="#ordinary-least-squares-complexity" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La solución de mínimos cuadrados se calcula utilizando la descomposición del valor singular de X. Si X es una matriz de la forma`(n_samples, n_features)` este método tiene un costo de <span class="math notranslate nohighlight">\(O(n_{\text{samples}} n_{\text{features}}^2)\)</span>, asumiendo que <span class="math notranslate nohighlight">\(n_{\text{samples}} \geq n_{\text{features}}\)</span>.</p>
+</section>
+</section>
+<section id="ridge-regression-and-classification">
+<span id="ridge-regression"></span><h2><span class="section-number">1.1.2. </span>Regresión de cresta y clasificación<a class="headerlink" href="#ridge-regression-and-classification" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="regression">
+<h3><span class="section-number">1.1.2.1. </span>Regresión<a class="headerlink" href="#regression" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>la regresión <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> aborda algunos de los problemas de <a class="reference internal" href="#ordinary-least-squares"><span class="std std-ref">Mínimos Cuadrados Ordinarios</span></a> imponiendo una sanción al tamaño de los coeficientes. Los coeficientes de rudimentos minimizan una suma residual penalizada de cuadrados:</p>
+<div class="math notranslate nohighlight">
+\[\min_{w} || X w - y||_2^2 + \alpha ||w||_2^2\]</div>
+<p>El parámetro de complejidad <span class="math notranslate nohighlight">\(\alpha \geq 0\)</span> controla la cantidad de contracción: cuanto mayor sea el valor de <span class="math notranslate nohighlight">\(\alpha\)</span>, mayor será la cantidad de contracción y, por tanto, los coeficientes serán más robustos a la colinealidad.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_ridge_path.html"><img alt="../_images/sphx_glr_plot_ridge_path_001.png" src="../_images/sphx_glr_plot_ridge_path_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p>Al igual que con otros modelos lineales, <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> tomará en su método <code class="docutils literal notranslate"><span class="pre">fit</span></code> las matrices X, y y almacenará los coeficientes <span class="math notranslate nohighlight">\(w\)</span> del modelo lineal en su miembro <code class="docutils literal notranslate"><span class="pre">coef_</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">Ridge(alpha=0.5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([0.34545455, 0.34545455])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="go">0.13636...</span>
+</pre></div>
+</div>
+</section>
+<section id="classification">
+<h3><span class="section-number">1.1.2.2. </span>Clasificación<a class="headerlink" href="#classification" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El regresor <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> tiene una variante de clasificador: <a class="reference internal" href="generated/sklearn.linear_model.RidgeClassifier.html#sklearn.linear_model.RidgeClassifier" title="sklearn.linear_model.RidgeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RidgeClassifier</span></code></a>. Este clasificador primero convierte los objetivos binarios a <code class="docutils literal notranslate"><span class="pre">{-1,</span> <span class="pre">1}</span></code> y luego trata el problema como una tarea de regresión, optimizando el mismo objetivo que el anterior. La clase predicha corresponde al signo de la predicción del regresor. Para la clasificación multiclase, el problema se trata como una regresión con salida múltiple, y la clase predicha corresponde a la salida con el valor más alto.</p>
+<p>Podría parecer cuestionable utilizar una pérdida de mínimos cuadrados (penalizada) para ajustar un modelo de clasificación en lugar de las pérdidas logísticas o de bisagra más tradicionales. Sin embargo, en la práctica todos esos modelos pueden conducir a puntuaciones de validación cruzada similares en términos de exactitud o precisión/recuperación, mientras que la pérdida de mínimos cuadrados penalizada utilizada por el <a class="reference internal" href="generated/sklearn.linear_model.RidgeClassifier.html#sklearn.linear_model.RidgeClassifier" title="sklearn.linear_model.RidgeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RidgeClassifier</span></code></a> permite una elección muy diferente de los solucionadores numéricos con distintos perfiles de rendimiento computacional.</p>
+<p>El <a class="reference internal" href="generated/sklearn.linear_model.RidgeClassifier.html#sklearn.linear_model.RidgeClassifier" title="sklearn.linear_model.RidgeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RidgeClassifier</span></code></a> puede ser significativamente más rápido que, por ejemplo, <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> con un elevado número de clases, porque es capaz de calcular la matriz de proyección <span class="math notranslate nohighlight">\((X^T X)^{-1} X^T\)</span> sólo una vez.</p>
+<p>Este clasificador se denomina a veces <a class="reference external" href="https://en.wikipedia.org/wiki/Least-squares_support-vector_machine">Máquinas de vectores de soporte de mínimos cuadrados</a> con un núcleo lineal.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_ridge_path.html#sphx-glr-auto-examples-linear-model-plot-ridge-path-py"><span class="std std-ref">Graficar los coeficientes de Ridge en función de la regularización</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Clasificación de documentos de texto utilizando características dispersas</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/inspection/plot_linear_model_coefficient_interpretation.html#sphx-glr-auto-examples-inspection-plot-linear-model-coefficient-interpretation-py"><span class="std std-ref">Errores comunes en la interpretación de los coeficientes de los modelos lineales</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="ridge-complexity">
+<h3><span class="section-number">1.1.2.3. </span>Complejidad cresta<a class="headerlink" href="#ridge-complexity" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Este método tiene el mismo orden de complejidad que <a class="reference internal" href="#ordinary-least-squares"><span class="std std-ref">Mínimos Cuadrados Ordinarios</span></a>.</p>
+</section>
+<section id="setting-the-regularization-parameter-leave-one-out-cross-validation">
+<h3><span class="section-number">1.1.2.4. </span>Ajuste del parámetro de regularización: Validación cruzada con exclusión (leave-one-out)<a class="headerlink" href="#setting-the-regularization-parameter-leave-one-out-cross-validation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.linear_model.RidgeCV.html#sklearn.linear_model.RidgeCV" title="sklearn.linear_model.RidgeCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RidgeCV</span></code></a> implementa la regresión de cresta con validación cruzada incorporada del parámetro alfa. El objeto funciona de la misma manera que GridSearchCV, excepto que por defecto utiliza la validación cruzada con exclusión:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">RidgeCV</span><span class="p">(</span><span class="n">alphas</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">RidgeCV(alphas=array([1.e-06, 1.e-05, 1.e-04, 1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01,</span>
+<span class="go">      1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">alpha_</span>
+<span class="go">0.01</span>
+</pre></div>
+</div>
+<p>Si se especifica el valor del atributo <a class="reference internal" href="../glossary.html#term-cv"><span class="xref std std-term">cv</span></a> se activará el uso de la validación cruzada con <a class="reference internal" href="generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>, por ejemplo <code class="docutils literal notranslate"><span class="pre">cv=10</span></code> para la validación cruzada de 10 veces, en lugar de la validación cruzada Leave-One-Out.</p>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>«Notes on Regularized Least Squares», Rifkin &amp; Lippert (<a class="reference external" href="http://cbcl.mit.edu/publications/ps/MIT-CSAIL-TR-2007-025.pdf">reporte técnico</a>, <a class="reference external" href="https://www.mit.edu/~9.520/spring07/Classes/rlsslides.pdf">láminas del curso</a>).</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="lasso">
+<span id="id3"></span><h2><span class="section-number">1.1.3. </span>Lasso<a class="headerlink" href="#lasso" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a> es un modelo lineal que estima coeficientes dispersos. Es útil en algunos contextos debido a su tendencia a preferir soluciones con menos coeficientes distintos de cero, reduciendo efectivamente el número de características de las que depende la solución dada. Por esta razón, Lasso y sus variantes son fundamentales en el campo de la detección comprimida. Bajo ciertas condiciones, puede recuperar el conjunto exacto de coeficientes no nulos (ver <a class="reference internal" href="../auto_examples/applications/plot_tomography_l1_reconstruction.html#sphx-glr-auto-examples-applications-plot-tomography-l1-reconstruction-py"><span class="std std-ref">Detección compresiva: reconstrucción de la tomografía con prioridad L1 (Lasso)</span></a>).</p>
+<p>Matemáticamente, consiste en un modelo lineal con un término de regularización añadido. La función objetivo a minimizar es:</p>
+<div class="math notranslate nohighlight">
+\[\min_{w} { \frac{1}{2n_{\text{samples}}} ||X w - y||_2 ^ 2 + \alpha ||w||_1}\]</div>
+<p>La estimación lasso resuelve así la minimización de la penalización por mínimos cuadrados con <span class="math notranslate nohighlight">\(\alpha ||w|_1\)</span> añadido, donde <span class="math notranslate nohighlight">\(\alpha\)</span> es una constante y <span class="math notranslate nohighlight">\(|w||_1\)</span> es la norma <span class="math notranslate nohighlight">\(\ell_1\)</span> del vector de coeficientes.</p>
+<p>La implementación en la clase <a class="reference internal" href="generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a> utiliza el descenso por coordenadas como algoritmo para ajustar los coeficientes. Ver <a class="reference internal" href="#least-angle-regression"><span class="std std-ref">Regresión de ángulo mínimo</span></a> para otra implementación:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">Lasso(alpha=0.1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="go">array([0.8])</span>
+</pre></div>
+</div>
+<p>La función <a class="reference internal" href="generated/sklearn.linear_model.lasso_path.html#sklearn.linear_model.lasso_path" title="sklearn.linear_model.lasso_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">lasso_path</span></code></a> es útil para tareas de nivel inferior, ya que calcula los coeficientes a lo largo de todo el recorrido de valores posibles.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">Lasso y red elástica para señales dispersas</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/applications/plot_tomography_l1_reconstruction.html#sphx-glr-auto-examples-applications-plot-tomography-l1-reconstruction-py"><span class="std std-ref">Detección compresiva: reconstrucción de la tomografía con prioridad L1 (Lasso)</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/inspection/plot_linear_model_coefficient_interpretation.html#sphx-glr-auto-examples-inspection-plot-linear-model-coefficient-interpretation-py"><span class="std std-ref">Errores comunes en la interpretación de los coeficientes de los modelos lineales</span></a></p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Selección de características con Lasso</strong></p>
+<p>Como la regresión Lasso produce modelos dispersos, puede utilizarse para realizar la selección de características, como se detalla en <a class="reference internal" href="feature_selection.html#l1-feature-selection"><span class="std std-ref">Selección de características basada en L1</span></a>.</p>
+</div>
+<p>Las siguientes dos referencias explican las iteraciones utilizadas en el solucionador de descenso de coordenadas de scikit-learn, así como el cálculo de la brecha de dualidad utilizado para el control de la convergencia.</p>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>«Regularization Path For Generalized linear Models by Coordinate Descent»,
+Friedman, Hastie &amp; Tibshirani, J Stat Softw, 2010 (<a class="reference external" href="https://www.jstatsoft.org/article/view/v033i01/v33i01.pdf">Paper</a>).</p></li>
+<li><p>«An Interior-Point Method for Large-Scale L1-Regularized Least Squares,» S. J. Kim, K. Koh, M. Lustig, S. Boyd and D. Gorinevsky, en IEEE Journal of Selected Topics in Signal Processing, 2007 (<a class="reference external" href="https://web.stanford.edu/~boyd/papers/pdf/l1_ls.pdf">Paper</a>)</p></li>
+</ul>
+</div>
+<section id="setting-regularization-parameter">
+<h3><span class="section-number">1.1.3.1. </span>Ajuste del parámetro de regularización<a class="headerlink" href="#setting-regularization-parameter" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">alpha</span></code> controla el grado de dispersión de los coeficientes estimados.</p>
+<section id="using-cross-validation">
+<h4><span class="section-number">1.1.3.1.1. </span>Utilizando validación cruzada<a class="headerlink" href="#using-cross-validation" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>scikit-learn expone objetos que establecen el parámetro <code class="docutils literal notranslate"><span class="pre">alpha</span></code> de Lasso por validación cruzada: <a class="reference internal" href="generated/sklearn.linear_model.LassoCV.html#sklearn.linear_model.LassoCV" title="sklearn.linear_model.LassoCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoCV</span></code></a> y <a class="reference internal" href="generated/sklearn.linear_model.LassoLarsCV.html#sklearn.linear_model.LassoLarsCV" title="sklearn.linear_model.LassoLarsCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoLarsCV</span></code></a>. <a class="reference internal" href="generated/sklearn.linear_model.LassoLarsCV.html#sklearn.linear_model.LassoLarsCV" title="sklearn.linear_model.LassoLarsCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoLarsCV</span></code></a> se basa en el algoritmo <a class="reference internal" href="#least-angle-regression"><span class="std std-ref">Regresión de ángulo mínimo</span></a> que se explica a continuación.</p>
+<p>Para conjuntos de datos de alta dimensión con muchas características colineales, <a class="reference internal" href="generated/sklearn.linear_model.LassoCV.html#sklearn.linear_model.LassoCV" title="sklearn.linear_model.LassoCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoCV</span></code></a> suele ser preferible. Sin embargo, <a class="reference internal" href="generated/sklearn.linear_model.LassoLarsCV.html#sklearn.linear_model.LassoLarsCV" title="sklearn.linear_model.LassoLarsCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoLarsCV</span></code></a> tiene la ventaja de explorar valores más relevantes del parámetro <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, y si el número de muestras es muy pequeño comparado con el número de características, suele ser más rápido que <a class="reference internal" href="generated/sklearn.linear_model.LassoCV.html#sklearn.linear_model.LassoCV" title="sklearn.linear_model.LassoCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoCV</span></code></a>.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/linear_model/plot_lasso_model_selection.html"><img alt="lasso_cv_1" src="../_images/sphx_glr_plot_lasso_model_selection_002.png" style="width: 307.2px; height: 230.39999999999998px;" /></a> <a class="reference external" href="../auto_examples/linear_model/plot_lasso_model_selection.html"><img alt="lasso_cv_2" src="../_images/sphx_glr_plot_lasso_model_selection_003.png" style="width: 307.2px; height: 230.39999999999998px;" /></a></strong></p></section>
+<section id="information-criteria-based-model-selection">
+<h4><span class="section-number">1.1.3.1.2. </span>Selección de modelos basada en criterios de información<a class="headerlink" href="#information-criteria-based-model-selection" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Como alternativa, el estimador <a class="reference internal" href="generated/sklearn.linear_model.LassoLarsIC.html#sklearn.linear_model.LassoLarsIC" title="sklearn.linear_model.LassoLarsIC"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoLarsIC</span></code></a> propone utilizar el criterio de información de Akaike (AIC) y el criterio de información de Bayes (BIC). Se trata de una alternativa computacionalmente más barata para encontrar el valor óptimo de alfa, ya que el camino de regularización se calcula sólo una vez en lugar de k+1 veces cuando se utiliza la validación cruzada k-fold. Sin embargo, estos criterios necesitan una estimación adecuada de los grados de libertad de la solución, se derivan para muestras grandes (resultados asintóticos) y suponen que el modelo es correcto, es decir, que los datos son realmente generados por este modelo. También tienden a fallar cuando el problema está mal condicionado (más características que muestras).</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_lasso_model_selection.html"><img alt="../_images/sphx_glr_plot_lasso_model_selection_001.png" src="../_images/sphx_glr_plot_lasso_model_selection_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_lasso_model_selection.html#sphx-glr-auto-examples-linear-model-plot-lasso-model-selection-py"><span class="std std-ref">Selección del modelo Lasso: Validación cruzada / AIC / BIC</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="comparison-with-the-regularization-parameter-of-svm">
+<h4><span class="section-number">1.1.3.1.3. </span>Comparación con el parámetro de regularización de SVM<a class="headerlink" href="#comparison-with-the-regularization-parameter-of-svm" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>La equivalencia entre <code class="docutils literal notranslate"><span class="pre">alpha</span></code> y el parámetro de regularización de SVM, <code class="docutils literal notranslate"><span class="pre">C</span></code> viene dada por <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">C</span></code> o <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">(n/samples</span> <span class="pre">*</span> <span class="pre">C)</span></code>, dependiendo del estimador y de la función objetivo exacta optimizada por el modelo.</p>
+</section>
+</section>
+</section>
+<section id="multi-task-lasso">
+<span id="id4"></span><h2><span class="section-number">1.1.4. </span>Lasso multitarea<a class="headerlink" href="#multi-task-lasso" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La <a class="reference internal" href="generated/sklearn.linear_model.MultiTaskLasso.html#sklearn.linear_model.MultiTaskLasso" title="sklearn.linear_model.MultiTaskLasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTaskLasso</span></code></a> es un modelo lineal que estima coeficientes dispersos para problemas de regresión múltiple de forma conjunta: <code class="docutils literal notranslate"><span class="pre">y</span></code> es un arreglo 2D, de forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_tasks)</span></code>. La restricción es que las características seleccionadas son las mismas para todos los problemas de regresión, también llamados tareas.</p>
+<p>La siguiente figura compara la ubicación de las entradas no nulas en la matriz de coeficientes W obtenida con un Lasso simple o un MultiTaskLasso. Las estimaciones de Lasso producen no ceros dispersos mientras que los no ceros del MultiTaskLasso son columnas completas.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/linear_model/plot_multi_task_lasso_support.html"><img alt="multi_task_lasso_1" src="../_images/sphx_glr_plot_multi_task_lasso_support_001.png" style="width: 384.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/linear_model/plot_multi_task_lasso_support.html"><img alt="multi_task_lasso_2" src="../_images/sphx_glr_plot_multi_task_lasso_support_002.png" style="width: 307.2px; height: 230.39999999999998px;" /></a></strong></p><p class="centered">
+<strong>Ajustar un modelo de serie de tiempo, imponiendo que cualquier característica activa esté presente en todo momento.</strong></p><div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_multi_task_lasso_support.html#sphx-glr-auto-examples-linear-model-plot-multi-task-lasso-support-py"><span class="std std-ref">Selección conjunta de características con Lasso multitarea</span></a></p></li>
+</ul>
+</div>
+<p>Matemáticamente, consiste en un modelo lineal entrenado con una norma mixta <span class="math notranslate nohighlight">\(\ell_1\)</span> <span class="math notranslate nohighlight">\(\ell_2\)</span> para la regularización. La función objetivo a minimizar es:</p>
+<div class="math notranslate nohighlight">
+\[\min_{W} { \frac{1}{2n_{\text{samples}}} ||X W - Y||_{\text{Fro}} ^ 2 + \alpha ||W||_{21}}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\text{Fro}\)</span> indica la norma de Frobenius</p>
+<div class="math notranslate nohighlight">
+\[||A||_{\text{Fro}} = \sqrt{\sum_{ij} a_{ij}^2}\]</div>
+<p>y <span class="math notranslate nohighlight">\(\ell_1\)</span> <span class="math notranslate nohighlight">\(\ell_2\)</span> se lee</p>
+<div class="math notranslate nohighlight">
+\[||A||_{2 1} = \sum_i \sqrt{\sum_j a_{ij}^2}.\]</div>
+<p>La implementación en la clase <a class="reference internal" href="generated/sklearn.linear_model.MultiTaskLasso.html#sklearn.linear_model.MultiTaskLasso" title="sklearn.linear_model.MultiTaskLasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTaskLasso</span></code></a> utiliza el descenso de coordenadas como algoritmo para ajustar los coeficientes.</p>
+</section>
+<section id="elastic-net">
+<span id="id5"></span><h2><span class="section-number">1.1.5. </span>Elastic-Net<a class="headerlink" href="#elastic-net" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElasticNet</span></code></a> es un modelo de regresión lineal entrenado con la regularización de los coeficientes mediante las normas <span class="math notranslate nohighlight">\(\ell_1\)</span> y <span class="math notranslate nohighlight">\(\ell_2\)</span>. Esta combinación permite aprender un modelo disperso en el que pocos pesos son distintos de cero, como en <a class="reference internal" href="generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a>, pero manteniendo las propiedades de regularización de <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>. Controlamos la combinación convexa de <span class="math notranslate nohighlight">\(\ell_1\)</span> y <span class="math notranslate nohighlight">\(\ell_2\)</span> utilizando el parámetro <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code>.</p>
+<p>Elastic-net es útil cuando hay múltiples características que están correlacionadas entre sí. Lasso es probable que elija una de ellas al azar, mientras que elastic-net es probable que elija ambas.</p>
+<p>Una ventaja práctica del intercambio entre Lasso y Cresta es que permite que Elastic-Net herede parte de la estabilidad de Cresta bajo la rotación.</p>
+<p>La función objetivo a minimizar es en este caso</p>
+<div class="math notranslate nohighlight">
+\[\min_{w} { \frac{1}{2n_{\text{samples}}} ||X w - y||_2 ^ 2 + \alpha \rho ||w||_1 +
+\frac{\alpha(1-\rho)}{2} ||w||_2 ^ 2}\]</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_lasso_coordinate_descent_path.html"><img alt="../_images/sphx_glr_plot_lasso_coordinate_descent_path_001.png" src="../_images/sphx_glr_plot_lasso_coordinate_descent_path_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p>La clase <a class="reference internal" href="generated/sklearn.linear_model.ElasticNetCV.html#sklearn.linear_model.ElasticNetCV" title="sklearn.linear_model.ElasticNetCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElasticNetCV</span></code></a> puede utilizarse para establecer los parámetros <code class="docutils literal notranslate"><span class="pre">alpha</span></code> (<span class="math notranslate nohighlight">\(\alpha\)</span>) y <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code> (<span class="math notranslate nohighlight">\(\rho\)</span>) mediante validación cruzada.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">Lasso y red elástica para señales dispersas</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_lasso_coordinate_descent_path.html#sphx-glr-auto-examples-linear-model-plot-lasso-coordinate-descent-path-py"><span class="std std-ref">Lasso y red elástica</span></a></p></li>
+</ul>
+</div>
+<p>Las siguientes dos referencias explican las iteraciones utilizadas en el solucionador de descenso de coordenadas de scikit-learn, así como el cálculo de la brecha de dualidad utilizado para el control de la convergencia.</p>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>«Regularization Path For Generalized linear Models by Coordinate Descent»,
+Friedman, Hastie &amp; Tibshirani, J Stat Softw, 2010 (<a class="reference external" href="https://www.jstatsoft.org/article/view/v033i01/v33i01.pdf">Paper</a>).</p></li>
+<li><p>«An Interior-Point Method for Large-Scale L1-Regularized Least Squares,» S. J. Kim, K. Koh, M. Lustig, S. Boyd and D. Gorinevsky, en IEEE Journal of Selected Topics in Signal Processing, 2007 (<a class="reference external" href="https://web.stanford.edu/~boyd/papers/pdf/l1_ls.pdf">Paper</a>)</p></li>
+</ul>
+</div>
+</section>
+<section id="multi-task-elastic-net">
+<span id="id6"></span><h2><span class="section-number">1.1.6. </span>Elastic-Net multitarea<a class="headerlink" href="#multi-task-elastic-net" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="generated/sklearn.linear_model.MultiTaskElasticNet.html#sklearn.linear_model.MultiTaskElasticNet" title="sklearn.linear_model.MultiTaskElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTaskElasticNet</span></code></a> es un modelo de red elástica que estima coeficientes dispersos para problemas de regresión múltiple de forma conjunta: <code class="docutils literal notranslate"><span class="pre">Y</span></code> es una arreglo 2D de forma <code class="docutils literal notranslate"><span class="pre">(n_samples,</span> <span class="pre">n_tasks)</span></code>. La restricción es que las características seleccionadas son las mismas para todos los problemas de regresión, también llamados tareas.</p>
+<p>Matemáticamente, consiste en un modelo lineal entrenado con una norma mixta <span class="math notranslate nohighlight">\(\ell_1\)</span> <span class="math notranslate nohighlight">\(\ell_2 y una norma :math:\)</span>ell_2` para la regularización. La función objetivo a minimizar es:</p>
+<div class="math notranslate nohighlight">
+\[\min_{W} { \frac{1}{2n_{\text{samples}}} ||X W - Y||_{\text{Fro}}^2 + \alpha \rho ||W||_{2 1} +
+\frac{\alpha(1-\rho)}{2} ||W||_{\text{Fro}}^2}\]</div>
+<p>La implementación en la clase <a class="reference internal" href="generated/sklearn.linear_model.MultiTaskElasticNet.html#sklearn.linear_model.MultiTaskElasticNet" title="sklearn.linear_model.MultiTaskElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTaskElasticNet</span></code></a> utiliza el descenso por coordenadas como algoritmo para ajustar los coeficientes.</p>
+<p>La clase <a class="reference internal" href="generated/sklearn.linear_model.MultiTaskElasticNetCV.html#sklearn.linear_model.MultiTaskElasticNetCV" title="sklearn.linear_model.MultiTaskElasticNetCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiTaskElasticNetCV</span></code></a> puede utilizarse para establecer los parámetros <code class="docutils literal notranslate"><span class="pre">alpha</span></code> (<span class="math notranslate nohighlight">\(\alpha\)</span>) y <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code> (<span class="math notranslate nohighlight">\(\rho\)</span>) mediante validación cruzada.</p>
+</section>
+<section id="least-angle-regression">
+<span id="id7"></span><h2><span class="section-number">1.1.7. </span>Regresión de ángulo mínimo<a class="headerlink" href="#least-angle-regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La regresión de ángulo mínimo (LARS) es un algoritmo de regresión para datos de alta dimensión, desarrollado por Bradley Efron, Trevor Hastie, Iain Johnstone y Robert Tibshirani. LARS es similar a la regresión escalonada. En cada paso, encuentra la característica más correlacionada con el objetivo. Cuando hay varias características que tienen la misma correlación, en lugar de continuar a lo largo de la misma característica, procede en una dirección equiangular entre las características.</p>
+<p>Las ventajas de LARS son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Es numéricamente eficiente en contextos donde el número de características es significativamente mayor que el número de muestras.</p></li>
+<li><p>Es computacionalmente tan rápido como la selección directa y tiene el mismo orden de complejidad que los mínimos cuadrados ordinarios.</p></li>
+<li><p>Produce una ruta de solución lineal completa a trozos, que es útil en la validación cruzada o en intentos similares de ajustar el modelo.</p></li>
+<li><p>Si dos características están casi igualmente correlacionadas con el objetivo, sus coeficientes deberían aumentar aproximadamente al mismo ritmo. Así, el algoritmo se comporta como la intuición espera, y además es más estable.</p></li>
+<li><p>Se puede modificar fácilmente para producir soluciones para otros estimadores, como el Lasso.</p></li>
+</ul>
+</div></blockquote>
+<p>Las desventajas del método LARS son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Dado que el LARS se basa en un reajuste iterativo de los residuos, parece ser especialmente sensible a los efectos del ruido. Este problema es discutido en detalle por Weisberg en la sección de discusión del artículo de Efron et al. (2004) Annals of Statistics.</p></li>
+</ul>
+</div></blockquote>
+<p>El modelo LARS puede emplearse utilizando el estimador <a class="reference internal" href="generated/sklearn.linear_model.Lars.html#sklearn.linear_model.Lars" title="sklearn.linear_model.Lars"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lars</span></code></a>, o su implementación de bajo nivel <a class="reference internal" href="generated/sklearn.linear_model.lars_path.html#sklearn.linear_model.lars_path" title="sklearn.linear_model.lars_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">lars_path</span></code></a> o <a class="reference internal" href="generated/sklearn.linear_model.lars_path_gram.html#sklearn.linear_model.lars_path_gram" title="sklearn.linear_model.lars_path_gram"><code class="xref py py-func docutils literal notranslate"><span class="pre">lars_path_gram</span></code></a>.</p>
+</section>
+<section id="lars-lasso">
+<h2><span class="section-number">1.1.8. </span>LARS Lasso<a class="headerlink" href="#lars-lasso" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.linear_model.LassoLars.html#sklearn.linear_model.LassoLars" title="sklearn.linear_model.LassoLars"><code class="xref py py-class docutils literal notranslate"><span class="pre">LassoLars</span></code></a> es un modelo lasso implementado mediante el algoritmo LARS, y a diferencia de la implementación basada en el descenso de coordenadas, éste proporciona la solución exacta, que es lineal a trozos en función de la norma de sus coeficientes.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_lasso_lars.html"><img alt="../_images/sphx_glr_plot_lasso_lars_001.png" src="../_images/sphx_glr_plot_lasso_lars_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LassoLars</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">LassoLars(alpha=0.1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([0.717157..., 0.        ])</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_lasso_lars.html#sphx-glr-auto-examples-linear-model-plot-lasso-lars-py"><span class="std std-ref">Trayectoria de Lasso utilizando LARS</span></a></p></li>
+</ul>
+</div>
+<p>El algoritmo Lars proporciona la trayectoria completa de los coeficientes a lo largo del parámetro de regularización casi sin esfuerzo, por lo que una operación común es recuperar la trayectoria con una de las funciones <a class="reference internal" href="generated/sklearn.linear_model.lars_path.html#sklearn.linear_model.lars_path" title="sklearn.linear_model.lars_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">lars_path</span></code></a> o <a class="reference internal" href="generated/sklearn.linear_model.lars_path_gram.html#sklearn.linear_model.lars_path_gram" title="sklearn.linear_model.lars_path_gram"><code class="xref py py-func docutils literal notranslate"><span class="pre">lars_path_gram</span></code></a>.</p>
+<section id="mathematical-formulation">
+<h3><span class="section-number">1.1.8.1. </span>Formulación matemática<a class="headerlink" href="#mathematical-formulation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El algoritmo es similar al de la regresión escalonada hacia adelante, pero en lugar de incluir características en cada paso, los coeficientes estimados se incrementan en una dirección equiangular a las correlaciones de cada uno con el residuo.</p>
+<p>En lugar de dar un resultado vectorial, la solución LARS consiste en una curva que denota la solución para cada valor de la norma <span class="math notranslate nohighlight">\(\ell_1\)</span> del vector de parámetros. La ruta completa de los coeficientes se almacena en la matriz <code class="docutils literal notranslate"><span class="pre">coef_path_</span></code>, que tiene un tamaño (n_figuras, max_figuras+1). La primera columna es siempre cero.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>El algoritmo original se detalla en el artículo <a class="reference external" href="https://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf">Least Angle Regression</a> de Hastie et al.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="orthogonal-matching-pursuit-omp">
+<span id="omp"></span><h2><span class="section-number">1.1.9. </span>Búsqueda de coincidencias ortogonales (OMP)<a class="headerlink" href="#orthogonal-matching-pursuit-omp" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><a class="reference internal" href="generated/sklearn.linear_model.OrthogonalMatchingPursuit.html#sklearn.linear_model.OrthogonalMatchingPursuit" title="sklearn.linear_model.OrthogonalMatchingPursuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrthogonalMatchingPursuit</span></code></a> y <a class="reference internal" href="generated/sklearn.linear_model.orthogonal_mp.html#sklearn.linear_model.orthogonal_mp" title="sklearn.linear_model.orthogonal_mp"><code class="xref py py-func docutils literal notranslate"><span class="pre">orthogonal_mp</span></code></a> implementan el algoritmo OMP para aproximar el ajuste de un modelo lineal con restricciones impuestas en el número de coeficientes no nulos (es decir, la pseudo-norma <span class="math notranslate nohighlight">\(\ell_0\)</span>).</p>
+<p>Al ser un método de selección de características hacia adelante, como <a class="reference internal" href="#least-angle-regression"><span class="std std-ref">Regresión de ángulo mínimo</span></a>, la búsqueda de coincidencias ortogonales puede aproximar el vector de solución óptima con un número fijo de elementos distintos de cero:</p>
+<div class="math notranslate nohighlight">
+\[\underset{w}{\operatorname{arg\,min\,}}  ||y - Xw||_2^2 \text{ subject to } ||w||_0 \leq n_{\text{nonzero\_coefs}}\]</div>
+<p>Alternativamente, la búsqueda ortogonal de coincidencias puede tener como objetivo un error específico en lugar de un número específico de coeficientes distintos de cero. Esto puede expresarse como:</p>
+<div class="math notranslate nohighlight">
+\[\underset{w}{\operatorname{arg\,min\,}} ||w||_0 \text{ subject to } ||y-Xw||_2^2 \leq \text{tol}\]</div>
+<p>OMP se basa en un algoritmo ambicioso que incluye en cada paso el átomo más correlacionado con el residuo actual. Es similar al método más sencillo de búsqueda de coincidencias (MP), pero mejor en el sentido de que, en cada iteración, el residuo se vuelve a calcular utilizando una proyección ortogonal sobre el espacio de los elementos del diccionario elegido previamente.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_omp.html#sphx-glr-auto-examples-linear-model-plot-omp-py"><span class="std std-ref">Búsqueda de correspondencias ortogonales</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.cs.technion.ac.il/~ronrubin/Publications/KSVD-OMP-v2.pdf">https://www.cs.technion.ac.il/~ronrubin/Publications/KSVD-OMP-v2.pdf</a></p></li>
+<li><p><a class="reference external" href="http://blanche.polytechnique.fr/~mallat/papiers/MallatPursuit93.pdf">Matching pursuits with time-frequency dictionaries</a>,
+S. G. Mallat, Z. Zhang,</p></li>
+</ul>
+</div>
+</section>
+<section id="bayesian-regression">
+<span id="id9"></span><h2><span class="section-number">1.1.10. </span>Regresión bayesiana<a class="headerlink" href="#bayesian-regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las técnicas de regresión bayesiana pueden utilizarse para incluir parámetros de regularización en el procedimiento de estimación: el parámetro de regularización no se establece en un sentido estricto, sino que se ajusta a los datos disponibles.</p>
+<p>Esto se puede hacer introduciendo <a class="reference external" href="https://en.wikipedia.org/wiki/Non-informative_prior#Uninformative_priors">valores a priori no informativos</a> sobre los hiperparámetros del modelo. La regularización <span class="math notranslate nohighlight">\(\ell_{2}\)</span> utilizada en <a class="reference internal" href="#ridge-regression"><span class="std std-ref">Regresión de cresta y clasificación</span></a> es equivalente a encontrar una estimación máxima a posteriori bajo una prioridad gaussiana sobre los coeficientes <span class="math notranslate nohighlight">\(w\)</span> con precisión <span class="math notranslate nohighlight">\(\lambda^{-1}\)</span>. En lugar de establecer manualmente <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, es posible tratarla como una variable aleatoria que debe estimarse a partir de los datos.</p>
+<p>Para obtener un modelo totalmente probabilístico, se supone que la salida <span class="math notranslate nohighlight">\(y\)</span> se distribuye de forma gaussiana alrededor de <span class="math notranslate nohighlight">\(X w\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[p(y|X,w,\alpha) = \mathcal{N}(y|X w,\alpha)\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\alpha\)</span> se trata de nuevo como una variable aleatoria que debe estimarse a partir de los datos.</p>
+<p>Las ventajas de la regresión bayesiana son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Se adapta a los datos en cuestión.</p></li>
+<li><p>Puede utilizarse para incluir parámetros de regularización en el procedimiento de estimación.</p></li>
+</ul>
+</div></blockquote>
+<p>Las desventajas de la regresión bayesiana son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>La inferencia del modelo puede llevar mucho tiempo.</p></li>
+</ul>
+</div></blockquote>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p>Una buena introducción a los métodos bayesianos se encuentra en C. Bishop: Pattern Recognition and Machine learning</p></li>
+<li><p>El algoritmo original se detalla en el libro <code class="docutils literal notranslate"><span class="pre">Bayesian</span> <span class="pre">learning</span> <span class="pre">for</span> <span class="pre">neural</span> <span class="pre">networks</span></code> by Radford M. Neal</p></li>
+</ul>
+</div>
+<section id="bayesian-ridge-regression">
+<span id="id10"></span><h3><span class="section-number">1.1.10.1. </span>Regresión Bayesiana de Cresta<a class="headerlink" href="#bayesian-ridge-regression" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.linear_model.BayesianRidge.html#sklearn.linear_model.BayesianRidge" title="sklearn.linear_model.BayesianRidge"><code class="xref py py-class docutils literal notranslate"><span class="pre">BayesianRidge</span></code></a> estima un modelo probabilístico del problema de regresión como se ha descrito anteriormente. La prioridad para el coeficiente <span class="math notranslate nohighlight">\(w\)</span> viene dada por una gaussiana esférica:</p>
+<div class="math notranslate nohighlight">
+\[p(w|\lambda) =
+\mathcal{N}(w|0,\lambda^{-1}\mathbf{I}_{p})\]</div>
+<p>Los valores a priori sobre <span class="math notranslate nohighlight">\(\alpha\)</span> y <span class="math notranslate nohighlight">\(lambda\)</span> se eligen para ser <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_distribution">distribuciones gamma</a>, el conjugado a priori para la precisión de la gaussiana. El modelo resultante se llama <em>Regresión Bayesiana de Cresta</em>, y es similar al clásico <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>.</p>
+<p>Los parámetros <span class="math notranslate nohighlight">\(w\)</span>, <span class="math notranslate nohighlight">\(\alpha\)</span> y <span class="math notranslate nohighlight">\(lambda\)</span> se estiman conjuntamente durante el ajuste del modelo, los parámetros de regularización <span class="math notranslate nohighlight">\(\alpha\)</span> y <span class="math notranslate nohighlight">\(lambda\)</span> se estiman maximizando la <em>verosimilitud marginal log</em>. La implementación de scikit-learn se basa en el algoritmo descrito en el Apéndice A de (Tipping, 2001) donde la actualización de los parámetros <span class="math notranslate nohighlight">\(\alpha\)</span> y <span class="math notranslate nohighlight">\(lambda\)</span> se realiza como se sugiere en (MacKay, 1992). El valor inicial del procedimiento de maximización se puede establecer con los hiperparámetros <code class="docutils literal notranslate"><span class="pre">alpha_init</span></code> y <code class="docutils literal notranslate"><span class="pre">lambda_init</span></code>.</p>
+<p>Hay cuatro hiperparámetros más, <span class="math notranslate nohighlight">\(\alpha_1\)</span>, <span class="math notranslate nohighlight">\(\alpha_2\)</span>, <span class="math notranslate nohighlight">\(lambda_1\)</span> y <span class="math notranslate nohighlight">\(lambda_2\)</span> de las distribuciones previas gamma sobre <span class="math notranslate nohighlight">\(\alpha\)</span> y <span class="math notranslate nohighlight">\(lambda\)</span>. Normalmente se eligen para que sean <em>no informativas</em>. Por defecto <span class="math notranslate nohighlight">\(\alpha_1 = \alpha_2 = \lambda_1 = \lambda_2 = 10^{-6}\)</span>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_bayesian_ridge.html"><img alt="../_images/sphx_glr_plot_bayesian_ridge_001.png" src="../_images/sphx_glr_plot_bayesian_ridge_001.png" style="width: 300.0px; height: 250.0px;" /></a>
+</figure>
+<p>La regresión Bayesiana de Cresta se utiliza para la regresión:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">BayesianRidge</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="go">BayesianRidge()</span>
+</pre></div>
+</div>
+<p>Después de ser ajustado, el modelo puede ser utilizado para predecir nuevos valores:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
+<span class="go">array([0.50000013])</span>
+</pre></div>
+</div>
+<p>Se puede acceder a los coeficientes <span class="math notranslate nohighlight">\(w\)</span> del modelo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([0.49999993, 0.49999993])</span>
+</pre></div>
+</div>
+<p>Debido al framework bayesiano, los pesos encontrados son ligeramente diferentes a los encontrados por <a class="reference internal" href="#ordinary-least-squares"><span class="std std-ref">Mínimos Cuadrados Ordinarios</span></a>. Sin embargo, la regresión Bayesiana de Cresta es más robusta frente a los problemas mal definidos.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_bayesian_ridge.html#sphx-glr-auto-examples-linear-model-plot-bayesian-ridge-py"><span class="std std-ref">Regresión Bayesiana de Cresta</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_bayesian_ridge_curvefit.html#sphx-glr-auto-examples-linear-model-plot-bayesian-ridge-curvefit-py"><span class="std std-ref">Ajuste de curvas con regresión Bayesiana Ridge</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Sección 3.3 en Christopher M. Bishop: Pattern Recognition and Machine Learning, 2006</p></li>
+<li><p>David J. C. MacKay, <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.27.9072&amp;rep=rep1&amp;type=pdf">Bayesian Interpolation</a>, 1992.</p></li>
+<li><p>Michael E. Tipping, <a class="reference external" href="http://www.jmlr.org/papers/volume1/tipping01a/tipping01a.pdf">Sparse Bayesian Learning and the Relevance Vector Machine</a>, 2001.</p></li>
+</ul>
+</div>
+</section>
+<section id="automatic-relevance-determination-ard">
+<h3><span class="section-number">1.1.10.2. </span>Determinación automática de la relevancia - ARD<a class="headerlink" href="#automatic-relevance-determination-ard" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.linear_model.ARDRegression.html#sklearn.linear_model.ARDRegression" title="sklearn.linear_model.ARDRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ARDRegression</span></code></a> es muy similar a la <a class="reference internal" href="#id10">Regresión Bayesiana de Cresta</a>, pero puede dar lugar a coeficientes <span class="math notranslate nohighlight">\(w\)</span> más dispersos <a class="footnote-reference brackets" href="#id15" id="id11">1</a> <a class="footnote-reference brackets" href="#id16" id="id12">2</a>. <a class="reference internal" href="generated/sklearn.linear_model.ARDRegression.html#sklearn.linear_model.ARDRegression" title="sklearn.linear_model.ARDRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">ARDRegression</span></code></a> plantea una prioridad diferente sobre <span class="math notranslate nohighlight">\(w\)</span>, al abandonar la suposición de que la gaussiana es esférica.</p>
+<p>En su lugar, se asume que la distribución sobre <span class="math notranslate nohighlight">\(w\)</span> es una distribución Gaussiana elíptica paralela al eje.</p>
+<p>Esto significa que cada coeficiente <span class="math notranslate nohighlight">\(w_{i}\)</span> se extrae de una distribución Gaussiana, centrada en cero y con una precisión <span class="math notranslate nohighlight">\(\lambda_{i}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[p(w|\lambda) = \mathcal{N}(w|0,A^{-1})\]</div>
+<p>with <span class="math notranslate nohighlight">\(\text{diag}(A) = \lambda = \{\lambda_{1},...,\lambda_{p}\}\)</span>.</p>
+<p>En contraste con la <a class="reference internal" href="#id10">Regresión Bayesiana de Cresta</a>, cada coordenada de <span class="math notranslate nohighlight">\(w_{i}\)</span> tiene su propia desviación estándar <span class="math notranslate nohighlight">\(lambda_i\)</span>. La prioridad sobre todos los <span class="math notranslate nohighlight">\(lambda_i\)</span> se elige para ser la misma distribución gamma dada por los hiperparámetros <span class="math notranslate nohighlight">\(lambda_1\)</span> y <span class="math notranslate nohighlight">\(lambda_2\)</span>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_ard.html"><img alt="../_images/sphx_glr_plot_ard_001.png" src="../_images/sphx_glr_plot_ard_001.png" style="width: 300.0px; height: 250.0px;" /></a>
+</figure>
+<p>El ARD también se conoce en la literatura como <em>Aprendizaje Bayesiano Disperso</em> y <em>Máquina de Vectores de Relevancia</em> <a class="footnote-reference brackets" href="#id17" id="id13">3</a> <a class="footnote-reference brackets" href="#id19" id="id14">4</a>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_ard.html#sphx-glr-auto-examples-linear-model-plot-ard-py"><span class="std std-ref">Regresión automática de determinación de la relevancia (ARD)</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id11">1</a></span></dt>
+<dd><p>Christopher M. Bishop: Pattern Recognition and Machine Learning, Capítulo 7.2.1</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id12">2</a></span></dt>
+<dd><p>David Wipf and Srikantan Nagarajan: <a class="reference external" href="https://papers.nips.cc/paper/3372-a-new-view-of-automatic-relevance-determination.pdf">A new view of automatic relevance determination</a></p>
+</dd>
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id13">3</a></span></dt>
+<dd><p>Michael E. Tipping: <a class="reference external" href="http://www.jmlr.org/papers/volume1/tipping01a/tipping01a.pdf">Sparse Bayesian Learning and the Relevance Vector Machine</a></p>
+</dd>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id14">4</a></span></dt>
+<dd><p>Tristan Fletcher: <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.651.8603&amp;rep=rep1&amp;type=pdf">Relevance Vector Machines explained</a></p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="logistic-regression">
+<span id="id20"></span><h2><span class="section-number">1.1.11. </span>Regresión logística<a class="headerlink" href="#logistic-regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La regresión logística, a pesar de su nombre, es un modelo lineal de clasificación más que de regresión. La regresión logística también se conoce en la literatura como regresión logit, clasificación de máxima entropía (MaxEnt) o clasificador log-lineal. En este modelo, las probabilidades que describen los posibles resultados de un único ensayo se modelan mediante una función <a class="reference external" href="https://en.wikipedia.org/wiki/Logistic_function">logística</a>.</p>
+<p>La regresión logística se implementa en <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>. Esta implementación puede ajustar la regresión logística binaria, One-vs-Rest o multinomial con regularización opcional <span class="math notranslate nohighlight">\(\ell_1\)</span>, <span class="math notranslate nohighlight">\(\ell_2\)</span> o Elastic-Net.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La regularización se aplica por defecto, lo que es habitual en el aprendizaje automático pero no en la estadística. Otra ventaja de la regularización es que mejora la estabilidad numérica. La ausencia de regularización equivale a fijar C en un valor muy alto.</p>
+</div>
+<p>Como problema de optimización, la regresión logística penalizada de clase binaria <span class="math notranslate nohighlight">\(\ell_2\)</span> minimiza la siguiente función de coste:</p>
+<div class="math notranslate nohighlight">
+\[\min_{w, c} \frac{1}{2}w^T w + C \sum_{i=1}^n \log(\exp(- y_i (X_i^T w + c)) + 1) .\]</div>
+<p>Del mismo modo, la regresión logística regularizada <span class="math notranslate nohighlight">\(\ell_1\)</span> resuelve el siguiente problema de optimización:</p>
+<div class="math notranslate nohighlight">
+\[\min_{w, c} \|w\|_1 + C \sum_{i=1}^n \log(\exp(- y_i (X_i^T w + c)) + 1).\]</div>
+<p>La regularización Elastic-Net es una combinación de <span class="math notranslate nohighlight">\(\ell_1\)</span> y <span class="math notranslate nohighlight">\(\ell_2\)</span>, y minimiza la siguiente función de costo:</p>
+<div class="math notranslate nohighlight">
+\[\min_{w, c} \frac{1 - \rho}{2}w^T w + \rho \|w\|_1 + C \sum_{i=1}^n \log(\exp(- y_i (X_i^T w + c)) + 1),\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\rho\)</span> controla la fuerza de la regularización <span class="math notranslate nohighlight">\(\ell_1\)</span> frente a la regularización <span class="math notranslate nohighlight">\(\ell_2\)</span> (corresponde al parámetro <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code>).</p>
+<p>Ten en cuenta que, en esta notación, se supone que el objetivo <span class="math notranslate nohighlight">\(y_i\)</span> toma valores en el conjunto <span class="math notranslate nohighlight">\({-1, 1}\)</span> en el ensayo <span class="math notranslate nohighlight">\(i\)</span>. También podemos ver que Elastic-Net es equivalente a <span class="math notranslate nohighlight">\(\ell_1\)</span> cuando <span class="math notranslate nohighlight">\(\rho = 1\)</span> y equivalente a <span class="math notranslate nohighlight">\(\ell_2\)</span> cuando <span class="math notranslate nohighlight">\(\rho=0\)</span>.</p>
+<p>Los solucionadores implementados en la clase <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> son «liblinear», «newton-cg», «lbfgs», «sag» y «saga»:</p>
+<p>El solucionador «liblinear» utiliza un algoritmo de descenso de coordenadas (CD), y se basa en la excelente biblioteca C++ <a class="reference external" href="https://www.csie.ntu.edu.tw/~cjlin/liblinear/">LIBLINEAR</a>, que se entrega con scikit-learn. Sin embargo, el algoritmo CD implementado en liblinear no puede aprender un verdadero modelo multinomial (multiclase); en su lugar, el problema de optimización se descompone de una manera «uno-vs-resto» para que se entrenen clasificadores binarios separados para todas las clases. Esto sucede lejos de la vista del usuario, así que las instancias de <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> que utilizan este solucionador se comportan como clasificadores multiclase. Para la regularización <span class="math notranslate nohighlight">\(\ell_1\)</span> <a class="reference internal" href="generated/sklearn.svm.l1_min_c.html#sklearn.svm.l1_min_c" title="sklearn.svm.l1_min_c"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.svm.l1_min_c</span></code></a> permite calcular el límite inferior de C para obtener un modelo no «nulo» (todos los pesos de las características a cero).</p>
+<p>Los solucionadores «lbfgs», «sag» y «newton-cg» sólo admiten la regularización <span class="math notranslate nohighlight">\(\ell_2\)</span> o ninguna regularización, y se considera que convergen más rápidamente para algunos datos de alta dimensión. Al establecer <code class="docutils literal notranslate"><span class="pre">multi_class</span></code> a «multinomial» con estos solucionadores se aprende un verdadero modelo de regresión logística multinomial <a class="footnote-reference brackets" href="#id26" id="id21">5</a>, lo que significa que sus estimaciones de probabilidad deberían estar mejor calibradas que la configuración predeterminada «one-vs-rest».</p>
+<p>El solucionador «sag» utiliza el descenso de gradiente promedio estocástico <a class="footnote-reference brackets" href="#id27" id="id22">6</a>. Es más rápido que otros solucionadores para grandes conjuntos de datos, cuando tanto el número de muestras como el número de características son grandes.</p>
+<p>El solucionador «saga» <a class="footnote-reference brackets" href="#id28" id="id23">7</a> es una variante de «sag» que también admite la opción no suave <code class="docutils literal notranslate"><span class="pre">penalty=&quot;l1&quot;</span></code>. Por lo tanto, este es el solucionador de elección para la regresión logística multinomial dispersa. También es el único solucionador que admite <code class="docutils literal notranslate"><span class="pre">penalty=&quot;elasticnet&quot;</span></code>.</p>
+<p>El «lbfgs» es un algoritmo de optimización que se aproxima al algoritmo Broyden-Fletcher-Goldfarb-Shanno <a class="footnote-reference brackets" href="#id29" id="id24">8</a>, que pertenece a los métodos quasi-Newton. El solucionador «lbfgs» se recomienda para conjuntos de datos pequeños, pero para conjuntos de datos más grandes su rendimiento se reduce. <a class="footnote-reference brackets" href="#id30" id="id25">9</a></p>
+<p>La siguiente tabla resume las penalizaciones que admite cada solucionador:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td colspan="5"><p><strong>Solucionadores</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Penalizaciones</strong></p></td>
+<td><p><strong>“liblinear”</strong></p></td>
+<td><p><strong>“lbfgs”</strong></p></td>
+<td><p><strong>“newton-cg”</strong></p></td>
+<td><p><strong>“sag”</strong></p></td>
+<td><p><strong>“saga”</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Multinomial + penalización L2</p></td>
+<td><p>no</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-even"><td><p>OVR + penalización L2</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-odd"><td><p>Multinomial + penalización L1</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-even"><td><p>OVR + penalización L1</p></td>
+<td><p>si</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-odd"><td><p>Elastic-Net</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-even"><td><p>Ninguna penalización (“none”)</p></td>
+<td><p>no</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Comportamientos</strong></p></td>
+<td colspan="5"></td>
+</tr>
+<tr class="row-even"><td><p>Penalizar el intercepto (malo)</p></td>
+<td><p>si</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>Más rápido para conjuntos de datos grandes</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+</tr>
+<tr class="row-even"><td><p>Robusto para conjuntos de datos no escalados</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>si</p></td>
+<td><p>no</p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+<p>El solucionador «lbfgs» se utiliza por defecto por su robustez. Para conjuntos de datos grandes, el solucionador «saga» suele ser más rápido. Para conjuntos de datos grandes, también se puede considerar el uso de <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> con pérdida “log”, que puede ser incluso más rápido pero requiere más ajustes.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_logistic_l1_l2_sparsity.html#sphx-glr-auto-examples-linear-model-plot-logistic-l1-l2-sparsity-py"><span class="std std-ref">Penalización L1 y dispersión en la regresión logística</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_logistic_path.html#sphx-glr-auto-examples-linear-model-plot-logistic-path-py"><span class="std std-ref">Ruta de regularización de la regresión logística L1</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_logistic_multinomial.html#sphx-glr-auto-examples-linear-model-plot-logistic-multinomial-py"><span class="std std-ref">Trazar la regresión logística multinomial y de One-vs-Rest</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sparse_logistic_regression_20newsgroups.html#sphx-glr-auto-examples-linear-model-plot-sparse-logistic-regression-20newsgroups-py"><span class="std std-ref">Regresión logística dispersa multiclase en 20 nuevos grupos</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sparse_logistic_regression_mnist.html#sphx-glr-auto-examples-linear-model-plot-sparse-logistic-regression-mnist-py"><span class="std std-ref">Clasificación MNIST mediante logística multinomial + L1</span></a></p></li>
+</ul>
+</div>
+<div class="topic" id="liblinear-differences">
+<p class="topic-title">Diferencias con liblinear:</p>
+<p>Puede haber una diferencia en las puntuaciones obtenidas entre <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> con <code class="docutils literal notranslate"><span class="pre">solver=liblinear</span></code> o <code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code> y la librería externa liblinear directamente, cuando <code class="docutils literal notranslate"><span class="pre">fit_intercept=False</span></code> y el ajuste <code class="docutils literal notranslate"><span class="pre">coef_</span></code> (o) los datos a predecir son ceros. Esto se debe a que para la(s) muestra(s) con <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> cero, <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> y <code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code> predicen la clase negativa, mientras que liblinear predice la clase positiva. Tenga en cuenta que un modelo con <code class="docutils literal notranslate"><span class="pre">fit_intercept=False</span></code> y que tiene muchas muestras con <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> cero, es probable que sea un modelo mal ajustado y se aconseja establecer <code class="docutils literal notranslate"><span class="pre">fit_intercept=True</span></code> y aumentar el intercept_scaling.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Selección de características con regresión logística dispersa</strong></p>
+<p>Una regresión logística con penalización <span class="math notranslate nohighlight">\(\ell_1\)</span> produce modelos dispersos, y por lo tanto puede ser utilizada para realizar la selección de características, como se detalla en <a class="reference internal" href="feature_selection.html#l1-feature-selection"><span class="std std-ref">Selección de características basada en L1</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Estimación del valor p</strong></p>
+<p>Es posible obtener los valores p y los intervalos de confianza de los coeficientes en los casos de regresión sin penalidad. El paquete <code class="docutils literal notranslate"><span class="pre">statsmodels</span> <span class="pre">&lt;https://pypi.org/project/statsmodels/&gt;</span></code> soporta esto de forma nativa. Dentro de sklearn, uno podría utilizar bootstrapping en su lugar también.</p>
+</div>
+<p><a class="reference internal" href="generated/sklearn.linear_model.LogisticRegressionCV.html#sklearn.linear_model.LogisticRegressionCV" title="sklearn.linear_model.LogisticRegressionCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegressionCV</span></code></a> implementa la Regresión Logística con soporte de validación cruzada incorporado, para encontrar los parámetros óptimos <code class="docutils literal notranslate"><span class="pre">C</span></code> y <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code> según el atributo <code class="docutils literal notranslate"><span class="pre">scoring</span></code>. Los solucionadores «newton-cg», «sag», «saga» y «lbfgs» son más rápidos para los datos densos de alta dimensión, debido al arranque en caliente (ver <a class="reference internal" href="../glossary.html#term-warm_start"><span class="xref std std-term">Glosario</span></a>).</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id21">5</a></span></dt>
+<dd><p>Christopher M. Bishop: Pattern Recognition and Machine Learning, Chapter 4.3.4</p>
+</dd>
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id22">6</a></span></dt>
+<dd><p>Mark Schmidt, Nicolas Le Roux, and Francis Bach: <a class="reference external" href="https://hal.inria.fr/hal-00860051/document">Minimizing Finite Sums with the Stochastic Average Gradient.</a></p>
+</dd>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id23">7</a></span></dt>
+<dd><p>Aaron Defazio, Francis Bach, Simon Lacoste-Julien: <a class="reference external" href="https://arxiv.org/abs/1407.0202">SAGA: A Fast Incremental Gradient Method With Support for Non-Strongly Convex Composite Objectives.</a></p>
+</dd>
+<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id24">8</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm">https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm</a></p>
+</dd>
+<dt class="label" id="id30"><span class="brackets"><a class="fn-backref" href="#id25">9</a></span></dt>
+<dd><p><a class="reference external" href="http://www.fuzihao.org/blog/2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/">«Performance Evaluation of Lbfgs vs other solvers»</a></p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="generalized-linear-regression">
+<span id="id31"></span><h2><span class="section-number">1.1.12. </span>Regresión lineal generalizada<a class="headerlink" href="#generalized-linear-regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los modelos lineales generalizados (GLM) amplían los modelos lineales de dos maneras <a class="footnote-reference brackets" href="#id34" id="id32">10</a>. En primer lugar, los valores predichos <span class="math notranslate nohighlight">\(hat{y}\)</span> están vinculados a una combinación lineal de las variables de entrada <span class="math notranslate nohighlight">\(X\)</span> a través de una función de enlace inversa <span class="math notranslate nohighlight">\(h\)</span> como</p>
+<div class="math notranslate nohighlight">
+\[\hat{y}(w, X) = h(Xw).\]</div>
+<p>En segundo lugar, la función de pérdida al cuadrado se sustituye por la desviación unitaria <span class="math notranslate nohighlight">\(d\)</span> de una distribución de la familia exponencial (o más exactamente, un modelo de dispersión exponencial reproductiva (EDM) <a class="footnote-reference brackets" href="#id35" id="id33">11</a>).</p>
+<p>El problema de minimización se convierte en:</p>
+<div class="math notranslate nohighlight">
+\[\min_{w} \frac{1}{2 n_{\text{samples}}} \sum_i d(y_i, \hat{y}_i) + \frac{\alpha}{2} ||w||_2,\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\alpha\)</span> es la penalización de regularización L2. Cuando se proporcionan los pesos de la muestra, la media se convierte en una media promedio.</p>
+<p>La siguiente tabla enumera algunas EDM específicas y su desviación unitaria (todas ellas son instancias de la familia Tweedie):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 31%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Distribución</p></th>
+<th class="head"><p>Dominio objetivo</p></th>
+<th class="head"><p>Desviación unitaria <span class="math notranslate nohighlight">\(d(y, \hat{y})\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Normal</p></td>
+<td><p><span class="math notranslate nohighlight">\(y \in (-\infty, \infty)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\((y-\hat{y})^2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Poisson</p></td>
+<td><p><span class="math notranslate nohighlight">\(y \in [0, \infty)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2(y\log\frac{y}{\hat{y}}-y+\hat{y})\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Gamma</p></td>
+<td><p><span class="math notranslate nohighlight">\(y \in (0, \infty)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(2(\log\frac{\hat{y}}{y}+\frac{y}{\hat{y}}-1)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Gaussiana inversa</p></td>
+<td><p><span class="math notranslate nohighlight">\(y \in (0, \infty)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{(y-\hat{y})^2}{y\hat{y}^2}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>Las Funciones de Densidad de Probabilidad (PDF) de estas distribuciones se ilustran en la siguiente figura,</p>
+<figure class="align-center" id="id40">
+<a class="reference internal image-reference" href="../_images/poisson_gamma_tweedie_distributions.png"><img alt="../_images/poisson_gamma_tweedie_distributions.png" src="../_images/poisson_gamma_tweedie_distributions.png" style="width: 1200.0px; height: 350.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">PDF de una variable aleatoria Y que sigue las distribuciones Poisson, Tweedie (potencia=1,5) y Gamma con diferentes valores medios (<span class="math notranslate nohighlight">\(\mu\)</span>). Observa la masa puntual en <span class="math notranslate nohighlight">\(Y=0\)</span> para la distribución de Poisson y la de Tweedie (potencia=1,5), pero no para la distribución Gamma que tiene un dominio objetivo estrictamente positivo.</span><a class="headerlink" href="#id40" title="Enlace permanente a esta imagen">¶</a></p>
+</figcaption>
+</figure>
+<p>La elección de la distribución depende del problema en cuestión:</p>
+<ul class="simple">
+<li><p>Si los valores objetivo <span class="math notranslate nohighlight">\(y\)</span> son recuentos (con valor entero no negativo) o frecuencias relativas (no negativas), podrías utilizar una desviación de Poisson con enlace log.</p></li>
+<li><p>Si los valores objetivo tienen un valor positivo y son asimétricos, puedes probar una desviación Gamma con enlace logarítmico.</p></li>
+<li><p>Si los valores objetivo parecen tener una cola más pesada que la de una distribución Gamma, podrías probar con una desviación Gaussiana Inversa (o incluso con las potencias de varianza más altas de la familia Tweedie).</p></li>
+</ul>
+<p>Algunos ejemplos de casos de uso son:</p>
+<ul class="simple">
+<li><p>Agricultura / modelización meteorológica: número de eventos de lluvia por año (Poisson), cantidad de lluvia por evento (Gamma), lluvia total por año (Tweedie / Compuesta Poisson Gamma).</p></li>
+<li><p>Modelización de riesgos / tarificación de pólizas de seguros: número de siniestros / asegurado al año (Poisson), costo por siniestro (Gamma), costo total por asegurado al año (Tweedie / Compuesta Poisson Gamma).</p></li>
+<li><p>Mantenimiento predictivo: número de eventos de interrupción de la producción por año (Poisson), duración de la interrupción (Gamma), tiempo total de interrupción por año (Tweedie / Compuesta Poisson Gamma).</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id34"><span class="brackets"><a class="fn-backref" href="#id32">10</a></span></dt>
+<dd><p>McCullagh, Peter; Nelder, John (1989). Generalized Linear Models, Segunda Edición. Boca Raton: Chapman and Hall/CRC. ISBN 0-412-31760-5.</p>
+</dd>
+<dt class="label" id="id35"><span class="brackets"><a class="fn-backref" href="#id33">11</a></span></dt>
+<dd><p>Jørgensen, B. (1992). The theory of exponential dispersion models
+and analysis of deviance. Monografias de matemática, no. 51.  See also
+<a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_dispersion_model">Exponential dispersion model.</a></p>
+</dd>
+</dl>
+</div>
+<section id="usage">
+<h3><span class="section-number">1.1.12.1. </span>Uso<a class="headerlink" href="#usage" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><a class="reference internal" href="generated/sklearn.linear_model.TweedieRegressor.html#sklearn.linear_model.TweedieRegressor" title="sklearn.linear_model.TweedieRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TweedieRegressor</span></code></a> implementa un modelo lineal generalizado para la distribución de Tweedie, que permite modelar cualquiera de las distribuciones mencionadas utilizando el parámetro <code class="docutils literal notranslate"><span class="pre">power</span></code> apropiado. En particular:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">power</span> <span class="pre">=</span> <span class="pre">0</span></code>: Distribución normal. Los estimadores específicos como <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>, <a class="reference internal" href="generated/sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElasticNet</span></code></a> suelen ser más apropiados en este caso.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">power</span> <span class="pre">=</span> <span class="pre">1</span></code>: Distribución de Poisson. <a class="reference internal" href="generated/sklearn.linear_model.PoissonRegressor.html#sklearn.linear_model.PoissonRegressor" title="sklearn.linear_model.PoissonRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">PoissonRegressor</span></code></a> se expone por comodidad. Sin embargo, es estrictamente equivalente a <code class="docutils literal notranslate"><span class="pre">TweedieRegressor(power=1,</span> <span class="pre">link='log')</span></code>.</p></li>
+<li><p>potencia = 2``: La distribución Gamma. <a class="reference internal" href="generated/sklearn.linear_model.GammaRegressor.html#sklearn.linear_model.GammaRegressor" title="sklearn.linear_model.GammaRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GammaRegressor</span></code></a> se expone por conveniencia. Sin embargo, es estrictamente equivalente a <code class="docutils literal notranslate"><span class="pre">TweedieRegressor(power=2,</span> <span class="pre">link='log')</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">poder</span> <span class="pre">=</span> <span class="pre">3</span></code>: Distribución Gaussiana Inversa.</p></li>
+</ul>
+<p>La función de enlace está determinada por el parámetro <code class="docutils literal notranslate"><span class="pre">link</span></code>.</p>
+<p>Ejemplo de uso:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">TweedieRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span> <span class="o">=</span> <span class="n">TweedieRegressor</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">link</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="go">TweedieRegressor(alpha=0.5, link=&#39;log&#39;, power=1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([0.2463..., 0.4337...])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reg</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="go">-0.7638...</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_poisson_regression_non_normal_loss.html#sphx-glr-auto-examples-linear-model-plot-poisson-regression-non-normal-loss-py"><span class="std std-ref">Regresión de Poisson y pérdida no normal</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_tweedie_regression_insurance_claims.html#sphx-glr-auto-examples-linear-model-plot-tweedie-regression-insurance-claims-py"><span class="std std-ref">Regresión de Tweedie en los reclamos de seguros</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="practical-considerations">
+<h3><span class="section-number">1.1.12.2. </span>Consideraciones prácticas<a class="headerlink" href="#practical-considerations" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La matriz de características <code class="docutils literal notranslate"><span class="pre">X</span></code> debe normalizarse antes del ajuste. Esto asegura que la penalización trata las características por igual.</p>
+<p>Como el predictor lineal <span class="math notranslate nohighlight">\(Xw\)</span> puede ser negativo y las distribuciones Poisson, Gamma y Gaussiana Inversa no admiten valores negativos, es necesario aplicar una función de enlace inversa que garantice la no negatividad. Por ejemplo, con <code class="docutils literal notranslate"><span class="pre">link='log'</span></code>, la función de enlace inversa se convierte en <span class="math notranslate nohighlight">\(h(Xw)=\exp(Xw)\)</span>.</p>
+<p>Si deseas modelar una frecuencia relativa, es decir, recuentos por exposición (tiempo, volumen, …) puedes hacerlo utilizando una distribución de Poisson y pasando <span class="math notranslate nohighlight">\(y=\frac{mathrm{counts}}{\mathrm{exposure}}\)</span> como valores objetivo junto con <span class="math notranslate nohighlight">\(\mathrm{exposure}\)</span> como ponderaciones de la muestra. Para un ejemplo concreto, ver: <a class="reference internal" href="../auto_examples/linear_model/plot_tweedie_regression_insurance_claims.html#sphx-glr-auto-examples-linear-model-plot-tweedie-regression-insurance-claims-py"><span class="std std-ref">Regresión de Tweedie en los reclamos de seguros</span></a>.</p>
+<p>Cuando se realiza una validación cruzada para el parámetro <code class="docutils literal notranslate"><span class="pre">power</span></code> de <code class="docutils literal notranslate"><span class="pre">TweedieRegressor</span></code>, es aconsejable especificar una función de <code class="docutils literal notranslate"><span class="pre">puntuación</span></code> explícita, ya que el puntuador predeterminado <a class="reference internal" href="generated/sklearn.linear_model.TweedieRegressor.html#sklearn.linear_model.TweedieRegressor.score" title="sklearn.linear_model.TweedieRegressor.score"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TweedieRegressor.score</span></code></a> es una función de la propia <code class="docutils literal notranslate"><span class="pre">power</span></code>.</p>
+</section>
+</section>
+<section id="stochastic-gradient-descent-sgd">
+<h2><span class="section-number">1.1.13. </span>Descenso de gradiente estocástico - SGD<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El descenso de gradiente estocástico es un método sencillo pero muy eficaz para ajustar modelos lineales. Es especialmente útil cuando el número de muestras (y el número de características) es muy grande. El método <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> permite el aprendizaje en línea y fuera del núcleo.</p>
+<p>Las clases <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> y <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> proporcionan funcionalidad para ajustar modelos lineales de clasificación y regresión utilizando diferentes funciones de pérdida (convexas) y diferentes penalizaciones. Por ejemplo, con <code class="docutils literal notranslate"><span class="pre">loss=&quot;log&quot;</span></code>, <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> se ajusta a un modelo de regresión logística, mientras que con <code class="docutils literal notranslate"><span class="pre">loss=&quot;hinge&quot;</span></code> se ajusta a una máquina lineal de vectores de soporte (SVM).</p>
+<div class="topic">
+<p class="topic-title">References</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="sgd.html#sgd"><span class="std std-ref">Descenso de Gradiente Estocástico</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="perceptron">
+<span id="id36"></span><h2><span class="section-number">1.1.14. </span>Perceptrón<a class="headerlink" href="#perceptron" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El <a class="reference internal" href="generated/sklearn.linear_model.Perceptron.html#sklearn.linear_model.Perceptron" title="sklearn.linear_model.Perceptron"><code class="xref py py-class docutils literal notranslate"><span class="pre">Perceptron</span></code></a> es otro algoritmo de clasificación simple adecuado para el aprendizaje a gran escala. Por defecto:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>No requiere una tasa de aprendizaje.</p></li>
+<li><p>No está regularizado (penalizado).</p></li>
+<li><p>Actualiza su modelo sólo en caso de error.</p></li>
+</ul>
+</div></blockquote>
+<p>La última característica implica que el Perceptrón es ligeramente más rápido de entrenar que el SGD con la pérdida de bisagra y que los modelos resultantes son más dispersos.</p>
+</section>
+<section id="passive-aggressive-algorithms">
+<span id="passive-aggressive"></span><h2><span class="section-number">1.1.15. </span>Algoritmos pasivo-agresivos<a class="headerlink" href="#passive-aggressive-algorithms" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los algoritmos pasivo-agresivos son una familia de algoritmos para el aprendizaje a gran escala. Son similares al Perceptrón en el sentido de que no requieren una tasa de aprendizaje. Sin embargo, a diferencia del Perceptrón, incluyen un parámetro de regularización <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p>
+<p>Para la clasificación, <a class="reference internal" href="generated/sklearn.linear_model.PassiveAggressiveClassifier.html#sklearn.linear_model.PassiveAggressiveClassifier" title="sklearn.linear_model.PassiveAggressiveClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">PassiveAggressiveClassifier</span></code></a> puede utilizarse con <code class="docutils literal notranslate"><span class="pre">loss='hinge'</span></code> (PA-I) o <code class="docutils literal notranslate"><span class="pre">loss='squared_hinge'</span></code> (PA-II).  Para la regresión, <a class="reference internal" href="generated/sklearn.linear_model.PassiveAggressiveRegressor.html#sklearn.linear_model.PassiveAggressiveRegressor" title="sklearn.linear_model.PassiveAggressiveRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">PassiveAggressiveRegressor</span></code></a> puede utilizarse con <code class="docutils literal notranslate"><span class="pre">loss='epsilon_insensitive'</span></code> (PA-I) o <code class="docutils literal notranslate"><span class="pre">loss='squared_epsilon_insensitive'</span></code> (PA-II).</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://jmlr.csail.mit.edu/papers/volume7/crammer06a/crammer06a.pdf">«Online Passive-Aggressive Algorithms»</a>
+K. Crammer, O. Dekel, J. Keshat, S. Shalev-Shwartz, Y. Singer - JMLR 7 (2006)</p></li>
+</ul>
+</div>
+</section>
+<section id="robustness-regression-outliers-and-modeling-errors">
+<h2><span class="section-number">1.1.16. </span>Regresión robusta: valores atípicos y errores de modelización,<a class="headerlink" href="#robustness-regression-outliers-and-modeling-errors" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La regresión robusta tiene como objetivo ajustar un modelo de regresión en presencia de datos corruptos: ya sean valores atípicos o errores en el modelo.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_theilsen.html"><img alt="../_images/sphx_glr_plot_theilsen_001.png" src="../_images/sphx_glr_plot_theilsen_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="different-scenario-and-useful-concepts">
+<h3><span class="section-number">1.1.16.1. </span>Diferentes escenarios y conceptos útiles<a class="headerlink" href="#different-scenario-and-useful-concepts" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Hay diferentes cosas que hay que tener en cuenta cuando se trata de datos corruptos por valores atípicos:</p>
+<ul>
+<li><p><strong>¿Valores atípicos en X o en y</strong>?</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Valores atípicos en la dirección y</p></th>
+<th class="head"><p>Valores atípicos en la dirección X</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="../auto_examples/linear_model/plot_robust_fit.html"><img alt="y_outliers" src="../_images/sphx_glr_plot_robust_fit_003.png" style="width: 300.0px; height: 240.0px;" /></a></p></td>
+<td><p><a class="reference external" href="../auto_examples/linear_model/plot_robust_fit.html"><img alt="X_outliers" src="../_images/sphx_glr_plot_robust_fit_002.png" style="width: 300.0px; height: 240.0px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><strong>Fracción de valores atípicos frente a la amplitud del error</strong></p>
+<p>El número de puntos atípicos es importante, pero también lo son los valores atípicos.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Valores atípicos pequeños</p></th>
+<th class="head"><p>Valores atípicos grandes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="../auto_examples/linear_model/plot_robust_fit.html"><img alt="y_outliers" src="../_images/sphx_glr_plot_robust_fit_003.png" style="width: 300.0px; height: 240.0px;" /></a></p></td>
+<td><p><a class="reference external" href="../auto_examples/linear_model/plot_robust_fit.html"><img alt="large_y_outliers" src="../_images/sphx_glr_plot_robust_fit_005.png" style="width: 300.0px; height: 240.0px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>Una noción importante de adecuación robusta es la del punto de desintegración: la fracción de los datos que pueden estar alejados para que puedan empezar a faltar los datos inminentes.</p>
+<p>Ten en cuenta que, en general, el ajuste robusto en un entorno de alta dimensión (grandes «características») es muy difícil. Los modelos robustos aquí probablemente no funcionarán en estos escenarios.</p>
+<div class="topic">
+<p class="topic-title"><strong>En balance: ¿cuál estimador?</strong></p>
+<blockquote>
+<div><p>Scikit-learn provides 3 robust regression estimators:
+<a class="reference internal" href="#ransac-regression"><span class="std std-ref">RANSAC</span></a>,
+<a class="reference internal" href="#theil-sen-regression"><span class="std std-ref">Theil Sen</span></a> and
+<a class="reference internal" href="#huber-regression"><span class="std std-ref">HuberRegressor</span></a>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#huber-regression"><span class="std std-ref">HuberRegressor</span></a> debería ser más rápido que <a class="reference internal" href="#ransac-regression"><span class="std std-ref">RANSAC</span></a> y <a class="reference internal" href="#theil-sen-regression"><span class="std std-ref">Theil Sen</span></a> a menos que el número de muestras sea muy grande, es decir, <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> &gt;&gt; <code class="docutils literal notranslate"><span class="pre">n_features</span></code>. Esto se debe a que <a class="reference internal" href="#ransac-regression"><span class="std std-ref">RANSAC</span></a> y <a class="reference internal" href="#theil-sen-regression"><span class="std std-ref">Theil Sen</span></a> se ajustan a subconjuntos más pequeños de los datos. Sin embargo, tanto <a class="reference internal" href="#theil-sen-regression"><span class="std std-ref">Theil Sen</span></a> como <a class="reference internal" href="#ransac-regression"><span class="std std-ref">RANSAC</span></a> probablemente no sean tan robustos como <a class="reference internal" href="#huber-regression"><span class="std std-ref">HuberRegressor</span></a> para los parámetros predeterminados.</p></li>
+<li><p><a class="reference internal" href="#ransac-regression"><span class="std std-ref">RANSAC</span></a> es más rápido que <a class="reference internal" href="#theil-sen-regression"><span class="std std-ref">Theil Sen</span></a> y se escala mucho mejor con el número de muestras.</p></li>
+<li><p><a class="reference internal" href="#ransac-regression"><span class="std std-ref">RANSAC</span></a> se ocupará mejor de los valores atípicos grandes en la dirección y (la situación más común).</p></li>
+<li><p><a class="reference internal" href="#theil-sen-regression"><span class="std std-ref">Theil Sen</span></a> se ocupará mejor de los valores atípicos de tamaño medio en la dirección X, pero esta propiedad desaparecerá en entornos de alta dimensión.</p></li>
+</ul>
+</div></blockquote>
+<p>En caso de duda, utilice <a class="reference internal" href="#ransac-regression"><span class="std std-ref">RANSAC</span></a>.</p>
+</div>
+</section>
+<section id="ransac-random-sample-consensus">
+<span id="ransac-regression"></span><h3><span class="section-number">1.1.16.2. </span>RANSAC: Consenso RANdom SAmple<a class="headerlink" href="#ransac-random-sample-consensus" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>RANSAC (RANdom SAmple Consensus) ajusta un modelo a partir de subconjuntos aleatorios de valores típicos del conjunto completo de datos.</p>
+<p>RANSAC es un algoritmo no determinista que sólo produce un resultado razonable con una cierta probabilidad, que depende del número de iteraciones (ver el parámetro <code class="docutils literal notranslate"><span class="pre">max_trials</span></code>). Se suele utilizar para problemas de regresión lineal y no lineal y es especialmente popular en el campo de la visión fotogramétrica por computadora.</p>
+<p>El algoritmo divide los datos completos de la muestra de entrada en un conjunto de valores típicos, que pueden estar sujetos a ruido, y valores atípicos, que están causados, por ejemplo, por mediciones erróneas o hipótesis no válidas sobre los datos. A continuación, el modelo resultante se estima sólo a partir de los valores típicos determinados.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_ransac.html"><img alt="../_images/sphx_glr_plot_ransac_001.png" src="../_images/sphx_glr_plot_ransac_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<section id="details-of-the-algorithm">
+<h4><span class="section-number">1.1.16.2.1. </span>Detalles del algoritmo<a class="headerlink" href="#details-of-the-algorithm" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Cada iteración realiza los siguientes pasos:</p>
+<ol class="arabic simple">
+<li><p>Seleccionar muestras aleatorias <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> de los datos originales y comprobar si el conjunto de datos es válido (ver <code class="docutils literal notranslate"><span class="pre">is_data_valid</span></code>).</p></li>
+<li><p>Ajustar un modelo al subconjunto aleatorio (<code class="docutils literal notranslate"><span class="pre">base_estimator.fit</span></code>) y comprobar si el modelo estimado es válido (ver <code class="docutils literal notranslate"><span class="pre">is_model_valid</span></code>).</p></li>
+<li><p>Clasificar todos los datos como valores típicos o valores atípicos calculando los residuos del modelo estimado (<code class="docutils literal notranslate"><span class="pre">base_estimator.predict(X)</span> <span class="pre">-</span> <span class="pre">y</span></code>) - todas las muestras de datos con residuos absolutos menores que el <code class="docutils literal notranslate"><span class="pre">residual_threshold</span></code> se consideran valores atipicos.</p></li>
+<li><p>Guarda el modelo ajustado como el mejor modelo si el número de muestras de valores típicos es máximo. En caso de que el modelo estimado actual tenga el mismo número de valores típicos, sólo se considera como el mejor modelo si tiene mejor puntuación.</p></li>
+</ol>
+<p>Estos pasos se realizan un número máximo de veces (<code class="docutils literal notranslate"><span class="pre">max_trials</span></code>) o hasta que se cumpla uno de los criterios especiales de parada (ver <code class="docutils literal notranslate"><span class="pre">stop_n_inliers</span></code> y <code class="docutils literal notranslate"><span class="pre">stop_score</span></code>). El modelo final se estima utilizando todas las muestras de valores típicos (conjunto de consenso) del mejor modelo determinado previamente.</p>
+<p>Las funciones <code class="docutils literal notranslate"><span class="pre">is_data_valid</span></code> y <code class="docutils literal notranslate"><span class="pre">is_model_valid</span></code> permiten identificar y rechazar combinaciones degeneradas de submuestras aleatorias. Si no se necesita el modelo estimado para identificar los casos degenerados, debería utilizarse <code class="docutils literal notranslate"><span class="pre">is_data_valid</span></code>, ya que se llama antes de ajustar el modelo y, por tanto, se obtiene un mejor rendimiento computacional.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_ransac.html#sphx-glr-auto-examples-linear-model-plot-ransac-py"><span class="std std-ref">Estimación robusta de modelos lineales mediante RANSAC</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_robust_fit.html#sphx-glr-auto-examples-linear-model-plot-robust-fit-py"><span class="std std-ref">Ajuste del estimador lineal robusto</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://es.wikipedia.org/wiki/RANSAC">https://es.wikipedia.org/wiki/RANSAC</a></p></li>
+<li><p><a class="reference external" href="https://www.sri.com/sites/default/files/publications/ransac-publication.pdf">«Random Sample Consensus: A Paradigm for Model Fitting with Applications to Image Analysis and Automated Cartography»</a> Martin A. Fischler y Robert C. Bolles - SRI International (1981)</p></li>
+<li><p><a class="reference external" href="http://www.bmva.org/bmvc/2009/Papers/Paper355/Paper355.pdf">«Performance Evaluation of RANSAC Family»</a>
+Sunglok Choi, Taemin Kim and Wonpil Yu - BMVC (2009)</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="theil-sen-estimator-generalized-median-based-estimator">
+<span id="theil-sen-regression"></span><h3><span class="section-number">1.1.16.3. </span>Estimador Theil-Sen: estimador basado en la mediana generalizada<a class="headerlink" href="#theil-sen-estimator-generalized-median-based-estimator" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El estimador <a class="reference internal" href="generated/sklearn.linear_model.TheilSenRegressor.html#sklearn.linear_model.TheilSenRegressor" title="sklearn.linear_model.TheilSenRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TheilSenRegressor</span></code></a> utiliza una generalización de la mediana en múltiples dimensiones. Por lo tanto, es robusto a los valores atípicos multivariados. Sin embargo, la robustez del estimador disminuye rápidamente con la dimensionalidad del problema. Pierde sus propiedades de robustez y no es mejor que un mínimo cuadrado ordinario en una dimensión alta.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_theilsen.html#sphx-glr-auto-examples-linear-model-plot-theilsen-py"><span class="std std-ref">Regresión de Theil-Sen</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_robust_fit.html#sphx-glr-auto-examples-linear-model-plot-robust-fit-py"><span class="std std-ref">Ajuste del estimador lineal robusto</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Theil%E2%80%93Sen_estimator">https://en.wikipedia.org/wiki/Theil%E2%80%93Sen_estimator</a></p></li>
+</ul>
+</div>
+<section id="theoretical-considerations">
+<h4><span class="section-number">1.1.16.3.1. </span>Consideraciones teóricas<a class="headerlink" href="#theoretical-considerations" title="Enlazar permanentemente con este título">¶</a></h4>
+<p><a class="reference internal" href="generated/sklearn.linear_model.TheilSenRegressor.html#sklearn.linear_model.TheilSenRegressor" title="sklearn.linear_model.TheilSenRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TheilSenRegressor</span></code></a> es comparable al <a class="reference internal" href="#ordinary-least-squares"><span class="std std-ref">Mínimos cuadrados ordinarios (OLS)</span></a> en términos de eficiencia asintótica y como estimador insesgado. En contraste con OLS, Theil-Sen es un método no paramétrico, lo que significa que no hace ninguna suposición sobre la distribución subyacente de los datos. Dado que Theil-Sen es un estimador basado en la mediana, es más robusto frente a los datos corruptos y los valores atípicos. En un entorno univariante, Theil-Sen tiene un punto de ruptura de aproximadamente el 29,3% en el caso de una regresión lineal simple, lo que significa que puede tolerar datos corruptos arbitrarios de hasta el 29,3%.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_theilsen.html"><img alt="../_images/sphx_glr_plot_theilsen_001.png" src="../_images/sphx_glr_plot_theilsen_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p>La implementación de <a class="reference internal" href="generated/sklearn.linear_model.TheilSenRegressor.html#sklearn.linear_model.TheilSenRegressor" title="sklearn.linear_model.TheilSenRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TheilSenRegressor</span></code></a> en scikit-learn sigue una generalización a un modelo de regresión lineal multivariante <a class="footnote-reference brackets" href="#f1" id="id37">12</a> utilizando la mediana espacial que es una generalización de la mediana a múltiples dimensiones <a class="footnote-reference brackets" href="#f2" id="id38">13</a>.</p>
+<p>En términos de complejidad temporal y espacial, Theil-Sen escala según</p>
+<div class="math notranslate nohighlight">
+\[\binom{n_{\text{samples}}}{n_{\text{subsamples}}}\]</div>
+<p>lo que hace inviable su aplicación exhaustiva a problemas con un gran número de muestras y características. Por lo tanto, la magnitud de una subpoblación puede elegirse para limitar la complejidad temporal y espacial considerando sólo un subconjunto aleatorio de todas las combinaciones posibles.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_theilsen.html#sphx-glr-auto-examples-linear-model-plot-theilsen-py"><span class="std std-ref">Regresión de Theil-Sen</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id37">12</a></span></dt>
+<dd><p>Xin Dang, Hanxiang Peng, Xueqin Wang and Heping Zhang: <a class="reference external" href="http://home.olemiss.edu/~xdang/papers/MTSE.pdf">Theil-Sen Estimators in a Multiple Linear Regression Model.</a></p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id38">13</a></span></dt>
+<dd><ol class="upperalpha simple" start="20">
+<li><p>Kärkkäinen and S. Äyrämö: <a class="reference external" href="http://users.jyu.fi/~samiayr/pdf/ayramo_eurogen05.pdf">On Computation of Spatial Median for Robust Data Mining.</a></p></li>
+</ol>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="huber-regression">
+<span id="id39"></span><h3><span class="section-number">1.1.16.4. </span>Regresión Huber<a class="headerlink" href="#huber-regression" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El <a class="reference internal" href="generated/sklearn.linear_model.HuberRegressor.html#sklearn.linear_model.HuberRegressor" title="sklearn.linear_model.HuberRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberRegressor</span></code></a> es diferente al <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> porque aplica una pérdida lineal a las muestras que se clasifican como valores atípicos. Una muestra se clasifica como un valor típico si el error absoluto de esa muestra es menor que un determinado umbral. Se diferencia de <a class="reference internal" href="generated/sklearn.linear_model.TheilSenRegressor.html#sklearn.linear_model.TheilSenRegressor" title="sklearn.linear_model.TheilSenRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TheilSenRegressor</span></code></a> y de <a class="reference internal" href="generated/sklearn.linear_model.RANSACRegressor.html#sklearn.linear_model.RANSACRegressor" title="sklearn.linear_model.RANSACRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">RANSACRegressor</span></code></a> porque no ignora el efecto de los valores atípicos sino que les da un peso menor.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_huber_vs_ridge.html"><img alt="../_images/sphx_glr_plot_huber_vs_ridge_001.png" src="../_images/sphx_glr_plot_huber_vs_ridge_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p>La función de pérdida que minimiza <a class="reference internal" href="generated/sklearn.linear_model.HuberRegressor.html#sklearn.linear_model.HuberRegressor" title="sklearn.linear_model.HuberRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberRegressor</span></code></a> viene dada por</p>
+<div class="math notranslate nohighlight">
+\[\min_{w, \sigma} {\sum_{i=1}^n\left(\sigma + H_{\epsilon}\left(\frac{X_{i}w - y_{i}}{\sigma}\right)\sigma\right) + \alpha {||w||_2}^2}\]</div>
+<p>donde</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_{\epsilon}(z) = \begin{cases}
+       z^2, &amp; \text {if } |z| &lt; \epsilon, \\
+       2\epsilon|z| - \epsilon^2, &amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+<p>Se aconseja ajustar el parámetro <code class="docutils literal notranslate"><span class="pre">epsilon</span></code> a 1,35 para conseguir una eficacia estadística del 95%.</p>
+</section>
+<section id="notes">
+<h3><span class="section-number">1.1.16.5. </span>Notas<a class="headerlink" href="#notes" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El <a class="reference internal" href="generated/sklearn.linear_model.HuberRegressor.html#sklearn.linear_model.HuberRegressor" title="sklearn.linear_model.HuberRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberRegressor</span></code></a> difiere del uso de <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> con la pérdida establecida en <code class="docutils literal notranslate"><span class="pre">huber</span></code> en los siguientes aspectos.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.HuberRegressor.html#sklearn.linear_model.HuberRegressor" title="sklearn.linear_model.HuberRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberRegressor</span></code></a> es invariante de la escala. Una vez que <code class="docutils literal notranslate"><span class="pre">epsilon</span></code> se establece, escalando <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> por diferentes valores produciría la misma robustez a los valores atípicos como antes. en comparación con <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> donde <code class="docutils literal notranslate"><span class="pre">epsilon</span></code> tiene que ser establecido de nuevo cuando <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> se escalan.</p></li>
+<li><p><a class="reference internal" href="generated/sklearn.linear_model.HuberRegressor.html#sklearn.linear_model.HuberRegressor" title="sklearn.linear_model.HuberRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HuberRegressor</span></code></a> debería ser más eficiente para usar en datos con un pequeño número de muestras mientras que <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> necesita varias pasadas en los datos de entrenamiento para producir la misma robustez.</p></li>
+</ul>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_huber_vs_ridge.html#sphx-glr-auto-examples-linear-model-plot-huber-vs-ridge-py"><span class="std std-ref">HuberRegressor vs Ridge en un conjunto de datos con fuertes valores atípicos</span></a></p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Peter J. Huber, Elvezio M. Ronchetti: Robust Statistics, Concomitant scale estimates, pg 172</p></li>
+</ul>
+</div>
+<p>Ten en cuenta que este estimador es diferente de la implementación de R de la Regresión Robusta (<a class="reference external" href="http://www.ats.ucla.edu/stat/r/dae/rreg.htm">http://www.ats.ucla.edu/stat/r/dae/rreg.htm</a>) porque la implementación de R hace una aplicación de mínimos cuadrados ponderados con pesos dados a cada muestra sobre la base de cuánto el residuo es mayor que un cierto umbral.</p>
+</section>
+</section>
+<section id="polynomial-regression-extending-linear-models-with-basis-functions">
+<span id="polynomial-regression"></span><h2><span class="section-number">1.1.17. </span>Regresión polinómica: ampliación de los modelos lineales con funciones de base<a class="headerlink" href="#polynomial-regression-extending-linear-models-with-basis-functions" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Un patrón común dentro del aprendizaje automático es utilizar modelos lineales entrenados en funciones no lineales de los datos.  Este enfoque mantiene el rendimiento generalmente rápido de los métodos lineales, al tiempo que les permite ajustarse a una gama mucho más amplia de datos.</p>
+<p>Por ejemplo, una regresión lineal simple puede ampliarse construyendo <strong>funciones polinómicas</strong> a partir de los coeficientes.  En el caso de la regresión lineal estándar, se podría tener un modelo como éste para datos bidimensionales:</p>
+<div class="math notranslate nohighlight">
+\[\hat{y}(w, x) = w_0 + w_1 x_1 + w_2 x_2\]</div>
+<p>Si queremos ajustar un paraboloide a los datos en lugar de un plano, podemos combinar las características en polinomios de segundo orden, de forma que el modelo tenga este aspecto:</p>
+<div class="math notranslate nohighlight">
+\[\hat{y}(w, x) = w_0 + w_1 x_1 + w_2 x_2 + w_3 x_1 x_2 + w_4 x_1^2 + w_5 x_2^2\]</div>
+<p>La observación (a veces sorprendente) es que éste es <em>un modelo lineal</em>: para verlo, imaginemos que creamos un nuevo conjunto de características</p>
+<div class="math notranslate nohighlight">
+\[z = [x_1, x_2, x_1 x_2, x_1^2, x_2^2]\]</div>
+<p>Con este reetiquetado de los datos, nuestro problema se puede escribir</p>
+<div class="math notranslate nohighlight">
+\[\hat{y}(w, z) = w_0 + w_1 z_1 + w_2 z_2 + w_3 z_3 + w_4 z_4 + w_5 z_5\]</div>
+<p>Vemos que la <em>regresión polinómica</em> resultante pertenece a la misma clase de modelos lineales que hemos considerado anteriormente (es decir, el modelo es lineal en <span class="math notranslate nohighlight">\(w\)</span>) y puede resolverse con las mismas técnicas.  Al considerar los ajustes lineales dentro de un espacio de mayor dimensión construido con estas funciones base, el modelo tiene la flexibilidad de ajustarse a una gama de datos mucho más amplia.</p>
+<p>He aquí un ejemplo de aplicación de esta idea a datos unidimensionales, utilizando funciones polinómicas de distintos grados:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_polynomial_interpolation.html"><img alt="../_images/sphx_glr_plot_polynomial_interpolation_001.png" src="../_images/sphx_glr_plot_polynomial_interpolation_001.png" style="width: 320.0px; height: 240.0px;" /></a>
+</figure>
+<p>Esta figura se crea utilizando el transformador <a class="reference internal" href="generated/sklearn.preprocessing.PolynomialFeatures.html#sklearn.preprocessing.PolynomialFeatures" title="sklearn.preprocessing.PolynomialFeatures"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code></a>, que transforma una matriz de datos de entrada en una nueva matriz de datos de un grado determinado. Se puede utilizar de la siguiente manera:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">array([[0, 1],</span>
+<span class="go">       [2, 3],</span>
+<span class="go">       [4, 5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[ 1.,  0.,  1.,  0.,  0.,  1.],</span>
+<span class="go">       [ 1.,  2.,  3.,  4.,  6.,  9.],</span>
+<span class="go">       [ 1.,  4.,  5., 16., 20., 25.]])</span>
+</pre></div>
+</div>
+<p>Las características de <code class="docutils literal notranslate"><span class="pre">X</span></code> se han transformado de <span class="math notranslate nohighlight">\([x_1, x_2]\)</span> a <span class="math notranslate nohighlight">\([1, x_1, x_2, x_1^2, x_1 x_2, x_2^2]\)</span>, y ahora pueden utilizarse dentro de cualquier modelo lineal.</p>
+<p>Este tipo de preprocesamiento puede agilizarse con las herramientas <a class="reference internal" href="compose.html#pipeline"><span class="std std-ref">Pipeline</span></a>. Un único objeto que representa una regresión polinómica simple puede crearse y utilizarse de la siguiente manera:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">)),</span>
+<span class="gp">... </span>                  <span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># fit to an order-3 polynomial data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([ 3., -2.,  1., -1.])</span>
+</pre></div>
+</div>
+<p>El modelo lineal entrenado en características polinómicas es capaz de recuperar exactamente los coeficientes polinómicos de entrada.</p>
+<p>En algunos casos no es necesario incluir las potencias más altas de ninguna característica, sino sólo las llamadas <em>características de interacción</em> que multiplican a lo sumo <span class="math notranslate nohighlight">\(d\)</span> características distintas. Estas pueden obtenerse de <a class="reference internal" href="generated/sklearn.preprocessing.PolynomialFeatures.html#sklearn.preprocessing.PolynomialFeatures" title="sklearn.preprocessing.PolynomialFeatures"><code class="xref py py-class docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code></a> con el ajuste <code class="docutils literal notranslate"><span class="pre">interaction_only=True</span></code>.</p>
+<p>Por ejemplo, cuando se trata de características booleanas, <span class="math notranslate nohighlight">\(x_i^n = x_i\)</span> para todos los <span class="math notranslate nohighlight">\(n\)</span> y, por tanto, es inútil; pero <span class="math notranslate nohighlight">\(x_i x_j\)</span> representa la conjunción de dos booleanos. De este modo, podemos resolver el problema XOR con un clasificador lineal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Perceptron</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span>
+<span class="go">array([0, 1, 1, 0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">interaction_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">array([[1, 0, 0, 0],</span>
+<span class="go">       [1, 0, 1, 0],</span>
+<span class="go">       [1, 1, 0, 0],</span>
+<span class="go">       [1, 1, 1, 1]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">Perceptron</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Y las «predicciones» del clasificador son perfectas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([0, 1, 1, 0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/linear_model.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>2.8. Estimación de densidad &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/density.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="outlier_detection.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.7. Detección de novedades y valores atípicos">Prev</a><a href="../unsupervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2. Aprendizaje no supervisado">Arriba</a>
+            <a href="neural_networks_unsupervised.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="2.9. Modelos de red neural (no supervisados)">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">2.8. Estimación de densidad</a><ul>
+<li><a class="reference internal" href="#density-estimation-histograms">2.8.1. Estimación de Densidad: Histogramas</a></li>
+<li><a class="reference internal" href="#kernel-density-estimation">2.8.2. Estimación de densidad del Kernel</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="density-estimation">
+<span id="id1"></span><h1><span class="section-number">2.8. </span>Estimación de densidad<a class="headerlink" href="#density-estimation" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La estimación de densidad recorre la línea entre el aprendizaje no supervisado, la ingeniería de características y el modelado de datos. Algunas de las técnicas de estimación de densidad más populares y útiles son los modelos de mezcla tales como Mezclas Gaussianas (<a class="reference internal" href="generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture" title="sklearn.mixture.GaussianMixture"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianMixture</span></code></a>), y enfoques basados en vecinos, como la estimación de densidad del kernel (<a class="reference internal" href="generated/sklearn.neighbors.KernelDensity.html#sklearn.neighbors.KernelDensity" title="sklearn.neighbors.KernelDensity"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelDensity</span></code></a>). Las Mezclas Gaussianas se discuten más ampliamente en el contexto de <a class="reference internal" href="clustering.html#clustering"><span class="std std-ref">Análisis de conglomerados</span></a>, porque la técnica también es útil como un esquema de análisis de conglomerados no supervisado.</p>
+<p>La estimación de densidad es un concepto muy simple, y la mayoría de personas ya está familiarizada con una técnica común de estimación de densidad: el histograma.</p>
+<section id="density-estimation-histograms">
+<h2><span class="section-number">2.8.1. </span>Estimación de Densidad: Histogramas<a class="headerlink" href="#density-estimation-histograms" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Un histograma es una visualización de datos simple donde se definen los intervalos y se cuenta el número de puntos de datos dentro de cada intervalo. Un ejemplo de un histograma puedes verlo en el panel superior izquierdo de la siguiente figura:</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_kde_1d.html"><img alt="hist_to_kde" src="../_images/sphx_glr_plot_kde_1d_001.png" style="width: 512.0px; height: 384.0px;" /></a></strong></p><p>Sin embargo, un problema importante con los histogramas es que la elección de la agrupación de los intervalos puede tener un efecto desproporcionado en la visualización resultante. Considera el panel superior derecho de la figura anterior. Muestra un histograma sobre los mismos datos, con los intervalos desplazados a la derecha. Los resultados de las dos visualizaciones se ven completamente diferentes y pueden llevar a diferentes interpretaciones de los datos.</p>
+<p>Intuitivamente, también se puede pensar en un histograma como una pila de bloques, un bloque por punto.  Apilando los bloques en el espacio de la cuadrícula apropiado, recuperamos el histograma.  ¿Pero qué pasa si, en lugar de apilar los bloques en una cuadrícula regular, centramos cada bloque en el punto que representa y sumamos la altura total en cada lugar?  Esta idea conduce a la visualización de la parte inferior izquierda. Tal vez no sea tan limpia como un histograma, pero el hecho de que los datos dirijan las ubicaciones de los bloques significa que es una representación mucho mejor de los datos subyacentes.</p>
+<p>Esta visualización es un ejemplo de <em>estimación de la densidad del kernel</em>, en este caso con un kernel superior estimado (es decir, un bloque cuadrado en cada punto).  Podemos recuperar una distribución más suave utilizando un kernel más suave.  El gráfico de abajo a la derecha muestra una estimación de la densidad del kernel Gaussiano, en la que cada punto contribuye con una curva Gaussiana al total.  El resultado es una estimación de densidad suave que se deriva de los datos, y funciones como un potente modelo no paramétrico de la distribución de puntos.</p>
+</section>
+<section id="kernel-density-estimation">
+<span id="kernel-density"></span><h2><span class="section-number">2.8.2. </span>Estimación de densidad del Kernel<a class="headerlink" href="#kernel-density-estimation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La estimación de densidad del kernel en scikit-learn está implementada en el estimador <a class="reference internal" href="generated/sklearn.neighbors.KernelDensity.html#sklearn.neighbors.KernelDensity" title="sklearn.neighbors.KernelDensity"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelDensity</span></code></a>, que utiliza el Árbol de Bolas o el Árbol KD para consultas eficientes (ver <a class="reference internal" href="neighbors.html#neighbors"><span class="std std-ref">Vecino más cercano</span></a> para una discusión de estos).  Aunque el ejemplo anterior utiliza un conjunto de datos unidimensional por simplicidad, la estimación de densidad del kernel puede realizarse en cualquier número de dimensiones, aunque en la práctica la maldición de la dimensionalidad hace que su rendimiento se degrade en altas dimensiones altas.</p>
+<p>En la siguiente figura, se extraen 100 puntos de una distribución bimodal, y se muestran las estimaciones de densidad del kernel para tres opciones de kernels:</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_kde_1d.html"><img alt="kde_1d_distribution" src="../_images/sphx_glr_plot_kde_1d_003.png" style="width: 512.0px; height: 384.0px;" /></a></strong></p><p>Está claro cómo la forma del núcleo afecta a la suavidad de la distribución resultante. El estimador de densidad del núcleo de aprendizaje de ciencia puede utilizarse de la siguiente manera:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KernelDensity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kde</span> <span class="o">=</span> <span class="n">KernelDensity</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kde</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([-0.41075698, -0.41075698, -0.41076071, -0.41075698, -0.41075698,</span>
+<span class="go">       -0.41076071])</span>
+</pre></div>
+</div>
+<p>Aquí hemos utilizado <code class="docutils literal notranslate"><span class="pre">kernel='gaussian'</span></code>, como has visto anteriormente. Matemáticamente, un kernel es una función positiva <span class="math notranslate nohighlight">\(K(x;h)\)</span> que está controlada por el parámetro de ancho de banda <span class="math notranslate nohighlight">\(h\)</span>. Dada esta forma del kernel, la estimación de la densidad en un punto <span class="math notranslate nohighlight">\(y\)</span> dentro de un grupo de puntos <span class="math notranslate nohighlight">\(x_i; i=1\cdots N\)</span> viene dada por:</p>
+<div class="math notranslate nohighlight">
+\[\rho_K(y) = \sum_{i=1}^{N} K(y - x_i; h)\]</div>
+<p>El ancho de banda actúa aquí como un parámetro de suavización, controlando el equilibrio entre el sesgo y la varianza en el resultado.  Un ancho de banda grande conduce a una distribución de densidad muy suave (es decir, de alto sesgo).  Un ancho de banda pequeño conduce a una distribución de densidad poco suave (es decir, de alta varianza).</p>
+<p><a class="reference internal" href="generated/sklearn.neighbors.KernelDensity.html#sklearn.neighbors.KernelDensity" title="sklearn.neighbors.KernelDensity"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelDensity</span></code></a> implementa varias formas de kernel comunes, que se muestran en la siguiente figura:</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_kde_1d.html"><img alt="kde_kernels" src="../_images/sphx_glr_plot_kde_1d_002.png" style="width: 512.0px; height: 384.0px;" /></a></strong></p><p>La forma de estos kernels es la siguiente:</p>
+<ul>
+<li><p>Kernel Gaussiano (<code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">=</span> <span class="pre">'gaussian'</span></code>)</p>
+<p><span class="math notranslate nohighlight">\(K(x; h) \propto \exp(- \frac{x^2}{2h^2} )\)</span></p>
+</li>
+<li><p>Kernel superior estimado (<code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">=</span> <span class="pre">'tophat'</span></code>)</p>
+<p><span class="math notranslate nohighlight">\(K(x; h) \propto 1\)</span> if <span class="math notranslate nohighlight">\(x &lt; h\)</span></p>
+</li>
+<li><p>Kernel de Epanechnikov (<code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">=</span> <span class="pre">'epanechnikov'</span></code>)</p>
+<p><span class="math notranslate nohighlight">\(K(x; h) \propto 1 - \frac{x^2}{h^2}\)</span></p>
+</li>
+<li><p>Kernel exponencial (<code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">=</span> <span class="pre">'exponential'</span></code>)</p>
+<p><span class="math notranslate nohighlight">\(K(x; h) \propto \exp(-x/h)\)</span></p>
+</li>
+<li><p>Kernel lineal (<code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">=</span> <span class="pre">'linear'</span></code>)</p>
+<p><span class="math notranslate nohighlight">\(K(x; h) \propto 1 - x/h\)</span> if <span class="math notranslate nohighlight">\(x &lt; h\)</span></p>
+</li>
+<li><p>Kernel del coseno (<code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">=</span> <span class="pre">'cosine'</span></code>)</p>
+<p><span class="math notranslate nohighlight">\(K(x; h) \propto \cos(\frac{\pi x}{2h})\)</span> if <span class="math notranslate nohighlight">\(x &lt; h\)</span></p>
+</li>
+</ul>
+<p>El estimador de densidad del kernel puede ser usado con cualquiera de las métricas de distancia válidas (ver <a class="reference internal" href="generated/sklearn.neighbors.DistanceMetric.html#sklearn.neighbors.DistanceMetric" title="sklearn.neighbors.DistanceMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceMetric</span></code></a> para una lista de métricas disponibles), aunque los resultados están normalizados adecuadamente sólo para la métrica Euclideana. Una métrica particularmente útil es la <a class="reference external" href="https://en.wikipedia.org/wiki/Haversine_formula">Haversine distance</a> que mide la distancia angular entre puntos en una esfera. Aquí hay un ejemplo de uso de una estimación de densidad del kernel para una visualización de datos geoespaciales, en este caso la distribución de observaciones de dos especies diferentes en el continente sudamericano:</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_species_kde.html"><img alt="species_kde" src="../_images/sphx_glr_plot_species_kde_001.png" style="width: 512.0px; height: 384.0px;" /></a></strong></p><p>Otra aplicación útil de la estimación de densidad del kernel es aprender de un modelo generativo no paramétrico de un conjunto de datos con el fin de extraer eficientemente nuevas muestras de este modelo generativo. Aquí hay un ejemplo de uso de este proceso para crear un nuevo conjunto de dígitos manuscritos, usando un kernel Gaussiano aprendido en una proyección PCA de los datos:</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_digits_kde_sampling.html"><img alt="digits_kde" src="../_images/sphx_glr_plot_digits_kde_sampling_001.png" style="width: 512.0px; height: 384.0px;" /></a></strong></p><p>Los datos «new» consisten en combinaciones lineales de los datos de entrada, con pesos extraídos probabilísticamente dado el modelo KDE.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_kde_1d.html#sphx-glr-auto-examples-neighbors-plot-kde-1d-py"><span class="std std-ref">Estimación Simple de la Densidad Núcleo 1D</span></a>: cálculo de estimaciones de densidad del kernel simples en una dimensión.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_digits_kde_sampling.html#sphx-glr-auto-examples-neighbors-plot-digits-kde-sampling-py"><span class="std std-ref">Estimación de Densidad Núcleo</span></a>: un ejemplo de uso de la estimación de Densidad del Kernel para aprender de un modelo generativo de los datos de los dígitos escritos a mano, y extraer nuevas muestras de este modelo.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_species_kde.html#sphx-glr-auto-examples-neighbors-plot-species-kde-py"><span class="std std-ref">Estimación de la Densidad del Núcleo de las Distribuciones de las Especies</span></a>: un ejemplo de estimación de Densidad del Kernel utilizando la métrica de distancia Haversine para visualizar datos geoespaciales</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/density.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

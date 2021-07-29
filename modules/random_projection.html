@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>6.6. Proyección aleatoria &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/random_projection.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="unsupervised_reduction.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.5. Reducción de dimensionalidad no supervisada">Prev</a><a href="../data_transforms.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6. Transformaciones de conjuntos de datos">Arriba</a>
+            <a href="kernel_approximation.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="6.7. Aproximación de núcleo">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">6.6. Proyección aleatoria</a><ul>
+<li><a class="reference internal" href="#the-johnson-lindenstrauss-lemma">6.6.1. El lema Johnson-Lindenstrauss</a></li>
+<li><a class="reference internal" href="#gaussian-random-projection">6.6.2. Proyección aleatoria Gaussiana</a></li>
+<li><a class="reference internal" href="#sparse-random-projection">6.6.3. Proyección aleatoria dispersa</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="random-projection">
+<span id="id1"></span><h1><span class="section-number">6.6. </span>Proyección aleatoria<a class="headerlink" href="#random-projection" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El módulo <a class="reference internal" href="classes.html#module-sklearn.random_projection" title="sklearn.random_projection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.random_projection</span></code></a> implementa una forma simple y computacionalmente eficiente de reducir la dimensionalidad de los datos intercambiando una cantidad controlada de precisión (como varianza adicional) por tiempos de procesamiento más rápidos y tamaños de modelos más pequeños. Este módulo implementa dos tipos de matrices aleatorias no estructuradas: <a class="reference internal" href="#gaussian-random-matrix"><span class="std std-ref">matriz aleatoria Gaussiana</span></a> y <a class="reference internal" href="#sparse-random-matrix"><span class="std std-ref">matriz aleatoria dispersa</span></a>.</p>
+<p>Las dimensiones y distribución de las matrices de proyecciones aleatorias se controlan para preservar las distancias por pares entre dos muestras cualesquiera del conjunto de datos. Así, la proyección aleatoria es una técnica de aproximación adecuada para el método basado en la distancia.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Sanjoy Dasgupta. 2000.
+<a class="reference external" href="https://cseweb.ucsd.edu/~dasgupta/papers/randomf.pdf">Experiments with random projection.</a>
+In Proceedings of the Sixteenth conference on Uncertainty in artificial
+intelligence (UAI’00), Craig Boutilier and Moisés Goldszmidt (Eds.). Morgan
+Kaufmann Publishers Inc., San Francisco, CA, USA, 143-151.</p></li>
+<li><p>Ella Bingham and Heikki Mannila. 2001.
+<a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.24.5135&amp;rep=rep1&amp;type=pdf">Random projection in dimensionality reduction: applications to image and text data.</a>
+In Proceedings of the seventh ACM SIGKDD international conference on
+Knowledge discovery and data mining (KDD “01). ACM, New York, NY, USA,
+245-250.</p></li>
+</ul>
+</div>
+<section id="the-johnson-lindenstrauss-lemma">
+<span id="johnson-lindenstrauss"></span><h2><span class="section-number">6.6.1. </span>El lema Johnson-Lindenstrauss<a class="headerlink" href="#the-johnson-lindenstrauss-lemma" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El principal resultado teórico detrás de la eficiencia de la proyección aleatoria es el <a class="reference external" href="https://en.wikipedia.org/wiki/Johnson%E2%80%93Lindenstrauss_lemma">Lema de Johnson-Lindenstrauss (citando a Wikipedia)</a>:</p>
+<blockquote>
+<div><p>En matemáticas, el lema Johnson-Lindenstrauss es un resultado concerniente a las inserciones de baja distorsión de puntos de un espacio de alta dimensión en un espacio euclideano de baja dimensión. El lema afirma que un pequeño conjunto de puntos en un espacio de alta dimensión puede integrarse en un espacio de dimensión mucho más baja de tal manera que las distancias entre los puntos casi se conservan. El mapa utilizado para la inserción es al menos Lipschitz, e incluso puede tomarse como una proyección ortogonal.</p>
+</div></blockquote>
+<p>Conociendo sólo el número de muestras, la función <a class="reference internal" href="generated/sklearn.random_projection.johnson_lindenstrauss_min_dim.html#sklearn.random_projection.johnson_lindenstrauss_min_dim" title="sklearn.random_projection.johnson_lindenstrauss_min_dim"><code class="xref py py-func docutils literal notranslate"><span class="pre">johnson_lindenstrauss_min_dim</span></code></a> estima de forma conservadora el tamaño mínimo del subespacio aleatorio para garantizar una distorsión acotada introducida por la proyección aleatoria:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.random_projection</span> <span class="kn">import</span> <span class="n">johnson_lindenstrauss_min_dim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">johnson_lindenstrauss_min_dim</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="go">663</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">johnson_lindenstrauss_min_dim</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>
+<span class="go">array([    663,   11841, 1112658])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">johnson_lindenstrauss_min_dim</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="p">[</span><span class="mf">1e4</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">],</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">array([ 7894,  9868, 11841])</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/miscellaneous/plot_johnson_lindenstrauss_bound.html"><img alt="../_images/sphx_glr_plot_johnson_lindenstrauss_bound_001.png" src="../_images/sphx_glr_plot_johnson_lindenstrauss_bound_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/miscellaneous/plot_johnson_lindenstrauss_bound.html"><img alt="../_images/sphx_glr_plot_johnson_lindenstrauss_bound_002.png" src="../_images/sphx_glr_plot_johnson_lindenstrauss_bound_002.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+<div class="topic">
+<p class="topic-title">Example:</p>
+<ul class="simple">
+<li><p>Ver <a class="reference internal" href="../auto_examples/miscellaneous/plot_johnson_lindenstrauss_bound.html#sphx-glr-auto-examples-miscellaneous-plot-johnson-lindenstrauss-bound-py"><span class="std std-ref">El límite de Johnson-Lindenstrauss para la incrustación con proyecciones aleatorias</span></a> para una explicación teórica sobre el lema Johnson-Lindenstrauss y una validación empírica usando matrices aleatorias dispersas.</p></li>
+</ul>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>Sanjoy Dasgupta and Anupam Gupta, 1999.
+<a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.39.3334&amp;rep=rep1&amp;type=pdf">An elementary proof of the Johnson-Lindenstrauss Lemma.</a></p></li>
+</ul>
+</div>
+</section>
+<section id="gaussian-random-projection">
+<span id="gaussian-random-matrix"></span><h2><span class="section-number">6.6.2. </span>Proyección aleatoria Gaussiana<a class="headerlink" href="#gaussian-random-projection" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.random_projection.GaussianRandomProjection.html#sklearn.random_projection.GaussianRandomProjection" title="sklearn.random_projection.GaussianRandomProjection"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianRandomProjection</span></code></a> reduce la dimensionalidad proyectando el espacio de entrada original en una matriz generada aleatoriamente donde los componentes se extraen de la siguiente distribución <span class="math notranslate nohighlight">\(N(0, \frac{1}{n_{components}})\)</span>.</p>
+<p>Aquí un pequeño extracto que ilustra cómo utilizar el transformador de proyección aleatoria Gaussiana:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">random_projection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">random_projection</span><span class="o">.</span><span class="n">GaussianRandomProjection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(100, 3947)</span>
+</pre></div>
+</div>
+</section>
+<section id="sparse-random-projection">
+<span id="sparse-random-matrix"></span><h2><span class="section-number">6.6.3. </span>Proyección aleatoria dispersa<a class="headerlink" href="#sparse-random-projection" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.random_projection.SparseRandomProjection.html#sklearn.random_projection.SparseRandomProjection" title="sklearn.random_projection.SparseRandomProjection"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseRandomProjection</span></code></a> reduce la dimensionalidad proyectando el espacio de entrada original usando una matriz aleatoria dispersa.</p>
+<p>Las matrices aleatorias dispersas son una alternativa a la densa matriz de proyección aleatoria gaussiana que garantiza una calidad de inserción similar, a la vez que es mucho más eficiente en términos de memoria y permite un cálculo más rápido de los datos proyectados.</p>
+<p>Si definimos <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">density</span></code>, los elementos de la matriz aleatoria se extraen de</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{
+\begin{array}{c c l}
+-\sqrt{\frac{s}{n_{\text{components}}}} &amp; &amp; 1 / 2s\\
+0 &amp;\text{with probability}  &amp; 1 - 1 / s \\
++\sqrt{\frac{s}{n_{\text{components}}}} &amp; &amp; 1 / 2s\\
+\end{array}
+\right.\end{split}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(n_{\text{components}}\)</span> es el tamaño del subespacio proyectado. Por defecto, la densidad de los elementos distintos de cero se establece en la densidad mínima recomendada por Ping Li et al. <span class="math notranslate nohighlight">\(1 / \sqrt{n_{\text{features}}}\)</span>.</p>
+<p>Aquí un pequeño extracto que ilustra cómo utilizar el transformador de proyección aleatoria dispersa:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">random_projection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">random_projection</span><span class="o">.</span><span class="n">SparseRandomProjection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(100, 3947)</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p>D. Achlioptas. 2003.
+<a class="reference external" href="http://www.cs.ucsc.edu/~optas/papers/jl.pdf">Database-friendly random projections: Johnson-Lindenstrauss  with binary
+coins</a>.
+Journal of Computer and System Sciences 66 (2003) 671–687</p></li>
+<li><p>Ping Li, Trevor J. Hastie, and Kenneth W. Church. 2006.
+<a class="reference external" href="https://web.stanford.edu/~hastie/Papers/Ping/KDD06_rp.pdf">Very sparse random projections.</a>
+In Proceedings of the 12th ACM SIGKDD international conference on
+Knowledge discovery and data mining (KDD “06). ACM, New York, NY, USA,
+287-296.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/random_projection.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>

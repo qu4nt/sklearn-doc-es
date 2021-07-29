@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>1.5. Descenso de Gradiente Estocástico &mdash; documentación de scikit-learn - 0.24.2</title>
+  
+  <link rel="canonical" href="http://scikit-learn.org/stable/modules/sgd.html" />
+
+  
+  <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  <link rel="stylesheet" href="../_static/css/vendor/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+<script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script> 
+</head>
+<body>
+<nav id="navbar" class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0">
+  <div class="container-fluid sk-docs-container px-0">
+      <a class="navbar-brand py-0" href="../index.html">
+        <img
+          class="sk-brand-img"
+          src="../_static/scikit-learn-logo-small.png"
+          alt="logo"/>
+      </a>
+    <button
+      id="sk-navbar-toggler"
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../install.html">Instalación</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../user_guide.html">Manual de Usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="classes.html">API</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link" href="../auto_examples/index.html">Ejemplos</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../getting_started.html">¿Cómo empezar?</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../tutorial/index.html">Tutorial</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../whats_new/v0.24.html">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../glossary.html">Glosario</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../developers/index.html">Desarrollo</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../faq.html">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../support.html">Soporte</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../related_projects.html">Paquetes relacionados</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../roadmap.html">Hoja de ruta</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../about.html">Sobre nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+        </li>
+        <li class="nav-item">
+          <a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+        </li>
+        <li class="nav-item dropdown nav-more-item-dropdown">
+          <a class="sk-nav-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="sk-nav-dropdown-item dropdown-item" href="../getting_started.html">¿Cómo empezar?</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../tutorial/index.html">Tutorial</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../whats_new/v0.24.html">Novedades</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../glossary.html">Glosario</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../developers/index.html">Desarrollo</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../faq.html">FAQ</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../support.html">Soporte</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../related_projects.html">Paquetes relacionados</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../roadmap.html">Hoja de ruta</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="../about.html">Sobre nosotros</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+              <a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Otras versiones y descargas</a>
+          </div>
+        </li>
+      </ul>
+      <div id="searchbox" role="search">
+          <div class="searchformwrapper">
+          <form class="search" action="../search.html" method="get">
+            <input class="sk-search-text-input" type="text" name="q" aria-labelledby="searchlabel" />
+            <input class="sk-search-text-btn" type="submit" value="Ir a" />
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+    <input type="checkbox" name="sk-toggle-checkbox" id="sk-toggle-checkbox">
+    <label id="sk-sidemenu-toggle" class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox">Alternar menú</label>
+    <div id="sk-sidebar-wrapper" class="border-right">
+      <div class="sk-sidebar-toc-wrapper">
+        <div class="sk-sidebar-toc-logo">
+          <a href="../index.html">
+            <img
+              class="sk-brand-img"
+              src="../_static/scikit-learn-logo-small.png"
+              alt="logo"/>
+          </a>
+        </div>
+        <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
+            <a href="svm.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.4. Máquinas de Vectores de Soporte">Prev</a><a href="../supervised_learning.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1. Aprendizaje supervisado">Arriba</a>
+            <a href="neighbors.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="1.6. Vecino más cercano">Sig.</a>
+        </div>
+        <div class="alert alert-danger p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+          <strong>scikit-learn 0.24.2</strong><br/>
+          <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
+          </p>
+        </div>
+        <div class="alert alert-warning p-1 mb-2" role="alert">
+          <p class="text-center mb-0">
+            Por favor <a class="font-weight-bold" href="../about.html#citing-scikit-learn"><string>cítanos</string></a> si usas el software.
+          </p>
+        </div>
+            <div class="sk-sidebar-toc">
+              <ul>
+<li><a class="reference internal" href="#">1.5. Descenso de Gradiente Estocástico</a><ul>
+<li><a class="reference internal" href="#classification">1.5.1. Clasificación</a></li>
+<li><a class="reference internal" href="#regression">1.5.2. Regresión</a></li>
+<li><a class="reference internal" href="#stochastic-gradient-descent-for-sparse-data">1.5.3. Descenso de Gradiente Estocástico para datos dispersos</a></li>
+<li><a class="reference internal" href="#complexity">1.5.4. Complejidad</a></li>
+<li><a class="reference internal" href="#stopping-criterion">1.5.5. Criterio de parada</a></li>
+<li><a class="reference internal" href="#tips-on-practical-use">1.5.6. Consejos de Uso Práctico</a></li>
+<li><a class="reference internal" href="#mathematical-formulation">1.5.7. Formulación matemática</a><ul>
+<li><a class="reference internal" href="#id5">1.5.7.1. SGD</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implementation-details">1.5.8. Detalles de implementación</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+      </div>
+    </div>
+    <div id="sk-page-content-wrapper">
+      <div class="sk-page-content container-fluid body px-md-3" role="main">
+        
+  <section id="stochastic-gradient-descent">
+<span id="sgd"></span><h1><span class="section-number">1.5. </span>Descenso de Gradiente Estocástico<a class="headerlink" href="#stochastic-gradient-descent" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><strong>Descenso de Gradiente Estocástico (Stochastic Gradient Descent, SGD)</strong> es un enfoque simple pero muy eficiente para ajustar clasificadores y regresores lineales bajo funciones de pérdida convexas, como las <a class="reference external" href="https://en.wikipedia.org/wiki/Support_vector_machine">Máquinas de Vectores de Soporte</a> y <a class="reference external" href="https://en.wikipedia.org/wiki/Logistic_regression">Regresión Logística</a> (lineales). Aunque el SGD lleva mucho tiempo en la comunidad del aprendizaje automático, ha recibido una atención considerable recientemente en el contexto del aprendizaje a gran escala.</p>
+<p>El SGD se ha aplicado con éxito a problemas de aprendizaje automático a gran escala y dispersos, encontrados a menudo en la clasificación de textos y el procesamiento del lenguaje natural. Dado que los datos son dispersos, los clasificadores de este módulo pueden escalar fácilmente a problemas con más de 10^5 ejemplos de entrenamiento y más de 10^5 características.</p>
+<p>En sentido estricto, el SGD no es más que una técnica de optimización y no corresponde a una familia específica de modelos de aprendizaje automático. Es sólo una <em>forma</em> de entrenar un modelo. A menudo, una instancia de <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> o <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> tendrá un estimador equivalente en la API de scikit-learn, utilizando potencialmente una técnica de optimización diferente. Por ejemplo, el uso de <code class="docutils literal notranslate"><span class="pre">SGDClassifier(loss='log')</span></code> da como resultado una regresión logística, es decir, un modelo equivalente a <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> que se ajusta a través de SGD en lugar de ser ajustado por uno de los otros solucionadores en <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>. Del mismo modo, <code class="docutils literal notranslate"><span class="pre">SGDRegressor(loss='squared_loss',</span> <span class="pre">penalty='l2')</span></code> y <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> resuelven el mismo problema de optimización, a través de diferentes medios.</p>
+<p>Las ventajas del Descenso de Gradiente Estocástico son:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Eficiencia.</p></li>
+<li><p>Facilidad de implementación (muchas oportunidades para el ajuste del código).</p></li>
+</ul>
+</div></blockquote>
+<p>Las desventajas del Descenso de Gradiente Estocástico incluyen:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>El SGD requiere una serie de hiperparámetros como el parámetro de regularización y el número de iteraciones.</p></li>
+<li><p>El SGD es sensible al escalamiento de características.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Asegúrate de permutar (revolver) tus datos de entrenamiento antes de ajustar el modelo o utiliza <code class="docutils literal notranslate"><span class="pre">shuffle=True</span></code> para revolver después de cada iteración (utilizado por defecto). También, idealmente, las características deberían ser estandarizadas usando, por ejemplo, <code class="docutils literal notranslate"><span class="pre">make_pipeline(StandardScaler(),</span> <span class="pre">SGDClassifier())</span></code> (ver <a class="reference internal" href="compose.html#combining-estimators"><span class="std std-ref">Pipelines</span></a>).</p>
+</div>
+<section id="classification">
+<h2><span class="section-number">1.5.1. </span>Clasificación<a class="headerlink" href="#classification" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> implementa una rutina de aprendizaje simple de descenso de gradiente estocástico que soporta diferentes funciones de pérdida y penalizaciones para la clasificación. A continuación se muestra la frontera de decisión de un <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> entrenado con la pérdida de bisagra, equivalente a una SVM lineal.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_sgd_separating_hyperplane.html"><img alt="../_images/sphx_glr_plot_sgd_separating_hyperplane_001.png" src="../_images/sphx_glr_plot_sgd_separating_hyperplane_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+<p>Como otros clasificadores, el SGD tiene que ajustarse con dos arreglos: un arreglo <code class="docutils literal notranslate"><span class="pre">X</span></code> de forma (n_samples, n_features) que contiene las muestras de entrenamiento, y un arreglo <code class="docutils literal notranslate"><span class="pre">y</span></code> de forma (n_samples,) que contiene los valores objetivo (etiquetas de clase) para las muestras de entrenamiento:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;hinge&quot;</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l2&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">SGDClassifier(max_iter=5)</span>
+</pre></div>
+</div>
+<p>Una vez ajustado, el modelo puede utilizarse para predecir nuevos valores:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
+<span class="go">array([1])</span>
+</pre></div>
+</div>
+<p>SGD ajusta un modelo lineal a los datos de entrenamiento. El atributo <code class="docutils literal notranslate"><span class="pre">coef_</span></code> contiene los parámetros del modelo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([[9.9..., 9.9...]])</span>
+</pre></div>
+</div>
+<p>El atributo <code class="docutils literal notranslate"><span class="pre">intercept_</span></code> contiene el intercepto (también conocido como desplazamiento o sesgo):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="go">array([-9.9...])</span>
+</pre></div>
+</div>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code> controla si el modelo debe utilizar o no un intercepto, es decir, un hiperplano sesgado.</p>
+<p>La distancia con signo al hiperplano (calculada como el producto punto entre los coeficientes y la muestra de entrada, más el intercepto) viene dada por <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier.decision_function" title="sklearn.linear_model.SGDClassifier.decision_function"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SGDClassifier.decision_function</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">decision_function</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
+<span class="go">array([29.6...])</span>
+</pre></div>
+</div>
+<p>La función de pérdida concreta puede establecerse mediante el parámetro <code class="docutils literal notranslate"><span class="pre">loss</span></code>. <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> admite las siguientes funciones de pérdida:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;hinge&quot;</span></code>: (margen blando) Máquina de Vectores de Soporte lineal,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;modified_huber&quot;</span></code>: pérdida de bisagra suavizada,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;log&quot;</span></code>: regresión logística,</p></li>
+<li><p>y todas las pérdidas de regresión más abajo. En este caso, el objetivo se codifica como -1 o 1, y el problema se trata como un problema de regresión. La clase predicha corresponde entonces al signo del objetivo predicho.</p></li>
+</ul>
+</div></blockquote>
+<p>Por favor, consulta <a class="reference internal" href="#sgd-mathematical-formulation"><span class="std std-ref">la sección matemática más abajo</span></a> para ver las fórmulas. Las dos primeras funciones de pérdida son perezosas, sólo actualizan los parámetros del modelo si un ejemplo viola la restricción de margen, lo que hace que el entrenamiento sea muy eficiente y puede dar lugar a modelos más dispersos (es decir, con más coeficientes cero), incluso cuando se utiliza la penalización L2.</p>
+<p>El uso de <code class="docutils literal notranslate"><span class="pre">loss=&quot;log&quot;`</span> <span class="pre">o</span> <span class="pre">``loss=&quot;modified_huber&quot;</span></code> habilita el método <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>, que da un vector de estimaciones de probabilidad <span class="math notranslate nohighlight">\(P(y|x)\)</span> por muestra <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+<span class="go">array([[0.00..., 0.99...]])</span>
+</pre></div>
+</div>
+<p>La penalización concreta puede establecerse mediante el parámetro <code class="docutils literal notranslate"><span class="pre">penalty</span></code>. SGD admite las siguientes penalizaciones:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">penalty=&quot;l2&quot;</span></code>: Penalización de la norma L2 en <code class="docutils literal notranslate"><span class="pre">coef_</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">penalty=&quot;l1&quot;</span></code>: Penalización de la norma L1 en <code class="docutils literal notranslate"><span class="pre">coef_</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">penalty=&quot;elasticnet&quot;</span></code>: Combinación convexa de L2 y L1; <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">-</span> <span class="pre">l1_ratio)</span> <span class="pre">*</span> <span class="pre">L2</span> <span class="pre">+</span> <span class="pre">l1_ratio</span> <span class="pre">*</span> <span class="pre">L1</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>La configuración por defecto es <code class="docutils literal notranslate"><span class="pre">penalty=&quot;l2&quot;</span></code>. La penalización L1 conduce a soluciones dispersas, llevando la mayoría de los coeficientes a cero. La Red Elástica <a class="footnote-reference brackets" href="#id15" id="id1">11</a> resuelve algunas deficiencias de la penalización L1 en presencia de atributos altamente correlacionados. El parámetro <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code> controla la combinación convexa de la penalización L1 y L2.</p>
+<p><a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> soporta la clasificación multiclase combinando múltiples clasificadores binarios en un esquema «uno contra todos» (OVA). Para cada una de las clases <span class="math notranslate nohighlight">\(K\)</span>, se aprende un clasificador binario que discrimina entre esa y todas las demás clases <span class="math notranslate nohighlight">\(K-1\)</span>. En el momento de la prueba, calculamos la puntuación de confianza (es decir, las distancias con signo al hiperplano) de cada clasificador y se elige la clase con mayor confianza. La Figura siguiente ilustra el enfoque OVA en el conjunto de datos del iris. Las líneas discontinuas representan los tres clasificadores OVA; los colores del fondo muestran la superficie de decisión inducida por los tres clasificadores.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_sgd_iris.html"><img alt="../_images/sphx_glr_plot_sgd_iris_001.png" src="../_images/sphx_glr_plot_sgd_iris_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+<p>En el caso de la clasificación multiclase, <code class="docutils literal notranslate"><span class="pre">coef_</span></code> es un arreglo bidimensional de forma (n_classes, n_features) e <code class="docutils literal notranslate"><span class="pre">intercept_</span></code> es un arreglo unidimensional de forma (n_classes,). La fila i-ésima de <code class="docutils literal notranslate"><span class="pre">coef_</span></code> contiene el vector de ponderaciones del clasificador OVA para la clase i-ésima; las clases se indexan en orden ascendente (ver el atributo <code class="docutils literal notranslate"><span class="pre">classes_</span></code>). Ten en cuenta que, en principio, dado que permiten crear un modelo de probabilidad, <code class="docutils literal notranslate"><span class="pre">loss=&quot;log&quot;</span></code> y <code class="docutils literal notranslate"><span class="pre">loss=&quot;modified_huber&quot;</span></code> son más adecuados para la clasificación uno contra todos.</p>
+<p><a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> soporta tanto clases ponderadas como instancias ponderadas a través de los parámetros de ajuste <code class="docutils literal notranslate"><span class="pre">class_weight</span></code> y <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code>. Para más información, consulta los ejemplos siguientes y la cadena de documentación de <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier.fit" title="sklearn.linear_model.SGDClassifier.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SGDClassifier.fit</span></code></a>.</p>
+<p><a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> soporta SGD promediado (averaged SGD, ASGD) <a class="footnote-reference brackets" href="#id14" id="id2">10</a>. El promediado puede activarse estableciendo <code class="docutils literal notranslate"><span class="pre">average=True</span></code>. ASGD realiza las mismas actualizaciones que el SGD regular (ver <a class="reference internal" href="#sgd-mathematical-formulation"><span class="std std-ref">Formulación matemática</span></a>), pero en lugar de utilizar el último valor de los coeficientes como atributo <code class="docutils literal notranslate"><span class="pre">coef_</span></code> (es decir, los valores de la última actualización), <code class="docutils literal notranslate"><span class="pre">coef_</span></code> se establece en su lugar en el valor <strong>promedio</strong> de los coeficientes en todas las actualizaciones. Lo mismo se hace con el atributo <code class="docutils literal notranslate"><span class="pre">intercept_</span></code>. Cuando se utiliza el ASGD, la tasa de aprendizaje puede ser mayor e incluso constante, lo que lleva, en algunos conjuntos de datos, a una aceleración del tiempo de entrenamiento.</p>
+<p>Para la clasificación con pérdida logística, otra variante de SGD con una estrategia de promediación está disponible con el algoritmo Gradiente Medio Estocástico (Stochastic Average Gradient , SAG), disponible como un solucionador en <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_separating_hyperplane.html#sphx-glr-auto-examples-linear-model-plot-sgd-separating-hyperplane-py"><span class="std std-ref">SGD: Hiperplano de separación de máximo margen</span></a>,</p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_iris.html#sphx-glr-auto-examples-linear-model-plot-sgd-iris-py"><span class="std std-ref">Graficar el SGD multiclase en el conjunto de datos del iris</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_weighted_samples.html#sphx-glr-auto-examples-linear-model-plot-sgd-weighted-samples-py"><span class="std std-ref">SGD: Muestras ponderadas</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_comparison.html#sphx-glr-auto-examples-linear-model-plot-sgd-comparison-py"><span class="std std-ref">Comparación de varios solucionadores en línea</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_separating_hyperplane_unbalanced.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-unbalanced-py"><span class="std std-ref">SVM: Hiperplano de separación para clases desequilibradas</span></a> (Ver la Nota en el ejemplo)</p></li>
+</ul>
+</div>
+</section>
+<section id="regression">
+<h2><span class="section-number">1.5.2. </span>Regresión<a class="headerlink" href="#regression" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La clase <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> implementa una rutina de aprendizaje de descenso de gradiente estocástico simple que soporta diferentes funciones de pérdida y penalizaciones para ajustar modelos de regresión lineal. <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> es muy adecuada para problemas de regresión con un gran número de muestras de entrenamiento (&gt; 10.000), para otros problemas recomendamos <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>, <a class="reference internal" href="generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a>, o <a class="reference internal" href="generated/sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElasticNet</span></code></a>.</p>
+<p>La función de pérdida concreta puede establecerse mediante el parámetro <code class="docutils literal notranslate"><span class="pre">loss</span></code>. <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> admite las siguientes funciones de pérdida:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;squared_loss&quot;</span></code>: Mínimos cuadrados ordinarios,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;huber&quot;</span></code>: Pérdida de Huber para una regresión robusta,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;epsilon_insensitive&quot;</span></code>: Regresión de Vectores de Soporte lineal.</p></li>
+</ul>
+</div></blockquote>
+<p>Por favor, consulta las fórmulas en <a class="reference internal" href="#sgd-mathematical-formulation"><span class="std std-ref">la sección matemática más abajo</span></a>. Las funciones de pérdida Huber e insensibles a épsilon pueden utilizarse para una regresión robusta. La anchura de la región insensible debe especificarse mediante el parámetro <code class="docutils literal notranslate"><span class="pre">epsilon</span></code>. Este parámetro depende de la escala de las variables objetivo.</p>
+<p>El parámetro <code class="docutils literal notranslate"><span class="pre">penalty</span></code> determina la regularización que se utilizará (ver la descripción anterior en la sección de clasificación).</p>
+<p><a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> también admite el SGD promediado <a class="footnote-reference brackets" href="#id14" id="id3">10</a> (de nuevo, ver la descripción anterior en la sección de clasificación).</p>
+<p>Para la regresión con una pérdida cuadrada y una penalización l2, está disponible otra variante de SGD con una estrategia de promediación con el algoritmo Gradiente Medio Estocástico (Stochastic Average Gradient, SAG), disponible como un solucionador en <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>.</p>
+</section>
+<section id="stochastic-gradient-descent-for-sparse-data">
+<h2><span class="section-number">1.5.3. </span>Descenso de Gradiente Estocástico para datos dispersos<a class="headerlink" href="#stochastic-gradient-descent-for-sparse-data" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La implementación dispersa produce resultados ligeramente diferentes de la implementación densa, debido a una tasa de aprendizaje reducida para el intercepto. Ver <a class="reference internal" href="#implementation-details"><span class="std std-ref">Detalles de implementación</span></a>.</p>
+</div>
+<p>Hay soporte integrado para datos dispersos dados en cualquier matriz en un formato soportado por <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html">scipy.sparse</a>. Sin embargo, para obtener la máxima eficiencia, utiliza el formato de matriz CSR definido en <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html">scipy.sparse.csr_matrix</a>.</p>
+<div class="topic">
+<p class="topic-title">Examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Clasificación de documentos de texto utilizando características dispersas</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="complexity">
+<h2><span class="section-number">1.5.4. </span>Complejidad<a class="headerlink" href="#complexity" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La mayor ventaja de SGD es su eficiencia, que es básicamente lineal en el número de ejemplos de entrenamiento. Si X es una matriz de tamaño (n, p) el entrenamiento tiene un costo de <span class="math notranslate nohighlight">\(O(k n \bar p)\)</span>, donde k es el número de iteraciones (épocas) y <span class="math notranslate nohighlight">\(bar p\)</span> es el número promedio de atributos distintos de cero por muestra.</p>
+<p>Sin embargo, los resultados teóricos recientes muestran que el tiempo de ejecución para obtener cierta precisión de optimización deseada no aumenta a medida que aumenta el tamaño del conjunto de entrenamiento.</p>
+</section>
+<section id="stopping-criterion">
+<h2><span class="section-number">1.5.5. </span>Criterio de parada<a class="headerlink" href="#stopping-criterion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Las clases <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> y <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> proporcionan dos criterios para detener el algoritmo cuando se alcanza un determinado nivel de convergencia:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Con <code class="docutils literal notranslate"><span class="pre">early_stopping=True</span></code>, los datos de entrada se dividen en un conjunto de entrenamiento y un conjunto de validación. El modelo se ajusta al conjunto de entrenamiento y el criterio de parada se basa en la puntuación de la predicción (utilizando el método <code class="docutils literal notranslate"><span class="pre">score</span></code>) calculada en el conjunto de validación. El tamaño del conjunto de validación puede modificarse con el parámetro <code class="docutils literal notranslate"><span class="pre">validation_fraction</span></code>.</p></li>
+<li><p>Con <code class="docutils literal notranslate"><span class="pre">early_stopping=False</span></code>, el modelo se ajusta a todos los datos de entrada y el criterio de parada se basa en la función objetivo calculada en los datos de entrenamiento.</p></li>
+</ul>
+</div></blockquote>
+<p>En ambos casos, el criterio se evalúa una vez por época, y el algoritmo se detiene cuando el criterio no mejora <code class="docutils literal notranslate"><span class="pre">n_iter_no_change</span></code> veces seguidas. La mejora se evalúa con la tolerancia absoluta <code class="docutils literal notranslate"><span class="pre">tol</span></code>, y el algoritmo se detiene en cualquier caso después de un número máximo de iteraciones <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>.</p>
+</section>
+<section id="tips-on-practical-use">
+<h2><span class="section-number">1.5.6. </span>Consejos de Uso Práctico<a class="headerlink" href="#tips-on-practical-use" title="Enlazar permanentemente con este título">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p>El Descenso de Gradiente Estocástico es sensible al escalamiento de las características, por lo que es muy recomendable escalar tus datos. Por ejemplo, escala cada atributo del vector de entrada X a [0,1] o [-1,+1], o estandarízalo para que tenga media 0 y varianza 1. Ten en cuenta que el <em>mismo</em> escalamiento debe aplicarse al vector de prueba para obtener resultados significativos. Esto puede hacerse fácilmente utilizando <code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>  <span class="c1"># Don&#39;t cheat - fit only on training data</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># apply same transformation to test data</span>
+
+<span class="c1"># Or better yet: use a pipeline!</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="n">est</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">SGDClassifier</span><span class="p">())</span>
+<span class="n">est</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">est</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Si tus atributos tienen una escala intrínseca (por ejemplo, las frecuencias de las palabras o las características de los indicadores) el escalamiento no es necesario.</p>
+</li>
+<li><p>La mejor manera de encontrar un término de regularización razonable <span class="math notranslate nohighlight">\(\alpha\)</span> es utilizando la búsqueda automática de hiperparámetros, por ejemplo, <a class="reference internal" href="generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> o <a class="reference internal" href="generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>, normalmente en el rango <code class="docutils literal notranslate"><span class="pre">10.0**-np.arange(1,7)</span></code>.</p></li>
+<li><p>Empíricamente, encontramos que el SGD converge después de observar aproximadamente 10^6 muestras de entrenamiento. Por tanto, una primera estimación razonable del número de iteraciones es <code class="docutils literal notranslate"><span class="pre">max_iter</span> <span class="pre">=</span> <span class="pre">np.ceil(10**6</span> <span class="pre">/</span> <span class="pre">n)</span></code>, donde <code class="docutils literal notranslate"><span class="pre">n</span></code> es el tamaño del conjunto de entrenamiento.</p></li>
+<li><p>Si se aplica el SGD a las características extraídas mediante el PCA, descubrimos que a menudo es prudente escalar los valores de las características mediante una constante «c» tal que la norma L2 promedio de los datos de entrenamiento sea igual a uno.</p></li>
+<li><p>Descubrimos que la SGD Promediada funciona mejor con un mayor número de características y una eta0 más alta</p></li>
+</ul>
+</div></blockquote>
+<div class="topic">
+<p class="topic-title">References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf">«Efficient BackProp»</a>
+Y. LeCun, L. Bottou, G. Orr, K. Müller - In Neural Networks: Tricks
+of the Trade 1998.</p></li>
+</ul>
+</div>
+</section>
+<section id="mathematical-formulation">
+<span id="sgd-mathematical-formulation"></span><h2><span class="section-number">1.5.7. </span>Formulación matemática<a class="headerlink" href="#mathematical-formulation" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Describimos aquí los detalles matemáticos del procedimiento SGD. Un buen resumen con las tasas de convergencia se puede encontrar en <a class="footnote-reference brackets" href="#id16" id="id4">12</a>.</p>
+<p>Dado un conjunto de ejemplos de entrenamiento <span class="math notranslate nohighlight">\((x_1, y_1), \ldots, (x_n, y_n)\)</span> donde <span class="math notranslate nohighlight">\(x_i \in \mathbf{R}^m\)</span> y <span class="math notranslate nohighlight">\(y_i \in \mathcal{R}\)</span> (:math: <code class="docutils literal notranslate"><span class="pre">y_i</span> <span class="pre">in</span> <span class="pre">{-1,</span> <span class="pre">1}</span></code> para la clasificación), nuestro objetivo es aprender una función de puntuación lineal <span class="math notranslate nohighlight">\(f(x) = w^T x + b\)</span> con parámetros de modelo <span class="math notranslate nohighlight">\(w \in \mathbf{R}^m\)</span> e intercepto <span class="math notranslate nohighlight">\(b \in \mathbf{R}\)</span>. Para hacer predicciones para la clasificación binaria, simplemente revisamos el signo de <span class="math notranslate nohighlight">\(f(x)\)</span>. Para encontrar los parámetros del modelo, minimizamos el error de entrenamiento regularizado dado por</p>
+<div class="math notranslate nohighlight">
+\[E(w,b) = \frac{1}{n}\sum_{i=1}^{n} L(y_i, f(x_i)) + \alpha R(w)\]</div>
+<p>donde <span class="math notranslate nohighlight">\(L\)</span> es una función de pérdida que mide el (des)ajuste del modelo y <span class="math notranslate nohighlight">\(R\)</span> es un término de regularización (también conocido como penalización) que penaliza la complejidad del modelo; <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> es un hiperparámetro no negativo que controla la fuerza de la regularización.</p>
+<p>Diferentes elecciones de <span class="math notranslate nohighlight">\(L\)</span> implican diferentes clasificadores o regresores:</p>
+<ul class="simple">
+<li><p>Bisagra (margen blando): equivalente a la Clasificación por Vectores de Soporte. <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = \max(0, 1 - y_i f(x_i))\)</span>.</p></li>
+<li><p>Perceptrón: <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = \max(0, - y_i f(x_i))\)</span>.</p></li>
+<li><p>Huber modificado: <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = \max(0, 1 - y_i f(x_i))^2\)</span> si <span class="math notranslate nohighlight">\(y_i f(x_i) &gt; 1\)</span>, y <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = -4 y_i f(x_i)\)</span> en caso contrario.</p></li>
+<li><p>Log: equivalente a la Regresión Logística. <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = \log(1 + \exp (-y_i f(x_i)))\)</span>.</p></li>
+<li><p>Mínimos cuadrados: Regresión lineal (Ridge o Lasso dependiendo de <span class="math notranslate nohighlight">\(R\)</span>). <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = \frac{1}{2}(y_i - f(x_i))^2\)</span>.</p></li>
+<li><p>Huber: menos sensible a los valores atípicos que los mínimos cuadrados. Es equivalente a los mínimos cuadrados cuando <span class="math notranslate nohighlight">\(|y_i - f(x_i)|leq \varepsilon\)</span>, y <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = \varepsilon |y_i - f(x_i)| - \frac{1}{2} \varepsilon^2\)</span> de lo contrario.</p></li>
+<li><p>Insensible a épsilon: (margen blando) equivalente a la Regresión de Vectores de Soporte. <span class="math notranslate nohighlight">\(L(y_i, f(x_i)) = \max(0, |y_i - f(x_i)| - \varepsilon)\)</span>.</p></li>
+</ul>
+<p>Todas las funciones de pérdida anteriores pueden considerarse como un límite superior del error de clasificación incorrecta (pérdida de cero a uno), como se muestra en la siguiente Figura.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_sgd_loss_functions.html"><img alt="../_images/sphx_glr_plot_sgd_loss_functions_001.png" src="../_images/sphx_glr_plot_sgd_loss_functions_001.png" style="width: 480.0px; height: 360.0px;" /></a>
+</figure>
+<p>Las opciones populares para el término de regularización <span class="math notranslate nohighlight">\(R\)</span> (el parámetro <code class="docutils literal notranslate"><span class="pre">penalty</span></code>) incluyen:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Norma L2: <span class="math notranslate nohighlight">\(R(w) := \frac{1}{2} \sum_{j=1}^{m} w_j^2 = ||w||_2^2\)</span>,</p></li>
+<li><p>Norma L1: <span class="math notranslate nohighlight">\(R(w) := \sum_{j=1}^{m} |w_j|\)</span>, lo que conduce a soluciones dispersas.</p></li>
+<li><p>Red elástica: <span class="math notranslate nohighlight">\(R(w) := \frac{\rho}{2} \sum_{j=1}^{n} w_j^2 + (1-\rho) \sum_{j=1}^{m} |w_j|\)</span>, una combinación convexa de L2 y L1, donde <span class="math notranslate nohighlight">\(\rho\)</span> viene dado por <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">l1_ratio</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>La Figura siguiente muestra los contornos de los diferentes términos de regularización en un espacio de parámetros bidimensional (<span class="math notranslate nohighlight">\(m=2\)</span>) cuando <span class="math notranslate nohighlight">\(R(w) = 1\)</span>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_sgd_penalties.html"><img alt="../_images/sphx_glr_plot_sgd_penalties_001.png" src="../_images/sphx_glr_plot_sgd_penalties_001.png" style="width: 750.0px; height: 750.0px;" /></a>
+</figure>
+<section id="id5">
+<h3><span class="section-number">1.5.7.1. </span>SGD<a class="headerlink" href="#id5" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El descenso de gradiente estocástico es un método de optimización para problemas de optimización sin restricciones. A diferencia del descenso de gradiente (por lotes), el SGD se aproxima al verdadero gradiente de <span class="math notranslate nohighlight">\(E(w,b)\)</span> considerando un solo ejemplo de entrenamiento a la vez.</p>
+<p>La clase <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> implementa una rutina de aprendizaje SGD de primer orden. El algoritmo itera sobre los ejemplos de entrenamiento y para cada ejemplo actualiza los parámetros del modelo según la regla de actualización dada por</p>
+<div class="math notranslate nohighlight">
+\[w \leftarrow w - \eta \left[\alpha \frac{\partial R(w)}{\partial w}
++ \frac{\partial L(w^T x_i + b, y_i)}{\partial w}\right]\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\eta\)</span> es la tasa de aprendizaje que controla el tamaño del paso en el espacio de parámetros. El intercepto <span class="math notranslate nohighlight">\(b\)</span> se actualiza de forma similar pero sin regularización (y con un decaimiento adicional para matrices dispersas, como se detalla en <a class="reference internal" href="#implementation-details"><span class="std std-ref">Detalles de implementación</span></a>).</p>
+<p>La tasa de aprendizaje <span class="math notranslate nohighlight">\(\eta\)</span> puede ser constante o gradualmente decreciente. Para la clasificación, el programa de tasa de aprendizaje por defecto (<code class="docutils literal notranslate"><span class="pre">learning_rate='optimal'</span></code>) viene dado por</p>
+<div class="math notranslate nohighlight">
+\[\eta^{(t)} = \frac {1}{\alpha  (t_0 + t)}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(t\)</span> es el paso de tiempo (hay un total de <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">*</span> <span class="pre">n_iter</span></code> pasos de tiempo), <span class="math notranslate nohighlight">\(t_0\)</span> se determina en base a una heurística propuesta por Léon Bottou de forma que las actualizaciones iniciales esperadas son comparables con el tamaño esperado de las ponderaciones (esto suponiendo que la norma de las muestras de entrenamiento es aproximadamente 1). La definición exacta se puede encontrar en <code class="docutils literal notranslate"><span class="pre">_init_t</span></code> en <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSGD</span></code>.</p>
+<p>Para la regresión, el programa de la tasa de aprendizaje por defecto es el escalamiento inverso (<code class="docutils literal notranslate"><span class="pre">learning_rate='invscaling'</span></code>), dado por</p>
+<div class="math notranslate nohighlight">
+\[\eta^{(t)} = \frac{eta_0}{t^{power\_t}}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(eta_0\)</span> y <span class="math notranslate nohighlight">\(power\_t\)</span> son hiperparámetros elegidos por el usuario mediante <code class="docutils literal notranslate"><span class="pre">eta0</span></code> y <code class="docutils literal notranslate"><span class="pre">power_t</span></code>, respectivamente.</p>
+<p>Para una tasa de aprendizaje constante, utiliza <code class="docutils literal notranslate"><span class="pre">learning_rate='constant'</span></code> y utiliza <code class="docutils literal notranslate"><span class="pre">eta0</span></code> para especificar la tasa de aprendizaje.</p>
+<p>Para una tasa de aprendizaje adaptativamente decreciente, utiliza <code class="docutils literal notranslate"><span class="pre">learning_rate='adaptive'</span></code> y utiliza <code class="docutils literal notranslate"><span class="pre">eta0</span></code> para especificar la tasa de aprendizaje inicial. Cuando se alcanza el criterio de parada, la tasa de aprendizaje es dividida entre 5, y el algoritmo no se detiene. El algoritmo se detiene cuando la tasa de aprendizaje es inferior a 1e-6.</p>
+<p>Se puede acceder a los parámetros del modelo a través de los atributos <code class="docutils literal notranslate"><span class="pre">coef_</span></code> y <code class="docutils literal notranslate"><span class="pre">intercept_</span></code>: <code class="docutils literal notranslate"><span class="pre">coef_</span></code> contiene las ponderaciones <span class="math notranslate nohighlight">\(w\)</span> e <code class="docutils literal notranslate"><span class="pre">intercept_</span></code> contiene <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<p>Cuando se utiliza el SGD Promediado (con el parámetro <code class="docutils literal notranslate"><span class="pre">average</span></code>), <code class="docutils literal notranslate"><span class="pre">coef_</span></code> se establece en la ponderación promedio de todas las actualizaciones: <code class="docutils literal notranslate"><span class="pre">coef_</span></code> <span class="math notranslate nohighlight">\(= \frac{1}{T} \sum_{t=0}^{T-1} w^{(t)}\)</span>, donde <span class="math notranslate nohighlight">\(T\)</span> es el número total de actualizaciones, encontradas en el atributo <code class="docutils literal notranslate"><span class="pre">t_</span></code>.</p>
+</section>
+</section>
+<section id="implementation-details">
+<span id="id6"></span><h2><span class="section-number">1.5.8. </span>Detalles de implementación<a class="headerlink" href="#implementation-details" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La implementación de SGD está influenciada por el <code class="docutils literal notranslate"><span class="pre">Stochastic</span> <span class="pre">Gradient</span> <span class="pre">SVM</span></code> de <a class="footnote-reference brackets" href="#id10" id="id7">7</a>. De forma similar a SvmSGD, el vector de ponderaciones se representa como el producto de un escalar y un vector que permite una actualización eficiente de las ponderaciones en el caso de la regularización L2. En el caso de una entrada dispersa <code class="docutils literal notranslate"><span class="pre">X</span></code>, el intercepto se actualiza con una tasa de aprendizaje menor (multiplicada por 0,01) para tener en cuenta el hecho de que se actualiza con mayor frecuencia. Los ejemplos de entrenamiento se recogen secuencialmente y la tasa de aprendizaje se reduce después de cada ejemplo observado. Adoptamos el programa de tasa de aprendizaje de <a class="footnote-reference brackets" href="#id12" id="id8">8</a>. Para la clasificación multiclase, se utiliza un enfoque de «uno contra todos». Utilizamos el algoritmo de gradiente truncado propuesto en <a class="footnote-reference brackets" href="#id13" id="id9">9</a> para la regularización L1 (y la Red Elástica). El código está escrito en Cython.</p>
+<div class="topic">
+<p class="topic-title">References:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p><a class="reference external" href="https://leon.bottou.org/projects/sgd">«Stochastic Gradient Descent»</a> L. Bottou - Website, 2010.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
+<dd><p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.74.8513">«Pegasos: Primal estimated sub-gradient solver for svm»</a>
+S. Shalev-Shwartz, Y. Singer, N. Srebro - In Proceedings of ICML “07.</p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p><a class="reference external" href="https://www.aclweb.org/anthology/P/P09/P09-1054.pdf">«Stochastic gradient descent training for l1-regularized
+log-linear models with cumulative penalty»</a>
+Y. Tsuruoka, J. Tsujii, S. Ananiadou - In Proceedings of the AFNLP/ACL
+“09.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets">10</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p><a class="reference external" href="https://arxiv.org/pdf/1107.2490v2.pdf">«Towards Optimal One Pass Large Scale Learning with
+Averaged Stochastic Gradient Descent»</a>
+Xu, Wei</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id1">11</a></span></dt>
+<dd><p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.124.4696">«Regularization and variable selection via the elastic net»</a>
+H. Zou, T. Hastie - Journal of the Royal Statistical Society Series B,
+67 (2), 301-320.</p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id4">12</a></span></dt>
+<dd><p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.58.7377">«Solving large scale linear prediction problems using stochastic
+gradient descent algorithms»</a>
+T. Zhang - In Proceedings of ICML “04.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+
+      </div>
+    <div class="container">
+      <footer class="sk-content-footer">
+            &copy; 2007 - 2020, scikit-learn developers (BSD License).
+          <a href="../_sources/modules/sgd.rst.txt" rel="nofollow">Mostrar la fuente de esta página</a>
+      </footer>
+    </div>
+  </div>
+</div>
+<script src="../_static/js/vendor/bootstrap.min.js"></script>
+
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+  /*** Hide navbar when scrolling down ***/
+  // Returns true when headerlink target matches hash in url
+  (function() {
+    hashTargetOnTop = function() {
+        var hash = window.location.hash;
+        if ( hash.length < 2 ) { return false; }
+
+        var target = document.getElementById( hash.slice(1) );
+        if ( target === null ) { return false; }
+
+        var top = target.getBoundingClientRect().top;
+        return (top < 2) && (top > -2);
+    };
+
+    // Hide navbar on load if hash target is on top
+    var navBar = document.getElementById("navbar");
+    var navBarToggler = document.getElementById("sk-navbar-toggler");
+    var navBarHeightHidden = "-" + navBar.getBoundingClientRect().height + "px";
+    var $window = $(window);
+
+    hideNavBar = function() {
+        navBar.style.top = navBarHeightHidden;
+    };
+
+    showNavBar = function() {
+        navBar.style.top = "0";
+    }
+
+    if (hashTargetOnTop()) {
+        hideNavBar()
+    }
+
+    var prevScrollpos = window.pageYOffset;
+    hideOnScroll = function(lastScrollTop) {
+        if (($window.width() < 768) && (navBarToggler.getAttribute("aria-expanded") === 'true')) {
+            return;
+        }
+        if (lastScrollTop > 2 && (prevScrollpos <= lastScrollTop) || hashTargetOnTop()){
+            hideNavBar()
+        } else {
+            showNavBar()
+        }
+        prevScrollpos = lastScrollTop;
+    };
+
+    /*** high performance scroll event listener***/
+    var raf = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame;
+    var lastScrollTop = $window.scrollTop();
+
+    if (raf) {
+        loop();
+    }
+
+    function loop() {
+        var scrollTop = $window.scrollTop();
+        if (lastScrollTop === scrollTop) {
+            raf(loop);
+            return;
+        } else {
+            lastScrollTop = scrollTop;
+            hideOnScroll(lastScrollTop);
+            raf(loop);
+        }
+    }
+  })();
+});
+
+</script>
+    
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+</body>
+</html>
