@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-07-30 01:39\n"
+"PO-Revision-Date: 2021-07-30 02:52\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -204,19 +204,19 @@ msgstr "Consideremos un caso en el que el recurso es el número de muestras, y e
 
 #: ../modules/grid_search.rst:249
 msgid "But depending on the number of candidates, we might run less than 7 iterations: if we start with a **small** number of candidates, the last iteration might use less than 640 samples, which means not using all the available resources (samples). For example if we start with 5 candidates, we only need 2 iterations: 5 candidates for the first iteration, then `5 // 2 = 2` candidates at the second iteration, after which we know which candidate performs the best (so we don't need a third one). We would only be using at most 20 samples which is a waste since we have 1000 samples at our disposal. On the other hand, if we start with a **high** number of candidates, we might end up with a lot of candidates at the last iteration, which may not always be ideal: it means that many candidates will run with the full resources, basically reducing the procedure to standard search."
-msgstr ""
+msgstr "Pero dependiendo del número de candidatos, podríamos realizar menos de 7 iteraciones: si empezamos con un **pequeño** número de candidatos, la última iteración podría utilizar menos de 640 muestras, lo que significa no utilizar todos los recursos disponibles (muestras). Por ejemplo, si empezamos con 5 candidatos, sólo necesitaremos 2 iteraciones: 5 candidatos para la primera iteración, y luego `5 // 2 = 2` candidatos en la segunda iteración, después de la que sabremos cuál es el mejor candidato (por lo que no necesitamos una tercera). Sólo estaríamos utilizando como máximo 20 muestras, lo cual es un desperdicio ya que tenemos 1000 muestras a nuestra disposición. Por otro lado, si empezamos con un **número elevado** de candidatos, podríamos acabar con muchos candidatos en la última iteración, lo que no siempre es ideal: significa que muchos candidatos correrán con todos los recursos, reduciendo básicamente el procedimiento a una búsqueda estándar."
 
 #: ../modules/grid_search.rst:262
 msgid "In the case of :class:`HalvingRandomSearchCV`, the number of candidates is set by default such that the last iteration uses as much of the available resources as possible. For :class:`HalvingGridSearchCV`, the number of candidates is determined by the `param_grid` parameter. Changing the value of ``min_resources`` will impact the number of possible iterations, and as a result will also have an effect on the ideal number of candidates."
-msgstr ""
+msgstr "En el caso de :class:`HalvingRandomSearchCV`, el número de candidatos se establece por defecto de forma que la última iteración utilice la mayor cantidad posible de recursos disponibles. Para :class:`HalvingGridSearchCV`, el número de candidatos viene determinado por el parámetro `param_grid`. Cambiar el valor de ``min_resources`` afectará al número de iteraciones posibles, y como resultado también tendrá un efecto en el número ideal de candidatos."
 
 #: ../modules/grid_search.rst:269
 msgid "Another consideration when choosing ``min_resources`` is whether or not it is easy to discriminate between good and bad candidates with a small amount of resources. For example, if you need a lot of samples to distinguish between good and bad parameters, a high ``min_resources`` is recommended. On the other hand if the distinction is clear even with a small amount of samples, then a small ``min_resources`` may be preferable since it would speed up the computation."
-msgstr ""
+msgstr "Otra consideración a la hora de elegir ``min_recursos`` es si es fácil o no discriminar entre candidatos buenos y malos con una pequeña cantidad de recursos. Por ejemplo, si se necesitas muchas muestras para distinguir entre parámetros buenos y malos, se recomienda un ``min_resources`` alto. Por otro lado, si la distinción es clara incluso con una pequeña cantidad de muestras, entonces puede ser preferible un ``min_resources`` pequeño, ya que aceleraría el cálculo."
 
 #: ../modules/grid_search.rst:277
 msgid "Notice in the example above that the last iteration does not use the maximum amount of resources available: 1000 samples are available, yet only 640 are used, at most. By default, both :class:`HalvingRandomSearchCV` and :class:`HalvingGridSearchCV` try to use as many resources as possible in the last iteration, with the constraint that this amount of resources must be a multiple of both `min_resources` and `factor` (this constraint will be clear in the next section). :class:`HalvingRandomSearchCV` achieves this by sampling the right amount of candidates, while :class:`HalvingGridSearchCV` achieves this by properly setting `min_resources`. Please see :ref:`exhausting_the_resources` for details."
-msgstr ""
+msgstr "Observa en el ejemplo anterior que la última iteración no utiliza el máximo de recursos disponibles: Hay 1000 muestras disponibles, pero sólo se utilizan 640, como máximo. Por defecto, tanto :class:`HalvingRandomSearchCV` como :class:`HalvingGridSearchCV` intentan utilizar la mayor cantidad de recursos posible en la última iteración, con la restricción de que esta cantidad de recursos debe ser un múltiplo tanto de `min_resources` como de `factor` (esta restricción quedará clara en la siguiente sección). :class:`HalvingRandomSearchCV` logra esto mediante el muestreo de la cantidad correcta de candidatos, mientras que :class:`HalvingGridSearchCV` lo logra estableciendo adecuadamente `min_resources`. Por favor, consulta :ref:`exhausting_the_resources` para más detalles."
 
 #: ../modules/grid_search.rst:291
 msgid "Amount of resource and number of candidates at each iteration"
@@ -224,15 +224,15 @@ msgstr "Cantidad de recursos y número de candidatos en cada iteración"
 
 #: ../modules/grid_search.rst:293
 msgid "At any iteration `i`, each candidate is allocated a given amount of resources which we denote `n_resources_i`. This quantity is controlled by the parameters ``factor`` and ``min_resources`` as follows (`factor` is strictly greater than 1)::"
-msgstr ""
+msgstr "En cualquier iteración `i`, a cada candidato se le asigna una cantidad determinada de recursos que denotamos `n_resources_i`. Esta cantidad está controlada por los parámetros ``factor`` y ``min_resources`` como sigue (`factor` es estrictamente mayor que 1)::"
 
 #: ../modules/grid_search.rst:300 ../modules/grid_search.rst:310
 msgid "or equivalently::"
-msgstr ""
+msgstr "o, de forma equivalente::"
 
 #: ../modules/grid_search.rst:304
 msgid "where ``min_resources == n_resources_0`` is the amount of resources used at the first iteration. ``factor`` also defines the proportions of candidates that will be selected for the next iteration::"
-msgstr ""
+msgstr "donde ``min_resources == n_resources_0`` es la cantidad de recursos utilizados en la primera iteración. ``factor`` también define las proporciones de candidatos que se seleccionarán para la siguiente iteración::"
 
 #: ../modules/grid_search.rst:315
 msgid "So in the first iteration, we use ``min_resources`` resources ``n_candidates`` times. In the second iteration, we use ``min_resources * factor`` resources ``n_candidates // factor`` times. The third again multiplies the resources per candidate and divides the number of candidates. This process stops when the maximum amount of resource per candidate is reached, or when we have identified the best candidate. The best candidate is identified at the iteration that is evaluating `factor` or less candidates (see just below for an explanation)."
