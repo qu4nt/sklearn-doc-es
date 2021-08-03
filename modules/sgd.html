@@ -275,7 +275,7 @@
 <p><a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> soporta SGD promediado (averaged SGD, ASGD) <a class="footnote-reference brackets" href="#id14" id="id2">10</a>. El promediado puede activarse estableciendo <code class="docutils literal notranslate"><span class="pre">average=True</span></code>. ASGD realiza las mismas actualizaciones que el SGD regular (ver <a class="reference internal" href="#sgd-mathematical-formulation"><span class="std std-ref">Formulación matemática</span></a>), pero en lugar de utilizar el último valor de los coeficientes como atributo <code class="docutils literal notranslate"><span class="pre">coef_</span></code> (es decir, los valores de la última actualización), <code class="docutils literal notranslate"><span class="pre">coef_</span></code> se establece en su lugar en el valor <strong>promedio</strong> de los coeficientes en todas las actualizaciones. Lo mismo se hace con el atributo <code class="docutils literal notranslate"><span class="pre">intercept_</span></code>. Cuando se utiliza el ASGD, la tasa de aprendizaje puede ser mayor e incluso constante, lo que lleva, en algunos conjuntos de datos, a una aceleración del tiempo de entrenamiento.</p>
 <p>Para la clasificación con pérdida logística, otra variante de SGD con una estrategia de promediación está disponible con el algoritmo Gradiente Medio Estocástico (Stochastic Average Gradient , SAG), disponible como un solucionador en <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>.</p>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_separating_hyperplane.html#sphx-glr-auto-examples-linear-model-plot-sgd-separating-hyperplane-py"><span class="std std-ref">SGD: Hiperplano de separación de máximo margen</span></a>,</p></li>
 <li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_iris.html#sphx-glr-auto-examples-linear-model-plot-sgd-iris-py"><span class="std std-ref">Graficar el SGD multiclase en el conjunto de datos del iris</span></a></p></li>
@@ -309,7 +309,7 @@
 </div>
 <p>Hay soporte integrado para datos dispersos dados en cualquier matriz en un formato soportado por <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html">scipy.sparse</a>. Sin embargo, para obtener la máxima eficiencia, utiliza el formato de matriz CSR definido en <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html">scipy.sparse.csr_matrix</a>.</p>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Clasificación de documentos de texto utilizando características dispersas</span></a></p></li>
 </ul>
@@ -358,7 +358,7 @@
 </ul>
 </div></blockquote>
 <div class="topic">
-<p class="topic-title">References:</p>
+<p class="topic-title">Referencias:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf">«Efficient BackProp»</a>
 Y. LeCun, L. Bottou, G. Orr, K. Müller - In Neural Networks: Tricks
@@ -425,7 +425,7 @@ of the Trade 1998.</p></li>
 <span id="id6"></span><h2><span class="section-number">1.5.8. </span>Detalles de implementación<a class="headerlink" href="#implementation-details" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>La implementación de SGD está influenciada por el <code class="docutils literal notranslate"><span class="pre">Stochastic</span> <span class="pre">Gradient</span> <span class="pre">SVM</span></code> de <a class="footnote-reference brackets" href="#id10" id="id7">7</a>. De forma similar a SvmSGD, el vector de ponderaciones se representa como el producto de un escalar y un vector que permite una actualización eficiente de las ponderaciones en el caso de la regularización L2. En el caso de una entrada dispersa <code class="docutils literal notranslate"><span class="pre">X</span></code>, el intercepto se actualiza con una tasa de aprendizaje menor (multiplicada por 0,01) para tener en cuenta el hecho de que se actualiza con mayor frecuencia. Los ejemplos de entrenamiento se recogen secuencialmente y la tasa de aprendizaje se reduce después de cada ejemplo observado. Adoptamos el programa de tasa de aprendizaje de <a class="footnote-reference brackets" href="#id12" id="id8">8</a>. Para la clasificación multiclase, se utiliza un enfoque de «uno contra todos». Utilizamos el algoritmo de gradiente truncado propuesto en <a class="footnote-reference brackets" href="#id13" id="id9">9</a> para la regularización L1 (y la Red Elástica). El código está escrito en Cython.</p>
 <div class="topic">
-<p class="topic-title">References:</p>
+<p class="topic-title">Referencias:</p>
 <dl class="footnote brackets">
 <dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
 <dd><p><a class="reference external" href="https://leon.bottou.org/projects/sgd">«Stochastic Gradient Descent»</a> L. Bottou - Website, 2010.</p>

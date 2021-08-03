@@ -192,7 +192,7 @@
 <p>Se sabe que la matriz de covarianza de un conjunto de datos está bien aproximada por el clásico <em>estimador de máxima verosimilitud</em> (o «covarianza empírica»), siempre que el número de observaciones sea lo suficientemente grande en comparación con el número de características (las variables que describen las observaciones). Más concretamente, el estimador de máxima verosimilitud de una muestra es un estimador asintóticamente no sesgado de la matriz de covarianza de la población correspondiente.</p>
 <p>La matriz de covarianza empírica de una muestra puede calcularse utilizando la función <a class="reference internal" href="generated/sklearn.covariance.empirical_covariance.html#sklearn.covariance.empirical_covariance" title="sklearn.covariance.empirical_covariance"><code class="xref py py-func docutils literal notranslate"><span class="pre">empirical_covariance</span></code></a> del paquete, o ajustando un objeto <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> a la muestra de datos con el método <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance.fit" title="sklearn.covariance.EmpiricalCovariance.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">EmpiricalCovariance.fit</span></code></a>. Hay que tener en cuenta que los resultados dependen de si los datos están centrados, por lo que es conveniente utilizar el parámetro <code class="docutils literal notranslate"><span class="pre">assume_centered</span></code> con precisión. Más concretamente, si <code class="docutils literal notranslate"><span class="pre">assume_centered=False</span></code>, se supone que el conjunto de prueba tiene el mismo vector medio que el conjunto de entrenamiento. Si no es así, ambos deben ser centrados por el usuario, y se debe utilizar <code class="docutils literal notranslate"><span class="pre">assume_centered=True</span></code>.</p>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto de <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> a los datos.</p></li>
 </ul>
@@ -207,7 +207,7 @@
 <p>Matemáticamente, esta reducción consiste en disminuir la relación entre los valores propios más pequeños y los más grandes de la matriz de covarianza empírica. Puede hacerse simplemente desplazando cada autovalor según un desplazamiento dado, lo que equivale a encontrar el Estimador de Máxima Verosimilitud l2-penalizado de la matriz de covarianza. En la práctica, la reducción se reduce a una simple transformación convexa: <span class="math notranslate nohighlight">\(\Sigma_{\rm shrunk} = (1-\alpha)\hat{\Sigma} + \alpha\frac{\rm Tr}{hat{\Sigma}{p}\rm Id\)</span>.</p>
 <p>La elección de la cantidad de reducción, <span class="math notranslate nohighlight">\(\alpha\)</span> equivale a establecer un compromiso de sesgo/varianza, que se discute a continuación.</p>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto de <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> a los datos.</p></li>
 </ul>
@@ -224,13 +224,13 @@
 <p>Sin embargo, esto no ocurre en el procedimiento de Ledoit-Wolf cuando la covarianza de la población resulta ser un múltiplo de la matriz de identidad. En este caso, la estimación de la reducción de Ledoit-Wolf se aproxima a 1 a medida que aumenta el número de muestras. Esto indica que la estimación óptima de la matriz de covarianza en el sentido de Ledoit-Wolf es múltiplo de la identidad. Dado que la covarianza de la población ya es un múltiplo de la matriz de identidad, la solución de Ledoit-Wolf es efectivamente una estimación razonable.</p>
 </div>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> a los datos y para visualizar la eficiencia del estimador Ledoit-Wolf en términos de verosimilitud.</p></li>
 </ul>
 </div>
 <div class="topic">
-<p class="topic-title">References:</p>
+<p class="topic-title">Referencias:</p>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>O. Ledoit and M. Wolf, «A Well-Conditioned Estimator for Large-Dimensional
@@ -251,7 +251,7 @@ February 2004, pages 365-411.</p>
 </figcaption>
 </figure>
 <div class="topic">
-<p class="topic-title">References:</p>
+<p class="topic-title">Referencias:</p>
 <dl class="footnote brackets">
 <dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
 <dd><p>Chen et al., «Shrinkage Algorithms for MMSE Covariance Estimation», IEEE Trans. on Sign. Proc., Volume 58, Issue 10, Octubre 2010.</p>
@@ -259,7 +259,7 @@ February 2004, pages 365-411.</p>
 </dl>
 </div>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p>Vea <a class="reference internal" href="../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Estimación de la covarianza de la contracción: LedoitWolf vs OAS y max-likelihood</span></a> para un ejemplo sobre cómo ajustar un objeto de <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> a los datos.</p></li>
 <li><p>Véase <a class="reference internal" href="../auto_examples/covariance/plot_lw_vs_oas.html#sphx-glr-auto-examples-covariance-plot-lw-vs-oas-py"><span class="std std-ref">Estimación de Ledoit-Wolf contra OAS</span></a> para visualizar la diferencia del error cuadrático medio entre un estimador <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> y un estimador <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> de la covarianza.</p></li>
@@ -300,14 +300,14 @@ February 2004, pages 365-411.</p>
             \big)\]</div>
 <p>Donde <span class="math notranslate nohighlight">\(K\)</span> es la matriz de precisión a estimar, y <span class="math notranslate nohighlight">\(S\)</span> es la matriz de covarianza de la muestra. <span class="math notranslate nohighlight">\(\|K\_1\)</span> es la suma de los valores absolutos de los coeficientes fuera de diagonal de <span class="math notranslate nohighlight">\(K\)</span>. El algoritmo empleado para resolver este problema es el algoritmo GLasso, del trabajo de Friedman 2008 en Biostatistics. Es el mismo algoritmo que aparece en el paquete <code class="docutils literal notranslate"><span class="pre">glasso</span></code> de R.</p>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../auto_examples/covariance/plot_sparse_cov.html#sphx-glr-auto-examples-covariance-plot-sparse-cov-py"><span class="std std-ref">Estimación de la covarianza inversa dispersa</span></a>: ejemplo de datos sintéticos que muestran alguna recuperación de una estructura, y compara con otros estimadores de covariancia.</p></li>
 <li><p><a class="reference internal" href="../auto_examples/applications/plot_stock_market.html#sphx-glr-auto-examples-applications-plot-stock-market-py"><span class="std std-ref">Visualización de la estructura bursátil</span></a>: ejemplo en datos reales del mercado de valores, encontrando qué símbolos están más relacionados.</p></li>
 </ul>
 </div>
 <div class="topic">
-<p class="topic-title">References:</p>
+<p class="topic-title">Referencias:</p>
 <ul class="simple">
 <li><p>Friedman et al, <a class="reference external" href="https://biostatistics.oxfordjournals.org/content/9/3/432.short">«Sparse inverse covariance estimation with the
 graphical lasso»</a>,
@@ -325,7 +325,7 @@ Biostatistics 9, pp 432, 2008</p></li>
 <p>Rousseeuw y Van Driessen <a class="footnote-reference brackets" href="#id12" id="id10">4</a> desarrollaron el algoritmo FastMCD para calcular el Determinante de Covarianza Mínimo. Este algoritmo se utiliza en scikit-learn cuando se ajusta un objeto MCD a los datos. El algoritmo FastMCD también calcula una estimación robusta de la ubicación del conjunto de datos al mismo tiempo.</p>
 <p>Se puede acceder a las estimaciones en bruto como atributos <code class="docutils literal notranslate"><span class="pre">raw_location_</span></code> y <code class="docutils literal notranslate"><span class="pre">raw_covariance_</span></code> de un objeto estimador de covarianza robusta <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a>.</p>
 <div class="topic">
-<p class="topic-title">References:</p>
+<p class="topic-title">Referencias:</p>
 <dl class="footnote brackets">
 <dt class="label" id="id11"><span class="brackets">3</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id9">2</a>)</span></dt>
 <dd><p>P. J. Rousseeuw. Least median of squares regression.
@@ -339,7 +339,7 @@ for Quality, TECHNOMETRICS.</p>
 </dl>
 </div>
 <div class="topic">
-<p class="topic-title">Examples:</p>
+<p class="topic-title">Ejemplos:</p>
 <ul class="simple">
 <li><p>Puedes consultar <a class="reference internal" href="../auto_examples/covariance/plot_robust_vs_empirical_covariance.html#sphx-glr-auto-examples-covariance-plot-robust-vs-empirical-covariance-py"><span class="std std-ref">Estimación de la covarianza robusta frente a la empírica</span></a> para ver un ejemplo sobre cómo ajustar un objeto <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a> a los datos y ver cómo la estimación sigue siendo precisa a pesar de la presencia de valores atípicos.</p></li>
 <li><p>Ver <a class="reference internal" href="../auto_examples/covariance/plot_mahalanobis_distances.html#sphx-glr-auto-examples-covariance-plot-mahalanobis-distances-py"><span class="std std-ref">Estimación robusta de la covarianza y relevancia de las distancias de Mahalanobis</span></a> para visualizar la diferencia entre los estimadores de covarianza <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> y <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a> en términos de la distancia de Mahalanobis (así obtenemos también una mejor estimación de la matriz de precisión).</p></li>
