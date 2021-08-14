@@ -161,12 +161,12 @@
             <div class="sk-sidebar-toc">
               <ul>
 <li><a class="reference internal" href="#">Imputar valores faltantes antes de crear un estimador</a><ul>
-<li><a class="reference internal" href="#download-the-data-and-make-missing-values-sets">Descargar los datos y hacer que falten los valores</a></li>
+<li><a class="reference internal" href="#download-the-data-and-make-missing-values-sets">Descargar los datos y hacer conjuntos de valores faltantes</a></li>
 <li><a class="reference internal" href="#impute-the-missing-data-and-score">Imputar los datos que faltan y la puntuación</a><ul>
 <li><a class="reference internal" href="#missing-information">Información faltante</a></li>
 <li><a class="reference internal" href="#estimate-the-score">Estimar la puntuación</a></li>
 <li><a class="reference internal" href="#replace-missing-values-by-0">Reemplaza valores faltantes por 0</a></li>
-<li><a class="reference internal" href="#knn-imputation-of-the-missing-values">Imputación kNN de los valores perdidos</a></li>
+<li><a class="reference internal" href="#knn-imputation-of-the-missing-values">Imputación kNN de los valores faltantes</a></li>
 <li><a class="reference internal" href="#impute-missing-values-with-mean">Imputa valores faltantes con media</a></li>
 <li><a class="reference internal" href="#iterative-imputation-of-the-missing-values">Imputación iterativa de los valores faltantes</a></li>
 </ul>
@@ -192,7 +192,7 @@
 <p>En este ejemplo investigaremos diferentes técnicas de imputación:</p>
 <ul class="simple">
 <li><p>imputación por el valor constante 0</p></li>
-<li><p>imputación por el valor medio de cada característica combinada con una variable auxiliar del indicador de faltante</p></li>
+<li><p>imputación por el valor medio de cada característica combinada con una variable auxiliar indicadora de ausencia</p></li>
 <li><p>k imputación del vecino más cercano</p></li>
 <li><p>imputación iterativa</p></li>
 </ul>
@@ -205,7 +205,7 @@
 </pre></div>
 </div>
 <section id="download-the-data-and-make-missing-values-sets">
-<h2>Descargar los datos y hacer que falten los valores<a class="headerlink" href="#download-the-data-and-make-missing-values-sets" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Descargar los datos y hacer conjuntos de valores faltantes<a class="headerlink" href="#download-the-data-and-make-missing-values-sets" title="Enlazar permanentemente con este título">¶</a></h2>
 <blockquote>
 <div><p>Primero descargamos los dos conjuntos de datos. El conjunto de datos de diabetes se envía con scikit-learn. Tiene 442 entradas, cada una con 10 características. El conjunto de datos de California Housing es mucho más grande con 20640 entradas y 8 características. Es necesario descargarlo. Sólo utilizaremos las primeras 400 entradas con el fin de acelerar los cálculos, pero no dudes en utilizar todo el conjunto de datos.</p>
 </div></blockquote>
@@ -327,7 +327,7 @@
 </div>
 </section>
 <section id="knn-imputation-of-the-missing-values">
-<h3>Imputación kNN de los valores perdidos<a class="headerlink" href="#knn-imputation-of-the-missing-values" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3>Imputación kNN de los valores faltantes<a class="headerlink" href="#knn-imputation-of-the-missing-values" title="Enlazar permanentemente con este título">¶</a></h3>
 <p><a class="reference internal" href="../../modules/generated/sklearn.impute.KNNImputer.html#sklearn.impute.KNNImputer" title="sklearn.impute.KNNImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNNImputer</span></code></a> imputa valores faltantes usando la media ponderada o no ponderada del número deseado de vecinos más cercanos.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_impute_knn_score</span><span class="p">(</span><span class="n">X_missing</span><span class="p">,</span> <span class="n">y_missing</span><span class="p">):</span>
     <span class="n">imputer</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.impute.KNNImputer.html#sklearn.impute.KNNImputer" title="sklearn.impute.KNNImputer" class="sphx-glr-backref-module-sklearn-impute sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">KNNImputer</span></a><span class="p">(</span><span class="n">missing_values</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/constants.html#numpy.nan" title="numpy.nan" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">nan</span></a><span class="p">,</span> <span class="n">add_indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -360,7 +360,7 @@
 </section>
 <section id="iterative-imputation-of-the-missing-values">
 <h3>Imputación iterativa de los valores faltantes<a class="headerlink" href="#iterative-imputation-of-the-missing-values" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>Otra opción es la <a class="reference internal" href="../../modules/generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a>. Esto utiliza la regresión lineal round-robin, modelando cada característica con valores perdidos como una función de otras características, a su vez. La versión implementada asume variables gaussianas (de salida). Si sus características son obviamente no normales, considere la posibilidad de transformarlas para que parezcan más normales para mejorar potencialmente el rendimiento.</p>
+<p>Otra opción es la <a class="reference internal" href="../../modules/generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a>. Esta utiliza la regresión lineal round-robin, modelando cada característica con valores faltantes como una función de otras características, a su vez. La versión implementada asume variables gaussianas (de salida). Si tus características son obviamente no normales, considera la posibilidad de transformarlas para que parezcan más normales para mejorar potencialmente el rendimiento.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_impute_iterative</span><span class="p">(</span><span class="n">X_missing</span><span class="p">,</span> <span class="n">y_missing</span><span class="p">):</span>
     <span class="n">imputer</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer" class="sphx-glr-backref-module-sklearn-impute sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">IterativeImputer</span></a><span class="p">(</span><span class="n">missing_values</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/constants.html#numpy.nan" title="numpy.nan" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">nan</span></a><span class="p">,</span> <span class="n">add_indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_nearest_features</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
