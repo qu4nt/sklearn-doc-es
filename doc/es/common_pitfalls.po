@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-07-21 19:47\n"
+"PO-Revision-Date: 2021-08-14 18:51\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr "Fuga de datos"
 
 #: ../common_pitfalls.rst:86
 msgid "Data leakage occurs when information that would not be available at prediction time is used when building the model. This results in overly optimistic performance estimates, for example from :ref:`cross-validation <cross_validation>`, and thus poorer performance when the model is used on actually novel data, for example during production."
-msgstr "La fuga de datos ocurre cuando la información que no este disponible a tiempo de predicción se utiliza al construir el modelo. Esto resulta en estimaciones de rendimiento demasiado optimistas, por ejemplo de :ref:`validación cruzada <cross_validation>`, y por lo tanto rendimiento empobrecido cuando el modelo se utiliza en datos realmente nuevos, por ejemplo durante producción."
+msgstr "La fuga de datos se produce cuando al construir el modelo se utiliza información que no estaría disponible en el momento de la predicción. Esto resulta en estimaciones de rendimiento demasiado optimistas, por ejemplo de :ref:`validación cruzada <cross_validation>`, y por lo tanto un rendimiento empobrecido cuando el modelo se utiliza en datos realmente nuevos, por ejemplo durante producción."
 
 #: ../common_pitfalls.rst:92
 msgid "A common cause is not keeping the test and train data subsets separate. Test data should never be used to make choices about the model. **The general rule is to never call** `fit` **on the test data**. While this may sound obvious, this is easy to miss in some cases, for example when applying certain pre-processing steps."
@@ -268,7 +268,7 @@ msgstr "Aunque :func:`~sklearn.clone` se usa raramente en el código de usuario,
 
 #: ../common_pitfalls.rst:453
 msgid "When passed a `RandomState` instance, CV splitters yield different splits each time `split` is called. When comparing different estimators, this can lead to overestimating the variance of the difference in performance between the estimators::"
-msgstr "Cuando se les pasa una instancia de `RandomState`, los separadores de CV producen diferentes divisiones cada vez que se llama a `split`. Al comparar diferentes estimadores, esto puede llevar a sobreestimar la varianza de la diferencia de rendimiento entre los estimadores::"
+msgstr "Cuando se pasa una instancia de `RandomState`, los separadores de CV producen diferentes divisiones cada vez que se llama a `split`. Al comparar diferentes estimadores, esto puede llevar a sobreestimar la varianza de la diferencia de rendimiento entre los estimadores::"
 
 #: ../common_pitfalls.rst:477
 msgid "Directly comparing the performance of the :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` estimator vs the :class:`~sklearn.naive_bayes.GaussianNB` estimator **on each fold** would be a mistake: **the splits on which the estimators are evaluated are different**. Indeed, :func:`~sklearn.model_selection.cross_val_score` will internally call `cv.split` on the same :class:`~sklearn.model_selection.KFold` instance, but the splits will be different each time. This is also true for any tool that performs model selection via cross-validation, e.g. :class:`~sklearn.model_selection.GridSearchCV` and :class:`~sklearn.model_selection.RandomizedSearchCV`: scores are not comparable fold-to-fold across different calls to `search.fit`, since `cv.split` would have been called multiple times. Within a single call to `search.fit`, however, fold-to-fold comparison is possible since the search estimator only calls `cv.split` once."
@@ -316,7 +316,7 @@ msgstr "Robustez de los resultados de validación cruzada"
 
 #: ../common_pitfalls.rst:552
 msgid "When we evaluate a randomized estimator performance by cross-validation, we want to make sure that the estimator can yield accurate predictions for new data, but we also want to make sure that the estimator is robust w.r.t. its random initialization. For example, we would like the random weights initialization of a :class:`~sklearn.linear_model.SGDCLassifier` to be consistently good across all folds: otherwise, when we train that estimator on new data, we might get unlucky and the random initialization may lead to bad performance. Similarly, we want a random forest to be robust w.r.t the set of randomly selected features that each tree will be using."
-msgstr "Cuando evaluamos el rendimiento de un estimador aleatorio mediante validación cruzada, queremos asegurarnos de que el estimador puede producir predicciones precisas para los nuevos datos, pero también queremos asegurarnos de que el estimador es robusto con respecto a su inicialización aleatoria. Por ejemplo, nos gustaría que la inicialización de las ponderaciones aleatorias de un :class:`~sklearn.linear_model.SGDCLassifier` fuera consistentemente buena en todos los pliegues: de lo contrario, cuando entrenemos ese estimador con nuevos datos, podríamos tener mala suerte y la inicialización aleatoria podría conducir a un mal rendimiento. Del mismo modo, queremos que un bosque aleatorio sea robusto con respecto al conjunto de características seleccionadas aleatoriamente que utilizará cada árbol."
+msgstr "Cuando evaluamos el rendimiento de un estimador aleatorizado mediante validación cruzada, queremos asegurarnos de que el estimador puede producir predicciones precisas para los nuevos datos, pero también queremos asegurarnos de que el estimador es robusto con respecto a su inicialización aleatoria. Por ejemplo, nos gustaría que la inicialización de las ponderaciones aleatorias de un :class:`~sklearn.linear_model.SGDCLassifier` fuera consistentemente buena en todos los pliegues: de lo contrario, cuando entrenemos ese estimador con nuevos datos, podríamos tener mala suerte y la inicialización aleatoria podría conducir a un mal rendimiento. Del mismo modo, queremos que un bosque aleatorio sea robusto con respecto al conjunto de características seleccionadas aleatoriamente que utilizará cada árbol."
 
 #: ../common_pitfalls.rst:562
 msgid "For these reasons, it is preferable to evaluate the cross-validation preformance by letting the estimator use a different RNG on each fold. This is done by passing a `RandomState` instance (or `None`) to the estimator initialization."
