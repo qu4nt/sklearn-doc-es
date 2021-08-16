@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>Detección compresiva: reconstrucción de la tomografía con prioridad L1 (Lasso) &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>Detección compresiva: reconstrucción de la tomografía con a priori L1 (Lasso) &mdash; documentación de scikit-learn - 0.24.2</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/auto_examples/applications/plot_tomography_l1_reconstruction.html" />
 
@@ -160,7 +160,7 @@
         </div>
             <div class="sk-sidebar-toc">
               <ul>
-<li><a class="reference internal" href="#">Detección compresiva: reconstrucción de la tomografía con prioridad L1 (Lasso)</a></li>
+<li><a class="reference internal" href="#">Detección compresiva: reconstrucción de la tomografía con a priori L1 (Lasso)</a></li>
 </ul>
 
             </div>
@@ -174,7 +174,7 @@
 <p>Haz clic en <a class="reference internal" href="#sphx-glr-download-auto-examples-applications-plot-tomography-l1-reconstruction-py"><span class="std std-ref">aquí</span></a> para descargar el código completo del ejemplo o para ejecutar este ejemplo en tu navegador a través de Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="compressive-sensing-tomography-reconstruction-with-l1-prior-lasso">
-<span id="sphx-glr-auto-examples-applications-plot-tomography-l1-reconstruction-py"></span><h1>Detección compresiva: reconstrucción de la tomografía con prioridad L1 (Lasso)<a class="headerlink" href="#compressive-sensing-tomography-reconstruction-with-l1-prior-lasso" title="Enlazar permanentemente con este título">¶</a></h1>
+<span id="sphx-glr-auto-examples-applications-plot-tomography-l1-reconstruction-py"></span><h1>Detección compresiva: reconstrucción de la tomografía con a priori L1 (Lasso)<a class="headerlink" href="#compressive-sensing-tomography-reconstruction-with-l1-prior-lasso" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>Este ejemplo muestra la reconstrucción de una imagen a partir de un conjunto de proyecciones paralelas, adquiridas a lo largo de diferentes ángulos. Este conjunto de datos se adquiere en <strong>tomografía computarizada</strong> (TC).</p>
 <p>Sin ninguna información previa sobre la muestra, el número de proyecciones necesarias para reconstruir la imagen es del orden del tamaño lineal <code class="docutils literal notranslate"><span class="pre">l</span></code> de la imagen (en píxeles). Para simplificar, consideramos aquí una imagen dispersa, en la que sólo los píxeles de los límites de los objetos tienen un valor distinto de cero. Estos datos podrían corresponder, por ejemplo, a un material celular. Sin embargo, hay que tener en cuenta que la mayoría de las imágenes son dispersas en una base diferente, como las ondículas de Haar. Sólo se adquieren proyecciones <code class="docutils literal notranslate"><span class="pre">l/7</span></code>, por lo que es necesario utilizar la información previa disponible sobre la muestra (su escasez): es un ejemplo de <strong>detección compresiva</strong>.</p>
 <p>La operación de proyección de la tomografía es una transformación lineal. Además del término de fidelidad de los datos correspondiente a una regresión lineal, penalizamos la norma L1 de la imagen para tener en cuenta su escasez. El problema de optimización resultante se denomina <a class="reference internal" href="../../modules/linear_model.html#lasso"><span class="std std-ref">Lasso</span></a>. Utilizamos la clase <a class="reference internal" href="../../modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a>, que utiliza el algoritmo de descenso de coordenadas. Es importante destacar que esta implementación es más eficiente computacionalmente en una matriz dispersa, que el operador de proyección utilizado aquí.</p>

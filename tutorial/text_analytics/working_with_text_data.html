@@ -172,7 +172,7 @@
 <li><a class="reference internal" href="#training-a-classifier">Entrenar un clasificador</a></li>
 <li><a class="reference internal" href="#building-a-pipeline">Construir un pipeline</a></li>
 <li><a class="reference internal" href="#evaluation-of-the-performance-on-the-test-set">Evaluación del rendimiento en el conjunto de pruebas</a></li>
-<li><a class="reference internal" href="#parameter-tuning-using-grid-search">Ajuste de parámetros mediante la búsqueda exhaustiva</a><ul>
+<li><a class="reference internal" href="#parameter-tuning-using-grid-search">Ajuste de parámetros mediante la búsqueda en cuadrícula</a><ul>
 <li><a class="reference internal" href="#exercises">Ejercicios</a></li>
 </ul>
 </li>
@@ -199,7 +199,7 @@
 <li><p>cargar el contenido del archivo y las categorías</p></li>
 <li><p>extraer vectores de características adecuados para el aprendizaje automático</p></li>
 <li><p>entrenar un modelo lineal para realizar la categorización</p></li>
-<li><p>utiliza una estrategia de búsqueda exhaustiva para encontrar una buena configuración tanto de los componentes de extracción de características como del clasificador</p></li>
+<li><p>utiliza una estrategia de búsqueda en cuadrícula para encontrar una buena configuración tanto de los componentes de extracción de características como del clasificador</p></li>
 </ul>
 </div></blockquote>
 <section id="tutorial-setup">
@@ -386,7 +386,7 @@ span.prompt1:before {
 <span class="gp">... </span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Los nombres <code class="docutils literal notranslate"><span class="pre">vect</span></code>, <code class="docutils literal notranslate"><span class="pre">tfidf</span></code> y <code class="docutils literal notranslate"><span class="pre">clf</span></code> (clasificador) son arbitrarios. Los utilizaremos para realizar la búsqueda exhaustiva de hiperparámetros adecuados más adelante. Ahora podemos entrenar el modelo con un solo comando:</p>
+<p>Los nombres <code class="docutils literal notranslate"><span class="pre">vect</span></code>, <code class="docutils literal notranslate"><span class="pre">tfidf</span></code> y <code class="docutils literal notranslate"><span class="pre">clf</span></code> (clasificador) son arbitrarios. Los utilizaremos para realizar la búsqueda en cuadrícula de hiperparámetros adecuados más adelante. Ahora podemos entrenar el modelo con un solo comando:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
 <span class="go">Pipeline(...)</span>
 </pre></div>
@@ -447,9 +447,9 @@ span.prompt1:before {
 <p>Como era de esperar, la matriz de confusión muestra que los mensajes de los grupos de noticias sobre ateísmo y cristianismo se confunden más a menudo entre sí que con la infografía.</p>
 </section>
 <section id="parameter-tuning-using-grid-search">
-<h2>Ajuste de parámetros mediante la búsqueda exhaustiva<a class="headerlink" href="#parameter-tuning-using-grid-search" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Ajuste de parámetros mediante la búsqueda en cuadrícula<a class="headerlink" href="#parameter-tuning-using-grid-search" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Ya hemos encontrado algunos parámetros como <code class="docutils literal notranslate"><span class="pre">use_idf</span></code> en el <code class="docutils literal notranslate"><span class="pre">TfidfTransformer</span></code>. Los clasificadores también suelen tener muchos parámetros; por ejemplo, <code class="docutils literal notranslate"><span class="pre">MultinomialNB</span></code> incluye un parámetro de suavizado <code class="docutils literal notranslate"><span class="pre">alpha</span></code> y <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code> tiene un parámetro de penalización <code class="docutils literal notranslate"><span class="pre">alpha</span></code> y términos de pérdida y penalización configurables en la función objetivo (ver la documentación del módulo, o utiliza la función <code class="docutils literal notranslate"><span class="pre">help</span></code> de Python para obtener una descripción de los mismos).</p>
-<p>En lugar de ajustar los parámetros de los distintos componentes de la cadena, es posible realizar una búsqueda exhaustiva de los mejores parámetros en una parrilla de valores posibles. Probamos todos los clasificadores con palabras o bigramas, con o sin idf, y con un parámetro de penalización de 0.01 o 0.001 para la SVM lineal:</p>
+<p>En lugar de ajustar los parámetros de los distintos componentes de la cadena, es posible realizar una búsqueda exhaustiva de los mejores parámetros en una cuadrícula de valores posibles. Probamos todos los clasificadores con palabras o bigramas, con o sin idf, y con un parámetro de penalización de 0.01 o 0.001 para la SVM lineal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
 <span class="gp">... </span>    <span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
@@ -458,11 +458,11 @@ span.prompt1:before {
 <span class="gp">... </span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Obviamente, una búsqueda tan exhaustiva puede resultar cara. Si tenemos varios núcleos de CPU a nuestra disposición, podemos decirle al buscador de la red que pruebe estas ocho combinaciones de parámetros en paralelo con el parámetro <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>. Si damos a este parámetro un valor de <code class="docutils literal notranslate"><span class="pre">-1</span></code>, la búsqueda en la red detectará cuántos núcleos hay instalados y los utilizará todos:</p>
+<p>Obviamente, una búsqueda tan exhaustiva puede resultar cara. Si tenemos varios núcleos de CPU a nuestra disposición, podemos decirle al buscador de la red que pruebe estas ocho combinaciones de parámetros en paralelo con el parámetro <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>. Si damos a este parámetro un valor de <code class="docutils literal notranslate"><span class="pre">-1</span></code>, la búsqueda en cuadrícula detectará cuántos núcleos hay instalados y los utilizará todos:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs_clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">text_clf</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>La instancia de búsqueda exhaustiva se comporta como un modelo <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> normal. Vamos a realizar la búsqueda en un subconjunto más pequeño de los datos de entrenamiento para acelerar el cálculo:</p>
+<p>La instancia de búsqueda en cuadrícula se comporta como un modelo <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> normal. Vamos a realizar la búsqueda en un subconjunto más pequeño de los datos de entrenamiento para acelerar el cálculo:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs_clf</span> <span class="o">=</span> <span class="n">gs_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">twenty_train</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">400</span><span class="p">],</span> <span class="n">twenty_train</span><span class="o">.</span><span class="n">target</span><span class="p">[:</span><span class="mi">400</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -513,8 +513,8 @@ span.prompt1:before {
 <h2>Ejercicio 2: Análisis del sentimiento en las críticas de películas<a class="headerlink" href="#exercise-2-sentiment-analysis-on-movie-reviews" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
 <li><p>Escribe un pipeline de clasificación de textos para clasificar las críticas de películas como positivas o negativas.</p></li>
-<li><p>Encuentra un buen conjunto de parámetros utilizando la búsqueda exhaustiva.</p></li>
-<li><p>Evalua el rendimiento en un conjunto de pruebas retenidas.</p></li>
+<li><p>Encuentra un buen conjunto de parámetros utilizando la búsqueda en cuadrícula.</p></li>
+<li><p>Evalúa el rendimiento en un conjunto de pruebas retenidas.</p></li>
 </ul>
 <p>línea de comandos ipython:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">run</span> <span class="n">workspace</span><span class="o">/</span><span class="n">exercise_02_sentiment</span><span class="o">.</span><span class="n">py</span> <span class="n">data</span><span class="o">/</span><span class="n">movie_reviews</span><span class="o">/</span><span class="n">txt_sentoken</span><span class="o">/</span>
@@ -530,7 +530,7 @@ span.prompt1:before {
 <h2>A partir de aquí, a dónde ir<a class="headerlink" href="#where-to-from-here" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Aquí hay algunas sugerencias para ayudar a mejorar su intuición de scikit-learn después de la finalización de este tutorial:</p>
 <ul class="simple">
-<li><p>Prueba a jugar con el <code class="docutils literal notranslate"><span class="pre">analyzer</span></code> y la <code class="docutils literal notranslate"><span class="pre">token</span> <span class="pre">normalisation</span></code> en <a class="reference internal" href="../../modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.</p></li>
+<li><p>Intenta jugar con el <code class="docutils literal notranslate"><span class="pre">analyzer</span></code> y la <code class="docutils literal notranslate"><span class="pre">token</span> <span class="pre">normalisation</span></code> en <a class="reference internal" href="../../modules/generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.</p></li>
 <li><p>Si no tienes etiquetas, intenta utilizar <a class="reference internal" href="../../auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py"><span class="std std-ref">Clustering</span></a> en tu problema.</p></li>
 <li><p>Si tienes varias etiquetas por documento, por ejemplo, categorías, echa un vistazo a la sección <a class="reference internal" href="../../modules/multiclass.html#multiclass"><span class="std std-ref">Multiclase y multietiqueta</span></a>.</p></li>
 <li><p>Prueba utilizar <a class="reference internal" href="../../modules/decomposition.html#lsa"><span class="std std-ref">Truncated SVD</span></a> para el <a class="reference external" href="https://en.wikipedia.org/wiki/Latent_semantic_analysis">análisis semántico latente</a>.</p></li>
