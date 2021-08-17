@@ -462,9 +462,9 @@ Kruskal, J. Psychometrika, 29, (1964)</p></li>
 <span id="t-sne"></span><h2><span class="section-number">2.2.9. </span>Embedding Estocástico de Vecinos distribuido en t (t-EEV, o t-SNE en inglés)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>t-EEV (<a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a>) convierte las afinidades de puntos de datos a probabilidades. Las afinidades en el espacio original están representadas por probabilidades conjuntas Gaussianas y las afinidades en el espacio con embedding son representadas por las distribuciones en t del estudiante. Esto permite al t-EEV ser particularmente sensible a la estructura local y tiene algunas otras ventajas sobre técnicas existentes:</p>
 <ul class="simple">
-<li><p>Revelar la estructura en muchas escalas en un solo mapa</p></li>
-<li><p>Revelar datos que yacen en múltiples, distintos colectores o clústers</p></li>
-<li><p>Reducir la tendencia a acumular puntos en el centro</p></li>
+<li><p>Revelación de la estructura en muchas escalas en un solo mapa</p></li>
+<li><p>Revelación de datos que se encuentran en múltiples, diferentes, variedades o conglomerados</p></li>
+<li><p>Reducir la tendencia a acumular los puntos juntos en el centro</p></li>
 </ul>
 <p>Mientras que Isomap, LLE y sus variantes son más adecuadas para desplegar una única variedad continua de dimensionalidad baja, el t-SNE se enfocará en la estructura local de los datos y va a tender a extraer grupos locales de muestras agrupadas como se resalta en el ejemplo de la curva S. Esta habilidad de agrupar muestras basadas en la estructura local quizás sea beneficiosa para desenredar visualmente un conjunto de datos que compromete múltiples variedades al mismo tiempo como es el caso en el conjunto de datos digits.</p>
 <p>La divergencia Kullback-Leibler (KL) de las probabilidades conjuntas en el espacio original y en el espacio con embedding será minimizada por descenso del gradiente. Ten en cuenta que la divergencia KL no es convexa, es decir, múltiples reinicios con inicializaciones distintas van a terminar en los mínimos locales de la divergencia KL. Por lo tanto, a veces es útil utilizar diferentes semillas y seleccionar el embedding con la menor divergencia KL.</p>
@@ -499,7 +499,7 @@ Kruskal, J. Psychometrika, 29, (1964)</p></li>
 <ul class="simple">
 <li><p>La implementación de Barnes-Hut solo funciona cuando la dimensionalidad del objetivo es 3 o menos. El caso 2D es típico cuando se construyen visualizaciones.</p></li>
 <li><p>Barnes-Hut solo funciona con datos de entrada densos. A las matrices de datos dispersas solo se les puede realizar embedding con el método exacto o pueden ser aproximadas por una proyección de bajo rango densa, por ejemplo usando <a class="reference internal" href="generated/sklearn.decomposition.TruncatedSVD.html#sklearn.decomposition.TruncatedSVD" title="sklearn.decomposition.TruncatedSVD"><code class="xref py py-class docutils literal notranslate"><span class="pre">TruncatedSVD</span></code></a></p></li>
-<li><p>Barnes-Hut es una aproximación del método exacto. La aproximación se parametriza con el parámetro del ángulo, por lo tanto el parámetro angle no se utiliza cuando method=»exact»</p></li>
+<li><p>Barnes-Hut es una aproximación del método exacto. La aproximación se parametriza con el parámetro angle, por lo tanto el parámetro angle no se utiliza cuando method=»exact»</p></li>
 <li><p>Barnes-Hut es significativamente más escalable. Barnes-Hut puede ser usado para realizar embedding en cientos de miles de puntos de datos, mientras que el método exacto solo puede manejar miles de muestras antes de volverse inmanejable computacionalmente</p></li>
 </ul>
 <p>Para fines de visualización (que es el principal caso de uso de t-SNE), se recomienda encarecidamente utilizar el método de Barnes-Hut. El método exacto t-SNE es útil para comprobar las propiedades teóricas del embedding, posiblemente en espacio de alta dimensionalidad pero limitado a conjuntos de datos pequeños debido a restricciones computacionales.</p>
