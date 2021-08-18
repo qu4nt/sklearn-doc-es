@@ -187,11 +187,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#multi-dimensional-scaling-mds">2.2.8. Escalamiento Multidimensional (EMD)</a><ul>
-<li><a class="reference internal" href="#metric-mds">2.2.8.1. EMD Métrico</a></li>
-<li><a class="reference internal" href="#nonmetric-mds">2.2.8.2. EMD No métrico</a></li>
+<li><a class="reference internal" href="#metric-mds">2.2.8.1. MDS Métrico</a></li>
+<li><a class="reference internal" href="#nonmetric-mds">2.2.8.2. MDS (Escalamiento Multidimensional) no métrico</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#t-distributed-stochastic-neighbor-embedding-t-sne">2.2.9. Embedding Estocástico de Vecinos distribuido en t (t-EEV, o t-SNE en inglés)</a><ul>
+<li><a class="reference internal" href="#t-distributed-stochastic-neighbor-embedding-t-sne">2.2.9. Embedding Estocástico de Vecinos distribuido t (t-EEV, o t-SNE en inglés)</a><ul>
 <li><a class="reference internal" href="#optimizing-t-sne">2.2.9.1. Optimización de t-SNE</a></li>
 <li><a class="reference internal" href="#barnes-hut-t-sne">2.2.9.2. Barnes-Hut t-SNE</a></li>
 </ul>
@@ -434,14 +434,14 @@ Zhang, Z. &amp; Zha, H. Journal of Shanghai Univ. 8:406 (2004)</p></li>
 </figure>
 <p>Sea <span class="math notranslate nohighlight">\(S\)</span> la matriz de similitud, y <span class="math notranslate nohighlight">\(X\)</span> las coordenadas de los <span class="math notranslate nohighlight">\(n\)</span> puntos de entrada. La disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> son transformaciones de las similitudes escogidas en ciertas maneras óptimas. El objetivo, llamado el estrés, entonces es definido por <span class="math notranslate nohighlight">\(\sum_{i &lt; j} d_{ij}(X) - \hat{d}_{ij}(X)\)</span></p>
 <section id="metric-mds">
-<h3><span class="section-number">2.2.8.1. </span>EMD Métrico<a class="headerlink" href="#metric-mds" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>En el modelo <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> métrico mas simple, llamado <em>EMD absoluto</em>, las disparidades son definidas por <span class="math notranslate nohighlight">\(\hat{d}_{ij} = S_{ij}\)</span>. Con el EMD absoluto, el valor <span class="math notranslate nohighlight">\(S_{ij}\)</span> debería entonces corresponder exactamente a la distancia entre el punto <span class="math notranslate nohighlight">\(i\)</span> y <span class="math notranslate nohighlight">\(j\)</span> en el punto de embedding.</p>
-<p>Mas comúnmente, las disparidades están configuradas como <span class="math notranslate nohighlight">\(\hat{d}_{ij} = b S_{ij}\)</span>.</p>
+<h3><span class="section-number">2.2.8.1. </span>MDS Métrico<a class="headerlink" href="#metric-mds" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En el modelo <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> métrico más simple, llamado <em>MDS absoluto</em>, las disparidades son definidas por <span class="math notranslate nohighlight">\(\hat{d}_{ij} = S_{ij}\)</span>. Con el MDS absoluto, el valor <span class="math notranslate nohighlight">\(S_{ij}\)</span> debería entonces corresponder exactamente a la distancia entre el punto <span class="math notranslate nohighlight">\(i\)</span> y <span class="math notranslate nohighlight">\(j\)</span> en el punto de embedding.</p>
+<p>Mas comúnmente, las disparidades se establecen como <span class="math notranslate nohighlight">\(\hat{d}_{ij} = b S_{ij}\)</span>.</p>
 </section>
 <section id="nonmetric-mds">
-<h3><span class="section-number">2.2.8.2. </span>EMD No métrico<a class="headerlink" href="#nonmetric-mds" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>El <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> no métrico se enfoca en la ordenación de los datos. Si <span class="math notranslate nohighlight">\(S_{ij} &lt; S_{jk}\)</span>, entonces el embedding debería imponer <span class="math notranslate nohighlight">\(d_{ij} &lt; d_{jk}\)</span>. Un algoritmo simple para imponerlo es el uso de una regresión monotónica de <span class="math notranslate nohighlight">\(d_{ij}\)</span> en <span class="math notranslate nohighlight">\(S_{ij}\)</span>, dando las disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> en el mismo orden que <span class="math notranslate nohighlight">\(S_{ij}\)</span>.</p>
-<p>Una solución trivial a este problema es fijar todos los puntos en el origen. Para evitar eso, las disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> son normalizadas.</p>
+<h3><span class="section-number">2.2.8.2. </span>MDS (Escalamiento Multidimensional) no métrico<a class="headerlink" href="#nonmetric-mds" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> no métrico se enfoca en la ordenación de los datos. Si <span class="math notranslate nohighlight">\(S_{ij} &lt; S_{jk}\)</span>, entonces el embedding debería imponer <span class="math notranslate nohighlight">\(d_{ij} &lt; d_{jk}\)</span>. Un algoritmo simple para imponerlo es el uso de una regresión monótona de <span class="math notranslate nohighlight">\(d_{ij}\)</span> en <span class="math notranslate nohighlight">\(S_{ij}\)</span>, produciendo las disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> en el mismo orden que <span class="math notranslate nohighlight">\(S_{ij}\)</span>.</p>
+<p>Una solución trivial a este problema es establecer todos los puntos en el origen. Para evitar eso, las disparidades <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> son normalizadas.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="../auto_examples/manifold/plot_mds.html"><img alt="../_images/sphx_glr_plot_mds_001.png" src="../_images/sphx_glr_plot_mds_001.png" style="width: 384.0px; height: 288.0px;" /></a>
 </figure>
@@ -459,8 +459,8 @@ Kruskal, J. Psychometrika, 29, (1964)</p></li>
 </section>
 </section>
 <section id="t-distributed-stochastic-neighbor-embedding-t-sne">
-<span id="t-sne"></span><h2><span class="section-number">2.2.9. </span>Embedding Estocástico de Vecinos distribuido en t (t-EEV, o t-SNE en inglés)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>t-EEV (<a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a>) convierte las afinidades de puntos de datos a probabilidades. Las afinidades en el espacio original están representadas por probabilidades conjuntas Gaussianas y las afinidades en el espacio con embedding son representadas por las distribuciones en t del estudiante. Esto permite al t-EEV ser particularmente sensible a la estructura local y tiene algunas otras ventajas sobre técnicas existentes:</p>
+<span id="t-sne"></span><h2><span class="section-number">2.2.9. </span>Embedding Estocástico de Vecinos distribuido t (t-EEV, o t-SNE en inglés)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>t-SNE (<a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a>) convierte las afinidades de puntos de datos a probabilidades. Las afinidades en el espacio original están representadas por probabilidades conjuntas Gaussianas y las afinidades en el espacio con embedding son representadas por las distribuciones t de Student. Esto permite que t-SNE sea particularmente sensible a la estructura local y tiene algunas otras ventajas sobre las técnicas existentes:</p>
 <ul class="simple">
 <li><p>Revelación de la estructura en muchas escalas en un solo mapa</p></li>
 <li><p>Revelación de datos que se encuentran en múltiples, diferentes, variedades o conglomerados</p></li>

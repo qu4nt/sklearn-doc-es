@@ -164,7 +164,7 @@
 <li><a class="reference internal" href="#use-columntransformer-by-selecting-column-by-names">Usa <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code> seleccionando columna por nombres</a></li>
 <li><a class="reference internal" href="#html-representation-of-pipeline">Representación HTML de <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
 <li><a class="reference internal" href="#use-columntransformer-by-selecting-column-by-data-types">Utiliza <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code> seleccionando la columna por tipos de datos</a></li>
-<li><a class="reference internal" href="#using-the-prediction-pipeline-in-a-grid-search">Uso del pipeline de predicción en una búsqueda exhaustiva</a></li>
+<li><a class="reference internal" href="#using-the-prediction-pipeline-in-a-grid-search">Uso del pipeline de predicción en una búsqueda en cuadrícula</a></li>
 </ul>
 </li>
 </ul>
@@ -357,9 +357,9 @@ memory usage: 35.0 KB
 </div>
 </section>
 <section id="using-the-prediction-pipeline-in-a-grid-search">
-<h2>Uso del pipeline de predicción en una búsqueda exhaustiva<a class="headerlink" href="#using-the-prediction-pipeline-in-a-grid-search" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Uso del pipeline de predicción en una búsqueda en cuadrícula<a class="headerlink" href="#using-the-prediction-pipeline-in-a-grid-search" title="Enlazar permanentemente con este título">¶</a></h2>
 <blockquote>
-<div><p>La búsqueda exhaustiva también se puede realizar en los diferentes pasos de preprocesamiento definidos en el objeto <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code>, junto con los hiperparámetros del clasificador como parte del <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>. Buscaremos tanto la estrategia de imputación del preprocesamiento numérico como el parámetro de regularización de la regresión logística utilizando <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>.</p>
+<div><p>La búsqueda en cuadrícula también se puede realizar en los diferentes pasos de preprocesamiento definidos en el objeto <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code>, junto con los hiperparámetros del clasificador como parte del <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>. Buscaremos tanto la estrategia de imputación del preprocesamiento numérico como el parámetro de regularización de la regresión logística utilizando <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>.</p>
 </div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;preprocessor__num__imputer__strategy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">],</span>
@@ -414,7 +414,7 @@ memory usage: 35.0 KB
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Internal CV score: 0.784
 </pre></div>
 </div>
-<p>También podemos introspeccionar los resultados de búsqueda exhaustiva superior como un dataframe de pandas:</p>
+<p>También podemos introspeccionar los resultados de la búsqueda en cuadrícula superior como un dataframe de pandas:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">cv_results</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">grid_search</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
