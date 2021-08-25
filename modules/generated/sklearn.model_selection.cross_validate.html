@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.model_selection.cross_validate &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.model_selection.cross_validate &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -190,19 +190,15 @@
 </dd>
 <dt><strong>groups</strong><span class="classifier">array-like de forma (n_samples,), default=None</span></dt><dd><p>Etiquetas de grupo para las muestras utilizadas al dividir el conjunto de datos en conjunto de entrenamiento/prueba. Sólo se utiliza junto con una instancia de <a class="reference internal" href="../../glossary.html#term-cv"><span class="xref std std-term">cv</span></a> «Group» (por ejemplo, <a class="reference internal" href="sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a>).</p>
 </dd>
-<dt><strong>scoring</strong><span class="classifier">cadena, invocable, lista, tupla, o diccionario, default=None</span></dt><dd><p>Estrategia para evaluar el rendimiento del modelo con validación cruzada en el conjunto de prueba.</p>
-<p>Si <code class="docutils literal notranslate"><span class="pre">scoring</span></code> representa una única puntuación, se puede utilizar:</p>
-<ul class="simple">
-<li><p>una sola cadena (ver <a class="reference internal" href="../model_evaluation.html#scoring-parameter"><span class="std std-ref">El parámetro scoring: definir las reglas de evaluación del modelo</span></a>);</p></li>
-<li><p>un callable o invocable (ver <a class="reference internal" href="../model_evaluation.html#scoring"><span class="std std-ref">Definir tu estrategia de puntuación a partir de funciones métricas</span></a>) que devuelve un único valor.</p></li>
-</ul>
-<p>If <code class="docutils literal notranslate"><span class="pre">scoring</span></code> represents multiple scores, one can use:</p>
-<ul class="simple">
-<li><p>una lista o tupla de cadenas únicas;</p></li>
-<li><p>una llamada que devuelve un diccionario donde las claves son los nombres de las métricas y los valores son las puntuaciones de las métricas;</p></li>
-<li><p>un diccionario con los nombres de las métricas como claves e invocables como valores.</p></li>
-</ul>
+<dt><strong>scoring</strong><span class="classifier">str, callable, list/tuple, or dict, default=None</span></dt><dd><p>A single str (see <a class="reference internal" href="../model_evaluation.html#scoring-parameter"><span class="std std-ref">El parámetro scoring: definir las reglas de evaluación del modelo</span></a>) or a callable
+(see <a class="reference internal" href="../model_evaluation.html#scoring"><span class="std std-ref">Definir tu estrategia de puntuación a partir de funciones métricas</span></a>) to evaluate the predictions on the test set.</p>
+<p>For evaluating multiple metrics, either give a list of (unique) strings
+or a dict with names as keys and callables as values.</p>
+<p>NOTE that when using custom scorers, each scorer should return a single
+value. Metric functions returning a list/array of values can be wrapped
+into multiple scorers that return one value each.</p>
 <p>Ver <a class="reference internal" href="../grid_search.html#multimetric-grid-search"><span class="std std-ref">Especificar múltiples métricas para la evaluación</span></a> para un ejemplo.</p>
+<p>If None, the estimator’s score method is used.</p>
 </dd>
 <dt><strong>cv</strong><span class="classifier">entero, generador de validación cruzada o un iterable, default=None</span></dt><dd><p>Determina la estrategia de separación de la validación cruzada. Las entradas posibles para cv son:</p>
 <ul class="simple">
@@ -211,10 +207,7 @@
 <li><p><a class="reference internal" href="../../glossary.html#term-CV-splitter"><span class="xref std std-term">separador de CV</span></a>,</p></li>
 <li><p>Un iterable que produce separaciones (train, test) como arreglos de índices.</p></li>
 </ul>
-<p>For int/None inputs, if the estimator is a classifier and <code class="docutils literal notranslate"><span class="pre">y</span></code> is
-either binary or multiclass, <a class="reference internal" href="sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> is used. In all
-other cases, <code class="xref py py-class docutils literal notranslate"><span class="pre">Fold</span></code> is used. These splitters are instantiated
-with <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> so the splits will be the same across calls.</p>
+<p>Para entradas int/None, si el estimador es un clasificador y <code class="docutils literal notranslate"><span class="pre">y</span></code> es binario o multiclase, se utiliza <a class="reference internal" href="sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a>. En todos los demás casos, se utiliza <a class="reference internal" href="sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>.</p>
 <p>Consulta <a class="reference internal" href="../cross_validation.html#cross-validation"><span class="std std-ref">Manual de usuario</span></a> para las diversas estrategias de validación cruzada que pueden ser utilizadas aquí.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Distinto en la versión 0.22: </span>El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">cv</span></code> si es None cambió de 3 a 5 pliegues.</p>

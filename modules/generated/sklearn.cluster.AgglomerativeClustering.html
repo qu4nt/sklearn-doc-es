@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.cluster.AgglomerativeClustering &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.cluster.AgglomerativeClustering &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -178,14 +178,14 @@
 <dt class="sig sig-object py" id="sklearn.cluster.AgglomerativeClustering">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.cluster.</span></span><span class="sig-name descname"><span class="pre">AgglomerativeClustering</span></span><a class="headerlink" href="#sklearn.cluster.AgglomerativeClustering" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Conglomerado Aglomerativo (Agglomerative Clustering)</p>
-<p>Fusiona recursivamente el par de conglomerados que aumenta mínimamente una determinada distancia de enlace (linkage distance).</p>
+<p>Fusiona recursivamente el par de conglomerados que aumenta mínimamente una determinada distancia de enlazamiento (linkage distance).</p>
 <p>Más información en el <a class="reference internal" href="../clustering.html#hierarchical-clustering"><span class="std std-ref">Manual de usuario</span></a>.</p>
 <dl class="field-list">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl>
 <dt><strong>n_clusters</strong><span class="classifier">entero o None, default=2</span></dt><dd><p>El número de conglomerados a encontrar. Debe ser <code class="docutils literal notranslate"><span class="pre">None</span></code> si <code class="docutils literal notranslate"><span class="pre">distance_threshold</span></code> no es <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd>
-<dt><strong>affinity</strong><span class="classifier">cadena de caracteres o invocable, default=”euclidean”</span></dt><dd><p>Métrica utilizada para calcular el enlace. Puede ser «euclidean», «l1», «l2», «manhattan», «cosine», o «precomputed». Si el enlace es «ward», sólo se acepta «euclidean». Si es «precomputed», se necesita una matriz de distancias (en lugar de una matriz de similitud) como entrada para el método de ajuste.</p>
+<dt><strong>affinity</strong><span class="classifier">cadena de caracteres o invocable, default=”euclidean”</span></dt><dd><p>Métrica utilizada para calcular el enlazamiento. Puede ser «euclidean», «l1», «l2», «manhattan», «cosine», o «precomputed». Si linkage es «ward», sólo se acepta «euclidean». Si es «precomputed», se necesita una matriz de distancias (en lugar de una matriz de similitud) como entrada para el método fit.</p>
 </dd>
 <dt><strong>memory</strong><span class="classifier">cadena u objeto con interfaz joblib.Memory, default=None</span></dt><dd><p>Se utiliza para almacenar en caché la salida del cálculo del árbol. Por defecto, no se realiza ningún almacenamiento en caché. Si se proporciona una cadena, debe ser la ruta de acceso al directorio de almacenamiento en caché.</p>
 </dd>
@@ -193,18 +193,18 @@
 </dd>
 <dt><strong>compute_full_tree</strong><span class="classifier">“auto” o booleano, default=”auto”</span></dt><dd><p>Detiene anticipadamente la construcción del árbol en <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code>. Esto es útil para disminuir el tiempo de cálculo si el número de conglomerados no es pequeño comparado con el número de muestras. Esta opción sólo es útil cuando se especifica una matriz de conectividad. Hay que tener en cuenta también que cuando se varía el número de conglomerados y se utiliza la caché, puede ser favorable calcular el árbol completo. Debe ser <code class="docutils literal notranslate"><span class="pre">True</span></code> si <code class="docutils literal notranslate"><span class="pre">distance_threshold</span></code> no es <code class="docutils literal notranslate"><span class="pre">None</span></code>. Por defecto <code class="docutils literal notranslate"><span class="pre">compute_full_tree</span></code> es «auto», lo que equivale a <code class="docutils literal notranslate"><span class="pre">True</span></code> cuando <code class="docutils literal notranslate"><span class="pre">distance_threshold</span></code> no es <code class="docutils literal notranslate"><span class="pre">None</span></code> o que <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> es inferior al máximo entre 100 o <code class="docutils literal notranslate"><span class="pre">0.02</span> <span class="pre">*</span> <span class="pre">n_samples</span></code>. En caso contrario, «auto» equivale a <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 </dd>
-<dt><strong>linkage</strong><span class="classifier">{“ward”, “complete”, “average”, “single”}, default=”ward”</span></dt><dd><p>Indica qué criterio de acoplamiento (linkage) utilizar. El criterio de acoplamiento determina la distancia a utilizar entre los conjuntos de observación. El algoritmo fusionará los pares de conglomerados que minimicen este criterio.</p>
+<dt><strong>linkage</strong><span class="classifier">{“ward”, “complete”, “average”, “single”}, default=”ward”</span></dt><dd><p>Indica qué criterio de enlazamiento (linkage) utilizar. El criterio de enlazamiento determina la distancia a utilizar entre los conjuntos de observación. El algoritmo fusionará los pares de conglomerados que minimicen este criterio.</p>
 <ul class="simple">
 <li><p>“ward” minimiza la varianza de los conglomerados que se fusionan.</p></li>
 <li><p>“average” utiliza la media de las distancias de cada observación de los dos conjuntos.</p></li>
-<li><p>El acoplamiento “complete” or “maximum” utiliza las distancias máximas entre todas las observaciones de los dos conjuntos.</p></li>
+<li><p>El enlazamiento “complete” o “maximum” utiliza las distancias máximas entre todas las observaciones de los dos conjuntos.</p></li>
 <li><p>“simple” utiliza el mínimo de las distancias entre todas las observaciones de los dos conjuntos.</p></li>
 </ul>
 <div class="versionadded">
 <p><span class="versionmodified added">Nuevo en la versión 0.20: </span>Se agregó la opción “single”</p>
 </div>
 </dd>
-<dt><strong>distance_threshold</strong><span class="classifier">float, default=None</span></dt><dd><p>El umbral de distancia de acoplamiento por encima del cual, los conglomerados no se fusionarán. Si no es <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> debe ser <code class="docutils literal notranslate"><span class="pre">None</span></code> y <code class="docutils literal notranslate"><span class="pre">compute_full_tree</span></code> debe ser <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<dt><strong>distance_threshold</strong><span class="classifier">float, default=None</span></dt><dd><p>El umbral de distancia de enlazamiento por encima del cual, los conglomerados no se fusionarán. Si no es <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> debe ser <code class="docutils literal notranslate"><span class="pre">None</span></code> y <code class="docutils literal notranslate"><span class="pre">compute_full_tree</span></code> debe ser <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">Nuevo en la versión 0.21.</span></p>
 </div>

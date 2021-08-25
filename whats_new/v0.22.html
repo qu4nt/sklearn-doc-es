@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>Versión 0.22.2.post1 &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>Versión 0.22.2.post1 &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/whats_new/v0.22.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -187,7 +187,7 @@
 <li><a class="reference internal" href="#legend-for-changelogs">Leyenda para registros de cambios</a></li>
 <li><a class="reference internal" href="#website-update">Actualización del sitio</a></li>
 <li><a class="reference internal" href="#clear-definition-of-the-public-api">Definición clara de la API pública</a></li>
-<li><a class="reference internal" href="#deprecations-using-futurewarning-from-now-on">Obsolescencia: usar <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> de ahora en adelante</a></li>
+<li><a class="reference internal" href="#deprecations-using-futurewarning-from-now-on">Obsolescencias: usar <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> de ahora en adelante</a></li>
 <li><a class="reference internal" href="#changed-models">Modelos modificados</a></li>
 <li><a class="reference internal" href="#id4">Registro de cambios</a><ul>
 <li><a class="reference internal" href="#sklearn-base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.base</span></code></a></li>
@@ -345,7 +345,7 @@
 <section id="clear-definition-of-the-public-api">
 <h2>Definición clara de la API pública<a class="headerlink" href="#clear-definition-of-the-public-api" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Scikit-learn tiene una API pública, y una API privada.</p>
-<p>Hacemos todo lo posible para no romper la API pública, y para introducir únicamente cambios compatibles con las versiones anteriores que no requieran ninguna acción del usuario. Sin embargo, en los casos en que eso no es posible, cualquier cambio en la API pública está sujeto a un ciclo de obsolescencia de dos versiones menores. La API privada no está documentada públicamente y no está sujeta a ningún ciclo de depreciación, por lo que los usuarios no deberían confiar en su estabilidad.</p>
+<p>Hacemos todo lo posible para no romper la API pública, y para introducir únicamente cambios compatibles con las versiones anteriores que no requieran ninguna acción del usuario. Sin embargo, en los casos en que eso no es posible, cualquier cambio en la API pública está sujeto a un ciclo de obsolescencia de dos versiones menores. La API privada no está documentada públicamente y no está sujeta a ningún ciclo de obsolescencia, por lo que los usuarios no deberían confiar en su estabilidad.</p>
 <p>Una función u objeto es público si está documentado en la <a class="reference external" href="https://scikit-learn.org/dev/modules/classes.html">Referencia API</a> y si puede ser importado con una ruta de importación sin guiones bajos iniciales. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">sklearn.pipeline.make_pipeline</span></code> es pública, mientras que <code class="docutils literal notranslate"><span class="pre">sklearn.pipeline._name_estimators</span></code> es privada. <code class="docutils literal notranslate"><span class="pre">sklearn.ensemble._gb.BaseEnsemble</span></code> también es privado porque todo el módulo <code class="docutils literal notranslate"><span class="pre">_gb</span></code> es privado.</p>
 <p>Hasta la versión 0.22, algunas herramientas eran públicas de facto (sin guión bajo inicial), cuando deberían haber sido privadas en primer lugar. En la versión 0.22, estas herramientas se han hecho correctamente privadas, y se ha limpiado el espacio público de la API. Además, la importación de la mayoría de los submódulos está ahora obsoleta: se debe utilizar, por ejemplo, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.cluster</span> <span class="pre">import</span> <span class="pre">Birch</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.cluster.birch</span> <span class="pre">import</span> <span class="pre">Birch</span></code> (en la práctica, <code class="docutils literal notranslate"><span class="pre">birch.py</span></code> se ha movido a <code class="docutils literal notranslate"><span class="pre">_birch.py</span></code>).</p>
 <div class="admonition note">
@@ -355,9 +355,9 @@
 <p>Este trabajo fue rastreado en <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/9250">issue 9250</a> y <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/12927">issue 12927</a>.</p>
 </section>
 <section id="deprecations-using-futurewarning-from-now-on">
-<h2>Obsolescencia: usar <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> de ahora en adelante<a class="headerlink" href="#deprecations-using-futurewarning-from-now-on" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2>Obsolescencias: usar <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> de ahora en adelante<a class="headerlink" href="#deprecations-using-futurewarning-from-now-on" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Cuando una característica resulta obsoleta, las versiones anteriores de scikit-learn solían lanzar un <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code>. Como los <code class="docutils literal notranslate"><span class="pre">DeprecationWarnings</span></code> no son mostrados por defecto por Python, scikit-learn necesitaba recurrir a un filtro de advertencia personalizado para mostrar siempre las advertencias. Ese filtro a veces interfería con los filtros de advertencia personalizados de los usuarios.</p>
-<p>A partir de la versión 0.22, scikit-learn mostrará <code class="docutils literal notranslate"><span class="pre">FutureWarnings</span></code> para las depreciaciones, <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FutureWarning">como recomienda la documentación de Python</a>. <code class="docutils literal notranslate"><span class="pre">FutureWarnings</span></code> se muestra siempre por defecto por Python, por lo que se ha eliminado el filtro personalizado y scikit-learn ya no entorpece con filtros de usuario. <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/pull/15080">#15080</a> por <a class="reference external" href="https://github.com/NicolasHug">Nicolas Hug</a>.</p>
+<p>A partir de la versión 0.22, scikit-learn mostrará <code class="docutils literal notranslate"><span class="pre">FutureWarnings</span></code> para las obsolescencias, <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FutureWarning">como recomienda la documentación de Python</a>. <code class="docutils literal notranslate"><span class="pre">FutureWarnings</span></code> se muestra siempre por defecto por Python, por lo que se ha eliminado el filtro personalizado y scikit-learn ya no entorpece con filtros de usuario. <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/pull/15080">#15080</a> por <a class="reference external" href="https://github.com/NicolasHug">Nicolas Hug</a>.</p>
 </section>
 <section id="changed-models">
 <h2>Modelos modificados<a class="headerlink" href="#changed-models" title="Enlazar permanentemente con este título">¶</a></h2>

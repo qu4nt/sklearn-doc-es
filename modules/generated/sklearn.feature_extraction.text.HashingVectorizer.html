@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.feature_extraction.text.HashingVectorizer &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.feature_extraction.text.HashingVectorizer &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.HashingVectorizer.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -197,15 +197,9 @@
 <dl class="field-list">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl>
-<dt><strong>input</strong><span class="classifier">{“filename”, “file”, “content”}, default=”content”</span></dt><dd><ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">'filename'</span></code>, the sequence passed as an argument to fit is
-expected to be a list of filenames that need reading to fetch
-the raw content to analyze.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">'file'</span></code>, the sequence items must have a “read” method (file-like
-object) that is called to fetch the bytes in memory.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">'content'</span></code>, the input is expected to be a sequence of items that
-can be of type string or byte.</p></li>
-</ul>
+<dt><strong>input</strong><span class="classifier">cadena de caracteres {“filename”, “file”, “content”}, default=”content”</span></dt><dd><p>Si es “filename”, se espera que la secuencia pasada como argumento a fit sea una lista de nombres de archivos que necesitan ser leídos para obtener el contenido en bruto a analizar.</p>
+<p>Si es “file”, los elementos de la secuencia deben tener un método “read” de lectura (objeto file-like) que se invoca para obtener los bytes en la memoria.</p>
+<p>En caso contrario, se espera que la entrada sea una secuencia de elementos que pueden ser de tipo cadena (string) o byte.</p>
 </dd>
 <dt><strong>encoding</strong><span class="classifier">cadena de caracteres, default=”utf-8”</span></dt><dd><p>Si se dan bytes o archivos para analizar, se utiliza esta codificación para decodificar.</p>
 </dd>
@@ -220,7 +214,7 @@ can be of type string or byte.</p></li>
 </dd>
 <dt><strong>tokenizer</strong><span class="classifier">invocable, default=None</span></dt><dd><p>Anula el paso de tokenización de cadenas conservando los pasos de preprocesamiento y generación de n-gramas. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>.</p>
 </dd>
-<dt><strong>stop_words</strong><span class="classifier">{“english”}, list, default=None</span></dt><dd><p>Si es “english”, se utiliza una lista de palabras funcionales incorporada para el inglés. Hay varias incidencias conocidas con “english” y deberías considerar una alternativa (ver <a class="reference internal" href="../feature_extraction.html#stop-words"><span class="std std-ref">Usando palabras funcionales (stop words)</span></a>).</p>
+<dt><strong>stop_words</strong><span class="classifier">cadena de caracteres {“english”}, list, default=None</span></dt><dd><p>Si es “english”, se utiliza una lista de palabras funcionales incorporada para el inglés. Hay varias incidencias conocidas con “english” y deberías considerar una alternativa (ver <a class="reference internal" href="../feature_extraction.html#stop-words"><span class="std std-ref">Usando palabras funcionales (stop words)</span></a>).</p>
 <p>Si es una lista (list), se asume que dicha lista contiene palabras funcionales, las cuales serán eliminadas de los tokens resultantes. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>.</p>
 </dd>
 <dt><strong>token_pattern</strong> : cadena, default=r»(?u)\b\w\w+\b»<span class="classifier">str, default=r»(?u)\b\w\w+\b»</span></dt><dd><p>Expresión regular que denota lo que constituye un «token», sólo se utiliza si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>. La regexp predeterminada selecciona tokens de 2 o más caracteres alfanuméricos (la puntuación se ignora por completo y se trata siempre como un separador de tokens).</p>
@@ -231,10 +225,9 @@ can be of type string or byte.</p></li>
 <dt><strong>analyzer</strong><span class="classifier">{“word”, “char”, “char_wb”} o callable, default=”word”</span></dt><dd><p>Si la característica debe estar hecha de n-gramas de palabras o de n-gramas de caracteres. La opción “char_wb” crea n-gramas de caracteres sólo a partir del texto dentro de los límites de las palabras; los n-gramas en los bordes de las palabras se rellenan con espacio.</p>
 <p>Si se pasa un invocable, se utiliza para extraer la secuencia de características de la entrada en bruto y sin procesar.</p>
 <div class="versionchanged">
-<p><span class="versionmodified changed">Distinto en la versión 0.21: </span>Since v0.21, if <code class="docutils literal notranslate"><span class="pre">input</span></code> is <code class="docutils literal notranslate"><span class="pre">'filename'</span></code> or <code class="docutils literal notranslate"><span class="pre">'file'</span></code>, the data
-is first read from the file and then passed to the given callable
-analyzer.</p>
+<p><span class="versionmodified changed">Distinto en la versión 0.21.</span></p>
 </div>
+<p>Desde la v0.21, si <code class="docutils literal notranslate"><span class="pre">input</span></code> es <code class="docutils literal notranslate"><span class="pre">filename</span></code> o <code class="docutils literal notranslate"><span class="pre">file</span></code>, los datos se leen primero del archivo y luego se pasan al analizador invocable dado.</p>
 </dd>
 <dt><strong>n_features</strong><span class="classifier">entero, default=(2 ** 20)</span></dt><dd><p>El número de características (columnas) en las matrices de salida. Es probable que un número pequeño de características provoque colisiones de hash, pero los números grandes causarán dimensiones de coeficiente más grandes en los aprendices lineales.</p>
 </dd>

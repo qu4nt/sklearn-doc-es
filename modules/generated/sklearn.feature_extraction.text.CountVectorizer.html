@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.feature_extraction.text.CountVectorizer &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.feature_extraction.text.CountVectorizer &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -184,15 +184,9 @@
 <dl class="field-list">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl>
-<dt><strong>input</strong><span class="classifier">{“filename”, “file”, “content”}, default=”content”</span></dt><dd><ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">'filename'</span></code>, the sequence passed as an argument to fit is
-expected to be a list of filenames that need reading to fetch
-the raw content to analyze.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">'file'</span></code>, the sequence items must have a “read” method (file-like
-object) that is called to fetch the bytes in memory.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">'content'</span></code>, the input is expected to be a sequence of items that
-can be of type string or byte.</p></li>
-</ul>
+<dt><strong>input</strong><span class="classifier">string {“filename”, “file”, “content”}, default=”content”</span></dt><dd><p>Si es “filename”, se espera que la secuencia pasada como argumento a fit sea una lista de nombres de archivos que necesitan ser leídos para obtener el contenido en bruto a analizar.</p>
+<p>Si es “file”, los elementos de la secuencia deben tener un método “read” de lectura (objeto file-like) que se invoca para obtener los bytes en la memoria.</p>
+<p>En caso contrario, se espera que la entrada sea una secuencia de elementos que pueden ser de tipo cadena (string) o byte.</p>
 </dd>
 <dt><strong>encoding</strong><span class="classifier">string, default=”utf-8”</span></dt><dd><p>Si se dan bytes o archivos para analizar, se utiliza esta codificación para decodificar.</p>
 </dd>
@@ -207,7 +201,7 @@ can be of type string or byte.</p></li>
 </dd>
 <dt><strong>tokenizer</strong><span class="classifier">callable, default=None</span></dt><dd><p>Anula el paso de tokenización de cadenas conservando los pasos de preprocesamiento y generación de n-gramas. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>.</p>
 </dd>
-<dt><strong>stop_words</strong><span class="classifier">{“english”}, list, default=None</span></dt><dd><p>Si es “english”, se utiliza una lista de palabras funcionales incorporada para el inglés. Hay varias incidencias conocidas con “english” y deberías considerar una alternativa (ver <a class="reference internal" href="../feature_extraction.html#stop-words"><span class="std std-ref">Usando palabras funcionales (stop words)</span></a>).</p>
+<dt><strong>stop_words</strong><span class="classifier">string {“english”}, list, default=None</span></dt><dd><p>Si es “english”, se utiliza una lista de palabras funcionales incorporada para el inglés. Hay varias incidencias conocidas con “english” y deberías considerar una alternativa (ver <a class="reference internal" href="../feature_extraction.html#stop-words"><span class="std std-ref">Usando palabras funcionales (stop words)</span></a>).</p>
 <p>Si es una lista (list), se asume que dicha lista contiene palabras funcionales, las cuales serán eliminadas de los tokens resultantes. Sólo se aplica si <code class="docutils literal notranslate"><span class="pre">analyzer</span> <span class="pre">==</span> <span class="pre">'word'</span></code>.</p>
 <p>Si es None, no se utilizará ninguna de las palabras funcionales. max_df puede establecerse en un valor en el rango [0.7, 1.0) para detectar y filtrar automáticamente las palabras funcionales basándose en la frecuencia de los términos del documento dentro del corpus.</p>
 </dd>
@@ -264,7 +258,7 @@ can be of type string or byte.</p></li>
 </dl>
 </div>
 <p class="rubric">Notas</p>
-<p>El atributo <code class="docutils literal notranslate"><span class="pre">stop_words_</span></code> puede hacerse grande y aumentar el tamaño del modelo cuando se hace el pickling (serializar). Este atributo se proporciona sólo para la introspección y se puede eliminar de forma segura utilizando delattr o estableciendo None antes del pickling.</p>
+<p>El atributo <code class="docutils literal notranslate"><span class="pre">stop_words_</span></code> puede hacerse grande y aumentar el tamaño del modelo cuando se hace el pickling. Este atributo se proporciona sólo para la introspección y se puede eliminar de forma segura utilizando delattr o estableciendo None antes del pickling.</p>
 <p class="rubric">Ejemplos</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>

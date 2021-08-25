@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.decomposition.PCA &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.decomposition.PCA &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -238,8 +238,7 @@
 <dd class="field-even"><dl>
 <dt><strong>components_</strong><span class="classifier">ndarray de forma (n_components, n_features)</span></dt><dd><p>Ejes principales en el espacio de características, que representan las direcciones de máxima varianza en los datos. Los componentes se ordenan por <code class="docutils literal notranslate"><span class="pre">explained_variance_</span></code>.</p>
 </dd>
-<dt><strong>explained_variance_</strong><span class="classifier">ndarray de forma (n_components,)</span></dt><dd><p>The amount of variance explained by each of the selected components.
-The variance estimation uses <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">-</span> <span class="pre">1</span></code> degrees of freedom.</p>
+<dt><strong>explained_variance_</strong><span class="classifier">ndarray de forma (n_components,)</span></dt><dd><p>La cantidad de varianza explicada por cada uno de los componentes seleccionados.</p>
 <p>Igual a n_components autovalores más grandes de la matriz de covarianza de X.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">Nuevo en la versión 0.18.</span></p>
@@ -282,24 +281,10 @@ The variance estimation uses <code class="docutils literal notranslate"><span cl
 </dl>
 </div>
 <p class="rubric">Referencias</p>
-<p>For n_components == “mle”, this class uses the method from:
-<a class="reference external" href="https://tminka.github.io/papers/pca/minka-pca.pdf">Minka, T. P.. «Automatic choice of dimensionality for PCA».
-In NIPS, pp. 598-604</a></p>
-<p>Implements the probabilistic PCA model from:
-<a class="reference external" href="http://www.miketipping.com/papers/met-mppca.pdf">Tipping, M. E., and Bishop, C. M. (1999). «Probabilistic principal
-component analysis». Journal of the Royal Statistical Society:
-Series B (Statistical Methodology), 61(3), 611-622.</a>
-via the score and score_samples methods.</p>
+<p>Para n_components == “mle”, esta clase utiliza el método de <em>Minka, T. P. «Automatic choice of dimensionality for PCA». En NIPS, pp. 598-604</em></p>
+<p>Implementa el modelo probabilístico PCA de: Tipping, M. E., y Bishop, C. M. (1999). «Probabilistic principal component analysis». Journal of the Royal Statistical Society: Series B (Statistical Methodology), 61(3), 611-622. a través de los métodos score y score_samples. Ver <a class="reference external" href="http://www.miketipping.com/papers/met-mppca.pdf">http://www.miketipping.com/papers/met-mppca.pdf</a></p>
 <p>Para svd_solver == “arpack”, consulta <code class="docutils literal notranslate"><span class="pre">scipy.sparse.linalg.svds</span></code>.</p>
-<p>For svd_solver == “randomized”, see:
-<a class="reference external" href="https://doi.org/10.1137/090771806">Halko, N., Martinsson, P. G., and Tropp, J. A. (2011).
-«Finding structure with randomness: Probabilistic algorithms for
-constructing approximate matrix decompositions».
-SIAM review, 53(2), 217-288.</a>
-and also
-<a class="reference external" href="https://doi.org/10.1016/j.acha.2010.02.003">Martinsson, P. G., Rokhlin, V., and Tygert, M. (2011).
-«A randomized algorithm for the decomposition of matrices».
-Applied and Computational Harmonic Analysis, 30(1), 47-68</a>.</p>
+<p>Para svd_solver == “randomized”, ver: <em>Halko, N., Martinsson, P. G., y Tropp, J. A. (2011). «Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions». SIAM review, 53(2), 217-288.</em> y también <em>Martinsson, P. G., Rokhlin, V., y Tygert, M. (2011). «A randomized algorithm for the decomposition of matrices». Applied and Computational Harmonic Analysis, 30(1), 47-68.</em></p>
 <p class="rubric">Ejemplos</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
@@ -568,6 +553,16 @@ Applied and Computational Harmonic Analysis, 30(1), 47-68</a>.</p>
 </dl>
 </dd>
 </dl>
+<p class="rubric">Ejemplos</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">IncrementalPCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipca</span> <span class="o">=</span> <span class="n">IncrementalPCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">IncrementalPCA(batch_size=3, n_components=2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ipca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> 
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>

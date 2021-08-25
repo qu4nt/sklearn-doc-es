@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.preprocessing.OneHotEncoder &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.preprocessing.OneHotEncoder &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -183,6 +183,9 @@
 <p>Esta codificación es necesaria para alimentar los datos categóricos a muchos estimadores de scikit-learn, especialmente los modelos lineales y las SVM con los núcleos estándar.</p>
 <p>Nota: una codificación one-hot de las etiquetas y debe utilizar un LabelBinarizer en su lugar.</p>
 <p>Lee más en el <a class="reference internal" href="../preprocessing.html#preprocessing-categorical-features"><span class="std std-ref">Manual de usuario</span></a>.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.20.</span></p>
+</div>
 <dl class="field-list">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl>
@@ -204,11 +207,8 @@
 <li><p>“if_binary” : elimina la primera categoría en cada característica con dos categorías. Las características con 1 o más de 2 categorías se dejan intactas.</p></li>
 <li><p>array : <code class="docutils literal notranslate"><span class="pre">drop[i]</span></code> es la categoría en la característica <code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">i]</span></code> que debe ser descartada.</p></li>
 </ul>
-<div class="versionadded">
-<p><span class="versionmodified added">Nuevo en la versión 0.21: </span>The parameter <code class="docutils literal notranslate"><span class="pre">drop</span></code> was added in 0.21.</p>
-</div>
 <div class="versionchanged">
-<p><span class="versionmodified changed">Distinto en la versión 0.23: </span>The option <code class="docutils literal notranslate"><span class="pre">drop='if_binary'</span></code> was added in 0.23.</p>
+<p><span class="versionmodified changed">Distinto en la versión 0.23: </span>Opción añadida “if_binary”.</p>
 </div>
 </dd>
 <dt><strong>sparse</strong><span class="classifier">bool, default=True</span></dt><dd><p>Devolverá una matriz dispersa si se establece como True, de lo contrario devolverá un arreglo.</p>
@@ -326,7 +326,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Los datos para determinar las categorías de cada característica.</p>
+<dt><strong>X</strong><span class="classifier">array-like, forma [n_samples, n_features]</span></dt><dd><p>Los datos para determinar las categorías de cada característica.</p>
 </dd>
 <dt><strong>y</strong><span class="classifier">None</span></dt><dd><p>Ignorado. Este parámetro sólo existe por compatibilidad con <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>.</p>
 </dd>
@@ -348,7 +348,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Los datos a codificar.</p>
+<dt><strong>X</strong><span class="classifier">array-like, forma [n_samples, n_features]</span></dt><dd><p>Los datos a codificar.</p>
 </dd>
 <dt><strong>y</strong><span class="classifier">None</span></dt><dd><p>Ignorado. Este parámetro sólo existe por compatibilidad con <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>.</p>
 </dd>
@@ -356,8 +356,7 @@
 </dd>
 <dt class="field-even">Devuelve</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>X_out</strong><span class="classifier">{ndarray, sparse matrix} of shape                 (n_samples, n_encoded_features)</span></dt><dd><p>Transformed input. If <code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>, a sparse matrix will be
-returned.</p>
+<dt><strong>X_out</strong><span class="classifier">matriz dispersa si sparse=True de lo contrario un arreglo 2-d</span></dt><dd><p>Entrada transformada.</p>
 </dd>
 </dl>
 </dd>
@@ -412,13 +411,13 @@ returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} of shape                 (n_samples, n_encoded_features)</span></dt><dd><p>Los datos transformados.</p>
+<dt><strong>X</strong><span class="classifier">array-like o matriz dispersa, forma [n_samples, n_encoded_features]</span></dt><dd><p>Los datos transformados.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Devuelve</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>X_tr</strong><span class="classifier">ndarray of shape (n_samples, n_features)</span></dt><dd><p>Arreglo transformado inverso.</p>
+<dt><strong>X_tr</strong><span class="classifier">array-like, forma [n_samples, n_features]</span></dt><dd><p>Arreglo transformado inverso.</p>
 </dd>
 </dl>
 </dd>
@@ -453,14 +452,13 @@ returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Los datos a codificar.</p>
+<dt><strong>X</strong><span class="classifier">array-like, forma [n_samples, n_features]</span></dt><dd><p>Los datos a codificar.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Devuelve</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>X_out</strong><span class="classifier">{ndarray, sparse matrix} of shape                 (n_samples, n_encoded_features)</span></dt><dd><p>Transformed input. If <code class="docutils literal notranslate"><span class="pre">sparse=True</span></code>, a sparse matrix will be
-returned.</p>
+<dt><strong>X_out</strong><span class="classifier">matriz dispersa si sparse=True de lo contrario un arreglo 2-d</span></dt><dd><p>Entrada transformada.</p>
 </dd>
 </dl>
 </dd>

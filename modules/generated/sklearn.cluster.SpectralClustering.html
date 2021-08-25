@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.cluster.SpectralClustering &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.cluster.SpectralClustering &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.SpectralClustering.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -175,22 +175,14 @@
 <dt class="sig sig-object py" id="sklearn.cluster.SpectralClustering">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sklearn.cluster.</span></span><span class="sig-name descname"><span class="pre">SpectralClustering</span></span><a class="headerlink" href="#sklearn.cluster.SpectralClustering" title="Enlazar permanentemente con esta definición">¶</a></dt>
 <dd><p>Aplicar el agrupamiento a una proyección del Laplaciano normalizado.</p>
-<p>In practice Spectral Clustering is very useful when the structure of
-the individual clusters is highly non-convex, or more generally when
-a measure of the center and spread of the cluster is not a suitable
-description of the complete cluster, such as when clusters are
-nested circles on the 2D plane.</p>
-<p>If the affinity matrix is the adjacency matrix of a graph, this method
-can be used to find normalized graph cuts.</p>
-<p>When calling <code class="docutils literal notranslate"><span class="pre">fit</span></code>, an affinity matrix is constructed using either
-a kernel function such the Gaussian (aka RBF) kernel with Euclidean
-distance <code class="docutils literal notranslate"><span class="pre">d(X,</span> <span class="pre">X)</span></code>:</p>
+<p>En la práctica, Spectral Clustering es muy útil cuando la estructura de los conglomerados individuales es altamente no convexa o, más generalmente, cuando una medida del centro y la dispersión del conglomerado no es una descripción adecuada del conglomerado completo. Por ejemplo, cuando los conglomerados son círculos anidados en el plano 2D.</p>
+<p>Si la afinidad es la matriz de adyacencia de un grafo, este método puede utilizarse para encontrar cortes de grafos normalizados.</p>
+<p>Cuando se llama a <code class="docutils literal notranslate"><span class="pre">fit</span></code>, se construye una matriz de afinidad utilizando cualquier función núcleo como el núcleo gaussiano (aka RBF) de la distancia euclidiana <code class="docutils literal notranslate"><span class="pre">d(X,</span> <span class="pre">X)</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">X</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>o una matriz de conectividad vecina k-más cercana.</p>
-<p>Alternatively, a user-provided affinity matrix can be specified by
-setting <code class="docutils literal notranslate"><span class="pre">affinity='precomputed'</span></code>.</p>
+<p>Alternativamente, utilizando <code class="docutils literal notranslate"><span class="pre">precomputed</span></code>, se puede utilizar una matriz de afinidad proporcionada por el usuario.</p>
 <p>Más información en el <a class="reference internal" href="../clustering.html#spectral-clustering"><span class="std std-ref">Manual de usuario</span></a>.</p>
 <dl class="field-list">
 <dt class="field-odd">Parámetros</dt>
@@ -199,32 +191,20 @@ setting <code class="docutils literal notranslate"><span class="pre">affinity='p
 </dd>
 <dt><strong>eigen_solver</strong><span class="classifier">{“arpack”, “lobpcg”, “amg”}, default=None</span></dt><dd><p>La estrategia de descomposición de autovalores a utilizar. AMG requiere la instalación de pyamg. Puede ser más rápido en problemas muy grandes y dispersos, pero también puede conducir a inestabilidades. Si es None, entonces se utiliza <code class="docutils literal notranslate"><span class="pre">'arpack'</span></code>.</p>
 </dd>
-<dt><strong>n_components</strong><span class="classifier">entero, default=n_clusters</span></dt><dd><p>Number of eigenvectors to use for the spectral embedding</p>
+<dt><strong>n_components</strong><span class="classifier">entero, default=n_clusters</span></dt><dd><p>Número de vectores eigen que se utilizarán para spectral embedding</p>
 </dd>
-<dt><strong>random_state</strong><span class="classifier">int, RandomState instance, default=None</span></dt><dd><p>A pseudo random number generator used for the initialization of the
-lobpcg eigenvectors decomposition when <code class="docutils literal notranslate"><span class="pre">eigen_solver='amg'</span></code> and by
-the K-Means initialization. Use an int to make the randomness
-deterministic.
-See <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glossary</span></a>.</p>
+<dt><strong>random_state</strong><span class="classifier">int, RandomState instance, default=None</span></dt><dd><p>Un generador de números pseudo aleatorios utilizado para la inicialización de la descomposición de los vectores lobpcg eigen cuando <a href="#id1"><span class="problematic" id="id2">``</span></a>eigen_solver=”amg”` y por la inicialización de K-Medias. Utiliza un int para que la aleatoriedad sea determinista. Consulta <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
 </dd>
-<dt><strong>n_init</strong><span class="classifier">int, default=10</span></dt><dd><p>Number of time the k-means algorithm will be run with different
-centroid seeds. The final results will be the best output of n_init
-consecutive runs in terms of inertia. Only used if
-<code class="docutils literal notranslate"><span class="pre">assign_labels='kmeans'</span></code>.</p>
+<dt><strong>n_init</strong><span class="classifier">int, default=10</span></dt><dd><p>Número de veces que se ejecutará el algoritmo k-medias con diferentes semillas de centroides. El resultado final será el mejor resultado de n_init ejecuciones consecutivas en términos de inercia.</p>
 </dd>
 <dt><strong>gamma</strong><span class="classifier">float, default=1.0</span></dt><dd><p>Coeficiente de núcleo para los núcleos rbf, poly, sigmoid, laplacian y chi2. Ignorado para <code class="docutils literal notranslate"><span class="pre">affinity='nearest_neighbors'</span></code>.</p>
 </dd>
 <dt><strong>affinity</strong><span class="classifier">cadena de caracteres o invocable, default=”rbf”</span></dt><dd><dl class="simple">
 <dt>Cómo construir la matriz affinity.</dt><dd><ul class="simple">
-<li><p>“nearest_neighbors”: construct the affinity matrix by computing a
-graph of nearest neighbors.</p></li>
-<li><p>“rbf”: construct the affinity matrix using a radial basis function
-(RBF) kernel.</p></li>
-<li><p>“precomputed”: interpret <code class="docutils literal notranslate"><span class="pre">X</span></code> as a precomputed affinity matrix,
-where larger values indicate greater similarity between instances.</p></li>
-<li><p>“precomputed_nearest_neighbors”: interpret <code class="docutils literal notranslate"><span class="pre">X</span></code> as a sparse graph
-of precomputed distances, and construct a binary affinity matrix
-from the <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> nearest neighbors of each instance.</p></li>
+<li><p>“nearest_neighbors” : construye la matriz affinity calculando una gráfica de vecinos más cercanos.</p></li>
+<li><p>“rbf” : construye la matriz de afinidad utilizando un núcleo de función de base radial (RBF).</p></li>
+<li><p>“precomputed” : interpreta <code class="docutils literal notranslate"><span class="pre">X</span></code> como una matriz de afinidad precomputada.</p></li>
+<li><p>“precomputed_nearest_neighbors” : interprete <code class="docutils literal notranslate"><span class="pre">X</span></code> como un gráfico disperso de vecinos cercanos precalculados, y construye la matriz de afinidad seleccionando los vecinos más cercanos <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>.</p></li>
 <li><p>uno de los núcleos soportados por <code class="xref py py-func docutils literal notranslate"><span class="pre">pairwise_kernels</span></code>.</p></li>
 </ul>
 </dd>
@@ -235,11 +215,7 @@ from the <code class="docutils literal notranslate"><span class="pre">n_neighbor
 </dd>
 <dt><strong>eigen_tol</strong><span class="classifier">float, default=0.0</span></dt><dd><p>Criterio de parada para la eigendecomposición de la matriz Laplaciana cuando <code class="docutils literal notranslate"><span class="pre">eigen_solver='arpack'</span></code>.</p>
 </dd>
-<dt><strong>assign_labels</strong><span class="classifier">{“kmeans”, “discretize”}, default=”kmeans”</span></dt><dd><p>The strategy for assigning labels in the embedding space. There are two
-ways to assign labels after the Laplacian embedding. k-means is a
-popular choice, but it can be sensitive to initialization.
-Discretization is another approach which is less sensitive to random
-initialization.</p>
+<dt><strong>assign_labels</strong><span class="classifier">{“kmeans”, “discretize”}, default=”kmeans”</span></dt><dd><p>La estrategia a utilizar para asignar etiquetas en el espacio de embedding. Hay dos maneras de asignar etiquetas después del embedding laplaciano. Se puede aplicar k-medias y es una opción popular. Pero también puede ser sensible a la inicialización. La discretización es otro enfoque que es menos sensible a la inicialización aleatoria.</p>
 </dd>
 <dt><strong>degree</strong><span class="classifier">float, default=3</span></dt><dd><p>Grado del núcleo polinómico. Ignorado por otros núcleos.</p>
 </dd>
@@ -258,8 +234,7 @@ initialization.</p>
 </dd>
 <dt class="field-even">Atributos</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>affinity_matrix_</strong><span class="classifier">array-like de forma (n_samples, n_samples)</span></dt><dd><p>Affinity matrix used for clustering. Available only after calling
-<code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+<dt><strong>affinity_matrix_</strong><span class="classifier">array-like de forma (n_samples, n_samples)</span></dt><dd><p>Matriz de afinidad utilizada para el agrupamiento. Disponible sólo si después de llamar a <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
 </dd>
 <dt><strong>labels_</strong><span class="classifier">ndarray de forma (n_samples,)</span></dt><dd><p>Etiquetas de cada punto</p>
 </dd>
@@ -267,17 +242,12 @@ initialization.</p>
 </dd>
 </dl>
 <p class="rubric">Notas</p>
-<p>A distance matrix for which 0 indicates identical elements and high values
-indicate very dissimilar elements can be transformed into an affinity /
-similarity matrix that is well-suited for the algorithm by
-applying the Gaussian (aka RBF, heat) kernel:</p>
+<p>Si se tiene una matriz de afinidad, como una matriz de distancia, para la cual 0 significa elementos idénticos, y valores altos significa elementos muy disímiles, se puede transformar en una matriz de similitud que se adapte bien al algoritmo aplicando el núcleo Gaussiano (RBF, heat):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">dist_matrix</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">delta</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">delta</span></code> is a free parameter representing the width of the Gaussian
-kernel.</p>
-<p>An alternative is to take a symmetric version of the k-nearest neighbors
-connectivity matrix of the points.</p>
+<p>Donde <code class="docutils literal notranslate"><span class="pre">delta</span></code> es un parámetro libre que representa el ancho del núcleo Gaussiano.</p>
+<p>Otra alternativa es tomar una versión simétrica de la matriz de conectividad de los k vecinos más cercanos de los puntos.</p>
 <p>Si el paquete pyamg está instalado, se utiliza: esto acelera enormemente el cálculo.</p>
 <p class="rubric">Referencias</p>
 <ul class="simple">
@@ -297,7 +267,7 @@ Stella X. Yu, Jianbo Shi
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">clustering</span> <span class="o">=</span> <span class="n">SpectralClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">assign_labels</span><span class="o">=</span><span class="s1">&#39;discretize&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">assign_labels</span><span class="o">=</span><span class="s2">&quot;discretize&quot;</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">clustering</span><span class="o">.</span><span class="n">labels_</span>
 <span class="go">array([1, 1, 1, 0, 0, 0])</span>
@@ -334,12 +304,7 @@ Stella X. Yu, Jianbo Shi
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_features) or                 (n_samples, n_samples)</span></dt><dd><p>Training instances to cluster, similarities / affinities between
-instances if <code class="docutils literal notranslate"><span class="pre">affinity='precomputed'</span></code>, or distances between
-instances if <code class="docutils literal notranslate"><span class="pre">affinity='precomputed_nearest_neighbors</span></code>. If a
-sparse matrix is provided in a format other than <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>,
-<code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code>, or <code class="docutils literal notranslate"><span class="pre">coo_matrix</span></code>, it will be converted into a
-sparse <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features), o                 array-like of shape (n_samples, n_samples)</span></dt><dd><p>Instancias de entrenamiento a agrupar, o similitudes / afinidades entre instancias si <code class="docutils literal notranslate"><span class="pre">affinity='precomputed'</span></code>. Si se proporciona una matriz dispersa en un formato distinto a <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>, <code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code> o <code class="docutils literal notranslate"><span class="pre">coo_matrix</span></code>, se convertirá en una matriz dispersa <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
 </dd>
 <dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd><p>No se utiliza, se presenta aquí para la coherencia de la API por convención.</p>
 </dd>
@@ -360,12 +325,7 @@ sparse <code class="docutils literal notranslate"><span class="pre">csr_matrix</
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} of shape (n_samples, n_features) or                 (n_samples, n_samples)</span></dt><dd><p>Training instances to cluster, similarities / affinities between
-instances if <code class="docutils literal notranslate"><span class="pre">affinity='precomputed'</span></code>, or distances between
-instances if <code class="docutils literal notranslate"><span class="pre">affinity='precomputed_nearest_neighbors</span></code>. If a
-sparse matrix is provided in a format other than <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>,
-<code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code>, or <code class="docutils literal notranslate"><span class="pre">coo_matrix</span></code>, it will be converted into a
-sparse <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
+<dt><strong>X</strong><span class="classifier">{array-like, sparse matrix} de forma (n_samples, n_features), o                 array-like of shape (n_samples, n_samples)</span></dt><dd><p>Instancias de entrenamiento a agrupar, o similitudes / afinidades entre instancias si <code class="docutils literal notranslate"><span class="pre">affinity='precomputed'</span></code>. Si se proporciona una matriz dispersa en un formato distinto a <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>, <code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code> o <code class="docutils literal notranslate"><span class="pre">coo_matrix</span></code>, se convertirá en una matriz dispersa <code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code>.</p>
 </dd>
 <dt><strong>y</strong><span class="classifier">Ignorado</span></dt><dd><p>No se utiliza, se presenta aquí para la coherencia de la API por convención.</p>
 </dd>

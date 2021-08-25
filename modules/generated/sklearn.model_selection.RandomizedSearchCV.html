@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.model_selection.RandomizedSearchCV &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.model_selection.RandomizedSearchCV &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -195,24 +195,41 @@
 </dd>
 <dt><strong>n_iter</strong><span class="classifier">int, default=10</span></dt><dd><p>Número de ajustes de parámetros que se muestrean. n_iter compensa el tiempo de ejecución frente a la calidad de la solución.</p>
 </dd>
-<dt><strong>scoring</strong><span class="classifier">str, callable, list/tuple o dict, default=None</span></dt><dd><p>Estrategia para evaluar el rendimiento del modelo validado de forma cruzada en el conjunto de pruebas.</p>
-<p>Si <code class="docutils literal notranslate"><span class="pre">scoring</span></code> representa una única puntuación, se puede utilizar:</p>
-<ul class="simple">
-<li><p>una sola cadena (ver <a class="reference internal" href="../model_evaluation.html#scoring-parameter"><span class="std std-ref">El parámetro scoring: definir las reglas de evaluación del modelo</span></a>);</p></li>
-<li><p>un callable o invocable (ver <a class="reference internal" href="../model_evaluation.html#scoring"><span class="std std-ref">Definir tu estrategia de puntuación a partir de funciones métricas</span></a>) que devuelve un único valor.</p></li>
-</ul>
-<p>If <code class="docutils literal notranslate"><span class="pre">scoring</span></code> represents multiple scores, one can use:</p>
-<ul class="simple">
-<li><p>una lista o tupla de cadenas únicas;</p></li>
-<li><p>un callable que devuelve un diccionario donde las claves son los nombres de las métricas y los valores son las puntuaciones de las métricas;</p></li>
-<li><p>un diccionario con los nombres de las métricas como claves e invocable como valores.</p></li>
-</ul>
+<dt><strong>scoring</strong><span class="classifier">str, callable, list/tuple or dict, default=None</span></dt><dd><p>A single str (see <a class="reference internal" href="../model_evaluation.html#scoring-parameter"><span class="std std-ref">El parámetro scoring: definir las reglas de evaluación del modelo</span></a>) or a callable
+(see <a class="reference internal" href="../model_evaluation.html#scoring"><span class="std std-ref">Definir tu estrategia de puntuación a partir de funciones métricas</span></a>) to evaluate the predictions on the test set.</p>
+<p>For evaluating multiple metrics, either give a list of (unique) strings
+or a dict with names as keys and callables as values.</p>
+<p>NOTE that when using custom scorers, each scorer should return a single
+value. Metric functions returning a list/array of values can be wrapped
+into multiple scorers that return one value each.</p>
 <p>Ver <a class="reference internal" href="../grid_search.html#multimetric-grid-search"><span class="std std-ref">Especificar múltiples métricas para la evaluación</span></a> para un ejemplo.</p>
 <p>Si es None, se utiliza el método de puntuación del estimador.</p>
 </dd>
 <dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>Número de trabajos a ejecutar en paralelo. <code class="docutils literal notranslate"><span class="pre">None</span></code> significa 1 a menos que esté en un contexto <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#joblib.parallel_backend" title="(en joblib versión 1.1.0.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a>. <code class="docutils literal notranslate"><span class="pre">-1</span></code> significa utilizar todos los procesadores. Ver <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glosario</span></a> para más detalles.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Distinto en la versión v0.20: </span><code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> predeterminado cambiado de 1 a None</p>
+</div>
+</dd>
+<dt><strong>pre_dispatch</strong><span class="classifier">int, o str, default=None</span></dt><dd><p>Controla el número de trabajos que se envían durante la ejecución en paralelo. Reducir este número puede ser útil para evitar una explosión de consumo de memoria cuando se envían más trabajos de los que las CPUs pueden procesar. Este parámetro puede ser:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None, en cuyo caso todos los trabajos se crean y generan inmediatamente. Utilícelo para trabajos ligeros y de ejecución rápida, para evitar retrasos debidos a la generación de trabajos bajo demanda</p></li>
+<li><p>Un int, que da el número exacto de trabajos totales que se generan</p></li>
+<li><p>Una str, que da una expresión como función de n_jobs, como en “2*n_jobs”</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>cv</strong><span class="classifier">int, generador de validación cruzada o un iterable, por defecto=None</span></dt><dd><p>Determina la estrategia de separación de la validación cruzada. Las entradas posibles para cv son:</p>
+<ul class="simple">
+<li><p>None, para utilizar la validación cruzada de 5 pliegues por defecto,</p></li>
+<li><p>entero, para especificar el número de pliegues en un <code class="docutils literal notranslate"><span class="pre">(Stratified)KFold</span></code>,</p></li>
+<li><p><a class="reference internal" href="../../glossary.html#term-CV-splitter"><span class="xref std std-term">separador de CV</span></a>,</p></li>
+<li><p>Un iterable que produce (train, test) se separa como arreglos de índices.</p></li>
+</ul>
+<p>Para entradas enteras/None, si el estimador es un clasificador e <code class="docutils literal notranslate"><span class="pre">y</span></code> es binario o multiclase, se utiliza <a class="reference internal" href="sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a>. En todos los demás casos, se utiliza <a class="reference internal" href="sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>.</p>
+<p>Consulte la <a class="reference internal" href="../cross_validation.html#cross-validation"><span class="std std-ref">Guía del usuario</span></a> para conocer las distintas estrategias de validación cruzada que pueden utilizarse aquí.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Distinto en la versión 0.22: </span>El valor predeterminado es <code class="docutils literal notranslate"><span class="pre">cv</span></code> si no se cambia de 3 a 5 veces.</p>
 </div>
 </dd>
 <dt><strong>refit</strong><span class="classifier">booleano, default=True</span></dt><dd><p>Reajustar un estimador utilizando los mejores parámetros encontrados en todo el conjunto de datos.</p>
@@ -225,32 +242,7 @@
 <p><span class="versionmodified changed">Distinto en la versión 0.20: </span>Se ha añadido soporte para callable.</p>
 </div>
 </dd>
-<dt><strong>cv</strong><span class="classifier">int, generador de validación cruzada o un iterable, por defecto=None</span></dt><dd><p>Determina la estrategia de separación de la validación cruzada. Las entradas posibles para cv son:</p>
-<ul class="simple">
-<li><p>None, para utilizar la validación cruzada de 5 pliegues por defecto,</p></li>
-<li><p>entero, para especificar el número de pliegues en un <code class="docutils literal notranslate"><span class="pre">(Stratified)KFold</span></code>,</p></li>
-<li><p><a class="reference internal" href="../../glossary.html#term-CV-splitter"><span class="xref std std-term">separador de CV</span></a>,</p></li>
-<li><p>Un iterable que produce (train, test) se separa como arreglos de índices.</p></li>
-</ul>
-<p>For integer/None inputs, if the estimator is a classifier and <code class="docutils literal notranslate"><span class="pre">y</span></code> is
-either binary or multiclass, <a class="reference internal" href="sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> is used. In all
-other cases, <a class="reference internal" href="sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> is used. These splitters are instantiated
-with <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> so the splits will be the same across calls.</p>
-<p>Consulte la <a class="reference internal" href="../cross_validation.html#cross-validation"><span class="std std-ref">Guía del usuario</span></a> para conocer las distintas estrategias de validación cruzada que pueden utilizarse aquí.</p>
-<div class="versionchanged">
-<p><span class="versionmodified changed">Distinto en la versión 0.22: </span>El valor predeterminado es <code class="docutils literal notranslate"><span class="pre">cv</span></code> si no se cambia de 3 a 5 veces.</p>
-</div>
-</dd>
 <dt><strong>verbose</strong><span class="classifier">int</span></dt><dd><p>Controla la verbosidad: cuanto más alta, más mensajes.</p>
-</dd>
-<dt><strong>pre_dispatch</strong><span class="classifier">int, o str, default=None</span></dt><dd><p>Controla el número de trabajos que se envían durante la ejecución en paralelo. Reducir este número puede ser útil para evitar una explosión de consumo de memoria cuando se envían más trabajos de los que las CPUs pueden procesar. Este parámetro puede ser:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>None, en cuyo caso todos los trabajos se crean y generan inmediatamente. Utilícelo para trabajos ligeros y de ejecución rápida, para evitar retrasos debidos a la generación de trabajos bajo demanda</p></li>
-<li><p>Un int, que da el número exacto de trabajos totales que se generan</p></li>
-<li><p>Una str, que da una expresión como función de n_jobs, como en “2*n_jobs”</p></li>
-</ul>
-</div></blockquote>
 </dd>
 <dt><strong>random_state</strong><span class="classifier">entero, instancia de RandomState o None, default=None</span></dt><dd><p>Estado del generador de números pseudoaleatorios utilizado para el muestreo uniforme aleatorio de las listas de valores posibles en lugar de las distribuciones de scipy.stats. Pase un int para una salida reproducible a través de múltiples llamadas a la función. Ver <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glosario</span></a>.</p>
 </dd>

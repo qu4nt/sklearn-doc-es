@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.ensemble.HistGradientBoostingRegressor &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.ensemble.HistGradientBoostingRegressor &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -183,7 +183,7 @@
 <p>Esta implementación está inspirada en <a class="reference external" href="https://github.com/Microsoft/LightGBM">LightGBM</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Este estimador es todavía <strong>experimental</strong> por ahora: las predicciones y la API podrían cambiar sin ningún ciclo de depreciación. Para utilizarlo, es necesario importar explícitamente <code class="docutils literal notranslate"><span class="pre">enable_hist_gradient_boosting</span></code>:</p>
+<p>Este estimador es todavía <strong>experimental</strong> por ahora: las predicciones y la API podrían cambiar sin ningún ciclo de obsolescencia. Para utilizarlo, es necesario importar explícitamente <code class="docutils literal notranslate"><span class="pre">enable_hist_gradient_boosting</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># explicitly require this experimental feature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_hist_gradient_boosting</span>  <span class="c1"># noqa</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># now you can import normally from ensemble</span>
@@ -217,6 +217,11 @@
 </dd>
 <dt><strong>max_bins</strong><span class="classifier">int, default=255</span></dt><dd><p>El número máximo de intervalos (bins) a utilizar para los valores no faltantes. Antes del entrenamiento, cada característica del arreglo de entrada <code class="docutils literal notranslate"><span class="pre">X</span></code> se divide en intervalos de valores enteros, lo que permite una etapa de entrenamiento mucho más rápida. Las características con un pequeño número de valores únicos pueden utilizar menos de <code class="docutils literal notranslate"><span class="pre">max_bins</span></code> intervalos. Además de los <code class="docutils literal notranslate"><span class="pre">max_bins</span></code> intervalos, siempre se reserva un intervalo más para los valores faltantes. No debe ser mayor de 255.</p>
 </dd>
+<dt><strong>monotonic_cst</strong><span class="classifier">array-like de int de forma (n_features), default=None</span></dt><dd><p>Indica la restricción monotónica que debe aplicarse a cada característica. -1, 1 y 0 corresponden respectivamente a una restricción negativa, una restricción positiva y ninguna restricción. Leer más en el <a class="reference internal" href="../ensemble.html#monotonic-cst-gbdt"><span class="std std-ref">Manual de Usuario</span></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Nuevo en la versión 0.23.</span></p>
+</div>
+</dd>
 <dt><strong>categorical_features</strong><span class="classifier">array-like de {bool, int} de forma (n_features)             o forma (n_categorical_features,), default=None.</span></dt><dd><p>Indica las características categóricas.</p>
 <ul class="simple">
 <li><p>None : ninguna característica se considerará categórica.</p></li>
@@ -227,11 +232,6 @@
 <p>Leer más en el <a class="reference internal" href="../ensemble.html#categorical-support-gbdt"><span class="std std-ref">Manual de Usuario</span></a>.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">Nuevo en la versión 0.24.</span></p>
-</div>
-</dd>
-<dt><strong>monotonic_cst</strong><span class="classifier">array-like de int de forma (n_features), default=None</span></dt><dd><p>Indica la restricción monotónica que debe aplicarse a cada característica. -1, 1 y 0 corresponden respectivamente a una restricción negativa, una restricción positiva y ninguna restricción. Leer más en el <a class="reference internal" href="../ensemble.html#monotonic-cst-gbdt"><span class="std std-ref">Manual de Usuario</span></a>.</p>
-<div class="versionadded">
-<p><span class="versionmodified added">Nuevo en la versión 0.23.</span></p>
 </div>
 </dd>
 <dt><strong>warm_start</strong><span class="classifier">bool, default=False</span></dt><dd><p>Cuando se establece como <code class="docutils literal notranslate"><span class="pre">True</span></code>, reutiliza la solución de la llamada previa para ajustar y añadir más estimadores al ensemble. Para que los resultados sean válidos, el estimador debe volver a entrenarse sólo con los mismos datos. Ver <a class="reference internal" href="../../glossary.html#term-warm_start"><span class="xref std std-term">Glosario</span></a>.</p>

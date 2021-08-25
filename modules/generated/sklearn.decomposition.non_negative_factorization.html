@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>sklearn.decomposition.non_negative_factorization &mdash; documentación de scikit-learn - 0.24.2</title>
+  <title>sklearn.decomposition.non_negative_factorization &mdash; documentación de scikit-learn - 0.24.1</title>
   
   <link rel="canonical" href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.non_negative_factorization.html" />
 
@@ -149,7 +149,7 @@
         </div>
         <div class="alert alert-danger p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>scikit-learn 0.24.2</strong><br/>
+          <strong>scikit-learn 0.24.1</strong><br/>
           <a href="http://scikit-learn.org/dev/versions.html">Otras versiones</a>
           </p>
         </div>
@@ -179,14 +179,12 @@
 <p>La función objetivo es:</p>
 <blockquote>
 <div><div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}0.5 * ||X - WH||_{loss}^2 + alpha * l1_{ratio} * ||vec(W)||_1\\+ alpha * l1_{ratio} * ||vec(H)||_1\\+ 0.5 * alpha * (1 - l1_{ratio}) * ||W||_{Fro}^2\\+ 0.5 * alpha * (1 - l1_{ratio}) * ||H||_{Fro}^2\end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}0.5 * ||X - WH||_{Fro}^2 + alpha * l1_{ratio} * ||vec(W)||_1\\+ alpha * l1_{ratio} * ||vec(H)||_1\\+ 0.5 * alpha * (1 - l1_{ratio}) * ||W||_{Fro}^2\\+ 0.5 * alpha * (1 - l1_{ratio}) * ||H||_{Fro}^2\end{aligned}\end{align} \]</div>
 </div></blockquote>
 <p>Donde:</p>
 <p><span class="math notranslate nohighlight">\(|A||_{Fro}^2 = \su_{i,j} A_{ij}^2\)</span> (Norma de Frobenius)</p>
 <p><span class="math notranslate nohighlight">\(||vec(A)||_1 = \sum_{i,j} abs(A_{ij})\)</span> (Norma Elemental L1)</p>
-<p>The generic norm <span class="math notranslate nohighlight">\(||X - WH||_{loss}^2\)</span> may represent
-the Frobenius norm or another supported beta-divergence loss.
-The choice between options is controlled by the <code class="docutils literal notranslate"><span class="pre">beta_loss</span></code> parameter.</p>
+<p>Para el solucionador de actualización multiplicativa (“mu”), la norma de Frobenius <span class="math notranslate nohighlight">\((0.5 * ||X - WH||_{Fro}^2)\)</span> puede cambiarse por otra función de pérdida de beta-divergencia, cambiando el parámetro beta_loss.</p>
 <p>La función objetivo se minimiza con una minimización alternativa de W y H. Si se da H y update_H=False, se resuelve sólo para W.</p>
 <dl class="field-list">
 <dt class="field-odd">Parámetros</dt>
