@@ -180,7 +180,7 @@
 <dl class="field-list">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl>
-<dt><strong>eps</strong><span class="classifier">float, default=0.5</span></dt><dd><p>Distancia máxima entre dos muestras para que una se considere en la vecindad (neighborhood) de la otra. No se trata de un límite máximo en las distancias de los puntos dentro de un conglomerado. Este es el parámetro más importante de DBSCAN, así que debes elegirlo cuidadosamente para tu conjunto de datos y función de distancia.</p>
+<dt><strong>eps</strong><span class="classifier">float, default=0.5</span></dt><dd><p>Distancia máxima entre dos muestras para que una se considere en el vecindario (neighborhood) de la otra. No se trata de un límite máximo en las distancias de los puntos dentro de un conglomerado. Este es el parámetro más importante de DBSCAN, así que debes elegirlo cuidadosamente para tu conjunto de datos y función de distancia.</p>
 </dd>
 <dt><strong>min_samples</strong><span class="classifier">int, default=5</span></dt><dd><p>El número de muestras (o la ponderación total) en un vecindario para que un punto sea considerado como punto central. Esto incluye el propio punto.</p>
 </dd>
@@ -224,7 +224,7 @@
 </div>
 <p class="rubric">Notas</p>
 <p>Para ver un ejemplo, consulta <a class="reference internal" href="../../auto_examples/cluster/plot_dbscan.html#sphx-glr-auto-examples-cluster-plot-dbscan-py"><span class="std std-ref">examples/cluster/plot_mean_shift.py</span></a>.</p>
-<p>Esta implementación calcula en bloque todas las consultas de vecindad, lo que aumenta la complejidad de memoria a O(n.d), donde d es el número medio de vecinos, mientras que el DBSCAN original tiene una complejidad de memoria O(n). Puede atraer una mayor complejidad de memoria al consultar estos vecindarios más cercanos, dependiendo del <code class="docutils literal notranslate"><span class="pre">algorithm</span></code>.</p>
+<p>Esta implementación calcula en bloque todas las consultas del vecindario, lo que aumenta la complejidad de memoria a O(n.d), donde d es el número medio de vecinos, mientras que el DBSCAN original tiene una complejidad de memoria O(n). Puede atraer una mayor complejidad de memoria al consultar estos vecindarios más cercanos, dependiendo del <code class="docutils literal notranslate"><span class="pre">algorithm</span></code>.</p>
 <p>Una forma de evitar la complejidad de la consulta es precalcular los vecindarios dispersos en porciones usando <a class="reference internal" href="sklearn.neighbors.NearestNeighbors.html#sklearn.neighbors.NearestNeighbors.radius_neighbors_graph" title="sklearn.neighbors.NearestNeighbors.radius_neighbors_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">NearestNeighbors.radius_neighbors_graph</span></code></a> con <code class="docutils literal notranslate"><span class="pre">mode='distance'</span></code>, y luego usar <code class="docutils literal notranslate"><span class="pre">metric='precomputed'</span></code> aquí.</p>
 <p>Otra forma de reducir la memoria y el tiempo de cálculo es eliminar los puntos (casi) duplicados y utilizar en su lugar <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code>.</p>
 <p><code class="xref py py-class docutils literal notranslate"><span class="pre">cluster.OPTICS</span></code> proporciona un conglomerado similar con menor uso de memoria.</p>
