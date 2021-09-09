@@ -164,7 +164,7 @@
 <li><a class="reference internal" href="#tutorial-setup">Configuración del tutorial</a></li>
 <li><a class="reference internal" href="#loading-the-20-newsgroups-dataset">Carga del conjunto de datos de 20 grupos de noticias</a></li>
 <li><a class="reference internal" href="#extracting-features-from-text-files">Extracción de características de archivos de texto</a><ul>
-<li><a class="reference internal" href="#bags-of-words">Empaquetado de palabras</a></li>
+<li><a class="reference internal" href="#bags-of-words">Bolsa de palabras</a></li>
 <li><a class="reference internal" href="#tokenizing-text-with-scikit-learn">Tokenización de texto con <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code></a></li>
 <li><a class="reference internal" href="#from-occurrences-to-frequencies">De ocurrencias a frecuencias</a></li>
 </ul>
@@ -300,8 +300,8 @@ span.prompt1:before {
 <h2>Extracción de características de archivos de texto<a class="headerlink" href="#extracting-features-from-text-files" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Para llevar a cabo el aprendizaje automático de documentos de texto, primero tenemos que convertir el contenido del texto en vectores de características numéricas.</p>
 <section id="bags-of-words">
-<h3>Empaquetado de palabras<a class="headerlink" href="#bags-of-words" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>La forma más intuitiva de hacerlo es utilizar una representación de empaquetado de palabras:</p>
+<h3>Bolsa de palabras<a class="headerlink" href="#bags-of-words" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La forma más intuitiva de hacerlo es utilizar una representación de bolsa de palabras:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><p>Asigna un identificador entero fijo a cada palabra que aparezca en cualquier documento del conjunto de entrenamiento (por ejemplo, construyendo un diccionario de palabras con índices enteros).</p></li>
@@ -310,7 +310,7 @@ span.prompt1:before {
 </div></blockquote>
 <p>La representación de bolsa de palabras implica que <code class="docutils literal notranslate"><span class="pre">n_features</span></code> es el número de palabras distintas en el corpus: este número suele ser superior a 100.000.</p>
 <p>Si <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">==</span> <span class="pre">10000</span></code>, almacenar <code class="docutils literal notranslate"><span class="pre">X</span></code> como un arreglo de NumPy de tipo float32 requeriría 10000 x 100000 x 4 bytes = <strong>4GB en RAM</strong> que es apenas manejable en las computadoras actuales.</p>
-<p>Afortunadamente, <strong>la mayoría de los valores de X serán ceros</strong>, ya que para un documento determinado se utilizarán menos de unos pocos miles de palabras distintas. Por eso decimos que los empaquetado de palabras son típicamente <strong>conjuntos de datos dispersos de alta dimensión</strong>. Podemos ahorrar mucha memoria almacenando sólo las partes distintas de cero de los vectores de características en la memoria.</p>
+<p>Afortunadamente, <strong>la mayoría de los valores de X serán ceros</strong>, ya que para un documento determinado se utilizarán menos de unos pocos miles de palabras distintas. Por eso decimos que las bolsas de palabras son típicamente <strong>conjuntos de datos dispersos de alta dimensión</strong>. Podemos ahorrar mucha memoria almacenando sólo las partes distintas de cero de los vectores de características en la memoria.</p>
 <p>Las matrices <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> son estructuras de datos que hacen exactamente esto, y <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> tiene soporte incorporado para estas estructuras.</p>
 </section>
 <section id="tokenizing-text-with-scikit-learn">

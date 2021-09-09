@@ -250,7 +250,7 @@
 </pre></div>
 </div>
 </dd>
-<dt><strong>precisions_</strong><span class="classifier">array-like</span></dt><dd><p>Las matrices de precisión para cada componente de la mezcla. Una matriz de precisión es la inversa de una matriz de covarianzas. Una matriz de covarianzas es simétrica positiva definida por lo que la mezcla de Gaussianas se puede parametrizar de forma equivalente por las matrices de precisión. Almacenar las matrices de precisión en lugar de las matrices de covarianzas hace que sea más eficiente calcular el log-verosimilitud de las nuevas muestras en el momento de la prueba. La forma depende de <code class="docutils literal notranslate"><span class="pre">covariance_type</span></code>:</p>
+<dt><strong>precisions_</strong><span class="classifier">array-like</span></dt><dd><p>Las matrices de precisión para cada componente de la mezcla. Una matriz de precisión es la inversa de una matriz de covarianzas. Una matriz de covarianzas es definida simétrica positiva por lo que la mezcla de Gaussianas se puede parametrizar de forma equivalente por las matrices de precisión. Almacenar las matrices de precisión en lugar de las matrices de covarianzas hace que sea más eficiente calcular el logaritmo de la verosimilitud de las nuevas muestras en el momento de la prueba. La forma depende de <code class="docutils literal notranslate"><span class="pre">covariance_type</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
 <span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
 <span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
@@ -258,7 +258,7 @@
 </pre></div>
 </div>
 </dd>
-<dt><strong>precisions_cholesky_</strong><span class="classifier">array-like</span></dt><dd><p>La descomposición de Cholesky de las matrices de precisión de cada componente de la mezcla. Una matriz de precisión es la inversa de una matriz de covarianzas. Una matriz de covarianzas es simétrica definida positiva, por lo que la mezcla de Gaussianas puede ser parametrizada de forma equivalente por las matrices de precisión. El almacenamiento de las matrices de precisión en lugar de las matrices de covarianzas hace más eficiente el cálculo del log-verosimilitud de las nuevas muestras en el momento de la prueba. La forma depende de <code class="docutils literal notranslate"><span class="pre">covariance_type</span></code>:</p>
+<dt><strong>precisions_cholesky_</strong><span class="classifier">array-like</span></dt><dd><p>La descomposición de Cholesky de las matrices de precisión de cada componente de la mezcla. Una matriz de precisión es la inversa de una matriz de covarianzas. Una matriz de covarianzas es definida simétrica positiva, por lo que la mezcla de Gaussianas puede ser parametrizada de forma equivalente por las matrices de precisión. El almacenamiento de las matrices de precisión en lugar de las matrices de covarianzas hace más eficiente el cálculo del logaritmo de la verosimilitud de las nuevas muestras en el momento de la prueba. La forma depende de <code class="docutils literal notranslate"><span class="pre">covariance_type</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">n_components</span><span class="p">,)</span>                        <span class="k">if</span> <span class="s1">&#39;spherical&#39;</span><span class="p">,</span>
 <span class="p">(</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>               <span class="k">if</span> <span class="s1">&#39;tied&#39;</span><span class="p">,</span>
 <span class="p">(</span><span class="n">n_components</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)</span>             <span class="k">if</span> <span class="s1">&#39;diag&#39;</span><span class="p">,</span>
@@ -270,7 +270,7 @@
 </dd>
 <dt><strong>n_iter_</strong><span class="classifier">int</span></dt><dd><p>Número de pasos utilizados por el mejor ajuste de EM para alcanzar la convergencia.</p>
 </dd>
-<dt><strong>lower_bound_</strong><span class="classifier">float</span></dt><dd><p>Valor del límite inferior del log-verosimilitud (de los datos de entrenamiento con respecto al modelo) del mejor ajuste de EM.</p>
+<dt><strong>lower_bound_</strong><span class="classifier">float</span></dt><dd><p>Valor del límite inferior del logaritmo de la verosimilitud (de los datos de entrenamiento con respecto al modelo) del mejor ajuste de EM.</p>
 </dd>
 </dl>
 </dd>
@@ -326,7 +326,7 @@
 <td><p>Genera muestras aleatorias a partir de la distribución Gaussiana ajustada.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.score" title="sklearn.mixture.GaussianMixture.score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code></a></p></td>
-<td><p>Calcula el log-verosimilitud promedio por muestra de los datos X dados.</p></td>
+<td><p>Calcula el logaritmo de la verosimilitud promedio por muestra de los datos X dados.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sklearn.mixture.GaussianMixture.score_samples" title="sklearn.mixture.GaussianMixture.score_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">score_samples</span></code></a></p></td>
 <td><p>Calcula las probabilidades logarítmicas ponderadas para cada muestra.</p></td>
@@ -503,7 +503,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.mixture.GaussianMixture.score">
 <span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sklearn.mixture.GaussianMixture.score" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Calcula el log-verosimilitud promedio por muestra de los datos X dados.</p>
+<dd><p>Calcula el logaritmo de la verosimilitud promedio por muestra de los datos X dados.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros</dt>
 <dd class="field-odd"><dl class="simple">
