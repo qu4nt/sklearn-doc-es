@@ -20,3 +20,4 @@ El trabajo de esta traducción se ha realizado con apoyo de un fondo de la PSF. 
 
 Integrantes de [qu4nt](http://qu4nt.com)
 
+La traducción en vivo puede verse aquí [Scikit-learn en Castellano](https://qu4nt.github.io/sklearn-doc-es/)
