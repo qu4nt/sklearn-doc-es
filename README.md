@@ -11,7 +11,7 @@ El trabajo de esta traducción se ha realizado con apoyo de un fondo de la PSF. 
 1. Yurely Camacho [YurelyCamacho](https://github.com/orgs/qu4nt/people/YurelyCamacho)
 1. Ixhel Mejías [ixhelmejias](https://github.com/orgs/qu4nt/people/ixhelmejias)
 1. Francisco Palm [map0logo](https://github.com/orgs/qu4nt/people/map0logo)
-1. Rainer Palm
+1. Rainer Palm [akumoth](https://github.com/orgs/qu4nt/people/akumoth)
 1. Mariángela Petrizzo [petrizzo](https://github.com/orgs/qu4nt/people/petrizzo)
 1. Anavelyz Pérez [Anavelyz](https://github.com/orgs/qu4nt/people/Anavelyz)
 1. Adriana Tiso [ach](https://github.com/orgs/qu4nt/people/acth)
