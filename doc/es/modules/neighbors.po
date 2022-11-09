@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:39\n"
+"PO-Revision-Date: 2021-08-28 22:02\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,561 +20,562 @@ msgstr ""
 
 #: ../modules/neighbors.rst:5
 msgid "Nearest Neighbors"
-msgstr ""
+msgstr "Vecino más cercano"
 
 #: ../modules/neighbors.rst:11
 msgid ":mod:`sklearn.neighbors` provides functionality for unsupervised and supervised neighbors-based learning methods.  Unsupervised nearest neighbors is the foundation of many other learning methods, notably manifold learning and spectral clustering.  Supervised neighbors-based learning comes in two flavors: `classification`_ for data with discrete labels, and `regression`_ for data with continuous labels."
-msgstr ""
+msgstr ":mod:`sklearn.neighbors` proporciona funcionalidad para métodos de aprendizaje basados en vecinos no supervisados y supervisados.  Los vecinos más cercanos no supervisados son la base de muchos otros métodos de aprendizaje, especialmente el aprendizaje múltiple y la agrupación espectral.  El aprendizaje basado en vecinos supervisados tiene dos variantes: `classification`_ para datos con etiquetas discretas, y `regression`_ para datos con etiquetas continuas."
 
 #: ../modules/neighbors.rst:18
 msgid "The principle behind nearest neighbor methods is to find a predefined number of training samples closest in distance to the new point, and predict the label from these.  The number of samples can be a user-defined constant (k-nearest neighbor learning), or vary based on the local density of points (radius-based neighbor learning). The distance can, in general, be any metric measure: standard Euclidean distance is the most common choice. Neighbors-based methods are known as *non-generalizing* machine learning methods, since they simply \"remember\" all of its training data (possibly transformed into a fast indexing structure such as a :ref:`Ball Tree <ball_tree>` or :ref:`KD Tree <kd_tree>`)."
-msgstr ""
+msgstr "El principio en el que se basan los métodos del vecino más cercano es encontrar un número predefinido de muestras de entrenamiento más cercanas en distancia al nuevo punto, y predecir la etiqueta a partir de ellas.  El número de muestras puede ser una constante definida por el usuario (aprendizaje del k vecino más cercano), o variar en función de la densidad local de puntos (aprendizaje del vecino basado en el radio). La distancia puede ser, en general, cualquier medida métrica: la distancia euclidiana estándar es la opción más común. Los métodos basados en los vecinos se conocen como métodos de aprendizaje automático *no generalizadores*, ya que simplemente \"recuerdan\" todos sus datos de entrenamiento (posiblemente transformados en una estructura de indexación rápida como un :ref:`Árbol de bolas <ball_tree>` o un :ref:`Árbol KD <kd_tree>`)."
 
 #: ../modules/neighbors.rst:30
 msgid "Despite its simplicity, nearest neighbors has been successful in a large number of classification and regression problems, including handwritten digits and satellite image scenes. Being a non-parametric method, it is often successful in classification situations where the decision boundary is very irregular."
-msgstr ""
+msgstr "A pesar de su simplicidad, los vecinos más cercanos han tenido éxito en un gran número de problemas de clasificación y regresión, incluyendo dígitos escritos a mano y escenas de imágenes de satélite. Al ser un método no paramétrico, suele tener éxito en situaciones de clasificación en las que el límite de decisión es muy irregular."
 
 #: ../modules/neighbors.rst:36
 msgid "The classes in :mod:`sklearn.neighbors` can handle either NumPy arrays or `scipy.sparse` matrices as input.  For dense matrices, a large number of possible distance metrics are supported.  For sparse matrices, arbitrary Minkowski metrics are supported for searches."
-msgstr ""
+msgstr "Las clases de :mod:`sklearn.neighbors` pueden manejar matrices NumPy o matrices `scipy.sparse` como entrada.  En el caso de las matrices densas, se admite un gran número de métricas de distancia posibles.  Para matrices dispersas, se admiten métricas de Minkowski arbitrarias para las búsquedas."
 
 #: ../modules/neighbors.rst:41
 msgid "There are many learning routines which rely on nearest neighbors at their core.  One example is :ref:`kernel density estimation <kernel_density>`, discussed in the :ref:`density estimation <density_estimation>` section."
-msgstr ""
+msgstr "Hay muchas rutinas de aprendizaje que se basan en los vecinos más cercanos.  Un ejemplo es :ref:`kernel density estimation <kernel_density>`, discutido en la sección :ref:`density estimation <density_estimation>`."
 
 #: ../modules/neighbors.rst:49
 msgid "Unsupervised Nearest Neighbors"
-msgstr ""
+msgstr "Vecinos más cercanos no supervisados"
 
 #: ../modules/neighbors.rst:51
 msgid ":class:`NearestNeighbors` implements unsupervised nearest neighbors learning. It acts as a uniform interface to three different nearest neighbors algorithms: :class:`BallTree`, :class:`KDTree`, and a brute-force algorithm based on routines in :mod:`sklearn.metrics.pairwise`. The choice of neighbors search algorithm is controlled through the keyword ``'algorithm'``, which must be one of ``['auto', 'ball_tree', 'kd_tree', 'brute']``.  When the default value ``'auto'`` is passed, the algorithm attempts to determine the best approach from the training data.  For a discussion of the strengths and weaknesses of each option, see `Nearest Neighbor Algorithms`_."
-msgstr ""
+msgstr ":class:`NearestNeighbors` implementa el aprendizaje no supervisado de los vecinos más cercanos. Actúa como una interfaz uniforme para tres algoritmos diferentes de vecinos más cercanos: :class:`BallTree`, :class:`KDTree`, y un algoritmo de fuerza bruta basado en las rutinas de :mod:`sklearn.metrics.pairwise`. La elección del algoritmo de búsqueda de vecinos se controla a través de la palabra clave ``'algorithm'``, que debe ser uno de ``['auto', 'ball_tree', 'kd_tree', 'brute']``.  Cuando se pasa el valor por defecto ``'auto'``, el algoritmo intenta determinar la mejor aproximación a partir de los datos de entrenamiento.  Para una discusión de los puntos fuertes y débiles de cada opción, consulta `Nearest Neighbor Algorithms`_."
 
 #: ../modules/neighbors.rst:64
 msgid "Regarding the Nearest Neighbors algorithms, if two neighbors :math:`k+1` and :math:`k` have identical distances but different labels, the result will depend on the ordering of the training data."
-msgstr ""
+msgstr "En cuanto a los algoritmos de vecinos más cercanos, si dos vecinos :math:`k+1` y :math:`k` tienen distancias idénticas pero etiquetas diferentes, el resultado dependerá del orden de los datos de entrenamiento."
 
 #: ../modules/neighbors.rst:70
 msgid "Finding the Nearest Neighbors"
-msgstr ""
+msgstr "Encontrar a los vecinos más cercanos"
 
 #: ../modules/neighbors.rst:71
 msgid "For the simple task of finding the nearest neighbors between two sets of data, the unsupervised algorithms within :mod:`sklearn.neighbors` can be used:"
-msgstr ""
+msgstr "Para la sencilla tarea de encontrar los vecinos más cercanos entre dos conjuntos de datos, se pueden utilizar los algoritmos no supervisados de :mod:`sklearn.neighbors`:"
 
 #: ../modules/neighbors.rst:95
 msgid "Because the query set matches the training set, the nearest neighbor of each point is the point itself, at a distance of zero."
-msgstr ""
+msgstr "Como el conjunto de consulta se corresponde con el conjunto de entrenamiento, el vecino más cercano de cada punto es el propio punto, a una distancia de cero."
 
 #: ../modules/neighbors.rst:98
 msgid "It is also possible to efficiently produce a sparse graph showing the connections between neighboring points:"
-msgstr ""
+msgstr "También es posible producir eficazmente un gráfico disperso que muestre las conexiones entre los puntos vecinos:"
 
 #: ../modules/neighbors.rst:109
 msgid "The dataset is structured such that points nearby in index order are nearby in parameter space, leading to an approximately block-diagonal matrix of K-nearest neighbors.  Such a sparse graph is useful in a variety of circumstances which make use of spatial relationships between points for unsupervised learning: in particular, see :class:`~sklearn.manifold.Isomap`, :class:`~sklearn.manifold.LocallyLinearEmbedding`, and :class:`~sklearn.cluster.SpectralClustering`."
-msgstr ""
+msgstr "El conjunto de datos está estructurado de manera que los puntos cercanos en el orden de los índices están cerca en el espacio de los parámetros, lo que conduce a una matriz aproximadamente diagonal de bloques de los vecinos más cercanos.  Este gráfico disperso es útil en una variedad de circunstancias que hacen uso de las relaciones espaciales entre los puntos para el aprendizaje no supervisado: en particular, véase :class:`~sklearn.manifold.Isomap`, :class:`~sklearn.manifold.LocallyLinearEmbedding`, y :class:`~sklearn.cluster.SpectralClustering`."
 
 #: ../modules/neighbors.rst:118
 msgid "KDTree and BallTree Classes"
-msgstr ""
+msgstr "Clases de árbol KD y árbol de bolas"
 
 #: ../modules/neighbors.rst:119
 msgid "Alternatively, one can use the :class:`KDTree` or :class:`BallTree` classes directly to find nearest neighbors.  This is the functionality wrapped by the :class:`NearestNeighbors` class used above.  The Ball Tree and KD Tree have the same interface; we'll show an example of using the KD Tree here:"
-msgstr ""
+msgstr "Como alternativa, se pueden utilizar las clases :class:`KDTree` o :class:`BallTree` directamente para encontrar los vecinos más cercanos.  Esta es la funcionalidad que envuelve la clase :class:`NearestNeighbors` utilizada anteriormente.  El árbol de bolas y el árbol KD tienen la misma interfaz; aquí mostraremos un ejemplo de uso del árbol KD:"
 
 #: ../modules/neighbors.rst:136
 msgid "Refer to the :class:`KDTree` and :class:`BallTree` class documentation for more information on the options available for nearest neighbors searches, including specification of query strategies, distance metrics, etc. For a list of available metrics, see the documentation of the :class:`DistanceMetric` class."
-msgstr ""
+msgstr "Consulta la documentación de las clases :class:`KDTree` y :class:`BallTree` para obtener más información sobre las opciones disponibles para las búsquedas de vecinos más cercanos, incluyendo la especificación de estrategias de consulta, métricas de distancia, etc. Para una lista de métricas disponibles, consulta la documentación de la clase :class:`DistanceMetric`."
 
 #: ../modules/neighbors.rst:145
 msgid "Nearest Neighbors Classification"
-msgstr ""
+msgstr "Clasificación de los vecinos más cercanos"
 
 #: ../modules/neighbors.rst:147
 msgid "Neighbors-based classification is a type of *instance-based learning* or *non-generalizing learning*: it does not attempt to construct a general internal model, but simply stores instances of the training data. Classification is computed from a simple majority vote of the nearest neighbors of each point: a query point is assigned the data class which has the most representatives within the nearest neighbors of the point."
-msgstr ""
+msgstr "La clasificación basada en vecinos es un tipo de *aprendizaje basado en instancias* o *aprendizaje no generalizador*: no intenta construir un modelo interno general, sino que simplemente almacena instancias de los datos de entrenamiento. La clasificación se calcula a partir de una simple mayoría de votos de los vecinos más cercanos de cada punto: a un punto de consulta se le asigna la clase de datos que tiene más representantes dentro de los vecinos más cercanos del punto."
 
 #: ../modules/neighbors.rst:154
 msgid "scikit-learn implements two different nearest neighbors classifiers: :class:`KNeighborsClassifier` implements learning based on the :math:`k` nearest neighbors of each query point, where :math:`k` is an integer value specified by the user.  :class:`RadiusNeighborsClassifier` implements learning based on the number of neighbors within a fixed radius :math:`r` of each training point, where :math:`r` is a floating-point value specified by the user."
-msgstr ""
+msgstr "scikit-learn implementa dos clasificadores diferentes de vecinos más cercanos: :class:`KNeighborsClassifier` implementa el aprendizaje basado en los :math:`k` vecinos más cercanos de cada punto de consulta, donde :math:`k` es un valor entero especificado por el usuario.  :class:`RadiusNeighborsClassifier` implementa el aprendizaje basado en el número de vecinos dentro de un radio fijo :math:`r` de cada punto de entrenamiento, donde :math:`r` es un valor de punto flotante especificado por el usuario."
 
 #: ../modules/neighbors.rst:162
 msgid "The :math:`k`-neighbors classification in :class:`KNeighborsClassifier` is the most commonly used technique. The optimal choice of the value :math:`k` is highly data-dependent: in general a larger :math:`k` suppresses the effects of noise, but makes the classification boundaries less distinct."
-msgstr ""
+msgstr "La clasificación :math:`k`-neighbors en :class:`KNeighborsClassifier` es la técnica más utilizada. La elección óptima del valor :math:`k` depende en gran medida de los datos: en general, un :math:`k` mayor suprime los efectos del ruido, pero hace que los límites de la clasificación sean menos nítidos."
 
 #: ../modules/neighbors.rst:167
 msgid "In cases where the data is not uniformly sampled, radius-based neighbors classification in :class:`RadiusNeighborsClassifier` can be a better choice. The user specifies a fixed radius :math:`r`, such that points in sparser neighborhoods use fewer nearest neighbors for the classification.  For high-dimensional parameter spaces, this method becomes less effective due to the so-called \"curse of dimensionality\"."
-msgstr ""
+msgstr "En los casos en los que los datos no están muestreados uniformemente, la clasificación de vecinos basada en el radio en :class:`RadiusNeighborsClassifier` puede ser una mejor opción. El usuario especifica un radio fijo :math:`r`, de forma que los puntos de los vecindarios más dispersos utilizan menos vecinos más cercanos para la clasificación.  Para los espacios de parámetros de alta dimensión, este método se vuelve menos eficaz debido a la llamada \"maldición de la dimensión\"."
 
 #: ../modules/neighbors.rst:174
 msgid "The basic nearest neighbors classification uses uniform weights: that is, the value assigned to a query point is computed from a simple majority vote of the nearest neighbors.  Under some circumstances, it is better to weight the neighbors such that nearer neighbors contribute more to the fit.  This can be accomplished through the ``weights`` keyword.  The default value, ``weights = 'uniform'``, assigns uniform weights to each neighbor. ``weights = 'distance'`` assigns weights proportional to the inverse of the distance from the query point.  Alternatively, a user-defined function of the distance can be supplied to compute the weights."
-msgstr ""
+msgstr "La clasificación básica de vecinos más cercanos utiliza ponderaciones uniformes: es decir, el valor asignado a un punto de consulta se calcula a partir de un voto mayoritario simple de los vecinos más cercanos.  En algunas circunstancias, es mejor ponderar los vecinos de forma que los más cercanos contribuyan más al ajuste.  Esto puede lograrse mediante la palabra clave ``weights``.  El valor por defecto, ``weights = 'uniform'``, asigna pesos uniformes a cada vecino. El valor ``weights = 'distance`` asigna pesos proporcionales a la inversa de la distancia al punto de consulta.  Alternativamente, se puede proporcionar una función definida por el usuario de la distancia para calcular los pesos."
 
 #: ../modules/neighbors.rst:193
 msgid "classification_1 classification_2"
-msgstr ""
+msgstr "classification_1 classification_2"
 
 #: ../modules/neighbors.rst:196
 msgid ":ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`: an example of classification using nearest neighbors."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`: un ejemplo de clasificación usando vecinos más cercanos."
 
 #: ../modules/neighbors.rst:202
 msgid "Nearest Neighbors Regression"
-msgstr ""
+msgstr "Regresión de vecinos más cercanos"
 
 #: ../modules/neighbors.rst:204
 msgid "Neighbors-based regression can be used in cases where the data labels are continuous rather than discrete variables.  The label assigned to a query point is computed based on the mean of the labels of its nearest neighbors."
-msgstr ""
+msgstr "La regresión basada en los vecinos puede utilizarse en los casos en que las etiquetas de los datos son variables continuas y no discretas.  La etiqueta asignada a un punto de consulta se calcula a partir de la media de las etiquetas de sus vecinos más cercanos."
 
 #: ../modules/neighbors.rst:208
 msgid "scikit-learn implements two different neighbors regressors: :class:`KNeighborsRegressor` implements learning based on the :math:`k` nearest neighbors of each query point, where :math:`k` is an integer value specified by the user.  :class:`RadiusNeighborsRegressor` implements learning based on the neighbors within a fixed radius :math:`r` of the query point, where :math:`r` is a floating-point value specified by the user."
-msgstr ""
+msgstr "scikit-learn implementa dos regresores de vecinos diferentes: :class:`KNeighborsRegressor` implementa el aprendizaje basado en los :math:`k` vecinos más cercanos de cada punto de consulta, donde :math:`k` es un valor entero especificado por el usuario.  :class:`RadiusNeighborsRegressor` implementa el aprendizaje basado en los vecinos dentro de un radio fijo :math:`r` del punto de consulta, donde :math:`r` es un valor de punto flotante especificado por el usuario."
 
 #: ../modules/neighbors.rst:216
 msgid "The basic nearest neighbors regression uses uniform weights: that is, each point in the local neighborhood contributes uniformly to the classification of a query point.  Under some circumstances, it can be advantageous to weight points such that nearby points contribute more to the regression than faraway points.  This can be accomplished through the ``weights`` keyword.  The default value, ``weights = 'uniform'``, assigns equal weights to all points.  ``weights = 'distance'`` assigns weights proportional to the inverse of the distance from the query point. Alternatively, a user-defined function of the distance can be supplied, which will be used to compute the weights."
-msgstr ""
+msgstr "La regresión básica de vecinos más cercanos utiliza pesos uniformes: es decir, cada punto del vecindario local contribuye uniformemente a la clasificación de un punto de consulta.  En algunas circunstancias, puede ser ventajoso ponderar los puntos de manera que los puntos cercanos contribuyan más a la regresión que los puntos lejanos.  Esto puede lograrse mediante la palabra clave ``weights``.  El valor por defecto, ``weights = 'uniform'``, asigna pesos iguales a todos los puntos.  El valor ``weights = 'distance'`` asigna pesos proporcionales a la inversa de la distancia al punto de consulta. Alternativamente, se puede proporcionar una función definida por el usuario de la distancia, que se utilizará para calcular los pesos."
 
 #: ../modules/neighbors.rst:232
 msgid "The use of multi-output nearest neighbors for regression is demonstrated in :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`. In this example, the inputs X are the pixels of the upper half of faces and the outputs Y are the pixels of the lower half of those faces."
-msgstr ""
+msgstr "El uso de vecinos más cercanos de salida múltiple para la regresión se demuestra en :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`. En este ejemplo, las entradas X son los píxeles de la mitad superior de las caras y las salidas Y son los píxeles de la mitad inferior de esas caras."
 
 #: ../modules/neighbors.rst:245
 msgid ":ref:`sphx_glr_auto_examples_neighbors_plot_regression.py`: an example of regression using nearest neighbors."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`: un ejemplo de clasificación usando vecinos más cercanos."
 
 #: ../modules/neighbors.rst:248
 msgid ":ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`: an example of multi-output regression using nearest neighbors."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`: un ejemplo de regresión de salida múltiple usando vecinos más cercanos."
 
 #: ../modules/neighbors.rst:253
 msgid "Nearest Neighbor Algorithms"
-msgstr ""
+msgstr "Algoritmos del vecino más cercano"
 
 #: ../modules/neighbors.rst:258
 msgid "Brute Force"
-msgstr ""
+msgstr "Fuerza bruta"
 
 #: ../modules/neighbors.rst:260
 msgid "Fast computation of nearest neighbors is an active area of research in machine learning. The most naive neighbor search implementation involves the brute-force computation of distances between all pairs of points in the dataset: for :math:`N` samples in :math:`D` dimensions, this approach scales as :math:`O[D N^2]`.  Efficient brute-force neighbors searches can be very competitive for small data samples. However, as the number of samples :math:`N` grows, the brute-force approach quickly becomes infeasible.  In the classes within :mod:`sklearn.neighbors`, brute-force neighbors searches are specified using the keyword ``algorithm = 'brute'``, and are computed using the routines available in :mod:`sklearn.metrics.pairwise`."
-msgstr ""
+msgstr "El cálculo rápido de los vecinos más cercanos es un área activa de investigación en el aprendizaje automático. La implementación más simple de la búsqueda de vecinos implica el cálculo por fuerza bruta de las distancias entre todos los pares de puntos del conjunto de datos: para :math:`N` muestras en :math:`D` dimensiones, este enfoque se escala como :math:`O[D N^2]`.  La búsqueda eficiente de vecinos por fuerza bruta puede ser muy competitiva para muestras de datos pequeñas. Sin embargo, a medida que el número de muestras :math:`N` crece, el enfoque de fuerza bruta se vuelve rápidamente inviable.  En las clases dentro de :mod:`sklearn.neighbors`, las búsquedas de vecinos por fuerza bruta se especifican utilizando la palabra clave ``algoritmo = 'brute'``, y se calculan utilizando las rutinas disponibles en :mod:`sklearn.metrics.pairwise`."
 
 #: ../modules/neighbors.rst:275
 msgid "K-D Tree"
-msgstr ""
+msgstr "Árbol K-D"
 
 #: ../modules/neighbors.rst:277
 msgid "To address the computational inefficiencies of the brute-force approach, a variety of tree-based data structures have been invented.  In general, these structures attempt to reduce the required number of distance calculations by efficiently encoding aggregate distance information for the sample. The basic idea is that if point :math:`A` is very distant from point :math:`B`, and point :math:`B` is very close to point :math:`C`, then we know that points :math:`A` and :math:`C` are very distant, *without having to explicitly calculate their distance*. In this way, the computational cost of a nearest neighbors search can be reduced to :math:`O[D N \\log(N)]` or better. This is a significant improvement over brute-force for large :math:`N`."
-msgstr ""
+msgstr "Para hacer frente a las ineficiencias computacionales del enfoque de fuerza bruta, se han inventado diversas estructuras de datos basadas en árboles.  En general, estas estructuras intentan reducir el número de cálculos de distancia necesarios codificando de forma eficiente la información de distancia agregada para la muestra. La idea básica es que si el punto :math:`A` está muy distante del punto :math:`B`, y el punto :math:`B` está muy cerca del punto :math:`C`, entonces sabemos que los puntos :math:`A` y :math:`C` están muy distantes, *sin tener que calcular explícitamente su distancia*. De este modo, el coste computacional de una búsqueda de vecinos más cercanos puede reducirse a :math:`O[D N \\log(N)]` o mejor. Esto supone una mejora significativa respecto a la fuerza bruta para grandes :math:`N`."
 
 #: ../modules/neighbors.rst:289
 msgid "An early approach to taking advantage of this aggregate information was the *KD tree* data structure (short for *K-dimensional tree*), which generalizes two-dimensional *Quad-trees* and 3-dimensional *Oct-trees* to an arbitrary number of dimensions.  The KD tree is a binary tree structure which recursively partitions the parameter space along the data axes, dividing it into nested orthotropic regions into which data points are filed.  The construction of a KD tree is very fast: because partitioning is performed only along the data axes, no :math:`D`-dimensional distances need to be computed. Once constructed, the nearest neighbor of a query point can be determined with only :math:`O[\\log(N)]` distance computations. Though the KD tree approach is very fast for low-dimensional (:math:`D < 20`) neighbors searches, it becomes inefficient as :math:`D` grows very large: this is one manifestation of the so-called \"curse of dimensionality\". In scikit-learn, KD tree neighbors searches are specified using the keyword ``algorithm = 'kd_tree'``, and are computed using the class :class:`KDTree`."
-msgstr ""
+msgstr "Uno de los primeros enfoques para aprovechar esta información agregada fue la estructura de datos de *KD tree* o *árbol KD* (abreviatura de *árbol K-dimensional*), que generaliza los *árboles Quad* (*Quad-trees*) bidimensionales y los *árboles Oct*  (*Oct-trees*) tridimensionales a un número arbitrario de dimensiones.  El árbol KD es una estructura de árbol binario que particiona recursivamente el espacio de los parámetros a lo largo de los ejes de los datos, dividiéndolo en regiones ortotrópicas anidadas en las que se archivan los puntos de datos.  La construcción de un árbol KD es muy rápida: como la partición se realiza sólo a lo largo de los ejes de datos, no es necesario calcular distancias :math:`D`-dimensionales. Una vez construido, el vecino más cercano de un punto de consulta puede determinarse con sólo cálculos de distancia :math:`O[\\log(N)]`. Aunque el enfoque del árbol KD es muy rápido para búsquedas de vecinos de baja dimensión (:math:`D < 20`), se vuelve ineficiente a medida que :math:`D` aumenta: esta es una manifestación de la llamada \"maldición de la dimensionalidad\". En scikit-learn, las búsquedas de vecinos en el árbol KD se especifican utilizando la palabra clave ``algoritmo = 'kd_tree'``, y se calculan utilizando la clase :class:`KDTree`."
 
 #: ../modules/neighbors.rst:309
 msgid "`\"Multidimensional binary search trees used for associative searching\" <https://dl.acm.org/citation.cfm?doid=361002.361007>`_, Bentley, J.L., Communications of the ACM (1975)"
-msgstr ""
+msgstr "`\"Multidimensional binary search trees used for associative searching\" <https://dl.acm.org/citation.cfm?doid=361002.361007>`_, Bentley, J.L., Communications of the ACM (1975)"
 
 #: ../modules/neighbors.rst:317
 msgid "Ball Tree"
-msgstr ""
+msgstr "Árbol de bolas"
 
 #: ../modules/neighbors.rst:319
 msgid "To address the inefficiencies of KD Trees in higher dimensions, the *ball tree* data structure was developed.  Where KD trees partition data along Cartesian axes, ball trees partition data in a series of nesting hyper-spheres.  This makes tree construction more costly than that of the KD tree, but results in a data structure which can be very efficient on highly structured data, even in very high dimensions."
-msgstr ""
+msgstr "Para hacer frente a las ineficiencias de los árboles KD en dimensiones superiores, se desarrolló la estructura de datos *árbol de bolas*.  Mientras que los árboles KD dividen los datos a lo largo de ejes cartesianos, los árboles de bolas dividen los datos en una serie de hiperesferas anidadas.  Esto hace que la construcción del árbol sea más costosa que la del árbol KD, pero da como resultado una estructura de datos que puede ser muy eficiente en datos altamente estructurados, incluso en dimensiones muy altas."
 
 #: ../modules/neighbors.rst:326
 msgid "A ball tree recursively divides the data into nodes defined by a centroid :math:`C` and radius :math:`r`, such that each point in the node lies within the hyper-sphere defined by :math:`r` and :math:`C`. The number of candidate points for a neighbor search is reduced through use of the *triangle inequality*:"
-msgstr ""
+msgstr "Un árbol de bolas divide recursivamente los datos en nodos definidos por un centroide :math:`C` y un radio :math:`r`, de forma que cada punto del nodo se encuentra dentro de la hiperesfera definida por :math:`r` y :math:`C`. El número de puntos candidatos para la búsqueda de vecinos se reduce mediante el uso de la *desigualdad triangular*:"
 
 #: ../modules/neighbors.rst:332
 msgid "|x+y| \\leq |x| + |y|\n\n"
-msgstr ""
+msgstr "|x+y| \\leq |x| + |y|\n\n"
 
 #: ../modules/neighbors.rst:334
 msgid "With this setup, a single distance calculation between a test point and the centroid is sufficient to determine a lower and upper bound on the distance to all points within the node. Because of the spherical geometry of the ball tree nodes, it can out-perform a *KD-tree* in high dimensions, though the actual performance is highly dependent on the structure of the training data. In scikit-learn, ball-tree-based neighbors searches are specified using the keyword ``algorithm = 'ball_tree'``, and are computed using the class :class:`BallTree`. Alternatively, the user can work with the :class:`BallTree` class directly."
-msgstr ""
+msgstr "Con esta configuración, un único cálculo de la distancia entre un punto de prueba y el centroide es suficiente para determinar un límite inferior y superior de la distancia a todos los puntos dentro del nodo. Debido a la geometría esférica de los nodos del árbol de bolas, puede superar a un *árbol KD* en dimensiones altas, aunque el rendimiento real depende en gran medida de la estructura de los datos de entrenamiento. En scikit-learn, las búsquedas de vecinos basadas en el árbol de bolas se especifican utilizando la palabra clave ``algoritmo = 'ball_tree'``, y se calculan utilizando la clase :class:`BallTree`. Alternativamente, el usuario puede trabajar con la clase :class:`BallTree` directamente."
 
 #: ../modules/neighbors.rst:347
 msgid "`\"Five balltree construction algorithms\" <http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.91.8209>`_, Omohundro, S.M., International Computer Science Institute Technical Report (1989)"
-msgstr ""
+msgstr "`\"Five balltree construction algorithms\" <http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.91.8209>`_, Omohundro, S.M., International Computer Science Institute Technical Report (1989)"
 
 #: ../modules/neighbors.rst:353
 msgid "Choice of Nearest Neighbors Algorithm"
-msgstr ""
+msgstr "Selección del algoritmo de los vecinos más cercanos"
 
 #: ../modules/neighbors.rst:354
 msgid "The optimal algorithm for a given dataset is a complicated choice, and depends on a number of factors:"
-msgstr ""
+msgstr "El algoritmo óptimo para un conjunto de datos determinado es una elección complicada y depende de varios factores:"
 
 #: ../modules/neighbors.rst:357
 msgid "number of samples :math:`N` (i.e. ``n_samples``) and dimensionality :math:`D` (i.e. ``n_features``)."
-msgstr ""
+msgstr "número de muestras :math:`N` (es decir, ``n_muestras``) y dimensionalidad :math:`D` (es decir, ``n_características``)."
 
 #: ../modules/neighbors.rst:360
 msgid "*Brute force* query time grows as :math:`O[D N]`"
-msgstr ""
+msgstr "El tiempo de consulta de *fuerza bruta* crece como :math:`O[D N]`"
 
 #: ../modules/neighbors.rst:361
 msgid "*Ball tree* query time grows as approximately :math:`O[D \\log(N)]`"
-msgstr ""
+msgstr "*El tiempo de consulta del árbol de bolas crece aproximadamente como :math:`O[D \\log(N)]`"
 
 #: ../modules/neighbors.rst:362
 msgid "*KD tree* query time changes with :math:`D` in a way that is difficult to precisely characterise.  For small :math:`D` (less than 20 or so) the cost is approximately :math:`O[D\\log(N)]`, and the KD tree query can be very efficient. For larger :math:`D`, the cost increases to nearly :math:`O[DN]`, and the overhead due to the tree structure can lead to queries which are slower than brute force."
-msgstr ""
+msgstr "*El tiempo de consulta del árbol KD cambia con :math:`D` de una manera que es difícil de caracterizar con precisión.  Para :math:`D` pequeños (menos de 20 aproximadamente) el costo es aproximadamente :math:`O[D\\log(N)]`, y la consulta del árbol KD puede ser muy eficiente. Para :math:`D` más grandes, el costo aumenta hasta casi :math:`O[DN]`, y la sobrecarga debida a la estructura de árbol puede llevar a consultas más lentas que la fuerza bruta."
 
 #: ../modules/neighbors.rst:370
 msgid "For small data sets (:math:`N` less than 30 or so), :math:`\\log(N)` is comparable to :math:`N`, and brute force algorithms can be more efficient than a tree-based approach.  Both :class:`KDTree` and :class:`BallTree` address this through providing a *leaf size* parameter: this controls the number of samples at which a query switches to brute-force.  This allows both algorithms to approach the efficiency of a brute-force computation for small :math:`N`."
-msgstr ""
+msgstr "Para conjuntos de datos pequeños (:math:`N` menos de 30 aproximadamente), :math:`log(N)` es comparable a :math:`N`, y los algoritmos de fuerza bruta pueden ser más eficientes que un enfoque basado en árboles.  Tanto :class:`KDTree` como :class:`BallTree` abordan esta cuestión proporcionando un parámetro de *tamaño de hoja*: éste controla el número de muestras a partir del cual una consulta pasa a ser de fuerza bruta.  Esto permite que ambos algoritmos se aproximen a la eficiencia de un cálculo de fuerza bruta para un :math:`N` pequeño."
 
 #: ../modules/neighbors.rst:378
 msgid "data structure: *intrinsic dimensionality* of the data and/or *sparsity* of the data. Intrinsic dimensionality refers to the dimension :math:`d \\le D` of a manifold on which the data lies, which can be linearly or non-linearly embedded in the parameter space. Sparsity refers to the degree to which the data fills the parameter space (this is to be distinguished from the concept as used in \"sparse\" matrices.  The data matrix may have no zero entries, but the **structure** can still be \"sparse\" in this sense)."
-msgstr ""
+msgstr "estructura de los datos: La *dimensionalidad intrínseca* de los datos y/o la *especificidad* de los datos. La dimensionalidad intrínseca se refiere a la dimensión :math:`d \\le D` de un colector en el que se encuentran los datos, que puede estar incrustado de forma lineal o no lineal en el espacio de parámetros. La dispersión se refiere al grado en que los datos llenan el espacio de parámetros (esto debe distinguirse del concepto utilizado en las matrices \"dispersas\".  La matriz de datos puede no tener entradas nulas, pero la **estructura** puede seguir siendo \"dispersa\" en este sentido)."
 
 #: ../modules/neighbors.rst:387
 msgid "*Brute force* query time is unchanged by data structure."
-msgstr ""
+msgstr "El tiempo de consulta de *fuerza bruta* no se ve afectado por la estructura de datos."
 
 #: ../modules/neighbors.rst:388
 msgid "*Ball tree* and *KD tree* query times can be greatly influenced by data structure.  In general, sparser data with a smaller intrinsic dimensionality leads to faster query times.  Because the KD tree internal representation is aligned with the parameter axes, it will not generally show as much improvement as ball tree for arbitrarily structured data."
-msgstr ""
+msgstr "Los tiempos de consulta del *árbol de bolas* y del *árbol KD* pueden verse muy influidos por la estructura de los datos.  En general, los datos más dispersos con una menor dimensionalidad intrínseca conducen a tiempos de consulta más rápidos.  Dado que la representación interna del árbol KD está alineada con los ejes de los parámetros, en general no mostrará tantas mejoras como el árbol de bolas para datos estructurados de forma arbitraria."
 
 #: ../modules/neighbors.rst:395
 msgid "Datasets used in machine learning tend to be very structured, and are very well-suited for tree-based queries."
-msgstr ""
+msgstr "Los conjuntos de datos utilizados en el aprendizaje automático suelen estar muy estructurados y son muy adecuados para las consultas basadas en árboles."
 
 #: ../modules/neighbors.rst:398
 msgid "number of neighbors :math:`k` requested for a query point."
-msgstr ""
+msgstr "número de vecinos :math:`k` solicitados para un punto de consulta."
 
 #: ../modules/neighbors.rst:400
 msgid "*Brute force* query time is largely unaffected by the value of :math:`k`"
-msgstr ""
+msgstr "*El tiempo de consulta por fuerza bruta no se ve afectado por el valor de :math:`k`"
 
 #: ../modules/neighbors.rst:401
 msgid "*Ball tree* and *KD tree* query time will become slower as :math:`k` increases.  This is due to two effects: first, a larger :math:`k` leads to the necessity to search a larger portion of the parameter space. Second, using :math:`k > 1` requires internal queueing of results as the tree is traversed."
-msgstr ""
+msgstr "El tiempo de consulta del *árbol de bolas* y del *árbol KD* será más lento a medida que :math:`k` aumente.  Esto se debe a dos efectos: en primer lugar, un :math:`k` mayor conduce a la necesidad de buscar una porción mayor del espacio de parámetros. En segundo lugar, el uso de :math:`k > 1` requiere la puesta en cola interna de los resultados a medida que se recorre el árbol."
 
 #: ../modules/neighbors.rst:407
 msgid "As :math:`k` becomes large compared to :math:`N`, the ability to prune branches in a tree-based query is reduced.  In this situation, Brute force queries can be more efficient."
-msgstr ""
+msgstr "A medida que :math:`k` se hace grande en comparación con :math:`N`, la capacidad de podar ramas en una consulta basada en un árbol se reduce.  En esta situación, las consultas de fuerza bruta pueden ser más eficientes."
 
 #: ../modules/neighbors.rst:411
 msgid "number of query points.  Both the ball tree and the KD Tree require a construction phase.  The cost of this construction becomes negligible when amortized over many queries.  If only a small number of queries will be performed, however, the construction can make up a significant fraction of the total cost.  If very few query points will be required, brute force is better than a tree-based method."
-msgstr ""
+msgstr "número de puntos de consulta.  Tanto el árbol de bolas como el árbol KD requieren una fase de construcción.  El coste de esta construcción resulta insignificante cuando se amortiza en muchas consultas.  Sin embargo, si sólo se va a realizar un pequeño número de consultas, la construcción puede suponer una fracción significativa del coste total.  Si se necesitan muy pocos puntos de consulta, la fuerza bruta es mejor que un método basado en árboles."
 
 #: ../modules/neighbors.rst:418
 msgid "Currently, ``algorithm = 'auto'`` selects ``'brute'`` if any of the following conditions are verified:"
-msgstr ""
+msgstr "Actualmente, ``algorithm = 'auto'`` selecciona ``'brute'`` si se verifica alguna de las siguientes condiciones:"
 
 #: ../modules/neighbors.rst:421
 msgid "input data is sparse"
-msgstr ""
+msgstr "los datos de entrada son dispersos"
 
 #: ../modules/neighbors.rst:422
 msgid "``metric = 'precomputed'``"
-msgstr ""
+msgstr "``metric = 'precomputed'``"
 
 #: ../modules/neighbors.rst:423
 msgid ":math:`D > 15`"
-msgstr ""
+msgstr ":math:`D > 15`"
 
 #: ../modules/neighbors.rst:424
 msgid ":math:`k >= N/2`"
-msgstr ""
+msgstr ":math:`k >= N/2`"
 
 #: ../modules/neighbors.rst:425
 msgid "``effective_metric_`` isn't in the ``VALID_METRICS`` list for either ``'kd_tree'`` or ``'ball_tree'``"
-msgstr ""
+msgstr "``effective_metric_`` no está en la lista ``VALID_METRICS`` para ``'kd_tree'`` o ``'ball_tree'``"
 
 #: ../modules/neighbors.rst:428
 msgid "Otherwise, it selects the first out of ``'kd_tree'`` and ``'ball_tree'`` that has ``effective_metric_`` in its ``VALID_METRICS`` list. This heuristic is based on the following assumptions:"
-msgstr ""
+msgstr "En caso contrario, selecciona el primero de ``'kd_tree'`` y ``'ball_tree'`` que tenga ``effective_metric_`` en su lista ``VALID_METRICS``. Esta heurística se basa en las siguientes suposiciones:"
 
 #: ../modules/neighbors.rst:432
 msgid "the number of query points is at least the same order as the number of training points"
-msgstr ""
+msgstr "el número de puntos de consulta es al menos del mismo orden que el número de puntos de entrenamiento"
 
 #: ../modules/neighbors.rst:434
 msgid "``leaf_size`` is close to its default value of ``30``"
-msgstr ""
+msgstr "``leaf_size`` está cerca de su valor por defecto de ``30``"
 
 #: ../modules/neighbors.rst:435
 msgid "when :math:`D > 15`, the intrinsic dimensionality of the data is generally too high for tree-based methods"
-msgstr ""
+msgstr "cuando :math:`D > 15`, la dimensionalidad intrínseca de los datos es generalmente demasiado alta para los métodos basados en árboles"
 
 #: ../modules/neighbors.rst:439
 msgid "Effect of ``leaf_size``"
-msgstr ""
+msgstr "Efecto de ``leaf_size``"
 
 #: ../modules/neighbors.rst:440
 msgid "As noted above, for small sample sizes a brute force search can be more efficient than a tree-based query.  This fact is accounted for in the ball tree and KD tree by internally switching to brute force searches within leaf nodes.  The level of this switch can be specified with the parameter ``leaf_size``.  This parameter choice has many effects:"
-msgstr ""
+msgstr "Como se ha mencionado anteriormente, para tamaños de muestra pequeños, una búsqueda de fuerza bruta puede ser más eficiente que una consulta basada en un árbol.  Este hecho se tiene en cuenta en el árbol de bolas y en el árbol KD cambiando internamente a búsquedas de fuerza bruta dentro de los nodos hoja.  El nivel de este cambio puede especificarse con el parámetro ``leaf_size``.  La elección de este parámetro tiene muchos efectos:"
 
 #: ../modules/neighbors.rst:448
 msgid "**construction time**"
-msgstr ""
+msgstr "**tiempo de construcción**"
 
 #: ../modules/neighbors.rst:447
 msgid "A larger ``leaf_size`` leads to a faster tree construction time, because fewer nodes need to be created"
-msgstr ""
+msgstr "Un ``leaf_size`` mayor acelera el tiempo de construcción del árbol, ya que hay que crear menos nodos"
 
 #: ../modules/neighbors.rst:456
 msgid "**query time**"
-msgstr ""
+msgstr "**tiempo de consulta**"
 
 #: ../modules/neighbors.rst:451
 msgid "Both a large or small ``leaf_size`` can lead to suboptimal query cost. For ``leaf_size`` approaching 1, the overhead involved in traversing nodes can significantly slow query times.  For ``leaf_size`` approaching the size of the training set, queries become essentially brute force. A good compromise between these is ``leaf_size = 30``, the default value of the parameter."
-msgstr ""
+msgstr "Tanto un ``leaf_size`` grande como pequeño puede llevar a un coste de consulta subóptimo. Si ``leaf_size`` se aproxima a 1, la sobrecarga que supone recorrer los nodos puede ralentizar considerablemente los tiempos de consulta.  Si el tamaño de las hojas se aproxima al tamaño del conjunto de entrenamiento, las consultas se convierten en fuerza bruta. Un buen compromiso entre ambos es ``leaf_size = 30``, el valor por defecto del parámetro."
 
 #: ../modules/neighbors.rst:463
 msgid "**memory**"
-msgstr ""
+msgstr "**memoria**"
 
 #: ../modules/neighbors.rst:459
 msgid "As ``leaf_size`` increases, the memory required to store a tree structure decreases.  This is especially important in the case of ball tree, which stores a :math:`D`-dimensional centroid for each node.  The required storage space for :class:`BallTree` is approximately ``1 / leaf_size`` times the size of the training set."
-msgstr ""
+msgstr "A medida que ``leaf_size`` aumenta, la memoria requerida para almacenar una estructura de árbol disminuye. Esto es especialmente importante en el caso del árbol de bolas, que almacena un :math:`D`-dimensional centroid para cada nodo. El espacio de almacenamiento requerido para :class:`BallTree` es aproximadamente ``1 / leaf_size`` el tamaño del conjunto de entrenamiento."
 
 #: ../modules/neighbors.rst:465
 msgid "``leaf_size`` is not referenced for brute force queries."
-msgstr ""
+msgstr "``leaf_size`` no está referenciado para consultas de fuerza bruta."
 
 #: ../modules/neighbors.rst:470
 msgid "Nearest Centroid Classifier"
-msgstr ""
+msgstr "Clasificador de centroides más cercano"
 
 #: ../modules/neighbors.rst:472
 msgid "The :class:`NearestCentroid` classifier is a simple algorithm that represents each class by the centroid of its members. In effect, this makes it similar to the label updating phase of the :class:`~sklearn.cluster.KMeans` algorithm. It also has no parameters to choose, making it a good baseline classifier. It does, however, suffer on non-convex classes, as well as when classes have drastically different variances, as equal variance in all dimensions is assumed. See Linear Discriminant Analysis (:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`) and Quadratic Discriminant Analysis (:class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`) for more complex methods that do not make this assumption. Usage of the default :class:`NearestCentroid` is simple:"
-msgstr ""
+msgstr "El clasificador :class:`NearestCentroid` es un algoritmo simple que representa cada clase por el centroide de sus miembros. En efecto, esto lo hace similar a la fase de actualización de etiquetas del algoritmo :class:`~sklearn.cluster.KMeans`. Tampoco hay que elegir parámetros, lo que lo convierte en un buen clasificador de referencia. Sin embargo, sufre en clases no convexas, así como cuando las clases tienen varianzas drásticamente diferentes, ya que se asume una varianza igual en todas las dimensiones. Consulta Linear Discriminant Analysis (:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`) y Quadratic Discriminant Analysis (:class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`) para métodos más complejos que no hacen esta suposición. El uso de la clase :class:`NearestCentroid` por defecto es sencillo:"
 
 #: ../modules/neighbors.rst:495
 msgid "Nearest Shrunken Centroid"
-msgstr ""
+msgstr "Centroide de Shrunken más cercano"
 
 #: ../modules/neighbors.rst:497
 msgid "The :class:`NearestCentroid` classifier has a ``shrink_threshold`` parameter, which implements the nearest shrunken centroid classifier. In effect, the value of each feature for each centroid is divided by the within-class variance of that feature. The feature values are then reduced by ``shrink_threshold``. Most notably, if a particular feature value crosses zero, it is set to zero. In effect, this removes the feature from affecting the classification. This is useful, for example, for removing noisy features."
-msgstr ""
+msgstr "El clasificador :class:`NearestCentroid` tiene un parámetro ``shrink_threshold``, que implementa el clasificador shrunken centroid más cercano. En efecto, el valor de cada característica para cada centroide se divide por la varianza dentro de la clase de esa característica. A continuación, los valores de las características se reducen en ``shrink_threshold``. En particular, si el valor de una característica particular es cero, se pone a cero. En efecto, esto hace que la característica no afecte a la clasificación. Esto es útil, por ejemplo, para eliminar características ruidosas."
 
 #: ../modules/neighbors.rst:505
 msgid "In the example below, using a small shrink threshold increases the accuracy of the model from 0.81 to 0.82."
-msgstr ""
+msgstr "En el ejemplo siguiente, el uso de un reducido umbral de contracción aumenta la precisión del modelo de 0,81 a 0,82."
 
 #: ../modules/neighbors.rst:517
 msgid "nearest_centroid_1 nearest_centroid_2"
-msgstr ""
+msgstr "nearest_centroid_1 nearest_centroid_2"
 
 #: ../modules/neighbors.rst:520
 msgid ":ref:`sphx_glr_auto_examples_neighbors_plot_nearest_centroid.py`: an example of classification using nearest centroid with different shrink thresholds."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_nearest_centroid.py`: un ejemplo de clasificación utilizando el centroide más cercano con diferentes umbrales de reducción."
 
 #: ../modules/neighbors.rst:526
 msgid "Nearest Neighbors Transformer"
-msgstr ""
+msgstr "Transformador de vecinos más cercanos"
 
 #: ../modules/neighbors.rst:528
 msgid "Many scikit-learn estimators rely on nearest neighbors: Several classifiers and regressors such as :class:`KNeighborsClassifier` and :class:`KNeighborsRegressor`, but also some clustering methods such as :class:`~sklearn.cluster.DBSCAN` and :class:`~sklearn.cluster.SpectralClustering`, and some manifold embeddings such as :class:`~sklearn.manifold.TSNE` and :class:`~sklearn.manifold.Isomap`."
-msgstr ""
+msgstr "Muchos estimadores de scikit-learn se basan en los vecinos más cercanos: Varios clasificadores y regresores como :class:`KNeighborsClassifier` y :class:`KNeighborsRegressor`, pero también algunos métodos de agrupamiento como :class:`~sklearn.cluster.DBSCAN` y :class:`~sklearn.cluster.SpectralClustering`, y algunos incrustados como :class:`~sklearn.manifold.TSNE` y :class:`~sklearn.manifold.Isomap`."
 
 #: ../modules/neighbors.rst:535
 msgid "All these estimators can compute internally the nearest neighbors, but most of them also accept precomputed nearest neighbors :term:`sparse graph`, as given by :func:`~sklearn.neighbors.kneighbors_graph` and :func:`~sklearn.neighbors.radius_neighbors_graph`. With mode `mode='connectivity'`, these functions return a binary adjacency sparse graph as required, for instance, in :class:`~sklearn.cluster.SpectralClustering`. Whereas with `mode='distance'`, they return a distance sparse graph as required, for instance, in :class:`~sklearn.cluster.DBSCAN`. To include these functions in a scikit-learn pipeline, one can also use the corresponding classes :class:`KNeighborsTransformer` and :class:`RadiusNeighborsTransformer`. The benefits of this sparse graph API are multiple."
-msgstr ""
+msgstr "Todos estos estimadores pueden calcular internamente los vecinos más cercanos, pero la mayoría de ellos también aceptan el :term:`grafo disperso` de los vecinos más cercanos precalculados, como se da en :func:`~sklearn.neighbors.kneighbors_graph` y :func:`~sklearn.neighbors.radius_neighbors_graph`. Con el modo `mode='connectivity'`, estas funciones devuelven un gráfico binario de adyacencia disperso como se requiere, por ejemplo, en :class:`~sklearn.cluster.SpectralClustering`. Mientras que con `mode='distance'`, devuelven un grafo disperso de distancia como se requiere, por ejemplo, en :class:`~sklearn.cluster.DBSCAN`. Para incluir estas funciones en un pipeline de scikit-learn, también se pueden utilizar las clases correspondientes :class:`KNeighborsTransformer` y :class:`RadiusNeighborsTransformer`. Los beneficios de esta API de gráficos dispersos son múltiples."
 
 #: ../modules/neighbors.rst:547
 msgid "First, the precomputed graph can be re-used multiple times, for instance while varying a parameter of the estimator. This can be done manually by the user, or using the caching properties of the scikit-learn pipeline:"
-msgstr ""
+msgstr "En primer lugar, el gráfico precalculado puede reutilizarse varias veces, por ejemplo, al variar un parámetro del estimador. Esto se puede hacer manualmente por el usuario, o utilizando las propiedades de almacenamiento en caché de la pipeline de scikit-learn:"
 
 #: ../modules/neighbors.rst:559
 msgid "Second, precomputing the graph can give finer control on the nearest neighbors estimation, for instance enabling multiprocessing though the parameter `n_jobs`, which might not be available in all estimators."
-msgstr ""
+msgstr "En segundo lugar, precalcular el gráfico puede dar un control más fino sobre la estimación de los vecinos más cercanos, por ejemplo, permitiendo el multiprocesamiento a través del parámetro `n_jobs`, que podría no estar disponible en todos los estimadores."
 
 #: ../modules/neighbors.rst:563
 msgid "Finally, the precomputation can be performed by custom estimators to use different implementations, such as approximate nearest neighbors methods, or implementation with special data types. The precomputed neighbors :term:`sparse graph` needs to be formatted as in :func:`~sklearn.neighbors.radius_neighbors_graph` output:"
-msgstr ""
+msgstr "Finalmente, el precálculo puede ser realizado por estimadores personalizados para utilizar diferentes implementaciones, como los métodos de vecinos más cercanos aproximados, o la implementación con tipos de datos especiales. El :term:`grafo disperso` de vecinos precalculados debe tener el mismo formato que la salida de :func:`~sklearn.neighbors.radius_neighbors_graph`:"
 
 #: ../modules/neighbors.rst:569
 msgid "a CSR matrix (although COO, CSC or LIL will be accepted)."
-msgstr ""
+msgstr "una matriz CSR (aunque se aceptarán COO, CSC o LIL)."
 
 #: ../modules/neighbors.rst:570
 msgid "only explicitly store nearest neighborhoods of each sample with respect to the training data. This should include those at 0 distance from a query point, including the matrix diagonal when computing the nearest neighborhoods between the training data and itself."
-msgstr ""
+msgstr "sólo almacena explícitamente los vecindarios más cercanos de cada muestra con respecto a los datos de entrenamiento. Esto debería incluir los que se encuentran a una distancia de 0 de un punto de consulta, incluyendo la diagonal de la matriz cuando se calculan los vecindarios más cercanos entre los datos de entrenamiento y ellos mismos."
 
 #: ../modules/neighbors.rst:574
 msgid "each row's `data` should store the distance in increasing order (optional. Unsorted data will be stable-sorted, adding a computational overhead)."
-msgstr ""
+msgstr "los `datos` de cada fila deben almacenar la distancia en orden creciente (opcional. Los datos no ordenados serán ordenados de forma estable, lo que añade una sobrecarga computacional)."
 
 #: ../modules/neighbors.rst:576
 msgid "all values in data should be non-negative."
-msgstr ""
+msgstr "todos los valores en los datos no deben ser negativos."
 
 #: ../modules/neighbors.rst:577
 msgid "there should be no duplicate `indices` in any row (see https://github.com/scipy/scipy/issues/5807)."
-msgstr ""
+msgstr "no debe haber `indices` duplicados en ninguna fila (consulta https://github.com/scipy/scipy/issues/5807)."
 
 #: ../modules/neighbors.rst:579
 msgid "if the algorithm being passed the precomputed matrix uses k nearest neighbors (as opposed to radius neighborhood), at least k neighbors must be stored in each row (or k+1, as explained in the following note)."
-msgstr ""
+msgstr "si el algoritmo al que se le pasa la matriz precalculada utiliza k vecinos más cercanos (en lugar del vecindario de radio), se deben almacenar al menos k vecinos en cada fila (o k+1, como se explica en la siguiente nota)."
 
 #: ../modules/neighbors.rst:584
 msgid "When a specific number of neighbors is queried (using :class:`KNeighborsTransformer`), the definition of `n_neighbors` is ambiguous since it can either include each training point as its own neighbor, or exclude them. Neither choice is perfect, since including them leads to a different number of non-self neighbors during training and testing, while excluding them leads to a difference between `fit(X).transform(X)` and `fit_transform(X)`, which is against scikit-learn API. In :class:`KNeighborsTransformer` we use the definition which includes each training point as its own neighbor in the count of `n_neighbors`. However, for compatibility reasons with other estimators which use the other definition, one extra neighbor will be computed when `mode == 'distance'`. To maximise compatibility with all estimators, a safe choice is to always include one extra neighbor in a custom nearest neighbors estimator, since unnecessary neighbors will be filtered by following estimators."
-msgstr ""
+msgstr "Cuando se consulta un número específico de vecinos (utilizando :class:`KNeighborsTransformer`), la definición de `n_neighbors` es ambigua ya que puede incluir cada punto de entrenamiento como su propio vecino, o excluirlos. Ninguna de las dos opciones es perfecta, ya que incluirlos conduce a un número diferente de vecinos no propios durante el entrenamiento y la prueba, mientras que excluirlos conduce a una diferencia entre `fit(X).transform(X)` y `fit_transform(X)`, lo que va en contra de la API de scikit-learn. En :class:`KNeighborsTransformer` utilizamos la definición que incluye cada punto de entrenamiento como su propio vecino en la cuenta de `n_neighbors`. Sin embargo, por razones de compatibilidad con otros estimadores que utilizan la otra definición, se calculará un vecino extra cuando `mode == 'distance'`. Para maximizar la compatibilidad con todos los estimadores, una opción segura es incluir siempre un vecino extra en un estimador personalizado de vecinos más cercanos, ya que los vecinos innecesarios serán filtrados por los siguientes estimadores."
 
 #: ../modules/neighbors.rst:601
 msgid ":ref:`sphx_glr_auto_examples_neighbors_approximate_nearest_neighbors.py`: an example of pipelining :class:`KNeighborsTransformer` and :class:`~sklearn.manifold.TSNE`. Also proposes two custom nearest neighbors estimators based on external packages."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_approximate_nearest_neighbors.py`: un ejemplo de pipelining :class:`KNeighborsTransformer` y :class:`~sklearn.manifold.TSNE`. También propone dos estimadores personalizados de vecinos más cercanos basados en paquetes externos."
 
 #: ../modules/neighbors.rst:606
 msgid ":ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`: an example of pipelining :class:`KNeighborsTransformer` and :class:`KNeighborsClassifier` to enable caching of the neighbors graph during a hyper-parameter grid-search."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`: un ejemplo de pipelining :class:`KNeighborsTransformer` y :class:`KNeighborsClassifier` para permitir el almacenamiento en caché del grafo de vecinos durante una búsqueda en cuadrícula de hiperparámetros."
 
 #: ../modules/neighbors.rst:614
 msgid "Neighborhood Components Analysis"
-msgstr ""
+msgstr "Análisis de componentes del vecindario"
 
 #: ../modules/neighbors.rst:618
 msgid "Neighborhood Components Analysis (NCA, :class:`NeighborhoodComponentsAnalysis`) is a distance metric learning algorithm which aims to improve the accuracy of nearest neighbors classification compared to the standard Euclidean distance. The algorithm directly maximizes a stochastic variant of the leave-one-out k-nearest neighbors (KNN) score on the training set. It can also learn a low-dimensional linear projection of data that can be used for data visualization and fast classification."
-msgstr ""
+msgstr "El Análisis de componentes del vecindario (NCA, :class:`NeighborhoodComponentsAnalysis`) es un algoritmo de aprendizaje de la métrica de la distancia cuyo objetivo es mejorar la exactitud de la clasificación de los vecinos más cercanos en comparación con la distancia euclidiana estándar. El algoritmo maximiza directamente una variante estocástica de la puntuación de los vecinos más cercanos (KNN) en el conjunto de entrenamiento. También puede aprender una proyección lineal de baja dimensión de los datos que puede utilizarse para la visualización de datos y la clasificación rápida."
 
 #: ../modules/neighbors.rst:635
 msgid "nca_illustration_1 nca_illustration_2"
-msgstr ""
+msgstr "nca_illustration_1 nca_illustration_2"
 
 #: ../modules/neighbors.rst:636
 msgid "In the above illustrating figure, we consider some points from a randomly generated dataset. We focus on the stochastic KNN classification of point no. 3. The thickness of a link between sample 3 and another point is proportional to their distance, and can be seen as the relative weight (or probability) that a stochastic nearest neighbor prediction rule would assign to this point. In the original space, sample 3 has many stochastic neighbors from various classes, so the right class is not very likely. However, in the projected space learned by NCA, the only stochastic neighbors with non-negligible weight are from the same class as sample 3, guaranteeing that the latter will be well classified. See the :ref:`mathematical formulation <nca_mathematical_formulation>` for more details."
-msgstr ""
+msgstr "En la figura ilustrada arriba, consideramos algunos puntos de un conjunto de datos generados aleatoriamente. Nos centramos en la clasificación KNN estocástica del punto nº 3. El grosor de un enlace entre la muestra 3 y otro punto es proporcional a su distancia, y puede verse como el peso relativo (o probabilidad) que una regla de predicción estocástica del vecino más cercano asignaría a este punto. En el espacio original, la muestra 3 tiene muchos vecinos estocásticos de varias clases, por lo que la clase correcta no es muy probable. Sin embargo, en el espacio proyectado aprendido por NCA, los únicos vecinos estocásticos con peso no despreciable son de la misma clase que la muestra 3, lo que garantiza que esta última estará bien clasificada. Consulta la :ref:`formulación matemática <nca_mathematical_formulation>` para obtener más detalles."
 
 #: ../modules/neighbors.rst:650
 msgid "Classification"
-msgstr ""
+msgstr "Clasificación"
 
 #: ../modules/neighbors.rst:652
 msgid "Combined with a nearest neighbors classifier (:class:`KNeighborsClassifier`), NCA is attractive for classification because it can naturally handle multi-class problems without any increase in the model size, and does not introduce additional parameters that require fine-tuning by the user."
-msgstr ""
+msgstr "Combinado con un clasificador de vecinos más cercanos (:class:`KNeighborsClassifier`), el NCA es atractivo para la clasificación porque puede manejar naturalmente problemas de multiclases sin ningún aumento en el tamaño del modelo, y no introduce parámetros adicionales que requieran un ajuste fino por parte del usuario."
 
 #: ../modules/neighbors.rst:657
 msgid "NCA classification has been shown to work well in practice for data sets of varying size and difficulty. In contrast to related methods such as Linear Discriminant Analysis, NCA does not make any assumptions about the class distributions. The nearest neighbor classification can naturally produce highly irregular decision boundaries."
-msgstr ""
+msgstr "Se ha demostrado que la clasificación NCA funciona bien en la práctica para conjuntos de datos de tamaño y dificultad variables. A diferencia de otros métodos relacionados, como el análisis discriminante lineal, el NCA no hace ninguna suposición sobre las distribuciones de las clases. La clasificación del vecino más cercano puede producir naturalmente límites de decisión muy irregulares."
 
 #: ../modules/neighbors.rst:663
 msgid "To use this model for classification, one needs to combine a :class:`NeighborhoodComponentsAnalysis` instance that learns the optimal transformation with a :class:`KNeighborsClassifier` instance that performs the classification in the projected space. Here is an example using the two classes:"
-msgstr ""
+msgstr "Para utilizar este modelo para la clasificación, es necesario combinar una instancia :class:`NeighborhoodComponentsAnalysis` que aprende la transformación óptima con una instancia :class:`KNeighborsClassifier` que realiza la clasificación en el espacio proyectado. Este es un ejemplo que utiliza las dos clases:"
 
 #: ../modules/neighbors.rst:694
 msgid "nca_classification_1 nca_classification_2"
-msgstr ""
+msgstr "nca_classification_1 nca_classification_2"
 
 #: ../modules/neighbors.rst:695
 msgid "The plot shows decision boundaries for Nearest Neighbor Classification and Neighborhood Components Analysis classification on the iris dataset, when training and scoring on only two features, for visualisation purposes."
-msgstr ""
+msgstr "El gráfico muestra los límites de decisión para la clasificación de vecino más cercano y la clasificación de análisis de componentes del vecindario en el conjunto de datos iris, cuando se entrena y puntúa sólo con dos características, a efectos de visualización."
 
 #: ../modules/neighbors.rst:702
 msgid "Dimensionality reduction"
-msgstr ""
+msgstr "Reducción de Dimensionalidad"
 
 #: ../modules/neighbors.rst:704
 msgid "NCA can be used to perform supervised dimensionality reduction. The input data are projected onto a linear subspace consisting of the directions which minimize the NCA objective. The desired dimensionality can be set using the parameter ``n_components``. For instance, the following figure shows a comparison of dimensionality reduction with Principal Component Analysis (:class:`~sklearn.decomposition.PCA`), Linear Discriminant Analysis (:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`) and Neighborhood Component Analysis (:class:`NeighborhoodComponentsAnalysis`) on the Digits dataset, a dataset with size :math:`n_{samples} = 1797` and :math:`n_{features} = 64`. The data set is split into a training and a test set of equal size, then standardized. For evaluation the 3-nearest neighbor classification accuracy is computed on the 2-dimensional projected points found by each method. Each data sample belongs to one of 10 classes."
-msgstr ""
+msgstr "El NCA puede utilizarse para realizar una reducción de la dimensionalidad supervisada. Los datos de entrada se proyectan en un subespacio lineal formado por las direcciones que minimizan el objetivo del NCA. La dimensionalidad deseada puede establecerse mediante el parámetro ``n_components``. Por ejemplo, la siguiente figura muestra una comparación de la reducción de la dimensionalidad con el Análisis de Componentes Principales (:class:`~sklearn.decomposition.PCA`), el Análisis Discriminante Lineal (:class:`~sklearn.discriminant_analysis. LinearDiscriminantAnalysis`) y el Análisis de Componentes del Vecindario (:class:`NeighborhoodComponentsAnalysis`) en el conjunto de datos Digits, un conjunto de datos con tamaño :math:`n_{samples} = 1797` y :math:`n_{features} = 64`. El conjunto de datos se divide en un conjunto de entrenamiento y otro de prueba de igual tamaño, y luego se estandariza. Para la evaluación, se calcula la exactitud de la clasificación de 3 vecinos más cercanos en los puntos proyectados bidimensionales encontrados por cada método. Cada muestra de datos pertenece a una de las 10 clases."
 
 #: ../modules/neighbors.rst:732
 msgid "nca_dim_reduction_1 nca_dim_reduction_2 nca_dim_reduction_3"
-msgstr ""
+msgstr "nca_dim_reduction_1 nca_dim_reduction_2 nca_dim_reduction_3"
 
 #: ../modules/neighbors.rst:735
 msgid ":ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`"
 
 #: ../modules/neighbors.rst:736
 msgid ":ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`"
 
 #: ../modules/neighbors.rst:737
 msgid ":ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py`"
 
 #: ../modules/neighbors.rst:742
 msgid "Mathematical formulation"
-msgstr ""
+msgstr "Formulación matemática"
 
 #: ../modules/neighbors.rst:744
 msgid "The goal of NCA is to learn an optimal linear transformation matrix of size ``(n_components, n_features)``, which maximises the sum over all samples :math:`i` of the probability :math:`p_i` that :math:`i` is correctly classified, i.e.:"
-msgstr ""
+msgstr "El objetivo del NCA es aprender una matriz de transformación lineal óptima de tamaño ``(n_components, n_features)``, que maximice la suma sobre todas las muestras :math:`i` de la probabilidad :math:`p_i` de que :math:`i` se clasifique correctamente, es decir:"
 
 #: ../modules/neighbors.rst:749
 msgid "\\underset{L}{\\arg\\max} \\sum\\limits_{i=0}^{N - 1} p_{i}"
-msgstr ""
+msgstr "\\underset{L}{\\arg\\max} \\sum\\limits_{i=0}^{N - 1} p_{i}"
 
 #: ../modules/neighbors.rst:753
 msgid "with :math:`N` = ``n_samples`` and :math:`p_i` the probability of sample :math:`i` being correctly classified according to a stochastic nearest neighbors rule in the learned embedded space:"
-msgstr ""
+msgstr "con :math:`N` = ``n_samples`` y :math:`p_i` la probabilidad de que la muestra :math:`i` se clasifique correctamente según una regla estocástica de vecinos más cercanos en el espacio incrustado aprendido:"
 
 #: ../modules/neighbors.rst:757
 msgid "p_{i}=\\sum\\limits_{j \\in C_i}{p_{i j}}"
-msgstr ""
+msgstr "p_{i}=\\sum\\limits_{j \\in C_i}{p_{i j}}"
 
 #: ../modules/neighbors.rst:761
 msgid "where :math:`C_i` is the set of points in the same class as sample :math:`i`, and :math:`p_{i j}` is the softmax over Euclidean distances in the embedded space:"
-msgstr ""
+msgstr "donde :math:`C_i` es el conjunto de puntos en la misma clase que la muestra :math:`i`, y :math:`p_{i j}` es el máximo softmax sobre distancias euclidianas en el espacio incrustado:"
 
 #: ../modules/neighbors.rst:765
 msgid "p_{i j} = \\frac{\\exp(-||L x_i - L x_j||^2)}{\\sum\\limits_{k \\ne\n"
 "          i} {\\exp{-(||L x_i - L x_k||^2)}}} , \\quad p_{i i} = 0"
-msgstr ""
+msgstr "p_{i j} = \\frac{\\exp(-||L x_i - L x_j||^2)}{\\sum\\limits_{k \\ne\n"
+"          i} {\\exp{-(||L x_i - L x_k||^2)}}} , \\quad p_{i i} = 0"
 
 #: ../modules/neighbors.rst:772
 msgid "Mahalanobis distance"
-msgstr ""
+msgstr "Distancia de Mahalanobis"
 
 #: ../modules/neighbors.rst:774
 msgid "NCA can be seen as learning a (squared) Mahalanobis distance metric:"
-msgstr ""
+msgstr "El NCA puede verse como el aprendizaje de una métrica de distancia de Mahalanobis (al cuadrado):"
 
 #: ../modules/neighbors.rst:776
 msgid "|| L(x_i - x_j)||^2 = (x_i - x_j)^TM(x_i - x_j),"
-msgstr ""
+msgstr "|| L(x_i - x_j)||^2 = (x_i - x_j)^TM(x_i - x_j),"
 
 #: ../modules/neighbors.rst:780
 msgid "where :math:`M = L^T L` is a symmetric positive semi-definite matrix of size ``(n_features, n_features)``."
-msgstr ""
+msgstr "donde :math:`M = L^T L` es una matriz simétrica semidefinida positiva de tamaño ``(n_features, n_features)``."
 
 #: ../modules/neighbors.rst:785
 msgid "Implementation"
-msgstr ""
+msgstr "Implementación"
 
 #: ../modules/neighbors.rst:787
 msgid "This implementation follows what is explained in the original paper [1]_. For the optimisation method, it currently uses scipy's L-BFGS-B with a full gradient computation at each iteration, to avoid to tune the learning rate and provide stable learning."
-msgstr ""
+msgstr "Esta implementación sigue lo explicado en el artículo original [1]_. Para el método de optimización, actualmente utiliza el L-BFGS-B de scipy con un cálculo de gradiente completo en cada iteración, para evitar afinar la tasa de aprendizaje y proporcionar un aprendizaje estable."
 
 #: ../modules/neighbors.rst:792
 msgid "See the examples below and the docstring of :meth:`NeighborhoodComponentsAnalysis.fit` for further information."
-msgstr ""
+msgstr "Puedes ver los ejemplos a continuación y la cadena de documentación de :meth:`NeighborhoodComponentsAnalysis.fit` para más información."
 
 #: ../modules/neighbors.rst:796
 msgid "Complexity"
-msgstr ""
+msgstr "Complejidad"
 
 #: ../modules/neighbors.rst:799
 msgid "Training"
-msgstr ""
+msgstr "Formación"
 
 #: ../modules/neighbors.rst:800
 msgid "NCA stores a matrix of pairwise distances, taking ``n_samples ** 2`` memory. Time complexity depends on the number of iterations done by the optimisation algorithm. However, one can set the maximum number of iterations with the argument ``max_iter``. For each iteration, time complexity is ``O(n_components x n_samples x min(n_samples, n_features))``."
-msgstr ""
+msgstr "El NCA almacena una matriz de distancias entre pares, ocupando ``n_samples ** 2`` de memoria. La complejidad del tiempo depende del número de iteraciones realizadas por el algoritmo de optimización. Sin embargo, se puede establecer el número máximo de iteraciones con el argumento ``max_iter``. Para cada iteración, la complejidad temporal es ``O(n_components x n_samples x min(n_samples, n_features))``."
 
 #: ../modules/neighbors.rst:808
 msgid "Transform"
-msgstr ""
+msgstr "Transformación"
 
 #: ../modules/neighbors.rst:809
 msgid "Here the ``transform`` operation returns :math:`LX^T`, therefore its time complexity equals ``n_components * n_features * n_samples_test``. There is no added space complexity in the operation."
-msgstr ""
+msgstr "Aquí la operación ``transform`` devuelve :math:`LX^T`, por lo tanto su complejidad de tiempo es igual a ``n_components * n_features * n_samples_test``. No hay complejidad de espacio añadida en la operación."
 
 msgid "References:"
-msgstr ""
+msgstr "Referencias:"
 
 #: ../modules/neighbors.rst:816
 msgid "`\"Neighbourhood Components Analysis\" <http://www.cs.nyu.edu/~roweis/papers/ncanips.pdf>`_, J. Goldberger, S. Roweis, G. Hinton, R. Salakhutdinov, Advances in Neural Information Processing Systems, Vol. 17, May 2005, pp. 513-520."
-msgstr ""
+msgstr "`\"Neighbourhood Components Analysis\" <http://www.cs.nyu.edu/~roweis/papers/ncanips.pdf>`_, J. Goldberger, S. Roweis, G. Hinton, R. Salakhutdinov, Advances in Neural Information Processing Systems, Vol. 17, mayo 2005, pp. 513-520."
 
 #: ../modules/neighbors.rst:821
 msgid "`Wikipedia entry on Neighborhood Components Analysis <https://en.wikipedia.org/wiki/Neighbourhood_components_analysis>`_"
-msgstr ""
+msgstr "`Entrada de Wikipedia en Análisis de Componentes del Vecindario <https://en.wikipedia.org/wiki/Neighbourhood_components_analysis>`_"
 

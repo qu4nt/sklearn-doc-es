@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:38\n"
+"PO-Revision-Date: 2021-07-11 02:32\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,213 +20,213 @@ msgstr ""
 
 #: ../computing/parallelism.rst:6
 msgid "Parallelism, resource management, and configuration"
-msgstr ""
+msgstr "Paralelismo, gestión de recursos y configuración"
 
 #: ../computing/parallelism.rst:11
 msgid "Parallelism"
-msgstr ""
+msgstr "Paralelismo"
 
 #: ../computing/parallelism.rst:13
 msgid "Some scikit-learn estimators and utilities can parallelize costly operations using multiple CPU cores, thanks to the following components:"
-msgstr ""
+msgstr "Algunos estimadores y utilidades de scikit-learn pueden paralelizar operaciones costosas utilizando varios núcleos de CPU, gracias a los siguientes componentes:"
 
 #: ../computing/parallelism.rst:16
 msgid "via the `joblib <https://joblib.readthedocs.io/en/latest/>`_ library. In this case the number of threads or processes can be controlled with the ``n_jobs`` parameter."
-msgstr ""
+msgstr "a través de la biblioteca `joblib <https://joblib.readthedocs.io/en/latest/>`_. En este caso el número de hilos o procesos se puede controlar con el parámetro ``n_jobs``."
 
 #: ../computing/parallelism.rst:19
 msgid "via OpenMP, used in C or Cython code."
-msgstr ""
+msgstr "a través de OpenMP, utilizado en código C o Cython."
 
 #: ../computing/parallelism.rst:21
 msgid "In addition, some of the numpy routines that are used internally by scikit-learn may also be parallelized if numpy is installed with specific numerical libraries such as MKL, OpenBLAS, or BLIS."
-msgstr ""
+msgstr "Además, algunas de las rutinas de numpy que son usadas internamente por scikit-learn también pueden ser paralelizadas si numpy es instalado con bibliotecas numéricas específicas como MKL, OpenBLAS, o BLIS."
 
 #: ../computing/parallelism.rst:25
 msgid "We describe these 3 scenarios in the following subsections."
-msgstr ""
+msgstr "Describimos estos 3 escenarios en las siguientes subsecciones."
 
 #: ../computing/parallelism.rst:28
 msgid "Joblib-based parallelism"
-msgstr ""
+msgstr "Paralelismo basado en Joblib"
 
 #: ../computing/parallelism.rst:30
 msgid "When the underlying implementation uses joblib, the number of workers (threads or processes) that are spawned in parallel can be controlled via the ``n_jobs`` parameter."
-msgstr ""
+msgstr "Cuando la implementación subyacente utiliza joblib, el número de trabajadores (hilos o procesos) que se generan en paralelo puede controlarse mediante el parámetro ``n_jobs``."
 
 #: ../computing/parallelism.rst:36
 msgid "Where (and how) parallelization happens in the estimators is currently poorly documented. Please help us by improving our docs and tackle `issue 14228 <https://github.com/scikit-learn/scikit-learn/issues/14228>`_!"
-msgstr ""
+msgstr "Dónde (y cómo) ocurre la paralelización en los estimadores está actualmente mal documentado. ¡Por favor, ayúdanos a mejorar nuestra documentación y a resolver el `problema 14228 <https://github.com/scikit-learn/scikit-learn/issues/14228>`_!"
 
 #: ../computing/parallelism.rst:40
 msgid "Joblib is able to support both multi-processing and multi-threading. Whether joblib chooses to spawn a thread or a process depends on the **backend** that it's using."
-msgstr ""
+msgstr "Joblib es capaz de soportar tanto el multiprocesamiento como el multihilo. El hecho de que joblib elija generar un hilo o un proceso depende del **backend** que esté utilizando."
 
 #: ../computing/parallelism.rst:44
 msgid "Scikit-learn generally relies on the ``loky`` backend, which is joblib's default backend. Loky is a multi-processing backend. When doing multi-processing, in order to avoid duplicating the memory in each process (which isn't reasonable with big datasets), joblib will create a `memmap <https://docs.scipy.org/doc/numpy/reference/generated/numpy.memmap.html>`_ that all processes can share, when the data is bigger than 1MB."
-msgstr ""
+msgstr "Scikit-learn generalmente confía en el backend ``loky``, que es el backend por defecto de joblib. Loky es un backend de multiprocesamiento. Cuando se hace multiprocesamiento, para evitar duplicar la memoria en cada proceso (lo que no es razonable con grandes conjuntos de datos), joblib creará un `memmap <https://docs.scipy.org/doc/numpy/reference/generated/numpy.memmap.html>`_ que todos los procesos pueden compartir, cuando los datos son mayores de 1MB."
 
 #: ../computing/parallelism.rst:51
 msgid "In some specific cases (when the code that is run in parallel releases the GIL), scikit-learn will indicate to ``joblib`` that a multi-threading backend is preferable."
-msgstr ""
+msgstr "En algunos casos específicos (cuando el código que se ejecuta en paralelo libera el GIL), scikit-learn indicará a ``joblib`` que es preferible un backend multihilo."
 
 #: ../computing/parallelism.rst:55
 msgid "As a user, you may control the backend that joblib will use (regardless of what scikit-learn recommends) by using a context manager::"
-msgstr ""
+msgstr "Como usuario, puede controlar el backend que joblib utilizará (independientemente de lo que scikit-learn recomiende) utilizando un gestor de contexto::"
 
 #: ../computing/parallelism.rst:63
 msgid "Please refer to the `joblib's docs <https://joblib.readthedocs.io/en/latest/parallel.html#thread-based-parallelism-vs-process-based-parallelism>`_ for more details."
-msgstr ""
+msgstr "Consulta la documentación de `joblib's <https://joblib.readthedocs.io/en/latest/parallel.html#thread-based-parallelism-vs-process-based-parallelism>`_ para más detalles."
 
 #: ../computing/parallelism.rst:67
 msgid "In practice, whether parallelism is helpful at improving runtime depends on many factors. It is usually a good idea to experiment rather than assuming that increasing the number of workers is always a good thing. In some cases it can be highly detrimental to performance to run multiple copies of some estimators or functions in parallel (see oversubscription below)."
-msgstr ""
+msgstr "En la práctica, que el paralelismo sea útil para mejorar el tiempo de ejecución depende de muchos factores. Suele ser una buena idea experimentar en lugar de asumir que aumentar el número de trabajadores es siempre algo bueno. En algunos casos puede ser muy perjudicial para el rendimiento ejecutar varias copias de algunos estimadores o funciones en paralelo (ver la sobresuscripción más adelante)."
 
 #: ../computing/parallelism.rst:74
 msgid "OpenMP-based parallelism"
-msgstr ""
+msgstr "Paralelismo basado en OpenMP"
 
 #: ../computing/parallelism.rst:76
 msgid "OpenMP is used to parallelize code written in Cython or C, relying on multi-threading exclusively. By default (and unless joblib is trying to avoid oversubscription), the implementation will use as many threads as possible."
-msgstr ""
+msgstr "OpenMP se utiliza para paralelizar código escrito en Cython o C, basándose exclusivamente en el multihilo. Por defecto (y a menos que joblib intente evitar la sobresuscripción), la implementación utilizará tantos hilos como sea posible."
 
 #: ../computing/parallelism.rst:81
 msgid "You can control the exact number of threads that are used via the ``OMP_NUM_THREADS`` environment variable:"
-msgstr ""
+msgstr "Puedes controlar el número exacto de hilos que se utilizan mediante la variable de entorno ``OMP_NUM_THREADS``:"
 
 #: ../computing/parallelism.rst:89
 msgid "Parallel Numpy routines from numerical libraries"
-msgstr ""
+msgstr "Rutinas paralelas Numpy de bibliotecas numéricas"
 
 #: ../computing/parallelism.rst:91
 msgid "Scikit-learn relies heavily on NumPy and SciPy, which internally call multi-threaded linear algebra routines implemented in libraries such as MKL, OpenBLAS or BLIS."
-msgstr ""
+msgstr "Scikit-learn depende en gran medida de NumPy y SciPy, que llaman internamente a rutinas de álgebra lineal multihilo implementadas en bibliotecas como MKL, OpenBLAS o BLIS."
 
 #: ../computing/parallelism.rst:95
 msgid "The number of threads used by the OpenBLAS, MKL or BLIS libraries can be set via the ``MKL_NUM_THREADS``, ``OPENBLAS_NUM_THREADS``, and ``BLIS_NUM_THREADS`` environment variables."
-msgstr ""
+msgstr "El número de hilos utilizados por las bibliotecas OpenBLAS, MKL o BLIS puede establecerse mediante las variables de entorno ``MKL_NUM_THREADS``, ``OPENBLAS_NUM_THREADS`` y ``BLIS_NUM_THREADS``."
 
 #: ../computing/parallelism.rst:99
 msgid "Please note that scikit-learn has no direct control over these implementations. Scikit-learn solely relies on Numpy and Scipy."
-msgstr ""
+msgstr "Ten en cuenta que scikit-learn no tiene ningún control directo sobre estas implementaciones. Scikit-learn depende únicamente de Numpy y Scipy."
 
 #: ../computing/parallelism.rst:103
 msgid "At the time of writing (2019), NumPy and SciPy packages distributed on pypi.org (used by ``pip``) and on the conda-forge channel are linked with OpenBLAS, while conda packages shipped on the \"defaults\" channel from anaconda.org are linked by default with MKL."
-msgstr ""
+msgstr "En el momento de escribir este artículo (2019), los paquetes NumPy y SciPy distribuidos en pypi.org (utilizados por ``pip``) y en el canal de conda-forge están enlazados con OpenBLAS, mientras que los paquetes de conda distribuidos en el canal \"defaults\" de anaconda.org están enlazados por defecto con MKL."
 
 #: ../computing/parallelism.rst:110
 msgid "Oversubscription: spawning too many threads"
-msgstr ""
+msgstr "Sobresuscripción: creación de demasiados hilos"
 
 #: ../computing/parallelism.rst:112
 msgid "It is generally recommended to avoid using significantly more processes or threads than the number of CPUs on a machine. Over-subscription happens when a program is running too many threads at the same time."
-msgstr ""
+msgstr "Por lo general, se recomienda evitar el uso de un número de procesos o hilos significativamente mayor que el número de CPUs de una máquina. El exceso de hilos ocurre cuando un programa ejecuta demasiados hilos al mismo tiempo."
 
 #: ../computing/parallelism.rst:116
 msgid "Suppose you have a machine with 8 CPUs. Consider a case where you're running a :class:`~sklearn.model_selection.GridSearchCV` (parallelized with joblib) with ``n_jobs=8`` over a :class:`~sklearn.ensemble.HistGradientBoostingClassifier` (parallelized with OpenMP). Each instance of :class:`~sklearn.ensemble.HistGradientBoostingClassifier` will spawn 8 threads (since you have 8 CPUs). That's a total of ``8 * 8 = 64`` threads, which leads to oversubscription of physical CPU resources and to scheduling overhead."
-msgstr ""
+msgstr "Imagina que tienes una máquina con 8 CPUs. Considera un caso en el que estás ejecutando una :class:`~sklearn.model_selection.GridSearchCV` (paralelizada con joblib) con ``n_jobs=8`` sobre un :class:`~sklearn.ensemble.HistGradientBoostingClassifier` (paralelizado con OpenMP). Cada instancia de :class:`~sklearn.ensemble.HistGradientBoostingClassifier` generará 8 hilos (ya que tienes 8 CPUs). Esto supone un total de ``8 * 8 = 64`` hilos, lo que conlleva una sobresuscripción de los recursos físicos de la CPU y una sobrecarga de programación."
 
 #: ../computing/parallelism.rst:126
 msgid "Oversubscription can arise in the exact same fashion with parallelized routines from MKL, OpenBLAS or BLIS that are nested in joblib calls."
-msgstr ""
+msgstr "La sobresuscripción puede surgir exactamente de la misma manera con las rutinas paralelas de MKL, OpenBLAS o BLIS que están anidadas en las llamadas de joblib."
 
 #: ../computing/parallelism.rst:129
 msgid "Starting from ``joblib >= 0.14``, when the ``loky`` backend is used (which is the default), joblib will tell its child **processes** to limit the number of threads they can use, so as to avoid oversubscription. In practice the heuristic that joblib uses is to tell the processes to use ``max_threads = n_cpus // n_jobs``, via their corresponding environment variable. Back to our example from above, since the joblib backend of :class:`~sklearn.model_selection.GridSearchCV` is ``loky``, each process will only be able to use 1 thread instead of 8, thus mitigating the oversubscription issue."
-msgstr ""
+msgstr "A partir de ``joblib >= 0.14``, cuando se utiliza el backend ``loky`` (que es el predeterminado), joblib indicará a sus **procesos hijos** que limiten el número de hilos que pueden utilizar, para evitar la sobresuscripción. En la práctica, la heurística que utiliza joblib es decirle a los procesos que utilicen ``max_threads = n_cpus // n_jobs``, a través de su correspondiente variable de entorno. Volviendo a nuestro ejemplo anterior, como el backend de joblib de :class:`~sklearn.model_selection.GridSearchCV` es ``loky``, cada proceso sólo podrá utilizar 1 hilo en lugar de 8, mitigando así el problema de la sobresuscripción."
 
 #: ../computing/parallelism.rst:139
 msgid "Note that:"
-msgstr ""
+msgstr "Ten en cuenta que:"
 
 #: ../computing/parallelism.rst:141
 msgid "Manually setting one of the environment variables (``OMP_NUM_THREADS``, ``MKL_NUM_THREADS``, ``OPENBLAS_NUM_THREADS``, or ``BLIS_NUM_THREADS``) will take precedence over what joblib tries to do. The total number of threads will be ``n_jobs * <LIB>_NUM_THREADS``. Note that setting this limit will also impact your computations in the main process, which will only use ``<LIB>_NUM_THREADS``. Joblib exposes a context manager for finer control over the number of threads in its workers (see joblib docs linked below)."
-msgstr ""
+msgstr "La configuración manual de una de las variables de entorno (``OMP_NUM_THREADS``, ``MKL_NUM_THREADS``, ``OPENBLAS_NUM_THREADS``, o ``BLIS_NUM_THREADS``) tendrá prioridad sobre lo que intente hacer joblib. El número total de hilos será ``n_jobs * <LIB>_NUM_THREADS``. Ten en cuenta que establecer este límite también afectará a sus cálculos en el proceso principal, que sólo utilizará ``<LIB>_NUM_THREADS``. Joblib expone un gestor de contexto para un control más fino sobre el número de hilos en sus trabajadores (ver la documentación de joblib enlazada más abajo)."
 
 #: ../computing/parallelism.rst:149
 msgid "Joblib is currently unable to avoid oversubscription in a multi-threading context. It can only do so with the ``loky`` backend (which spawns processes)."
-msgstr ""
+msgstr "Joblib es actualmente incapaz de evitar la sobresuscripción en un contexto de multihilo. Sólo puede hacerlo con el backend ``loky`` (que genera procesos)."
 
 #: ../computing/parallelism.rst:153
 msgid "You will find additional details about joblib mitigation of oversubscription in `joblib documentation <https://joblib.readthedocs.io/en/latest/parallel.html#avoiding-over-subscription-of-cpu-ressources>`_."
-msgstr ""
+msgstr "Encontrarás detalles adicionales sobre la mitigación de la sobresuscripción de joblib en la documentación de `joblib <https://joblib.readthedocs.io/en/latest/parallel.html#avoiding-over-subscription-of-cpu-ressources>`_."
 
 #: ../computing/parallelism.rst:159
 msgid "Configuration switches"
-msgstr ""
+msgstr "Interruptores de configuración"
 
 #: ../computing/parallelism.rst:162
 msgid "Python runtime"
-msgstr ""
+msgstr "Tiempo de ejecución de Python"
 
 #: ../computing/parallelism.rst:164
 msgid ":func:`sklearn.set_config` controls the following behaviors:"
-msgstr ""
+msgstr ":func:`sklearn.set_config` controla los siguientes comportamientos:"
 
 #: ../computing/parallelism.rst
 msgid "assume_finite"
-msgstr ""
+msgstr "assume_finite"
 
 #: ../computing/parallelism.rst:168
 msgid "used to skip validation, which enables faster computations but may lead to segmentation faults if the data contains NaNs."
-msgstr ""
+msgstr "se utiliza para omitir la validación, lo que permite realizar cálculos más rápidos pero puede dar lugar a fallos de segmentación si los datos contienen NaNs."
 
 #: ../computing/parallelism.rst
 msgid "working_memory"
-msgstr ""
+msgstr "working_memory"
 
 #: ../computing/parallelism.rst:173
 msgid "the optimal size of temporary arrays used by some algorithms."
-msgstr ""
+msgstr "el tamaño óptimo de los arreglos temporales utilizados por algunos algoritmos."
 
 #: ../computing/parallelism.rst:178
 msgid "Environment variables"
-msgstr ""
+msgstr "Variables de entorno"
 
 #: ../computing/parallelism.rst:180
 msgid "These environment variables should be set before importing scikit-learn."
-msgstr ""
+msgstr "Estas variables de entorno deben establecerse antes de importar scikit-learn."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_SITE_JOBLIB"
-msgstr ""
+msgstr "SKLEARN_SITE_JOBLIB"
 
 #: ../computing/parallelism.rst:184
 msgid "When this environment variable is set to a non zero value, scikit-learn uses the site joblib rather than its vendored version. Consequently, joblib must be installed for scikit-learn to run. Note that using the site joblib is at your own risks: the versions of scikit-learn and joblib need to be compatible. Currently, joblib 0.11+ is supported. In addition, dumps from joblib.Memory might be incompatible, and you might loose some caches and have to redownload some datasets."
-msgstr ""
+msgstr "Cuando esta variable de entorno se establece en un valor distinto de cero, scikit-learn utiliza el joblib del sitio en lugar de su versión vendida. En consecuencia, joblib debe ser instalado para que scikit-learn se ejecute. Tenga en cuenta que el uso de la joblib del sitio es bajo su propio riesgo: las versiones de scikit-learn y joblib deben ser compatibles. Actualmente, joblib 0.11+ es compatible. Además, los volcados de joblib.Memory podrían ser incompatibles, y podrías perder algunas cachés y tener que volver a descargar algunos conjuntos de datos."
 
 #: ../computing/parallelism.rst:194
 msgid "As of version 0.21 this parameter has no effect, vendored joblib was removed and site joblib is always used."
-msgstr ""
+msgstr "A partir de la versión 0.21 este parámetro no tiene efecto, se ha eliminado el joblib vendido y se utiliza siempre el joblib de sitio."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_ASSUME_FINITE"
-msgstr ""
+msgstr "SKLEARN_ASSUME_FINITE"
 
 #: ../computing/parallelism.rst:199
 msgid "Sets the default value for the `assume_finite` argument of :func:`sklearn.set_config`."
-msgstr ""
+msgstr "Establece el valor predeterminado del argumento `assume_finite` de :func:`sklearn.set_config`."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_WORKING_MEMORY"
-msgstr ""
+msgstr "SKLEARN_WORKING_MEMORY"
 
 #: ../computing/parallelism.rst:204
 msgid "Sets the default value for the `working_memory` argument of :func:`sklearn.set_config`."
-msgstr ""
+msgstr "Establece el valor predeterminado del argumento `working_memory` de :func:`sklearn.set_config`."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_SEED"
-msgstr ""
+msgstr "SKLEARN_SEED"
 
 #: ../computing/parallelism.rst:209
 msgid "Sets the seed of the global random generator when running the tests, for reproducibility."
-msgstr ""
+msgstr "Establece la semilla del generador aleatorio global cuando se ejecutan las pruebas, para la reproducibilidad."
 
 #: ../computing/parallelism.rst
 msgid "SKLEARN_SKIP_NETWORK_TESTS"
-msgstr ""
+msgstr "SKLEARN_SKIP_NETWORK_TESTS"
 
 #: ../computing/parallelism.rst:214
 msgid "When this environment variable is set to a non zero value, the tests that need network access are skipped. When this environment variable is not set then network tests are skipped."
-msgstr ""
+msgstr "Cuando esta variable de entorno tiene un valor distinto de cero, se omiten las pruebas que necesitan acceso a la red. Cuando esta variable de entorno no se establece, se omiten las pruebas de red."
 

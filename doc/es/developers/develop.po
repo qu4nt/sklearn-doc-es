@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:40\n"
+"PO-Revision-Date: 2021-08-28 21:07\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,636 +20,636 @@ msgstr ""
 
 #: ../developers/develop.rst:5
 msgid "Developing scikit-learn estimators"
-msgstr ""
+msgstr "Desarrollando estimadores de scikit-learn"
 
 #: ../developers/develop.rst:7
 msgid "Whether you are proposing an estimator for inclusion in scikit-learn, developing a separate package compatible with scikit-learn, or implementing custom components for your own projects, this chapter details how to develop objects that safely interact with scikit-learn Pipelines and model selection tools."
-msgstr ""
+msgstr "Ya sea que estes proponiendo un estimador para su inclusión en scikit-learn, desarrollando un paquete separado compatible con scikit-learn, o implementando componentes personalizados para tus propios proyectos, este capítulo detalla cómo desarrollar objetos que interactúan de forma segura con los Pipelines de scikit-learn y las herramientas de selección de modelos."
 
 #: ../developers/develop.rst:18
 msgid "APIs of scikit-learn objects"
-msgstr ""
+msgstr "APIs de objetos de scikit-learn"
 
 #: ../developers/develop.rst:20
 msgid "To have a uniform API, we try to have a common basic API for all the objects. In addition, to avoid the proliferation of framework code, we try to adopt simple conventions and limit to a minimum the number of methods an object must implement."
-msgstr ""
+msgstr "Para tener una API uniforme, intentamos tener una API básica común para todos los objetos. Además, para evitar la proliferación de código del framework, intentamos adoptar convenciones sencillas y limitar al mínimo el número de métodos que debe implementar un objeto."
 
 #: ../developers/develop.rst:25
 msgid "Elements of the scikit-learn API are described more definitively in the :ref:`glossary`."
-msgstr ""
+msgstr "Los elementos de la API de scikit-learn se describen de forma más definitiva en el :ref:`glossary`."
 
 #: ../developers/develop.rst:29
 msgid "Different objects"
-msgstr ""
+msgstr "Objetos diferentes"
 
 #: ../developers/develop.rst:31
 msgid "The main objects in scikit-learn are (one class can implement multiple interfaces):"
-msgstr ""
+msgstr "Los objetos principales en scikit-learn son (una clase puede implementar múltiples interfaces):"
 
 #: ../developers/develop.rst
 msgid "Estimator"
-msgstr ""
+msgstr "Estimador"
 
 #: ../developers/develop.rst:36
 msgid "The base object, implements a ``fit`` method to learn from data, either::"
-msgstr ""
+msgstr "El objeto base, implementa un método ``fit`` para aprender de los datos, o bien::"
 
 #: ../developers/develop.rst:40
 msgid "or::"
-msgstr ""
+msgstr "o::"
 
 #: ../developers/develop.rst
 msgid "Predictor"
-msgstr ""
+msgstr "Predictor"
 
 #: ../developers/develop.rst:46
 msgid "For supervised learning, or some unsupervised problems, implements::"
-msgstr ""
+msgstr "Para el aprendizaje supervisado, o algunos problemas no supervisados, implementa::"
 
 #: ../developers/develop.rst:50
 msgid "Classification algorithms usually also offer a way to quantify certainty of a prediction, either using ``decision_function`` or ``predict_proba``::"
-msgstr ""
+msgstr "Los algoritmos de clasificación generalmente también ofrecen una manera de cuantificar la certidumbre de una predicción, ya sea usando ``decision_function`` o ``predict_proba``::"
 
 #: ../developers/develop.rst
 msgid "Transformer"
-msgstr ""
+msgstr "Transformador"
 
 #: ../developers/develop.rst:57
 msgid "For filtering or modifying the data, in a supervised or unsupervised way, implements::"
-msgstr ""
+msgstr "Para filtrar o modificar los datos, de forma supervisada o no supervisada, implementa::"
 
 #: ../developers/develop.rst:62
 msgid "When fitting and transforming can be performed much more efficiently together than separately, implements::"
-msgstr ""
+msgstr "Cuando se ajusta y transforma se puede realizar de forma mucho más eficiente juntos que por separado, implementa::"
 
 #: ../developers/develop.rst
 msgid "Model"
-msgstr ""
+msgstr "Modelo"
 
 #: ../developers/develop.rst:69
 msgid "A model that can give a `goodness of fit <https://en.wikipedia.org/wiki/Goodness_of_fit>`_ measure or a likelihood of unseen data, implements (higher is better)::"
-msgstr ""
+msgstr "Un modelo que puede dar una medida de `bondad de ajuste <https://es.wikipedia.org/wiki/Bondad_de_ajuste>`_ o una probabilidad de los datos no vistos, implementa (mayor es mejor)::"
 
 #: ../developers/develop.rst:75
 msgid "Estimators"
-msgstr ""
+msgstr "Estimadores"
 
 #: ../developers/develop.rst:77
 msgid "The API has one predominant object: the estimator. An estimator is an object that fits a model based on some training data and is capable of inferring some properties on new data. It can be, for instance, a classifier or a regressor. All estimators implement the fit method::"
-msgstr ""
+msgstr "La API tiene un objeto predominante: el estimador. Un estimador es un objeto que se ajusta a un modelo basado en algunos datos de capacitación y es capaz de inferir algunas propiedades sobre nuevos datos. Puede ser, por ejemplo, un clasificador o un regresor. Todos los estimadores implementan el método de ajuste::"
 
 #: ../developers/develop.rst:84
 msgid "All built-in estimators also have a ``set_params`` method, which sets data-independent parameters (overriding previous parameter values passed to ``__init__``)."
-msgstr ""
+msgstr "Todos los estimadores incorporados también tienen un método ``set_params``, que establece parámetros independientes de los datos (anulando los valores de los parámetros anteriores pasados a ``__init__``)."
 
 #: ../developers/develop.rst:88
 msgid "All estimators in the main scikit-learn codebase should inherit from ``sklearn.base.BaseEstimator``."
-msgstr ""
+msgstr "Todos los estimadores en el código base principal de scikit-learn deben heredar de ``sklearn.base.BaseEstimator``."
 
 #: ../developers/develop.rst:92
 msgid "Instantiation"
-msgstr ""
+msgstr "Instanciación"
 
 #: ../developers/develop.rst:94
 msgid "This concerns the creation of an object. The object's ``__init__`` method might accept constants as arguments that determine the estimator's behavior (like the C constant in SVMs). It should not, however, take the actual training data as an argument, as this is left to the ``fit()`` method::"
-msgstr ""
+msgstr "Se trata de la creación de un objeto. El método ``__init__`` del objeto puede aceptar constantes como argumentos que determinen el comportamiento del estimador (como la constante C en los SVM). Sin embargo, no debería tomar los datos de entrenamiento como argumento, ya que esto se deja al método ``fit()``::"
 
 #: ../developers/develop.rst:103
 msgid "The arguments accepted by ``__init__`` should all be keyword arguments with a default value. In other words, a user should be able to instantiate an estimator without passing any arguments to it. The arguments should all correspond to hyperparameters describing the model or the optimisation problem the estimator tries to solve. These initial arguments (or parameters) are always remembered by the estimator. Also note that they should not be documented under the \"Attributes\" section, but rather under the \"Parameters\" section for that estimator."
-msgstr ""
+msgstr "Los argumentos aceptados por ``__init__`` deberían ser todos argumentos de palabra clave con un valor predeterminado. En otras palabras, un usuario debe ser capaz de instanciar un estimador sin pasarle ningún argumento. Todos los argumentos deberían corresponder a hiperparámetros que describan el modelo o el problema de optimización que el estimador intenta resolver. Estos argumentos (o parámetros) iniciales son siempre recordados por el estimador. También hay que tener en cuenta que no deben documentarse en la sección \"Atributos\", sino en la sección \"Parámetros\" de ese estimador."
 
 #: ../developers/develop.rst:112
 msgid "In addition, **every keyword argument accepted by** ``__init__`` **should correspond to an attribute on the instance**. Scikit-learn relies on this to find the relevant attributes to set on an estimator when doing model selection."
-msgstr ""
+msgstr "Además, **cada argumento de palabra clave aceptado por** ``__init__`` debe corresponder a un atributo en la instancia**. Scikit-learn se basa en esto para encontrar los atributos relevantes para establecer en un estimador al hacer la selección del modelo."
 
 #: ../developers/develop.rst:116
 msgid "To summarize, an ``__init__`` should look like::"
-msgstr ""
+msgstr "Para resumir, un ``__init__`` debería parecer así::"
 
 #: ../developers/develop.rst:122
 msgid "There should be no logic, not even input validation, and the parameters should not be changed. The corresponding logic should be put where the parameters are used, typically in ``fit``. The following is wrong::"
-msgstr ""
+msgstr "No debería haber lógica, ni siquiera validación de entrada, y los parámetros no deberían cambiarse. La lógica correspondiente debería ponerse donde se utilizan los parámetros, normalmente en ``fit``. Lo siguiente es incorrecto::"
 
 #: ../developers/develop.rst:137
 msgid "The reason for postponing the validation is that the same validation would have to be performed in ``set_params``, which is used in algorithms like ``GridSearchCV``."
-msgstr ""
+msgstr "La razón para posponer la validación es que la misma validación tendría que realizarse en ``set_params``, que se utiliza en algoritmos como ``GridSearchCV``."
 
 #: ../developers/develop.rst:142
 msgid "Fitting"
-msgstr ""
+msgstr "Ajuste"
 
 #: ../developers/develop.rst:144
 msgid "The next thing you will probably want to do is to estimate some parameters in the model. This is implemented in the ``fit()`` method."
-msgstr ""
+msgstr "Lo siguiente que probablemente querras hacer es estimar algunos parámetros en el modelo. Esto está implementado en el método ``fit()``."
 
 #: ../developers/develop.rst:147
 msgid "The ``fit()`` method takes the training data as arguments, which can be one array in the case of unsupervised learning, or two arrays in the case of supervised learning."
-msgstr ""
+msgstr "El método ``fit()`` toma los datos de entrenamiento como argumentos, que puede ser una matriz en el caso de aprendizaje no supervisado, o dos matrices en el caso de aprendizaje supervisado."
 
 #: ../developers/develop.rst:151
 msgid "Note that the model is fitted using ``X`` and ``y``, but the object holds no reference to ``X`` and ``y``. There are, however, some exceptions to this, as in the case of precomputed kernels where this data must be stored for use by the predict method."
-msgstr ""
+msgstr "Ten en cuenta que el modelo se ajusta usando ``X`` y ``y``, pero el objeto no contiene ninguna referencia a ``X`` y ``y``. Sin embargo, hay algunas excepciones a esto. como en el caso de los núcleos precomputados donde estos datos deben ser almacenados para su uso por el método predeterminado."
 
 #: ../developers/develop.rst:157
 msgid "Parameters"
-msgstr ""
+msgstr "Parámetros"
 
 #: ../developers/develop.rst:159
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: ../developers/develop.rst:159
 msgid "array-like of shape (n_samples, n_features)"
-msgstr ""
+msgstr "array-like de forma (n_samples, n_features)"
 
 #: ../developers/develop.rst:161
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: ../developers/develop.rst:161
 msgid "array-like of shape (n_samples,)"
-msgstr ""
+msgstr "array-like de forma (n_samples,)"
 
 #: ../developers/develop.rst:163
 msgid "kwargs"
-msgstr ""
+msgstr "kwargs"
 
 #: ../developers/develop.rst:163
 msgid "optional data-dependent parameters"
-msgstr ""
+msgstr "parámetros opcionales dependientes de datos"
 
 #: ../developers/develop.rst:166
 msgid "``X.shape[0]`` should be the same as ``y.shape[0]``. If this requisite is not met, an exception of type ``ValueError`` should be raised."
-msgstr ""
+msgstr "``X.shape[0]`` debe ser el mismo que ``y.shape[0]``. Si no se cumple este requisito, se lanzará una excepción de tipo ``ValueError``."
 
 #: ../developers/develop.rst:169
 msgid "``y`` might be ignored in the case of unsupervised learning. However, to make it possible to use the estimator as part of a pipeline that can mix both supervised and unsupervised transformers, even unsupervised estimators need to accept a ``y=None`` keyword argument in the second position that is just ignored by the estimator. For the same reason, ``fit_predict``, ``fit_transform``, ``score`` and ``partial_fit`` methods need to accept a ``y`` argument in the second place if they are implemented."
-msgstr ""
+msgstr "``y`` podría ignorarse en el caso del aprendizaje no supervisado. Sin embargo, para hacer posible el uso del estimador como parte de una cadena que puede mezclar transformadores supervisados y no supervisados, incluso los estimadores no supervisados necesitan aceptar un argumento de palabra clave ``y=None`` en la segunda posición que es simplemente ignorado por el estimador. Por la misma razón, los métodos ``fit_predict``, ``fit_transform``, ``score`` y ``partial_fit`` necesitan aceptar un argumento ``y`` en la segunda posición si se implementan."
 
 #: ../developers/develop.rst:178
 msgid "The method should return the object (``self``). This pattern is useful to be able to implement quick one liners in an IPython session such as::"
-msgstr ""
+msgstr "El método debe devolver el objeto (``self``). Este patrón es útil para poder implementar one liners rápidos en una sesión de IPython como::"
 
 #: ../developers/develop.rst:183
 msgid "Depending on the nature of the algorithm, ``fit`` can sometimes also accept additional keywords arguments. However, any parameter that can have a value assigned prior to having access to the data should be an ``__init__`` keyword argument. **fit parameters should be restricted to directly data dependent variables**. For instance a Gram matrix or an affinity matrix which are precomputed from the data matrix ``X`` are data dependent. A tolerance stopping criterion ``tol`` is not directly data dependent (although the optimal value according to some scoring function probably is)."
-msgstr ""
+msgstr "Dependiendo de la naturaleza del algoritmo, ``fit`` a veces también puede aceptar argumentos de palabras clave adicionales. Sin embargo, cualquier parámetro al que se le pueda asignar un valor antes de tener acceso a los datos debería ser un argumento de palabra clave ``__init__``. **Los parámetros fit deben restringirse a las variables directamente dependientes de los datos**. Por ejemplo, una matriz de Gram o una matriz de afinidad que se calculan previamente a partir de la matriz de datos ``X`` son dependientes de los datos. Un criterio de parada de tolerancia ``tol`` no depende directamente de los datos (aunque el valor óptimo según alguna función de puntuación probablemente lo sea)."
 
 #: ../developers/develop.rst:193
 msgid "When ``fit`` is called, any previous call to ``fit`` should be ignored. In general, calling ``estimator.fit(X1)`` and then ``estimator.fit(X2)`` should be the same as only calling ``estimator.fit(X2)``. However, this may not be true in practice when ``fit`` depends on some random process, see :term:`random_state`. Another exception to this rule is when the hyper-parameter ``warm_start`` is set to ``True`` for estimators that support it. ``warm_start=True`` means that the previous state of the trainable parameters of the estimator are reused instead of using the default initialization strategy."
-msgstr ""
+msgstr "Cuando se llama a ``fit``, cualquier llamada anterior a ``fit`` debe ser ignorada. En general, llamar a ``estimator.fit(X1)`` y luego a ``estimator.fit(X2)`` debería ser lo mismo que llamar sólo a ``estimator.fit(X2)``. Sin embargo, esto puede no ser cierto en la práctica cuando ``fit`` depende de algún proceso aleatorio, ver :term:`random_state`. Otra excepción a esta regla es cuando el hiperparámetro ``inicio de calentamiento`` se establece en ``Verdadero`` para los estimadores que lo admiten. El parámetro ``warm_start=True`` significa que se reutiliza el estado anterior de los parámetros entrenables del estimador en lugar de utilizar la estrategia de inicialización por defecto."
 
 #: ../developers/develop.rst:204
 msgid "Estimated Attributes"
-msgstr ""
+msgstr "Atributos estimados"
 
 #: ../developers/develop.rst:206
 msgid "Attributes that have been estimated from the data must always have a name ending with trailing underscore, for example the coefficients of some regression estimator would be stored in a ``coef_`` attribute after ``fit`` has been called."
-msgstr ""
+msgstr "Los atributos que se han estimado a partir de los datos deben tener siempre un nombre que termine con subrayado final, por ejemplo, los coeficientes de algún estimador de regresión se almacenarían en un atributo ``coef_`` después de que se haya llamado ``fit``."
 
 #: ../developers/develop.rst:211
 msgid "The estimated attributes are expected to be overridden when you call ``fit`` a second time."
-msgstr ""
+msgstr "Se espera que los atributos estimados se anulen cuando llame a ``fit`` una segunda vez."
 
 #: ../developers/develop.rst:215
 msgid "Optional Arguments"
-msgstr ""
+msgstr "Argumentos opcionales"
 
 #: ../developers/develop.rst:217
 msgid "In iterative algorithms, the number of iterations should be specified by an integer called ``n_iter``."
-msgstr ""
+msgstr "En algoritmos iterativos, el número de iteraciones debe ser especificado por un entero llamado ``n_iter``."
 
 #: ../developers/develop.rst:221
 msgid "Pairwise Attributes"
-msgstr ""
+msgstr "Atributos en pareja"
 
 #: ../developers/develop.rst:223
 msgid "An estimator that accepts ``X`` of shape ``(n_samples, n_samples)`` and defines a :term:`_pairwise` property equal to ``True`` allows for cross-validation of the dataset, e.g. when ``X`` is a precomputed kernel matrix. Specifically, the :term:`_pairwise` property is used by ``utils.metaestimators._safe_split`` to slice rows and columns."
-msgstr ""
+msgstr "Un estimador que acepta ``X`` de la forma ``(n_samples, n_samples)`` y define una propiedad :term:`_pairwise` igual a ``True`` permite la validación cruzada del conjunto de datos, por ejemplo, cuando ``X`` es una matriz de núcleo precalculada. Específicamente, la propiedad :term:`_pairwise` es usada por ``utils.metaestimators._safe_split`` para dividir filas y columnas."
 
 #: ../developers/develop.rst:231
 msgid "The _pairwise attribute is deprecated in 0.24. From 1.1 (renaming of 0.26) onward, the `pairwise` estimator tag should be used instead."
-msgstr ""
+msgstr "El atributo _pairwise queda obsoleto en 0.24. A partir de la versión 1.1 (cambio de nombre de la versión 0.26), se utilizará la etiqueta del estimador `pairwise`."
 
 #: ../developers/develop.rst:235
 msgid "Universal attributes"
-msgstr ""
+msgstr "Atributos universales"
 
 #: ../developers/develop.rst:237
 msgid "Estimators that expect tabular input should set a `n_features_in_` attribute at `fit` time to indicate the number of features that the estimator expects for subsequent calls to `predict` or `transform`. See `SLEP010 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep010/proposal.html>`_ for details."
-msgstr ""
+msgstr "Los estimadores que esperan una entrada tabular deben establecer un atributo `n_features_in_` en el momento de `fit` para indicar el número de características que el estimador espera para las siguientes llamadas a `predict` o `transform`. Ver `SLEP010 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep010/proposal.html>`_ para más detalles."
 
 #: ../developers/develop.rst:248
 msgid "Rolling your own estimator"
-msgstr ""
+msgstr "Rodando tu propio estimador"
 
 #: ../developers/develop.rst:249
 msgid "If you want to implement a new estimator that is scikit-learn-compatible, whether it is just for you or for contributing it to scikit-learn, there are several internals of scikit-learn that you should be aware of in addition to the scikit-learn API outlined above. You can check whether your estimator adheres to the scikit-learn interface and standards by running :func:`~sklearn.utils.estimator_checks.check_estimator` on an instance. The :func:`~sklearn.utils.estimator_checks.parametrize_with_checks` pytest decorator can also be used (see its docstring for details and possible interactions with `pytest`)::"
-msgstr ""
+msgstr "Si quieres implementar un nuevo estimador que sea compatible con scikit-learn, ya sea sólo para ti o para contribuir a scikit-learn, hay varios aspectos internos de scikit-learn que debes conocer además de la API de scikit-learn descrita anteriormente. Puede comprobar si tu estimador se adhiere a la interfaz y las normas de scikit-learn ejecutando :func:`~sklearn.utils.estimator_checks.check_estimator` en una instancia. El decorador :func:`~sklearn.utils.estimator_checks.parametrize_with_checks` pytest también se puede utilizar (ver su docstring para más detalles y posibles interacciones con `pytest`)::"
 
 #: ../developers/develop.rst:263
 msgid "The main motivation to make a class compatible to the scikit-learn estimator interface might be that you want to use it together with model evaluation and selection tools such as :class:`model_selection.GridSearchCV` and :class:`pipeline.Pipeline`."
-msgstr ""
+msgstr "La motivación principal para hacer que una clase sea compatible con la interfaz de estimadores de scikit-learn puede ser que quieras usarla junto con la evaluación del modelo y herramientas de selección como :class:`model_selection.GridSearchCV` y :class:`pipeline.Pipeline`."
 
 #: ../developers/develop.rst:268
 msgid "Before detailing the required interface below, we describe two ways to achieve the correct interface more easily."
-msgstr ""
+msgstr "Antes de detallar la interfaz requerida a continuación, describimos dos maneras de lograr la interfaz correcta más fácilmente."
 
 #: ../developers/develop.rst:273
 msgid "We provide a `project template <https://github.com/scikit-learn-contrib/project-template/>`_ which helps in the creation of Python packages containing scikit-learn compatible estimators. It provides:"
-msgstr ""
+msgstr "Proveemos una `plantilla de proyecto <https://github.com/scikit-learn-contrib/project-template/>`_ que ayuda en la creación de paquetes Python que contengan estimadores compatibles con scikit-learn. Provee:"
 
 #: ../developers/develop.rst:277
 msgid "an initial git repository with Python package directory structure"
-msgstr ""
+msgstr "un repositorio git inicial con estructura de directorio de paquetes Python"
 
 #: ../developers/develop.rst:278
 msgid "a template of a scikit-learn estimator"
-msgstr ""
+msgstr "una plantilla de un estimador de scikit-learn"
 
 #: ../developers/develop.rst:279
 msgid "an initial test suite including use of ``check_estimator``"
-msgstr ""
+msgstr "una suite de pruebas inicial incluyendo el uso de ``check_estimator``"
 
 #: ../developers/develop.rst:280
 msgid "directory structures and scripts to compile documentation and example galleries"
-msgstr ""
+msgstr "estructuras de directorios y scripts para compilar documentación y galerías de ejemplo"
 
 #: ../developers/develop.rst:282
 msgid "scripts to manage continuous integration (testing on Linux and Windows)"
-msgstr ""
+msgstr "scripts para gestionar la integración continua (pruebas en Linux y Windows)"
 
 #: ../developers/develop.rst:283
 msgid "instructions from getting started to publishing on `PyPi <https://pypi.org/>`_"
-msgstr ""
+msgstr "instrucciones para empezar a publicar en `PyPi <https://pypi.org/>`_"
 
 msgid "``BaseEstimator`` and mixins:"
-msgstr ""
+msgstr "``BaseEstimator`` y mezclas:"
 
 #: ../developers/develop.rst:287
 msgid "We tend to use \"duck typing\", so building an estimator which follows the API suffices for compatibility, without needing to inherit from or even import any scikit-learn classes."
-msgstr ""
+msgstr "Tendemos a utilizar la \"duck typing\", por lo que la compilación de un estimador que sigue la API es suficiente para la compatibilidad, sin necesidad de heredar o incluso importar cualquier clase de scikit-learn."
 
 #: ../developers/develop.rst:291
 msgid "However, if a dependency on scikit-learn is acceptable in your code, you can prevent a lot of boilerplate code by deriving a class from ``BaseEstimator`` and optionally the mixin classes in ``sklearn.base``. For example, below is a custom classifier, with more examples included in the scikit-learn-contrib `project template <https://github.com/scikit-learn-contrib/project-template/blob/master/skltemplate/_template.py>`__."
-msgstr ""
+msgstr "Sin embargo, si una dependencia de scikit-learn es aceptable en su código, puedes evitar un montón de código boilerplate derivando una clase de ``BaseEstimator`` y opcionalmente las clases mezcladas en ``sklearn.base``. Por ejemplo, a continuación se muestra un clasificador personalizado, con más ejemplos incluidos en scikit-learn-contrib en su `plantilla del proyecto <https://github.com/scikit-learn-contrib/project-template/blob/master/skltemplate/_template.py>`__."
 
 #: ../developers/develop.rst:334
 msgid "get_params and set_params"
-msgstr ""
+msgstr "get_params y set_params"
 
 #: ../developers/develop.rst:335
 msgid "All scikit-learn estimators have ``get_params`` and ``set_params`` functions. The ``get_params`` function takes no arguments and returns a dict of the ``__init__`` parameters of the estimator, together with their values."
-msgstr ""
+msgstr "Todas las estimaciones de scikit-learn tienen las funciones ``get_params`` y ``set_params``. La función ``get_params`` no toma argumentos y devuelve un diccionario (dict) de los parámetros ``__init__`` del estimador, junto con sus valores."
 
 #: ../developers/develop.rst:339
 msgid "It must take one keyword argument, ``deep``, which receives a boolean value that determines whether the method should return the parameters of sub-estimators (for most estimators, this can be ignored). The default value for ``deep`` should be `True`. For instance considering the following estimator::"
-msgstr ""
+msgstr "Debe tomar un argumento de palabra clave, ``deep``, que recibe un valor booleano que determina si el método debe devolver los parámetros de subestimadores (para la mayoría de los estimadores, esto puede ser ignorado). El valor predeterminado para ``deep`` debe ser `True`. Por ejemplo considerando el siguiente estimador::"
 
 #: ../developers/develop.rst:352
 msgid "The parameter `deep` will control whether or not the parameters of the `subsestimator` should be reported. Thus when `deep=True`, the output will be::"
-msgstr ""
+msgstr "El parámetro `deep` controlará si los parámetros del `subsestimator` deben ser reportados. Así que cuando `deep=True`, la salida será::"
 
 #: ../developers/develop.rst:376
 msgid "Often, the `subestimator` has a name (as e.g. named steps in a :class:`~sklearn.pipeline.Pipeline` object), in which case the key should become `<name>__C`, `<name>__class_weight`, etc."
-msgstr ""
+msgstr "A menudo, el `subestimador` tiene un nombre (como, por ejemplo, los pasos nombrados en un objeto :class:`~sklearn.pipeline.Pipeline`), en cuyo caso la clave debería convertirse en `<nombre>__C`, `<nombre>__class_weight`, etc."
 
 #: ../developers/develop.rst:380
 msgid "While when `deep=False`, the output will be::"
-msgstr ""
+msgstr "Mientras que cuando `deep=False`, la salida será::"
 
 #: ../developers/develop.rst:387
 msgid "The ``set_params`` on the other hand takes as input a dict of the form ``'parameter': value`` and sets the parameter of the estimator using this dict. Return value must be estimator itself."
-msgstr ""
+msgstr "Por otro lado, ``set_params`` toma como entrada un diccionario (dict) de la forma ``'parameter': value`` y establece el parámetro del estimador utilizando este diccionario. El valor de retorno debe ser el propio estimador."
 
 #: ../developers/develop.rst:391
 msgid "While the ``get_params`` mechanism is not essential (see :ref:`cloning` below), the ``set_params`` function is necessary as it is used to set parameters during grid searches."
-msgstr ""
+msgstr "Mientras que el mecanismo ``get_params`` no es esencial (ver :ref:`cloning` a continuación), la función ``set_params`` es necesaria ya que se usa para establecer parámetros durante las búsquedas en cuadrícula."
 
 #: ../developers/develop.rst:395
 msgid "The easiest way to implement these functions, and to get a sensible ``__repr__`` method, is to inherit from ``sklearn.base.BaseEstimator``. If you do not want to make your code dependent on scikit-learn, the easiest way to implement the interface is::"
-msgstr ""
+msgstr "La forma más fácil de implementar estas funciones, y de obtener un método ``__repr__`` sensato, es heredar de ``sklearn.base.BaseEstimator``. Si no quieres hacer que tu código dependa de scikit-learn, la forma más fácil de implementar la interfaz es::"
 
 #: ../developers/develop.rst:411
 msgid "Parameters and init"
-msgstr ""
+msgstr "Parámetros e init"
 
 #: ../developers/develop.rst:412
 msgid "As :class:`model_selection.GridSearchCV` uses ``set_params`` to apply parameter setting to estimators, it is essential that calling ``set_params`` has the same effect as setting parameters using the ``__init__`` method. The easiest and recommended way to accomplish this is to **not do any parameter validation in** ``__init__``. All logic behind estimator parameters, like translating string arguments into functions, should be done in ``fit``."
-msgstr ""
+msgstr "Como :class:`model_selection.GridSearchCV` utiliza ``set_params`` para aplicar la configuración de parámetros a los estimadores, es esencial que llamar a ``set_params`` tenga el mismo efecto que la configuración de parámetros utilizando el método ``__init__``. La forma más fácil y recomendada para lograr esto es **no hacer ninguna validación de parámetros en** ``__init__``. Toda la lógica detrás de los parámetros del estimador, como la traducción de argumentos de cadena en funciones, debe hacerse en ``fit``."
 
 #: ../developers/develop.rst:421
 msgid "Also it is expected that parameters with trailing ``_`` are **not to be set inside the** ``__init__`` **method**. All and only the public attributes set by fit have a trailing ``_``. As a result the existence of parameters with trailing ``_`` is used to check if the estimator has been fitted."
-msgstr ""
+msgstr "También se espera que los parámetros con la terminación ``_`` **no se establezcan dentro del método** ``init__``. Todos y sólo los atributos públicos espablecidos por ajuste fit tienen una terminación ``_``. Como resultado, la existencia de los parámetros con el final ``_`` se utiliza para comprobar si el estimador ha sido ajustado."
 
 #: ../developers/develop.rst:429
 msgid "Cloning"
-msgstr ""
+msgstr "Clonado"
 
 #: ../developers/develop.rst:430
 msgid "For use with the :mod:`model_selection` module, an estimator must support the ``base.clone`` function to replicate an estimator. This can be done by providing a ``get_params`` method. If ``get_params`` is present, then ``clone(estimator)`` will be an instance of ``type(estimator)`` on which ``set_params`` has been called with clones of the result of ``estimator.get_params()``."
-msgstr ""
+msgstr "Para su uso con el módulo :mod:`model_selection`, un estimador debe soportar la ``base.clone`` para replicar un estimador. Esto puede hacerse proporcionando un método ``get_params``. Si ``get_params`` está presente, entonces ``clone(estimator)`` será una instancia de ``type(estimator)`` en la que ``set_params`` ha sido llamado con clones del resultado de ``estimator.get_params()``."
 
 #: ../developers/develop.rst:437
 msgid "Objects that do not provide this method will be deep-copied (using the Python standard function ``copy.deepcopy``) if ``safe=False`` is passed to ``clone``."
-msgstr ""
+msgstr "Los objetos que no proporcionan este método serán copiados profundamente (usando la función estándar de Python ``copy.deepcopy``) si ``safe=False`` es pasado a ``clone``."
 
 #: ../developers/develop.rst:442
 msgid "Pipeline compatibility"
-msgstr ""
+msgstr "Compatibilidad con pipeline"
 
 #: ../developers/develop.rst:443
 msgid "For an estimator to be usable together with ``pipeline.Pipeline`` in any but the last step, it needs to provide a ``fit`` or ``fit_transform`` function. To be able to evaluate the pipeline on any data but the training set, it also needs to provide a ``transform`` function. There are no special requirements for the last step in a pipeline, except that it has a ``fit`` function. All ``fit`` and ``fit_transform`` functions must take arguments ``X, y``, even if y is not used. Similarly, for ``score`` to be usable, the last step of the pipeline needs to have a ``score`` function that accepts an optional ``y``."
-msgstr ""
+msgstr "Para que un estimador pueda utilizarse junto con ``pipeline.Pipeline`` en cualquier paso, excepto en el último, debe proporcionar una función ``fit`` o ``fit_transform``. Para poder evaluar el pipeline en cualquier dato que no sea el conjunto de entrenamiento, también necesita proporcionar una función ``transform``. No hay requisitos especiales para el último paso de un pipeline, excepto que tiene una función ``fit``. Todas las funciones ``fit`` y ``fit_transform`` deben tomar argumentos ``X, y``, incluso si no se utiliza y. Del mismo modo, para que ``score`` sea utilizable, el último paso del pipeline debe tener una función ``score`` que acepte un ``y`` opcional."
 
 #: ../developers/develop.rst:454
 msgid "Estimator types"
-msgstr ""
+msgstr "Tipos de estimador"
 
 #: ../developers/develop.rst:455
 msgid "Some common functionality depends on the kind of estimator passed. For example, cross-validation in :class:`model_selection.GridSearchCV` and :func:`model_selection.cross_val_score` defaults to being stratified when used on a classifier, but not otherwise. Similarly, scorers for average precision that take a continuous prediction need to call ``decision_function`` for classifiers, but ``predict`` for regressors. This distinction between classifiers and regressors is implemented using the ``_estimator_type`` attribute, which takes a string value. It should be ``\"classifier\"`` for classifiers and ``\"regressor\"`` for regressors and ``\"clusterer\"`` for clustering methods, to work as expected. Inheriting from ``ClassifierMixin``, ``RegressorMixin`` or ``ClusterMixin`` will set the attribute automatically.  When a meta-estimator needs to distinguish among estimator types, instead of checking ``_estimator_type`` directly, helpers like :func:`base.is_classifier` should be used."
-msgstr ""
+msgstr "Algunas funcionalidades comunes dependen de la clase de estimador que se pase. Por ejemplo, la validación cruzada en :class:`model_selection.GridSearchCV` y :func:`model_selection.cross_val_score` está por defecto estratificada cuando se utiliza en un clasificador, pero no en otro caso. Del mismo modo, los calificadores de precisión media que toman una predicción continua necesitan llamar a ``decision_function`` para los clasificadores, pero a ``predict`` para los regresores. Esta distinción entre clasificadores y regresores se implementa mediante el atributo ``_estimator_type``, que toma un valor de cadena. Debe ser ``classifier`` para los clasificadores y ``regresor`` para los regresores y ``clusterer`` para los métodos de clustering, para que funcione como se espera. Al heredar de ``ClassifierMixin``, ``RegressorMixin`` o ``ClusterMixin`` se establecerá el atributo automáticamente.  Cuando un metaestimador necesita distinguir entre tipos de estimadores, en lugar de comprobar ``_estimator_type`` directamente, se deben utilizar ayudantes como :func:`base.is_classifier``."
 
 #: ../developers/develop.rst:470
 msgid "Specific models"
-msgstr ""
+msgstr "Modelos específicos"
 
 #: ../developers/develop.rst:472
 msgid "Classifiers should accept ``y`` (target) arguments to ``fit`` that are sequences (lists, arrays) of either strings or integers.  They should not assume that the class labels are a contiguous range of integers; instead, they should store a list of classes in a ``classes_`` attribute or property.  The order of class labels in this attribute should match the order in which ``predict_proba``, ``predict_log_proba`` and ``decision_function`` return their values.  The easiest way to achieve this is to put::"
-msgstr ""
+msgstr "Los clasificadores deben aceptar argumentos ``y`` (objetivo) para ``fit`` que son secuencias (listas, arreglos) de cadenas o enteros.  No deben asumir que las etiquetas de clase son un rango contiguo de enteros; en su lugar, deben almacenar una lista de clases en un atributo o propiedad ``classes_``.  El orden de las etiquetas de clase en este atributo debe coincidir con el orden en que ``predict_proba``, ``predict_log_proba`` y ``decision_function`` devuelven sus valores.  La forma más sencilla de conseguirlo es poner::"
 
 #: ../developers/develop.rst:482
 msgid "in ``fit``.  This returns a new ``y`` that contains class indexes, rather than labels, in the range [0, ``n_classes``)."
-msgstr ""
+msgstr "en ``fit``. Esto devuelve un nuevo ``y`` que contiene índices de clase, en lugar de etiquetas, en el rango [0, ``n_classes``)."
 
 #: ../developers/develop.rst:485
 msgid "A classifier's ``predict`` method should return arrays containing class labels from ``classes_``. In a classifier that implements ``decision_function``, this can be achieved with::"
-msgstr ""
+msgstr "El método ``predict`` de un clasificador debe devolver arreglos que contengan etiquetas de clase de ``classes_``. En un clasificador que implementa ``decision_function``, esto se puede lograr con::"
 
 #: ../developers/develop.rst:494
 msgid "In linear models, coefficients are stored in an array called ``coef_``, and the independent term is stored in ``intercept_``.  ``sklearn.linear_model._base`` contains a few base classes and mixins that implement common linear model patterns."
-msgstr ""
+msgstr "En modelos lineales, los coeficientes se almacenan en un arreglo llamado ``coef_``, y el término independiente se almacena en ``intercept_``. ``sklearn.linear_model._base`` contiene algunas clases base y mezclas que implementan patrones de modelo lineal comunes."
 
 #: ../developers/develop.rst:499
 msgid "The :mod:`sklearn.utils.multiclass` module contains useful functions for working with multiclass and multilabel problems."
-msgstr ""
+msgstr "El módulo :mod:`sklearn.utils.multiclass` contiene funciones útiles para trabajar con problemas multiclase y multietiqueta."
 
 #: ../developers/develop.rst:505
 msgid "Estimator Tags"
-msgstr ""
+msgstr "Etiquetas de Estimador"
 
 #: ../developers/develop.rst:508
 msgid "The estimator tags are experimental and the API is subject to change."
-msgstr ""
+msgstr "Las etiquetas de estimación son experimentales y la API está sujeta a cambios."
 
 #: ../developers/develop.rst:510
 msgid "Scikit-learn introduced estimator tags in version 0.21. These are annotations of estimators that allow programmatic inspection of their capabilities, such as sparse matrix support, supported output types and supported methods. The estimator tags are a dictionary returned by the method ``_get_tags()``. These tags are used in the common checks run by the :func:`~sklearn.utils.estimator_checks.check_estimator` function and the :func:`~sklearn.utils.estimator_checks.parametrize_with_checks` decorator. Tags determine which checks to run and what input data is appropriate. Tags can depend on estimator parameters or even system architecture and can in general only be determined at runtime."
-msgstr ""
+msgstr "Scikit-learn introdujo etiquetas de estimadores en la versión 0.21. Son anotaciones de los estimadores que permiten la inspección programática de sus capacidades, como el soporte de matrices dispersas, los tipos de salida y los métodos soportados. Las etiquetas del estimador son un diccionario devuelto por el método ``_get_tags()``. Estas etiquetas se utilizan en las comprobaciones comunes ejecutadas por la función :func:`~sklearn.utils.estimator_checks.check_estimator` y el decorador :func:`~sklearn.utils.estimator_checks.parametrize_with_checks`. Las etiquetas determinan qué comprobaciones deben realizarse y qué datos de entrada son apropiados. Las etiquetas pueden depender de los parámetros del estimador o incluso de la arquitectura del sistema y, en general, sólo pueden determinarse en tiempo de ejecución."
 
 #: ../developers/develop.rst:521
 msgid "The current set of estimator tags are:"
-msgstr ""
+msgstr "El conjunto actual de etiquetas de estimación son:"
 
 #: ../developers/develop.rst:524
 msgid "allow_nan (default=False)"
-msgstr ""
+msgstr "allow_nan (default=False)"
 
 #: ../developers/develop.rst:524
 msgid "whether the estimator supports data with missing values encoded as np.NaN"
-msgstr ""
+msgstr "si el estimador soporta datos con valores faltantes codificados como np.NaN"
 
 #: ../developers/develop.rst:528
 msgid "binary_only (default=False)"
-msgstr ""
+msgstr "binary_only (default=False)"
 
 #: ../developers/develop.rst:527
 msgid "whether estimator supports binary classification but lacks multi-class classification support."
-msgstr ""
+msgstr "si el estimador soporta la clasificación binaria pero carece de soporte de clasificación multiclase."
 
 #: ../developers/develop.rst:531
 msgid "multilabel (default=False)"
-msgstr ""
+msgstr "multilabel (default=False)"
 
 #: ../developers/develop.rst:531
 msgid "whether the estimator supports multilabel output"
-msgstr ""
+msgstr "si el estimador soporta salida multietiqueta"
 
 #: ../developers/develop.rst:535
 msgid "multioutput (default=False)"
-msgstr ""
+msgstr "multioutput (default=False)"
 
 #: ../developers/develop.rst:534
 msgid "whether a regressor supports multi-target outputs or a classifier supports multi-class multi-output."
-msgstr ""
+msgstr "si un regresor admite salidas multiobjetivo o un clasificador admite multiples salidas multiclase."
 
 #: ../developers/develop.rst:538
 msgid "multioutput_only (default=False)"
-msgstr ""
+msgstr "multioutput_only (default=False)"
 
 #: ../developers/develop.rst:538
 msgid "whether estimator supports only multi-output classification or regression."
-msgstr ""
+msgstr "si el estimador soporta sólo clasificación o regresión de salida múltiple."
 
 #: ../developers/develop.rst:542
 msgid "no_validation (default=False)"
-msgstr ""
+msgstr "no_validation (default=False)"
 
 #: ../developers/develop.rst:541
 msgid "whether the estimator skips input-validation. This is only meant for stateless and dummy transformers!"
-msgstr ""
+msgstr "si el estimador se salta la validación de entrada. Esto sólo está pensado para los transformadores sin estado y ficticios!"
 
 #: ../developers/develop.rst:545
 msgid "non_deterministic (default=False)"
-msgstr ""
+msgstr "non_deterministic (default=False)"
 
 #: ../developers/develop.rst:545
 msgid "whether the estimator is not deterministic given a fixed ``random_state``"
-msgstr ""
+msgstr "si el estimador no es determinista dado un ``random_state`` fijo"
 
 #: ../developers/develop.rst:555
 msgid "pairwise (default=False)"
-msgstr ""
+msgstr "por pares (default=False)"
 
 #: ../developers/develop.rst:548
 msgid "This boolean attribute indicates whether the data (`X`) :term:`fit` and similar methods consists of pairwise measures over samples rather than a feature representation for each sample.  It is usually `True` where an estimator has a `metric` or `affinity` or `kernel` parameter with value 'precomputed'. Its primary purpose is that when a :term:`meta-estimator` extracts a sub-sample of data intended for a pairwise estimator, the data needs to be indexed on both axes, while other data is indexed only on the first axis."
-msgstr ""
+msgstr "Este atributo booleano indica si los datos (`X`) :term:`fit` y métodos similares consisten en medidas de pares sobre muestras en lugar de una representación de características para cada muestra.  Suele ser `True` cuando un estimador tiene un parámetro `métric` o de `affinity` o `kernel` con valor `precomputed`. Su propósito principal es que cuando un :term:`meta-estimator` extrae una submuestra de datos destinada a un estimador por pares, los datos necesitan ser indexados en ambos ejes, mientras que otros datos son indexados sólo en el primer eje."
 
 #: ../developers/develop.rst:563
 msgid "preserves_dtype (default=``[np.float64]``)"
-msgstr ""
+msgstr "preserves_dtype (default=``[np.float64]``)"
 
 #: ../developers/develop.rst:558
 msgid "applies only on transformers. It corresponds to the data types which will be preserved such that `X_trans.dtype` is the same as `X.dtype` after calling `transformer.transform(X)`. If this list is empty, then the transformer is not expected to preserve the data type. The first value in the list is considered as the default data type, corresponding to the data type of the output when the input data type is not going to be preserved."
-msgstr ""
+msgstr "se aplica sólo a los transformadores. Corresponde a los tipos de datos que se conservarán de forma que `X_trans.dtype` sea el mismo que `X.dtype` después de llamar a `transformer.transform(X)`. Si esta lista está vacía, no se espera que el transformador conserve el tipo de datos. El primer valor de la lista se considera el tipo de datos predeterminados, correspondiente al tipo de datos de la salida cuando no se va a preservar el tipo de datos de entrada."
 
 #: ../developers/develop.rst:571
 msgid "poor_score (default=False)"
-msgstr ""
+msgstr "poor_score (default=False)"
 
 #: ../developers/develop.rst:566
 msgid "whether the estimator fails to provide a \"reasonable\" test-set score, which currently for regression is an R2 of 0.5 on a subset of the boston housing dataset, and for classification an accuracy of 0.83 on ``make_blobs(n_samples=300, random_state=0)``. These datasets and values are based on current estimators in sklearn and might be replaced by something more systematic."
-msgstr ""
+msgstr "si el estimador no proporciona una puntuación \"razonable\" del conjunto de pruebas, que actualmente para la regresión es un R2 de 0,5 en un subconjunto del conjunto de datos de viviendas de Boston, y para la clasificación una precisión de 0,83 en ``make_blobs(n_samples=300, random_state=0)``. Estos conjuntos de datos y valores se basan en los estimadores actuales de sklearn y podrían ser sustituidos por algo más sistemático."
 
 #: ../developers/develop.rst:575
 msgid "requires_fit (default=True)"
-msgstr ""
+msgstr "requires_fit (default=True)"
 
 #: ../developers/develop.rst:574
 msgid "whether the estimator requires to be fitted before calling one of `transform`, `predict`, `predict_proba`, or `decision_function`."
-msgstr ""
+msgstr "si el estimador requiere ser ajustado antes de llamar a una de las funciones `transform`, `predict`, `predict_proba`, o `decision_function`."
 
 #: ../developers/develop.rst:578
 msgid "requires_positive_X (default=False)"
-msgstr ""
+msgstr "requires_positive_X (default=False)"
 
 #: ../developers/develop.rst:578
 msgid "whether the estimator requires positive X."
-msgstr ""
+msgstr "si el estimador requiere una X positiva."
 
 #: ../developers/develop.rst:583
 msgid "requires_y (default=False)"
-msgstr ""
+msgstr "requires_y (default=False)"
 
 #: ../developers/develop.rst:581
 msgid "whether the estimator requires y to be passed to `fit`, `fit_predict` or `fit_transform` methods. The tag is True for estimators inheriting from `~sklearn.base.RegressorMixin` and `~sklearn.base.ClassifierMixin`."
-msgstr ""
+msgstr "si el estimador requiere que se pase y a los métodos `fit`, `fit_predict` o `fit_transform`. La etiqueta es True para los estimadores que heredan de `~sklearn.base.RegressorMixin` y `~sklearn.base.ClassifierMixin`."
 
 #: ../developers/develop.rst:586
 msgid "requires_positive_y (default=False)"
-msgstr ""
+msgstr "requires_positive_y (default=False)"
 
 #: ../developers/develop.rst:586
 msgid "whether the estimator requires a positive y (only applicable for regression)."
-msgstr ""
+msgstr "si el estimador requiere una y positiva (sólo aplicable para la regresión)."
 
 #: ../developers/develop.rst:590
 msgid "_skip_test (default=False)"
-msgstr ""
+msgstr "_skip_test (default=False)"
 
 #: ../developers/develop.rst:589
 msgid "whether to skip common tests entirely. Don't use this unless you have a *very good* reason."
-msgstr ""
+msgstr "si omitir por completo las pruebas comunes. No utilice esto a menos que tenga una *muy buena*."
 
 #: ../developers/develop.rst:603
 msgid "_xfail_checks (default=False)"
-msgstr ""
+msgstr "_xfail_checks (default=False)"
 
 #: ../developers/develop.rst:593
 msgid "dictionary ``{check_name: reason}`` of common checks that will be marked as `XFAIL` for pytest, when using :func:`~sklearn.utils.estimator_checks.parametrize_with_checks`. These checks will be simply ignored and not run by :func:`~sklearn.utils.estimator_checks.check_estimator`, but a `SkipTestWarning` will be raised. Don't use this unless there is a *very good* reason for your estimator not to pass the check. Also note that the usage of this tag is highly subject to change because we are trying to make it more flexible: be prepared for breaking changes in the future."
-msgstr ""
+msgstr "diccionario ``{check_name: reason}`` de comprobaciones comunes que se marcarán como `XFAIL` para pytest, cuando se utilice :func:`~sklearn.utils.estimator_checks.parametrize_with_checks`. Estas comprobaciones serán simplemente ignoradas y no serán ejecutadas por :func:`~sklearn.utils.estimator_checks.check_estimator`, pero se lanzará un `SkipTestWarning`. No utilices esto a menos que haya una *muy buena* razón para que su estimador no pase la comprobación. También ten en cuenta que el uso de esta etiqueta está muy sujeto a cambios porque estamos tratando de hacerla más flexible: prepárate para cambios de última hora en el futuro."
 
 #: ../developers/develop.rst:608
 msgid "stateless (default=False)"
-msgstr ""
+msgstr "stateless (default=False)"
 
 #: ../developers/develop.rst:606
 msgid "whether the estimator needs access to data for fitting. Even though an estimator is stateless, it might still need a call to ``fit`` for initialization."
-msgstr ""
+msgstr "si el estimador necesita acceso a los datos para ajuste. Aunque un estimador no tiene estado, podría necesitar una llamada a ``fit`` para la inicialización."
 
 #: ../developers/develop.rst:619
 msgid "X_types (default=['2darray'])"
-msgstr ""
+msgstr "X_types (default=['2darray'])"
 
 #: ../developers/develop.rst:611
 msgid "Supported input types for X as list of strings. Tests are currently only run if '2darray' is contained in the list, signifying that the estimator takes continuous 2d numpy arrays as input. The default value is ['2darray']. Other possible types are ``'string'``, ``'sparse'``, ``'categorical'``, ``dict``, ``'1dlabels'`` and ``'2dlabels'``. The goal is that in the future the supported input type will determine the data used during testing, in particular for ``'string'``, ``'sparse'`` and ``'categorical'`` data. For now, the test for sparse data do not make use of the ``'sparse'`` tag."
-msgstr ""
+msgstr "Tipos de entrada soportados para X como lista de cadenas. Actualmente las pruebas sólo se ejecutan si '2darray' está contenido en la lista, lo que significa que el estimador toma arreglos numpy continuos 2d como entrada. El valor por defecto es ['2darray']. Otros tipos posibles son ``'string'``, ``'sparse'``, ``'categorical'``, ``dict``, ``'1dlabels'`` y ``'2dlabels'``. El objetivo es que en el futuro el tipo de entrada soportado determine los datos utilizados durante la prueba, en particular para los datos``'string'``, ``'sparse'`` y ``'categorical'``. Por ahora, las pruebas para datos dispersos no hacen uso de la etiqueta ``'sparse'``."
 
 #: ../developers/develop.rst:621
 msgid "It is unlikely that the default values for each tag will suit the needs of your specific estimator. Additional tags can be created or default tags can be overridden by defining a `_more_tags()` method which returns a dict with the desired overridden tags or new tags. For example::"
-msgstr ""
+msgstr "Es poco probable que los valores por defecto de cada etiqueta se ajusten a las necesidades de su estimador específico. Etiquetas adicionales pueden ser creadas o por defecto pueden ser sobreescritas definiendo un método `_more_tags()` que devuelve un diccionario (dict) con las etiquetas sobreescritas o nuevas etiquetas. Por ejemplo::"
 
 #: ../developers/develop.rst:632
 msgid "Any tag that is not in `_more_tags()` will just fall-back to the default values documented above."
-msgstr ""
+msgstr "Cualquier etiqueta que no esté en `_more_tags()` simplemente volverá a los valores predeterminados documentados arriba."
 
 #: ../developers/develop.rst:635
 msgid "Even if it is not recommended, it is possible to override the method `_get_tags()`. Note however that **all tags must be present in the dict**. If any of the keys documented above is not present in the output of `_get_tags()`, an error will occur."
-msgstr ""
+msgstr "Incluso si no se recomienda, es posible sobreescribir el método `_get_tags()`. Sin embargo, ten en cuenta que **todas las etiquetas deben estar presentes en el diccionario (dict)**. Si alguna de las claves documentadas arriba no está presente en la salida de `_get_tags()`, ocurrirá un error."
 
 #: ../developers/develop.rst:640
 msgid "In addition to the tags, estimators also need to declare any non-optional parameters to ``__init__`` in the ``_required_parameters`` class attribute, which is a list or tuple.  If ``_required_parameters`` is only ``[\"estimator\"]`` or ``[\"base_estimator\"]``, then the estimator will be instantiated with an instance of ``LinearDiscriminantAnalysis`` (or ``RidgeRegression`` if the estimator is a regressor) in the tests. The choice of these two models is somewhat idiosyncratic but both should provide robust closed-form solutions."
-msgstr ""
+msgstr "Además de las etiquetas, los estimadores también necesitan declarar cualquier parámetro no opcional a ``__init__`` en el atributo de clase ``_required_parameters``, que es una lista o tupla.  Si ``_required_parameters`` es sólo ``[\"estimator\"]`` o ``[\"base_estimator\"]``, el estimador se instanciará con una instancia de ``LinearDiscriminantAnalysis`` (o ``RidgeRegression`` si el estimador es un regresor) en las pruebas. La elección de estos dos modelos es algo idiosincrática, pero ambos deberían proporcionar soluciones robustas de forma cerrada."
 
 #: ../developers/develop.rst:652
 msgid "Coding guidelines"
-msgstr ""
+msgstr "Directrices de codificación"
 
 #: ../developers/develop.rst:654
 msgid "The following are some guidelines on how new code should be written for inclusion in scikit-learn, and which may be appropriate to adopt in external projects. Of course, there are special cases and there will be exceptions to these rules. However, following these rules when submitting new code makes the review easier so new code can be integrated in less time."
-msgstr ""
+msgstr "A continuación se presentan algunas directrices sobre cómo debe escribirse el nuevo código para su inclusión en scikit-learn, y que puede ser apropiado adoptar en proyectos externos. Por supuesto, hay casos especiales y habrá excepciones a estas reglas. Sin embargo, seguir estas reglas cuando se presenta un nuevo código facilita la revisión, por lo que el nuevo código puede ser integrado en menos tiempo."
 
 #: ../developers/develop.rst:660
 msgid "Uniformly formatted code makes it easier to share code ownership. The scikit-learn project tries to closely follow the official Python guidelines detailed in `PEP8 <https://www.python.org/dev/peps/pep-0008>`_ that detail how code should be formatted and indented. Please read it and follow it."
-msgstr ""
+msgstr "Un código con formato uniforme hace más fácil compartir la propiedad del código. El proyecto scikit-learn trata de seguir de cerca las directrices oficiales de Python detalladas en `PEP8 <https://www.python.org/dev/peps/pep-0008>`_ que detallan cómo el código debe ser formateado y sangrado. Por favor, Léelo y síguelo."
 
 #: ../developers/develop.rst:666
 msgid "In addition, we add the following guidelines:"
-msgstr ""
+msgstr "Además, añadimos las siguientes directrices:"
 
 #: ../developers/develop.rst:668
 msgid "Use underscores to separate words in non class names: ``n_samples`` rather than ``nsamples``."
-msgstr ""
+msgstr "Usa guiones bajos para separar palabras en nombres no de clase: ``n_samples`` en lugar de ``nsamples``."
 
 #: ../developers/develop.rst:671
 msgid "Avoid multiple statements on one line. Prefer a line return after a control flow statement (``if``/``for``)."
-msgstr ""
+msgstr "Evita múltiples sentencias en una línea. Prefiere un retorno de línea después de una sentencia de flujo de control (``if``/``for``)."
 
 #: ../developers/develop.rst:674
 msgid "Use relative imports for references inside scikit-learn."
-msgstr ""
+msgstr "Utiliza las importaciones relativas para las referencias dentro de scikit-learn."
 
 #: ../developers/develop.rst:676
 msgid "Unit tests are an exception to the previous rule; they should use absolute imports, exactly as client code would. A corollary is that, if ``sklearn.foo`` exports a class or function that is implemented in ``sklearn.foo.bar.baz``, the test should import it from ``sklearn.foo``."
-msgstr ""
+msgstr "Las pruebas unitarias son una excepción a la regla anterior; deben usar importaciones absolutas, exactamente como lo haría el código del cliente. Un corolario es que, si ``sklearn.foo`` exporta una clase o función que está implementada en ``sklearn.foo.bar.baz``, la prueba debe importarla de ``sklearn.foo``."
 
 #: ../developers/develop.rst:682
 msgid "**Please don't use** ``import *`` **in any case**. It is considered harmful by the `official Python recommendations <https://docs.python.org/3.1/howto/doanddont.html#at-module-level>`_. It makes the code harder to read as the origin of symbols is no longer explicitly referenced, but most important, it prevents using a static analysis tool like `pyflakes <https://divmod.readthedocs.io/en/latest/products/pyflakes.html>`_ to automatically find bugs in scikit-learn."
-msgstr ""
+msgstr "**Por favor, no utilices** ``import *`` **en ningún caso**. Se considera perjudicial según las recomendaciones oficiales de Python <https://docs.python.org/3.1/howto/doanddont.html#at-module-level>`_. Hace que el código sea más difícil de leer ya que el origen de los símbolos ya no está explícitamente referenciado, pero lo más importante es que impide el uso de una herramienta de análisis estático como `pyflakes <https://divmod.readthedocs.io/en/latest/products/pyflakes.html>`_ para encontrar automáticamente errores en scikit-learn."
 
 #: ../developers/develop.rst:691
 msgid "Use the `numpy docstring standard <https://numpydoc.readthedocs.io/en/latest/format.html#numpydoc-docstring-guide>`_ in all your docstrings."
-msgstr ""
+msgstr "Usa el `numpy docstring standard <https://numpydoc.readthedocs.io/en/latest/format.html#numpydoc-docstring-guide>`_ en todos tus docstrings."
 
 #: ../developers/develop.rst:695
 msgid "A good example of code that we like can be found `here <https://gist.github.com/nateGeorge/5455d2c57fb33c1ae04706f2dc4fee01>`_."
-msgstr ""
+msgstr "Un buen ejemplo de código que nos gusta se puede encontrar `aquí <https://gist.github.com/nateGeorge/5455d2c57fb33c1ae04706f2dc4fee01>`_."
 
 #: ../developers/develop.rst:699
 msgid "Input validation"
-msgstr ""
+msgstr "Validación de entrada"
 
 #: ../developers/develop.rst:703
 msgid "The module :mod:`sklearn.utils` contains various functions for doing input validation and conversion. Sometimes, ``np.asarray`` suffices for validation; do *not* use ``np.asanyarray`` or ``np.atleast_2d``, since those let NumPy's ``np.matrix`` through, which has a different API (e.g., ``*`` means dot product on ``np.matrix``, but Hadamard product on ``np.ndarray``)."
-msgstr ""
+msgstr "El módulo :mod:`sklearn.utils` contiene varias funciones para realizar la validación y conversión de entradas. A veces, ``np.asarray`` es suficiente para la validación; *no* utilices ``np.asanyarray`` o ``np. tleast_2d``, ya que estos permiten pasar ``np.matrix`` de NumPy, que tiene una API diferente (por ejemplo, ``*`` significa producto punto en ``np.matrix``, pero producto de Hadamard en ``np.ndarray``)."
 
 #: ../developers/develop.rst:710
 msgid "In other cases, be sure to call :func:`check_array` on any array-like argument passed to a scikit-learn API function. The exact parameters to use depends mainly on whether and which ``scipy.sparse`` matrices must be accepted."
-msgstr ""
+msgstr "En otros casos, asegúrate de llamar a :func:`check_array` en cualquier argumento array-like pasado a una función API de scikit-learn. Los parámetros exactos a utilizar dependen principalmente de si se deben aceptar las matrices ``scipy.sparse`` y de cuáles."
 
 #: ../developers/develop.rst:714
 msgid "For more information, refer to the :ref:`developers-utils` page."
-msgstr ""
+msgstr "Para obtener más información, consulta la página :ref:`developers-utils`."
 
 #: ../developers/develop.rst:717
 msgid "Random Numbers"
-msgstr ""
+msgstr "Números aleatorios"
 
 #: ../developers/develop.rst:719
 msgid "If your code depends on a random number generator, do not use ``numpy.random.random()`` or similar routines.  To ensure repeatability in error checking, the routine should accept a keyword ``random_state`` and use this to construct a ``numpy.random.RandomState`` object. See :func:`sklearn.utils.check_random_state` in :ref:`developers-utils`."
-msgstr ""
+msgstr "Si su código depende de un generador de números aleatorios, no utilices ``numpy.random.random()`` o rutinas similares.  Para asegurar la repetibilidad en la comprobación de errores, la rutina debería aceptar una palabra clave ``random_state`` y usarla para construir un objeto ``numpy.random.RandomState``. Ver :func:`sklearn.utils.check_random_state` en :ref:`developers-utils`."
 
 #: ../developers/develop.rst:726
 msgid "Here's a simple example of code using some of the above guidelines::"
-msgstr ""
+msgstr "Aquí hay un ejemplo simple de código usando algunas de las directrices anteriores::"
 
 #: ../developers/develop.rst:753
 msgid "If you use randomness in an estimator instead of a freestanding function, some additional guidelines apply."
-msgstr ""
+msgstr "Si utiliza la aleatoriedad en un estimador en lugar de una función independiente, se aplican algunas directrices adicionales."
 
 #: ../developers/develop.rst:756
 msgid "First off, the estimator should take a ``random_state`` argument to its ``__init__`` with a default value of ``None``. It should store that argument's value, **unmodified**, in an attribute ``random_state``. ``fit`` can call ``check_random_state`` on that attribute to get an actual random number generator. If, for some reason, randomness is needed after ``fit``, the RNG should be stored in an attribute ``random_state_``. The following example should make this clear::"
-msgstr ""
+msgstr "En primer lugar, el estimador debe tomar un argumento ``estado_aleatorio`` en su ``__init__`` con un valor predeterminado de ``None``. Debería almacenar el valor de ese argumento, **sin modificar**, en un atributo ``random_state``. ``fit`` puede llamar a ``check_random_state`` en ese atributo para obtener un generador de números aleatorios real. Si, por alguna razón, la aleatoriedad es necesaria después de ``fit``, el RNG debe ser almacenado en un atributo ``random_state_``. El siguiente ejemplo debería aclarar esto::"
 
 #: ../developers/develop.rst:785
 msgid "The reason for this setup is reproducibility: when an estimator is ``fit`` twice to the same data, it should produce an identical model both times, hence the validation in ``fit``, not ``__init__``."
-msgstr ""
+msgstr "La razón de esta configuración es la reproducibilidad: cuando un estimador es ``ajustado`` dos veces a los mismos datos, debería producir un modelo idéntico ambas veces, de ahí la validación en ``fit``, no ``__init__``."
 

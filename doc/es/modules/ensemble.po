@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:38\n"
+"PO-Revision-Date: 2021-09-01 22:48\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,1094 +20,1099 @@ msgstr ""
 
 #: ../modules/ensemble.rst:5
 msgid "Ensemble methods"
-msgstr ""
+msgstr "Métodos combinados"
 
 #: ../modules/ensemble.rst:9
 msgid "The goal of **ensemble methods** is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability / robustness over a single estimator."
-msgstr ""
+msgstr "Los **métodos combinados** se utilizan para unir las predicciones de varios estimadores base construidos desde un algoritmo de aprendizaje dado con el propósito de tener una generalización / robustez mayor que la de un solo estimador."
 
 #: ../modules/ensemble.rst:13
 msgid "Two families of ensemble methods are usually distinguished:"
-msgstr ""
+msgstr "Se suelen distinguir dos familias de métodos combinados:"
 
 #: ../modules/ensemble.rst:15
 msgid "In **averaging methods**, the driving principle is to build several estimators independently and then to average their predictions. On average, the combined estimator is usually better than any of the single base estimator because its variance is reduced."
-msgstr ""
+msgstr "En los **métodos de promedio**, el principio guía es la creación de varios estimadores independientes para después promediar sus predicciones. En promedio, el estimador combinado es mejor que cualquiera de los estimadores base individuales porque su varianza se reduce."
 
 #: ../modules/ensemble.rst:20
 msgid "**Examples:** :ref:`Bagging methods <bagging>`, :ref:`Forests of randomized trees <forest>`, ..."
-msgstr ""
+msgstr "**Ejemplos:** :ref:`Métodos de bagging <bagging>`, :ref:`Bosques de árboles aleatorios <forest>`, ..."
 
 #: ../modules/ensemble.rst:22
 msgid "By contrast, in **boosting methods**, base estimators are built sequentially and one tries to reduce the bias of the combined estimator. The motivation is to combine several weak models to produce a powerful ensemble."
-msgstr ""
+msgstr "En cambio, en los **métodos de boosting**, los estimadores base se construyen de manera secuencial y uno intenta reducir el sesgo del estimador combinado. La intención es producir un conjunto potente a partir de varios modelos débiles."
 
 #: ../modules/ensemble.rst:26
 msgid "**Examples:** :ref:`AdaBoost <adaboost>`, :ref:`Gradient Tree Boosting <gradient_boosting>`, ..."
-msgstr ""
+msgstr "**Ejemplos:** :ref:`AdaBoost <adaboost>`, :ref:`Gradient Tree Boosting <gradient_boosting>`, ..."
 
 #: ../modules/ensemble.rst:32
 msgid "Bagging meta-estimator"
-msgstr ""
+msgstr "Metaestimador de bagging"
 
 #: ../modules/ensemble.rst:34
 msgid "In ensemble algorithms, bagging methods form a class of algorithms which build several instances of a black-box estimator on random subsets of the original training set and then aggregate their individual predictions to form a final prediction. These methods are used as a way to reduce the variance of a base estimator (e.g., a decision tree), by introducing randomization into its construction procedure and then making an ensemble out of it. In many cases, bagging methods constitute a very simple way to improve with respect to a single model, without making it necessary to adapt the underlying base algorithm. As they provide a way to reduce overfitting, bagging methods work best with strong and complex models (e.g., fully developed decision trees), in contrast with boosting methods which usually work best with weak models (e.g., shallow decision trees)."
-msgstr ""
+msgstr "En los algoritmos de conjunto, los métodos de bagging forman una clase de algoritmos que construyen varias instancias de un estimador de caja negra en subconjuntos aleatorios del conjunto de entrenamiento original y luego agregan sus predicciones individuales para realizar una predicción final. Estos métodos introducen la aleatorización en la construcción de un estimador base (por ejemplo, un árbol de decisión) y crean un conjunto después para así reducir su varianza. En muchos casos, los métodos de bagging son una manera muy sencilla de mejorar con respecto a un único modelo, sin hacer necesario el adaptar el algoritmo base subyacente. Como proporcionan una forma de reducir el sobreajuste, los métodos de bagging funcionan mejor con modelos fuertes y complejos (por ejemplo, árboles de decisión completamente desarrollados), al contrario que los métodos de boosting, los cuales suelen funcionar mejor con modelos débiles (por ejemplo, árboles de decisión con poca profundidad)."
 
 #: ../modules/ensemble.rst:47
 msgid "Bagging methods come in many flavours but mostly differ from each other by the way they draw random subsets of the training set:"
-msgstr ""
+msgstr "Los métodos de bagging vienen en muchos sabores, pero por lo general difieren uno del otro por la forma en la cual agarran subconjuntos aleatorios del conjunto de entrenamiento:"
 
 #: ../modules/ensemble.rst:50
 msgid "When random subsets of the dataset are drawn as random subsets of the samples, then this algorithm is known as Pasting [B1999]_."
-msgstr ""
+msgstr "Cuando se escogen subconjuntos aleatorios del conjunto de datos como subconjuntos aleatorios de las muestras, este algoritmo es conocido como Pasting [B1999]_."
 
 #: ../modules/ensemble.rst:53
 msgid "When samples are drawn with replacement, then the method is known as Bagging [B1996]_."
-msgstr ""
+msgstr "Cuando las muestras son escogidas con reemplazo, entonces el método es conocido como Bagging [B1996]_."
 
 #: ../modules/ensemble.rst:56
 msgid "When random subsets of the dataset are drawn as random subsets of the features, then the method is known as Random Subspaces [H1998]_."
-msgstr ""
+msgstr "Cuando son escogidos subconjuntos aleatorios del conjunto de datos como subconjuntos aleatorios de las características, entonces el método se conoce como Random Subspaces [H1998]_."
 
 #: ../modules/ensemble.rst:59
 msgid "Finally, when base estimators are built on subsets of both samples and features, then the method is known as Random Patches [LG2012]_."
-msgstr ""
+msgstr "Finalmente, cuando los estimadores base son construidos en subconjuntos tanto de características como muestras, entonces el método es conocido como Random Patches [LG2012]_."
 
 #: ../modules/ensemble.rst:62
 #, python-format
 msgid "In scikit-learn, bagging methods are offered as a unified :class:`BaggingClassifier` meta-estimator  (resp. :class:`BaggingRegressor`), taking as input a user-specified base estimator along with parameters specifying the strategy to draw random subsets. In particular, ``max_samples`` and ``max_features`` control the size of the subsets (in terms of samples and features), while ``bootstrap`` and ``bootstrap_features`` control whether samples and features are drawn with or without replacement. When using a subset of the available samples the generalization accuracy can be estimated with the out-of-bag samples by setting ``oob_score=True``. As an example, the snippet below illustrates how to instantiate a bagging ensemble of :class:`KNeighborsClassifier` base estimators, each built on random subsets of 50% of the samples and 50% of the features."
-msgstr ""
+msgstr "En scikit-learn, los métodos de bagging son ofrecidos como un metaestimador unificado :class:`BaggingClassifier` (resp. :class:`BaggingRegressor`) tomando como entrada un estimador base especificado por el usuario y parámetros especificando la estrategia a utilizar para escoger subconjuntos aleatorios. En particular. ``max_samples`` y ``max_features`` controlan el tamaño de los subconjuntos (en términos de muestras y características), mientras que ``bootstrap`` and ``bootstrap_features`` controlan si las muestras y características son escogidas con o sin reemplazo. Cuando es utilizado un subconjunto de las muestras disponibles, la exactitud de la generalización puede ser estimada con las muestras out-of-bag estableciendo que ``oob_score=True``. Como un ejemplo, el fragmento de código abajo ilustra como instanciar un conjunto de bagging de :class:`KNeighborsClassifier` estimadores base, cada uno construido con subconjuntos aleatorios de 50% de las muestras y 50% de las características."
 
 #: ../modules/ensemble.rst:82
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_bias_variance.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_bias_variance.py`"
 
 #: ../modules/ensemble.rst:86
 msgid "L. Breiman, \"Pasting small votes for classification in large databases and on-line\", Machine Learning, 36(1), 85-103, 1999."
-msgstr ""
+msgstr "L. Breiman, \"Pasting small votes for classification in large databases and on-line\", Machine Learning, 36(1), 85-103, 1999."
 
 #: ../modules/ensemble.rst:89
 msgid "L. Breiman, \"Bagging predictors\", Machine Learning, 24(2), 123-140, 1996."
-msgstr ""
+msgstr "L. Breiman, \"Bagging predictors\", Machine Learning, 24(2), 123-140, 1996."
 
 #: ../modules/ensemble.rst:92
 msgid "T. Ho, \"The random subspace method for constructing decision forests\", Pattern Analysis and Machine Intelligence, 20(8), 832-844, 1998."
-msgstr ""
+msgstr "T. Ho, \"The random subspace method for constructing decision forests\", Pattern Analysis and Machine Intelligence, 20(8), 832-844, 1998."
 
 #: ../modules/ensemble.rst:96
 msgid "G. Louppe and P. Geurts, \"Ensembles on Random Patches\", Machine Learning and Knowledge Discovery in Databases, 346-361, 2012."
-msgstr ""
+msgstr "G. Louppe and P. Geurts, \"Ensembles on Random Patches\", Machine Learning and Knowledge Discovery in Databases, 346-361, 2012."
 
 #: ../modules/ensemble.rst:102
 msgid "Forests of randomized trees"
-msgstr ""
+msgstr "Bosques de árboles aleatorios"
 
 #: ../modules/ensemble.rst:104
 msgid "The :mod:`sklearn.ensemble` module includes two averaging algorithms based on randomized :ref:`decision trees <tree>`: the RandomForest algorithm and the Extra-Trees method. Both algorithms are perturb-and-combine techniques [B1998]_ specifically designed for trees. This means a diverse set of classifiers is created by introducing randomness in the classifier construction.  The prediction of the ensemble is given as the averaged prediction of the individual classifiers."
-msgstr ""
+msgstr "El módulo :mod:`sklearn.ensemble` incluye dos algoritmos de promedio basados en :ref:`arboles de decisión <tree>`: el algoritmo RandomForest y el método Extra-Trees. Ambos algoritmos son técnicas de perturbar-y-combinar [B1998]_ específicamente diseñadas para árboles. Esto significa que un diverso conjunto de clasificadores es creado introduciendo aleatoriedad en la construcción de los clasificadores. La predicción del conjunto es dada como la predicción promediada de los clasificadores individuales."
 
 #: ../modules/ensemble.rst:112
 msgid "As other classifiers, forest classifiers have to be fitted with two arrays: a sparse or dense array X of shape ``(n_samples, n_features)`` holding the training samples, and an array Y of shape ``(n_samples,)`` holding the target values (class labels) for the training samples::"
-msgstr ""
+msgstr "Como otros clasificadores, los clasificadores de árboles tienen que estar provistos con dos arreglos: un arreglo X denso o disperso de forma ``(n_samples, n_features)``, sosteniendo las muestras de entrenamiento, y un arreglo Y de forma ``(n_samples,)``, sosteniendo los valores objetivo (etiquetas de clase) para las muestras de entrenamiento::"
 
 #: ../modules/ensemble.rst:123
 msgid "Like :ref:`decision trees <tree>`, forests of trees also extend to :ref:`multi-output problems <tree_multioutput>`  (if Y is an array of shape ``(n_samples, n_outputs)``)."
-msgstr ""
+msgstr "Como los :ref:`arboles de decisión <tree>`, los bosques de arboles también se extienden a :ref:`problemas de salida múltiple <tree_multioutput>` (si Y es un array de forma ``(n_samples, n_outputs)``)."
 
 #: ../modules/ensemble.rst:128
 msgid "Random Forests"
-msgstr ""
+msgstr "Bosques Aleatorios"
 
 #: ../modules/ensemble.rst:130
 msgid "In random forests (see :class:`RandomForestClassifier` and :class:`RandomForestRegressor` classes), each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set."
-msgstr ""
+msgstr "En los bosques aleatorios (ver las clases :class:`RandomForestClassifier` y :class:`RandomForestRegressor`), cada árbol en el conjunto es construido desde una muestra escogida con reemplazo (es decir, una muestra de bootstrap) desde el conjunto de entrenamiento."
 
 #: ../modules/ensemble.rst:135
 msgid "Furthermore, when splitting each node during the construction of a tree, the best split is found either from all input features or a random subset of size ``max_features``. (See the :ref:`parameter tuning guidelines <random_forest_parameters>` for more details)."
-msgstr ""
+msgstr "Además, cuando se divide cada nodo durante la construcción de un árbol, se encuentra la mejor división desde todas las características de entrada o bien desde un subconjunto aleatorio de tamaño ``max_features``. (Ver las :ref:`pautas de ajuste de parámetros <random_forest_parameters>` para más detalles)."
 
 #: ../modules/ensemble.rst:140
 msgid "The purpose of these two sources of randomness is to decrease the variance of the forest estimator. Indeed, individual decision trees typically exhibit high variance and tend to overfit. The injected randomness in forests yield decision trees with somewhat decoupled prediction errors. By taking an average of those predictions, some errors can cancel out. Random forests achieve a reduced variance by combining diverse trees, sometimes at the cost of a slight increase in bias. In practice the variance reduction is often significant hence yielding an overall better model."
-msgstr ""
+msgstr "Estas dos fuentes de aleatoriedad son utilizadas para disminuir la varianza del estimador de árbol. En efecto, los árboles de decisión únicos suelen exhibir varianza alta y tienden a sobreajustarse. Al inyectar aleatoriedad en los bosques, se obtienen árboles con errores de predicción algo desacoplados. Algunos de estos errores se pueden cancelar tomando un promedio de estas predicciones. Los bosques aleatorios consiguen una varianza reducida mediante la combinación de árboles diversos, a veces al costo de un ligero aumento en el sesgo. En la practica, la reducción de varianza suele ser significativa, por lo que se obtiene un mejor modelo en general."
 
 #: ../modules/ensemble.rst:149
 msgid "In contrast to the original publication [B2001]_, the scikit-learn implementation combines classifiers by averaging their probabilistic prediction, instead of letting each classifier vote for a single class."
-msgstr ""
+msgstr "A diferencia de la publicación original [B2001]_, la implementación de scikit-learn combina clasificadores al promediar su predicción probabilística, en lugar de dejar que cada clasificador vote por una única clase."
 
 #: ../modules/ensemble.rst:154
 msgid "Extremely Randomized Trees"
-msgstr ""
+msgstr "Árboles extremadamente aleatorizados"
 
 #: ../modules/ensemble.rst:156
 msgid "In extremely randomized trees (see :class:`ExtraTreesClassifier` and :class:`ExtraTreesRegressor` classes), randomness goes one step further in the way splits are computed. As in random forests, a random subset of candidate features is used, but instead of looking for the most discriminative thresholds, thresholds are drawn at random for each candidate feature and the best of these randomly-generated thresholds is picked as the splitting rule. This usually allows to reduce the variance of the model a bit more, at the expense of a slightly greater increase in bias::"
-msgstr ""
+msgstr "En árboles extremadamente aleatorizados (ver las clases :class:`ExtraTreesClassifier` y :class:`ExtraTreesRegressor`), la aleatoriedad va un paso más allá en la forma en la que se calculan las divisiones. Como en los bosques aleatorios, un subconjunto aleatorio de características candidato son utilizadas, pero en lugar de buscar por los umbrales más discriminatorios, los umbrales son escogidos de forma aleatoria por cada característica candidato, y se escoge el mejor de estos umbrales generados al azar como la regla según la cual se realizaran las divisiones. Esto usualmente permite reducir la varianza del modelo un poco más, al costo de un ligeramente mayor aumento en el sesgo::"
 
 #: ../modules/ensemble.rst:201
 msgid "Parameters"
-msgstr ""
+msgstr "Parámetros"
 
 #: ../modules/ensemble.rst:203
 msgid "The main parameters to adjust when using these methods is ``n_estimators`` and ``max_features``. The former is the number of trees in the forest. The larger the better, but also the longer it will take to compute. In addition, note that results will stop getting significantly better beyond a critical number of trees. The latter is the size of the random subsets of features to consider when splitting a node. The lower the greater the reduction of variance, but also the greater the increase in bias. Empirical good default values are ``max_features=None`` (always considering all features instead of a random subset) for regression problems, and ``max_features=\"sqrt\"`` (using a random subset of size ``sqrt(n_features)``) for classification tasks (where ``n_features`` is the number of features in the data). Good results are often achieved when setting ``max_depth=None`` in combination with ``min_samples_split=2`` (i.e., when fully developing the trees). Bear in mind though that these values are usually not optimal, and might result in models that consume a lot of RAM. The best parameter values should always be cross-validated. In addition, note that in random forests, bootstrap samples are used by default (``bootstrap=True``) while the default strategy for extra-trees is to use the whole dataset (``bootstrap=False``). When using bootstrap sampling the generalization accuracy can be estimated on the left out or out-of-bag samples. This can be enabled by setting ``oob_score=True``."
-msgstr ""
+msgstr "Los parámetros principales a ajustar cuando se utilizan estos métodos son ``n_estimators`` y ``max_features``. El primero es el número de árboles en el bosque. Mientras más grande, mejor, pero tardará también más tiempo en calcular. Además, ten en cuenta que los resultados dejarán de mejorar significativamente después de un número crítico de árboles. El segundo es el tamaño de los subconjuntos aleatorios de características a considerar cuando se divide un nodo. Reduce la varianza mientras sea más bajo, pero también aumenta el sesgo. Empíricamente, ``max_features=None`` (considerar siempre todas las características en lugar de un subconjunto aleatorio), y ``max_features=\"sqrt\"`` (usar un subconjunto aleatorio de tamaño ``sqrt(n_features)``) son buenos valores por defecto para problemas de regresión, y tareas de clasificación (donde ``n_features`` es el número de características en los datos), respectivamente. Buenos resultados se suelen obtener al establecer que ``max_depth=None`` en combinación con ``min_samples_split=2`` (es decir, cuando se desarrollan los árboles por completo). Sin embargo, ten en cuenta que estos valores no suelen ser óptimos, y quizás resulten en modelos que consumen mucha RAM. Los mejores valores de parámetros siempre deben ser validados de forma cruzada. Además, ten en cuenta que en bosques aleatorios, se usan por defecto muestras de bootstrap (``bootstrap=True``), mientras que usar todo el conjunto de datos (``bootstrap=False``) es la estrategia por defecto de extra-trees. Cuando se utiliza el muestreo por bootstrap, la exactitud de la generalización puede ser estimada en las muestras que sobren o que queden fuera-de-bolsa (out-of-bag). Esto se puede habilitar estableciendo que ``oob_score=True``."
 
 #: ../modules/ensemble.rst:226
 msgid "The size of the model with the default parameters is :math:`O( M * N * log (N) )`, where :math:`M` is the number of trees and :math:`N` is the number of samples. In order to reduce the size of the model, you can change these parameters: ``min_samples_split``, ``max_leaf_nodes``, ``max_depth`` and ``min_samples_leaf``."
-msgstr ""
+msgstr "Con los parámetros predeterminados, el tamaño del modelo es :math:`O( M * N * log (N) )`. donde :math:`M` es el número de árboles y :math:`N` es el número de muestras. Si se desea reducir el tamaño del modelo, se pueden cambiar estos parámetros:\n"
+"``min_samples_split``, ``max_leaf_nodes``, ``max_depth`` y ``min_samples_leaf``."
 
 #: ../modules/ensemble.rst:232
 msgid "Parallelization"
-msgstr ""
+msgstr "Paralelización"
 
 #: ../modules/ensemble.rst:234
 msgid "Finally, this module also features the parallel construction of the trees and the parallel computation of the predictions through the ``n_jobs`` parameter. If ``n_jobs=k`` then computations are partitioned into ``k`` jobs, and run on ``k`` cores of the machine. If ``n_jobs=-1`` then all cores available on the machine are used. Note that because of inter-process communication overhead, the speedup might not be linear (i.e., using ``k`` jobs will unfortunately not be ``k`` times as fast). Significant speedup can still be achieved though when building a large number of trees, or when building a single tree requires a fair amount of time (e.g., on large datasets)."
-msgstr ""
+msgstr "Finalmente, este módulo también permite la construcción en paralelo de los árboles y el cálculo en paralelo de las predicciones mediante el parámetro ``n_jobs``. Si ``n_jobs=k``, entonces los cálculos se dividen en ``k`` trabajos, y se ejecutan en ``k`` núcleos de la máquina. Si ``n_jobs=-1``, entonces todos los núcleos disponibles en la máquina serán utilizados. Ten en cuenta que, debido a la sobrecarga de la comunicación entre procesos, es posible que la aceleración no será lineal (es decir, usar ``k`` trabajos desafortunadamente no sera ``k`` veces más rápido). Sin embargo, la aceleración igualmente puede ser significativa cuando se construye un número grande de árboles, o cuando se construye un solo árbol que requiere una buena cantidad de tiempo (por ejemplo, en conjuntos de datos grandes)."
 
 #: ../modules/ensemble.rst:247
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_forest_iris.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_forest_iris.py`"
 
 #: ../modules/ensemble.rst:248 ../modules/ensemble.rst:312
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances_faces.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances_faces.py`"
 
 #: ../modules/ensemble.rst:249
 msgid ":ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`"
 
 #: ../modules/ensemble.rst:253
 msgid "Breiman, \"Random Forests\", Machine Learning, 45(1), 5-32, 2001."
-msgstr ""
+msgstr "Breiman, \"Random Forests\", Machine Learning, 45(1), 5-32, 2001."
 
 #: ../modules/ensemble.rst:255
 msgid "Breiman, \"Arcing Classifiers\", Annals of Statistics 1998."
-msgstr ""
+msgstr "Breiman, \"Arcing Classifiers\", Annals of Statistics 1998."
 
 #: ../modules/ensemble.rst:257
 msgid "P. Geurts, D. Ernst., and L. Wehenkel, \"Extremely randomized trees\", Machine Learning, 63(1), 3-42, 2006."
-msgstr ""
+msgstr "P. Geurts, D. Ernst., and L. Wehenkel, \"Extremely randomized trees\", Machine Learning, 63(1), 3-42, 2006."
 
 #: ../modules/ensemble.rst:263
 msgid "Feature importance evaluation"
-msgstr ""
+msgstr "Evaluación de importancia de características"
 
 #: ../modules/ensemble.rst:265
 msgid "The relative rank (i.e. depth) of a feature used as a decision node in a tree can be used to assess the relative importance of that feature with respect to the predictability of the target variable. Features used at the top of the tree contribute to the final prediction decision of a larger fraction of the input samples. The **expected fraction of the samples** they contribute to can thus be used as an estimate of the **relative importance of the features**. In scikit-learn, the fraction of samples a feature contributes to is combined with the decrease in impurity from splitting them to create a normalized estimate of the predictive power of that feature."
-msgstr ""
+msgstr "El rango relativo (es decir, la profundidad) de una característica usada como nodo de decisión en un árbol puede ser utilizada para estimar la importancia relativa de esa característica con respecto a la previsibilidad de la variable objetivo. Las características usadas en la cima del árbol contribuyen a la decisión final de predicción en una fracción grande de las muestras de entrada. La **fracción esperada de las muestras** a la cual contribuyen puede entonces ser usada como un estimado de la **importancia relativa de las características**. En scikit-learn, la fracción de muestras a la cual una característica contribuye es combinada con la reducción en impureza que produce su división para crear una estimación normalizada del poder predictivo de esa característica."
 
 #: ../modules/ensemble.rst:276
 msgid "By **averaging** the estimates of predictive ability over several randomized trees one can **reduce the variance** of such an estimate and use it for feature selection. This is known as the mean decrease in impurity, or MDI. Refer to [L2014]_ for more information on MDI and feature importance evaluation with Random Forests."
-msgstr ""
+msgstr "Mediante la **promediación** de los estimados de habilidad predictiva sobre varios árboles aleatorizados, uno puede **reducir la varianza** de dicho estimado y usarlo para seleccionar características. Esto se conoce como la disminución media de la impureza, o DMI (MDI, en ingles). Ver [L2014]_ para más información sobre la DMI y la evaluación de importancia de características con Bosques Aleatorios."
 
 #: ../modules/ensemble.rst:284
 msgid "The impurity-based feature importances computed on tree-based models suffer from two flaws that can lead to misleading conclusions. First they are computed on statistics derived from the training dataset and therefore **do not necessarily inform us on which features are most important to make good predictions on held-out dataset**. Secondly, **they favor high cardinality features**, that is features with many unique values. :ref:`permutation_importance` is an alternative to impurity-based feature importance that does not suffer from these flaws. These two methods of obtaining feature importance are explored in: :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`."
-msgstr ""
+msgstr "Las importancias de característica basadas en impureza calculadas en modelos basados en árboles sufren de dos defectos clave que pueden llevar a conclusiones no representativas. Primero, son calculados en estadísticas derivadas del conjunto de datos de entrenamiento y por lo tanto **no necesariamente nos informan acerca de cuáles características son las más importantes para hacer buenas predicciones en los conjuntos de datos retenidos**. Segundo, **prefieren características de alta cardinalidad**, es decir, características con muchos valores únicos. :ref:`permutation_importance` es una alternativa a la importancia de característica basada en impureza que no sufre de estos defectos. Estos dos métodos para obtener la importancia de características se exploran en: :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`."
 
 #: ../modules/ensemble.rst:295
 msgid "The following example shows a color-coded representation of the relative importances of each individual pixel for a face recognition task using a :class:`ExtraTreesClassifier` model."
-msgstr ""
+msgstr "El siguiente ejemplo presenta una representación codificada en color de la importancia relativa de cada pixel para una tarea de reconocimiento de caras utilizando un modelo :class:`ExtraTreesClassifier`."
 
 #: ../modules/ensemble.rst:304
 msgid "In practice those estimates are stored as an attribute named ``feature_importances_`` on the fitted model. This is an array with shape ``(n_features,)`` whose values are positive and sum to 1.0. The higher the value, the more important is the contribution of the matching feature to the prediction function."
-msgstr ""
+msgstr "En la práctica, estos estimados se almacenan como un atributo llamado ``feature_importances_`` en el modelo ajustado. Este es un arreglo de forma ``(n_features,)`` cuyos valores son positivos y cuya suma resulta en 1.0. Mientras más grande sea el valor, más importante va a ser la contribución de la característica correspondiente a la función de predicción."
 
 #: ../modules/ensemble.rst:313
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances.py`"
 
 #: ../modules/ensemble.rst:317
 msgid "G. Louppe, \"Understanding Random Forests: From Theory to Practice\", PhD Thesis, U. of Liege, 2014."
-msgstr ""
+msgstr "G. Louppe, \"Understanding Random Forests: From Theory to Practice\", PhD Thesis, U. of Liege, 2014."
 
 #: ../modules/ensemble.rst:324
 msgid "Totally Random Trees Embedding"
-msgstr ""
+msgstr "Incrustación de Arboles Totalmente Aleatorios"
 
 #: ../modules/ensemble.rst:326
 msgid ":class:`RandomTreesEmbedding` implements an unsupervised transformation of the data.  Using a forest of completely random trees, :class:`RandomTreesEmbedding` encodes the data by the indices of the leaves a data point ends up in.  This index is then encoded in a one-of-K manner, leading to a high dimensional, sparse binary coding. This coding can be computed very efficiently and can then be used as a basis for other learning tasks. The size and sparsity of the code can be influenced by choosing the number of trees and the maximum depth per tree. For each tree in the ensemble, the coding contains one entry of one. The size of the coding is at most ``n_estimators * 2 ** max_depth``, the maximum number of leaves in the forest."
-msgstr ""
+msgstr ":class:`RandomTreesEmbedding` implementa una transformación no supervisada de los datos. Usando un bosque de árboles completamente aleatorios, :class:`RandomTreesEmbedding` codifica los datos mediante los índices de las hojas en las que termina un punto de datos. Este índice es entonces codificado de una manera one-of-K, dando lugar a una codificación binaria dispersa y de alta  dimensión. Esta codificación puede ser eficientemente calculada y después ser usada como una base para otras tareas de aprendizaje. El tamaño y la dispersión del codigo puede ser influenciada eligiendo el número de árboles y la profundidad máxima por árbol. Por cada árbol en el conjunto, la codificación contiene una entrada de uno. El tamaño de la codificación es a lo mas ``n_estimators * 2 ** max_depth``, el número máximo de hojas en el bosque."
 
 #: ../modules/ensemble.rst:338
 msgid "As neighboring data points are more likely to lie within the same leaf of a tree, the transformation performs an implicit, non-parametric density estimation."
-msgstr ""
+msgstr "Ya que los puntos de datos vecinos son mas probables a estar dentro de la misma hoja de un árbol, la transformación realiza una estimación de densidad implícita y no paramétrica."
 
 #: ../modules/ensemble.rst:344
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_random_forest_embedding.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_random_forest_embedding.py`"
 
 #: ../modules/ensemble.rst:346
 msgid ":ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py` compares non-linear dimensionality reduction techniques on handwritten digits."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py` compares non-linear dimensionality reduction techniques on handwritten digits."
 
 #: ../modules/ensemble.rst:349
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_feature_transformation.py` compares supervised and unsupervised tree based feature transformations."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_feature_transformation.py` compares supervised and unsupervised tree based feature transformations."
 
 #: ../modules/ensemble.rst:354
 msgid ":ref:`manifold` techniques can also be useful to derive non-linear representations of feature space, also these approaches focus also on dimensionality reduction."
-msgstr ""
+msgstr ":ref:`manifold` techniques can also be useful to derive non-linear representations of feature space, also these approaches focus also on dimensionality reduction."
 
 #: ../modules/ensemble.rst:362
 msgid "AdaBoost"
-msgstr ""
+msgstr "AdaBoost"
 
 #: ../modules/ensemble.rst:364
 msgid "The module :mod:`sklearn.ensemble` includes the popular boosting algorithm AdaBoost, introduced in 1995 by Freund and Schapire [FS1995]_."
-msgstr ""
+msgstr "El módulo :mod:`sklearn.ensemble` incluye el popular algoritmo de boosting AdaBoost, introducido en 1995 por Freund y Schapire [FS1995]_."
 
 #: ../modules/ensemble.rst:367
 msgid "The core principle of AdaBoost is to fit a sequence of weak learners (i.e., models that are only slightly better than random guessing, such as small decision trees) on repeatedly modified versions of the data. The predictions from all of them are then combined through a weighted majority vote (or sum) to produce the final prediction. The data modifications at each so-called boosting iteration consist of applying weights :math:`w_1`, :math:`w_2`, ..., :math:`w_N` to each of the training samples. Initially, those weights are all set to :math:`w_i = 1/N`, so that the first step simply trains a weak learner on the original data. For each successive iteration, the sample weights are individually modified and the learning algorithm is reapplied to the reweighted data. At a given step, those training examples that were incorrectly predicted by the boosted model induced at the previous step have their weights increased, whereas the weights are decreased for those that were predicted correctly. As iterations proceed, examples that are difficult to predict receive ever-increasing influence. Each subsequent weak learner is thereby forced to concentrate on the examples that are missed by the previous ones in the sequence [HTF]_."
-msgstr ""
+msgstr "El principio básico de AdaBoost es encajar una secuencia de aprendices débiles (es decir, modelos que solo son ligeramente mejores que adivinar al azar, como los árboles de decisión pequeños) en versiones repetidamente modificadas de los datos. Las predicciones de todos ellos son entonces combinados mediante un voto por mayoría ponderado (o suma) para producir la última predicción. Las modificaciones de datos en cada iteración de boosting consisten en aplicar los ponderados :math:`w_1`, :math:`w_2`, ..., :math:`w_N` a cada una de las muestras de entrenamiento. Inicialmente, esos ponderados son todos establecidos como :math:`w_i = 1/N`, para que el primer paso simplemente entrene a un aprendiz débil con los datos originales. Para cada iteración sucesiva, los ponderados de la muestra son modificados individualmente y el algoritmo de aprendizaje es aplicado de nuevo a los datos reponderados. En un paso determinado, se incrementan los ponderados de aquellos ejemplos de entrenamiento que fueron predichos incorrectamente por el modelo con boosting inducido en el paso anterior, mientras que los ponderados son disminuidos para aquellos que fueron predichos correctamente. Con cada iteración, los ejemplos que fueron difíciles de predecir reciben influencia cada vez mayor. Cada aprendedor débil subsecuente es entonces forzado a concentrarse en los ejemplos que fueron omitidos por aquellos anteriores en la secuencia [HTF]_."
 
 #: ../modules/ensemble.rst:390
 msgid "AdaBoost can be used both for classification and regression problems:"
-msgstr ""
+msgstr "AdaBoost puede ser utilizado tanto para problemas de clasificación como de regresión:"
 
 #: ../modules/ensemble.rst:392
 msgid "For multi-class classification, :class:`AdaBoostClassifier` implements AdaBoost-SAMME and AdaBoost-SAMME.R [ZZRH2009]_."
-msgstr ""
+msgstr "Para clasificación multiclase, :class:`AdaBoostClassifier` implementa AdaBoost-SAMME y AdaBoost-SAMME.R [ZZRH2009]_."
 
 #: ../modules/ensemble.rst:395
 msgid "For regression, :class:`AdaBoostRegressor` implements AdaBoost.R2 [D1997]_."
-msgstr ""
+msgstr "Para la regresión, :class:`AdaBoostRegressor` implementa AdaBoost.R2 [D1997]_."
 
 #: ../modules/ensemble.rst:398 ../modules/ensemble.rst:934
 #: ../modules/ensemble.rst:1267 ../modules/ensemble.rst:1384
 #: ../modules/ensemble.rst:1413
 msgid "Usage"
-msgstr ""
+msgstr "Uso"
 
 #: ../modules/ensemble.rst:400
 msgid "The following example shows how to fit an AdaBoost classifier with 100 weak learners::"
-msgstr ""
+msgstr "El siguiente ejemplo muestra cómo ajustar un clasificador AdaBoost con 100 aprendices débiles::"
 
 #: ../modules/ensemble.rst:413
 msgid "The number of weak learners is controlled by the parameter ``n_estimators``. The ``learning_rate`` parameter controls the contribution of the weak learners in the final combination. By default, weak learners are decision stumps. Different weak learners can be specified through the ``base_estimator`` parameter. The main parameters to tune to obtain good results are ``n_estimators`` and the complexity of the base estimators (e.g., its depth ``max_depth`` or minimum required number of samples to consider a split ``min_samples_split``)."
-msgstr ""
+msgstr "El número de algoritmos de aprendizaje débiles es controlado por el parámetro ``n_estimators``. El parámetro ``learning_rate`` controla la contribución de los algoritmos de aprendizaje débiles en la última combinación. Por defecto, los algoritmos de aprendizaje débiles son tocones de decisión (decision stumps, en inglés). Diferentes algoritmos de aprendizaje débiles pueden ser especificados a través del parámetro ``base_estimator``. Los principales parámetros a ajustar para obtener buenos resultados son ``n_estimators`` y la complejidad de los estimadores base (por ejemplo, su profundidad ``max_depth`` o el número mínimo requerido de muestras para considerar una división ``min_samples_split``)."
 
 #: ../modules/ensemble.rst:423
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_hastie_10_2.py` compares the classification error of a decision stump, decision tree, and a boosted decision stump using AdaBoost-SAMME and AdaBoost-SAMME.R."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_hastie_10_2.py` compara el error de clasificación de un tope de decisión, árbol de decisión, y un tope de decisión con boosting usando AdaBoost-SAMME y AdaBoost-SAMME.R."
 
 #: ../modules/ensemble.rst:427
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_multiclass.py` shows the performance of AdaBoost-SAMME and AdaBoost-SAMME.R on a multi-class problem."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_multiclass.py` muestra el rendimiento de AdaBoost-SAMME y AdaBoost-SAMME.R en un problema de multiclase."
 
 #: ../modules/ensemble.rst:430
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_twoclass.py` shows the decision boundary and decision function values for a non-linearly separable two-class problem using AdaBoost-SAMME."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_twoclass.py` muestra el límite de decisión y los valores de la función de decisión para un problema de dos clases separables no linealmente usando AdaBoost-SAMME."
 
 #: ../modules/ensemble.rst:434
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_regression.py` demonstrates regression with the AdaBoost.R2 algorithm."
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_regression.py` demuestra regresión con el algoritmo AdaBoost.R2."
 
 #: ../modules/ensemble.rst:439
 msgid "Y. Freund, and R. Schapire, \"A Decision-Theoretic Generalization of On-Line Learning and an Application to Boosting\", 1997."
-msgstr ""
+msgstr "Y. Freund, and R. Schapire, \"A Decision-Theoretic Generalization of On-Line Learning and an Application to Boosting\", 1997."
 
 #: ../modules/ensemble.rst:442
 msgid "J. Zhu, H. Zou, S. Rosset, T. Hastie. \"Multi-class AdaBoost\", 2009."
-msgstr ""
+msgstr "J. Zhu, H. Zou, S. Rosset, T. Hastie. \"Multi-class AdaBoost\", 2009."
 
 #: ../modules/ensemble.rst:445
 msgid "Drucker. \"Improving Regressors using Boosting Techniques\", 1997."
-msgstr ""
+msgstr "Drucker. \"Improving Regressors using Boosting Techniques\", 1997."
 
 #: ../modules/ensemble.rst:447
 msgid "T. Hastie, R. Tibshirani and J. Friedman, \"Elements of Statistical Learning Ed. 2\", Springer, 2009."
-msgstr ""
+msgstr "T. Hastie, R. Tibshirani and J. Friedman, \"Elements of Statistical Learning Ed. 2\", Springer, 2009."
 
 #: ../modules/ensemble.rst:454
 msgid "Gradient Tree Boosting"
-msgstr ""
+msgstr "Gradient Tree Boosting"
 
 #: ../modules/ensemble.rst:456
 msgid "`Gradient Tree Boosting <https://en.wikipedia.org/wiki/Gradient_boosting>`_ or Gradient Boosted Decision Trees (GBDT) is a generalization of boosting to arbitrary differentiable loss functions. GBDT is an accurate and effective off-the-shelf procedure that can be used for both regression and classification problems in a variety of areas including Web search ranking and ecology."
-msgstr ""
+msgstr "`Gradient Tree Boosting <https://en.wikipedia.org/wiki/Gradient_boosting>`_ o Gradient Boosted Decision Trees (GBDT) es una generalización del boosting a funciones de pérdida diferenciable arbitrarias. GBDT es un procedimiento preciso y efectivo que puede ser usado tanto para problemas de regresión como de clasificación en una variedad de areas, incluyendo la ecología y el ranking de búsquedas Web."
 
 #: ../modules/ensemble.rst:464
 msgid "The module :mod:`sklearn.ensemble` provides methods for both classification and regression via gradient boosted decision trees."
-msgstr ""
+msgstr "El módulo :mod:`sklearn.ensemble` proporciona métodos para clasificación y regresión mediante árboles de decisión con boosting por gradiente."
 
 #: ../modules/ensemble.rst:470
 msgid "Scikit-learn 0.21 introduces two new experimental implementations of gradient boosting trees, namely :class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor`, inspired by `LightGBM <https://github.com/Microsoft/LightGBM>`__ (See [LightGBM]_)."
-msgstr ""
+msgstr "Scikit-learn 0.21 introduce dos nuevas implementaciones y experimentales de árboles con boosting por gradientes, principalmente :class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor`, inspirado por `LightGBM <https://github.com/Microsoft/LightGBM>`__ (Ver [LightGBM]_)."
 
 #: ../modules/ensemble.rst:475 ../modules/ensemble.rst:903
 msgid "These histogram-based estimators can be **orders of magnitude faster** than :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor` when the number of samples is larger than tens of thousands of samples."
-msgstr ""
+msgstr "Estos estimadores basados en histogramas pueden ser **órdenes de magnitud más rápidos** que :class:`GradientBoostingClassifier` y :class:`GradientBoostingRegressor` cuando el número de muestras es mayor que decenas de miles de muestras."
 
 #: ../modules/ensemble.rst:480 ../modules/ensemble.rst:908
 msgid "They also have built-in support for missing values, which avoids the need for an imputer."
-msgstr ""
+msgstr "También tienen soporte incorporado para valores faltantes, lo que evita la necesidad de un imputador."
 
 #: ../modules/ensemble.rst:483
 msgid "These estimators are described in more detail below in :ref:`histogram_based_gradient_boosting`."
-msgstr ""
+msgstr "Estos estimadores son descritos con más detalle a continuación en :ref:`histogram_based_gradient_boosting`."
 
 #: ../modules/ensemble.rst:486
 msgid "The following guide focuses on :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`, which might be preferred for small sample sizes since binning may lead to split points that are too approximate in this setting."
-msgstr ""
+msgstr "La siguiente guía se enfoca en :class:`GradientBoostingClassifier` y :class:`GradientBoostingRegressor`, lo que podría ser preferido para tamaños pequeños de muestra ya que el binning quizás lleve a puntos de división que son demasiado aproximados con esta configuración."
 
 #: ../modules/ensemble.rst:492
 msgid "The usage and the parameters of :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor` are described below. The 2 most important parameters of these estimators are `n_estimators` and `learning_rate`."
-msgstr ""
+msgstr "A continuación se describe el uso y los parámetros de :class:`GradientBoostingClassifier` y :class:`GradientBoostingRegressor`. Los 2 parámetros más importantes de estos estimadores son `n_estimators` y `learning_rate`."
 
 #: ../modules/ensemble.rst:497 ../modules/ensemble.rst:713
 #: ../modules/ensemble.rst:759
 msgid "Classification"
-msgstr ""
+msgstr "Clasificación"
 
 #: ../modules/ensemble.rst:499
 msgid ":class:`GradientBoostingClassifier` supports both binary and multi-class classification. The following example shows how to fit a gradient boosting classifier with 100 decision stumps as weak learners::"
-msgstr ""
+msgstr ":class:`GradientBoostingClassifier` soporta tanto clasificación binaria como multiclase. El siguiente ejemplo muestra como ajustar un clasificador de boosting por gradiente con 100 tocones (árboles de un nivel de profundidad) de decisión como aprendices débiles::"
 
 #: ../modules/ensemble.rst:516
 msgid "The number of weak learners (i.e. regression trees) is controlled by the parameter ``n_estimators``; :ref:`The size of each tree <gradient_boosting_tree_size>` can be controlled either by setting the tree depth via ``max_depth`` or by setting the number of leaf nodes via ``max_leaf_nodes``. The ``learning_rate`` is a hyper-parameter in the range (0.0, 1.0] that controls overfitting via :ref:`shrinkage <gradient_boosting_shrinkage>` ."
-msgstr ""
+msgstr "El número de aprendices débiles (por ejemplo, árboles de regresión) es controlado por el parametro ``n_estimators``; :ref:`El tamaño de cada árbol <gradient_boosting_tree_size>` puede ser controlado tanto estableciendo la profundidad del árbol mediante ``max_depth`` o estableciendo el número de nodos de hojas mediante ``max_leaf_nodes``. El ``learning_rate`` es ún hiperparámetro en el rango (0.0, 1.0] que controla el sobreajuste mediante el :ref:`encogimiento <gradient_boosting_shrinkage>` ."
 
 #: ../modules/ensemble.rst:526
 msgid "Classification with more than 2 classes requires the induction of ``n_classes`` regression trees at each iteration, thus, the total number of induced trees equals ``n_classes * n_estimators``. For datasets with a large number of classes we strongly recommend to use :class:`HistGradientBoostingClassifier` as an alternative to :class:`GradientBoostingClassifier` ."
-msgstr ""
+msgstr "La clasificación con más de 2 clases requiere la inducción de ``n_classes`` árboles de regresión en cada iteración, por lo que el número total de árboles inducidos es igual a ``n_clases * n_estimators``. Para conjuntos de datos con un número grande de clases recomendamos utilizar :class:`HistGradientBoostingClassifier` como una alternativa a :class:`GradientBoostingClassifier` ."
 
 #: ../modules/ensemble.rst:535 ../modules/ensemble.rst:630
 #: ../modules/ensemble.rst:742
 msgid "Regression"
-msgstr ""
+msgstr "Regresión"
 
 #: ../modules/ensemble.rst:537
 msgid ":class:`GradientBoostingRegressor` supports a number of :ref:`different loss functions <gradient_boosting_loss>` for regression which can be specified via the argument ``loss``; the default loss function for regression is least squares (``'ls'``)."
-msgstr ""
+msgstr ":class:`GradientBoostingRegressor` soporta un número de :ref:`diferentes funciones de pérdida <gradient_boosting_loss>` para regresión que pueden ser especificadas mediante el argumento ``loss``; la función de pérdida por defecto para la regresión es la de mínimos cuadrados (``'ls'``)."
 
 #: ../modules/ensemble.rst:557
 msgid "The figure below shows the results of applying :class:`GradientBoostingRegressor` with least squares loss and 500 base learners to the diabetes dataset (:func:`sklearn.datasets.load_diabetes`). The plot on the left shows the train and test error at each iteration. The train error at each iteration is stored in the :attr:`~GradientBoostingRegressor.train_score_` attribute of the gradient boosting model. The test error at each iterations can be obtained via the :meth:`~GradientBoostingRegressor.staged_predict` method which returns a generator that yields the predictions at each stage. Plots like these can be used to determine the optimal number of trees (i.e. ``n_estimators``) by early stopping."
-msgstr ""
+msgstr "La siguiente figura muestra los resultados de aplicar :class:`GradientBoostingRegressor` con pérdida de mínimos cuadrados y 500 aprendices base al conjunto de datos de diabetes (:func:`sklearn.datasets.load_diabetes`). La gráfica a la izquierda muestra el error de prueba y entrenamiento en cada iteración. El error de entrenamiento en cada iteración se guarda en el atributo :attr:`~GradientBoostingRegressor.train_score_` del modelo de boosting por gradientes. El error de prueba en cada iteración se puede obtener mediante el método :meth:`~GradientBoostingRegressor.staged_predict` que devuelve un generador que da las predicciones en cada etapa. Gráficos como estos pueden ser utilizados para determinar el número óptimo de árboles (por ejemplo, ``n_estimators``) por parada anticipada."
 
 #: ../modules/ensemble.rst:575 ../modules/ensemble.rst:891
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_regression.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_regression.py`"
 
 #: ../modules/ensemble.rst:576 ../modules/ensemble.rst:845
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_oob.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_oob.py`"
 
 #: ../modules/ensemble.rst:581
 msgid "Fitting additional weak-learners"
-msgstr ""
+msgstr "Ajustando aprendices débiles adicionales"
 
 #: ../modules/ensemble.rst:583
 msgid "Both :class:`GradientBoostingRegressor` and :class:`GradientBoostingClassifier` support ``warm_start=True`` which allows you to add more estimators to an already fitted model."
-msgstr ""
+msgstr "Tanto :class:`GradientBoostingRegressor` como :class:`GradientBoostingClassifier` soportan ``warm_start=True``, el cual te permite añadir mas estimadores a un modelo ya ajustado."
 
 #: ../modules/ensemble.rst:597
 msgid "Controlling the tree size"
-msgstr ""
+msgstr "Controlando el tamaño del árbol"
 
 #: ../modules/ensemble.rst:599
 msgid "The size of the regression tree base learners defines the level of variable interactions that can be captured by the gradient boosting model. In general, a tree of depth ``h`` can capture interactions of order ``h`` . There are two ways in which the size of the individual regression trees can be controlled."
-msgstr ""
+msgstr "El tamaño de los aprendices del árbol de regresión base define el nivel de interacciones variable que pueden ser capturadas por el modelo de boosting por gradiente. En general, un árbol de profundidad ``h`` puede capturar interacciones de orden ``h``. Hay dos formas en la que el tamaño de los árboles de regresión individuales puede ser controlado."
 
 #: ../modules/ensemble.rst:605
 msgid "If you specify ``max_depth=h`` then complete binary trees of depth ``h`` will be grown. Such trees will have (at most) ``2**h`` leaf nodes and ``2**h - 1`` split nodes."
-msgstr ""
+msgstr "Si tu especificas ``max_depth=h``, entonces se crecerán árboles binarios completos de profundidad ``h``. Tales árboles tendrán (como máximo) ``2**h`` nodos de hoja y ``2**h - 1`` nodos divididos."
 
 #: ../modules/ensemble.rst:609
 msgid "Alternatively, you can control the tree size by specifying the number of leaf nodes via the parameter ``max_leaf_nodes``. In this case, trees will be grown using best-first search where nodes with the highest improvement in impurity will be expanded first. A tree with ``max_leaf_nodes=k`` has ``k - 1`` split nodes and thus can model interactions of up to order ``max_leaf_nodes - 1`` ."
-msgstr ""
+msgstr "Alternativamente, puedes controlar el tamaño del árbol especificando el número de nodos de hoja mediante el parámetro ``max_leaf_nodes``. En este caso, los árboles crecerán usando una búsqueda best-first donde los nodos con la mayor mejora en la impureza se expandirán primero. Un árbol con ``max_leaf_nodes=k`` tiene ``k - 1`` nodos divididos y por lo tanto puede modelar interacciones de hasta el orden ``max_leaf_nodes=k`` ."
 
 #: ../modules/ensemble.rst:616
 msgid "We found that ``max_leaf_nodes=k`` gives comparable results to ``max_depth=k-1`` but is significantly faster to train at the expense of a slightly higher training error. The parameter ``max_leaf_nodes`` corresponds to the variable ``J`` in the chapter on gradient boosting in [F2001]_ and is related to the parameter ``interaction.depth`` in R's gbm package where ``max_leaf_nodes == interaction.depth + 1`` ."
-msgstr ""
+msgstr "Encontramos que ``max_leaf_nodes=k`` da resultados comparables a ``max_depth=k-1`` pero es significativamente mas rapido de entrenar al costo de un error de entrenamiento ligeramente mayor. El parámetro ``max_leaf_nodes`` corresponde a la variable ``J`` en el capítulo sobre boosting por gradiente en [F2001]_ y es relacionado al parámetro ``interaction.depth`` en el paquete gbm de R donde ``max_leaf_nodes == interaction.depth +1`` ."
 
 #: ../modules/ensemble.rst:624
 msgid "Mathematical formulation"
-msgstr ""
+msgstr "Formulación matemática"
 
 #: ../modules/ensemble.rst:626
 msgid "We first present GBRT for regression, and then detail the classification case."
-msgstr ""
+msgstr "Primero presentamos GBRT para la regresión, y luego detallamos el caso por clasificación."
 
 #: ../modules/ensemble.rst:632
 msgid "GBRT regressors are additive models whose prediction :math:`y_i` for a given input :math:`x_i` is of the following form:"
-msgstr ""
+msgstr "Los regresores GBRT son modelos aditivos cuya predicción :math:`y_i` para una entrada dada :math:`x_i` es de la siguiente forma:"
 
 #: ../modules/ensemble.rst:635
 msgid "\\hat{y_i} = F_M(x_i) = \\sum_{m=1}^{M} h_m(x_i)"
-msgstr ""
+msgstr "\\hat{y_i} = F_M(x_i) = \\sum_{m=1}^{M} h_m(x_i)"
 
 #: ../modules/ensemble.rst:639
 msgid "where the :math:`h_m` are estimators called *weak learners* in the context of boosting. Gradient Tree Boosting uses :ref:`decision tree regressors <tree>` of fixed size as weak learners. The constant M corresponds to the `n_estimators` parameter."
-msgstr ""
+msgstr "donde los :math:`h_m` son estimadores llamados *aprendices débiles* en el contexto del boosting. Gradient Tree Boosting utiliza :ref:`regresores de árboles de decisión <tree>` de tamaño fijo como aprendices débiles. La constante M corresponde al parámetro `n_estimators`."
 
 #: ../modules/ensemble.rst:644
 msgid "Similar to other boosting algorithms, a GBRT is built in a greedy fashion:"
-msgstr ""
+msgstr "Similar a otros algoritmos de boosting, un GBRT se construye de manera codiciosa:"
 
 #: ../modules/ensemble.rst:646
 msgid "F_m(x) = F_{m-1}(x) + h_m(x),"
-msgstr ""
+msgstr "F_m(x) = F_{m-1}(x) + h_m(x),"
 
 #: ../modules/ensemble.rst:650
 msgid "where the newly added tree :math:`h_m` is fitted in order to minimize a sum of losses :math:`L_m`, given the previous ensemble :math:`F_{m-1}`:"
-msgstr ""
+msgstr "donde el árbol recién añadido :math:`h_m` es ajustado para minimizar una suma de pérdidas :math:`L_m`, dado el conjunto anterior :math:`F_{m-1}`:"
 
 #: ../modules/ensemble.rst:653
 msgid "h_m =  \\arg\\min_{h} L_m = \\arg\\min_{h} \\sum_{i=1}^{n}\n"
 "l(y_i, F_{m-1}(x_i) + h(x_i)),"
-msgstr ""
+msgstr "h_m =  \\arg\\min_{h} L_m = \\arg\\min_{h} \\sum_{i=1}^{n}\n"
+"l(y_i, F_{m-1}(x_i) + h(x_i)),"
 
 #: ../modules/ensemble.rst:658
 msgid "where :math:`l(y_i, F(x_i))` is defined by the `loss` parameter, detailed in the next section."
-msgstr ""
+msgstr "donde :math:`l(y_i, F(x_i))` es definido por el parámetro `loss`, detallado en la siguiente sección."
 
 #: ../modules/ensemble.rst:661
 msgid "By default, the initial model :math:`F_{0}` is chosen as the constant that minimizes the loss: for a least-squares loss, this is the empirical mean of the target values. The initial model can also be specified via the ``init`` argument."
-msgstr ""
+msgstr "Por defecto, el modelo inicial :math: `F_{0}` es elegido como la constante que minimiza la pérdida: para una pérdida de mínimos cuadrados, esta es la media empírica de los valores objetivo. El modelo inicial también puede ser especificado mediante el arugmento `ìnit``."
 
 #: ../modules/ensemble.rst:666
 msgid "Using a first-order Taylor approximation, the value of :math:`l` can be approximated as follows:"
-msgstr ""
+msgstr "Utilizando una aproximación de Taylor de primer orden, el valor de :math:`l` puede aproximarse de la siguiente manera:"
 
 #: ../modules/ensemble.rst:669
 msgid "l(y_i, F_{m-1}(x_i) + h_m(x_i)) \\approx\n"
 "l(y_i, F_{m-1}(x_i))\n"
 "+ h_m(x_i)\n"
 "\\left[ \\frac{\\partial l(y_i, F(x_i))}{\\partial F(x_i)} \\right]_{F=F_{m - 1}}."
-msgstr ""
+msgstr "l(y_i, F_{m-1}(x_i) + h_m(x_i)) \\approx\n"
+"l(y_i, F_{m-1}(x_i))\n"
+"+ h_m(x_i)\n"
+"\\left[ \\frac{\\partial l(y_i, F(x_i))}{\\partial F(x_i)} \\right]_{F=F_{m - 1}}."
 
 #: ../modules/ensemble.rst:678
 msgid "Briefly, a first-order Taylor approximation says that :math:`l(z) \\approx l(a) + (z - a) \\frac{\\partial l(a)}{\\partial a}`. Here, :math:`z` corresponds to :math:`F_{m - 1}(x_i) + h_m(x_i)`, and :math:`a` corresponds to :math:`F_{m-1}(x_i)`"
-msgstr ""
+msgstr "En pocas palabras, una aproximación de Taylor de primer orden dice que :math:`l(z) \\approx l(a) + (z - a) \\frac{\\partial l(a)}{\\partial a}`. Aquí, :math:`z` corresponde a :math:`F_{m - 1}(x_i) + h_m(x_i)`, y :math:`a` corresponde a :math:`F_{m-1}(x_i)`"
 
 #: ../modules/ensemble.rst:683
 msgid "The quantity :math:`\\left[ \\frac{\\partial l(y_i, F(x_i))}{\\partial F(x_i)} \\right]_{F=F_{m - 1}}` is the derivative of the loss with respect to its second parameter, evaluated at :math:`F_{m-1}(x)`. It is easy to compute for any given :math:`F_{m - 1}(x_i)` in a closed form since the loss is differentiable. We will denote it by :math:`g_i`."
-msgstr ""
+msgstr "La cantidad :math:`\\left[ \\frac{\\partial l(y_i, F(x_i))}{\\partial F(x_i)} \\right]_{F=F_{m - 1}}` es la derivada de la pérdida con respecto a su segundo parámetro, evaluado en :math:`F_{m-1}(x)`. Es fácil calcular por cualquier :math:`F_{m - 1}(x_i)` dado en una forma cerrada, ya que la pérdida es diferenciable. Lo denotaremos por :math:`g_i`."
 
 #: ../modules/ensemble.rst:689
 msgid "Removing the constant terms, we have:"
-msgstr ""
+msgstr "Eliminando los términos constantes, tenemos:"
 
 #: ../modules/ensemble.rst:691
 msgid "h_m \\approx \\arg\\min_{h} \\sum_{i=1}^{n} h(x_i) g_i"
-msgstr ""
+msgstr "h_m \\approx \\arg\\min_{h} \\sum_{i=1}^{n} h(x_i) g_i"
 
 #: ../modules/ensemble.rst:695
 msgid "This is minimized if :math:`h(x_i)` is fitted to predict a value that is proportional to the negative gradient :math:`-g_i`. Therefore, at each iteration, **the estimator** :math:`h_m` **is fitted to predict the negative gradients of the samples**. The gradients are updated at each iteration. This can be considered as some kind of gradient descent in a functional space."
-msgstr ""
+msgstr "Esto es minimizado si :math:`h(x_i)` es ajustado para predecir un valor que es proporcional al gradiente negativo :math:`-g_i`. Por lo tanto, en cada iteración, **el estimador** :math:`h_m` **es ajustado para predecir los gradientes negativos de las muestras**. Los gradientes son actualizados en cada iteración. Esto se puede considerar como alguna especie de descenso por gradiente en un espacio funcional."
 
 #: ../modules/ensemble.rst:704
 msgid "For some losses, e.g. the least absolute deviation (LAD) where the gradients are :math:`\\pm 1`, the values predicted by a fitted :math:`h_m` are not accurate enough: the tree can only output integer values. As a result, the leaves values of the tree :math:`h_m` are modified once the tree is fitted, such that the leaves values minimize the loss :math:`L_m`. The update is loss-dependent: for the LAD loss, the value of a leaf is updated to the median of the samples in that leaf."
-msgstr ""
+msgstr "Para algunas pérdidas, por ejemplo, la mínima desviación absoluta (MDA, o LAD en inglés) donde los gradientes son :math:`\\pm 1`, los valores predichos por un :math:`h_m` ajustado no son lo suficientemente precisos: el árbol sólo puede generar valores enteros. Como resultado, los valores de las hojas del árbol :math:`h_m` se modifican una vez que el árbol es ajustado, de tal forma que los valores de las hojas minimizan la pérdida :math:`L_m`. Su actualización depende de la pérdida: para la pérdida LAD, el valor de una hoja se actualiza a la mediana de las muestras en esa hoja."
 
 #: ../modules/ensemble.rst:715
 msgid "Gradient boosting for classification is very similar to the regression case. However, the sum of the trees :math:`F_M(x_i) = \\sum_m h_m(x_i)` is not homogeneous to a prediction: it cannot be a class, since the trees predict continuous values."
-msgstr ""
+msgstr "El boosting por gradiente para la clasificación es muy similar al caso de regresión. Sin embargo, la suma de los árboles :math:`F_M(x_i) = \\sum_m h_m(x_i)` no es homogénea a una predicción: no puede ser una clase, ya que los árboles predicen valores continuos."
 
 #: ../modules/ensemble.rst:720
 msgid "The mapping from the value :math:`F_M(x_i)` to a class or a probability is loss-dependent. For the deviance (or log-loss), the probability that :math:`x_i` belongs to the positive class is modeled as :math:`p(y_i = 1 | x_i) = \\sigma(F_M(x_i))` where :math:`\\sigma` is the sigmoid function."
-msgstr ""
+msgstr "El mapeo desde el valor :math:`F_M(x_i)` a una clase o una probabilidad es dependiente de pérdidas. Para la desviación (o log-loss, es decir, perdida de logistica), la probabilidad de que :math:`x_i` pertenezca a la clase positiva está modelada como :math:`p(y_i = 1 | x_i) = \\sigma(F_M(x_i)` donde :math:`\\sigma` es la función sigmoid."
 
 #: ../modules/ensemble.rst:725
 msgid "For multiclass classification, K trees (for K classes) are built at each of the :math:`M` iterations. The probability that :math:`x_i` belongs to class k is modeled as a softmax of the :math:`F_{M,k}(x_i)` values."
-msgstr ""
+msgstr "Para la clasificación multiclase, los árboles K (para clases K) se construyen en cada una de las iteraciones :math:`M`. La probabilidad de que :math:`x_i` pertenezca a la clase k se modela como un softmax de los valores :math:`F_{M,k}(x_i)`."
 
 #: ../modules/ensemble.rst:729
 msgid "Note that even for a classification task, the :math:`h_m` sub-estimator is still a regressor, not a classifier. This is because the sub-estimators are trained to predict (negative) *gradients*, which are always continuous quantities."
-msgstr ""
+msgstr "Tenga en cuenta que incluso para una tarea de clasificación, el sub-estimador :math:`h_m` sigue siendo un regresor, no un clasificador. Esto es debido a que los sub-estimadores estan entrenados para predecir *gradientes* (negativos), los cuales siempre son cantidades continuas."
 
 #: ../modules/ensemble.rst:737
 msgid "Loss Functions"
-msgstr ""
+msgstr "Funciones de pérdida"
 
 #: ../modules/ensemble.rst:739
 msgid "The following loss functions are supported and can be specified using the parameter ``loss``:"
-msgstr ""
+msgstr "Las siguientes funciones de pérdida son soportadas y se pueden especificar usando el parámetro ``loss``:"
 
 #: ../modules/ensemble.rst:744
 msgid "Least squares (``'ls'``): The natural choice for regression due to its superior computational properties. The initial model is given by the mean of the target values."
-msgstr ""
+msgstr "Mínimos cuadrados (``'ls'``): La elección natural para la regresión debido a sus propiedades computacionales superiores. El modelo inicial es dado por la media de los valores objetivo."
 
 #: ../modules/ensemble.rst:747
 msgid "Least absolute deviation (``'lad'``): A robust loss function for regression. The initial model is given by the median of the target values."
-msgstr ""
+msgstr "Menor desviación absoluta (``'lad'``): Una función de pérdida robusta para la regresión. El modelo inicial es dado por la mediana de los valores objetivo."
 
 #: ../modules/ensemble.rst:750
 msgid "Huber (``'huber'``): Another robust loss function that combines least squares and least absolute deviation; use ``alpha`` to control the sensitivity with regards to outliers (see [F2001]_ for more details)."
-msgstr ""
+msgstr "Huber (``'huber'``): Otra función de pérdida robusta que combina mínimos cuadrados y menor desviación absoluta; utilice ``alpha`` para controlar la sensibilidad con respecto a los valores atípicos (ver [F2001]_ para más detalles)."
 
 #: ../modules/ensemble.rst:754
 msgid "Quantile (``'quantile'``): A loss function for quantile regression. Use ``0 < alpha < 1`` to specify the quantile. This loss function can be used to create prediction intervals (see :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_quantile.py`)."
-msgstr ""
+msgstr "Quantile (``'quantile'``): Una función de pérdida para regresión de cuantiles. Utilice ``0 < alfa < 1`` para especificar el cuantil. Esta función de pérdida puede utilizarse para crear intervalos de predicción (ver :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_quantile.py`)."
 
 #: ../modules/ensemble.rst:761
 msgid "Binomial deviance (``'deviance'``): The negative binomial log-likelihood loss function for binary classification (provides probability estimates).  The initial model is given by the log odds-ratio."
-msgstr ""
+msgstr "Desviación binomial (``'deviance'``): La función de pérdida del logaritmo de la verosimilitud binomial negativa para la clasificación binaria (provee estimaciones de probabilidad). El modelo inicial viene dado por el logaritmo de la razón de probabilidades."
 
 #: ../modules/ensemble.rst:765
 msgid "Multinomial deviance (``'deviance'``): The negative multinomial log-likelihood loss function for multi-class classification with ``n_classes`` mutually exclusive classes. It provides probability estimates.  The initial model is given by the prior probability of each class. At each iteration ``n_classes`` regression trees have to be constructed which makes GBRT rather inefficient for data sets with a large number of classes."
-msgstr ""
+msgstr "Desviación multinomial (``'deviance'``): La función de pérdida del logaritmo de la verosimilitud multinomial negativa para clasificación multiclase con ``n_classes`` clases mutuamente exclusivas. Proporciona estimaciones de probabilidad. El modelo inicial está dado por la probabilidad a priori de cada clase. En cada iteración ``n_classes`` los árboles de regresión deben ser construidos, lo que hace que GBRT sea algo ineficiente para conjuntos de datos con un gran número de clases."
 
 #: ../modules/ensemble.rst:772
 msgid "Exponential loss (``'exponential'``): The same loss function as :class:`AdaBoostClassifier`. Less robust to mislabeled examples than ``'deviance'``; can only be used for binary classification."
-msgstr ""
+msgstr "Pérdida exponencial (``'exponential'``): La misma función de perdida que :class:`AdaBoostClassifier`. Menos robusta para los ejemplos mal etiquetados que ``'deviance'``, solo puede ser usada para la clasificación binaria."
 
 #: ../modules/ensemble.rst:780
 msgid "Shrinkage via learning rate"
-msgstr ""
+msgstr "Reducción a través de la tasa de aprendizaje"
 
 #: ../modules/ensemble.rst:782
 msgid "[F2001]_ proposed a simple regularization strategy that scales the contribution of each weak learner by a constant factor :math:`\\nu`:"
-msgstr ""
+msgstr "[F2001]_ propuso una sencilla estrategia de regularización que escala la contribución de cada aprendiz débil por un factor constante :math:`\\nu`:"
 
 #: ../modules/ensemble.rst:785
 msgid "F_m(x) = F_{m-1}(x) + \\nu h_m(x)"
-msgstr ""
+msgstr "F_m(x) = F_{m-1}(x) + \\nu h_m(x)"
 
 #: ../modules/ensemble.rst:789
 msgid "The parameter :math:`\\nu` is also called the **learning rate** because it scales the step length the gradient descent procedure; it can be set via the ``learning_rate`` parameter."
-msgstr ""
+msgstr "El parámetro :math:`\\nu` es también llamado la **tasa de aprendizaje** porque escala la longitud de paso del procedimiento de descenso de gradiente; se puede establecer a través del parámetro ``learning_rate``."
 
 #: ../modules/ensemble.rst:793
 msgid "The parameter ``learning_rate`` strongly interacts with the parameter ``n_estimators``, the number of weak learners to fit. Smaller values of ``learning_rate`` require larger numbers of weak learners to maintain a constant training error. Empirical evidence suggests that small values of ``learning_rate`` favor better test error. [HTF]_ recommend to set the learning rate to a small constant (e.g. ``learning_rate <= 0.1``) and choose ``n_estimators`` by early stopping. For a more detailed discussion of the interaction between ``learning_rate`` and ``n_estimators`` see [R2007]_."
-msgstr ""
+msgstr "El parámetro ``learning_rate`` interactúa fuertemente con el parámetro ``n_estimators``, el número de algoritmos de aprendizaje débiles a ajustar. Valores mas pequeños de ``learning_rate`` requieren de grandes números de algoritmos de aprendizaje débiles para mantener un error de entrenamiento constante. La evidencia empírica sugiere que valores pequeños de ``learning_rate`` favorecen un mejor error de pruebas. [HTF]_ recomiendan establecer la tasa de aprendizaje en una constante pequeña (por ejemplo, ``learning_rate <= 0.1``), y escoger ``n_estimators`` mediante una parada anticipada. Para una discusión mas detallada de la interacción entre ``learning_rate`` y ``n_estimators`` consulta [R2007]_."
 
 #: ../modules/ensemble.rst:804
 msgid "Subsampling"
-msgstr ""
+msgstr "Submuestreo"
 
 #: ../modules/ensemble.rst:806
 msgid "[F1999]_ proposed stochastic gradient boosting, which combines gradient boosting with bootstrap averaging (bagging). At each iteration the base classifier is trained on a fraction ``subsample`` of the available training data. The subsample is drawn without replacement. A typical value of ``subsample`` is 0.5."
-msgstr ""
+msgstr "[F1999]_ propone boosting por gradiente estocástico, lo cual combina el boosting por gradiente con el promediado de bootstrap (bagging). En cada iteración el clasificador base es entrenado en una fracción ``subsamples`` de los datos de entrenamiento disponibles. La submuestra es escogida sin reemplazo. Un valor típico de ``subsamples`` es 0.5."
 
 #: ../modules/ensemble.rst:812
 msgid "The figure below illustrates the effect of shrinkage and subsampling on the goodness-of-fit of the model. We can clearly see that shrinkage outperforms no-shrinkage. Subsampling with shrinkage can further increase the accuracy of the model. Subsampling without shrinkage, on the other hand, does poorly."
-msgstr ""
+msgstr "La figura a continuación ilustra el efecto de la reducción y el submuestreo sobre la calidad del ajuste del modelo. Podemos ver claramente que el rendimiento es mayor con reducción que sín reducción. El submuestreo con reducción puede aumentar aún mas la precisión del modelo. Sin embargo, el submuestreo sín reducción tiene un resultado pobre."
 
 #: ../modules/ensemble.rst:823
 msgid "Another strategy to reduce the variance is by subsampling the features analogous to the random splits in :class:`RandomForestClassifier` . The number of subsampled features can be controlled via the ``max_features`` parameter."
-msgstr ""
+msgstr "Otra estrategia para reducir la varianza es mediante el submuestreo de las características análogas a las divisiones aleatorias en :class:`RandomForestClassifier` . El número de características submuestreadas puede ser controlado mediante el parámetro ``max_features``."
 
 #: ../modules/ensemble.rst:828
 msgid "Using a small ``max_features`` value can significantly decrease the runtime."
-msgstr ""
+msgstr "Usar un valor ``max_features`` pequeño puede reducir significativamente el tiempo de ejecución."
 
 #: ../modules/ensemble.rst:830
 msgid "Stochastic gradient boosting allows to compute out-of-bag estimates of the test deviance by computing the improvement in deviance on the examples that are not included in the bootstrap sample (i.e. the out-of-bag examples). The improvements are stored in the attribute :attr:`~GradientBoostingRegressor.oob_improvement_`. ``oob_improvement_[i]`` holds the improvement in terms of the loss on the OOB samples if you add the i-th stage to the current predictions. Out-of-bag estimates can be used for model selection, for example to determine the optimal number of iterations. OOB estimates are usually very pessimistic thus we recommend to use cross-validation instead and only use OOB if cross-validation is too time consuming."
-msgstr ""
+msgstr "El boosting por gradiente stocástico permite la computación de estimados fuera-de-bolsa de la desviación prueba mediante el calculo de la mejore en desviación de los ejemplos que no son incluidos en la muestra de bootstrap (es decir, los ejemplos fuera-de-bolsa). Las mejoras son almacenadas en el atributo :attr:`~GradientBoostingRegressor.oob_improvement_`. ``oob_improvement_[i]`` guarda la mejora en terminos de la pérdida en las muestras fuera-de-bolsa (OOB) si añades la i-ésima etapa a las predicciones actuales. Los estimados fuera-de-bolsa pueden ser utilizados para la selección de modelos, por ejemplo, para determinar el número de iteraciones original. Los estimados OOB suelen ser bastante pesimistas, por lo que recomendamos recurrir a ella solamente si la validación cruzada utiliza demasiado tiempo."
 
 #: ../modules/ensemble.rst:844
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_regularization.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_regularization.py`"
 
 #: ../modules/ensemble.rst:846
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_ensemble_oob.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_ensemble_oob.py`"
 
 #: ../modules/ensemble.rst:849
 msgid "Interpretation with feature importance"
-msgstr ""
+msgstr "Interpretación con importancia de característica"
 
 #: ../modules/ensemble.rst:851
 msgid "Individual decision trees can be interpreted easily by simply visualizing the tree structure. Gradient boosting models, however, comprise hundreds of regression trees thus they cannot be easily interpreted by visual inspection of the individual trees. Fortunately, a number of techniques have been proposed to summarize and interpret gradient boosting models."
-msgstr ""
+msgstr "Los árboles de decisión individuales se pueden interpretar fácilmente si se visualiza la estructura del árbol. Los modelos de boosting por gradiente, sin embargo, comprenden cientos de árboles de regresión, por lo que no pueden ser fácilmente interpretados por inspección visual de los árboles individuales. Afortunadamente, una diversidad de técnicas han sido propuestas para resumir e interpretar modelos de boosting por gradiente."
 
 #: ../modules/ensemble.rst:858
 msgid "Often features do not contribute equally to predict the target response; in many situations the majority of the features are in fact irrelevant. When interpreting a model, the first question usually is: what are those important features and how do they contributing in predicting the target response?"
-msgstr ""
+msgstr "A menudo las características no contribuyen de manera equitativa para predecir la respuesta objetivo; en muchas situaciones la mayoría de las características, son de hecho irrelevantes. Cuando se interpreta un modelo, la primera pregunta suele ser: ¿cuáles son estas características importantes? y ¿cómo contribuyen a predecir la respuesta objetivo?"
 
 #: ../modules/ensemble.rst:865
 msgid "Individual decision trees intrinsically perform feature selection by selecting appropriate split points. This information can be used to measure the importance of each feature; the basic idea is: the more often a feature is used in the split points of a tree the more important that feature is. This notion of importance can be extended to decision tree ensembles by simply averaging the impurity-based feature importance of each tree (see :ref:`random_forest_feature_importance` for more details)."
-msgstr ""
+msgstr "Los árboles de decisión individuales realizan de manera intrínseca una selección de características al elegir puntos de división apropiados. Esta información puede ser utilizada para medir la importancia de cada característica; la idea fundamental es: mientras mas seguido se utilice una característica en los puntos de división de un árbol mas importante sera esta característica. Esta noción de importancia puede ser extendida a los conjuntos de árboles de decisión si simplemente se promedia la importancia de característica basadas en la impureza de cada árbol (see :ref:`random_forest_feature_importance` for more details)."
 
 #: ../modules/ensemble.rst:873
 msgid "The feature importance scores of a fit gradient boosting model can be accessed via the ``feature_importances_`` property::"
-msgstr ""
+msgstr "Los puntajes de importancia de característica de un modelo de boosting por gradientes ya ajustado puede ser accedido mediante la propiedad ``feature_importances_``::"
 
 #: ../modules/ensemble.rst:885
 msgid "Note that this computation of feature importance is based on entropy, and it is distinct from :func:`sklearn.inspection.permutation_importance` which is based on permutation of the features."
-msgstr ""
+msgstr "Ten en cuenta que este cálculo de la importancia de características está basado en la entropía, y es distinto a :func:`sklearn.inspection.permutation_importance` el cual está basado en la permutación de las características."
 
 #: ../modules/ensemble.rst:896
 msgid "Histogram-Based Gradient Boosting"
-msgstr ""
+msgstr "Boosting por gradientes basado en Histogramas"
 
 #: ../modules/ensemble.rst:898
 msgid "Scikit-learn 0.21 introduced two new experimental implementations of gradient boosting trees, namely :class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor`, inspired by `LightGBM <https://github.com/Microsoft/LightGBM>`__ (See [LightGBM]_)."
-msgstr ""
+msgstr "Scikit-learn 0.21 introduce dos nuevas implementaciones experimentales de árboles de boosting por gradientes, :class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor`, inspirado por `LightGBM <https://github.com/Microsoft/LightGBM>`__ (Ver [LightGBM]_)."
 
 #: ../modules/ensemble.rst:911
 msgid "These fast estimators first bin the input samples ``X`` into integer-valued bins (typically 256 bins) which tremendously reduces the number of splitting points to consider, and allows the algorithm to leverage integer-based data structures (histograms) instead of relying on sorted continuous values when building the trees. The API of these estimators is slightly different, and some of the features from :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor` are not yet supported, for instance some loss functions."
-msgstr ""
+msgstr "Estos estimadores rápidos primero recolectan las muestras de entrada ``X`` en intervalos de valores enteros (usualmente 256 intervalos) lo cual reduce tremendamente el número de puntos de división a considerar, y permite al algoritmo aprovechar estructuras de datos basadas en enteros (histogramas) en lugar de confiar en valores continuos ordenados cuando se construyen los árboles. La API de estos estimadores es ligeramente distinto, y algunas de las funciones de :class:`GradientBoostingClassifier` y :class:`GradientBoostingRegressor` aún no son soportadas, por ejemplo algunas funciones de pérdida."
 
 #: ../modules/ensemble.rst:920
 msgid "These estimators are still **experimental**: their predictions and their API might change without any deprecation cycle. To use them, you need to explicitly import ``enable_hist_gradient_boosting``::"
-msgstr ""
+msgstr "Estos estimadores aún son **experimentales**: sus predicciones y su API quizás tengan que cambiar sin ningún ciclo de obsolescencia. Para utilizarlas, tienes que importar de manera explicita ``enable_hist_gradient_boosting``::"
 
 #: ../modules/ensemble.rst:931
 msgid ":ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`"
 
 #: ../modules/ensemble.rst:936
 msgid "Most of the parameters are unchanged from :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`. One exception is the ``max_iter`` parameter that replaces ``n_estimators``, and controls the number of iterations of the boosting process::"
-msgstr ""
+msgstr "La mayoría de los parámetros no cambian de :class:`GradientBoostingClassifier` y :class:`GradientBoostingRegressor`. Una excepción es el parámetro ``max_iter`` que sustituye a ``n_estimators``, y controla el número de iteraciones del proceso de boosting::"
 
 #: ../modules/ensemble.rst:953
 msgid "Available losses for regression are 'least_squares', 'least_absolute_deviation', which is less sensitive to outliers, and 'poisson', which is well suited to model counts and frequencies. For classification, 'binary_crossentropy' is used for binary classification and 'categorical_crossentropy' is used for multiclass classification. By default the loss is 'auto' and will select the appropriate loss depending on :term:`y` passed to :term:`fit`."
-msgstr ""
+msgstr "Las pérdidas disponibles para la regresión son 'least_squares', 'least_absolute_deviation', que es menos sensible a los valores atípicos, y 'poisson', que se adapta bien a las cuentas de modelos y frecuencias. Para la clasificación, 'binary_crossentropy' se utiliza para la clasificación binaria y 'categorical_crossentropy' se utiliza para la clasificación multiclase. Por defecto, la pérdida es 'auto' y seleccionará la pérdida apropiada dependiendo de :term:`y` pasado a :term:`fit`."
 
 #: ../modules/ensemble.rst:961
 msgid "The size of the trees can be controlled through the ``max_leaf_nodes``, ``max_depth``, and ``min_samples_leaf`` parameters."
-msgstr ""
+msgstr "El tamaño de los árboles puede controlarse a través de los parámetros ``max_leaf_nodes``, ``max_depth``, y ``min_samples_leaf``."
 
 #: ../modules/ensemble.rst:964
 msgid "The number of bins used to bin the data is controlled with the ``max_bins`` parameter. Using less bins acts as a form of regularization. It is generally recommended to use as many bins as possible, which is the default."
-msgstr ""
+msgstr "El número de contenedores usados para recolectar los datos se controla con el parámetro ``max_bins``. Usar menos contenedores actúa como una forma de regularización. Generalmente se recomienda utilizar el mayor número posible de contenedores, el cual es el valor predeterminado."
 
 #: ../modules/ensemble.rst:968
 msgid "The ``l2_regularization`` parameter is a regularizer on the loss function and corresponds to :math:`\\lambda` in equation (2) of [XGBoost]_."
-msgstr ""
+msgstr "El parámetro ``l2_regularization`` es un regularizador en la función de pérdida y corresponde a :math:`\\lambda` en la ecuación (2) de [XGBoost]_."
 
 #: ../modules/ensemble.rst:971
 msgid "Note that **early-stopping is enabled by default if the number of samples is larger than 10,000**. The early-stopping behaviour is controlled via the ``early-stopping``, ``scoring``, ``validation_fraction``, ``n_iter_no_change``, and ``tol`` parameters. It is possible to early-stop using an arbitrary :term:`scorer`, or just the training or validation loss. Note that for technical reasons, using a scorer is significantly slower than using the loss. By default, early-stopping is performed if there are at least 10,000 samples in the training set, using the validation loss."
-msgstr ""
+msgstr "Ten en cuenta que **el parado temprano esta habilitado por defecto si el número de muestras es mayor que 10,000**. El comportamiento del parado temprano es controlado mediante los parámetros ``validation_fraction``, ``n_iter_no_change``, y ``tol``. Es posible parar temprano usando un :term:`scorer` arbitrario, o simplemente la perdida de entrenamiento o validación. Sin embargo, por razones técnicas, usar un scorer es significativamente mas lento que utilizar la perdida. Por defecto, se utiliza el parado temprano si hay por lo menos 10,000 muestras en el conjunto de entrenamiento, utilizando la pérdida por validación."
 
 #: ../modules/ensemble.rst:981
 msgid "Missing values support"
-msgstr ""
+msgstr "Soporte para valores faltantes"
 
 #: ../modules/ensemble.rst:983
 msgid ":class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor` have built-in support for missing values (NaNs)."
-msgstr ""
+msgstr ":class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor` tienen soporte integrado para valores faltantes (NaNs)."
 
 #: ../modules/ensemble.rst:987
 msgid "During training, the tree grower learns at each split point whether samples with missing values should go to the left or right child, based on the potential gain. When predicting, samples with missing values are assigned to the left or right child consequently::"
-msgstr ""
+msgstr "Durante el entrenamiento, el cultivador de árboles aprende en cada punto de división si las muestras con valores faltantes deberían ir al hijo de la izquierda o la derecha, basado en la ganancia potencial. Cuando se realiza la predicción, las muestras con valores faltantes son asignadas consecuentemente al hijo de la izquierda o la derecha::"
 
 #: ../modules/ensemble.rst:1003
 msgid "When the missingness pattern is predictive, the splits can be done on whether the feature value is missing or not::"
-msgstr ""
+msgstr "Cuando el patrón de falta es predictivo, las divisiones pueden ser realizadas dependiendo sí falta el valor de característica o no::"
 
 #: ../modules/ensemble.rst:1015
 msgid "If no missing values were encountered for a given feature during training, then samples with missing values are mapped to whichever child has the most samples."
-msgstr ""
+msgstr "Si no se encontraron valores faltantes para una característica determinada durante el entrenamiento, entonces las muestras con valores faltantes se mapean al hijo que tenga más muestras."
 
 #: ../modules/ensemble.rst:1022
 msgid "Sample weight support"
-msgstr ""
+msgstr "Soporte para ponderado de muestras"
 
 #: ../modules/ensemble.rst:1024
 msgid ":class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor` sample support weights during :term:`fit`."
-msgstr ""
+msgstr ":class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor` soportan ponderados durante :term:`fit`."
 
 #: ../modules/ensemble.rst:1028
 msgid "The following toy example demonstrates how the model ignores the samples with zero sample weights:"
-msgstr ""
+msgstr "El siguiente ejemplo de juguete demuestra cómo el modelo ignora las muestras con cero ponderado de muestra:"
 
 #: ../modules/ensemble.rst:1046
 msgid "As you can see, the `[1, 0]` is comfortably classified as `1` since the first two samples are ignored due to their sample weights."
-msgstr ""
+msgstr "Como puedes ver, el `[1, 0]` se clasifica cómodamente como `1` ya que las dos primeras muestras son ignoradas debido a sus ponderados de muestra."
 
 #: ../modules/ensemble.rst:1049
 msgid "Implementation detail: taking sample weights into account amounts to multiplying the gradients (and the hessians) by the sample weights. Note that the binning stage (specifically the quantiles computation) does not take the weights into account."
-msgstr ""
+msgstr "Detalle de la implementación: tomar en cuenta los ponderados de las muestras equivale a multiplicar los gradientes (y los hessians) por los ponderados de las muestras. Note que la etapa de binning (específicamente el cálculo de cuantías) no toma en cuenta los ponderados."
 
 #: ../modules/ensemble.rst:1057
 msgid "Categorical Features Support"
-msgstr ""
+msgstr "Soporte de características categóricas"
 
 #: ../modules/ensemble.rst:1059
 msgid ":class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor` have native support for categorical features: they can consider splits on non-ordered, categorical data."
-msgstr ""
+msgstr ":class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor` tienen soporte nativo para características categóricas: las dos pueden considerar divisiones en datos categóricos no ordenados."
 
 #: ../modules/ensemble.rst:1063
 msgid "For datasets with categorical features, using the native categorical support is often better than relying on one-hot encoding (:class:`~sklearn.preprocessing.OneHotEncoder`), because one-hot encoding requires more tree depth to achieve equivalent splits. It is also usually better to rely on the native categorical support rather than to treat categorical features as continuous (ordinal), which happens for ordinal-encoded categorical data, since categories are nominal quantities where order does not matter."
-msgstr ""
+msgstr "Para conjuntos de datos con características categóricas, usar el soporte nativo categórico suele ser mejor que depender de la codificación one-hot (:class:`~sklearn.preprocessing.OneHotEncoder`), ya que la codificación one-hot requiere más profundidad del árbol para obtener divisiones equivalentes. También generalmente es mejor depender en el soporte categórico nativo que tomar las características categóricas como continuas (ordinal), lo cual ocurre para datos categóricos codificados en ordinal, ya que las categorías son cantidades nominales donde el orden no importa."
 
 #: ../modules/ensemble.rst:1072
 msgid "To enable categorical support, a boolean mask can be passed to the `categorical_features` parameter, indicating which feature is categorical. In the following, the first feature will be treated as categorical and the second feature as numerical::"
-msgstr ""
+msgstr "Para activar el soporte categórico, se puede pasar una máscara booleana al parámetro `categorical_features`, indicando qué característica es categórica. En lo siguiente, la primera característica será tomada como categórica y la segunda característica como numérica::"
 
 #: ../modules/ensemble.rst:1079
 msgid "Equivalently, one can pass a list of integers indicating the indices of the categorical features::"
-msgstr ""
+msgstr "Equivalentemente, uno puede pasar una lista de enteros indicando los índices de las características categóricas::"
 
 #: ../modules/ensemble.rst:1084
 msgid "The cardinality of each categorical feature should be less than the `max_bins` parameter, and each categorical feature is expected to be encoded in `[0, max_bins - 1]`. To that end, it might be useful to pre-process the data with an :class:`~sklearn.preprocessing.OrdinalEncoder` as done in :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`."
-msgstr ""
+msgstr "La cardinalidad de cada característica categórica debe ser menor que el parámetro `max_bins`, y se espera que cada característica categórica este codificada en `[0, max_bins - 1]`. Para este fin, quizás sea útil pre-procesar los datos con un :class:`~sklearn.preprocessing.OrdinalEncoder` como se hace en :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`."
 
 #: ../modules/ensemble.rst:1090
 msgid "If there are missing values during training, the missing values will be treated as a proper category. If there are no missing values during training, then at prediction time, missing values are mapped to the child node that has the most samples (just like for continuous features). When predicting, categories that were not seen during fit time will be treated as missing values."
-msgstr ""
+msgstr "Si hay valores faltantes durante el entrenamiento, estos serán tratados como una categoría adecuada. Si no hay valores faltantes durante el entrenamiento, entonces en el tiempo de predicción, los valores faltantes son mapeados al nodo hijo que tenga el mayor número de muestras (igual que en la características continuas). Durante la predicción, las categorías que no fueron vistas durante el tiempo de ajuste serán tratadas como valores faltantes."
 
 #: ../modules/ensemble.rst:1097
 msgid "**Split finding with categorical features**: The canonical way of considering categorical splits in a tree is to consider all of the :math:`2^{K - 1} - 1` partitions, where :math:`K` is the number of categories. This can quickly become prohibitive when :math:`K` is large. Fortunately, since gradient boosting trees are always regression trees (even for classification problems), there exist a faster strategy that can yield equivalent splits. First, the categories of a feature are sorted according to the variance of the target, for each category `k`. Once the categories are sorted, one can consider *continuous partitions*, i.e. treat the categories as if they were ordered continuous values (see Fisher [Fisher1958]_ for a formal proof). As a result, only :math:`K - 1` splits need to be considered instead of :math:`2^{K - 1} - 1`. The initial sorting is a :math:`\\mathcal{O}(K \\log(K))` operation, leading to a total complexity of :math:`\\mathcal{O}(K \\log(K) + K)`, instead of :math:`\\mathcal{O}(2^K)`."
-msgstr ""
+msgstr "**Búsqueda de divisiones con características categóricas**: La manera canónica de considerar divisiones categóricas en un árbol es considerar todas las particiones :math:`2^{K - 1} - 1`, donde :math:`K` es el número de categorías. Esto puede volverse prohibitivo rápidamente si :math:`K` es grande. Afortunadamente, ya que los árboles de potenciación de gradiente son siempre árboles de regresión (incluso para problemas de clasificación), existe una estrategia más rápida que puede dar divisiones equivalentes. Primero, las categorías de una característica son ordenadas de acuerdo a la varianza del objetivo, por cada categoría `k`. Después de que las categorías sean ordenadas, uno puede considerar *particiones continuas*, es decir, tratar las categorías como si fueran valores continuos ordenados (ver Fisher [Fisher1958]_ para una prueba formal). Como resultado, solo :math:`K - 1` divisiones deben ser consideradas en lugar de :math:`2^{K - 1} - 1`. El sorteo inicial es una operación :math:`\\mathcal{O}(K \\log(K))`, lo cual lleva a una complejidad total de :math:`\\mathcal{O}(K \\log(K) + K)`, en lugar de :math:`\\mathcal{O}(2^K)`."
 
 #: ../modules/ensemble.rst:1114
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`"
 
 #: ../modules/ensemble.rst:1119
 msgid "Monotonic Constraints"
-msgstr ""
+msgstr "Restricciones monotónicas"
 
 #: ../modules/ensemble.rst:1121
 msgid "Depending on the problem at hand, you may have prior knowledge indicating that a given feature should in general have a positive (or negative) effect on the target value. For example, all else being equal, a higher credit score should increase the probability of getting approved for a loan. Monotonic constraints allow you to incorporate such prior knowledge into the model."
-msgstr ""
+msgstr "Dependiendo del problema en cuestión, quizás tengas conocimientos previos indicando que una característica particular debería tener, por lo general, un efecto positivo (o negativo) en el valor objetivo. Por ejemplo, si todo lo demás es igual, una mayor calificación de solvencia debería incrementar la probabilidad de que se apruebe un préstamo. Las restricciones monotónicas te permiten incorporar estos conocimientos previos dentro del modelo."
 
 #: ../modules/ensemble.rst:1128
 msgid "A positive monotonic constraint is a constraint of the form:"
-msgstr ""
+msgstr "Una restricción monotónica positiva es una restricción de la forma:"
 
 #: ../modules/ensemble.rst:1130
 msgid ":math:`x_1 \\leq x_1' \\implies F(x_1, x_2) \\leq F(x_1', x_2)`, where :math:`F` is the predictor with two features."
-msgstr ""
+msgstr ":math:`x_1 \\leq x_1' \\implies F(x_1, x_2) \\leq F(x_1', x_2)`, donde :math:`F` es el predictor con dos características."
 
 #: ../modules/ensemble.rst:1133
 msgid "Similarly, a negative monotonic constraint is of the form:"
-msgstr ""
+msgstr "De la misma manera, una restricción monotónica negativa es de la forma:"
 
 #: ../modules/ensemble.rst:1135
 msgid ":math:`x_1 \\leq x_1' \\implies F(x_1, x_2) \\geq F(x_1', x_2)`."
-msgstr ""
+msgstr ":math:`x_1 \\leq x_1' \\\\implies F(x_1, x_2) \\\\geq F(x_1', x_2)`."
 
 #: ../modules/ensemble.rst:1137
 msgid "Note that monotonic constraints only constraint the output \"all else being equal\". Indeed, the following relation **is not enforced** by a positive constraint: :math:`x_1 \\leq x_1' \\implies F(x_1, x_2) \\leq F(x_1', x_2')`."
-msgstr ""
+msgstr "Tenga en cuenta que las restricciones monotónicas solo restringen la salida \"todo lo demás siendo igual\". En efecto, la siguiente relación **no es forzada** por una restricción positiva: :math:`x_1 \\leq x_1' \\implies F(x_1, x_2) \\leq F(x_1', x_2')`."
 
 #: ../modules/ensemble.rst:1141
 msgid "You can specify a monotonic constraint on each feature using the `monotonic_cst` parameter. For each feature, a value of 0 indicates no constraint, while -1 and 1 indicate a negative and positive constraint, respectively::"
-msgstr ""
+msgstr "Puedes especificar una restricción monotónica en cada característica usando el parámetro `monotonic_cst`. Para cada característica, un valor de 0 indica que no hay ninguna restricción, mientras que -1 y 1 indica una restricción negativa y positiva, respectivamente::"
 
 #: ../modules/ensemble.rst:1152
 msgid "In a binary classification context, imposing a monotonic constraint means that the feature is supposed to have a positive / negative effect on the probability to belong to the positive class. Monotonic constraints are not supported for multiclass context."
-msgstr ""
+msgstr "En el contexto de una clasificación binaria, imponer una restricción monotónica significa que la característica debe tener un efecto positivo / negativo en la probabilidad de pertenecer a la clase positiva. Las restricciones monotónicas no están soportadas en un contexto multiclase."
 
 #: ../modules/ensemble.rst:1158
 msgid "Since categories are unordered quantities, it is not possible to enforce monotonic constraints on categorical features."
-msgstr ""
+msgstr "Ya que las categorías son cantidades no ordenadas, no es posible imponer restricciones monotónicas sobre características categóricas."
 
 #: ../modules/ensemble.rst:1163
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_monotonic_constraints.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_monotonic_constraints.py`"
 
 #: ../modules/ensemble.rst:1166
 msgid "Low-level parallelism"
-msgstr ""
+msgstr "Paralelismo de bajo nivel"
 
 #: ../modules/ensemble.rst:1168
 msgid ":class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor` have implementations that use OpenMP for parallelization through Cython. For more details on how to control the number of threads, please refer to our :ref:`parallelism` notes."
-msgstr ""
+msgstr ":class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor` tienen implementaciones que usan OpenMP para la paralelización a través de Cython. Para más detalles sobre cómo controlar el número de hilos, por favor consulte nuestras notas de :ref:`parallelism`."
 
 #: ../modules/ensemble.rst:1173
 msgid "The following parts are parallelized:"
-msgstr ""
+msgstr "Las siguientes partes son paralelizadas:"
 
 #: ../modules/ensemble.rst:1175
 msgid "mapping samples from real values to integer-valued bins (finding the bin thresholds is however sequential)"
-msgstr ""
+msgstr "el mapeado de muestras desde valores reales a contenedores de valores enteros (sin embargo, encontrar los umbrales de los contenedores es secuencial)"
 
 #: ../modules/ensemble.rst:1177
 msgid "building histograms is parallelized over features"
-msgstr ""
+msgstr "la construcción de histogramas está paralelizada sobre características"
 
 #: ../modules/ensemble.rst:1178
 msgid "finding the best split point at a node is parallelized over features"
-msgstr ""
+msgstr "la búsqueda del mejor punto de división en un nodo es paralelizado sobre características"
 
 #: ../modules/ensemble.rst:1179
 msgid "during fit, mapping samples into the left and right children is parallelized over samples"
-msgstr ""
+msgstr "durante el ajuste, el mapeo de muestras a los hijos de izquierda y derecha es paralelizado sobre muestras"
 
 #: ../modules/ensemble.rst:1181
 msgid "gradient and hessians computations are parallelized over samples"
-msgstr ""
+msgstr "los cálculos de gradiente y hessians son paralelizados sobre muestras"
 
 #: ../modules/ensemble.rst:1182
 msgid "predicting is parallelized over samples"
-msgstr ""
+msgstr "la predicción es paralelizada sobre muestras"
 
 #: ../modules/ensemble.rst:1185
 msgid "Why it's faster"
-msgstr ""
+msgstr "Porqué es más rápido"
 
 #: ../modules/ensemble.rst:1187
 msgid "The bottleneck of a gradient boosting procedure is building the decision trees. Building a traditional decision tree (as in the other GBDTs :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`) requires sorting the samples at each node (for each feature). Sorting is needed so that the potential gain of a split point can be computed efficiently. Splitting a single node has thus a complexity of :math:`\\mathcal{O}(n_\\text{features} \\times n \\log(n))` where :math:`n` is the number of samples at the node."
-msgstr ""
+msgstr "El cuello de botella de un procedimiento de boosting por gradientes es la construcción de los árboles de decisión. Construir un árbol de decisión tradicional (como en los otros GBDT, :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`) requiere ordenar las muestras en cada nodo (por cada característica). Es necesario ordenar para que cada aumento potencial de un punto de división pueda ser calculado eficientemente. Dividir un único nodo tiene entonces una complejidad de :math:`\\mathcal{O}(n_\\text{features} \\times n \\log(n))` donde :math:`n` es el número de muestras en el nodo."
 
 #: ../modules/ensemble.rst:1196
 msgid ":class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor`, in contrast, do not require sorting the feature values and instead use a data-structure called a histogram, where the samples are implicitly ordered. Building a histogram has a :math:`\\mathcal{O}(n)` complexity, so the node splitting procedure has a :math:`\\mathcal{O}(n_\\text{features} \\times n)` complexity, much smaller than the previous one. In addition, instead of considering :math:`n` split points, we here consider only ``max_bins`` split points, which is much smaller."
-msgstr ""
+msgstr ":class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor`, en contraste, no requieren ordenar los valores de las características y en su lugar usar una estructura de datos llamada histograma, donde las muestras están ordenadas implícitamente. Construir un histograma tiene una complejidad :math:`\\mathcal{O}(n)`, así que el procedimiento de división del nodo tiene una complejidad de :math:`\\mathcal{O}(n_\\text{features} \\times n)`, mucho más pequeño que el anterior. Además, en lugar de considerar :math:`n` puntos divididos, aquí consideramos sólo ``max_bins`` puntos de división, que es mucho más pequeño."
 
 #: ../modules/ensemble.rst:1206
 msgid "In order to build histograms, the input data `X` needs to be binned into integer-valued bins. This binning procedure does require sorting the feature values, but it only happens once at the very beginning of the boosting process (not at each node, like in :class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`)."
-msgstr ""
+msgstr "Para construir histogramas, los datos de entrada `X` necesitan ser recolectados en contenedores de valores enteros. Este procedimiento de binning si requiere ordenar los valores de característica, pero sólo ocurre una vez al principio del proceso de boosting (no en cada nodo, como en :class:`GradientBoostingClassifier` y :class:`GradientBoostingRegressor`)."
 
 #: ../modules/ensemble.rst:1212
 msgid "Finally, many parts of the implementation of :class:`HistGradientBoostingClassifier` and :class:`HistGradientBoostingRegressor` are parallelized."
-msgstr ""
+msgstr "Finalmente, muchas partes de la implementación de :class:`HistGradientBoostingClassifier` y :class:`HistGradientBoostingRegressor` son paralelizadas."
 
 #: ../modules/ensemble.rst:1218
 msgid "Friedmann, Jerome H., 2007, `\"Stochastic Gradient Boosting\" <https://statweb.stanford.edu/~jhf/ftp/stobst.pdf>`_"
-msgstr ""
+msgstr "Friedmann, Jerome H., 2007, `\"Stochastic Gradient Boosting\" <https://statweb.stanford.edu/~jhf/ftp/stobst.pdf>`_"
 
 #: ../modules/ensemble.rst:1220
 msgid "G. Ridgeway, \"Generalized Boosted Models: A guide to the gbm package\", 2007"
-msgstr ""
+msgstr "G. Ridgeway, \"Generalized Boosted Models: A guide to the gbm package\", 2007"
 
 #: ../modules/ensemble.rst:1222
 msgid "Tianqi Chen, Carlos Guestrin, `\"XGBoost: A Scalable Tree Boosting System\" <https://arxiv.org/abs/1603.02754>`_"
-msgstr ""
+msgstr "Tianqi Chen, Carlos Guestrin, `\"XGBoost: A Scalable Tree Boosting System\" <https://arxiv.org/abs/1603.02754>`_"
 
 #: ../modules/ensemble.rst:1224
 msgid "Ke et. al. `\"LightGBM: A Highly Efficient Gradient BoostingDecision Tree\" <https://papers.nips.cc/paper/ 6907-lightgbm-a-highly-efficient-gradient-boosting-decision-tree>`_"
-msgstr ""
+msgstr "Ke et. al. `\"LightGBM: A Highly Efficient Gradient BoostingDecision Tree\" <https://papers.nips.cc/paper/ 6907-lightgbm-a-highly-efficient-gradient-boosting-decision-tree>`_"
 
 #: ../modules/ensemble.rst:1227
 msgid "Walter D. Fisher. `\"On Grouping for Maximum Homogeneity\" <http://www.csiss.org/SPACE/workshops/2004/SAC/files/fisher.pdf>`_"
-msgstr ""
+msgstr "Walter D. Fisher. `\"On Grouping for Maximum Homogeneity\" <http://www.csiss.org/SPACE/workshops/2004/SAC/files/fisher.pdf>`_"
 
 #: ../modules/ensemble.rst:1233
 msgid "Voting Classifier"
-msgstr ""
+msgstr "Clasificador de voto"
 
 #: ../modules/ensemble.rst:1235
 msgid "The idea behind the :class:`VotingClassifier` is to combine conceptually different machine learning classifiers and use a majority vote or the average predicted probabilities (soft vote) to predict the class labels. Such a classifier can be useful for a set of equally well performing model in order to balance out their individual weaknesses."
-msgstr ""
+msgstr "La idea detrás de :class:`VotingClassifier` es combinar clasificadores de aprendizaje automático conceptualmente diferentes y usar un voto por mayoría o el promedio de probabilidades predichas (voto blando) para predecir las etiquetas de clase. Este tipo de clasificador puede ser útil para un conjunto de modelos de igual rendimiento a fin de equilibrar sus debilidades individuales."
 
 #: ../modules/ensemble.rst:1243
 msgid "Majority Class Labels (Majority/Hard Voting)"
-msgstr ""
+msgstr "Etiquetas de clase mayoritarias (mayoría/voto duro)"
 
 #: ../modules/ensemble.rst:1245
 msgid "In majority voting, the predicted class label for a particular sample is the class label that represents the majority (mode) of the class labels predicted by each individual classifier."
-msgstr ""
+msgstr "En la votación por mayoría, la etiqueta de clase predicha para una muestra en particular es aquella etiqueta de clase que representa la mayoría (modo) de las etiquetas de clases predichas por cada clasificador individual."
 
 #: ../modules/ensemble.rst:1249
 msgid "E.g., if the prediction for a given sample is"
-msgstr ""
+msgstr "Por ejemplo, si la predicción de una muestra dada es"
 
 #: ../modules/ensemble.rst:1251
 msgid "classifier 1 -> class 1"
-msgstr ""
+msgstr "clasificador 1 -> clase 1"
 
 #: ../modules/ensemble.rst:1252 ../modules/ensemble.rst:1262
 msgid "classifier 2 -> class 1"
-msgstr ""
+msgstr "clasificador 2 -> clase 1"
 
 #: ../modules/ensemble.rst:1253
 msgid "classifier 3 -> class 2"
-msgstr ""
+msgstr "clasificador 3 -> clase 2"
 
 #: ../modules/ensemble.rst:1255
 msgid "the VotingClassifier (with ``voting='hard'``) would classify the sample as \"class 1\" based on the majority class label."
-msgstr ""
+msgstr "el VotingClassifier (con ``voting='hard'``) clasificaría la muestra como \"clase 1\" basada en la etiqueta de clase mayoritaria."
 
 #: ../modules/ensemble.rst:1258
 msgid "In the cases of a tie, the :class:`VotingClassifier` will select the class based on the ascending sort order. E.g., in the following scenario"
-msgstr ""
+msgstr "En el caso de un empate, el :class:`VotingClassifier` seleccionará la clase basada en el orden de clasificación ascendente. Por ejemplo, en el siguiente escenario"
 
 #: ../modules/ensemble.rst:1261
 msgid "classifier 1 -> class 2"
-msgstr ""
+msgstr "clasificador 1 -> clase 2"
 
 #: ../modules/ensemble.rst:1264
 msgid "the class label 1 will be assigned to the sample."
-msgstr ""
+msgstr "la etiqueta de clase 1 será asignada a la muestra."
 
 #: ../modules/ensemble.rst:1269
 msgid "The following example shows how to fit the majority rule classifier::"
-msgstr ""
+msgstr "El siguiente ejemplo muestra cómo ajustar el clasificador por regla de mayoría::"
 
 #: ../modules/ensemble.rst:1299
 msgid "Weighted Average Probabilities (Soft Voting)"
-msgstr ""
+msgstr "Promedio ponderado de probabilidades (Votación blanda)"
 
 #: ../modules/ensemble.rst:1301
 msgid "In contrast to majority voting (hard voting), soft voting returns the class label as argmax of the sum of predicted probabilities."
-msgstr ""
+msgstr "En contraste con la votación por mayoría (votación dura), el voto blando devuelve la etiqueta de clase como argmax de la suma de probabilidades predichas."
 
 #: ../modules/ensemble.rst:1304
 msgid "Specific weights can be assigned to each classifier via the ``weights`` parameter. When weights are provided, the predicted class probabilities for each classifier are collected, multiplied by the classifier weight, and averaged. The final class label is then derived from the class label with the highest average probability."
-msgstr ""
+msgstr "Se pueden asignar ponderados específicos a cada clasificador mediante el parámetro ``weights``. Cuando se proporcionan ponderados, las probabilidades de clase para cada clasificador son recolectadas, multiplicadas por el ponderado del clasificador, y promediadas. La etiqueta de clase final se deriva entonces de la etiqueta de clase con la probabilidad media más alta."
 
 #: ../modules/ensemble.rst:1310
 msgid "To illustrate this with a simple example, let's assume we have 3 classifiers and a 3-class classification problems where we assign equal weights to all classifiers: w1=1, w2=1, w3=1."
-msgstr ""
+msgstr "Para ilustrar esto con un ejemplo sencillo, supongamos que tengamos 3 clasificadores y un problema de clasificación de 3 clases donde asignamos ponderados iguales a todos los clasificadores: w1=1, w2=1, w3=1."
 
 #: ../modules/ensemble.rst:1314
 msgid "The weighted average probabilities for a sample would then be calculated as follows:"
-msgstr ""
+msgstr "Las probabilidades medias ponderadas para una muestra entonces se calcularían de la siguiente forma:"
 
 #: ../modules/ensemble.rst:1318
 msgid "classifier"
-msgstr ""
+msgstr "clasificador"
 
 #: ../modules/ensemble.rst:1318
 msgid "class 1"
-msgstr ""
+msgstr "clase 1"
 
 #: ../modules/ensemble.rst:1318
 msgid "class 2"
-msgstr ""
+msgstr "clase 2"
 
 #: ../modules/ensemble.rst:1318
 msgid "class 3"
-msgstr ""
+msgstr "clase 3"
 
 #: ../modules/ensemble.rst:1320
 msgid "classifier 1"
-msgstr ""
+msgstr "clasificador 1"
 
 #: ../modules/ensemble.rst:1320
 msgid "w1 * 0.2"
-msgstr ""
+msgstr "w1 * 0.2"
 
 #: ../modules/ensemble.rst:1320
 msgid "w1 * 0.5"
-msgstr ""
+msgstr "w1 * 0.5"
 
 #: ../modules/ensemble.rst:1320
 msgid "w1 * 0.3"
-msgstr ""
+msgstr "w1 * 0.3"
 
 #: ../modules/ensemble.rst:1321
 msgid "classifier 2"
-msgstr ""
+msgstr "clasificador 2"
 
 #: ../modules/ensemble.rst:1321
 msgid "w2 * 0.6"
-msgstr ""
+msgstr "w2 * 0.6"
 
 #: ../modules/ensemble.rst:1321
 msgid "w2 * 0.3"
-msgstr ""
+msgstr "w2 * 0.3"
 
 #: ../modules/ensemble.rst:1321
 msgid "w2 * 0.1"
-msgstr ""
+msgstr "w2 * 0.1"
 
 #: ../modules/ensemble.rst:1322
 msgid "classifier 3"
-msgstr ""
+msgstr "clasificador 3"
 
 #: ../modules/ensemble.rst:1322
 msgid "w3 * 0.3"
-msgstr ""
+msgstr "w3 * 0.3"
 
 #: ../modules/ensemble.rst:1322
 msgid "w3 * 0.4"
-msgstr ""
+msgstr "w3 * 0.4"
 
 #: ../modules/ensemble.rst:1323
 msgid "weighted average"
-msgstr ""
+msgstr "promedio ponderado"
 
 #: ../modules/ensemble.rst:1323
 msgid "0.37"
-msgstr ""
+msgstr "0.37"
 
 #: ../modules/ensemble.rst:1323
 msgid "0.4"
-msgstr ""
+msgstr "0.4"
 
 #: ../modules/ensemble.rst:1323
 msgid "0.23"
-msgstr ""
+msgstr "0.23"
 
 #: ../modules/ensemble.rst:1326
 msgid "Here, the predicted class label is 2, since it has the highest average probability."
-msgstr ""
+msgstr "Aquí, la etiqueta de clase predicha es 2, ya que tiene la probabilidad media más alta."
 
 #: ../modules/ensemble.rst:1329
 msgid "The following example illustrates how the decision regions may change when a soft :class:`VotingClassifier` is used based on an linear Support Vector Machine, a Decision Tree, and a K-nearest neighbor classifier::"
-msgstr ""
+msgstr "El siguiente ejemplo ilustra como las regiones de decisión quizás cambien cuando un :class:`VotingClassifier` blando se utilice basado en una maquína de vectores de apoyo lineal, un árbol de decisiones y un clasificador de vecinos K-nearest::"
 
 #: ../modules/ensemble.rst:1363
 msgid "Using the `VotingClassifier` with `GridSearchCV`"
-msgstr ""
+msgstr "Usando el `VotingClassifier` con `GridSearchCV`"
 
 #: ../modules/ensemble.rst:1365
 msgid "The :class:`VotingClassifier` can also be used together with :class:`~sklearn.model_selection.GridSearchCV` in order to tune the hyperparameters of the individual estimators::"
-msgstr ""
+msgstr "El :class:`VotingClassifier` también puede ser usado junto con :class:`~sklearn.model_selection.GridSearchCV` para afinar los hiperparámetros de los estimadores individuales::"
 
 #: ../modules/ensemble.rst:1386
 msgid "In order to predict the class labels based on the predicted class-probabilities (scikit-learn estimators in the VotingClassifier must support ``predict_proba`` method)::"
-msgstr ""
+msgstr "Para predecir las etiquetas de clase basadas en las probabilidades de clase predichas (los estimadores de scikit-learn en el VotingClassifier deben soportar el método ``predict_proba``)::"
 
 #: ../modules/ensemble.rst:1395
 msgid "Optionally, weights can be provided for the individual classifiers::"
-msgstr ""
+msgstr "Opcionalmente, se pueden proporcionar ponderados para clasificadores individuales::"
 
 #: ../modules/ensemble.rst:1405
 msgid "Voting Regressor"
-msgstr ""
+msgstr "Regresor de voto"
 
 #: ../modules/ensemble.rst:1407
 msgid "The idea behind the :class:`VotingRegressor` is to combine conceptually different machine learning regressors and return the average predicted values. Such a regressor can be useful for a set of equally well performing models in order to balance out their individual weaknesses."
-msgstr ""
+msgstr "La idea detrás del :class:`VotingClassifier` es combinar regresores de aprendizaje automático conceptualmente distintos y devolver los valores promedio predichos. Este tipo de regresor puede ser útil para un conjunto de modelos de igual rendimiento a fin de equilibrar sus debilidades individuales."
 
 #: ../modules/ensemble.rst:1415
 msgid "The following example shows how to fit the VotingRegressor::"
-msgstr ""
+msgstr "El siguiente ejemplo muestra cómo ajustar el VotingRegressor::"
 
 #: ../modules/ensemble.rst:1440
 msgid ":ref:`sphx_glr_auto_examples_ensemble_plot_voting_regressor.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_ensemble_plot_voting_regressor.py`"
 
 #: ../modules/ensemble.rst:1445
 msgid "Stacked generalization"
-msgstr ""
+msgstr "Generalización apilada"
 
 #: ../modules/ensemble.rst:1447
 msgid "Stacked generalization is a method for combining estimators to reduce their biases [W1992]_ [HTF]_. More precisely, the predictions of each individual estimator are stacked together and used as input to a final estimator to compute the prediction. This final estimator is trained through cross-validation."
-msgstr ""
+msgstr "La generalización apilada es un método combinar estimadores y así reducir sus sesgos [W1992]_ [HTF]_. Para ser mas precisos, las predicciones de cada estimador individual se apilan juntos y se usan como entrada a un estimador final para calcular la predicción. Este ultimo estimador es entrenado a través de la validación cruzada."
 
 #: ../modules/ensemble.rst:1453
 msgid "The :class:`StackingClassifier` and :class:`StackingRegressor` provide such strategies which can be applied to classification and regression problems."
-msgstr ""
+msgstr "Los :class:`StackingClassifier` y :class:`StackingRegressor` proporcionan tales estrategias, las cuales se pueden aplicar a problemas tanto de clasificación como de regresión."
 
 #: ../modules/ensemble.rst:1456
 msgid "The `estimators` parameter corresponds to the list of the estimators which are stacked together in parallel on the input data. It should be given as a list of names and estimators::"
-msgstr ""
+msgstr "El parámetro `estimators` corresponde a la lista de estimadores que se apilan juntos en paralelo en los datos de entrada. Debe ser dado como una lista de nombres y estimadores::"
 
 #: ../modules/ensemble.rst:1467
 msgid "The `final_estimator` will use the predictions of the `estimators` as input. It needs to be a classifier or a regressor when using :class:`StackingClassifier` or :class:`StackingRegressor`, respectively::"
-msgstr ""
+msgstr "El `final_estimator` usará las predicciones de los `estimators` como entrada. Debe ser un clasificador o un regresor cuando se utiliza :class:`StackingClassifier` o :class:`StackingRegressor`, respectivamente::"
 
 #: ../modules/ensemble.rst:1480
 msgid "To train the `estimators` and `final_estimator`, the `fit` method needs to be called on the training data::"
-msgstr ""
+msgstr "Para entrenar a `estimators` y `final_estimator`, el método `fit` necesita ser llamado en los datos de entrenamiento::"
 
 #: ../modules/ensemble.rst:1491
 msgid "During training, the `estimators` are fitted on the whole training data `X_train`. They will be used when calling `predict` or `predict_proba`. To generalize and avoid over-fitting, the `final_estimator` is trained on out-samples using :func:`sklearn.model_selection.cross_val_predict` internally."
-msgstr ""
+msgstr "Durante el entrenamiento, los `estimators` se ajustan en todos los datos de entrenamiento `X_train`. Serán utilizados al llamar a `predict` o `predict_proba`. Para generalizar y evitar sobreajustes, el `final_estimator` es entrenado en muestras externas usando :func:`sklearn.model_selection.cross_val_predict` internamente."
 
 #: ../modules/ensemble.rst:1496
 msgid "For :class:`StackingClassifier`, note that the output of the ``estimators`` is controlled by the parameter `stack_method` and it is called by each estimator. This parameter is either a string, being estimator method names, or `'auto'` which will automatically identify an available method depending on the availability, tested in the order of preference: `predict_proba`, `decision_function` and `predict`."
-msgstr ""
+msgstr "Para :class:`StackingClassifier`, tenga en cuenta que la salida de los ``estimators`` está controlada por el parámetro `stack_method` y es llamada por cada estimador. Este parámetro puede ser tanto una cadena, con los nombres de métodos de estimador, o `'auto'` que identificará automáticamente un método disponible dependiendo de la disponibilidad, probado en el siguiente orden de preferencia: `predict_proba`, `decision_function` y `predict`."
 
 #: ../modules/ensemble.rst:1503
 msgid "A :class:`StackingRegressor` and :class:`StackingClassifier` can be used as any other regressor or classifier, exposing a `predict`, `predict_proba`, and `decision_function` methods, e.g.::"
-msgstr ""
+msgstr "Un :class:`StackingRegressor` y un :class:`StackingClassifier` pueden ser usados como cualquier otro regresor o clasificador, exponiendo los métodos `predict`, `predict_proba`, y `decision_function`, por ejemplo.::"
 
 #: ../modules/ensemble.rst:1512
 msgid "Note that it is also possible to get the output of the stacked `estimators` using the `transform` method::"
-msgstr ""
+msgstr "Ten en cuenta que también es posible obtener la salida de los `estimators` apilados utilizando el método `transform`::"
 
 #: ../modules/ensemble.rst:1522
 msgid "In practice, a stacking predictor predicts as good as the best predictor of the base layer and even sometimes outperforms it by combining the different strengths of the these predictors. However, training a stacking predictor is computationally expensive."
-msgstr ""
+msgstr "En la práctica, un predictor de apilado predice tan bien como el mejor predictor de la capa base e inclusive a veces lo supera combinando las diferentes fortalezas de estos predictores. Sin embargo, entrenar un predictor apilado es costoso computacionalmente."
 
 #: ../modules/ensemble.rst:1528
 msgid "For :class:`StackingClassifier`, when using `stack_method_='predict_proba'`, the first column is dropped when the problem is a binary classification problem. Indeed, both probability columns predicted by each estimator are perfectly collinear."
-msgstr ""
+msgstr "Para :class:`StackingClassifier`, al usar `stack_method_='predict_proba'`, la primera columna se elimina cuando el problema es un problema de clasificación binaria. En efecto, ambas columnas de probabilidad predichas por cada estimador son perfectamente colineales."
 
 #: ../modules/ensemble.rst:1534
 msgid "Multiple stacking layers can be achieved by assigning `final_estimator` to a :class:`StackingClassifier` or :class:`StackingRegressor`::"
-msgstr ""
+msgstr "Múltiples capas de apilación se pueden conseguir asignando `final_estimator` a un :class:`StackingClassifier` o :class:`StackingRegressor`::"
 
 #: ../modules/ensemble.rst:1561
 msgid "Wolpert, David H. \"Stacked generalization.\" Neural networks 5.2 (1992): 241-259."
-msgstr ""
+msgstr "Wolpert, David H. \"Stacked generalization.\" Neural networks 5.2 (1992): 241-259."
 

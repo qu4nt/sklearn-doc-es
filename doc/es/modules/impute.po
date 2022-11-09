@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:39\n"
+"PO-Revision-Date: 2021-08-24 22:15\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,145 +20,145 @@ msgstr ""
 
 #: ../modules/impute.rst:5
 msgid "Imputation of missing values"
-msgstr ""
+msgstr "Imputación de valores faltantes"
 
 #: ../modules/impute.rst:9
 msgid "For various reasons, many real world datasets contain missing values, often encoded as blanks, NaNs or other placeholders. Such datasets however are incompatible with scikit-learn estimators which assume that all values in an array are numerical, and that all have and hold meaning. A basic strategy to use incomplete datasets is to discard entire rows and/or columns containing missing values. However, this comes at the price of losing data which may be valuable (even though incomplete). A better strategy is to impute the missing values, i.e., to infer them from the known part of the data. See the :ref:`glossary` entry on imputation."
-msgstr ""
+msgstr "Por varias razones, muchos conjuntos de datos del mundo real contienen valores faltantes, a menudo codificados como espacios en blanco, NaNs u otros marcadores de posición. Sin embargo, estos conjuntos de datos son incompatibles con los estimadores de scikit-learn, que asumen que todos los valores de un arreglo son numéricos y que todos tienen y contienen un significado. Una estrategia básica para utilizar conjuntos de datos incompletos es descartar filas y/o columnas enteras que contienen valores faltantes. Sin embargo, esto tiene el riesgo de perder datos que pueden ser valiosos (aunque sean incompletos). Una estrategia mejor es imputar los valores que faltan, es decir, deducirlos de la parte conocida de los datos. Consulta la entrada de :ref:`glossary` sobre la imputación."
 
 #: ../modules/impute.rst:21
 msgid "Univariate vs. Multivariate Imputation"
-msgstr ""
+msgstr "Imputación univariante frente a multivariante"
 
 #: ../modules/impute.rst:23
 msgid "One type of imputation algorithm is univariate, which imputes values in the i-th feature dimension using only non-missing values in that feature dimension (e.g. :class:`impute.SimpleImputer`). By contrast, multivariate imputation algorithms use the entire set of available feature dimensions to estimate the missing values (e.g. :class:`impute.IterativeImputer`)."
-msgstr ""
+msgstr "Un tipo de algoritmo de imputación es el univariante, que imputa los valores en la i-ésima dimensión de la característica utilizando sólo los valores no faltantes en esa dimensión de la característica (por ejemplo, :class:`impute.SimpleImputer`). Por el contrario, los algoritmos de imputación multivariante utilizan todo el conjunto de dimensiones de características disponibles para estimar los valores faltantes (por ejemplo, :class:`impute.IterativeImputer`)."
 
 #: ../modules/impute.rst:33
 msgid "Univariate feature imputation"
-msgstr ""
+msgstr "Imputación de características univariantes"
 
 #: ../modules/impute.rst:35
 msgid "The :class:`SimpleImputer` class provides basic strategies for imputing missing values. Missing values can be imputed with a provided constant value, or using the statistics (mean, median or most frequent) of each column in which the missing values are located. This class also allows for different missing values encodings."
-msgstr ""
+msgstr "La clase :class:`SimpleImputer` proporciona estrategias básicas para la imputación de valores faltantes. Los valores faltantes se pueden imputar con un valor constante proporcionado, o utilizando los estadísticos (media, mediana o más frecuente) de cada columna en la que se encuentran los valores faltantes. Esta clase también permite diferentes codificaciones de los valores faltantes."
 
 #: ../modules/impute.rst:41
 msgid "The following snippet demonstrates how to replace missing values, encoded as ``np.nan``, using the mean value of the columns (axis 0) that contain the missing values::"
-msgstr ""
+msgstr "El siguiente fragmento de código demuestra cómo reemplazar los valores faltantes, codificados como ``np.nan``, utilizando el valor medio de las columnas (eje 0) que contienen los valores faltantes::"
 
 #: ../modules/impute.rst:56
 msgid "The :class:`SimpleImputer` class also supports sparse matrices::"
-msgstr ""
+msgstr "La clase :class:`SimpleImputer` también soporta matrices dispersas::"
 
 #: ../modules/impute.rst:69
 msgid "Note that this format is not meant to be used to implicitly store missing values in the matrix because it would densify it at transform time. Missing values encoded by 0 must be used with dense input."
-msgstr ""
+msgstr "Debemos tener en cuenta que este formato no está pensado para almacenar implícitamente los valores faltantes en la matriz porque la densificaría en el momento de la transformación. Los valores faltantes codificados por 0 deben utilizarse con una entrada densa."
 
 #: ../modules/impute.rst:73
 msgid "The :class:`SimpleImputer` class also supports categorical data represented as string values or pandas categoricals when using the ``'most_frequent'`` or ``'constant'`` strategy::"
-msgstr ""
+msgstr "La clase :class:`SimpleImputer` también soporta datos categóricos representados como valores de cadena o categóricos de pandas cuando se utiliza la estrategia ``'most_frequent'`` o ``'constant'``::"
 
 #: ../modules/impute.rst:94
 msgid "Multivariate feature imputation"
-msgstr ""
+msgstr "Imputación de características multivariantes"
 
 #: ../modules/impute.rst:96
 msgid "A more sophisticated approach is to use the :class:`IterativeImputer` class, which models each feature with missing values as a function of other features, and uses that estimate for imputation. It does so in an iterated round-robin fashion: at each step, a feature column is designated as output ``y`` and the other feature columns are treated as inputs ``X``. A regressor is fit on ``(X, y)`` for known ``y``. Then, the regressor is used to predict the missing values of ``y``.  This is done for each feature in an iterative fashion, and then is repeated for ``max_iter`` imputation rounds. The results of the final imputation round are returned."
-msgstr ""
+msgstr "Un enfoque más sofisticado es utilizar la clase :class:`IterativeImputer`, que modela cada característica con valores faltantes como una función de otras características, y utiliza esa estimación para la imputación. Lo hace de forma iterativa rotatoria: en cada paso, una columna de características se designa como salida ``y`` y las otras columnas de características se tratan como entradas ``X``. Se ajusta un regresor en ``(X, y)`` para conocer ``y``. A continuación, el regresor se utiliza para predecir los valores perdidos de ``y``.  Esto se hace para cada característica de forma iterativa, y luego se repite para las rondas de imputación ``max_iter``. Se devuelven los resultados de la última ronda de imputación."
 
 #: ../modules/impute.rst:108
 msgid "This estimator is still **experimental** for now: default parameters or details of behaviour might change without any deprecation cycle. Resolving the following issues would help stabilize :class:`IterativeImputer`: convergence criteria (:issue:`14338`), default estimators (:issue:`13286`), and use of random state (:issue:`15611`). To use it, you need to explicitly import ``enable_iterative_imputer``."
-msgstr ""
+msgstr "Este estimador sigue siendo **experimental** por ahora: los parámetros predeterminados o los detalles de comportamiento podrían cambiar sin ningún ciclo de obsolescencia. Resolver los siguientes problemas ayudaría a estabilizar :class:`IterativeImputer`: criterios de convergencia (:issue:`14338`), estimadores por defecto (:issue:`13286`), y uso de estado aleatorio (:issue:`15611`). Para utilizarlo, es necesario importar explícitamente ``enable_iterative_imputer``."
 
 #: ../modules/impute.rst:130
 msgid "Both :class:`SimpleImputer` and :class:`IterativeImputer` can be used in a Pipeline as a way to build a composite estimator that supports imputation. See :ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`."
-msgstr ""
+msgstr "Tanto :class:`SimpleImputer` como :class:`IterativeImputer` se pueden utilizar en un Pipeline como una forma de construir un estimador compuesto que soporte la imputación. Consulta :ref:`sphx_glr_auto_examples_impute_plot_missing_values.py`."
 
 #: ../modules/impute.rst:135
 msgid "Flexibility of IterativeImputer"
-msgstr ""
+msgstr "Flexibilidad de IterativeImputer"
 
 #: ../modules/impute.rst:137
 msgid "There are many well-established imputation packages in the R data science ecosystem: Amelia, mi, mice, missForest, etc. missForest is popular, and turns out to be a particular instance of different sequential imputation algorithms that can all be implemented with :class:`IterativeImputer` by passing in different regressors to be used for predicting missing feature values. In the case of missForest, this regressor is a Random Forest. See :ref:`sphx_glr_auto_examples_impute_plot_iterative_imputer_variants_comparison.py`."
-msgstr ""
+msgstr "Hay muchos paquetes de imputación bien establecidos en el ecosistema de ciencia de datos de R: Amelia, mi, mice, missForest, etc. missForest es popular, y resulta ser una instancia particular de diferentes algoritmos de imputación secuencial que pueden ser implementados con :class:`IterativeImputer` pasando diferentes regresores que se utilizarán para predecir los valores de las características que faltan. En el caso de missForest, este regresor es un Random Forest. Consulta :ref:`sphx_glr_auto_examples_impute_plot_iterative_imputer_variants_comparison.py`."
 
 #: ../modules/impute.rst:149
 msgid "Multiple vs. Single Imputation"
-msgstr ""
+msgstr "Imputación múltiple vs. única"
 
 #: ../modules/impute.rst:151
 msgid "In the statistics community, it is common practice to perform multiple imputations, generating, for example, ``m`` separate imputations for a single feature matrix. Each of these ``m`` imputations is then put through the subsequent analysis pipeline (e.g. feature engineering, clustering, regression, classification). The ``m`` final analysis results (e.g. held-out validation errors) allow the data scientist to obtain understanding of how analytic results may differ as a consequence of the inherent uncertainty caused by the missing values. The above practice is called multiple imputation."
-msgstr ""
+msgstr "En la comunidad estadística, es una práctica común realizar múltiples imputaciones, generando, por ejemplo, ``m`` imputaciones separadas para una única matriz de características. Cada una de estas ``m`` imputaciones se somete a un análisis posterior de pipeline (por ejemplo, ingeniería de características, agrupamiento, regresión, clasificación). Los ``m`` resultados del análisis final (por ejemplo, los errores de validación apartados) permiten al científico de datos comprender cómo pueden diferir los resultados analíticos como consecuencia de la incertidumbre inherente causada por los valores faltantes. Esta práctica se denomina imputación múltiple."
 
 #: ../modules/impute.rst:160
 msgid "Our implementation of :class:`IterativeImputer` was inspired by the R MICE package (Multivariate Imputation by Chained Equations) [1]_, but differs from it by returning a single imputation instead of multiple imputations.  However, :class:`IterativeImputer` can also be used for multiple imputations by applying it repeatedly to the same dataset with different random seeds when ``sample_posterior=True``. See [2]_, chapter 4 for more discussion on multiple vs. single imputations."
-msgstr ""
+msgstr "Nuestra implementación de :class:`IterativeImputer` se inspira en el paquete R MICE (Multivariate Imputation by Chained Equations) [1]_, pero difiere de él al devolver una única imputación en lugar de múltiples imputaciones.  Sin embargo, :class:`IterativeImputer` también puede utilizarse para imputaciones múltiples aplicándolo repetidamente al mismo conjunto de datos con diferentes semillas aleatorias cuando ``sample_posterior=True``. Consulta [2]_, capítulo 4 para más discusión sobre imputaciones múltiples vs. simples."
 
 #: ../modules/impute.rst:168
 msgid "It is still an open problem as to how useful single vs. multiple imputation is in the context of prediction and classification when the user is not interested in measuring uncertainty due to missing values."
-msgstr ""
+msgstr "Sigue siendo un problema abierto la utilidad de la imputación simple frente a la múltiple en el contexto de la predicción y la clasificación cuando el usuario no está interesado en medir la incertidumbre debida a los valores faltantes."
 
 #: ../modules/impute.rst:172
 msgid "Note that a call to the ``transform`` method of :class:`IterativeImputer` is not allowed to change the number of samples. Therefore multiple imputations cannot be achieved by a single call to ``transform``."
-msgstr ""
+msgstr "Ten en cuenta que una llamada al método ``transform`` de :class:`IterativeImputer` no puede cambiar el número de muestras. Por lo tanto, no se pueden realizar múltiples imputaciones con una sola llamada a ``transform``."
 
 #: ../modules/impute.rst:177
 msgid "References"
-msgstr ""
+msgstr "Referencias"
 
 #: ../modules/impute.rst:179
 msgid "Stef van Buuren, Karin Groothuis-Oudshoorn (2011). \"mice: Multivariate Imputation by Chained Equations in R\". Journal of Statistical Software 45: 1-67."
-msgstr ""
+msgstr "Stef van Buuren, Karin Groothuis-Oudshoorn (2011). \"mice: Multivariate Imputation by Chained Equations in R\". Journal of Statistical Software 45: 1-67."
 
 #: ../modules/impute.rst:183
 msgid "Roderick J A Little and Donald B Rubin (1986). \"Statistical Analysis with Missing Data\". John Wiley & Sons, Inc., New York, NY, USA."
-msgstr ""
+msgstr "Roderick J A Little and Donald B Rubin (1986). \"Statistical Analysis with Missing Data\". John Wiley & Sons, Inc., New York, NY, USA."
 
 #: ../modules/impute.rst:189
 msgid "Nearest neighbors imputation"
-msgstr ""
+msgstr "Imputación de vecinos más cercanos"
 
 #: ../modules/impute.rst:191
 msgid "The :class:`KNNImputer` class provides imputation for filling in missing values using the k-Nearest Neighbors approach. By default, a euclidean distance metric that supports missing values, :func:`~sklearn.metrics.nan_euclidean_distances`, is used to find the nearest neighbors. Each missing feature is imputed using values from ``n_neighbors`` nearest neighbors that have a value for the feature. The feature of the neighbors are averaged uniformly or weighted by distance to each neighbor. If a sample has more than one feature missing, then the neighbors for that sample can be different depending on the particular feature being imputed. When the number of available neighbors is less than `n_neighbors` and there are no defined distances to the training set, the training set average for that feature is used during imputation. If there is at least one neighbor with a defined distance, the weighted or unweighted average of the remaining neighbors will be used during imputation. If a feature is always missing in training, it is removed during `transform`. For more information on the methodology, see ref. [OL2001]_."
-msgstr ""
+msgstr "La clase :class:`KNNImputer` proporciona la imputación para rellenar los valores faltantes utilizando el enfoque de k-Nearest Neighbors. Por defecto, se utiliza una métrica de distancia euclidiana que soporta los valores faltantes, :func:`~sklearn.metrics.nan_euclidean_distances`, para encontrar los vecinos más cercanos. Cada característica que falta se imputa utilizando los valores de los \"vecinos más cercanos\" que tienen un valor para la característica. La característica de los vecinos se promedia uniformemente o se pondera por la distancia a cada vecino. Si a una muestra le falta más de una característica, los vecinos de esa muestra pueden ser diferentes en función de la característica concreta que se impute. Cuando el número de vecinos disponibles es inferior a `n_neighbors` y no hay distancias definidas con el conjunto de entrenamiento, se utiliza la media del conjunto de entrenamiento para esa característica durante la imputación. Si hay al menos un vecino con una distancia definida, durante la imputación se utilizará la media ponderada o no ponderada de los vecinos restantes. Si una característica siempre falta en el entrenamiento, se elimina durante la `transformn`. Para más información sobre la metodología, consulta la ref. [OL2001]_."
 
 #: ../modules/impute.rst:207
 msgid "The following snippet demonstrates how to replace missing values, encoded as ``np.nan``, using the mean feature value of the two nearest neighbors of samples with missing values::"
-msgstr ""
+msgstr "El siguiente fragmento de código demuestra cómo reemplazar los valores faltantes codificados como ``np.nan``, utilizando el valor medio de la característica de los dos vecinos más cercanos de las muestras con valores faltantes::"
 
 #: ../modules/impute.rst:222
 msgid "Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown, Trevor Hastie, Robert Tibshirani, David Botstein and Russ B. Altman, Missing value estimation methods for DNA microarrays, BIOINFORMATICS Vol. 17 no. 6, 2001 Pages 520-525."
-msgstr ""
+msgstr "Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown, Trevor Hastie, Robert Tibshirani, David Botstein and Russ B. Altman, Missing value estimation methods for DNA microarrays, BIOINFORMATICS Vol. 17 no. 6, 2001 Pages 520-525."
 
 #: ../modules/impute.rst:230
 msgid "Marking imputed values"
-msgstr ""
+msgstr "Marcar los valores imputados"
 
 #: ../modules/impute.rst:232
 msgid "The :class:`MissingIndicator` transformer is useful to transform a dataset into corresponding binary matrix indicating the presence of missing values in the dataset. This transformation is useful in conjunction with imputation. When using imputation, preserving the information about which values had been missing can be informative. Note that both the :class:`SimpleImputer` and :class:`IterativeImputer` have the boolean parameter ``add_indicator`` (``False`` by default) which when set to ``True`` provides a convenient way of stacking the output of the :class:`MissingIndicator` transformer with the output of the imputer."
-msgstr ""
+msgstr "El transformador :class:`MissingIndicator` es útil para transformar un conjunto de datos en la correspondiente matriz binaria que indica la presencia de valores faltantes en el conjunto de datos. Esta transformación es útil junto con la imputación. Cuando se utiliza la imputación, conservar la información sobre los valores que faltan puede ser informativo. Tenga en cuenta que tanto el :class:`SimpleImputer` como el :class:`IterativeImputer` tienen el parámetro booleano ``add_indicator`` (``False`` por defecto) que cuando se establece en ``True`` proporciona una forma conveniente de apilar la salida del transformador :class:`MissingIndicator` con la salida del imputador."
 
 #: ../modules/impute.rst:242
 msgid "``NaN`` is usually used as the placeholder for missing values. However, it enforces the data type to be float. The parameter ``missing_values`` allows to specify other placeholder such as integer. In the following example, we will use ``-1`` as missing values::"
-msgstr ""
+msgstr "``NaN`` se utiliza normalmente como marcador de posición para los valores faltantes. Sin embargo, obliga a que el tipo de datos sea de punto flotante (float). El parámetro ``missing_values`` permite especificar otros marcadores de posición, como los enteros. En el siguiente ejemplo, utilizaremos ``-1`` como valores faltantes::"
 
 #: ../modules/impute.rst:258
 msgid "The ``features`` parameter is used to choose the features for which the mask is constructed. By default, it is ``'missing-only'`` which returns the imputer mask of the features containing missing values at ``fit`` time::"
-msgstr ""
+msgstr "El parámetro ``features`` se utiliza para elegir las características para las que se construye la máscara. Por defecto, es ``'missing-only'`` que devuelve la máscara de imputación de las características que contienen valores faltantes en el momento de ``fit``::"
 
 #: ../modules/impute.rst:265
 msgid "The ``features`` parameter can be set to ``'all'`` to return all features whether or not they contain missing values::"
-msgstr ""
+msgstr "El parámetro ``features`` puede establecerse como ``'all'`` para devolver todas las características, contengan o no valores faltantes::"
 
 #: ../modules/impute.rst:277
 msgid "When using the :class:`MissingIndicator` in a :class:`Pipeline`, be sure to use the :class:`FeatureUnion` or :class:`ColumnTransformer` to add the indicator features to the regular features. First we obtain the `iris` dataset, and add some missing values to it."
-msgstr ""
+msgstr "Cuando se utiliza el :class:`MissingIndicator` en un :class:`Pipeline`, asegúrate de utilizar el :class:`FeatureUnion` o el :class:`ColumnTransformer` para añadir las características del indicador a las características regulares. Primero obtenemos el conjunto de datos `iris` y le añadimos algunos valores faltantes."
 
 #: ../modules/impute.rst:293
 msgid "Now we create a :class:`FeatureUnion`. All features will be imputed using :class:`SimpleImputer`, in order to enable classifiers to work with this data. Additionally, it adds the indicator variables from :class:`MissingIndicator`."
-msgstr ""
+msgstr "Ahora creamos una :class:`FeatureUnion`. Todas las características se imputarán utilizando :class:`SimpleImputer`, para que los clasificadores puedan trabajar con estos datos. Además, añade las variables indicadoras de :class:`MissingIndicator`."
 
 #: ../modules/impute.rst:307
 msgid "Of course, we cannot use the transformer to make any predictions. We should wrap this in a :class:`Pipeline` with a classifier (e.g., a :class:`DecisionTreeClassifier`) to be able to make predictions."
-msgstr ""
+msgstr "Por supuesto, no podemos utilizar el transformador para hacer predicciones. Deberíamos incluirlo en un :class:`Pipeline` con un clasificador (por ejemplo, un :class:`DecisionTreeClassifier`) para poder hacer predicciones."
 

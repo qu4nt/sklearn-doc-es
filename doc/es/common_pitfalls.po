@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:39\n"
+"PO-Revision-Date: 2021-08-17 19:15\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,313 +20,313 @@ msgstr ""
 
 #: ../common_pitfalls.rst:11
 msgid "Common pitfalls and recommended practices"
-msgstr ""
+msgstr "Fallas comunes y prácticas recomendadas"
 
 #: ../common_pitfalls.rst:13
 msgid "The purpose of this chapter is to illustrate some common pitfalls and anti-patterns that occur when using scikit-learn. It provides examples of what **not** to do, along with a corresponding correct example."
-msgstr ""
+msgstr "El propósito de este capítulo es ilustrar algunas fallas comunes y antipatrones que ocurren cuando se utiliza scikit-learn. Proporciona ejemplos de lo que **no** hacer, junto con un ejemplo correcto correspondiente."
 
 #: ../common_pitfalls.rst:19
 msgid "Inconsistent preprocessing"
-msgstr ""
+msgstr "Preprocesamiento inconsistente"
 
 #: ../common_pitfalls.rst:21
 msgid "scikit-learn provides a library of :ref:`data-transforms`, which may clean (see :ref:`preprocessing`), reduce (see :ref:`data_reduction`), expand (see :ref:`kernel_approximation`) or generate (see :ref:`feature_extraction`) feature representations. If these data transforms are used when training a model, they also must be used on subsequent datasets, whether it's test data or data in a production system. Otherwise, the feature space will change, and the model will not be able to perform effectively."
-msgstr ""
+msgstr "scikit-learn proporciona una biblioteca de :ref:`data-transforms`, que puede limpiar (ver :ref:`preprocessing`), reducir (ver :ref:`data_reduction`), expandir (ver :ref:`kernel_approximation`) o generar (ver las representaciones de características de :ref:`feature_extraction`). Si estas transformaciones de datos se utilizan cuando se capacita un modelo, también deben ser utilizadas en conjuntos de datos subsiguientes, si se trata de datos de prueba o datos en un sistema en producción. De lo contrario, el espacio de características cambiará, y el modelo no podrá funcionar eficazmente."
 
 #: ../common_pitfalls.rst:30
 msgid "For the following example, let's create a synthetic dataset with a single feature::"
-msgstr ""
+msgstr "Para el siguiente ejemplo, vamos a crear un conjunto de datos sintéticos con una única característica::"
 
 #: ../common_pitfalls.rst:41 ../common_pitfalls.rst:136
 msgid "**Wrong**"
-msgstr ""
+msgstr "**Incorrecto**"
 
 #: ../common_pitfalls.rst:43
 msgid "The train dataset is scaled, but not the test dataset, so model performance on the test dataset is worse than expected::"
-msgstr ""
+msgstr "El conjunto de datos de entrenamiento es escalado, pero no el conjunto de datos de prueba, por lo que el rendimiento del modelo en el conjunto de datos de prueba es peor de lo esperado::"
 
 #: ../common_pitfalls.rst:56 ../common_pitfalls.rst:165
 msgid "**Right**"
-msgstr ""
+msgstr "**Correcto**"
 
 #: ../common_pitfalls.rst:58
 msgid "Instead of passing the non-transformed `X_test` to `predict`, we should transform the test data, the same way we transformed the training data::"
-msgstr ""
+msgstr "En lugar de pasar el `X_test` no transformado a `predic`, debemos transformar los datos de prueba, de la misma manera que transformamos los datos de entrenamiento::"
 
 #: ../common_pitfalls.rst:65
 msgid "Alternatively, we recommend using a :class:`Pipeline <sklearn.pipeline.Pipeline>`, which makes it easier to chain transformations with estimators, and reduces the possibility of forgetting a transformation::"
-msgstr ""
+msgstr "Alternativamente, recomendamos usar un :class:`Pipeline <sklearn.pipeline.Pipeline>`, lo que hace más fácil encadenar las transformaciones con estimadores y reduce la posibilidad de olvidar una transformación::"
 
 #: ../common_pitfalls.rst:78
 msgid "Pipelines also help avoiding another common pitfall: leaking the test data into the training data."
-msgstr ""
+msgstr "Los pipelines también ayudan a evitar otra falla común: filtrar los datos de prueba en los datos de entrenamiento."
 
 #: ../common_pitfalls.rst:84
 msgid "Data leakage"
-msgstr ""
+msgstr "Fuga de datos"
 
 #: ../common_pitfalls.rst:86
 msgid "Data leakage occurs when information that would not be available at prediction time is used when building the model. This results in overly optimistic performance estimates, for example from :ref:`cross-validation <cross_validation>`, and thus poorer performance when the model is used on actually novel data, for example during production."
-msgstr ""
+msgstr "La fuga de datos se produce cuando al construir el modelo se utiliza información que no estaría disponible en el momento de la predicción. Esto resulta en estimaciones de rendimiento demasiado optimistas, por ejemplo de :ref:`validación cruzada <cross_validation>`, y por lo tanto un rendimiento empobrecido cuando el modelo se utiliza en datos realmente nuevos, por ejemplo durante producción."
 
 #: ../common_pitfalls.rst:92
 msgid "A common cause is not keeping the test and train data subsets separate. Test data should never be used to make choices about the model. **The general rule is to never call** `fit` **on the test data**. While this may sound obvious, this is easy to miss in some cases, for example when applying certain pre-processing steps."
-msgstr ""
+msgstr "Una causa común es no mantener separados los subconjuntos de datos de prueba y entrenamiento. Los datos de prueba nunca deben utilizarse para tomar decisiones acerca del modelo. **La regla general es nunca llamar** `fit` **en los datos de prueba**. Aunque esto puede parecer obvio, esto es fácil de perder en algunos casos, por ejemplo cuando se aplican ciertos pasos de preprocesamiento."
 
 #: ../common_pitfalls.rst:98
 msgid "Although both train and test data subsets should receive the same preprocessing transformation (as described in the previous section), it is important that these transformations are only learnt from the training data. For example, if you have a normalization step where you divide by the average value, the average should be the average of the train subset, **not** the average of all the data. If the test subset is included in the average calculation, information from the test subset is influencing the model."
-msgstr ""
+msgstr "Aunque tanto los subconjuntos de datos de entrenamiento como de prueba deben recibir la misma transformación de preprocesamiento (como se describe en la sección anterior), es importante que estas transformaciones sólo se aprendan de los datos de entrenamiento. Por ejemplo, si se tiene un paso de normalización donde se divide entre el valor promedio, el promedio debe ser el promedio del subconjunto de entrenamiento, **no** el promedio de todos los datos. Si el subconjunto de pruebas está incluido en el cálculo promedio, la información del subconjunto de pruebas está influyendo en el modelo."
 
 #: ../common_pitfalls.rst:107
 msgid "An example of data leakage during preprocessing is detailed below."
-msgstr ""
+msgstr "A continuación se detalla un ejemplo de fuga de datos durante el preprocesamiento."
 
 #: ../common_pitfalls.rst:110
 msgid "Data leakage during pre-processing"
-msgstr ""
+msgstr "Fuga de datos durante el preprocesamiento"
 
 #: ../common_pitfalls.rst:113
 msgid "We here choose to illustrate data leakage with a feature selection step. This risk of leakage is however relevant with almost all transformations in scikit-learn, including (but not limited to) :class:`~sklearn.preprocessing.StandardScaler`, :class:`~sklearn.impute.SimpleImputer`, and :class:`~sklearn.decomposition.PCA`."
-msgstr ""
+msgstr "Aquí elegimos ilustrar la fuga de datos con un paso de selección de características. Este riesgo de fuga es sin embargo relevante con casi todas las transformaciones en scikit-learn, incluyendo (pero no limitado a) :class:`~sklearn.preprocessing.StandardScaler`, :class:`~sklearn.impute.SimpleImputer`, y :class:`~sklearn.decomposition.PCA`."
 
 #: ../common_pitfalls.rst:120
 msgid "A number of :ref:`feature_selection` functions are available in scikit-learn. They can help remove irrelevant, redundant and noisy features as well as improve your model build time and performance. As with any other type of preprocessing, feature selection should **only** use the training data. Including the test data in feature selection will optimistically bias your model."
-msgstr ""
+msgstr "Un número de funciones :ref:`feature_selection` están disponibles en scikit-learn. Pueden ayudar a eliminar características irrelevantes, redundantes y ruidosas, así como a mejorar el tiempo y el rendimiento de su modelo. Como en cualquier otro tipo de preprocesamiento, la selección de características debe **sólo** usar los datos de entrenamiento. Incluir los datos de prueba en la selección de características optimizará el sesgo de su modelo."
 
 #: ../common_pitfalls.rst:127
 msgid "To demonstrate we will create this binary classification problem with 10,000 randomly generated features::"
-msgstr ""
+msgstr "Para demostrar crearemos este problema de clasificación binaria con 10.000 características generadas aleatoriamente::"
 
 #: ../common_pitfalls.rst:138
 msgid "Using all the data to perform feature selection results in an accuracy score much higher than chance, even though our targets are completely random. This randomness means that our `X` and `y` are independent and we thus expect the accuracy to be around 0.5. However, since the feature selection step 'sees' the test data, the model has an unfair advantage. In the incorrect example below we first use all the data for feature selection and then split the data into training and test subsets for model fitting. The result is a much higher than expected accuracy score::"
-msgstr ""
+msgstr "El uso de todos los datos para realizar la selección de características da como resultado una puntuación de precisión muy superior al azar, a pesar de que nuestros objetivos son completamente aleatorios. Esta aleatoriedad significa que nuestros `X` y `y` son independientes y por lo tanto esperamos que la precisión sea de alrededor de 0.5. Sin embargo, dado que el paso de selección de características \"ve\" los datos de prueba, el modelo tiene una ventaja injusta. En el ejemplo incorrecto de abajo utilizamos primero todos los datos para la selección de características y luego dividimos los datos en subconjuntos de entrenamiento y de pruebas para el ajuste del modelo. El resultado es una puntuación de precisión muy superior a la esperada::"
 
 #: ../common_pitfalls.rst:167
 msgid "To prevent data leakage, it is good practice to split your data into train and test subsets **first**. Feature selection can then be formed using just the train dataset. Notice that whenever we use `fit` or `fit_transform`, we only use the train dataset. The score is now what we would expect for the data, close to chance::"
-msgstr ""
+msgstr "Para evitar la fuga de datos, es una buena práctica dividir los datos en subconjuntos de entrenamiento y de prueba **primero**. La selección de características se puede formar utilizando sólo el conjunto de datos del entrenamiento. Ten en cuenta que cada vez que usamos `fit` o `fit_transform`, sólo usamos el conjunto de datos de entrenamiento. La puntuación es ahora la que cabría esperar para los datos, cercana al azar::"
 
 #: ../common_pitfalls.rst:187
 msgid "Here again, we recommend using a :class:`~sklearn.pipeline.Pipeline` to chain together the feature selection and model estimators. The pipeline ensures that only the training data is used when performing `fit` and the test data is used only for calculating the accuracy score::"
-msgstr ""
+msgstr "De nuevo, recomendamos utilizar una :class:`~sklearn.pipeline.Pipeline` para encadenar la selección de características y los estimadores del modelo. El pipeline garantiza que sólo se utilicen los datos de entrenamiento al realizar el `fit` y que los datos de prueba se utilicen únicamente para calcular la puntuación de precisión::"
 
 #: ../common_pitfalls.rst:206
 msgid "The pipeline can also be fed into a cross-validation function such as :func:`~sklearn.model_selection.cross_val_score`. Again, the pipeline ensures that the correct data subset and estimator method is used during fitting and predicting::"
-msgstr ""
+msgstr "El pipeline también puede ser alimentado en una función de validación cruzada como :func:`~sklearn.model_selection.cross_val_score`. De nuevo, el pipeline asegura que el subconjunto de datos correcto y el método de estimación se utilicen durante el ajuste y la predicción::"
 
 #: ../common_pitfalls.rst:217
 msgid "How to avoid data leakage"
-msgstr ""
+msgstr "Cómo evitar fuga de datos"
 
 #: ../common_pitfalls.rst:219
 msgid "Below are some tips on avoiding data leakage:"
-msgstr ""
+msgstr "A continuación hay algunos consejos para evitar fugas de datos:"
 
 #: ../common_pitfalls.rst:221
 msgid "Always split the data into train and test subsets first, particularly before any preprocessing steps."
-msgstr ""
+msgstr "Siempre dividir los datos en subconjuntos de entrenamiento y de pruebas primero, especialmente antes de cualquier paso de preprocesamiento."
 
 #: ../common_pitfalls.rst:223
 msgid "Never include test data when using the `fit` and `fit_transform` methods. Using all the data, e.g., `fit(X)`, can result in overly optimistic scores."
-msgstr ""
+msgstr "Nunca incluya datos de prueba cuando utilice los métodos `fit` y `fit_transform`. Usando todos los datos, por ejemplo, `fit(X)`, puede resultar en puntuaciones demasiado optimistas."
 
 #: ../common_pitfalls.rst:227
 msgid "Conversely, the `transform` method should be used on both train and test subsets as the same preprocessing should be applied to all the data. This can be achieved by using `fit_transform` on the train subset and `transform` on the test subset."
-msgstr ""
+msgstr "Por el contrario, el método `transform` debe utilizarse tanto en el subconjunto de entrenamiento como en el de prueba, ya que debe aplicarse el mismo preprocesamiento a todos los datos. Esto puede lograrse utilizando `fit_transform` en el subconjunto de entrenamiento y `transform` en el subconjunto de prueba."
 
 #: ../common_pitfalls.rst:231
 msgid "The scikit-learn :ref:`pipeline <pipeline>` is a great way to prevent data leakage as it ensures that the appropriate method is performed on the correct data subset. The pipeline is ideal for use in cross-validation and hyper-parameter tuning functions."
-msgstr ""
+msgstr "El scikit-learn :ref:`pipeline <pipeline>` es una gran manera de evitar la fuga de datos, ya que asegura que el método apropiado se realiza en el subconjunto de datos correcto. El pipeline es ideal para su uso en funciones de validación cruzada y de ajuste de hiperparámetros."
 
 #: ../common_pitfalls.rst:239
 msgid "Controlling randomness"
-msgstr ""
+msgstr "Control de aleatoriedad"
 
 #: ../common_pitfalls.rst:241
 msgid "Some scikit-learn objects are inherently random. These are usually estimators (e.g. :class:`~sklearn.ensemble.RandomForestClassifier`) and cross-validation splitters (e.g. :class:`~sklearn.model_selection.KFold`). The randomness of these objects is controlled via their `random_state` parameter, as described in the :term:`Glossary <random_state>`. This section expands on the glossary entry, and describes good practices and common pitfalls w.r.t. to this subtle parameter."
-msgstr ""
+msgstr "Algunos objetos de scikit-learn son inherentemente aleatorios. Estos suelen ser estimadores (por ejemplo, :class:`~sklearn.ensemble.RandomForestClassifier`) y separadores de validación cruzada (por ejemplo, :class:`~sklearn.model_selection.KFold`). La aleatoriedad de estos objetos se controla a través de su parámetro `random_state`, como se describe en el :term:`Glosario <random_state>`. Esta sección se expande en la entrada del glosario, y describe buenas prácticas y fallas comunes con respecto a este parámetro sutil."
 
 #: ../common_pitfalls.rst:249
 msgid "Recommendation summary"
-msgstr ""
+msgstr "Resumen de recomendaciones"
 
 #: ../common_pitfalls.rst:251
 msgid "For an optimal robustness of cross-validation (CV) results, pass `RandomState` instances when creating estimators, or leave `random_state` to `None`. Passing integers to CV splitters is usually the safest option and is preferable; passing `RandomState` instances to splitters may sometimes be useful to achieve very specific use-cases. For both estimators and splitters, passing an integer vs passing an instance (or `None`) leads to subtle but significant differences, especially for CV procedures. These differences are important to understand when reporting results."
-msgstr ""
+msgstr "Para una robustez óptima de los resultados de la validación cruzada (CV), pasa las instancias de `RandomState` al crear estimadores, o deja `random_state` a `None`. Pasar enteros a separadores CV es generalmente la opción más segura y es preferible; pasar las instancias de `RandomState` a los separadores puede ser útil a veces para lograr casos de uso muy específicos. Tanto para los estimadores como para los separadores, pasar un entero vs pasar una instancia (o `None`) conduce a diferencias sutiles pero significativas, especialmente para los procedimientos de CV. Estas diferencias son importantes para entender cuando se reportan resultados."
 
 #: ../common_pitfalls.rst:261
 msgid "For reproducible results across executions, remove any use of `random_state=None`."
-msgstr ""
+msgstr "Para resultados reproducibles a través de ejecuciones, elimine cualquier uso de `random_state=None`."
 
 #: ../common_pitfalls.rst:265
 msgid "Using `None` or `RandomState` instances, and repeated calls to `fit` and `split`"
-msgstr ""
+msgstr "Usando instancias de `None` o `RandomState`, y llamadas repetidas a `fit` y `split`"
 
 #: ../common_pitfalls.rst:267
 msgid "The `random_state` parameter determines whether multiple calls to :term:`fit` (for estimators) or to :term:`split` (for CV splitters) will produce the same results, according to these rules:"
-msgstr ""
+msgstr "El parámetro `random_state` determina si varias llamadas a :term:`fit` (para estimadores) o a :term:`split` (para separadores CV) producirán los mismos resultados. de acuerdo a estas reglas:"
 
 #: ../common_pitfalls.rst:271
 msgid "If an integer is passed, calling `fit` or `split` multiple times always yields the same results."
-msgstr ""
+msgstr "Si se pasa un entero, llamar a `fit` o `split` varias veces siempre produce los mismos resultados."
 
 #: ../common_pitfalls.rst:273
 msgid "If `None` or a `RandomState` instance is passed: `fit` and `split` will yield different results each time they are called, and the succession of calls explores all sources of entropy. `None` is the default value for all `random_state` parameters."
-msgstr ""
+msgstr "Si se pasa `None` o una instancia `RandomState`: `fit` y `split` producirán diferentes resultados cada vez que se llamen, y la sucesión de llamadas explora todas las fuentes de entropía. `None` es el valor predeterminado para todos los parámetros `random_state`."
 
 #: ../common_pitfalls.rst:278
 msgid "We here illustrate these rules for both estimators and CV splitters."
-msgstr ""
+msgstr "Aquí se ilustra estas normas tanto para estimadores como para separadores CV."
 
 #: ../common_pitfalls.rst:281
 msgid "Since passing `random_state=None` is equivalent to passing the global `RandomState` instance from `numpy` (`random_state=np.random.mtrand._rand`), we will not explicitly mention `None` here. Everything that applies to instances also applies to using `None`."
-msgstr ""
+msgstr "Dado que pasar `random_state=None` es equivalente a pasar la instancia global de `RandomState` desde `numpy` (`random_state=np.random. trand._rand`), no mencionaremos explícitamente `None` aquí. Todo lo que aplica a las instancias también se aplica al uso de `None`."
 
 #: ../common_pitfalls.rst:288 ../common_pitfalls.rst:362
 msgid "Estimators"
-msgstr ""
+msgstr "Estimadores"
 
 #: ../common_pitfalls.rst:290
 msgid "Passing instances means that calling `fit` multiple times will not yield the same results, even if the estimator is fitted on the same data and with the same hyper-parameters::"
-msgstr ""
+msgstr "Pasar instancias significa que llamar `fit` varias veces no producirá los mismos resultados, incluso si el estimador se ajusta a los mismos datos y con los mismos hiperparámetros::"
 
 #: ../common_pitfalls.rst:308
 msgid "We can see from the snippet above that repeatedly calling `sgd.fit` has produced different models, even if the data was the same. This is because the Random Number Generator (RNG) of the estimator is consumed (i.e. mutated) when `fit` is called, and this mutated RNG will be used in the subsequent calls to `fit`. In addition, the `rng` object is shared across all objects that use it, and as a consequence, these objects become somewhat inter-dependent. For example, two estimators that share the same `RandomState` instance will influence each other, as we will see later when we discuss cloning. This point is important to keep in mind when debugging."
-msgstr ""
+msgstr "Podemos ver desde el fragmento de código de arriba que la llamada repetidamente `sgd.fit` ha producido modelos diferentes, incluso si los datos eran los mismos. Esto se debe a que el Generador de Números Aleatorios (RNG) del estimador es consumido (i.e. mutado) cuando `fit` es llamado, y este RNG mutado será usado en las llamadas subsiguientes a `fit`. Además, el objeto `rng` se comparte a través de todos los objetos que lo usan, y como consecuencia, estos objetos se vuelven algo interdependientes. Por ejemplo, dos estimadores que comparten la misma instancia de `RandomState` influirán entre sí, como veremos más adelante cuando discutamos la clonación. Este punto es importante tener en cuenta a la hora de depurar."
 
 #: ../common_pitfalls.rst:318
 msgid "If we had passed an integer to the `random_state` parameter of the :class:`~sklearn.ensemble.RandomForestClassifier`, we would have obtained the same models, and thus the same scores each time. When we pass an integer, the same RNG is used across all calls to `fit`. What internally happens is that even though the RNG is consumed when `fit` is called, it is always reset to its original state at the beginning of `fit`."
-msgstr ""
+msgstr "Si hubiéramos pasado un entero al parámetro `random_state` del :class:`~sklearn.ensemble. andomForestClassifier`, habríamos obtenido los mismos modelos, y por lo tanto los mismos puntajes cada vez. Cuando pasamos un entero, el mismo RNG se usa a través de todas las llamadas a `fit`. Lo que ocurre internamente es que aunque el RNG se consume cuando se llama `fit`, siempre se reinicia a su estado original al principio de `fit`."
 
 #: ../common_pitfalls.rst:326 ../common_pitfalls.rst:451
 msgid "CV splitters"
-msgstr ""
+msgstr "Separadores de CV (Validación cruzada)"
 
 #: ../common_pitfalls.rst:328
 msgid "Randomized CV splitters have a similar behavior when a `RandomState` instance is passed; calling `split` multiple times yields different data splits::"
-msgstr ""
+msgstr "Los separadores aleatorios CV tienen un comportamiento similar cuando se pasa una instancia de `RandomState`; llamar a `split` varias veces produce diferentes divisiones de datos::"
 
 #: ../common_pitfalls.rst:349
 msgid "We can see that the splits are different from the second time `split` is called. This may lead to unexpected results if you compare the performance of multiple estimators by calling `split` many times, as we will see in the next section."
-msgstr ""
+msgstr "Podemos ver que las divisiones son diferentes de la segunda vez que se llama `split`. Esto puede llevar a resultados inesperados si comparas el rendimiento de múltiples estimadores llamando a `split` muchas veces, como veremos en la siguiente sección."
 
 #: ../common_pitfalls.rst:355
 msgid "Common pitfalls and subtleties"
-msgstr ""
+msgstr "Fallas comunes y sutilezas"
 
 #: ../common_pitfalls.rst:357
 msgid "While the rules that govern the `random_state` parameter are seemingly simple, they do however have some subtle implications. In some cases, this can even lead to wrong conclusions."
-msgstr ""
+msgstr "Aunque las reglas que rigen el parámetro `random_state` son aparentemente sencillas, sin embargo tienen algunas implicaciones sutiles. En algunos casos, esto puede incluso conducir a conclusiones equivocadas."
 
 #: ../common_pitfalls.rst:364
 msgid "**Different `random_state` types lead to different cross-validation procedures**"
-msgstr ""
+msgstr "**Diferentes tipos de `random_state` conducen a diferentes procedimientos de validación cruzada**"
 
 #: ../common_pitfalls.rst:367
 msgid "Depending on the type of the `random_state` parameter, estimators will behave differently, especially in cross-validation procedures. Consider the following snippet::"
-msgstr ""
+msgstr "Dependiendo del tipo del parámetro `random_state`, los estimadores se comportarán de forma diferente, especialmente en los procedimientos de validación cruzada. Considere el siguiente fragmento de código::"
 
 #: ../common_pitfalls.rst:386
 msgid "We see that the cross-validated scores of `rf_123` and `rf_inst` are different, as should be expected since we didn't pass the same `random_state` parameter. However, the difference between these scores is more subtle than it looks, and **the cross-validation procedures that were performed by** :func:`~sklearn.model_selection.cross_val_score` **significantly differ in each case**:"
-msgstr ""
+msgstr "Vemos que las puntuaciones de validación cruzada de `rf_123` y `rf_inst` son diferentes, como era de esperar ya que no pasamos el mismo parámetro `random_state`. Sin embargo, la diferencia entre estas puntuaciones es más sutil de lo que parece, y **los procedimientos de validación cruzada que fueron realizados por** :func:`~sklearn.model_selection.cross_val_score` **difieren significativamente en cada caso**:"
 
 #: ../common_pitfalls.rst:393
 msgid "Since `rf_123` was passed an integer, every call to `fit` uses the same RNG: this means that all random characteristics of the random forest estimator will be the same for each of the 5 folds of the CV procedure. In particular, the (randomly chosen) subset of features of the estimator will be the same across all folds."
-msgstr ""
+msgstr "Dado que a `rf_123` se le pasó un número entero, cada llamada a `fit` utiliza el mismo RNG: esto significa que todas las características aleatorias del estimador de bosque aleatorio serán las mismas para cada uno de los 5 pliegues del procedimiento CV. En particular, el subconjunto (elegido al azar) de características del estimador será el mismo en todos los pliegues."
 
 #: ../common_pitfalls.rst:398
 msgid "Since `rf_inst` was passed a `RandomState` instance, each call to `fit` starts from a different RNG. As a result, the random subset of features will be different for each folds."
-msgstr ""
+msgstr "Como a `rf_inst` se le pasó una instancia de `RandomState`, cada llamada a `fit` parte de un RNG diferente. Como resultado, el subconjunto aleatorio de características será diferente para cada pliegue."
 
 #: ../common_pitfalls.rst:402
 msgid "While having a constant estimator RNG across folds isn't inherently wrong, we usually want CV results that are robust w.r.t. the estimator's randomness. As a result, passing an instance instead of an integer may be preferable, since it will allow the estimator RNG to vary for each fold."
-msgstr ""
+msgstr "Aunque tener un estimador RNG constante en todos los pliegues no es intrínsecamente incorrecto, normalmente queremos resultados de CV que sean robustos con respecto a la aleatoriedad del estimador. Como resultado, pasar una instancia en lugar de un entero puede ser preferible, ya que permitirá que el RNG del estimador varíe para cada pliegue."
 
 #: ../common_pitfalls.rst:408
 msgid "Here, :func:`~sklearn.model_selection.cross_val_score` will use a non-randomized CV splitter (as is the default), so both estimators will be evaluated on the same splits. This section is not about variability in the splits. Also, whether we pass an integer or an instance to :func:`~sklearn.datasets.make_classification` isn't relevant for our illustration purpose: what matters is what we pass to the :class:`~sklearn.ensemble.RandomForestClassifier` estimator."
-msgstr ""
+msgstr "Aquí, :func:`~sklearn.model_selection.cross_val_score` usará un separador de CV no aleatoriado (como es el predeterminado), así que ambos estimadores serán evaluados en los mismos separadores. Esta sección no trata de variabilidad en los separadores. También, si pasamos un entero o una instancia a :func:`~sklearn.datasets. ake_classification` no es relevante para nuestro propósito de ilustración: lo que importa es lo que pasamos al estimador :class:`~sklearn.ensemble.RandomForestClassifier`."
 
 #: ../common_pitfalls.rst:416
 msgid "**Cloning**"
-msgstr ""
+msgstr "**Clonado**"
 
 #: ../common_pitfalls.rst:418
 msgid "Another subtle side effect of passing `RandomState` instances is how :func:`~sklearn.clone` will work::"
-msgstr ""
+msgstr "Otro sutil efecto secundario de pasar instancias de `RandomState` es cómo funcionará :func:`~sklearn.clone`::"
 
 #: ../common_pitfalls.rst:429
 msgid "Since a `RandomState` instance was passed to `a`, `a` and `b` are not clones in the strict sense, but rather clones in the statistical sense: `a` and `b` will still be different models, even when calling `fit(X, y)` on the same data. Moreover, `a` and `b` will influence each-other since they share the same internal RNG: calling `a.fit` will consume `b`'s RNG, and calling `b.fit` will consume `a`'s RNG, since they are the same. This bit is true for any estimators that share a `random_state` parameter; it is not specific to clones."
-msgstr ""
+msgstr "Dado que se ha pasado una instancia de `RandomState` a `a`, `a` y `b` no son clones en sentido estricto, sino clones en sentido estadístico: `a` y `b` seguirán siendo modelos diferentes, incluso cuando se llame a `fit(X, y)` con los mismos datos. Además, `a` y `b` se influirán mutuamente ya que comparten el mismo RNG interno: llamar a `a.fit` consumirá el RNG de `b`, y llamar a `b.fit` consumirá el RNG de `a`, ya que son el mismo. Esto es válido para cualquier estimador que comparta el parámetro `random_state`; no es específico de los clones."
 
 #: ../common_pitfalls.rst:438
 msgid "If an integer were passed, `a` and `b` would be exact clones and they would not influence each other."
-msgstr ""
+msgstr "Si se pasara un entero, `a` y `b` serían clones exactos y no influirían entre sí."
 
 #: ../common_pitfalls.rst:442
 msgid "Even though :func:`~sklearn.clone` is rarely used in user code, it is called pervasively throughout scikit-learn codebase: in particular, most meta-estimators that accept non-fitted estimators call :func:`~sklearn.clone` internally (:class:`~sklearn.model_selection.GridSearchCV`, :class:`~sklearn.ensemble.StackingClassifier`, :class:`~sklearn.calibration.CalibratedClassifierCV`, etc.)."
-msgstr ""
+msgstr "Aunque :func:`~sklearn.clone` se usa raramente en el código de usuario, se llama de forma generalizada en todo el código base de scikit-learn: en particular, la mayoría de los metaestimadores que aceptan estimadores no ajustados llaman internamente a :func:`~sklearn.clone` (:class:`~sklearn.model_selection.GridSearchCV`, :class:`~sklearn.ensemble.StackingClassifier`, :class:`~sklearn.calibration.CalibratedClassifierCV`, etc.)."
 
 #: ../common_pitfalls.rst:453
 msgid "When passed a `RandomState` instance, CV splitters yield different splits each time `split` is called. When comparing different estimators, this can lead to overestimating the variance of the difference in performance between the estimators::"
-msgstr ""
+msgstr "Cuando se pasa una instancia de `RandomState`, los separadores de CV producen diferentes divisiones cada vez que se llama a `split`. Al comparar diferentes estimadores, esto puede llevar a sobreestimar la varianza de la diferencia de rendimiento entre los estimadores::"
 
 #: ../common_pitfalls.rst:477
 msgid "Directly comparing the performance of the :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` estimator vs the :class:`~sklearn.naive_bayes.GaussianNB` estimator **on each fold** would be a mistake: **the splits on which the estimators are evaluated are different**. Indeed, :func:`~sklearn.model_selection.cross_val_score` will internally call `cv.split` on the same :class:`~sklearn.model_selection.KFold` instance, but the splits will be different each time. This is also true for any tool that performs model selection via cross-validation, e.g. :class:`~sklearn.model_selection.GridSearchCV` and :class:`~sklearn.model_selection.RandomizedSearchCV`: scores are not comparable fold-to-fold across different calls to `search.fit`, since `cv.split` would have been called multiple times. Within a single call to `search.fit`, however, fold-to-fold comparison is possible since the search estimator only calls `cv.split` once."
-msgstr ""
+msgstr "Comparar directamente el rendimiento del estimador :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` frente al estimador :class:`~sklearn.naive_bayes.GaussianNB` **en cada pliegue** sería un error: **las divisiones en las que se evalúan los estimadores son diferentes**. De hecho, :func:`~sklearn.model_selection.cross_val_score` llamará internamente a `cv.split` en la misma instancia :class:`~sklearn.model_selection.KFold`, pero las divisiones serán diferentes cada vez. Esto también es cierto para cualquier herramienta que realice la selección del modelo a través de la validación cruzada, por ejemplo, :class:`~sklearn.model_selection.GridSearchCV` y :class:`~sklearn.model_selection.RandomizedSearchCV`: las puntuaciones no son comparables pliegue a pliegue a través de diferentes llamadas a `search.fit`, ya que `cv.split` habría sido llamado varias veces. Sin embargo, dentro de una sola llamada a `search.fit`, la comparación entre pliegues es posible ya que el estimador de búsqueda sólo llama a `cv.split` una vez."
 
 #: ../common_pitfalls.rst:493
 msgid "For comparable fold-to-fold results in all scenarios, one should pass an integer to the CV splitter: `cv = KFold(shuffle=True, random_state=0)`."
-msgstr ""
+msgstr "Para obtener resultados comparables entre pliegues en todos los escenarios, se debe pasar un número entero al separador de CV: `cv = KFold(shuffle=True, random_state=0)`."
 
 #: ../common_pitfalls.rst:497
 msgid "While fold-to-fold comparison is not advisable with `RandomState` instances, one can however expect that average scores allow to conclude whether one estimator is better than another, as long as enough folds and data are used."
-msgstr ""
+msgstr "Aunque la comparación entre pliegues no es aconsejable con las instancias de `RandomState`, se puede esperar que las puntuaciones medias permitan concluir si un estimador es mejor que otro, siempre que se utilicen suficientes pliegues y datos."
 
 #: ../common_pitfalls.rst:503
 msgid "What matters in this example is what was passed to :class:`~sklearn.model_selection.KFold`. Whether we pass a `RandomState` instance or an integer to :func:`~sklearn.datasets.make_classification` is not relevant for our illustration purpose. Also, neither :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` nor :class:`~sklearn.naive_bayes.GaussianNB` are randomized estimators."
-msgstr ""
+msgstr "Lo que importa en este ejemplo es lo que se pasó a :class:`~sklearn.model_selection.KFold`. Si pasamos una instancia de `RandomState` o un entero a :func:`~sklearn.datasets.make_classification` no es relevante para nuestro propósito de ilustración. Además, ni :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` ni :class:`~sklearn.naive_bayes.GaussianNB` son estimadores aleatorios."
 
 #: ../common_pitfalls.rst:511
 msgid "General recommendations"
-msgstr ""
+msgstr "Recomendaciones generales"
 
 #: ../common_pitfalls.rst:514
 msgid "Getting reproducible results across multiple executions"
-msgstr ""
+msgstr "Obteniendo resultados reproducibles a través de múltiples ejecuciones"
 
 #: ../common_pitfalls.rst:516
 msgid "In order to obtain reproducible (i.e. constant) results across multiple *program executions*, we need to remove all uses of `random_state=None`, which is the default. The recommended way is to declare a `rng` variable at the top of the program, and pass it down to any object that accepts a `random_state` parameter::"
-msgstr ""
+msgstr "Para obtener resultados reproducibles (es decir, constantes) a través de múltiples *ejecuciones del programa*, necesitamos eliminar todos los usos de `random_state=None`, que es el valor por defecto. La forma recomendada es declarar una variable `rng` en la parte superior del programa, y pasarla a cualquier objeto que acepte un parámetro `random_state`::"
 
 #: ../common_pitfalls.rst:535
 msgid "We are now guaranteed that the result of this script will always be 0.84, no matter how many times we run it. Changing the global `rng` variable to a different value should affect the results, as expected."
-msgstr ""
+msgstr "Ahora tenemos la garantía que el resultado de este script será siempre 0.84, sin importar cuántas veces lo ejecutemos. Cambiar la variable global `rng` a un valor diferente debería afectar los resultados, como se esperaba."
 
 #: ../common_pitfalls.rst:539
 msgid "It is also possible to declare the `rng` variable as an integer. This may however lead to less robust cross-validation results, as we will see in the next section."
-msgstr ""
+msgstr "También es posible declarar la variable `rng` como un entero. Sin embargo, esto puede llevar a resultados de validación cruzada menos robustos, como veremos en la siguiente sección."
 
 #: ../common_pitfalls.rst:544
 msgid "We do not recommend setting the global `numpy` seed by calling `np.random.seed(0)`. See `here <https://stackoverflow.com/questions/5836335/consistently-create-same-random-numpy-array/5837352#comment6712034_5837352>`_ for a discussion."
-msgstr ""
+msgstr "No recomendamos establecer la semilla global `numpy` llamando `np.random.seed(0)`. Ver `aquí <https://stackoverflow.com/questions/5836335/consistently-create-same-random-numpy-array/5837352#comment6712034_5837352>`_ para una discusión."
 
 #: ../common_pitfalls.rst:550
 msgid "Robustness of cross-validation results"
-msgstr ""
+msgstr "Robustez de los resultados de validación cruzada"
 
 #: ../common_pitfalls.rst:552
 msgid "When we evaluate a randomized estimator performance by cross-validation, we want to make sure that the estimator can yield accurate predictions for new data, but we also want to make sure that the estimator is robust w.r.t. its random initialization. For example, we would like the random weights initialization of a :class:`~sklearn.linear_model.SGDCLassifier` to be consistently good across all folds: otherwise, when we train that estimator on new data, we might get unlucky and the random initialization may lead to bad performance. Similarly, we want a random forest to be robust w.r.t the set of randomly selected features that each tree will be using."
-msgstr ""
+msgstr "Cuando evaluamos el rendimiento de un estimador aleatorizado mediante validación cruzada, queremos asegurarnos de que el estimador puede producir predicciones precisas para los nuevos datos, pero también queremos asegurarnos de que el estimador es robusto con respecto a su inicialización aleatoria. Por ejemplo, nos gustaría que la inicialización de las ponderaciones aleatorias de un :class:`~sklearn.linear_model.SGDCLassifier` fuera consistentemente buena en todos los pliegues: de lo contrario, cuando entrenemos ese estimador con nuevos datos, podríamos tener mala suerte y la inicialización aleatoria podría conducir a un mal rendimiento. Del mismo modo, queremos que un bosque aleatorio sea robusto con respecto al conjunto de características seleccionadas aleatoriamente que utilizará cada árbol."
 
 #: ../common_pitfalls.rst:562
 msgid "For these reasons, it is preferable to evaluate the cross-validation preformance by letting the estimator use a different RNG on each fold. This is done by passing a `RandomState` instance (or `None`) to the estimator initialization."
-msgstr ""
+msgstr "Por estas razones, es preferible evaluar el rendimiento de la validación cruzada dejando que el estimador utilice un RNG diferente en cada pliegue. Esto se hace pasando una instancia de `RandomState` (o `None`) a la inicialización del estimador."
 
 #: ../common_pitfalls.rst:567
 msgid "When we pass an integer, the estimator will use the same RNG on each fold: if if the estimator performs well (or bad), as evaluated by CV, it might just be because we got lucky (or unlucky) with that specific seed. Passing instances leads to more robust CV results, and makes the comparison between various algorithms fairer. It also helps limiting the temptation to treat the estimator's RNG as a hyper-parameter that can be tuned."
-msgstr ""
+msgstr "Cuando pasamos un número entero, el estimador utilizará el mismo RNG en cada pliegue: si el estimador funciona bien (o mal), según la evaluación de CV, puede ser sólo porque tuvimos suerte (o mala suerte) con esa semilla específica. Pasar instancias conduce a resultados de CV más robustos, y hace que la comparación entre varios algoritmos sea más justa. También ayuda a limitar la tentación de tratar el RNG del estimador como un hiperparámetro que se puede ajustar."
 
 #: ../common_pitfalls.rst:574
 msgid "Whether we pass `RandomState` instances or integers to CV splitters has no impact on robustness, as long as `split` is only called once. When `split` is called multiple times, fold-to-fold comparison isn't possible anymore. As a result, passing integer to CV splitters is usually safer and covers most use-cases."
-msgstr ""
+msgstr "El hecho de que pasemos instancias de `RandomState` o enteros a los divisores de CV no tiene ningún impacto en la robustez, siempre y cuando se llame a `split` sólo una vez. Cuando se llama a `split` varias veces, la comparación entre pliegues ya no es posible. Como resultado, pasar enteros a los separadores CV es normalmente más seguro y cubre la mayoría de los casos de uso."
 

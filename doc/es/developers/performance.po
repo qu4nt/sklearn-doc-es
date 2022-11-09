@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:40\n"
+"PO-Revision-Date: 2021-09-01 20:54\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,278 +20,278 @@ msgstr ""
 
 #: ../developers/performance.rst:5
 msgid "How to optimize for speed"
-msgstr ""
+msgstr "Cómo optimizar para velocidad"
 
 #: ../developers/performance.rst:7
 msgid "The following gives some practical guidelines to help you write efficient code for the scikit-learn project."
-msgstr ""
+msgstr "A continuación se ofrecen algunas directrices prácticas para ayudarte a escribir un código eficiente para el proyecto scikit-learn."
 
 #: ../developers/performance.rst:12
 msgid "While it is always useful to profile your code so as to **check performance assumptions**, it is also highly recommended to **review the literature** to ensure that the implemented algorithm is the state of the art for the task before investing into costly implementation optimization."
-msgstr ""
+msgstr "Aunque siempre es útil perfilar tu código para **comprobar los supuestos de rendimiento**, también es muy recomendable **revisar la literatura** para asegurarse de que el algoritmo implementado es el más avanzado para la tarea antes de invertir en una costosa optimización de la implementación."
 
 #: ../developers/performance.rst:18
 msgid "Times and times, hours of efforts invested in optimizing complicated implementation details have been rendered irrelevant by the subsequent discovery of simple **algorithmic tricks**, or by using another algorithm altogether that is better suited to the problem."
-msgstr ""
+msgstr "Una y otra vez, las horas de esfuerzo invertidas en la optimización de complicados detalles de implementación se han vuelto irrelevantes por el posterior descubrimiento de simples **trucos algorítmicos**, o por el uso de otro algoritmo que sea más adecuado para el problema."
 
 #: ../developers/performance.rst:23
 msgid "The section :ref:`warm-restarts` gives an example of such a trick."
-msgstr ""
+msgstr "La sección :ref:`warm-restarts` ofrece un ejemplo de este tipo de trucos."
 
 #: ../developers/performance.rst:27
 msgid "Python, Cython or C/C++?"
-msgstr ""
+msgstr "¿Python, Cython o C/C++?"
 
 #: ../developers/performance.rst:31
 msgid "In general, the scikit-learn project emphasizes the **readability** of the source code to make it easy for the project users to dive into the source code so as to understand how the algorithm behaves on their data but also for ease of maintainability (by the developers)."
-msgstr ""
+msgstr "En general, el proyecto scikit-learn enfatiza la **legibilidad** del código fuente para facilitar a los usuarios del proyecto la inmersión en el código fuente para entender cómo se comporta el algoritmo en sus datos, pero también para facilitar el mantenimiento (por parte de los desarrolladores)."
 
 #: ../developers/performance.rst:36
 msgid "When implementing a new algorithm is thus recommended to **start implementing it in Python using Numpy and Scipy** by taking care of avoiding looping code using the vectorized idioms of those libraries. In practice this means trying to **replace any nested for loops by calls to equivalent Numpy array methods**. The goal is to avoid the CPU wasting time in the Python interpreter rather than crunching numbers to fit your statistical model. It's generally a good idea to consider NumPy and SciPy performance tips: https://scipy.github.io/old-wiki/pages/PerformanceTips"
-msgstr ""
+msgstr "Cuando se implementa un nuevo algoritmo se recomienda **empezar a implementarlo en Python usando Numpy y Scipy** teniendo cuidado de evitar el código de bucles usando los modismos vectorizados de esas bibliotecas. En la práctica esto significa intentar **reemplazar cualquier bucle for anidado por llamadas a métodos de arreglos Numpy equivalentes**. El objetivo es evitar que la CPU pierda tiempo en el intérprete de Python en lugar de hacer cálculos para ajustar tu modelo estadístico. En general, es una buena idea tener en cuenta los tips de rendimiento de NumPy y SciPy: https://scipy.github.io/old-wiki/pages/PerformanceTips"
 
 #: ../developers/performance.rst:45
 msgid "Sometimes however an algorithm cannot be expressed efficiently in simple vectorized Numpy code. In this case, the recommended strategy is the following:"
-msgstr ""
+msgstr "Sin embargo, a veces un algoritmo no puede ser expresado eficientemente en un simple código Numpy vectorizado. En este caso, la estrategia recomendada es la siguiente:"
 
 #: ../developers/performance.rst:49
 msgid "**Profile** the Python implementation to find the main bottleneck and isolate it in a **dedicated module level function**. This function will be reimplemented as a compiled extension module."
-msgstr ""
+msgstr "**Perfila** la implementación en Python para encontrar el principal cuello de botella y aislarlo en una **función dedicada a nivel de módulo**. Esta función se reimplementará como un módulo de extensión compilado."
 
 #: ../developers/performance.rst:53
 msgid "If there exists a well maintained BSD or MIT **C/C++** implementation of the same algorithm that is not too big, you can write a **Cython wrapper** for it and include a copy of the source code of the library in the scikit-learn source tree: this strategy is used for the classes :class:`svm.LinearSVC`, :class:`svm.SVC` and :class:`linear_model.LogisticRegression` (wrappers for liblinear and libsvm)."
-msgstr ""
+msgstr "Si existe una implementación BSD o MIT **C/C++** bien mantenida del mismo algoritmo que no sea demasiado grande, puedes escribir un **envoltorio (wrapper) de Cython** para él e incluir una copia del código fuente de la biblioteca en el árbol fuente de scikit-learn: esta estrategia se utiliza para las clases :class:`svm.LinearSVC`, :class:`svm.SVC` y :class:`linear_model.LogisticRegression` (envoltorios para liblinear y libsvm)."
 
 #: ../developers/performance.rst:61
 msgid "Otherwise, write an optimized version of your Python function using **Cython** directly. This strategy is used for the :class:`linear_model.ElasticNet` and :class:`linear_model.SGDClassifier` classes for instance."
-msgstr ""
+msgstr "De lo contrario, escribe una versión optimizada de tu función de Python usando **Cython** directamente. Esta estrategia se utiliza para las clases :class:`linear_model.ElasticNet` y :class:`linear_model.SGDClassifier` por ejemplo."
 
 #: ../developers/performance.rst:66
 msgid "**Move the Python version of the function in the tests** and use it to check that the results of the compiled extension are consistent with the gold standard, easy to debug Python version."
-msgstr ""
+msgstr "**Cambia la versión de Python de la función en las pruebas** y úsala para comprobar que los resultados de la extensión compilada sean consistentes con la versión de Python gold standard y fácil de depurar."
 
 #: ../developers/performance.rst:70
 msgid "Once the code is optimized (not simple bottleneck spottable by profiling), check whether it is possible to have **coarse grained parallelism** that is amenable to **multi-processing** by using the ``joblib.Parallel`` class."
-msgstr ""
+msgstr "Una vez que el código está optimizado (no es un simple cuello de botella detectable mediante el perfilado), comprueba si es posible tener un **paralelismo de grano grueso** que sea susceptible de **multiprocesamiento** utilizando la clase ``joblib.Parallel``."
 
 #: ../developers/performance.rst:75
 msgid "When using Cython, use either"
-msgstr ""
+msgstr "Al utilizar Cython, usar cualquiera"
 
 #: ../developers/performance.rst:82
 msgid "to generate C files. You are responsible for adding .c/.cpp extensions along with build parameters in each submodule ``setup.py``."
-msgstr ""
+msgstr "para generar archivos C. Eres responsable de añadir las extensiones .c/.cpp junto con los parámetros de compilación en cada submódulo ``setup.py``."
 
 #: ../developers/performance.rst:85
 msgid "C/C++ generated files are embedded in distributed stable packages. The goal is to make it possible to install scikit-learn stable version on any machine with Python, Numpy, Scipy and C/C++ compiler."
-msgstr ""
+msgstr "Los archivos generados en C/C++ están embebidos en los paquetes estables distribuidos. El objetivo es hacer posible la instalación de la versión estable de scikit-learn en cualquier máquina con Python, Numpy, Scipy y compilador C/C++."
 
 #: ../developers/performance.rst:92
 msgid "Profiling Python code"
-msgstr ""
+msgstr "Perfilar el código Python"
 
 #: ../developers/performance.rst:94
 msgid "In order to profile Python code we recommend to write a script that loads and prepare you data and then use the IPython integrated profiler for interactively exploring the relevant part for the code."
-msgstr ""
+msgstr "Para perfilar el código Python recomendamos escribir un script que cargue y prepare tus datos y luego utilizar el perfilador integrado de IPython para explorar interactivamente la parte relevante para el código."
 
 #: ../developers/performance.rst:98
 msgid "Suppose we want to profile the Non Negative Matrix Factorization module of scikit-learn. Let us setup a new IPython session and load the digits dataset and as in the :ref:`sphx_glr_auto_examples_classification_plot_digits_classification.py` example::"
-msgstr ""
+msgstr "Supongamos que queremos perfilar el módulo de Factorización Matricial No Negativa (Non Negative Matrix Factorization) de scikit-learn. Vamos a configurar una nueva sesión de IPython y cargar el conjunto de datos de dígitos y como en el ejemplo :ref:`sphx_glr_auto_examples_classification_plot_digits_classification.py`::"
 
 #: ../developers/performance.rst:108
 msgid "Before starting the profiling session and engaging in tentative optimization iterations, it is important to measure the total execution time of the function we want to optimize without any kind of profiler overhead and save it somewhere for later reference::"
-msgstr ""
+msgstr "Antes de iniciar la sesión de perfilado y realizar iteraciones de optimización tentativas, es importante medir el tiempo total de ejecución de la función que queremos optimizar sin ningún tipo de sobrecarga del perfilador y guardarlo en algún lugar para su posterior consulta::"
 
 #: ../developers/performance.rst:116
 msgid "To have a look at the overall performance profile using the ``%prun`` magic command::"
-msgstr ""
+msgstr "Para ver el perfil de rendimiento general utilizando el comando magic ``%prun``::"
 
 #: ../developers/performance.rst:136
 msgid "The ``tottime`` column is the most interesting: it gives to total time spent executing the code of a given function ignoring the time spent in executing the sub-functions. The real total time (local code + sub-function calls) is given by the ``cumtime`` column."
-msgstr ""
+msgstr "La columna ``tottime`` es la más interesante: da el tiempo total de ejecución del código de una función determinada, ignorando el tiempo de ejecución de las subfunciones. El tiempo total real (código local + llamadas a subfunciones) viene dado por la columna ``cumtime``."
 
 #: ../developers/performance.rst:141
 msgid "Note the use of the ``-l nmf.py`` that restricts the output to lines that contains the \"nmf.py\" string. This is useful to have a quick look at the hotspot of the nmf Python module it-self ignoring anything else."
-msgstr ""
+msgstr "Ten en cuenta el uso de ``-l nmf.py`` que restringe la salida a las líneas que contienen la cadena \"nmf.py\". Esto es útil para echar un vistazo rápido al punto de acceso del módulo de Python nmf en sí mismo, ignorando cualquier otra cosa."
 
 #: ../developers/performance.rst:145
 msgid "Here is the beginning of the output of the same command without the ``-l nmf.py`` filter::"
-msgstr ""
+msgstr "Aquí está el principio de la salida del mismo comando sin el filtro ``-l nmf.py``::"
 
 #: ../developers/performance.rst:166
 msgid "The above results show that the execution is largely dominated by dot products operations (delegated to blas). Hence there is probably no huge gain to expect by rewriting this code in Cython or C/C++: in this case out of the 1.7s total execution time, almost 0.7s are spent in compiled code we can consider optimal. By rewriting the rest of the Python code and assuming we could achieve a 1000% boost on this portion (which is highly unlikely given the shallowness of the Python loops), we would not gain more than a 2.4x speed-up globally."
-msgstr ""
+msgstr "Los resultados anteriores muestran que la ejecución está dominada en gran medida por las operaciones de productos punto (delegadas a blas). Por lo tanto, probablemente no se puede esperar una gran ganancia reescribiendo este código en Cython o C/C++: en este caso, de los 1.7s de tiempo total de ejecución, se gastan casi 0.7s en código compilado que podemos considerar óptimo. Reescribiendo el resto del código Python y suponiendo que pudiéramos lograr un aumento del 1000% en esta porción (lo que es muy improbable dada la poca profundidad de los bucles de Python), no ganaríamos más de una velocidad global 2.4 veces superior."
 
 #: ../developers/performance.rst:175
 msgid "Hence major improvements can only be achieved by **algorithmic improvements** in this particular example (e.g. trying to find operation that are both costly and useless to avoid computing then rather than trying to optimize their implementation)."
-msgstr ""
+msgstr "Por lo tanto, las mejoras importantes sólo pueden lograrse mediante **mejoras algorítmicas** en este ejemplo en particular (por ejemplo, tratando de encontrar operaciones que sean a la vez costosas e inútiles para evitar su cálculo entonces, en lugar de tratar de optimizar su implementación)."
 
 #: ../developers/performance.rst:180
 #, python-format
 msgid "It is however still interesting to check what's happening inside the ``_nls_subproblem`` function which is the hotspot if we only consider Python code: it takes around 100% of the accumulated time of the module. In order to better understand the profile of this specific function, let us install ``line_profiler`` and wire it to IPython:"
-msgstr ""
+msgstr "Sin embargo, sigue siendo interesante comprobar lo que ocurre dentro de la función ``_nls_subproblem``, que es el punto de acceso si sólo tenemos en cuenta el código de Python: requiere alrededor del 100% del tiempo acumulado del módulo. Para entender mejor el perfil de esta función específica, instalemos ``line_profiler`` y conectémoslo a IPython:"
 
 #: ../developers/performance.rst:190
 msgid "**Under IPython 0.13+**, first create a configuration profile:"
-msgstr ""
+msgstr "**En IPython 0.13+**, primero crea un perfil de configuración:"
 
 #: ../developers/performance.rst:196
 msgid "Then register the line_profiler extension in ``~/.ipython/profile_default/ipython_config.py``::"
-msgstr ""
+msgstr "Luego registra la extensión line_profiler en ``~/.ipython/profile_default/ipython_config.py``::"
 
 #: ../developers/performance.rst:202
 msgid "This will register the ``%lprun`` magic command in the IPython terminal application and the other frontends such as qtconsole and notebook."
-msgstr ""
+msgstr "Esto registrará el comando magic ``%lprun`` en la aplicación de terminal de IPython y en los otros frontends como qtconsole y notebook."
 
 #: ../developers/performance.rst:204
 msgid "Now restart IPython and let us use this new toy::"
-msgstr ""
+msgstr "Ahora reinicia IPython y usemos este nuevo juguete::"
 
 #: ../developers/performance.rst:251
 msgid "By looking at the top values of the ``% Time`` column it is really easy to pin-point the most expensive expressions that would deserve additional care."
-msgstr ""
+msgstr "Si se observan los valores más altos de la columna ``% Time`` es realmente fácil señalar las expresiones más costosas que merecerían atención adicional."
 
 #: ../developers/performance.rst:256
 msgid "Memory usage profiling"
-msgstr ""
+msgstr "Perfilar el uso de memoria"
 
 #: ../developers/performance.rst:258
 msgid "You can analyze in detail the memory usage of any Python code with the help of `memory_profiler <https://pypi.org/project/memory_profiler/>`_. First, install the latest version:"
-msgstr ""
+msgstr "Puedes analizar en detalle el uso de memoria de cualquier código Python con la ayuda de `memory_profiler <https://pypi.org/project/memory_profiler/>`_. Primero, instala la última versión:"
 
 #: ../developers/performance.rst:266
 msgid "Then, setup the magics in a manner similar to ``line_profiler``."
-msgstr ""
+msgstr "Luego, configura los magics de forma similar a ``line_profiler``."
 
 #: ../developers/performance.rst:268
 msgid "**Under IPython 0.11+**, first create a configuration profile:"
-msgstr ""
+msgstr "**En IPython 0.11+**, primero crea un perfil de configuración:"
 
 #: ../developers/performance.rst:275
 msgid "Then register the extension in ``~/.ipython/profile_default/ipython_config.py`` alongside the line profiler::"
-msgstr ""
+msgstr "Luego registra la extensión en ``~/.ipython/profile_default/ipython_config.py`` junto al perfilador de línea::"
 
 #: ../developers/performance.rst:282
 msgid "This will register the ``%memit`` and ``%mprun`` magic commands in the IPython terminal application and the other frontends such as qtconsole and   notebook."
-msgstr ""
+msgstr "Esto registrará los comandos magic ``%memit`` y ``%mprun`` en la aplicación de terminal de IPython y en los otros frontends como qtconsole y notebook."
 
 #: ../developers/performance.rst:285
 msgid "``%mprun`` is useful to examine, line-by-line, the memory usage of key functions in your program. It is very similar to ``%lprun``, discussed in the previous section. For example, from the ``memory_profiler`` ``examples`` directory::"
-msgstr ""
+msgstr "``%mprun`` es útil para examinar, línea por línea, el uso de memoria de las funciones clave de tu programa. Es muy similar a ``%lprun``, discutido en la sección anterior. Por ejemplo, desde el directorio ``examples`` de ``memory_profiler``::"
 
 #: ../developers/performance.rst:304
 msgid "Another useful magic that ``memory_profiler`` defines is ``%memit``, which is analogous to ``%timeit``. It can be used as follows::"
-msgstr ""
+msgstr "Otro magic útil que define ``memory_profiler`` es ``%memit``, que es análogo a ``%timeit``. Se puede utilizar de la siguiente manera::"
 
 #: ../developers/performance.rst:312
 msgid "For more details, see the docstrings of the magics, using ``%memit?`` and ``%mprun?``."
-msgstr ""
+msgstr "Para más detalles, consulta las cadenas de documentación de los magics, utilizando ``%memit?`` y ``%mprun?``."
 
 #: ../developers/performance.rst:317
 msgid "Performance tips for the Cython developer"
-msgstr ""
+msgstr "Tips de rendimiento para el desarrollador Cython"
 
 #: ../developers/performance.rst:319
 msgid "If profiling of the Python code reveals that the Python interpreter overhead is larger by one order of magnitude or more than the cost of the actual numerical computation (e.g. ``for`` loops over vector components, nested evaluation of conditional expression, scalar arithmetic...), it is probably adequate to extract the hotspot portion of the code as a standalone function in a ``.pyx`` file, add static type declarations and then use Cython to generate a C program suitable to be compiled as a Python extension module."
-msgstr ""
+msgstr "Si el perfilado del código Python revela que la sobrecarga del intérprete Python es mayor en un orden de magnitud o más que el coste del cálculo numérico real (por ejemplo, bucles ``for`` sobre componentes vectoriales, evaluación anidada de expresiones condicionales, aritmética escalar...), probablemente sea adecuado extraer la parte hotspot del código como una función independiente en un archivo ``.pyx``, añadir declaraciones de tipos estáticos y luego utilizar Cython para generar un programa en C adecuado para ser compilado como un módulo de extensión Python."
 
 #: ../developers/performance.rst:328
 msgid "The official documentation available at http://docs.cython.org/ contains a tutorial and reference guide for developing such a module. In the following we will just highlight a couple of tricks that we found important in practice on the existing cython codebase in the scikit-learn project."
-msgstr ""
+msgstr "La documentación oficial disponible en http://docs.cython.org/ contiene un tutorial y un manual de referencia para desarrollar dicho módulo. A continuación sólo destacaremos un par de trucos que hemos encontrado importantes en la práctica en el código base de cython existente en el proyecto scikit-learn."
 
 #: ../developers/performance.rst:334
 msgid "TODO: html report, type declarations, bound checks, division by zero checks, memory alignment, direct blas calls..."
-msgstr ""
+msgstr "TODO: informe html, declaraciones de tipo, comprobaciones de límites, comprobaciones de división por cero, alineación de memoria, llamadas directas a blas..."
 
 #: ../developers/performance.rst:337
 msgid "https://www.youtube.com/watch?v=gMvkiQ-gOW8"
-msgstr ""
+msgstr "https://www.youtube.com/watch?v=gMvkiQ-gOW8"
 
 #: ../developers/performance.rst:338
 msgid "http://conference.scipy.org/proceedings/SciPy2009/paper_1/"
-msgstr ""
+msgstr "http://conference.scipy.org/proceedings/SciPy2009/paper_1/"
 
 #: ../developers/performance.rst:339
 msgid "http://conference.scipy.org/proceedings/SciPy2009/paper_2/"
-msgstr ""
+msgstr "http://conference.scipy.org/proceedings/SciPy2009/paper_2/"
 
 #: ../developers/performance.rst:342
 msgid "Using OpenMP"
-msgstr ""
+msgstr "Utilizando OpenMP"
 
 #: ../developers/performance.rst:344
 msgid "Since scikit-learn can be built without OpenMP, it's necessary to protect each direct call to OpenMP. This can be done using the following syntax::"
-msgstr ""
+msgstr "Como scikit-learn puede ser construido sin OpenMP, es necesario proteger cada llamada directa a OpenMP. Esto se puede hacer usando la siguiente sintaxis::"
 
 #: ../developers/performance.rst:360
 msgid "Protecting the parallel loop, ``prange``, is already done by cython."
-msgstr ""
+msgstr "La protección del bucle paralelo, ``prange``, ya la hace cython."
 
 #: ../developers/performance.rst:366
 msgid "Profiling compiled extensions"
-msgstr ""
+msgstr "Perfilar las extensiones compiladas"
 
 #: ../developers/performance.rst:368
 msgid "When working with compiled extensions (written in C/C++ with a wrapper or directly as Cython extension), the default Python profiler is useless: we need a dedicated tool to introspect what's happening inside the compiled extension it-self."
-msgstr ""
+msgstr "Cuando se trabaja con extensiones compiladas (escritas en C/C++ con un envoltorio o directamente como extensión de Cython), el perfilador de Python predeterminado es inútil: necesitamos una herramienta dedicada para introspeccionar lo que está sucediendo dentro de la propia extensión compilada."
 
 #: ../developers/performance.rst:374
 msgid "Using yep and gperftools"
-msgstr ""
+msgstr "Utilizando yep y gperftools"
 
 #: ../developers/performance.rst:376
 msgid "Easy profiling without special compilation options use yep:"
-msgstr ""
+msgstr "El perfilado fácil sin opciones especiales de compilación utiliza yep:"
 
 #: ../developers/performance.rst:378
 msgid "https://pypi.org/project/yep/"
-msgstr ""
+msgstr "https://pypi.org/project/yep/"
 
 #: ../developers/performance.rst:379
 msgid "http://fa.bianp.net/blog/2011/a-profiler-for-python-extensions"
-msgstr ""
+msgstr "http://fa.bianp.net/blog/2011/a-profiler-for-python-extensions"
 
 #: ../developers/performance.rst:382
 msgid "Using gprof"
-msgstr ""
+msgstr "Utilizando gprof"
 
 #: ../developers/performance.rst:384
 msgid "In order to profile compiled Python extensions one could use ``gprof`` after having recompiled the project with ``gcc -pg`` and using the ``python-dbg`` variant of the interpreter on debian / ubuntu: however this approach requires to also have ``numpy`` and ``scipy`` recompiled with ``-pg`` which is rather complicated to get working."
-msgstr ""
+msgstr "Para perfilar las extensiones de Python compiladas se puede utilizar ``gprof`` después de haber recompilado el proyecto con ``gcc -pg`` y utilizando la variante ``python-dbg`` del intérprete en debian / ubuntu: sin embargo, este enfoque requiere tener también ``numpy`` y ``scipy`` recompilados con ``-pg``, lo que es bastante complicado de conseguir."
 
 #: ../developers/performance.rst:390
 msgid "Fortunately there exist two alternative profilers that don't require you to recompile everything."
-msgstr ""
+msgstr "Afortunadamente, existen dos perfiladores alternativos que no requieren que se recompile todo."
 
 #: ../developers/performance.rst:394
 msgid "Using valgrind / callgrind / kcachegrind"
-msgstr ""
+msgstr "Utilizando valgrind / callgrind / kcachegrind"
 
 #: ../developers/performance.rst:397
 msgid "kcachegrind"
-msgstr ""
+msgstr "kcachegrind"
 
 #: ../developers/performance.rst:399
 msgid "``yep`` can be used to create a profiling report. ``kcachegrind`` provides a graphical environment to visualize this report:"
-msgstr ""
+msgstr "Se puede utilizar ``yep`` para crear un informe de perfilado. ``kcachegrind`` proporciona un entorno gráfico para visualizar este informe:"
 
 #: ../developers/performance.rst:414
 msgid "``yep`` can be executed with the argument ``--lines`` or ``-l`` to compile a profiling report 'line by line'."
-msgstr ""
+msgstr "``yep`` puede ser ejecutado con el argumento ``--lines`` o ``-l`` para compilar un informe de perfilado 'línea por línea'."
 
 #: ../developers/performance.rst:418
 msgid "Multi-core parallelism using ``joblib.Parallel``"
-msgstr ""
+msgstr "Paralelismo multinúcleo utilizando ``joblib.Parallel``"
 
 #: ../developers/performance.rst:420
 msgid "See `joblib documentation <https://joblib.readthedocs.io>`_"
-msgstr ""
+msgstr "Ver `documentación joblib <https://joblib.readthedocs.io>`_"
 
 #: ../developers/performance.rst:426
 msgid "A simple algorithmic trick: warm restarts"
-msgstr ""
+msgstr "Un simple truco algorítmico: reinicios en caliente"
 
 #: ../developers/performance.rst:428
 msgid "See the glossary entry for `warm_start <http://scikit-learn.org/dev/glossary.html#term-warm-start>`_"
-msgstr ""
+msgstr "Ver la entrada del glosario para `warm_start <http://scikit-learn.org/dev/glossary.html#term-warm-start>`_"
 

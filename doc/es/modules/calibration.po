@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: scikit-learn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-31 11:24-0400\n"
-"PO-Revision-Date: 2021-04-15 04:39\n"
+"PO-Revision-Date: 2021-04-26 21:02\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -20,173 +20,173 @@ msgstr ""
 
 #: ../modules/calibration.rst:5
 msgid "Probability calibration"
-msgstr ""
+msgstr "Calibración de probabilidad"
 
 #: ../modules/calibration.rst:10
 msgid "When performing classification you often want not only to predict the class label, but also obtain a probability of the respective label. This probability gives you some kind of confidence on the prediction. Some models can give you poor estimates of the class probabilities and some even do not support probability prediction (e.g., some instances of :class:`~sklearn.linear_model.SGDClassifier`). The calibration module allows you to better calibrate the probabilities of a given model, or to add support for probability prediction."
-msgstr ""
+msgstr "Al realizar la clasificación, a menudo se desea no sólo predecir la etiqueta de la clase, sino también obtener una probabilidad de la etiqueta respectiva. Esta probabilidad le da algún tipo de confianza en la predicción. Algunos modelos pueden dar estimaciones débiles de las probabilidades de clase y algunos incluso no soportan la predicción de probabilidad (por ejemplo, algunas instancias de :class:`~sklearn.linear_model.SGDClassifier`). El módulo de calibración le permite calibrar mejor las probabilidades de un modelo dado, o añadir soporte para la predicción de probabilidades."
 
 #: ../modules/calibration.rst:20
 msgid "Well calibrated classifiers are probabilistic classifiers for which the output of the :term:`predict_proba` method can be directly interpreted as a confidence level. For instance, a well calibrated (binary) classifier should classify the samples such that among the samples to which it gave a :term:`predict_proba` value close to 0.8, approximately 80% actually belong to the positive class."
-msgstr ""
+msgstr "Los clasificadores bien calibrados son clasificadores probabilísticos para los que la salida del método :term:`predict_proba` puede interpretarse directamente como un nivel de confianza. Por ejemplo, un clasificador (binario) bien calibrado debería clasificar las muestras de tal manera que entre las muestras a las que dio un valor de :term:`predict_proba` cercano a 0,8 aproximadamente el 80% pertenecen realmente a la clase positiva."
 
 #: ../modules/calibration.rst:31
 msgid "Calibration curves"
-msgstr ""
+msgstr "Curvas de calibración"
 
 #: ../modules/calibration.rst:33
 msgid "The following plot compares how well the probabilistic predictions of different classifiers are calibrated, using :func:`calibration_curve`. The x axis represents the average predicted probability in each bin. The y axis is the *fraction of positives*, i.e. the proportion of samples whose class is the positive class (in each bin)."
-msgstr ""
+msgstr "El siguiente gráfico compara qué tan bien se calibran las predicciones probabilísticas de diferentes clasificadores, utilizando :func:`calibration_curve`. El eje x representa la probabilidad promedio predicha en cada intervalo. El eje y es la *fracción de positivos*, es decir, la proporción de muestras cuya clase es la positiva (para cada intervalo)."
 
 #: ../modules/calibration.rst:45
 msgid ":class:`LogisticRegression` returns well calibrated predictions by default as it directly optimizes :ref:`log_loss`. In contrast, the other methods return biased probabilities; with different biases per method:"
-msgstr ""
+msgstr ":class:`LogisticRegression` devuelve predicciones bien calibradas por defecto ya que optimiza directamente :ref:`log_loss`. En cambio, los otros métodos devuelven probabilidades sesgadas; con diferentes sesgos por método:"
 
 #: ../modules/calibration.rst:51
 msgid ":class:`GaussianNB` tends to push probabilities to 0 or 1 (note the counts in the histograms). This is mainly because it makes the assumption that features are conditionally independent given the class, which is not the case in this dataset which contains 2 redundant features."
-msgstr ""
+msgstr ":class:`GaussianNB` tiende a llevar las probabilidades a 0 o 1 (observa los recuentos en los histogramas). Esto se debe principalmente a que asume que las características son condicionalmente independientes dada la clase, lo que no es el caso en este conjunto de datos que contiene 2 características redundantes."
 
 #: ../modules/calibration.rst:58
 msgid ":class:`RandomForestClassifier` shows the opposite behavior: the histograms show peaks at approximately 0.2 and 0.9 probability, while probabilities close to 0 or 1 are very rare. An explanation for this is given by Niculescu-Mizil and Caruana [1]_: \"Methods such as bagging and random forests that average predictions from a base set of models can have difficulty making predictions near 0 and 1 because variance in the underlying base models will bias predictions that should be near zero or one away from these values. Because predictions are restricted to the interval [0,1], errors caused by variance tend to be one-sided near zero and one. For example, if a model should predict p = 0 for a case, the only way bagging can achieve this is if all bagged trees predict zero. If we add noise to the trees that bagging is averaging over, this noise will cause some trees to predict values larger than 0 for this case, thus moving the average prediction of the bagged ensemble away from 0. We observe this effect most strongly with random forests because the base-level trees trained with random forests have relatively high variance due to feature subsetting.\" As a result, the calibration curve also referred to as the reliability diagram (Wilks 1995 [2]_) shows a characteristic sigmoid shape, indicating that the classifier could trust its \"intuition\" more and return probabilities closer to 0 or 1 typically."
-msgstr ""
+msgstr ":class:`RandomForestClassifier` muestra el comportamiento opuesto: los histogramas muestran picos con una probabilidad aproximada de 0,2 y 0,9, mientras que las probabilidades cercanas a 0 o 1 son muy poco frecuentes. Niculescu-Mizil y Caruana [1]_ dan una explicación a esto \"Los métodos como el empaquetado (bagging) y los bosques aleatorios que promedian las predicciones de un conjunto de modelos base pueden tener dificultades para hacer predicciones cercanas a 0 y 1 porque la varianza en los modelos base subyacentes sesgará las predicciones que deberían estar cerca de 0 o 1 alejándolos de estos valores. Dado que las predicciones están restringidas al intervalo [0,1], los errores causados por la varianza tienden a ser unilaterales cerca de cero y uno. Por ejemplo, si un modelo debe predecir p = 0 para un caso, la única forma de conseguirlo es que todos los árboles empaquetados predigan cero. Si añadimos ruido a los árboles sobre los que el empaquetado está promediando, este ruido hará que algunos árboles predigan valores mayores que 0 para este caso, alejando así la predicción media del conjunto empaquetado de 0. Observamos este efecto con más fuerza con los bosques aleatorios porque los árboles de nivel base entrenados con bosques aleatorios tienen una varianza relativamente alta debido al subconjunto de características\". Como resultado, la curva de calibración, también conocida como diagrama de fiabilidad (Wilks 1995 [2]_), muestra una forma sigmoidea característica, indicando que el clasificador podría confiar más en su \"intuición\" y devolver probabilidades más cercanas a 0 o 1 típicamente."
 
 #: ../modules/calibration.rst:81
 msgid "Linear Support Vector Classification (:class:`LinearSVC`) shows an even more sigmoid curve than :class:`~sklearn.ensemble.RandomForestClassifier`, which is typical for maximum-margin methods (compare Niculescu-Mizil and Caruana [1]_), which focus on difficult to classify samples that are close to the decision boundary (the support vectors)."
-msgstr ""
+msgstr "La clasificación lineal de vectores de soporte (:class:`LinearSVC`) muestra una curva aún más sigmoidea que :class:`~sklearn.ensemble.RandomForestClassifier`, que es típica de los métodos de margen máximo (compárese con Niculescu-Mizil y Caruana [1]_), que se centran en las muestras difíciles de clasificar que están cerca de la frontera de decisión (los vectores de soporte)."
 
 #: ../modules/calibration.rst:88
 msgid "Calibrating a classifier"
-msgstr ""
+msgstr "Calibrar un clasificador"
 
 #: ../modules/calibration.rst:92
 msgid "Calibrating a classifier consists of fitting a regressor (called a *calibrator*) that maps the output of the classifier (as given by :term:`decision_function` or :term:`predict_proba`) to a calibrated probability in [0, 1]. Denoting the output of the classifier for a given sample by :math:`f_i`, the calibrator tries to predict :math:`p(y_i = 1 | f_i)`."
-msgstr ""
+msgstr "Calibrar un clasificador consiste en ajustar un regresor (llamado *calibrador*) que mapea la salida del clasificador (dada por :term:`decision_function` o :term:`predict_proba`) a una probabilidad calibrada en [0, 1]. Al denotar la salida del clasificador para una muestra dada por :math:`f_i`, el calibrador intenta predecir :math:`p(y_i = 1 | f_i)`."
 
 #: ../modules/calibration.rst:98
 msgid "The samples that are used to fit the calibrator should not be the same samples used to fit the classifier, as this would introduce bias. This is because performance of the classifier on its training data would be better than for novel data. Using the classifier output of training data to fit the calibrator would thus result in a biased calibrator that maps to probabilities closer to 0 and 1 than it should."
-msgstr ""
+msgstr "Las muestras que se utilizan para ajustar el calibrador no deben ser las mismas que se utilizan para ajustar el clasificador, ya que esto introduciría un sesgo. Esto se debe a que el rendimiento del clasificador en sus datos de entrenamiento sería mejor que en los datos nuevos. Utilizar la salida del clasificador de los datos de entrenamiento para ajustar el calibrador daría como resultado un calibrador sesgado que asigna probabilidades más cercanas a 0 y 1 de lo que debería."
 
 #: ../modules/calibration.rst:106
 msgid "Usage"
-msgstr ""
+msgstr "Uso"
 
 #: ../modules/calibration.rst:108
 msgid "The :class:`CalibratedClassifierCV` class is used to calibrate a classifier."
-msgstr ""
+msgstr "La clase :class:`CalibratedClassifierCV` es utilizada para calibrar un clasificador."
 
 #: ../modules/calibration.rst:110
 msgid ":class:`CalibratedClassifierCV` uses a cross-validation approach to ensure unbiased data is always used to fit the calibrator. The data is split into k `(train_set, test_set)` couples (as determined by `cv`). When `ensemble=True` (default), the following procedure is repeated independently for each cross-validation split: a clone of `base_estimator` is first trained on the train subset. Then its predictions on the test subset are used to fit a calibrator (either a sigmoid or isotonic regressor). This results in an ensemble of k `(classifier, calibrator)` couples where each calibrator maps the output of its corresponding classifier into [0, 1]. Each couple is exposed in the `calibrated_classifiers_` attribute, where each entry is a calibrated classifier with a :term:`predict_proba` method that outputs calibrated probabilities. The output of :term:`predict_proba` for the main :class:`CalibratedClassifierCV` instance corresponds to the average of the predicted probabilities of the `k` estimators in the `calibrated_classifiers_` list. The output of :term:`predict` is the class that has the highest probability."
-msgstr ""
+msgstr ":class:`CalibratedClassifierCV` utiliza un enfoque de validación cruzada para asegurar que siempre se utilizan datos no sesgados para ajustar el calibrador. Los datos se dividen en k parejas `(train_set, test_set)` (determinadas por `cv`). Cuando `ensemble=True` (por defecto), el siguiente procedimiento se repite independientemente para cada división de validación cruzada: un clon de `base_estimator` se entrena primero en el subconjunto de entrenamiento. A continuación, sus predicciones en el subconjunto de prueba se utilizan para ajustar un calibrador (un regresor sigmoide o isotónico). Esto da lugar a un conjunto de k parejas `(clasificador, calibrador)` donde cada calibrador asigna la salida de su clasificador correspondiente en [0, 1]. Cada pareja se presenta en el atributo `calibrated_classifiers_`, donde cada entrada es un clasificador calibrado con un método :term:`predict_proba` que produce probabilidades calibradas. La salida de :term:`predict_proba` para la instancia principal de :class:`CalibratedClassifierCV` corresponde a la media de las probabilidades predichas de los `k` estimadores de la lista `calibrated_classifiers_`. La salida de :term:`predict` es la clase que tiene la mayor probabilidad."
 
 #: ../modules/calibration.rst:127
 msgid "When `ensemble=False`, cross-validation is used to obtain 'unbiased' predictions for all the data, via :func:`~sklearn.model_selection.cross_val_predict`. These unbiased predictions are then used to train the calibrator. The attribute `calibrated_classifiers_` consists of only one `(classifier, calibrator)` couple where the classifier is the `base_estimator` trained on all the data. In this case the output of :term:`predict_proba` for :class:`CalibratedClassifierCV` is the predicted probabilities obtained from the single `(classifier, calibrator)` couple."
-msgstr ""
+msgstr "Cuando `ensemble=False`, se utiliza la validación cruzada para obtener predicciones \"insesgadas\" para todos los datos, mediante :func:`~sklearn.model_selection.cross_val_predict`. Estas predicciones insesgadas se utilizan para entrenar el calibrador. El atributo `calibrated_classifiers_` consiste en una sola pareja `(classifier, calibrator)` donde el clasificador es el `base_estimator` entrenado en todos los datos. En este caso, la salida de :term:`predict_proba` para :class:`CalibratedClassifierCV` son las probabilidades predichas obtenidas de la única pareja `(classifier, calibrator)`."
 
 #: ../modules/calibration.rst:137
 msgid "The main advantage of `ensemble=True` is to benefit from the traditional ensembling effect (similar to :ref:`bagging`). The resulting ensemble should both be well calibrated and slightly more accurate than with `ensemble=False`. The main advantage of using `ensemble=False` is computational: it reduces the overall fit time by training only a single base classifier and calibrator pair, decreases the final model size and increases prediction speed."
-msgstr ""
+msgstr "La principal ventaja de `ensemble=True` es beneficiarse del efecto tradicional de ensamblaje (similar al de :ref:`bagging`). El conjunto resultante debería estar tanto bien calibrado como ser ligeramente más preciso que con `ensemble=False`. La principal ventaja de utilizar `ensemble=False` es computacional: reduce el tiempo total de ajuste al entrenar sólo un clasificador base y un par calibrador, disminuye el tamaño del modelo final y aumenta la velocidad de predicción."
 
 #: ../modules/calibration.rst:144
 msgid "Alternatively an already fitted classifier can be calibrated by setting `cv=\"prefit\"`. In this case, the data is not split and all of it is used to fit the regressor. It is up to the user to make sure that the data used for fitting the classifier is disjoint from the data used for fitting the regressor."
-msgstr ""
+msgstr "Alternativamente, se puede calibrar un clasificador ya ajustado estableciendo `cv=\"prefit\"`. En este caso, los datos no se dividen y se utilizan todos para ajustar el regresor. Es responsabilidad del usuario asegurarse de que los datos utilizados para ajustar el clasificador son disjuntos de los datos utilizados para ajustar el regresor."
 
 #: ../modules/calibration.rst:150
 msgid ":func:`sklearn.metrics.brier_score_loss` may be used to assess how well a classifier is calibrated. However, this metric should be used with care because a lower Brier score does not always mean a better calibrated model. This is because the Brier score metric is a combination of calibration loss and refinement loss. Calibration loss is defined as the mean squared deviation from empirical probabilities derived from the slope of ROC segments. Refinement loss can be defined as the expected optimal loss as measured by the area under the optimal cost curve. As refinement loss can change independently from calibration loss, a lower Brier score does not necessarily mean a better calibrated model."
-msgstr ""
+msgstr ":func:`sklearn.metrics.brier_score_loss` puede utilizarse para evaluar lo bien que está calibrado un clasificador. Sin embargo, esta métrica debe usarse con cuidado porque una puntuación Brier más baja no siempre significa un modelo mejor calibrado. Esto se debe a que la métrica de la puntuación Brier es una combinación de la pérdida de calibración y la pérdida de refinamiento. La pérdida de calibración se define como la desviación media al cuadrado de las probabilidades empíricas derivadas de la pendiente de los segmentos ROC. La pérdida de refinamiento puede definirse como la pérdida óptima esperada, medida por el área bajo la curva de coste óptimo. Como la pérdida por refinamiento puede cambiar independientemente de la pérdida por calibración, una puntuación Brier más baja no significa necesariamente un modelo mejor calibrado."
 
 #: ../modules/calibration.rst:161
 msgid ":class:`CalibratedClassifierCV` supports the use of two 'calibration' regressors: 'sigmoid' and 'isotonic'."
-msgstr ""
+msgstr ":class:`CalibratedClassifierCV` admite el uso de dos regresores de 'calibración': 'sigmoide' e 'isotónico'."
 
 #: ../modules/calibration.rst:165
 msgid "Sigmoid"
-msgstr ""
+msgstr "Sigmoide"
 
 #: ../modules/calibration.rst:167
 msgid "The sigmoid regressor is based on Platt's logistic model [3]_:"
-msgstr ""
+msgstr "El regresor sigmoide se basa en el modelo logístico de Platt [3]_:"
 
 #: ../modules/calibration.rst:169
 msgid "p(y_i = 1 | f_i) = \\frac{1}{1 + \\exp(A f_i + B)}\n\n"
-msgstr ""
+msgstr "p(y_i = 1 | f_i) = \\frac{1}{1 + \\exp(A f_i + B)}\n\n"
 
 #: ../modules/calibration.rst:172
 msgid "where :math:`y_i` is the true label of sample :math:`i` and :math:`f_i` is the output of the un-calibrated classifier for sample :math:`i`. :math:`A` and :math:`B` are real numbers to be determined when fitting the regressor via maximum likelihood."
-msgstr ""
+msgstr "donde :math:`y_i` es la etiqueta verdadera de la muestra :math:`i` y :math:`f_i` es la salida del clasificador no calibrado para la muestra :math:`i`. :math:`A` y :math:`B` son números reales que se determinan al ajustar el regresor por máxima verosimilitud."
 
 #: ../modules/calibration.rst:177
 msgid "The sigmoid method assumes the :ref:`calibration curve <calibration_curve>` can be corrected by applying a sigmoid function to the raw predictions. This assumption has been empirically justified in the case of :ref:`svm` with common kernel functions on various benchmark datasets in section 2.1 of Platt 1999 [3]_ but does not necessarily hold in general. Additionally, the logistic model works best if the calibration error is symmetrical, meaning the classifier output for each binary class is normally distributed with the same variance [6]_. This is can be a problem for highly imbalanced classification problems, where outputs do not have equal variance."
-msgstr ""
+msgstr "El método sigmoide asume que la :ref:`curva de calibración <calibration_curve>` puede corregirse aplicando una función sigmoide a las predicciones brutas. Esta suposición se ha justificado empíricamente en el caso de :ref:`svm` con funciones de núcleo (kernel) comunes en varios conjuntos de datos de referencia en la sección 2.1 de Platt 1999 [3]_ pero no se cumple necesariamente en general. Además, el modelo logístico funciona mejor si el error de calibración es simétrico, lo que significa que la salida del clasificador para cada clase binaria se distribuye normalmente con la misma varianza [6]_. Esto puede ser un problema para problemas de clasificación muy desequilibrados, en los que los resultados no tienen la misma varianza."
 
 #: ../modules/calibration.rst:187
 msgid "In general this method is most effective when the un-calibrated model is under-confident and has similar calibration errors for both high and low outputs."
-msgstr ""
+msgstr "En general, este método es más eficaz cuando el modelo no calibrado está infravalorado (under-confident) y tiene errores de calibración similares tanto para las salidas altas como para las bajas."
 
 #: ../modules/calibration.rst:192
 msgid "Isotonic"
-msgstr ""
+msgstr "Isotónico"
 
 #: ../modules/calibration.rst:194
 msgid "The 'isotonic' method fits a non-parametric isotonic regressor, which outputs a step-wise non-decreasing function (see :mod:`sklearn.isotonic`). It minimizes:"
-msgstr ""
+msgstr "El método 'isotónico' ajusta un regresor isotónico no paramétrico, que produce una función escalonada no decreciente (véase :mod:`sklearn.isotonic`). Este método minimiza:"
 
 #: ../modules/calibration.rst:198
 msgid "\\sum_{i=1}^{n} (y_i - \\hat{f}_i)^2\n\n"
-msgstr ""
+msgstr "\\sum_{i=1}^{n} (y_i - \\hat{f}_i)^2\n\n"
 
 #: ../modules/calibration.rst:201
 msgid "subject to :math:`\\hat{f}_i >= \\hat{f}_j` whenever :math:`f_i >= f_j`. :math:`y_i` is the true label of sample :math:`i` and :math:`\\hat{f}_i` is the output of the calibrated classifier for sample :math:`i` (i.e., the calibrated probability). This method is more general when compared to 'sigmoid' as the only restriction is that the mapping function is monotonically increasing. It is thus more powerful as it can correct any monotonic distortion of the un-calibrated model. However, it is more prone to overfitting, especially on small datasets [5]_."
-msgstr ""
+msgstr "sujeto a :math:`\\hat{f}_i >= \\hat{f}_j` siempre que :math:`f_i >= f_j`. :math:`y_i` sea la etiqueta verdadera de la muestra :math:`i` y :math:`\\hat{f}_i` sea la salida del clasificador calibrado para la muestra :math:`i` (es decir, la probabilidad calibrada). Este método es más general en comparación con el 'sigmoide', ya que la única restricción es que la función de mapeo sea monotónicamente creciente. Por tanto, es más potente, ya que puede corregir cualquier distorsión monótona del modelo no calibrado. Sin embargo, es más propenso al sobreajuste, especialmente en conjuntos de datos pequeños [5]_."
 
 #: ../modules/calibration.rst:210
 msgid "Overall, 'isotonic' will perform as well as or better than 'sigmoid' when there is enough data (greater than ~ 1000 samples) to avoid overfitting [1]_."
-msgstr ""
+msgstr "En general, 'isotónico' funcionará tan bien o mejor que 'sigmoide' cuando haya suficientes datos (más de ~ 1000 muestras) para evitar el sobreajuste [1]_."
 
 #: ../modules/calibration.rst:214
 msgid "Multiclass support"
-msgstr ""
+msgstr "Soporte multiclase"
 
 #: ../modules/calibration.rst:216
 msgid "Both isotonic and sigmoid regressors only support 1-dimensional data (e.g., binary classification output) but are extended for multiclass classification if the `base_estimator` supports multiclass predictions. For multiclass predictions, :class:`CalibratedClassifierCV` calibrates for each class separately in a :ref:`ovr_classification` fashion [4]_. When predicting probabilities, the calibrated probabilities for each class are predicted separately. As those probabilities do not necessarily sum to one, a postprocessing is performed to normalize them."
-msgstr ""
+msgstr "Tanto los regresores isotónicos como los sigmoides sólo admiten datos unidimensionales (por ejemplo, la salida de una clasificación binaria), pero se amplían para la clasificación multiclase si el `estimador base` admite predicciones multiclase. Para las predicciones multiclase, :class:`CalibratedClassifierCV` calibra para cada clase por separado de forma :ref:`ovr_classification` [4]_. Al predecir las probabilidades, las probabilidades calibradas para cada clase se predicen por separado. Como esas probabilidades no suman necesariamente uno, se realiza un postprocesamiento para normalizarlas."
 
 #: ../modules/calibration.rst:229
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_curve.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_curve.py`"
 
 #: ../modules/calibration.rst:230
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_multiclass.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_calibration_multiclass.py`"
 
 #: ../modules/calibration.rst:231
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_calibration.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_calibration.py`"
 
 #: ../modules/calibration.rst:232
 msgid ":ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`"
-msgstr ""
+msgstr ":ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`"
 
 #: ../modules/calibration.rst:236
 msgid "`Predicting Good Probabilities with Supervised Learning <https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf>`_, A. Niculescu-Mizil & R. Caruana, ICML 2005"
-msgstr ""
+msgstr "`Predicting Good Probabilities with Supervised Learning <https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf>`_, A. Niculescu-Mizil & R. Caruana, ICML 2005"
 
 #: ../modules/calibration.rst:240
 msgid "`On the combination of forecast probabilities for consecutive precipitation periods. <https://journals.ametsoc.org/waf/article/5/4/640/40179>`_ Wea. Forecasting, 5, 640–650., Wilks, D. S., 1990a"
-msgstr ""
+msgstr "`On the combination of forecast probabilities for consecutive precipitation periods. <https://journals.ametsoc.org/waf/article/5/4/640/40179>`_ Wea. Forecasting, 5, 640–650., Wilks, D. S., 1990a"
 
 #: ../modules/calibration.rst:245
 msgid "`Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods. <https://www.cs.colorado.edu/~mozer/Teaching/syllabi/6622/papers/Platt1999.pdf>`_ J. Platt, (1999)"
-msgstr ""
+msgstr "`Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods. <https://www.cs.colorado.edu/~mozer/Teaching/syllabi/6622/papers/Platt1999.pdf>`_ J. Platt, (1999)"
 
 #: ../modules/calibration.rst:250
 msgid "`Transforming Classifier Scores into Accurate Multiclass Probability Estimates. <https://dl.acm.org/doi/pdf/10.1145/775047.775151>`_ B. Zadrozny & C. Elkan, (KDD 2002)"
-msgstr ""
+msgstr "`Transforming Classifier Scores into Accurate Multiclass Probability Estimates. <https://dl.acm.org/doi/pdf/10.1145/775047.775151>`_ B. Zadrozny & C. Elkan, (KDD 2002)"
 
 #: ../modules/calibration.rst:255
 msgid "`Predicting accurate probabilities with a ranking loss. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4180410/>`_ Menon AK, Jiang XJ, Vembu S, Elkan C, Ohno-Machado L. Proc Int Conf Mach Learn. 2012;2012:703-710"
-msgstr ""
+msgstr "`Predicting accurate probabilities with a ranking loss. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4180410/>`_ Menon AK, Jiang XJ, Vembu S, Elkan C, Ohno-Machado L. Proc Int Conf Mach Learn. 2012;2012:703-710"
 
 #: ../modules/calibration.rst:260
 msgid "`Beyond sigmoids: How to obtain well-calibrated probabilities from binary classifiers with beta calibration <https://projecteuclid.org/euclid.ejs/1513306867>`_ Kull, M., Silva Filho, T. M., & Flach, P. (2017)."
-msgstr ""
+msgstr "`Beyond sigmoids: How to obtain well-calibrated probabilities from binary classifiers with beta calibration <https://projecteuclid.org/euclid.ejs/1513306867>`_ Kull, M., Silva Filho, T. M., & Flach, P. (2017)."
 
