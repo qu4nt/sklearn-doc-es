@@ -1,4 +1,4 @@
-# sklearn-doc-es
+de# sklearn-doc-es
 Scikit-learn spanish translation project
 
 This is a project developed by qu4nt, and supported by the PSF through its 2020 Call for Contributions to the Foundation's Scientific Python Group.
@@ -20,6 +20,6 @@ El trabajo de esta traducción se ha realizado con apoyo de un fondo de la PSF. 
 
 Integrantes de [qu4nt](http://qu4nt.com)
 
-la guía general de estilo utilizada en la traducción puede verse desde [este enlace](https://drive.google.com/file/d/1sgwan0X-Iwog8HRgUi0zIKifKpMQyRIu/view?usp=drivesdk)
+La guía general de estilo utilizada en la traducción puede verse desde [este enlace](https://drive.google.com/file/d/1sgwan0X-Iwog8HRgUi0zIKifKpMQyRIu/view?usp=drivesdk)
 
 La traducción en vivo puede verse aquí [Scikit-learn en Castellano](https://qu4nt.github.io/sklearn-doc-es/)
